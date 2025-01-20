@@ -144,6 +144,8 @@ class AppProducts(App):
         ## Filter Area
         uidata.append({"start": "true", "class": "ins-flex ins-col-3 ins-grey-bg-bg ins-padding-m full-height"})
         uidata.append({"_data": "Filter", "class": "ins-col-12  ins-grey-d-color ins-font-l ins-strong-l"})
+        uidata.append({"_type": "input", "type": "text", "placeholder":"Product Search..",  "pclass": "ins-col-12","style":"    background: white;border-radius:4px;"})
+
         for c in categories:
             uidata.append({"_type": "input", "type": "checkbox", "value": "0", "_end": c["title"], "pclass": "ins-col-12  -product-list-chkbox"})
         uidata.append({"end": "true"})
