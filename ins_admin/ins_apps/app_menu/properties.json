@@ -1,0 +1,162 @@
+{
+    "options": [{
+        "_type": "input",
+        "title": "content",
+        "name": "id"
+    }],
+    "list_data": [{
+            "name": "title",
+            "title": "my title",
+            "view": "text",
+            "class": "ins-col-grow"
+        },
+        {
+            "name": "kit_disabled",
+            "title": "disabled",
+            "view": "text",
+            "class": "ins-col-2"
+        },
+        {
+            "_type": "tags",
+            "title": "disabled",
+            "view": "text",
+            "class": "ins-col-5"
+        }
+    ],
+    "form_data": [{
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card"
+        },
+        {
+            "name": "title",
+            "title": "my title *",
+            "_type": "input",
+            "type": "text",
+            "required": "true",
+            "pclass": "ins-col-6"
+        },
+        {
+            "name": "kit_disabled",
+            "_end": "disabled",
+            "_type": "input",
+            "type": "bool",
+            "value": "1",
+            "pclass": "ins-col-3"
+        },
+        {
+            "end": "True"
+        },
+        {
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card"
+        },
+        {
+            "name": "src_area",
+            "title": "src_area",
+            "_type": "select",
+            "_data_type": "areas",
+            "pclass": "ins-col-6"
+        },
+        {
+            "name": "tar_area",
+            "title": "tar_area",
+            "_type": "select",
+            "_data_type": "areas",
+            "pclass": "ins-col-6"
+        },
+        {
+            "end": "True"
+        }
+    ],
+    "table": "kit_menu",
+    "list_filter": [{
+        "name": "title",
+        "title": "menu title *",
+        "_type": "input",
+        "_info": " search in <b>Title</b> by <b>@(value)</b> ",
+        "type": "text",
+        "main": true,
+        "required": "true",
+        "pclass": "ins-col-12"
+    }],
+
+
+
+    "crud_setting": {
+        "more": [
+
+            {
+
+                "title": "more more",
+                "id": "777",
+                "data": [
+
+                    {
+                        "name": "title555",
+                        "title": "my title *",
+                        "_type": "input",
+                        "type": "text",
+                        "required": "true",
+                        "pclass": "ins-col-6"
+                    }, {
+                        "name": "title666",
+                        "title": "my title *",
+                        "_type": "input",
+                        "type": "text",
+                        "required": "true",
+                        "pclass": "ins-col-6"
+                    }
+
+
+
+                ]
+
+
+            }
+
+        ],
+
+
+
+
+
+        "options": [{
+            "title": "my asdas asdas asd",
+            "id": "2"
+        }]
+    },
+
+
+    "abdo": [
+
+
+
+        {
+            "_data": "asdasdasd",
+            "_trans": "true",
+            "_data-ar": "777777",
+            "_data-en": "888888",
+            "class": "ins-title"
+        },
+
+
+
+        { "_type": "input", "_lang": "true", "name": "Asdasd", "title": "test", "pclass": "ins-col-6" },
+
+
+        {
+            "_type": "input",
+            "type": "multi",
+            "_title": "dfsdf",
+            "pclass": "ins-col-6"
+        },
+        {
+            "_type": "input",
+            "type": "multi",
+            "_title": "dfsdf",
+            "data": "a,b,c,d,e",
+            "pclass": "ins-col-6"
+        }
+    ]
+
+}

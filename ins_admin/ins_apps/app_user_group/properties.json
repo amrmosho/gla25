@@ -1,0 +1,129 @@
+{
+    "list_data": [{
+        "name": "title",
+        "title": "my title",
+        "view": "text",
+        "class": "ins-col-grow"
+    }],
+    "form_data": [{
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card"
+        },
+        {
+            "name": "title",
+            "title": "menu title *",
+            "_type": "input",
+            "type": "text",
+            "end": "s",
+            "required": "true",
+            "pclass": "ins-col-5"
+        },
+        {
+            "name": "tar_area",
+            "title": "Target area",
+            "_type": "select",
+            "_data_type": "areas",
+            "pclass": "ins-col-3"
+        }, {
+            "name": "level",
+            "title": "level",
+            "_type": "input",
+            "type": "number",
+            "value": "0",
+            "_data_type": "areas",
+            "pclass": "ins-col-2"
+        }, {
+            "name": "all_permissions",
+            "_end": " all_permissions",
+            "title": "",
+            "_type": "input",
+            "type": "bool",
+            "value": "0",
+            "_data_type": "areas",
+            "pclass": "ins-col-2"
+        },
+        {
+            "end": "True"
+        },
+        {
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card"
+        },
+
+        {
+            "_data": "<i class='lni ins-icon lni-gear-1  '></i> Custom Permissions",
+            "class": "ins-col-grow ins-title-m"
+        },
+        {
+            "_data": "<i data-gid='@(get.id)'  class='lni  ins-font-xl lni-circle-plus -ug-custom-per-add-btn  ins-button-text'></i>",
+            "style": "width:50px",
+            "_trans": "true"
+        },
+        {
+
+            "_data": "<i data-gid='@(get.id)'  class='lni  ins-font-xl lni-refresh-circle-1-clockwise  -ug-custom-per-reload-btn ins-button-text'></i>",
+            "style": "width:50px",
+            "_trans": "true"
+
+        },
+
+        {
+            "class": "ins-line ins-col-12 "
+        },
+
+        {
+            "class": "-ug-custom-per ins-col-12 "
+        },
+
+
+
+        {
+            "end": "True"
+        }, {
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card"
+        },
+
+        {
+            "_data": "<i class='lni ins-icon lni-gear-1'></i> Apps Permissions",
+            "class": "ins-col-grow ins-title-m"
+        },
+        {
+            "_data": "<i  data-gid='@(get.id)' class='lni  ins-font-xl lni-circle-plus -ug-apps-per-add-btn  ins-button-text'></i>",
+            "style": "width:50px",
+            "_trans": "true"
+
+        },
+        {
+
+            "_data": "<i data-gid='@(get.id)'  class='lni  ins-font-xl lni-refresh-circle-1-clockwise  -ug-apps-per-reload-btn ins-button-text'></i>",
+            "style": "width:50px",
+            "_trans": "true"
+
+        },
+
+        {
+            "class": "ins-line ins-col-12 "
+        },
+
+        {
+            "class": "-ug-apps-per ins-col-12 "
+        }
+
+
+
+
+
+    ],
+    "table": "kit_user_group",
+    "list_filter": [{
+        "name": "kit_user_group",
+        "title": "menu title *",
+        "_type": "input",
+        "_info": " search in <b>Title</b> by <b>@(value)</b> ",
+        "type": "text",
+        "main": true,
+        "required": "true",
+        "pclass": "ins-col-12"
+    }]
+}

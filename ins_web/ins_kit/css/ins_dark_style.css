@@ -1,0 +1,86 @@
+html.ins-dark-style {
+    --ins-color: hsl(140, 4%, 14%);
+}
+
+.ins-dark-style {
+    --ins-color-h: 240;
+    --ins-color-s: 4%;
+    --ins-color-l: 14%;
+    --ins-color: hsl(140, 4%, 14%);
+    --bgcolor: hsl(140, 4%, 14%);
+    --active-link: hsl(153, 48%, 49%);
+    --blue: hsl(226, 34%, 24%);
+    --fade-grey: hsl(0, 0%, 93%);
+    --bar: hsl(140, 4%, 14%);
+    --text-gloom: #565656;
+    --color-white: #fff;
+    --primary--color-invert: #fff;
+}
+
+.ins-dark-style {
+    --primary: #087991;
+    --secondary: hsl(190.49deg 86.55% 23.33%);
+    --primary--color-invert: #fff;
+    --input-bg: hsl(140deg 4.23% 13.92%);
+    --active: rgb(60 60 69);
+    --input-color: var(--text);
+    --input-border-color: var(--ins-color-4);
+    --border: var(--ins-color-12);
+    --link: rgb(107 129 133);
+    --dark-text: var(--ins-color-50);
+    --light-text: var(--ins-color-10);
+    --text: rgb(188 188 188);
+    --text-glow: #bdc5f0;
+    --card-bg: var(--ins-color-6);
+    --card-border-color: var(--ins-color-12);
+}
+
+.ins-dark-style {
+    --ant-text: var(--ins-color-80);
+    --background-grey: var(--ins-color-6);
+    --primary-grey: var(--ins-color-4);
+    --blockquote-bg: var(--ins-color-10);
+    --strong-color: var(--white);
+    --blockquote-color: var(--ins-color-2);
+    --button-bg: var(--ins-color-2);
+    --widget-grey-light: var(--ins-color-4);
+    --wrapper-bg: var(--ins-color-10);
+    --wallpaper-bg: var(--background-grey);
+}
+
+
+/** bgcolors */
+
+.ins-dark-style {
+    --opacity-bg: hsl( var(--ins-color-h) var(--ins-color-s) var(--ins-color-l) / 80%);
+    --ins-color-2: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) + 2%));
+    --ins-color-4: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) + 4%));
+    --ins-color-5: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) + 5%));
+    --ins-color-6: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) + 6%));
+    --ins-color-10: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) + 10%));
+    --ins-color-12: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) + 12%));
+    --ins-color-15: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) + 15%));
+    --ins-color-20: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) + 20%));
+    --ins-color-25: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) + 25%));
+    --ins-color-30: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) + 30%));
+    --ins-color-40: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) + 40%));
+    --ins-color-50: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) + 30%));
+    --ins-color-60: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) + 60%));
+    --ins-color-70: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) + 70%));
+    --ins-color-80: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) + 80%));
+    --ins-color-90: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) + 90%));
+    --ins-color-100: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) + 100%));
+}
+
+
+/**text*/
+
+:root {
+    --ins-dark-style-color: hsl(140, 4%, 14%);
+    --ins-blue-style-color: hsl(225, 25%, 6%);
+    --ins-red-style-color: hsl(0, 25%, 8%);
+}
+
+.ins-dark-style {
+    --text-dark-20: hsl(var(--text-h), var(--text-s), calc(var(--text-l) - 22%));
+}

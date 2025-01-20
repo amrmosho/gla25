@@ -1,0 +1,294 @@
+{
+    "options": [{
+        "_type": "input",
+        "title": "content",
+        "pclass": "ins-col-8",
+        "name": "id"
+    }],
+
+
+
+    "list_data": [{
+            "name": "title",
+            "title": "my title",
+            "view": "text",
+            "class": "ins-flex-grow"
+        },
+        {
+            "name": "src_area",
+            "title": " Source",
+            "view": "text",
+            "class": "ins-col-2"
+        },
+        {
+            "name": "type",
+            "title": "Type",
+            "view": "text",
+            "class": "ins-col-2"
+        },
+        {
+            "name": "tar_area",
+            "title": "target",
+            "view": "text",
+            "class": "ins-col-2"
+        },
+        {
+            "name": "fk_menu_id",
+            "title": "Package",
+            "_view": "select",
+            "_data_type": "db",
+            "_table": "kit_menu",
+            "view": "text",
+            "class": "ins-col-2"
+        },
+        {
+            "name": "kit_order",
+            "title": "Order",
+            "class": "ins-col-1"
+        }
+    ],
+    "form_data": [{
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card"
+        },
+        {
+            "name": "title",
+            "title": "menu title *",
+            "title-ar": " العنوان *",
+            "_trans": "true",
+
+            "_lang": "true",
+            "_table": "kit_menu_item",
+
+            "_type": "input",
+            "type": "text",
+            "required": "true",
+            "pclass": "ins-col-6"
+        },
+        {
+            "name": "alias",
+            "title": "Alias*",
+            "_type": "input",
+            "_lang": "true",
+            "_table": "kit_menu_item",
+            "type": "text",
+            "required": "true",
+            "pclass": "ins-col-6"
+        },
+        {
+            "name": "add_to_url",
+            "title": "Add to url",
+            "_type": "input",
+            "type": "text",
+            "pclass": "ins-col-12"
+        },
+        {
+            "end": "True"
+        },
+        {
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card"
+        },
+        {
+            "_data": "<i class='lni  lni-gear-1 icon lni '></i> Source",
+            "class": "ins-col-12 ins-title ins-strong"
+        },
+        {
+            "start": "True",
+            "class": "ins-col-9 ins-flex ins-border ins-radius-m ins-padding-xl"
+        },
+        {
+            "name": "src_area",
+            "title": "source area",
+
+
+
+            "_type": "select",
+            "_data_type": "areas",
+            "pclass": "ins-col-6"
+        },
+        {
+            "name": "type",
+            "title": "Type",
+            "_type": "select",
+            "pclass": "ins-col-6"
+        },
+        {
+            "end": "True"
+        },
+        {
+            "start": "True",
+            "class": "ins-col-3 ins-flex ins-border ins-radius-m ins-padding-xl"
+        },
+        {
+            "name": "kit_order",
+            "title": "order",
+            "_type": "input",
+            "type": "number",
+            "value": "0",
+            "pclass": "ins-col-6"
+        },
+        {
+            "name": "kit_level",
+            "title": "level",
+            "value": "0",
+            "_type": "input",
+            "type": "number",
+            "pclass": "ins-col-6"
+        },
+        {
+            "end": "True"
+        },
+        {
+            "_type": "panel",
+            "class": "ins-col-12 ins-bg-2",
+            "_header": [{
+                "_data": "<i class='lni  lni-radio-button lni '></i> properties",
+                "class": "ins-col-12 ins-strong"
+            }],
+            "_data": [{
+                "class": "ins-col-12 ins-flex -pros-area",
+                "_data": "No Properties! "
+            }]
+        },
+        {
+            "end": "True"
+        },
+        {
+            "start": "True",
+            "class": "ins-col-12 ins-card  ins-flex-space-between "
+        },
+        {
+            "_data": "<i class='lni-customer  ins-icon lni '></i> Target",
+            "class": "ins-col-12 ins-title ins-strong"
+        },
+        {
+            "start": "True",
+            "class": "ins-col-9  ins-border   ins-flex ins-radius-m ins-padding-xl"
+        },
+        {
+            "name": "tar_area",
+            "title": "Target area",
+            "_type": "select",
+            "_data_type": "areas",
+            "pclass": "ins-col-6"
+        },
+        {
+            "class": "ins-col-6"
+        },
+        {
+            "name": "fk_menu_id",
+            "title": "Package",
+            "_type": "select",
+            "_data_type": "db",
+            "_table": "kit_menu",
+            "pclass": "ins-col-6"
+        },
+        {
+            "name": "fk_menu_item_id",
+            "title": "Parent",
+            "_type": "select",
+            "_data_type": "areas",
+            "pclass": "ins-col-6"
+        },
+        {
+            "end": "True"
+        },
+        {
+            "start": "True",
+            "class": "ins-col-3  ins-border   ins-flex ins-radius-m ins-padding-xl"
+        },
+        {
+            "name": "kit_home",
+            "_end": "home",
+            "_type": "input",
+            "type": "bool",
+            "value": "0",
+            "pclass": "ins-col-12"
+        },
+        {
+            "name": "kit_disabled",
+            "_end": "disabled",
+            "_type": "input",
+            "type": "bool",
+            "value": "0",
+            "pclass": "ins-col-12"
+        },
+        {
+            "name": "kit_hidden",
+            "_end": "Hidden",
+            "_type": "input",
+            "type": "bool",
+            "value": "0",
+            "pclass": "ins-col-12"
+        },
+        {
+            "end": "True"
+        },
+        {
+            "_type": "panel",
+            "class": "ins-col-12 ins-bg-2",
+            "_header": [{
+                "_data": " <i class='lni-pallet  lni '></i>    Style",
+                "class": "ins-col-12 ins-strong"
+            }],
+            "_data": [{
+                    "name": "class",
+                    "title": "classes",
+                    "_type": "input",
+                    "type": "textarea",
+                    "value": "",
+                    "pclass": "ins-col-12"
+                },
+                {
+                    "name": "css",
+                    "title": "css",
+                    "_type": "input",
+                    "type": "textarea",
+                    "value": "",
+                    "pclass": "ins-col-12"
+                },
+                {
+                    "name": "icon",
+                    "title": "icon",
+                    "_type": "input",
+                    "type": "textarea",
+                    "value": "",
+                    "pclass": "ins-col-12"
+                }
+            ]
+        },
+        {
+            "end": "True"
+        },
+        {
+            "end": "True"
+        }
+    ],
+    "table": "kit_menu_item",
+    "list_filter": [{
+            "name": "title",
+            "title": "menu title *",
+            "_type": "input",
+
+            "_info": " search in <b>Title</b> by <b>@(value)</b> ",
+
+            "type": "text",
+            "main": true,
+            "pclass": "ins-col-12"
+        },
+        {
+            "name": "fk_menu_id",
+            "title": "Package",
+            "_view": "select",
+            "_type": "select",
+            "_data_type": "db",
+            "_info": "  search in <b>Menu</b> by <b>@(value)</b> ",
+
+            "_table": "kit_menu",
+            "view": "text",
+            "class": "ins-col-12"
+        }
+
+    ]
+}

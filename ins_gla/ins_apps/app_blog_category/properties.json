@@ -1,0 +1,39 @@
+{
+    "table": "gla_blog_category",
+    "form_data": [{
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card ins-padding-m"
+        },
+        {
+            "name": "title",
+            "title": "Title",
+            "_type": "input",
+            "type": "text",
+            "required": "true",
+            "pclass": "ins-col-12"
+        },
+        {
+            "name": "des",
+            "title": "Description",
+            "_type": "textarea",
+            "required": "true",
+            "pclass": "ins-col-12"
+        },
+        {
+            "end": "True"
+        }
+    ],
+    "list_data": [{
+        "name": "title",
+        "title": "Title",
+        "view": "text",
+        "class": "ins-col-grow"
+    }],
+    "list_filter": [{
+        "name": "title",
+        "title": "Title",
+        "view": "text",
+        "main": "true",
+        "class": "ins-col-grow"
+    }]
+}

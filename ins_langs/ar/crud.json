@@ -1,0 +1,26 @@
+{
+    "_new": "جديد",
+
+
+
+
+    "save": "حفظ",
+    "update": "تحديث",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "new_item_title": "أنشاء عنصر جديد",
+
+    "export": "تصدير",
+    "export_all": "تصدير كل الصفحات",
+    "duplicate": "نسخ",
+    "back": "الى الخلف",
+
+    "reset": "مسح",
+
+    "del_item_confirm_msg": "Are You sure you won't delete this item?",
+    "del_item_msg": "One item has been delete.",
+    "del_items_confirm_msg": "Are You sure you wont delete thses items?",
+    "del_items_msg": "Items have been deleted successfully",
+    "copy_items_msg": "Items have been copied successfully",
+    "copy_item_msg": "Item have been copied successfully"
+}

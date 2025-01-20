@@ -1,0 +1,84 @@
+{
+    "list_data": [
+
+        {
+            "name": "image",
+            "title": "Image",
+            "_view": "image",
+            "class": "ins-col-2"
+        },
+        {
+            "name": "title",
+            "title": "my title",
+            "class": "ins-col-grow"
+        }
+    ],
+    "form_data": [{
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card"
+        },
+        {
+            "name": "title",
+            "title": "title",
+            "_type": "input",
+            "type": "text",
+            "required": "true",
+            "pclass": "ins-col-12"
+        },
+        {
+            "name": "email",
+            "title": "email",
+            "_type": "input",
+            "type": "text",
+            "required": "true",
+            "pclass": "ins-col-6"
+        },
+        {
+            "name": "password",
+            "title": "password",
+            "_type": "input",
+            "type": "password",
+            "pclass": "ins-col-6"
+        },
+        {
+            "end": "True"
+        },
+        {
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card"
+        },
+        {
+            "name": "image",
+            "title": "image",
+            "_type": "input",
+            "_dir": "users",
+            "_exts": "image/png",
+            "type": "upload",
+            "required": "true",
+            "pclass": "ins-col-6"
+        },
+        {
+            "name": "groups",
+            "title": "groups",
+            "_type": "select",
+            "multiple": "true",
+            "_data_type": "db",
+            "_table": "kit_user_group",
+            "required": "true",
+            "pclass": "ins-col-6"
+        },
+        {
+            "end": "True"
+        }
+    ],
+    "table": "kit_user",
+    "list_filter": [{
+        "name": "title",
+        "title": "title",
+        "_type": "input",
+        "_info": " search in <b>Title</b> by <b>@(value)</b> ",
+        "type": "text",
+        "main": true,
+        "pclass": "ins-col-12"
+    }]
+}

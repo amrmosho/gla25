@@ -1,0 +1,19 @@
+{
+    "addtourl": "adasd",
+    "query": "asdsd",
+    "list": {
+        "default": {
+            "addtourl": "77777777777777777",
+            "query": "88888888888888888888888888",
+            "list_name": "default",
+            "insact": "1"
+        },
+        "default_20241218124128": {
+            "addtourl": "asddasiiiii",
+            "query": "asddasdsad",
+            "list_name": "default",
+            "insact": "1"
+        }
+    },
+    "list_name": "default"
+}

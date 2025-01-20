@@ -1,0 +1,26 @@
+{
+    "crud": {
+        "defualt_202477": {
+            "title555": "fsdfsdf",
+            "title666": "ffffff",
+            "list_name": "defualt_202477",
+            "addtourl": "dddd777",
+            "query": "12",
+            "pg_count": "12",
+            "for": "me",
+            "title": "defualt 202477",
+            "rename": "defualt_20",
+            "insact": "1"
+        },
+        "defualt_202477_20241225120041": {
+            "list_name": "defualt_202477_20241225120041",
+            "addtourl": "dddd777",
+            "query": "12",
+            "pg_count": "12",
+            "for": "me",
+            "title": "defualt 202477",
+            "rename": "defualt_20",
+            "insact": "1"
+        }
+    }
+}

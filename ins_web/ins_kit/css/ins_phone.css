@@ -1,0 +1,110 @@
+[class*="ins-fcol"],
+[class*="ins_col_"],
+[class*="ins-col-"] {
+    max-width: 100% !important;
+}
+
+.ins_card_btn,
+.ins-body,
+.ins-files-browser-item {
+    min-width: 150px;
+}
+
+.ins-grid [class*="ins_col_"],
+.ins_grid [class*="ins_col_"],
+.ins-grid [class*="ins_col_"],
+.ins_grid [class*="ins_col_"],
+.ins-grid [class*="ins-gcol-"],
+.ins_grid [class*="ins_gcol_"] {
+    grid-column-end: span 12 !important;
+}
+
+[class*="ins-flex"]>[class*="ins_col_"]:not(.ins-tr.ins-grid >*),
+[class*="ins-flex"]>[class*="ins-col-"]:not(.ins-tr.ins-grid >*),
+[class*="ins-tr"]>[class*="ins-col-"]:not(.ins-tr.ins-grid >*) {
+    grid-column-end: unset !important;
+}
+
+[class*="ins-flex"]>[class*="ins-col-"]:not(.ins-tr.ins-grid >*),
+[class*="ins-tr"]>[class*="ins-col-"]:not(.ins-tr.ins-grid >*) {
+    width: 100% !important;
+}
+
+.ins-tr {
+    --col12-item-width: : 8.33333333333 !important
+}
+
+.ins-mcol-1 {
+    width: calc(var(--col12-item-width) * 1 - var(--flex-gap))!important;
+}
+
+.ins-mcol-2 {
+    width: calc(var(--col12-item-width) * 2 - var(--flex-gap)) !important;
+}
+
+.ins-mcol-3 {
+    width: calc(var(--col12-item-width) * 3 - var(--flex-gap)) !important;
+}
+
+.ins-mcol-4 {
+    width: calc(var(--col12-item-width) * 4 - var(--flex-gap)) !important;
+}
+
+.ins-mcol-5 {
+    width: calc(var(--col12-item-width) * 5 - var(--flex-gap)) !important;
+}
+
+.ins-mcol-6 {
+    width: calc(var(--col12-item-width) * 6 - var(--flex-gap)) !important;
+}
+
+.ins-mcol-7 {
+    width: calc(var(--col12-item-width) * 7 - var(--flex-gap)) !important;
+}
+
+.ins-mcol-8 {
+    width: calc(var(--col12-item-width) * 8 - var(--flex-gap)) !important;
+}
+
+.ins-mcol-9 {
+    width: calc(var(--col12-item-width) * 9 - var(--flex-gap))!important;
+}
+
+.ins-mcol-10 {
+    width: calc(var(--col12-item-width) * 10 - var(--flex-gap))!important;
+}
+
+.ins-mcol-11 {
+    width: calc(var(--col12-item-width) * 11 - var(--flex-gap)) !important;
+}
+
+.ins-mcol-12 {
+    width: 100% !important;
+}
+
+.ins-m-hidden {
+    display: none !important;
+}
+
+.ins-m-flex.ins-grid,
+.ins-m-flex {
+    display: flex !important;
+}
+
+.ins-m-flex-center {
+    display: flex !important;
+    justify-content: center;
+}
+
+.ins-m-text-center {
+    text-align: center;
+}
+
+.ins-files-browser-body-data {
+    top: 50px;
+    height: calc(100% - 50px);
+}
+
+.ins-files-browser-body {
+    top: 90px;
+}

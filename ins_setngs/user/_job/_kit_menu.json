@@ -1,0 +1,15 @@
+{
+    "crud": {
+        "jdefualt_20241226160053": {
+            "list_data": "[\n      {\n            \"name\": \"title\",\n            \"title\": \"my title22\",\n            \"view\": \"text\",\n            \"class\": \"ins-col-grow\"\n      },\n      {\n            \"name\": \"kit_disabled\",\n            \"title\": \"disabled\",\n            \"view\": \"text\",\n            \"class\": \"ins-col-2\"\n      },\n      {\n            \"_type\": \"tags\",\n            \"title\": \"disabled\",\n            \"view\": \"text\",\n            \"class\": \"ins-col-5\"\n      }\n]",
+            "list_name": "jdefualt_20241226160053",
+            "addtourl": "dddd777",
+            "query": "12",
+            "pg_count": "12",
+            "for": "job",
+            "title": "jdefualt",
+            "rename": "defualt_20",
+            "insact": "0"
+        }
+    }
+}

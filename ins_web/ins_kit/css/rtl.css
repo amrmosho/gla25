@@ -1,0 +1,120 @@
+.ins-border-end {
+    border-bottom-width: 0;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-left-width: var(--ins-border-width);
+}
+
+.ins-border-start {
+    border-bottom-width: 0;
+    border-top-width: 0;
+    border-left-width: 0;
+    border-right-width: var(--ins-border-width);
+}
+
+.ins-border-end-o {
+    border-left-width: 0 !important;
+}
+
+.ins-border-start-o {
+    border-right-width: 0 !important;
+}
+
+.ins-padding-end {
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+}
+
+.ins-padding-start {
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-right: 0;
+}
+
+.ins-margin-start {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+}
+
+.ins-margin-end {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 0;
+}
+
+.ins-files-browser-body {
+    left: 0;
+    right: auto
+}
+
+.ins_autocomplete_input_area i.fa-angle-down {
+    right: auto;
+    left: 3px;
+}
+
+.ins-view-mode .ins-view-mode-data {
+    right: 30%;
+    left: auto;
+}
+
+.ins-view-mode .ins-active {
+    margin-right: 0;
+}
+
+.ins_autocomplete_data_list::after {
+    left: 17px;
+    right: auto
+}
+
+.ins-from-error-msg,
+.ins-text-end {
+    text-align: left;
+}
+
+.ins-menu>ul>li,
+.ins-menu>ul>button,
+.ins-menu>ul>a,
+.ins-text-start {
+    text-align: right;
+}
+
+.ins-menu>ul .icon {
+    float: right;
+}
+
+.ins-menu.ins-end>ul {
+    right: auto;
+    left: 0;
+}
+
+.ins-lightbox .ins-close {
+    left: 15px;
+    right: auto;
+}
+
+.ins-panel .ins-header .ins-icon {
+    left: 10px;
+    right: auto
+}
+
+.ins-circular-menu {
+    left: 1em;
+}
+
+.ins-top-toolbar .ins-circular-menu {
+    top: 6.6em;
+}
+
+.ins-fly-start,
+.ins-fly-right {
+    position: absolute;
+    right: 0px;
+}
+
+.ins-fly-end,
+.ins-fly-left {
+    position: absolute;
+    left: 0px
+}

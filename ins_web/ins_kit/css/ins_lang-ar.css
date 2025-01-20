@@ -1,0 +1,85 @@
+    body {
+        direction: rtl;
+    }
+    
+    @font-face {
+        font-family: 'Tajawal';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(fonts/ar/Tajawal-Medium.ttf);
+    }
+    
+    @font-face {
+        font-family: 'Cairo';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(fonts/ar/Cairo-Regular.ttf);
+    }
+    
+     :root {
+        --font: "Cairo";
+        --font-alt: "Tajawal";
+        --font-monospace: "Fira Code", monospace;
+        --font-size: 14px;
+    }
+    
+    .ins-buttons-actions>*:first-child {
+        border-radius: 0 var(--ins-radius-m) var(--ins-radius-m) 0;
+        border-right: 1px solid var(--border);
+        border-left: none;
+    }
+    
+    .ins-buttons-actions>*:last-child {
+        border-radius: var(--ins-radius-m) 0 0 var(--ins-radius-m);
+        border-right: none;
+        border-left: 1px solid var(--border);
+    }
+    
+    .ins-tabs.ins-rounded>ul li:last-child,
+    .ins-buttons-actions.ins-rounded>*:first-child {
+        border-radius: var(--ins-radius-m) 0 0 var(--ins-radius-m);
+    }
+    
+    .ins-tabs.ins-rounded>ul li:first-child,
+    .ins-buttons-actions.ins-rounded>*:first-child {
+        border-radius: 0 var(--ins-radius-m) var(--ins-radius-m) 0;
+    }
+    
+    
+    .ins-circular-menu.ins-active .ins-menu-item:nth-child(1) {
+        transform: translate3d(7em, -0.5em, 0);
+    }
+    
+    .ins-circular-menu.ins-active .ins-menu-item:nth-child(2) {
+        transform: translate3d(6.25em, 3.25em, 0);
+    }
+    
+    .ins-circular-menu.ins-active .ins-menu-item:nth-child(3) {
+        transform: translate3d(3.45em, 6.25em, 0);
+    }
+    
+    .ins-circular-menu.ins-active .ins-menu-item:nth-child(4) {
+        transform: translate3d(0.5em, 7em, 0);
+    }
+    
+    
+    
+    .ins-tabs-rounded>ul li:first-child,
+    .ins-tabs.ins-rounded>ul li:first-child,
+    .ins-buttons-actions.ins-rounded>*:first-child,
+    .ins-buttons-group>*:first-child {
+        border-radius: 0 var(--ins-radius-xl) var(--ins-radius-xl) 0;
+        border-right: 1px solid var(--border);
+        border-left: none;
+    }
+    
+    .ins-tabs-rounded>ul li:last-child,
+    .ins-tabs.ins-rounded>ul li:last-child,
+    .ins-buttons-actions.ins-rounded>*:last-child {
+        border-radius: var(--ins-radius-xl) 0 0 var(--ins-radius-xl);
+        border-left: 1px solid var(--border);
+        border-right: none;
+    }
+    

@@ -1,0 +1,20 @@
+.count-inpt {
+    border-radius: 0px !important;
+    text-align: center;
+    height: 46px;
+    border-top: 1px solid var(--primary);
+    border-bottom: 1px solid var(--primary);
+    background: white;
+}
+
+.-minus-btn {
+    height: 46px;
+    border-radius: 4px 0 0 4px !important;
+    color: var(--grey-d)
+}
+
+.-plus-btn {
+    height: 46px;
+    border-radius: 0 4px 4px 0 !important;
+    color: var(--grey-d)
+}

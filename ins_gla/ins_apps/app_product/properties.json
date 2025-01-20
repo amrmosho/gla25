@@ -1,0 +1,100 @@
+{
+    "table": "gla_product",
+    "form_data": [{
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card ins-padding-m"
+        },
+        {
+            "name": "title",
+            "title": "Title",
+            "_type": "input",
+            "type": "text",
+            "required": "true",
+            "pclass": "ins-col-3"
+        },
+        {
+            "name": "des",
+            "title": "Description",
+            "_type": "textarea",
+            "required": "true",
+            "pclass": "ins-col-12"
+        },
+        {
+            "name": "image",
+            "title": "image",
+            "_type": "input",
+            "_dir": "images",
+            "_exts": "image/png",
+            "type": "upload",
+            "required": "true",
+            "pclass": "ins-col-6"
+        },
+        {
+            "name": "thumbnail",
+            "title": "thumbnail",
+            "_type": "input",
+            "_dir": "images",
+            "_exts": "image/png",
+            "type": "upload",
+            "required": "true",
+            "pclass": "ins-col-6"
+        },
+        {
+            "name": "fk_product_category_id",
+            "title": "Product Category",
+            "_type": "select",
+            "type": "text",
+            "_data_type": "db",
+            "_table": "gla_product_category",
+            "required": "true",
+            "pclass": "ins-col-3"
+        },
+        {
+            "name": "display_home",
+            "_end": "Display at home page",
+            "_type": "input",
+            "type": "bool",
+            "value": "0",
+            "pclass": "ins-col-3"
+        },
+        {
+            "name": "_order",
+            "title": "Order",
+            "_type": "input",
+            "type": "text",
+            "required": "true",
+            "pclass": "ins-col-3"
+        },
+        {
+            "end": "True"
+        }
+    ],
+    "list_data": [{
+            "name": "id",
+            "title": "ID",
+            "view": "text",
+            "class": "ins-col-grow"
+        },
+        {
+            "name": "title",
+            "title": "Title",
+            "view": "text",
+            "class": "ins-col-grow"
+        },
+        {
+            "name": "des",
+            "title": "Description",
+            "view": "text",
+            "class": "ins-col-6"
+        }
+    ],
+    "list_filter": [{
+        "name": "title",
+        "title": "Search Title",
+        "_type": "input",
+        "type": "text",
+        "_info": "Search in <b>Title</b> by <b>@(value)</b>",
+        "main": true,
+        "pclass": "ins-col-12"
+    }]
+}

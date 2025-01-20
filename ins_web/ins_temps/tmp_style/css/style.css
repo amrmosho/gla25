@@ -1,0 +1,7 @@
+.logo {
+    width: 50px;
+    background: no-repeat url(imgs/logo_d.png);
+    height: 50px;
+    background-size: 100%;
+    background-position: center;
+}

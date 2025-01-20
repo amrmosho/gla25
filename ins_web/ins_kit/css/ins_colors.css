@@ -1,0 +1,686 @@
+.ins-red *,
+.ins-blue *,
+.ins-purple *,
+.ins-success *,
+.ins-info *,
+.ins-warning *,
+.ins-danger *,
+.ins-succes,
+.ins-info,
+.ins-warning,
+.ins-danger,
+.ins-purple,
+.ins-blue,
+.ins-red,
+.ins-orange,
+.ins-pink,
+.ins-yellow {
+    color: var(--smoke-white) !important;
+    border-color: hsl(0deg 0% 0% / 11%) !important;
+}
+
+.ins-pink *,
+.ins-orange *,
+.ins-yellow *,
+.ins-white *,
+.ins-green * {
+    color: var(--smoke-black) !important;
+    border-color: hsl(0deg 0% 0% / 11%) !important;
+}
+
+.ins-tabs-rounded>ul li.ins-act span,
+.ins-tabs-rounded>ul li.ins-active span {
+    background: var(--primary);
+    border-radius: 20px;
+    color: var(--primary--color-invert);
+}
+
+.ins-red,
+.ins-active-red .ins-active,
+.ins-active-red .ins-active * {
+    background: var(--red) !important;
+    color: var(--white);
+}
+
+.ins-active,
+.ins-active>* {
+    color: var(--primary);
+}
+
+.ins-red-color,
+.ins-active-red-color .ins-active,
+.ins-active-red-color .ins-active * {
+    color: var(--red) !important;
+}
+
+.ins-red-light {
+    background: hsl(324deg 100% 92%) !important;
+    color: var(--red) !important;
+    border-color: var(--red) !important;
+}
+
+.ins-gray,
+.ins-active-gray .ins-active,
+.ins-active-gray .ins-active * {
+    background: var(--primary-grey) !important;
+    color: var(--gary_button-color) !important;
+}
+
+
+/*
+svg path,
+svg rect {
+  
+}*/
+
+.ins-white {
+    background: var(--white) !important;
+    color: var(--white--color-invert) !important;
+}
+
+.ins-white-color {
+    color: var(--white) !important;
+}
+
+.ins-primary {
+    background: var(--primary) !important;
+    color: var(--primary--color-invert) !important;
+}
+
+.ins-primary .ins-form-input {
+    color: inherit;
+}
+
+.ins-primary-color {
+    color: var(--primary) !important;
+}
+
+.ins-primary-bakground {
+    background: var(--primary) !important;
+}
+
+.ins-dark {
+    background: var(--ins-color) !important;
+    color: var(--dark-text) !important;
+    border-color: hsl(0deg 0% 0% / 11%) !important;
+}
+
+.ins-bgcolor {
+    background: var(--ins-color) !important;
+    color: var(--dark-text) !important;
+    border-color: hsl(0deg 0% 0% / 11%) !important;
+}
+
+.ins-bgcolor-2 {
+    background: var(--ins-color-2) !important;
+    color: var(--dark-text) !important;
+    border-color: hsl(0deg 0% 0% / 11%) !important;
+}
+
+.ins-bgcolor-4 {
+    background: var(--ins-color-4) !important;
+    color: var(--dark-text) !important;
+    border-color: hsl(0deg 0% 0% / 11%) !important;
+}
+
+.ins-bgcolor-5 {
+    background: var(--ins-color-5) !important;
+    color: var(--dark-text) !important;
+    border-color: hsl(0deg 0% 0% / 11%) !important;
+}
+
+.ins-bgcolor-6 {
+    background: var(--ins-color-6) !important;
+    color: var(--dark-text) !important;
+    border-color: hsl(0deg 0% 0% / 11%) !important;
+}
+
+.ins-bgcolor-10 {
+    background: var(--ins-color-10) !important;
+    color: var(--dark-text) !important;
+    border-color: hsl(0deg 0% 0% / 11%) !important;
+}
+
+.ins-bgcolor-12 {
+    background: var(--ins-color-12) !important;
+    color: var(--dark-text) !important;
+    border-color: hsl(0deg 0% 0% / 11%) !important;
+}
+
+.ins-bgcolor-15 {
+    background: var(--ins-color-15) !important;
+    color: var(--dark-text) !important;
+    border-color: hsl(0deg 0% 0% / 11%) !important;
+}
+
+.ins-bgcolor-20 {
+    background: var(--ins-color-20) !important;
+    color: var(--dark-text) !important;
+    border-color: hsl(0deg 0% 0% / 11%) !important;
+}
+
+.ins-bgcolor-25 {
+    background: var(--ins-color-25) !important;
+    color: var(--dark-text) !important;
+    border-color: hsl(0deg 0% 0% / 11%) !important;
+}
+
+.ins-bgcolor-30 {
+    background: var(--ins-color-30) !important;
+    color: var(--dark-text) !important;
+    border-color: hsl(0deg 0% 0% / 11%) !important;
+}
+
+.ins-bgcolor-40 {
+    background: var(--ins-color-40) !important;
+    color: var(--dark-text) !important;
+    border-color: hsl(0deg 0% 0% / 11%) !important;
+}
+
+.ins-bgcolor-50 {
+    background: var(--ins-color-50) !important;
+    color: var(--dark-text) !important;
+    border-color: hsl(0deg 0% 0% / 11%) !important;
+}
+
+.ins-bgcolor-60 {
+    background: var(--ins-color-60) !important;
+    color: var(--light-text) !important;
+    border-color: hsl(0deg 0% 0% / 11%) !important;
+}
+
+.ins-bgcolor-70 {
+    background: var(--ins-color-70) !important;
+    color: var(--light-text) !important;
+    border-color: hsl(0deg 0% 0% / 11%) !important;
+}
+
+.ins-bgcolor-80 {
+    background: var(--ins-color-80) !important;
+    color: var(--light-text) !important;
+    border-color: hsl(0deg 0% 0% / 11%) !important;
+}
+
+.ins-bgcolor-90 {
+    background: var(--ins-color-90) !important;
+    color: var(--light-text) !important;
+    border-color: hsl(0deg 0% 0% / 11%) !important;
+}
+
+.ins-bgcolor-100 {
+    background: var(--ins-color-100) !important;
+    color: var(--light-text) !important;
+    border-color: hsl(0deg 0% 0% / 11%) !important;
+}
+
+.ins-bg {
+    background: var(--ins-color) !important;
+}
+
+.ins-bg-2 {
+    background: var(--ins-color-2) !important;
+}
+
+.ins-bg-4 {
+    background: var(--ins-color-4) !important;
+}
+
+.ins-bg-5 {
+    background: var(--ins-color-5) !important;
+}
+
+.ins-bg-6 {
+    background: var(--ins-color-6) !important;
+}
+
+.ins-bg-10 {
+    background: var(--ins-color-10) !important;
+}
+
+.ins-bg-12 {
+    background: var(--ins-color-12) !important;
+}
+
+.ins-bg-15 {
+    background: var(--ins-color-15) !important;
+}
+
+.ins-bg-20 {
+    background: var(--ins-color-20) !important;
+}
+
+.ins-bg-25 {
+    background: var(--ins-color-25) !important;
+}
+
+.ins-bg-30 {
+    background: var(--ins-color-30) !important;
+}
+
+.ins-bg-40 {
+    background: var(--ins-color-40) !important;
+}
+
+.ins-bg-50 {
+    background: var(--ins-color-50) !important;
+}
+
+.ins-bg-60 {
+    background: var(--ins-color-60) !important;
+}
+
+.ins-bg-70 {
+    background: var(--ins-color-70) !important;
+}
+
+.ins-bg-80 {
+    background: var(--ins-color-80) !important;
+}
+
+.ins-bg-90 {
+    background: var(--ins-color-90) !important;
+}
+
+.ins-bg-100 {
+    background: var(--ins-color-100) !important;
+}
+
+.ins-color {
+    color: var(--dark-text) !important;
+}
+
+.ins-color-2 {
+    color: var(--dark-text) !important;
+}
+
+.ins-color-4 {
+    color: var(--dark-text) !important;
+}
+
+.ins-color-5 {
+    color: var(--dark-text) !important;
+}
+
+.ins-color-6 {
+    color: var(--dark-text) !important;
+}
+
+.ins-color-10 {
+    color: var(--dark-text) !important;
+}
+
+.ins-color-12 {
+    color: var(--dark-text) !important;
+}
+
+.ins-color-15 {
+    color: var(--dark-text) !important;
+}
+
+.ins-color-20 {
+    color: var(--dark-text) !important;
+}
+
+.ins-color-25 {
+    color: var(--dark-text) !important;
+}
+
+.ins-color-30 {
+    color: var(--dark-text) !important;
+}
+
+.ins-color-40 {
+    color: var(--dark-text) !important;
+}
+
+.ins-color-50 {
+    color: var(--dark-text) !important;
+}
+
+.ins-color-60 {
+    color: var(--light-text) !important;
+}
+
+.ins-color-70 {
+    color: var(--light-text) !important;
+}
+
+.ins-color-80 {
+    color: var(--light-text) !important;
+}
+
+.ins-color-90 {
+    color: var(--light-text) !important;
+}
+
+.ins-color-100 {
+    color: var(--light-text) !important;
+}
+
+.ins-light,
+.ins-active-light .ins-active,
+.ins-active-light .ins-active * {
+    color: var(--ins-color) !important;
+    background: hsl(232, 14%, 68%) !important;
+    border-color: rgba(0, 0, 0, 0.11) !important;
+}
+
+.ins-primary>* {
+    color: var(--primary--color-invert) !important;
+}
+
+.ins-primary .ins-menu ul {
+    color: var(--link);
+}
+
+.ins-primary .ins-menu.ins-act>.ins-header {
+    background: transparent;
+}
+
+.ins-primary-light {
+    background: var(--primary--color-invert);
+    color: var(--primary) !important;
+    border-color: var(--primary) !important;
+}
+
+.ins-primary-light * {
+    color: var(--primary) !important;
+}
+
+.ins-secondary,
+.ins-active-secondary .ins-active,
+.ins-active-secondary .ins-active * {
+    background: var(--secondary) !important;
+    color: var(--secondary--color-invert) !important;
+}
+
+.ins-secondary * {
+    color: var(--secondary--color-invert) !important;
+}
+
+.ins-secondary-color,
+.ins-active-secondary-color .ins-active,
+.ins-active-secondary-color .ins-active * {
+    color: var(--secondary) !important;
+}
+
+.ins-secondary-background {
+    background: var(--secondary) !important;
+}
+
+.ins-secondary-light {
+    background: var(--secondary--color-invert);
+    color: var(--secondary) !important;
+    border-color: var(--secondary) !important;
+}
+
+.ins-secondary-light * {
+    color: var(--secondary) !important;
+}
+
+.ins-success,
+.ins-active-success .ins-active,
+.ins-active-success .ins-active * {
+    background: var(--success) !important;
+    color: var(--white) !important;
+    border-color: var(--success) !important;
+}
+
+.ins-success-light {
+    background: var(--success--light-color);
+    color: var(--success) !important;
+    border-color: var(--success) !important;
+}
+
+.ins-success-background {
+    background-color: var(--success) !important;
+}
+
+.ins-success-color,
+.ins-active-success-color .ins-active,
+.ins-active-success-color .ins-active * {
+    color: var(--success) !important;
+}
+
+.ins-success-light * {
+    color: var(--success) !important;
+}
+
+.ins-info,
+.ins-active-info .ins-active,
+.ins-active-info .ins-active * {
+    background: var(--info) !important;
+}
+
+.ins-info-background {
+    background: var(--info) !important;
+}
+
+.ins-info-color,
+.ins-active-info-color .ins-active,
+.ins-active-info-color .ins-active * {
+    color: var(--info) !important;
+}
+
+.ins-info-light {
+    background: var(--info--light-color);
+    color: var(--info) !important;
+    border-color: var(--info) !important;
+}
+
+.ins-info-light * {
+    color: var(--info) !important;
+}
+
+.ins-warning,
+.ins-active-warning .ins-active,
+.ins-active-warning .ins-active * {
+    background: var(--warning) !important;
+}
+
+.ins-warning-background {
+    background: var(--warning) !important;
+}
+
+.ins-warning-color,
+.ins-active-warning-color .ins-active,
+.ins-active-warning-color .ins-active * {
+    color: var(--warning) !important;
+}
+
+.ins-warning-light {
+    background: var(--warning--light-color);
+    color: var(--warning) !important;
+    border-color: var(--warning) !important;
+}
+
+.ins-warning-light * {
+    color: var(--warning) !important;
+}
+
+.ins-danger,
+.ins-active-danger .ins-active,
+.ins-active-danger .ins-active * {
+    background: var(--danger) !important;
+}
+
+.ins-danger-color,
+.ins-active-danger-color .ins-active,
+.ins-active-danger-color .ins-active * {
+    color: var(--danger) !important;
+}
+
+.ins-danger-bachground {
+    background: var(--danger) !important;
+}
+
+.ins-danger-light {
+    background: var(--danger--light-color);
+    color: var(--danger) !important;
+    border-color: var(--danger) !important;
+}
+
+.ins-danger-light * {
+    color: var(--danger) !important;
+}
+
+.ins-purple,
+.ins-active-purple .ins-active,
+.ins-active-purple .ins-active * {
+    background: var(--purple) !important;
+}
+
+.ins-purple-color,
+.ins-active-purple-color .ins-active,
+.ins-active-purple-color .ins-active * {
+    color: var(--purple) !important;
+}
+
+.ins-purple-background {
+    background: var(--purple) !important;
+}
+
+.ins-purple-light {
+    color: var(--purple) !important;
+    border-color: var(--purple) !important;
+    background: hsl(261deg 48% 87%);
+}
+
+.ins-blue,
+.ins-active-blue .ins-active,
+.ins-active-blue .ins-active * {
+    background: var(--blue) !important;
+}
+
+.ins-blue-color,
+.ins-active-blue-color .ins-active,
+.ins-active-blue-color .ins-active * {
+    color: var(--blue) !important;
+}
+
+.ins-blue-background,
+.ins-blue-bg {
+    background: var(--blue) !important;
+}
+
+.ins-blue-light {
+    color: var(--blue) !important;
+    border-color: var(--blue) !important;
+    background: rgb(214 243 255) !important;
+}
+
+.ins-bg-none {
+    background: transparent !important;
+}
+
+.ins-orange,
+.ins-active-orange .ins-active,
+.ins-active-orange .ins-active * {
+    background: var(--orange) !important;
+}
+
+.ins-orange-color,
+.ins-active-orange-color .ins-active,
+.ins-active-orange-color .ins-active * {
+    color: var(--orange) !important;
+}
+
+.ins-orange-background {
+    background: var(--orange) !important;
+}
+
+.ins-orange-light {
+    color: var(--orange) !important;
+    border-color: var(--orange) !important;
+    background: hsl(19deg 100% 94%) !important;
+}
+
+.ins-orange-light path,
+.ins-orange-light rect {
+    fill: var(--orange) !important;
+}
+
+.ins-pink,
+.ins-active-pink .ins-active,
+.ins-active-pink .ins-active * {
+    background: var(--pink) !important;
+}
+
+.ins-pink-background {
+    background: var(--pink) !important;
+}
+
+.ins-pink-color,
+.ins-active-pink-color .ins-active,
+.ins-active-pink-color .ins-active * {
+    color: var(--pink) !important;
+}
+
+.ins-pink-light {
+    color: var(--pink) !important;
+    border-color: var(--pink) !important;
+    background: hsl(344deg 100% 95%);
+}
+
+.ins-green,
+.ins-active-green .ins-active,
+.ins-active-green .ins-active * {
+    background: var(--green) !important;
+}
+
+.ins-green-background {
+    background: var(--green) !important;
+}
+
+.ins-green-color,
+.ins-active-green-color .ins-active,
+.ins-active-green-color .ins-active * {
+    background: var(--green) !important;
+}
+
+.ins-green-light {
+    color: var(--green) !important;
+    border-color: var(--green) !important;
+    background: hsl(113deg 46% 93%);
+}
+
+.ins-yellow,
+.ins-active-yellow .ins-active,
+.ins-active-yellow .ins-active * {
+    background: var(--yellow) !important;
+}
+
+.ins-yellow-color,
+.ins-active-yellow-color .ins-active,
+.ins-active-yellow-color .ins-active * {
+    color: var(--yellow) !important;
+}
+
+.ins-yellow-background {
+    background: var(--yellow) !important;
+}
+
+.ins-yellow-light {
+    color: var(--yellow) !important;
+    border-color: var(--yellow) !important;
+    background-color: hsl(43deg 46% 97%);
+}
+
+.ins-data-icon {
+    fill: var(--placeholder);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: inline-block;
+    width: 40px;
+}
+
+.ins-data-icon svg {
+    width: 100%;
+    height: auto;
+    display: inline-block;
+}
+
+.ins-data-icon.ins-primary-color {
+    fill: var(--primary);
+}

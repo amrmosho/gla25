@@ -1,0 +1,55 @@
+{
+    "table": "gla_blog_category",
+    "form_data": [{
+            "start": "true",
+            "class": "ins-card   ins-flex ins-col-12"
+        },
+        {
+            "name": "title",
+            "title": "category title",
+            "_type": "input",
+            "type": "input",
+            "_lang": "true",
+            "_table": "gla_blog_category",
+            "pclass": "ins-col-12"
+        },
+        {
+            "name": "des",
+            "title": "category des",
+            "_type": "input",
+            "type": "textarea",
+            "style": "height:350px",
+            "_lang": "true",
+            "_table": "gla_blog_category",
+            "pclass": "ins-col-12"
+        },
+        {
+            "end": "true"
+        }
+    ],
+    "list_data": [
+
+
+
+        {
+            "name": "title",
+            "title": "category title",
+            "class": "ins-col-grow"
+        },
+        {
+            "name": "des",
+            "_view": "limit",
+            "limit_ops": "10",
+            "title": "category desc",
+            "class": "ins-col-3"
+        }
+    ],
+    "list_filter": [{
+        "name": "title",
+        "title": "search in title",
+        "main": true,
+        "_type": "input",
+        "pclass": "ins-col-12",
+        "_info": " search in <b>Title</b> by <b>@(value)</b> "
+    }]
+}

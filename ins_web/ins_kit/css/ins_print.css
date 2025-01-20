@@ -1,0 +1,43 @@
+@import url("0_ins_light_style.css");
+.ins_lightbox_body {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.ins-no-print {
+    display: none !important;
+}
+
+.ins_print_button,
+.ins-sidebar,
+.ins-buttons-actions,
+.strat_data_options,
+.header_actions {
+    display: none !important;
+}
+
+.ins-app {
+    height: auto !important;
+    overflow: visible !important;
+}
+
+.ins-td {
+    display: table-cell;
+    border: 1px solid #b7b7b7 !important;
+}
+
+.ins-th {
+    display: table-cell;
+}
+
+.ins-table {
+    display: table;
+}
+
+.ins-tr {
+    display: table-row;
+}
+
+.ins-wallpaper {
+    overflow: auto !important;
+}

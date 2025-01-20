@@ -1,0 +1,115 @@
+{
+    "table": "kit_template",
+    "form_data": [{
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card ins-padding-m"
+        },
+        {
+            "name": "title",
+            "title": "Title",
+            "_type": "input",
+            "type": "text",
+            "required": "true",
+            "pclass": "ins-col-6"
+        },
+        {
+            "name": "type",
+            "title": "Type",
+            "_type": "input",
+            "type": "text",
+            "required": "true",
+            "pclass": "ins-col-6"
+        },
+        {
+            "name": "src_area",
+            "title": "source area",
+            "_type": "select",
+            "_data_type": "areas",
+            "pclass": "ins-col-6"
+        },
+        {
+            "name": "tar_area",
+            "title": "Target area",
+            "_type": "select",
+            "_data_type": "areas",
+            "pclass": "ins-col-5"
+        },
+        {
+            "name": "kit_default",
+            "_end": "Default",
+            "_type": "input",
+            "type": "bool",
+            "value": "0",
+            "pclass": "ins-col-1",
+            "pstyle": "margin-top: 27px;"
+        },
+        {
+            "end": "True"
+        }
+    ],
+    "list_data": [{
+            "name": "title",
+            "title": "Title",
+            "view": "text",
+            "class": "ins-col-grow"
+        },
+        {
+            "name": "type",
+            "title": "Type",
+            "view": "text",
+            "class": "ins-col-2"
+        },
+        {
+            "name": "src_area",
+            "title": "src area",
+            "view": "text",
+            "class": "ins-col-2"
+        },
+        {
+            "name": "tar_area",
+            "title": "tar area",
+            "view": "text",
+            "class": "ins-col-2"
+        },
+        {
+            "name": "kit_default",
+            "title": "Default",
+            "view": "bool",
+            "class": "ins-col-1"
+        }
+    ],
+    "list_filter": [{
+            "name": "title",
+            "title": "Title",
+            "_type": "input",
+            "type": "text",
+            "main": true,
+            "_info": "Search in <b>Title</b> by <b>@(value)</b>",
+            "pclass": "ins-col-12"
+        },
+        {
+            "name": "type",
+            "title": "Type",
+            "_type": "input",
+            "type": "text",
+            "_info": "Search in <b>Type</b> by <b>@(value)</b>",
+            "pclass": "ins-col-12"
+        },
+        {
+            "name": "src_area",
+            "title": "source area",
+            "_type": "select",
+            "_data_type": "areas",
+            "_info": "Search in <b>Source area</b> by <b>@(value)</b>",
+            "pclass": "ins-col-12"
+        },
+        {
+            "name": "tar_area",
+            "title": "Target area",
+            "_type": "select",
+            "_info": "Search in <b>Target area</b> by <b>@(value)</b>",
+            "_data_type": "areas",
+            "pclass": "ins-col-12"
+        }
+    ]
+}

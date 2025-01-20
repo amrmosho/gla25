@@ -1,0 +1,24 @@
+{
+
+
+    "options": [
+
+        {
+            "_type": "input",
+            "title": "option des",
+            "pclass": "ins-col-12",
+            "name": "ops_des"
+        },
+
+
+        {
+            "_type": "input",
+            "title": "options test",
+            "pclass": "ins-col-6",
+            "name": "ops_test2"
+        }
+
+
+    ]
+
+}

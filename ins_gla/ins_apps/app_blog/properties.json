@@ -1,0 +1,114 @@
+{
+    "table": "gla_blog",
+    "form_data": [{
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card ins-padding-m"
+        },
+        {
+            "name": "title",
+            "title": "Title",
+            "title-ar": "العنوان",
+            "_trans": "true",
+            "_type": "input",
+            "type": "text",
+            "required": "true",
+            "pclass": "ins-col-8"
+        },
+        {
+            "name": "fk_blog_category_id",
+            "title": "Blog Category",
+            "_type": "select",
+            "type": "text",
+            "_data_type": "db",
+            "_table": "gla_blog_category",
+            "required": "true",
+            "pclass": "ins-col-4"
+        },
+        {
+            "end": "True"
+        },
+        {
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card ins-padding-m"
+        },
+        {
+            "name": "image",
+            "title": "image",
+            "_type": "input",
+            "title-ar": "الصورة",
+            "_trans": "true",
+            "_dir": "images",
+            "_exts": "image/png",
+            "type": "upload",
+            "required": "true",
+            "pclass": "ins-col-6"
+        },
+        {
+            "name": "thumbnail",
+            "title": "thumbnail",
+            "title-ar": "الصورة المصغرة",
+            "_trans": "true",
+            "_type": "input",
+            "_dir": "images",
+            "_exts": "image/png",
+            "type": "upload",
+            "required": "true",
+            "pclass": "ins-col-6"
+        },
+        {
+            "name": "content",
+            "title": "Content",
+            "_type": "textarea",
+            "required": "true",
+            "pclass": "ins-col-12"
+        },
+        {
+            "end": "True"
+        },
+        {
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card ins-padding-m"
+        },
+        {
+            "_data": "Home screen options",
+            "_data-ar": "خيارات الشاشة الرئيسية",
+            "_trans": "true",
+            "class": "ins-col-12"
+        },
+        {
+            "name": "home",
+            "_end": "Add this blog to home screen",
+            "_end-ar": "اضف هذا المقال الى الشاشة الرئيسية",
+            "_trans": "true",
+            "_type": "input",
+            "type": "bool",
+            "value": "0",
+            "pclass": "ins-col-6 -home-checkbox"
+        }, {
+            "name": "order",
+            "title": "Order",
+            "title-ar": "الترتيب",
+            "_trans": "true",
+            "type": "number",
+            "value": "0",
+            "_type": "input",
+            "pclass": "ins-col-6"
+        },
+        {
+            "end": "True"
+        }
+    ],
+    "list_data": [{
+        "name": "title",
+        "title": "Title",
+        "view": "text",
+        "class": "ins-col-grow"
+    }],
+    "list_filter": [{
+        "name": "title",
+        "title": "Title",
+        "view": "text",
+        "main": "true",
+        "class": "ins-col-grow"
+    }]
+}

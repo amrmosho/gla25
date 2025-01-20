@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"> {{ temp.header|safe }}
+    <link rel="stylesheet" href="/{{ temp._weburl|safe }}css/style.css" />
+    <meta charset="utf-8"> {{ temp.header_end|safe }}
+    <title>ins admin python </title>
+</head>
+
+<body class="ins-light-style ins-padding-xl   ins-wallpaper">
+    <div class="ins-padding-xl">
+        <header class="ins-container ins-card  ins-flex  ins-padding-l">
+            <div class="logo"></div>
+            <nav class="t-header-bar ins-flex-grow ins-title-m ">
+                {{ wdgts["menu"]|safe }}
+            </nav>
+            <a class="ins-primary-color " href="/ins_admin/"><i class="lni ins-font-l lni-gear-1"></i> Admin</a>
+        </header>
+        <section style="min-height: 600px;  padding-top: 20px " class="t-main   ins-flex ">
+            <div class=" ins-col-12 "> {{ wdgts["top"]|safe }}</div>
+            <div class="ins-col-12 "> {{ app|safe }}</div>
+            <div class="ins-col-12"> {{ wdgts["bottom"]|safe }}</div>
+        </section>
+        <footer class="t-footer ins-flex ins-container">
+            {{ wdgts["footer"]|safe }}
+        </footer>
+    </div>
+</body>
+
+</html>

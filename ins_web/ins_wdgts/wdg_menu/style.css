@@ -1,0 +1,10 @@
+.ins-menu-item {
+    padding: 0 10px;
+    width: auto;
+}
+
+.ins-menu {
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}

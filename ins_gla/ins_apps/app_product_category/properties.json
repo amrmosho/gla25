@@ -1,0 +1,34 @@
+{
+    "table": "gla_product_category",
+    "form_data": [{
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card ins-padding-m"
+        },
+        {
+            "name": "title",
+            "title": "Title",
+            "_type": "input",
+            "type": "text",
+            "required": "true",
+            "pclass": "ins-col-12"
+        },
+        {
+            "end": "True"
+        }
+    ],
+    "list_data": [{
+        "name": "title",
+        "title": "Title",
+        "view": "text",
+        "class": "ins-col-grow"
+    }],
+    "list_filter": [{
+        "name": "title",
+        "title": "Search Title",
+        "_type": "input",
+        "type": "text",
+        "_info": "Search in <b>Title</b> by <b>@(value)</b>",
+        "main": true,
+        "pclass": "ins-col-12"
+    }]
+}

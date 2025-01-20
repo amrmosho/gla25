@@ -1,0 +1,8 @@
+{
+    "options": [{
+        "_type": "input",
+        "title": "content",
+        "pclass": "ins-col-8",
+        "name": "id"
+    }]
+}

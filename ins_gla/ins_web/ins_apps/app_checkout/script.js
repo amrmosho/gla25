@@ -1,0 +1,89 @@
+ins(".-address-btn")._on("click", (o) => {
+    ins(".-address-btn")._setAttribute("src", "/ins_web/ins_uploads/style/radio.svg")
+    o._setAttribute("src", "/ins_web/ins_uploads/style/radio_checked.svg")
+})
+
+ins(".-add-address")._on("click", (o) => {
+
+    ins("_add_address_ui")._ajax._app({}, (data) => {
+        ins(".-addresses-area")._setHTML(data);
+    })
+})
+
+ins(".-payment-btn")._on("click", (o) => {
+
+    window.location = ins()._data._addtourl(o._getData("url"), "/payment/")
+
+}, true)
+ins(".-add-address-btn")._on("click", (o) => {
+    ins(".-add-address-area")._data._submit(function(data) {
+        ins("_add_address")._ajax._app(data, (d) => {
+            ins(".-addresses-area")._setHTML(d);
+        })
+    })
+}, true)
+
+function update_data(p, k) {
+    var value = p._getValue();
+    ins("_update_item_data")._ajax._app({ "value": value, "k": k }, (data) => {})
+}
+
+ins(".-minus-btn")._on("click", (o) => {
+    var p = o._parent(".-counter-cont")._find(".count-inpt")
+    if (p._getValue() > 1) {
+        p._setValue(p._getValue() - 1);
+        update_data(p, o._getData("pid"))
+    }
+}, true)
+
+
+
+ins(".-plus-btn")._on("click", (o) => {
+    var p = o._parent(".-counter-cont")._find(".count-inpt")
+    let val = parseInt(p._getValue(), 10);
+    p._setValue(val + 1);
+    update_data(p, o._getData("pid"))
+}, true)
+
+ins(".-back-address-btn")._on("click", (o) => {
+    ins("_addresses_area_ui")._ajax._app({}, (d) => {
+        ins(".-addresses-area")._setHTML(d);
+    })
+})
+
+ins(".-guser-login-btn")._on("click", (o) => {
+    ins(".-login-form")._data._submit(function(data) {
+        ins("_login")._ajax._app(data, (d) => {
+
+            if (d == "-1") {
+                ins("Invalid login data")._ui._notification({ "class": "ins-danger" })
+            } else {
+                ins("Login successfully")._ui._notification()
+                ins(".-login-form")._ui._addLoader()
+                setTimeout(() => {
+                    window.location.reload()
+                }, 3000);
+
+            }
+
+        })
+    })
+}, true)
+
+
+
+ins(".-remove-item-cart-btn")._on("click", (o) => {
+    var ops = o._getData()
+    var p = o._parent(".-item-card");
+    if (confirm("Are you sure tou want to remove this item from cart?")) {
+        ins("_remove_item_cart")._ajax._app(ops, (data) => {
+            var jdata = JSON.parse(data)
+            if (jdata["status"] == "1") {
+                window.location.reload()
+            }
+            p._remove()
+            ins("Item removed!")._ui._notification({ "class": "ins-success" })
+        })
+    }
+
+}, true)

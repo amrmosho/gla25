@@ -1,0 +1,27 @@
+{
+    "crud": {
+        "udefualt_22": {
+            "list_data": "[\n      {\n            \"name\": \"title\",\n            \"title\": \"my title\",\n            \"view\": \"text\",\n            \"class\": \"ins-col-grow\"\n      },\n      {\n            \"name\": \"kit_disabled\",\n            \"title\": \"disabled\",\n            \"view\": \"text\",\n            \"class\": \"ins-col-2\"\n      }\n      \n]",
+            "list_name": "udefualt_22",
+            "addtourl": "7877",
+            "query": "12",
+            "pg_count": "12",
+            "for": "user",
+            "title": "defualt 20242",
+            "rename": "defualt_20",
+            "insact": "0"
+        },
+        "jdefualt": {
+            "form_data": "[\n      {\n            \"start\": \"True\",\n            \"class\": \"ins-col-12 ins-flex ins-card\"\n      },\n      {\n            \"name\": \"title\",\n\"_lang\":\"true\",\n            \"title\": \"my title asdasdasdsad\",\n            \"_type\": \"input\",\n            \"type\": \"text\",\n            \"required\": \"true\",\n            \"pclass\": \"ins-col-6\"\n      },\n      {\n            \"name\": \"kit_disabled\",\n            \"_end\": \"disabled\",\n            \"_type\": \"input\",\n            \"type\": \"bool\",\n            \"value\": \"1\",\n            \"pclass\": \"ins-col-3\"\n      },\n      {\n            \"end\": \"True\"\n      },\n      {\n            \"start\": \"True\",\n            \"class\": \"ins-col-12 ins-flex ins-card\"\n      },\n      {\n            \"name\": \"src_area\",\n            \"title\": \"src_area\",\n            \"_type\": \"select\",\n            \"_data_type\": \"areas\",\n            \"pclass\": \"ins-col-6\"\n      },\n      {\n            \"name\": \"tar_area\",\n            \"title\": \"tar_area\",\n            \"_type\": \"select\",\n            \"_data_type\": \"areas\",\n            \"pclass\": \"ins-col-6\"\n      },\n      {\n            \"end\": \"True\"\n      }\n]",
+            "list_name": "jdefualt",
+            "filter": "[\n      {\n            \"start\": \"True\",\n            \"class\": \"ins-col-12 ins-flex ins-card\"\n      },\n      {\n            \"name\": \"title\",\n            \"title\": \"my title *sss\",\n            \"_type\": \"input\",\n            \"type\": \"text\",\n            \"required\": \"true\",\n            \"pclass\": \"ins-col-6\"\n      },\n      {\n            \"name\": \"kit_disabled\",\n            \"_end\": \"disabled\",\n            \"_type\": \"input\",\n            \"type\": \"bool\",\n            \"value\": \"1\",\n            \"pclass\": \"ins-col-3\"\n      },\n      {\n            \"end\": \"True\"\n      },\n      {\n            \"start\": \"True\",\n            \"class\": \"ins-col-12 ins-flex ins-card\"\n      },\n      {\n            \"name\": \"src_area\",\n            \"title\": \"src_area\",\n            \"_type\": \"select\",\n            \"_data_type\": \"areas\",\n            \"pclass\": \"ins-col-6\"\n      },\n      {\n            \"name\": \"tar_area\",\n            \"title\": \"tar_area\",\n            \"_type\": \"select\",\n            \"_data_type\": \"areas\",\n            \"pclass\": \"ins-col-6\"\n      },\n      {\n            \"end\": \"True\"\n      }\n]",
+            "addtourl": "2",
+            "query": "dsd",
+            "pg_count": "6",
+            "list_data": "[\n      {\n            \"name\": \"title\",\n            \"title\": \"my title32\",\n            \"view\": \"text\",\n            \"class\": \"ins-col-grow\"\n      },\n      {\n            \"name\": \"kit_disabled\",\n            \"title\": \"disabled\",\n            \"view\": \"text\",\n            \"class\": \"ins-col-2\"\n      },\n      {\n            \"_type\": \"tags\",\n            \"title\": \"disabled\",\n            \"view\": \"text\",\n            \"class\": \"ins-col-5\"\n      }\n]",
+            "title": "defualt 20242",
+            "for": "user"
+        }
+    },
+    "pg_count": "50"
+}

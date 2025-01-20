@@ -1,0 +1,163 @@
+:root {
+    --ins-light-style-color: hsl(0, 0%, 100%);
+}
+
+.ins-light-style {
+    --ins-color-h: 0;
+    --ins-color-s: 0%;
+    --ins-color-l: 100%;
+    --ins-color: hsl(0, 0%, 100%);
+    --text-h: 232;
+    --text-s: 14%;
+    --text-l: 68%;
+    --text: hsl(305deg 1% 3% / 46%);
+    --primary-h: 153;
+    --primary-s: 48%;
+    --primary-l: 49%;
+    --primary: #3ba9b6;
+    --bar: rgb(248 248 248);
+    --secondary: #c3b293;
+    --link: #8a8ead;
+    --active-link: hsl(153, 48%, 49%);
+    --fade-grey: hsl(0, 0%, 93%);
+    --gray-text: hsl(232, 14%, 68%);
+    --dark-text: hsl(226, 34%, 24%);
+    --gradient-c1: #ffffffd9;
+    --gradient-c2: #ffffff94;
+    --gradient-c3: #ffffff00;
+    --bgcolor: hsl(0deg 0% 100%);
+}
+
+.ins-light-style .code {
+    background: #1a1a1f;
+    color: #c0c0d1;
+}
+
+.ins-light-style {
+    --gray-text: hsl(var(--text-h), var(--text-s), var(--text-l));
+    --text: rgb(47, 47, 47);
+    --background-grey: var(--ins-color-6);
+    --border: rgb(214, 216, 225);
+    --primary-grey: var(--ins-color-4);
+    --blockquote-bg: var(--ins-color-10);
+    --strong-color: var(--ins-color-60);
+    --blockquote-color: var(--ins-color-2);
+    --card-border-color: var(--ins-color-12);
+    --button-bg: var(--ins-color-2);
+    --input-border-color: rgb(224 224 224);
+    --input-color: var(--text);
+    --widget-grey-light: var(--ins-color-4);
+    --wrapper-bg: rgb(241, 243, 248);
+    --card-bg: rgb(255, 255, 255);
+    --input-bg: #f1f3f8;
+    --active: #cff9ff;
+}
+
+
+/** bgcolors */
+
+.ins-light-style {
+    --opacity-bg: hsl( var(--ins-color-h) var(--ins-color-s) var(--ins-color-l) / 80%);
+    --ins-color-2: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) - 2%));
+    --ins-color-4: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) - 4%));
+    --ins-color-5: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) - 5%));
+    --ins-color-6: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) - 6%));
+    --ins-color-10: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) - 10%));
+    --ins-color-12: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) - 15%));
+    --ins-color-15: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) - 15%));
+    --ins-color-20: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) - 20%));
+    --ins-color-25: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) - 25%));
+    --ins-color-30: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) - 30%));
+    --ins-color-40: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) - 40%));
+    --ins-color-50: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) - 50%));
+    --ins-color-60: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) - 60%));
+    --ins-color-70: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) - 70%));
+    --ins-color-80: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) - 80%));
+    --ins-color-90: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) - 90%));
+    --ins-color-100: hsl( var(--ins-color-h), var(--ins-color-s), calc(var(--ins-color-l) - 100%));
+}
+
+:root {
+    --ins-dark-style-color: hsl(140, 4%, 14%);
+    --ins-blue-style-color: hsl(225, 25%, 6%);
+    --ins-red-style-color: hsl(0, 25%, 8%);
+}
+
+
+/**text*/
+
+.ins-light-style {
+    --text-dark-20: hsl(var(--text-h), var(--text-s), calc(var(--text-l) - 22%));
+}
+
+
+/** bgcolors */
+
+:root {
+    --ins-light-red-style-color: hsl(0, 92%, 90%);
+}
+
+.ins-light-red-style,
+.ins-light-blue-style,
+.ins-light-pink-style,
+.ins-light-green-style,
+.ins-light-orange-style {
+    --wrapper-bg: var(--ins-color-2);
+    --card-bg: var(--ins-color-4);
+    --dark-text: var(--ins-color-25);
+}
+
+[class*="ins-bar"] {
+    background: var(--bar);
+}
+
+.ins-light-red-style {
+    --ins-color-h: 0;
+    --ins-color-s: 100%;
+    --ins-color-l: 98%;
+    --ins-color: hsl(0, 100%, 98%);
+}
+
+:root {
+    --ins-light-blue-style-color: hsl(226deg, 92%, 90%);
+}
+
+.ins-light-blue-style {
+    --ins-color-h: 226deg;
+    --ins-color-s: 100%;
+    --ins-color-l: 98%;
+    --ins-color: hsl(226deg, 100%, 98%);
+}
+
+:root {
+    --ins-light-pink-style-color: hsl(300, 92%, 90%);
+}
+
+.ins-light-pink-style {
+    --ins-color-h: 300;
+    --ins-color-s: 100%;
+    --ins-color-l: 98%;
+    --ins-color: hsl(300, 100%, 98%);
+}
+
+:root {
+    --ins-light-green-style-color: hsl(150, 92%, 90%);
+}
+
+.ins-light-green-style {
+    --ins-color-h: 150;
+    --ins-color-s: 100%;
+    --ins-color-l: 98%;
+    --ins-color: hsl(150, 100%, 98%);
+}
+
+:root {
+    --ins-light-orange-style-color: hsl(50, 92%, 90%);
+}
+
+.ins-light-orange-style {
+    --ins-color-h: 50;
+    --ins-color-s: 100%;
+    --ins-color-l: 98%;
+    --ins-color: hsl(50, 100%, 98%);
+}

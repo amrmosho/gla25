@@ -1,0 +1,240 @@
+{
+    "options": [{
+        "_type": "input",
+        "title": "content",
+        "pclass": "ins-col-8",
+        "name": "id"
+    }],
+    "list_data": [{
+            "name": "title",
+            "title": "my title",
+            "view": "text",
+            "class": "ins-flex-grow"
+        },
+        {
+            "name": "src_area",
+            "title": " Source",
+            "view": "text",
+            "class": "ins-col-2"
+        },
+        {
+            "name": "type",
+            "title": "Type",
+            "view": "text",
+            "class": "ins-col-2"
+        },
+        {
+            "name": "tar_area",
+            "title": "target",
+            "view": "text",
+            "class": "ins-col-2"
+        },
+
+
+        {
+            "name": "position",
+            "title": "Position",
+            "class": "ins-col-1"
+        },
+
+        {
+            "name": "kit_order",
+            "title": "Order",
+            "class": "ins-col-1"
+        }
+    ],
+    "form_data": [{
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card"
+        },
+        {
+            "name": "title",
+            "title": "menu title *",
+            "_type": "input",
+            "type": "text",
+            "required": "true",
+            "pclass": "ins-col-12"
+        },
+        {
+            "end": "True"
+        },
+        {
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card"
+        },
+        {
+            "_data": "<i class='lni  lni-gear-1 ins-icon lni '></i> Source",
+            "class": "ins-col-12 ins-title ins-strong"
+        },
+        {
+            "start": "True",
+            "class": "ins-col-9 ins-flex ins-border ins-radius-m ins-padding-xl"
+        },
+        {
+            "name": "src_area",
+            "title": "source area",
+            "_type": "select",
+            "_data_type": "areas",
+            "pclass": "ins-col-6"
+        },
+        {
+            "name": "type",
+            "title": "Type",
+            "_type": "select",
+            "pclass": "ins-col-6"
+        },
+        {
+            "end": "True"
+        },
+        {
+            "start": "True",
+            "class": "ins-col-3 ins-flex ins-border ins-radius-m ins-padding-xl"
+        },
+        {
+            "name": "kit_order",
+            "title": "order",
+            "_type": "input",
+            "type": "number",
+            "value": "0",
+            "pclass": "ins-col-6"
+        },
+        {
+            "name": "kit_level",
+            "title": "level",
+            "value": "0",
+            "_type": "input",
+            "type": "number",
+            "pclass": "ins-col-6"
+        },
+        {
+            "end": "True"
+        },
+        {
+            "_type": "panel",
+            "class": "ins-col-12 ins-bg-2",
+            "_header": [{
+                "_data": "<i class='lni  lni-radio-button lni '></i> properties",
+                "class": "ins-col-12 ins-strong"
+            }],
+            "_data": [{
+                "class": "ins-col-12 ins-flex -pros-area",
+                "_data": "No Properties! "
+            }]
+        },
+        {
+            "end": "True"
+        },
+        {
+            "start": "True",
+            "class": "ins-col-12 ins-card  ins-flex-space-between "
+        },
+        {
+            "_data": "<i class='lni-customer  ins-icon lni '></i> Target",
+            "class": "ins-col-12 ins-title ins-strong"
+        },
+        {
+            "start": "True",
+            "class": "ins-col-9  ins-border   ins-flex ins-radius-m ins-padding-xl"
+        },
+        {
+            "name": "tar_area",
+            "title": "Target area",
+            "_type": "select",
+            "_data_type": "areas",
+            "pclass": "ins-col-6"
+        },
+
+        {
+            "name": "position",
+            "title": "Position",
+            "_type": "select",
+            "_data": "header,top,main_top,main_bottom,bottom,footer",
+            "pclass": "ins-col-6"
+        },
+        {
+            "class": "ins-col-6"
+        },
+        {
+            "end": "True"
+        },
+        {
+            "start": "True",
+            "class": "ins-col-3  ins-border   ins-flex ins-radius-m ins-padding-xl"
+        },
+        {
+            "name": "kit_disabled",
+            "_end": "disabled",
+            "_type": "input",
+            "type": "bool",
+            "value": "0",
+            "pclass": "ins-col-12"
+        },
+
+        {
+            "name": "view_all",
+            "_end": "view_all",
+            "_type": "input",
+            "type": "bool",
+            "value": "1",
+            "pclass": "ins-col-12"
+        },
+        {
+            "end": "True"
+        },
+        {
+            "_type": "panel",
+            "class": "ins-col-12 ins-bg-2",
+            "_header": [{
+                "_data": " <i class='lni-pallet  lni '></i>    Style",
+                "class": "ins-col-12 ins-strong"
+            }],
+            "_data": [{
+                    "name": "class",
+                    "title": "classes",
+                    "_type": "input",
+                    "type": "textarea",
+                    "value": "",
+                    "pclass": "ins-col-12"
+                },
+                {
+                    "name": "css",
+                    "title": "css",
+                    "_type": "input",
+                    "type": "textarea",
+                    "value": "",
+                    "pclass": "ins-col-12"
+                },
+                {
+                    "name": "view_in",
+                    "title": "view_in",
+                    "_type": "input",
+                    "type": "textarea",
+                    "value": "",
+                    "pclass": "ins-col-12"
+                }
+            ]
+        },
+        {
+            "end": "True"
+        },
+        {
+            "end": "True"
+        }
+    ],
+    "table": "kit_wdgts",
+    "list_filter": [{
+        "name": "title",
+        "title": "title",
+        "_type": "input",
+        "_info": " search in <b>Title</b> by <b>@(value)</b> ",
+        "type": "text",
+        "main": true,
+        "pclass": "ins-col-12"
+    }, {
+        "name": "position",
+        "title": "Position",
+        "_type": "select",
+        "_data": "header,top,main_top,main_bottom,bottom,footer",
+        "pclass": "ins-col-6"
+    }]
+}

@@ -1,0 +1,9 @@
+{
+    "db": {
+        "menu_item_table": "kit_menu_item",
+        "wdgts_table": "kit_wdgts",
+        "template_table": "kit_template",
+        "content_table": "kit_content",
+        "menu_table": "kit_menu"
+    }
+}

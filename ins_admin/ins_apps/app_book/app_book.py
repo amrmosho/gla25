@@ -1,0 +1,11 @@
+from ins_kit._engine._bp import App
+
+
+class AppBook(App):
+    def __init__(self, app) -> None:
+        self.app: App = app
+        super().__init__(app.ins)
+
+    def out(self):
+
+        return  self.app._options["id"]

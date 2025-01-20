@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"> {{ temp.header|safe }}
+    <link rel="stylesheet" href="/{{ temp._weburl|safe }}css/ui.css" />
+    <link rel="stylesheet" href="/{{ temp._weburl|safe }}css/style.css" />
+    <meta charset="utf-8"> {{ temp.header_end|safe }}
+    <title>ins admin python </title>
+</head>
+
+<body class="ins-light-style ins-gla-style  ins-padding-xl   ins-wallpaper">
+    <style>
+        h4 {
+            margin-top: 50px;
+        }
+    </style>
+    <header class=" ins-white   ins-flex  ">
+
+        <div class="gla-container gla-body ins-flex">
+            <div style="width: 72px; height:72px" class="gla-elogo gla-logo"></div>
+            <nav class="ins-col-grow ">
+
+                {{ wdgts["menu"]|safe }}
+
+            </nav>
+            <div>
+
+                <a class="ins-icon ins-secondary-color "><i class="lni ins-font-l lni-search-1"></i> </a>
+                <a class="ins-secondary-color ins-font-type-m ins-icon  ">EN </a>
+                <a class="ins-secondary-color ins-icon "><i class="lni ins-font-l lni-user-4"></i> </a>
+                <a class="ins-secondary-color ins-icon "><i class="lni ins-font-l lni-basket-shopping-3
+
+"></i> </a>
+
+            </div>
+
+
+        </div>
+    </header>
+    <div class=' ins-col-12 ins-flex ins-padding-xl'>
+        <div class=' ins-col-12 ins-card ins-flex '>
+
+            <div class="ins-card ins-col-12 ins-secondary-w
+
+            ">
+                <table style="width: 100%;">
+                    <tr>
+                        <td>--space: </td>
+                        <td class="ins-strong-l ins-font-xl"> 4px;</td>
+
+                    </tr>
+                    <tr>
+                        <td> --space-xs:</td>
+                        <td> {{ 4 * 0.5 }} </td>
+
+                        <td> ins-space-xs</td>
+                        <td> ins-hspace-xs</td>
+                        <td> ins-padding-xs</td>
+                        <td> ins-margin-xs</td>
+                        <tr>
+                            <tr>
+                                <td> --space-s:</td>
+                                <td> {{ 4 * 1 }} </td>
+                                <td> ins-space-s</td>
+                                <td> ins-hspace-s</td>
+                                <td> ins-padding-s</td>
+                                <td> ins-margin-s</td>
+                            </tr>
+                            <tr>
+                                <td> --space-m: </td>
+                                <td> {{ 4 * 2 }} </td>
+                                <td> ins-space-m</td>
+                                <td> ins-hspace-m</td>
+                                <td> ins-padding-m</td>
+                                <td> ins-margin-m</td>
+                            </tr>
+                            <tr>
+                                <td> --space-l: </td>
+                                <td> {{ 4 * 4 }} </td>
+                                <td> ins-space-l</td>
+                                <td> ins-hspace-l</td>
+                                <td> ins-padding-l</td>
+                                <td> ins-margin-l</td>
+                            </tr>
+                            <tr>
+                                <td> --space-xl:</td>
+                                <td> {{ 4 * 6 }} </td>
+                                <td> ins-space-xl</td>
+                                <td> ins-hspace-xl</td>
+                                <td> ins-padding-xl</td>
+                                <td> ins-margin-xl</td>
+                            </tr>
+                            <tr>
+                                <td> --space-2xl: </td>
+                                <td> {{ 4 * 8 }} </td>
+                                <td> ins-space-2xl</td>
+                                <td> ins-hspace-2xl</td>
+                                <td> ins-padding-2xl</td>
+                                <td> ins-margin-2xl</td>
+                            </tr>
+                            <tr>
+                                <td> --space-3xl: </td>
+                                <td> {{ 4 * 10}} </td>
+                                <td> ins-space-3xl</td>
+                                <td> ins-hspace-3xl</td>
+                                <td> ins-padding-3xl</td>
+                                <td> ins-margin-3xl</td>
+                            </tr>
+                            <tr>
+                                <td> --space-4xl:</td>
+                                <td> {{ 4 * 14 }} </td>
+                                <td> ins-space-4xl</td>
+                                <td> ins-hspace-4xl</td>
+                                <td> ins-padding-4xl</td>
+                                <td> ins-margin-4xl</td>
+                            </tr>
+                            <tr>
+                                <td> --space-5xl: </td>
+                                <td> {{ 4 * 18 }} </td>
+                                <td> ins-space-5xl</td>
+                                <td> ins-hspace-5xl</td>
+                                <td> ins-padding-5xl</td>
+                                <td> ins-margin-5xl</td>
+                            </tr>
+                            <tr>
+                                <td> --space-6xl: </td>
+                                <td> {{ 4 * 20 }} </td>
+                                <td> ins-space-6xl</td>
+                                <td> ins-hspace-6xl</td>
+                                <td> ins-padding-6xl</td>
+                                <td> ins-margin-6xl</td>
+                            </tr>
+                            <tr>
+                                <td> --space-7xl: </td>
+                                <td> {{ 4 * 22 }} </td>
+                                <td> ins-space-7xl</td>
+                                <td> ins-hspace-7xl</td>
+                                <td> ins-padding-7xl</td>
+                                <td> ins-margin-7xl</td>
+                            </tr>
+                            <tr>
+                                <td> --space-8xl: </td>
+                                <td> {{ 4 * 24 }} </td>
+                                <td> ins-space-8xl</td>
+                                <td> ins-hspace-8xl</td>
+                                <td> ins-padding-8xl</td>
+                                <td> ins-margin-8xl</td>
+                            </tr>
+                            <tr>
+                                <td> --space-9xl: </td>
+                                <td> {{ 4 * 28 }} </td>
+                                <td> ins-space-9xl</td>
+                                <td> ins-hspace-9xl</td>
+                                <td> ins-padding-9xl</td>
+                                <td> ins-margin-9xl</td>
+                            </tr>
+                            <tr>
+                                <td> --space-10xl: </td>
+                                <td> {{ 4 * 32 }} </td>
+                                <td> ins-space-10xl</td>
+                                <td> ins-hspace-10xl</td>
+                                <td> ins-padding-10xl</td>
+                                <td> ins-margin-10xl</td>
+                            </tr>
+                </table>
+            </div>
+
+
+            <div class="ins-card ins-col-12 ins-secondary-w            ">
+                Font Size:
+
+                <table style="width: 100%;">
+
+                    <tr>
+                        <td class="ins-strong-l ins-font-xl"> Class</td>
+                        <td class="ins-strong-l ins-font-xl"> CSS </td>
+                        <td class="ins-strong-l ins-font-xl"> Size</td>
+                        <tr>
+                            <tr>
+                                <td> ins-font-xs</td>
+                                <td> font-size: 0.5rem</td>
+                                <td> {{ 0.5 * 16 }} </td>
+                            </tr>
+                            <tr>
+                                <td> ins-font-s</td>
+                                <td> font-size: 0.8rem</td>
+                                <td> {{ 0.8 * 16 }} </td>
+                            </tr>
+                            <tr>
+                                <td> ins-font-m</td>
+                                <td> font-size: 1rem</td>
+                                <td> {{ 1 * 16 }} </td>
+                            </tr>
+                            <tr>
+                                <td> ins-font-l</td>
+                                <td> font-size: 1.2rem</td>
+                                <td> {{ 1.2 * 16 }} </td>
+                            </tr>
+                            <tr>
+                                <td> ins-font-xl</td>
+                                <td> font-size: 1.5rem</td>
+                                <td> {{ 1.5 * 16 }} </td>
+                            </tr>
+                            <tr>
+                                <td> ins-font-2xl</td>
+                                <td> font-size: 2rem</td>
+                                <td> {{ 2 * 16 }} </td>
+                            </tr>
+
+
+
+                            <tr>
+                                <td> ins-font-3xl</td>
+                                <td> font-size: 2.5rem</td>
+                                <td> {{ 2.5 * 16 }} </td>
+                            </tr>
+                            <tr>
+                                <td> ins-font-4xl</td>
+                                <td> font-size: 3rem</td>
+                                <td> {{ 3 * 16 }} </td>
+                            </tr>
+                            <tr>
+                                <td> ins-font-5xl</td>
+                                <td> font-size: 3.5rem</td>
+                                <td> {{ 3.5 * 16 }} </td>
+                            </tr>
+                            <tr>
+                                <td> ins-font-6xl</td>
+                                <td> font-size: 4rem</td>
+                                <td> {{ 4 * 16 }} </td>
+                            </tr>
+                            <tr>
+                                <td> ins-font-7xl</td>
+                                <td> font-size: 4.5rem</td>
+                                <td> {{ 4.5 * 16 }} </td>
+                            </tr>
+                            <tr>
+                                <td> ins-font-8xl</td>
+                                <td> font-size: 5rem</td>
+                                <td> {{ 5 * 16 }} </td>
+                            </tr>
+                            <tr>
+                                <td> ins-font-9xl</td>
+                                <td> font-size: 6rem</td>
+                                <td> {{ 6 * 16 }} </td>
+                            </tr>
+                            <tr>
+                                <td> ins-font-10xl</td>
+                                <td> font-size: 7rem</td>
+                                <td> {{ 7 * 16 }} </td>
+                            </tr>
+
+                </table>
+            </div>
+
+            <h2 class="ins-col-12"> Colors</h2>
+            <div class='ins-card ins-col-12 ins-padding-xl'>
+                <!--primary-->
+                <div class='ins-flex'>
+                    <h4 class='ins-col-12'> primary </h4>
+                    <div class="ins-col-2 ins-flex">
+                        <div style='height:100px' class='ins-primary ins-card ins-col-12'>primary</div>
+                        <div class='ins-col-12'>
+                            <p class=' ins-col-12'>--primary </p>
+                            <p class=' ins-col-12'>ins-primary</p>
+                            <p class=' ins-col-12 ins-primary-bg '>ins-primary-bg </p>
+                            <p class=' ins-col-12 ins-primary-color '>ins-primary-color </p>
+                        </div>
+                    </div>
+                    <div class="ins-col-2 ins-flex">
+                        <div style='height:100px' class='ins-primary-d  ins-card ins-col-12'>primary-d </div>
+                        <div class='ins-col-12'>
+                            <p class=' ins-col-12'>--primary-d </p>
+                            <p class=' ins-col-12'>ins-primary-d</p>
+                            <p class=' ins-col-12 ins-primary-d-bg '>ins-primary-d-bg </p>
+                            <p class=' ins-col-12 ins-primary-d-color  '>ins-primary-d-color </p>
+                        </div>
+                    </div>
+                    <div class="ins-col-2 ins-flex">
+                        <div style='height:100px' class='ins-primary-m  ins-card ins-col-12'>primary-m </div>
+                        <div class='ins-col-12'>
+                            <p class=' ins-col-12'>--primary-m </p>
+                            <p class=' ins-col-12'>ins-primary-m</p>
+                            <p class=' ins-col-12 ins-primary-m-bg '>ins-primary-m-bg </p>
+                            <p class=' ins-col-12 ins-primary-m-color  '>ins-primary-m-color </p>
+                        </div>
+                    </div>
+                    <div class="ins-col-2 ins-flex">
+                        <div style='height:100px' class='ins-primary-l  ins-card ins-col-12'>primary-l </div>
+                        <div class='ins-col-12'>
+                            <p class=' ins-col-12'>--primary-l </p>
+                            <p class=' ins-col-12'>ins-primary-l</p>
+                            <p class=' ins-col-12 ins-primary-l-bg '>ins-primary-l-bg </p>
+                            <p class=' ins-col-12 ins-primary-l-color  '>ins-primary-l-color </p>
+                        </div>
+                    </div>
+                    <div class="ins-col-2 ins-flex">
+                        <div style='height:100px' class='ins-primary-bg  ins-card ins-col-12'>primary-bg </div>
+                        <div class='ins-col-12'>
+                            <p class=' ins-col-12'>--primary-bg </p>
+                            <p class=' ins-col-12'>ins-primary-bg</p>
+                            <p class=' ins-col-12 ins-primary-bg-bg '>ins-primary-bg-bg </p>
+                            <p class=' ins-col-12 ins-primary-bg-color  '>ins-primary-bg-color </p>
+                        </div>
+                    </div>
+                    <div class="ins-col-2 ins-flex">
+                        <div style='height:100px' class='ins-primary-w  ins-card ins-col-12'>primary-w </div>
+                        <div class='ins-col-12'>
+                            <p class=' ins-col-12'>--primary-w </p>
+                            <p class=' ins-col-12'>ins-primary-w</p>
+                            <p class=' ins-col-12 ins-primary-w-bg '>ins-primary-w-bg </p>
+                            <p class=' ins-col-12 ins-primary-w-color  '>ins-primary-w-color </p>
+                        </div>
+                    </div>
+                </div>
+                <!--secondary-->
+                <div class='ins-flex'>
+                    <h4 class='ins-col-12'> secondary </h4>
+                    <div class="ins-col-2 ins-flex">
+                        <div style='height:100px' class='ins-secondary ins-card ins-col-12'>secondary</div>
+                        <div class='ins-col-12'>
+                            <p class=' ins-col-12'>--secondary </p>
+                            <p class=' ins-col-12'>ins-secondary</p>
+                            <p class=' ins-col-12 ins-secondary-bg '>ins-secondary-bg </p>
+                            <p class=' ins-col-12 ins-secondary-color '>ins-secondary-color </p>
+                        </div>
+                    </div>
+                    <div class="ins-col-2 ins-flex">
+                        <div style='height:100px' class='ins-secondary-d  ins-card ins-col-12'>secondary-d </div>
+                        <div class='ins-col-12'>
+                            <p class=' ins-col-12'>--secondary-d </p>
+                            <p class=' ins-col-12'>ins-secondary-d</p>
+                            <p class=' ins-col-12 ins-secondary-d-bg '>ins-secondary-d-bg </p>
+                            <p class=' ins-col-12 ins-secondary-d-color  '>ins-secondary-d-color </p>
+                        </div>
+                    </div>
+                    <div class="ins-col-2 ins-flex">
+                        <div style='height:100px' class='ins-secondary-m  ins-card ins-col-12'>secondary-m </div>
+                        <div class='ins-col-12'>
+                            <p class=' ins-col-12'>--secondary-m </p>
+                            <p class=' ins-col-12'>ins-secondary-m</p>
+                            <p class=' ins-col-12 ins-secondary-m-bg '>ins-secondary-m-bg </p>
+                            <p class=' ins-col-12 ins-secondary-m-color  '>ins-secondary-m-color </p>
+                        </div>
+                    </div>
+                    <div class="ins-col-2 ins-flex">
+                        <div style='height:100px' class='ins-secondary-l  ins-card ins-col-12'>secondary-l </div>
+                        <div class='ins-col-12'>
+                            <p class=' ins-col-12'>--secondary-l </p>
+                            <p class=' ins-col-12'>ins-secondary-l</p>
+                            <p class=' ins-col-12 ins-secondary-l-bg '>ins-secondary-l-bg </p>
+                            <p class=' ins-col-12 ins-secondary-l-color  '>ins-secondary-l-color </p>
+                        </div>
+                    </div>
+                    <div class="ins-col-2 ins-flex">
+                        <div style='height:100px' class='ins-secondary-bg  ins-card ins-col-12'>secondary-bg </div>
+                        <div class='ins-col-12'>
+                            <p class=' ins-col-12'>--secondary-bg </p>
+                            <p class=' ins-col-12'>ins-secondary-bg</p>
+                            <p class=' ins-col-12 ins-secondary-bg-bg '>ins-secondary-bg-bg </p>
+                            <p class=' ins-col-12 ins-secondary-bg-color  '>ins-secondary-bg-color </p>
+                        </div>
+                    </div>
+                    <div class="ins-col-2 ins-flex">
+                        <div style='height:100px' class='ins-secondary-w  ins-card ins-col-12'>secondary-w </div>
+                        <div class='ins-col-12'>
+                            <p class=' ins-col-12'>--secondary-w </p>
+                            <p class=' ins-col-12'>ins-secondary-w</p>
+                            <p class=' ins-col-12 ins-secondary-w-bg '>ins-secondary-w-bg </p>
+                            <p class=' ins-col-12 ins-secondary-w-color  '>ins-secondary-w-color </p>
+                        </div>
+                    </div>
+                </div>
+                <!--grey-->
+                <div class='ins-flex'>
+                    <h4 class='ins-col-12'> grey </h4>
+                    <div class="ins-col-2 ins-flex">
+                        <div style='height:100px' class='ins-grey ins-card ins-col-12'>grey</div>
+                        <div class='ins-col-12'>
+                            <p class=' ins-col-12'>--grey </p>
+                            <p class=' ins-col-12'>ins-grey</p>
+                            <p class=' ins-col-12 ins-grey-bg '>ins-grey-bg </p>
+                            <p class=' ins-col-12 ins-grey-color '>ins-grey-color </p>
+                        </div>
+                    </div>
+                    <div class="ins-col-2 ins-flex">
+                        <div style='height:100px' class='ins-grey-d  ins-card ins-col-12'>grey-d </div>
+                        <div class='ins-col-12'>
+                            <p class=' ins-col-12'>--grey-d </p>
+                            <p class=' ins-col-12'>ins-grey-d</p>
+                            <p class=' ins-col-12 ins-grey-d-bg '>ins-grey-d-bg </p>
+                            <p class=' ins-col-12 ins-grey-d-color  '>ins-grey-d-color </p>
+                        </div>
+                    </div>
+                    <div class="ins-col-2 ins-flex">
+                        <div style='height:100px' class='ins-grey-m  ins-card ins-col-12'>grey-m </div>
+                        <div class='ins-col-12'>
+                            <p class=' ins-col-12'>--grey-m </p>
+                            <p class=' ins-col-12'>ins-grey-m</p>
+                            <p class=' ins-col-12 ins-grey-m-bg '>ins-grey-m-bg </p>
+                            <p class=' ins-col-12 ins-grey-m-color  '>ins-grey-m-color </p>
+                        </div>
+                    </div>
+                    <div class="ins-col-2 ins-flex">
+                        <div style='height:100px' class='ins-grey-l  ins-card ins-col-12'>grey-l </div>
+                        <div class='ins-col-12'>
+                            <p class=' ins-col-12'>--grey-l </p>
+                            <p class=' ins-col-12'>ins-grey-l</p>
+                            <p class=' ins-col-12 ins-grey-l-bg '>ins-grey-l-bg </p>
+                            <p class=' ins-col-12 ins-grey-l-color  '>ins-grey-l-color </p>
+                        </div>
+                    </div>
+                    <div class="ins-col-2 ins-flex">
+                        <div style='height:100px' class='ins-grey-bg  ins-card ins-col-12'>grey-bg </div>
+                        <div class='ins-col-12'>
+                            <p class=' ins-col-12'>--grey-bg </p>
+                            <p class=' ins-col-12'>ins-grey-bg</p>
+                            <p class=' ins-col-12 ins-grey-bg-bg '>ins-grey-bg-bg </p>
+                            <p class=' ins-col-12 ins-grey-bg-color  '>ins-grey-bg-color </p>
+                        </div>
+                    </div>
+                </div>
+                <!--gold-->
+                <div class='ins-flex'>
+                    <h4 class='ins-col-12'> gold </h4>
+                    <div class="ins-col-2 ins-flex">
+                        <div style='height:100px' class='ins-gold ins-card ins-col-12'>gold</div>
+                        <div class='ins-col-12'>
+                            <p class=' ins-col-12'>--gold </p>
+                            <p class=' ins-col-12'>ins-gold</p>
+                            <p class=' ins-col-12 ins-gold-bg '>ins-gold-bg </p>
+                            <p class=' ins-col-12 ins-gold-color '>ins-gold-color </p>
+                        </div>
+                    </div>
+                    <div class="ins-col-2 ins-flex">
+                        <div style='height:100px' class='ins-gold-d  ins-card ins-col-12'>gold-d </div>
+                        <div class='ins-col-12'>
+                            <p class=' ins-col-12'>--gold-d </p>
+                            <p class=' ins-col-12'>ins-gold-d</p>
+                            <p class=' ins-col-12 ins-gold-d-bg '>ins-gold-d-bg </p>
+                            <p class=' ins-col-12 ins-gold-d-color  '>ins-gold-d-color </p>
+                        </div>
+                    </div>
+                    <div class="ins-col-2 ins-flex">
+                        <div style='height:100px' class='ins-gold-m  ins-card ins-col-12'>gold-m </div>
+                        <div class='ins-col-12'>
+                            <p class=' ins-col-12'>--gold-m </p>
+                            <p class=' ins-col-12'>ins-gold-m</p>
+                            <p class=' ins-col-12 ins-gold-m-bg '>ins-gold-m-bg </p>
+                            <p class=' ins-col-12 ins-gold-m-color  '>ins-gold-m-color </p>
+                        </div>
+                    </div>
+                    <div class="ins-col-2 ins-flex">
+                        <div style='height:100px' class='ins-gold-l  ins-card ins-col-12'>gold-l </div>
+                        <div class='ins-col-12'>
+                            <p class=' ins-col-12'>--gold-l </p>
+                            <p class=' ins-col-12'>ins-gold-l</p>
+                            <p class=' ins-col-12 ins-gold-l-bg '>ins-gold-l-bg </p>
+                            <p class=' ins-col-12 ins-gold-l-color  '>ins-gold-l-color </p>
+                        </div>
+                    </div>
+                    <div class="ins-col-2 ins-flex">
+                        <div style='height:100px' class='ins-gold-bg  ins-card ins-col-12'>gold-bg </div>
+                        <div class='ins-col-12'>
+                            <p class=' ins-col-12'>--gold-bg </p>
+                            <p class=' ins-col-12'>ins-gold-bg</p>
+                            <p class=' ins-col-12 ins-gold-bg-bg '>ins-gold-bg-bg </p>
+                            <p class=' ins-col-12 ins-gold-bg-color  '>ins-gold-bg-color </p>
+                        </div>
+                    </div>
+                </div>
+                <!--mud-->
+                <div class='ins-flex'>
+                    <h4 class='ins-col-12'> mud </h4>
+                    <div class="ins-col-2 ins-flex">
+                        <div style='height:100px' class='ins-mud ins-card ins-col-12'>mud</div>
+                        <div class='ins-col-12'>
+                            <p class=' ins-col-12'>--mud </p>
+                            <p class=' ins-col-12'>ins-mud</p>
+                            <p class=' ins-col-12 ins-mud-bg '>ins-mud-bg </p>
+                            <p class=' ins-col-12 ins-mud-color '>ins-mud-color </p>
+                        </div>
+                    </div>
+                    <div class="ins-col-2 ins-flex">
+                        <div style='height:100px' class='ins-mud-d  ins-card ins-col-12'>mud-d </div>
+                        <div class='ins-col-12'>
+                            <p class=' ins-col-12'>--mud-d </p>
+                            <p class=' ins-col-12'>ins-mud-d</p>
+                            <p class=' ins-col-12 ins-mud-d-bg '>ins-mud-d-bg </p>
+                            <p class=' ins-col-12 ins-mud-d-color  '>ins-mud-d-color </p>
+                        </div>
+                    </div>
+                    <div class="ins-col-2 ins-flex">
+                        <div style='height:100px' class='ins-mud-m  ins-card ins-col-12'>mud-m </div>
+                        <div class='ins-col-12'>
+                            <p class=' ins-col-12'>--mud-m </p>
+                            <p class=' ins-col-12'>ins-mud-m</p>
+                            <p class=' ins-col-12 ins-mud-m-bg '>ins-mud-m-bg </p>
+                            <p class=' ins-col-12 ins-mud-m-color  '>ins-mud-m-color </p>
+                        </div>
+                    </div>
+                    <div class="ins-col-2 ins-flex">
+                        <div style='height:100px' class='ins-mud-l  ins-card ins-col-12'>mud-l </div>
+                        <div class='ins-col-12'>
+                            <p class=' ins-col-12'>--mud-l </p>
+                            <p class=' ins-col-12'>ins-mud-l</p>
+                            <p class=' ins-col-12 ins-mud-l-bg '>ins-mud-l-bg </p>
+                            <p class=' ins-col-12 ins-mud-l-color  '>ins-mud-l-color </p>
+                        </div>
+                    </div>
+                    <div class="ins-col-2 ins-flex">
+                        <div style='height:100px' class='ins-mud-bg  ins-card ins-col-12'>mud-bg </div>
+                        <div class='ins-col-12'>
+                            <p class=' ins-col-12'>--mud-bg </p>
+                            <p class=' ins-col-12'>ins-mud-bg</p>
+                            <p class=' ins-col-12 ins-mud-bg-bg '>ins-mud-bg-bg </p>
+                            <p class=' ins-col-12 ins-mud-bg-color  '>ins-mud-bg-color </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=' ins-col-12 ins-card ins-flex '>
+            <h2 class="ins-col-12"> # Fonts</h2>
+            <div class="ins-title-s ins-col-12">Triadic Color Harmony ins-title-s </div>
+            <div class="ins-title-m ins-col-12">Triadic Color Harmony ins-title-m</div>
+            <div class="ins-title ins-col-12">Triadic Color Harmony ins-title</div>
+            <div class="ins-title-l ins-col-12">Triadic Color Harmony ins-title-l</div>
+            <div class="ins-title-xl ins-col-12">Triadic Color Harmony ins-title-xl</div>
+            <div class="ins-title-xl ins-col-12"></div>
+            <div class="ins-title-xl ins-col-12"></div>
+            <div class="ins-title-xl ins-col-12"></div>
+            <div class="ins-title-xl ins-col-12"></div>
+            <div class="ins-col-3 ins-padding-l ins-strong-s ins-font-l">
+                ins-strong-s The triadic color scheme is based on three separate colors that are equidistant on the color wheel. We will use one color as a dominant, the others as accents. El Galla Gold targets young, professional, intelligent people. Going with a Dull
+                palette of Mud, Blue and Gold to convey our contemporary values of sustainability and natural products.
+            </div>
+            <div class="ins-col-3 ins-padding-l  ins-font-l">
+                The triadic color scheme is based on three separate colors that are equidistant on the color wheel. We will use one color as a dominant, the others as accents. El Galla Gold targets young, professional, intelligent people. Going with a Dull palette of
+                Mud, Blue and Gold to convey our contemporary values of sustainability and natural products.
+            </div>
+            <div class="ins-col-3 ins-padding-l ins-strong-m ins-font-l">
+                ins-strong-m The triadic color scheme is based on three separate colors that are equidistant on the color wheel. We will use one color as a dominant, the others as accents. El Galla Gold targets young, professional, intelligent people. Going with a Dull
+                palette of Mud, Blue and Gold to convey our contemporary values of sustainability and natural products.
+            </div>
+            <div class="ins-col-3 ins-padding-l  ins-strong-l ins-font-l">
+                ins-strong-l The triadic color scheme is based on three separate colors that are equidistant on the color wheel. We will use one color as a dominant, the others as accents. El Galla Gold targets young, professional, intelligent people. Going with a Dull
+                palette of Mud, Blue and Gold to convey our contemporary values of sustainability and natural products.
+            </div>
+            <div class="ins-title-xl ins-col-12"></div>
+            <div class="ins-title-xl ins-col-12"></div>
+            <div class="ins-title-xl ins-col-12"></div>
+            <div class="ins-title-xl ins-col-12"></div>
+            <div class="ins-title ins-col-12">Triadic Color Harmony</div>
+            <div class="ins-col-4 ins-padding-l">
+                The triadic color scheme is based on three separate colors that are equidistant on the color wheel. We will use one color as a dominant, the others as accents. El Galla Gold targets young, professional, intelligent people. Going with a Dull palette of
+                Mud, Blue and Gold to convey our contemporary values of sustainability and natural products.
+            </div>
+            <div class="ins-col-4 ins-padding-l ins-primary">
+                <div class="ins-title-m ins-col-12">Triadic Color Harmony ins-title-m</div>
+                <div class="ins-col-12 ins-padding-l ">
+                    The triadic color scheme is based on three separate colors that are equidistant on the color wheel. We will use one color as a dominant, the others as accents. El Galla Gold targets young, professional, intelligent people. Going with a Dull palette of
+                    Mud, Blue and Gold to convey our contemporary values of sustainability and natural products.
+                </div>
+            </div>
+            <div class="ins-col-4 ins-padding-l ins-secondary">
+                <div class="ins-title-m ins-col-12">Triadic Color Harmony ins-title-m</div>
+                <div class="ins-col-12 ins-padding-l ">
+                    The triadic color scheme is based on three separate colors that are equidistant on the color wheel. We will use one color as a dominant, the others as accents. El Galla Gold targets young, professional, intelligent people. Going with a Dull palette of
+                    Mud, Blue and Gold to convey our contemporary values of sustainability and natural products.
+                </div>
+            </div>
+        </div>
+
+
+        <div class=' ins-col-12   ins-card ins-flex '>
+            <h2 class="ins-col-12"> # buttons</h2>
+
+
+            <div class=' ins-col-12 ins-card ins-flex '>
+                <div class=' ins-col-2 ins-flex '>
+                    <div class="ins-button-s  ins-col-12  ins-gold ">Button</div>
+                    <div class="ins-button ins-col-12  ins-gold ">Button</div>
+                    <div class="ins-button-l ins-col-12  ins-gold ">Button</div>
+                </div>
+
+
+                <div class=' ins-col-2 ins-flex '>
+                    <div class="ins-button-s  ins-col-12  ins-primary ">Button</div>
+                    <div class="ins-button ins-col-12  ins-primary ">Button</div>
+                    <div class="ins-button-l ins-col-12  ins-primary ">Button</div>
+                </div>
+
+
+                <div class=' ins-col-2 ins-flex '>
+                    <div class="ins-button-s  ins-col-12  ins-gold-bg ">Button</div>
+                    <div class="ins-button ins-col-12  ins-gold-bg ">Button</div>
+                    <div class="ins-button-l ins-col-12  ins-gold-bg ">Button</div>
+                </div>
+
+
+                <div class=' ins-col-2 ins-flex '>
+                    <div class="ins-button-s  ins-col-12  ins-secondary ">Button</div>
+                    <div class="ins-button ins-col-12  ins-secondary ">Button</div>
+                    <div class="ins-button-l ins-col-12  ins-secondary ">Button</div>
+                </div>
+
+
+
+                <div class=' ins-col-2 ins-flex '>
+                    <div class="ins-button-s  ins-col-12  ins-grey ">Button</div>
+                    <div class="ins-button ins-col-12  ins-grey ">Button</div>
+                    <div class="ins-button-l ins-col-12  ins-grey ">Button</div>
+                </div>
+                <div class=' ins-col-2 ins-flex '>
+                    <div class="ins-button-s  ins-col-12  ins-gold-color ">Button</div>
+                    <div class="ins-button-text  ins-col-12  ins-gold-color ">Button</div>
+                    <div class="ins-button-l ins-col-12  ins-gold-color ">Button</div>
+                </div>
+                <div class=' ins-col-2 ins-flex '>
+
+                    <div class="ins-button-cricle ins-grey-d"><i class=" lni ins-icon lni-arrow-right"></i></div>
+                    <div class="ins-button-cricle ins-primary-d"><i class=" lni ins-icon lni-arrow-right"></i></div>
+                    <div class="ins-button-cricle ins-gold"><i class=" lni ins-icon lni-arrow-right"></i></div>
+
+
+                </div>
+
+                <div class=' ins-col-2 ins-flex '>
+                    <div class="ins-button-cricle ins-danger"><i class=" lni ins-icon lni-xmark"></i></div>
+
+                    <div class="ins-button-cricle ins-success"><i class=" lni ins-icon lni-arrow-right"></i></div>
+                    <div class="ins-button-cricle ins-warning"><i class=" lni ins-icon  lni-gear-1"></i></div>
+                    <div class="ins-button-cricle ins-grey-d"><i class=" lni ins-icon  lni-xmark"></i></div>
+                    <div class="ins-button-cricle ins-white"><i class=" lni ins-icon  lni-xmark"></i></div>
+
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+
+
+        <div class=' ins-col-12   ins-card ins-flex '>
+            <h2 class="ins-col-12"> # Logo</h2>
+
+            <div class=' ins-col-12 ins-card ins-flex '>
+
+                <div class="ins-text-center">
+                    <div style="width:150px;height:150px" class=' gla-elogo '></div>
+                    gla-elogo
+                </div>
+
+
+                <div class="ins-text-center">
+
+                    <div style="width:150px;height:150px" class=' gla-elogo-primary '></div>
+
+                    gla-elogo-primary
+
+                </div>
+
+                <div class="ins-text-center">
+
+                    <div style="width:150px;height:150px" class=' gla-elogo-grey'></div>
+
+                    gla-elogo-grey
+
+                </div>
+                <div class="ins-text-center">
+
+                    <div style="width:150px;height:150px" class=' gla-elogo-black'></div>
+
+                    gla-elogo-black
+
+                </div>
+
+
+
+                <div style="width:150px;height:180px" class=' ins-secondary ins-text-center'>
+
+                    <div style="width:150px;height:150px" class=' gla-elogo-white '></div>
+
+                    gla-elogo-white
+                </div>
+
+
+                <div class="ins-text-center">
+
+
+                    <div style="width:150px;height:150px" class=' gla-alogo '></div>
+                    gla-alogo
+                </div>
+                <div class="ins-text-center">
+
+                    <div style="width:150px;height:150px" class=' gla-alogo-primary '></div>
+                    gla-alogo-primary
+                </div>
+                <div class="ins-text-center">
+
+                    <div style="width:150px;height:150px" class=' gla-alogo-grey'></div>
+                    gla-alogo-grey
+                </div>
+                <div class="ins-text-center">
+
+                    <div style="width:150px;height:150px" class=' gla-alogo-black'></div>
+                    gla-alogo-black
+                </div>
+
+                <div style="width:150px;height:180px" class=' ins-secondary ins-text-center'>
+
+                    <div style="width:150px;height:150px" class=' gla-alogo-white '></div>
+                    gla-alogo-white
+                </div>
+
+
+                <div style="width:150px;height:180px" class='  ins-text-center'>
+
+                    <div style="width:150px;height:150px" class=' gla-alogo-primary-l '></div>
+                    gla-alogo-primary-l
+                </div>
+
+
+
+
+            </div>
+
+        </div>
+
+
+        <div class=' ins-col-12 ins-card ins-flex ins-gap-40 '>
+            <h2 class="ins-col-12"> # shadow </h2>
+
+            <div style="width: 250px; height:80px" class="gla-icon-card gla-shadow-xs   ins-white"> gla-shadow-xs</div>
+            <div style="width: 250px; height:80px" class="gla-icon-card gla-shadow-s   ins-white"> gla-shadow-s</div>
+            <div style="width: 250px; height:80px" class="gla-icon-card gla-shadow-m   ins-white"> gla-shadow-m</div>
+            <div style="width: 250px; height:80px" class="gla-icon-card gla-shadow-l   ins-white"> gla-shadow-l</div>
+            <div style="width: 250px; height:80px" class="gla-icon-card gla-shadow-xl   ins-white"> gla-shadow-xl</div>
+            <div style="width: 250px; height:80px" class="gla-icon-card gla-shadow-2xl   ins-white"> gla-shadow-2xl</div>
+
+            <div class="ins-space-l"></div>
+
+        </div>
+
+
+
+
+        <div class=' ins-col-12    ins-flex '>
+            <h2 class="ins-col-12"> # Icon-card (gla-icon-card)</h2>
+            <div>
+                <div class="gla-icon-card gla-shadow-s   ins-secondary"><img src="/ins_web/ins_uploads/style/buf.svg"></div>
+
+                ins-secondary <br/> gla-icon-card
+            </div>
+
+            <div>
+
+                <div class="gla-icon-card gla-shadow-s   ins-white"><img src="/ins_web/ins_uploads/style/buf.svg"></div>
+
+                gla-icon-card <br/> ins-white
+            </div>
+
+
+            <div>
+
+                <div class="gla-icon-card gla-shadow-s  ins-radius-l  ins-white"><img src="/ins_web/ins_uploads/style/buf.svg"></div>
+
+                gla-icon-card <br/> ins-radius-l
+            </div>
+
+            <div>
+
+                <div class="gla-icon-card gla-shadow-s  ins-radius-l  ins-primary-w "><img src="/ins_web/ins_uploads/style/buf.svg"></div>
+
+                gla-icon-card <br/> ins-radius-l
+            </div>
+
+        </div>
+    </div>
+    <div class=' ins-space-l '></div>
+
+    <div class=' ins-col-12 ins-card    ins-flex '>
+
+        <div class="ins-tag   ins-radius-s">Bestseller</div>
+        <div class="ins-tag ins-primary  ins-radius-m">Bestseller</div>
+
+        <div class="ins-tag ins-primary  ">Bestseller</div>
+        <div class="ins-tag ins-primary  ins-radius-xxl">Bestseller</div>
+
+
+        <div class="ins-tag ins-secondary  ins-radius-xxl">Bestseller</div>
+        <div class="ins-tag ins-grey ins-radius-s">Bestseller</div>
+        <div class="ins-tag ins-primary-bg ins-radius-s">Bestseller</div>
+        <div class="ins-tag ins-gold-bg ins-radius-s">Bestseller</div>
+    </div>
+
+
+    <div class=' ins-space-l '></div>
+    <div class=' ins-col-12    ins-flex '>
+
+
+        <div start="true" class="ins-flex  gla-pro-block  " style="width:316px;">
+            <div start="true" class=" gla-img-cont  ">
+                <div class="ins-tag ins-primary  ins-radius-s" style="   position: absolute;top: 8px;left: 8px;">Bestseller</div><img src="/ins_web/ins_uploads/style/g1.svg" class="gla-pro-img"><img src="/ins_web/ins_uploads/style/n5.svg" class="gla-pro-himg">
+                <div class="ins-button gla-pro-hbutton ins-strong-m   ins-gold-bg">SHOP NOW <i class=" lni ins-icon lni-arrow-right"></i></div>
+            </div>
+            <div class="ins-space-s"></div>
+            <div class="ins-col-12 ins-title-m ins-strong-m   ins-grey-color" style="line-height:24px">250gm Gold Bar</div>
+            <div class="ins-col-12  ins-strong-m  ins-primary-color" style="line-height:24px">E£ 208,750.00</div>
+        </div>
+
+        <div start="true" class="ins-col-1">
+        </div>
+
+
+        <div start="true" class="ins-flex  " style="width:316px;margin-bottom: 32px;"><img src="/ins_web/ins_uploads/style/n4.svg">
+            <div class="ins-col-12 ins-title-m  ins-grey-color">The History of Gold From Ancient Times to Modern Investments</div>
+        </div>
+    </div>
+
+    <footer class="t-footer ins-flex ins-secondary ">
+        <div class="gla-container ins-flex-start">
+            {{ wdgts["footer"]|safe }}
+        </div>
+    </footer>
+</body>
+
+</html>

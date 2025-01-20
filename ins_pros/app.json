@@ -1,0 +1,55 @@
+{
+    "db": {
+        "main": {
+            "name": "py_insya_2",
+            "user": "root",
+            "password": "",
+            "host": "localhost"
+        }
+    },
+    "langs": {
+        "en": {
+            "name": "en",
+            "title": "English",
+            "direction": "ltr"
+        },
+        "ar": {
+            "name": "ar",
+            "code": "ar",
+            "title": "عربي",
+            "direction": "rtl"
+        }
+    },
+    "areas": {
+        "home": {
+            "url": "",
+            "title": "Home",
+            "name": "home",
+            "logo": "h_logo.png"
+        },
+        "ins_admin": {
+            "url": "ins_admin",
+            "name": "ins_admin",
+            "title": "the admin",
+            "logo": "adm_logo.png"
+        },
+        "ins_gla": {
+            "url": "ins_gla",
+            "name": "ins_gla",
+            "title": "Galla",
+            "logo": "adm_logo.png"
+        }
+    },
+    "jar": {
+        "kit_created": {
+            "info": "now",
+            "target": "kit_created",
+            "operation": "insert"
+        },
+        "kit_modified": {
+            "info": "now",
+            "target": "kit_modified",
+            "operation": "update"
+        }
+    }
+}
