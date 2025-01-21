@@ -9,11 +9,12 @@ class WdgContent(Widget):
 
     def out(self):
         if "id" not in self.widget._options:
-            return " No content selected "
+            return ""
         data = self.ins._db._get_row(
             "content_table", "*", f"id={self.widget._options["id"]}")
         if not data :
-            return " No content selected "
+            pass
+            ##return " No content selected "
         self.widget._include("script.js")
         ui = [
             {"_data":   data["content"], "class": "ins-col-12  ins-flex ap-wdgt-body "},

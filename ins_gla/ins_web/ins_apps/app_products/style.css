@@ -2,8 +2,12 @@
     height: auto !important;
 }
 
-.-open-panel.ins-active>div>span.lni {
+.-open-panel>div>span.lni {
     rotate: 90deg;
+}
+
+.-open-panel.ins-active>div>span.lni {
+    rotate: 0deg;
 }
 
 .count-inpt {
