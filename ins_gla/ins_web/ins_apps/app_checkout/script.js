@@ -19,6 +19,7 @@ ins(".-add-address-btn")._on("click", (o) => {
     ins(".-add-address-area")._data._submit(function(data) {
         ins("_add_address")._ajax._app(data, (d) => {
             ins(".-addresses-area")._setHTML(d);
+            ins("Address added successfully")._ui._notification()
         })
     })
 }, true)
@@ -82,8 +83,16 @@ ins(".-remove-item-cart-btn")._on("click", (o) => {
                 window.location.reload()
             }
             p._remove()
-            ins("Item removed!")._ui._notification({ "class": "ins-success" })
+            ins("Item removed!")._ui._notification()
         })
     }
 
+}, true)
+
+
+ins(".-remove-address-btn")._on("click", (o) => {
+    var p = o._parents(".-address-cont");
+    if (confirm("Are you sure you want to remove this address?")) {
+        p._remove()
+    }
 }, true)

@@ -79,7 +79,7 @@ class AppCheckout(App):
     def header_ui(self):
         rq = self.ins._server._req()
 
-        uidata=[{"start":"true","class":"ins-flex ins-col-12 gla-container"}]
+        uidata=[{"start":"true","class":"ins-flex ins-col-12 gla-container ins-padding-2xl"}]
       
       
         home_url = self.ins._server._url({},["mode","id","alias"])
@@ -97,7 +97,14 @@ class AppCheckout(App):
 
         uidata+=path
 
-        uidata.append({"_data":"Shipping Address","class":"ins-col-7 ins-title ins-strong-m ins-text-upper ins-grey-d-color"})
+        if rq["mode"] == "cart":
+           uidata.append({"_data":"My Cart","class":"ins-col-7 ins-title ins-strong-m ins-text-upper ins-grey-d-color"})
+        elif rq["mode"] == "delivery":
+            uidata.append({"_data":"Shipping Address","class":"ins-col-7 ins-title ins-strong-m ins-text-upper ins-grey-d-color"})
+        else:
+           uidata.append({"_data":"Payment Information","class":"ins-col-7 ins-title ins-strong-m ins-text-upper ins-grey-d-color"})
+
+       
         steps = [
             {"text":"My Cart",
              "img":"ecart.svg",
@@ -151,7 +158,7 @@ class AppCheckout(App):
         uidata.append({"end":"true"})
 
         uidata.append({"class":"ins-space-s"})
-        uidata.append({"_data": "Add Address <img src='"+p+"style/right_arrow.svg'></img>", "class": "ins-button-s ins-strong-m ins-flex-center ins-text-upper  -add-address-btn ins-gold-d ins-col-3","style":"    height: 46px;"})
+        uidata.append({"_data": "Add Address <img src='"+p+"style/right_arrow.svg'></img>", "class": "ins-button-s ins-strong-m ins-flex-center ins-text-upper  -add-address-btn ins-gold-d ins-col-3","style":"height: 46px;    border: 1px solid var(--primary-d);"})
         uidata.append({"_data": " Back", "class": "ins-button-s ins-flex-center ins-strong-m ins-text-upper ins-gold-d-color   -back-address-btn  ins-col-2 ","style":"    height: 46px;"})
         uidata.append({"end":"true"})
         return self.ins._ui._render(uidata)
@@ -170,7 +177,7 @@ class AppCheckout(App):
         
         for a in addesses:
            
-           uidata.append({"start":"true","class":"ins-col-12 ins-card ins-flex-valign-center ins-padding-s","style":"    line-height: 20px;"})
+           uidata.append({"start":"true","class":"ins-col-12 ins-card ins-flex-valign-center ins-padding-s -address-cont","style":"    line-height: 20px;"})
            uidata.append({"_data":"<img class='-address-btn' src='"+p + "style/radio.svg"+"'></img>","class":"ins-flex ins-col-1"})
            uidata.append({"start":"true","class":"ins-col-9 ins-flex"})
            uidata.append({"_data": a["title"],"class":" ins-title-s ins-strong-m ins-grey-d-color ins-col-12","style":"line-height: 24px;"})
@@ -179,7 +186,7 @@ class AppCheckout(App):
            uidata.append({"end":"true"})
            uidata.append({"start":"true","class":"ins-col-2 ins-flex-end"})
            uidata.append({"_data":"<img src='"+p + "style/pen.svg"+"'></img>","class":"ins-text-center"})
-           uidata.append({"_data":"<img src='"+p + "style/trash.svg"+"'></img>","class":"ins-text-center -remove-item-cart-btn"})
+           uidata.append({"_data":"<img src='"+p + "style/trash.svg"+"'></img>","class":"ins-text-center -remove-address-btn"})
            uidata.append({"end":"true"})
 
            uidata.append({"end":"true"})
@@ -247,23 +254,23 @@ class AppCheckout(App):
 
        
         uidata.append({"start": "true", "class": "ins-flex ins-col-12  ins-padding-m","style":"border-radius:8px !important;border: 1px solid var(--grey-l);"})
-        uidata.append({"_data": "Your details", "class": "ins-col-12  ins-grey-d-color ins-title-s ins-strong-l "})
+        uidata.append({"_data": "Your details", "class": "ins-col-12  ins-grey-d-color ins-font-l ins-strong-l "})
         uidata.append({"class":"ins-space-s"})
-        uidata.append({"_data": "Subtotal", "class": "ins-col-6 ins-grey-color ins-strong-m"})
-        uidata.append({"_data": "EGP 1,655.00", "class": "ins-col-6  ins-grey-d-color ins-strong-l ins-flex-end"})
-        uidata.append({"_data": "Making Charge", "class": "ins-col-6 ins-grey-color ins-strong-m"})
-        uidata.append({"_data": "EGP 1,655.00", "class": "ins-col-6  ins-grey-d-color ins-strong-l ins-flex-end"})
-        uidata.append({"_data": "Shipping", "class": "ins-col-6 ins-grey-color ins-strong-m"})
-        uidata.append({"_data": "Free", "class": "ins-col-6  ins-gold-d-color ins-strong-l ins-flex-end"})
+        uidata.append({"_data": "Subtotal", "class": "ins-col-6  ins-font-m  ins-grey-color ins-strong-m"})
+        uidata.append({"_data": "E£ 208,750.00", "class": "ins-col-6  ins-grey-d-color ins-font-m ins-strong-l ins-flex-end"})
+        uidata.append({"_data": "Making Charge", "class": "ins-col-6  ins-font-m  ins-grey-color ins-strong-m"})
+        uidata.append({"_data": "EGP 1,960.00", "class": "ins-col-6  ins-grey-d-color ins-font-m ins-strong-l ins-flex-end"})
+        uidata.append({"_data": "Shipping", "class": "ins-col-6  ins-font-m  ins-grey-color ins-strong-m"})
+        uidata.append({"_data": "Free", "class": "ins-col-6  ins-gold-d-color ins-font-m ins-strong-l ins-flex-end"})
         uidata.append({ "class": "ins-line ins-col-12"})
-        uidata.append({"_data": "Total", "class": "ins-col-6 ins-grey-color ins-strong-m"})
-        uidata.append({"_data": "EGP 1,655.00", "class": "ins-col-6  ins-grey-d-color ins-strong-l ins-flex-end"})
+        uidata.append({"_data": "Total", "class": "ins-col-6  ins-font-m  ins-grey-color ins-strong-m"})
+        uidata.append({"_data": "E£ 208,750.00", "class": "ins-col-6  ins-grey-d-color ins-font-m ins-strong-l ins-flex-end"})
         uidata.append({"end": "true"})
         uidata.append({"class":"ins-space-xl"})
 
         payment_url = self.ins._server._url({"mode":"delivery"},["id"])
         back_url = self.ins._server._url({"alias":"product"},["id","mode"])
-        uidata.append({"href":payment_url,"_type":"a","_data": "Procced to address <img src='"+p+"style/right_arrow.svg'></img>", "class": "ins-button-s ins-strong-m ins-flex-center ins-text-upper  ins-gold-d ins-col-12 ins-font-m	","style":"    height: 46px;"})
+        uidata.append({"href":payment_url,"_type":"a","_data": "Procced to address <img src='"+p+"style/right_arrow.svg'></img>","class": "ins-button-s ins-flex-center ins-font-m ins-strong-m ins-flex-grow ins-gold-d -add-cart-btn ins-text-upper","style":"    height: 46px;    border: 1px solid var(--primary-d);"})
         uidata.append({"href":back_url,"_type":"a","_data": " <img src='"+p+"style/left_arrow.svg'></img> Back", "class": "ins-button-s ins-flex-center ins-strong-m ins-text-upper ins-gold-d-color   ins-col-12 ins-font-m	","style":"    height: 46px;"})
         uidata.append({"end":"true"})
 
@@ -303,28 +310,44 @@ class AppCheckout(App):
         
         uidata.append({"class":"ins-space-xl"})
 
+
         uidata.append({"start": "true", "class": "ins-flex ins-col-12  ins-padding-m","style":"border-radius:8px !important;border: 1px solid var(--grey-l);"})
-        uidata.append({"_data": "Your details", "class": "ins-col-12  ins-grey-d-color ins-title-s ins-strong-l "})
+        uidata.append({"_data": "Your details", "class": "ins-col-12 ins-title-s ins-grey-d-color ins-strong-l "})
         uidata.append({"class":"ins-space-s"})
-        uidata.append({"_data": "Subtotal", "class": "ins-col-6 ins-grey-color ins-strong-m"})
-        uidata.append({"_data": "EGP 1,655.00", "class": "ins-col-6  ins-grey-d-color ins-strong-l ins-flex-end"})
-        uidata.append({"_data": "Making Charge", "class": "ins-col-6 ins-grey-color ins-strong-m"})
-        uidata.append({"_data": "EGP 1,655.00", "class": "ins-col-6  ins-grey-d-color ins-strong-l ins-flex-end"})
-        uidata.append({"_data": "Shipping", "class": "ins-col-6 ins-grey-color ins-strong-m"})
-        uidata.append({"_data": "Free", "class": "ins-col-6  ins-gold-d-color ins-strong-l ins-flex-end"})
+        uidata.append({"_data": "Subtotal", "class": "ins-col-6  ins-font-m  ins-grey-color ins-strong-m"})
+        uidata.append({"_data": "E£ 208,750.00", "class": "ins-col-6  ins-grey-d-color ins-font-m ins-strong-l ins-flex-end"})
+        uidata.append({"_data": "Making Charge", "class": "ins-col-6  ins-font-m  ins-grey-color ins-strong-m"})
+        uidata.append({"_data": "EGP 1,960.00", "class": "ins-col-6  ins-grey-d-color ins-font-m ins-strong-l ins-flex-end"})
+        uidata.append({"_data": "Shipping", "class": "ins-col-6  ins-font-m  ins-grey-color ins-strong-m"})
+        uidata.append({"_data": "Free", "class": "ins-col-6  ins-gold-d-color ins-font-m ins-strong-l ins-flex-end"})
         uidata.append({ "class": "ins-line ins-col-12"})
-        uidata.append({"_data": "Total", "class": "ins-col-6 ins-grey-color ins-strong-m"})
-        uidata.append({"_data": "EGP 1,655.00", "class": "ins-col-6  ins-grey-d-color ins-strong-l ins-flex-end"})
+        uidata.append({"_data": "Total", "class": "ins-col-6  ins-font-m  ins-grey-color ins-strong-m"})
+        uidata.append({"_data": "E£ 208,750.00", "class": "ins-col-6  ins-grey-d-color ins-font-m ins-strong-l ins-flex-end"})
         uidata.append({"end": "true"})
         uidata.append({"class":"ins-space-xl"})
-
         payment_url = self.ins._server._url({"mode":"payment"},["id"])
         if "mode" in rq and rq["mode"] == "delivery":
          back_url = self.ins._server._url({"mode":"cart"},["id"])
         else:
          back_url = self.ins._server._url({"mode":"delivery"},["id"])
 
-        uidata.append({"href":payment_url,"_type":"a","_data": "Procced to payment <img src='"+p+"style/right_arrow.svg'></img>", "class": "ins-button-s ins-strong-m ins-flex-center ins-text-upper  ins-gold-d ins-col-12 ins-font-m	","style":"    height: 46px;"})
+        if "mode" in rq and rq["mode"] == "payment":
+
+            uidata.append({"start": "true", "class": "ins-flex ins-col-12  ins-padding-m","style":"border-radius:8px !important;border: 1px solid var(--grey-l);"})
+            uidata.append({"_data": "Shipping Address", "class": "ins-col-8 ins-title-s ins-grey-d-color ins-strong-l "})
+            uidata.append({"_data": "Edit Address", "class": "ins-col-4 ins-flex-end ins-gold-d-color ins-strong-m ins-text-upper "})
+            uidata.append({"class":"ins-space-s"})
+            uidata.append({"_data": "Martin Philips", "class": "ins-col-12  ins-font-l  ins-grey-d-color ins-strong-l"})
+            uidata.append({"_data": "4 Nasr Road cross Makram Ebeid Nasr City, Cairo, Egypt", "class": "ins-col-12 ins-grey-color"})
+            uidata.append({"_data": "Mobile: 123-456-789-01  Email: example@gmail.com", "class": "ins-col-12 ins-grey-d-color ins-strong-m ","style":"font-size:14px"})
+            uidata.append({"end": "true"})
+            uidata.append({"class":"ins-space-xl"})
+            uidata.append({"_data": "Place Order <img src='"+p+"style/right_arrow.svg'></img>","class": "ins-button-s ins-flex-center ins-font-m ins-strong-m ins-flex-grow ins-gold-d -add-cart-btn ins-text-upper","style":"    height: 46px;    border: 1px solid var(--primary-d);"})
+        else:
+          uidata.append({"href":payment_url,"_type":"a","_data": "Procced to payment <img src='"+p+"style/right_arrow.svg'></img>","class": "ins-button-s ins-flex-center ins-font-m ins-strong-m ins-flex-grow ins-gold-d -add-cart-btn ins-text-upper","style":"    height: 46px;    border: 1px solid var(--primary-d);"})
+
+
+
         uidata.append({"href":back_url,"_type":"a","_data": " <img src='"+p+"style/left_arrow.svg'></img> Back", "class": "ins-button-s ins-flex-center ins-strong-m ins-text-upper ins-gold-d-color   ins-col-12 ins-font-m	","style":"    height: 46px;"})
         uidata.append({"_data": "Your info will be saved to a Shop account. By continuing, you agree to Shop’s <a>Terms of Service</a> and acknowledge the  <a>Privacy Policy</a>.", "class": " ins-col-12 ins-grey-color ","style":"line-height:24px"})
 
@@ -334,10 +357,25 @@ class AppCheckout(App):
        
 
         uidata=[{"start":"true","class":"ins-col-7 ins-flex ins-padding-2xl"}]
-        uidata.append({"start":"true","class":"ins-col-12 ins-flex ins-gap-o"})
+        uidata.append({"start":"true","class":"ins-col-12 ins-flex"})
 
+        uidata.append({"start":"true","class":"ins-col-12 ins-gap-o"})
         uidata.append({"_data":"payment","class":"ins-col-12 ins-font-l	 ins-strong-m ins-grey-d-color ins-text-upper"})
         uidata.append({"_data":"All transactions are secure and encrypted","class":"ins-col-12 ins-font-m ins-grey-color"})
+        uidata.append({"end":"true"})
+
+       
+        uidata.append({"class":"ins-space-s"})
+
+
+        uidata.append({"_data": "<img src='"+p + "style/radio.svg"+"'></img>"+"Cash on delivery", "class": "  ins-col-12   ins-flex ins-grey-m-color -delivery-type-btn payment-card ins-strong-m"})
+        uidata.append({"_data": "<img src='"+p + "style/radio.svg"+"'></img>"+"Pay Via card", "class": "  ins-col-12   ins-flex ins-grey-m-color -delivery-type-btn payment-card ins-strong-m"})
+        uidata.append({"_data": "<img src='"+p + "style/radio.svg"+"'></img>"+"InstaPay", "class": "  ins-col-12   ins-flex ins-grey-m-color -delivery-type-btn payment-card ins-strong-m"})
+        uidata.append({"_data": "<img src='"+p + "style/radio.svg"+"'></img>"+"Bank transfer", "class": "  ins-col-12   ins-flex ins-grey-m-color -delivery-type-btn payment-card ins-strong-m"})
+
+        
+        
+        
         uidata.append({"end":"true"})
 
 
@@ -354,10 +392,10 @@ class AppCheckout(App):
     def _ui(self):
        
         rq = self.ins._server._req()
-        uidata = [{"start":"true","class":"ins-flex ins-padding-xl ","style":"background:white;height:124px;top: -20px;position: relative;    border-bottom: 1px solid var(--grey-l); "}]
+        uidata = [{"start":"true","class":"ins-flex ","style":"background:white;height:124px;position: relative;    border-bottom: 1px solid var(--grey-l); "}]
         uidata+=self.header_ui()
         uidata.append({"end":"true"})
-        uidata.append({"start":"true","class":"ins-col-12 ins-flex-valign-start ins-gap-o gla-container","style":"position: relative;top: -20px;"})
+        uidata.append({"start":"true","class":"ins-col-12 ins-flex-valign-start ins-gap-o gla-container","style":"position: relative;"})
         if "mode" in rq:
             if  rq["mode"] == "delivery":
               r=  self.user._check()
