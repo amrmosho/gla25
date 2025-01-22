@@ -1,7 +1,10 @@
 ins(".-address-btn")._on("click", (o) => {
     ins(".-address-btn")._setAttribute("src", "/ins_web/ins_uploads/style/radio.svg")
+    ins("_select_address")._ajax._app(o._getData(), (data) => {
+
+    })
     o._setAttribute("src", "/ins_web/ins_uploads/style/radio_checked.svg")
-})
+}, true)
 
 ins(".-add-address")._on("click", (o) => {
 
@@ -93,6 +96,11 @@ ins(".-remove-item-cart-btn")._on("click", (o) => {
 ins(".-remove-address-btn")._on("click", (o) => {
     var p = o._parents(".-address-cont");
     if (confirm("Are you sure you want to remove this address?")) {
-        p._remove()
+        ins("_remove_address")._ajax._app(o._getData(), (data) => {
+            ins("Address removed!")._ui._notification()
+            p._remove()
+
+        })
+
     }
 }, true)

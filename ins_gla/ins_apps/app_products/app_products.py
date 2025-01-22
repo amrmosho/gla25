@@ -1,6 +1,7 @@
 from ins_gla.ins_kit._elui import ELUI
 from ins_kit._engine._bp import App
 from ins_gla.ins_apps.app_products.app_product_details import AppProductDetails
+import json
 
 import math
 items_per_page = 12
@@ -36,42 +37,46 @@ class AppProducts(App):
     def _cart_lightbox_ui(self):
 
         p =self.ins._server._post()
-        data= self.ins._db._get_row("gla_product", "*", f"id={p["pid"]}")
+        pro= self.ins._db._jget("gla_product", "*", f"gla_product.id={p["pid"]}")
+        pro._jwith("gla_product_category category", "title,id", rfk="fk_category_id" ,join="left join")
+        ddata = pro._jrun()
 
-        sedata=self.ins._server._get_session(self.session_name)
-        if type(sedata) != dict:
-            sedata ={}
-        adddata = {"id":data["id"] ,"title":data["title"] ,"price" :data["price"],"des" :data.get("des" ,"") ,"th_main" :data["th_main"]  ,"count":p["count"] }
-        sedata[str(data["id"])] =adddata
+        for data in ddata:
 
-        self.ins._server._set_session(self.session_name,sedata)
+            sedata=self.ins._server._get_session(self.session_name)
+            if type(sedata) != dict:
+                sedata ={}
+            adddata = {"id":data["id"] ,"title":data["title"],"category":data["category_title"] ,"weight":data["weight"] ,"price" :data["price"],"des" :data.get("des" ,"") ,"th_main" :data["th_main"]  ,"count":p["count"] }
+            sedata[str(data["id"])] =adddata
 
-
-        sedata=self.ins._server._get_session(self.session_name)
-
-        uidata=[{"start":True ,"class":"ins-col-12 ins-flex -cart-cont"}]
-
-
-        for k,v in sedata.items():
-       
-            uidata+= ELUI(self.ins).small_pro_block(v)
+            self.ins._server._set_session(self.session_name,sedata)
 
 
+            sedata=self.ins._server._get_session(self.session_name)
 
-        footer=[{"start":True ,"class":"ins-flex-space-between ins-col-12 ins-padding-l"},
-
-        {"_data":"Continue Shopping" ,"class":"ins-button-s ins-font-xs ins-text-upper ins-gold ins-col-6 -continue-shopping-btn"},
-        {"_data":"To cart","_type":"a","href":"/checkout/cart" ,"class":"ins-button-s ins-font-xs ins-gold  ins-text-upper ins-col-5"},
-        {"end":True},
-        
-        ]
-
-        uidata += footer
-        
-        uidata.append({"end":True})
+            uidata=[{"start":True ,"class":"ins-col-12 ins-flex -cart-cont"}]
 
 
-        return self.ins._ui._render(uidata)      
+            for k,v in sedata.items():
+           
+                uidata+= ELUI(self.ins).cart_pro_block(v)
+                uidata.append({"class":"ins-space-xs"})
+
+
+            footer=[{"start":True ,"class":"ins-flex-space-between ins-col-12 ins-padding-l"},
+
+            {"_data":"Continue Shopping" ,"class":"ins-button-s  ins-text-upper ins-gold-d ins-col-6 -continue-shopping-btn"},
+            {"_data":"To cart","_type":"a","href":"/checkout/cart" ,"class":"ins-button-s  ins-gold-d  ins-text-upper ins-col-5"},
+            {"end":True},
+            
+            ]
+
+            uidata += footer
+            
+            uidata.append({"end":True})
+
+
+            return self.ins._ui._render(uidata)      
 
 
     
@@ -101,7 +106,7 @@ class AppProducts(App):
 
         for d in rpdata:
             st = "width:316px;"
-            purl = self.ins._server._url({"id": d["id"] ,"mode":"product"})
+            purl = self.ins._server._url({"mode":"product","id": f"{d["id"]}"})
             
             
             r = [
@@ -165,7 +170,9 @@ class AppProducts(App):
         return uidata
 
 
-
+    def _filter(self):
+        rq = self.ins._server._post()
+        return rq
 
     def _list(self):
         categories = self.ins._db._get_data("gla_product_category", "title")
@@ -178,23 +185,43 @@ class AppProducts(App):
 
 
         ## Filter Area
-        uidata.append({"start": "true", "class": "ins-flex ins-col-3 ins-grey-d-color ins-padding-m full-height ins-border ins-border-top","style":"background:white;"})
-        uidata.append({"_data": "Filter", "class": "ins-col-12   ins-font-xl ins-strong-m ins-text-upper"})
-        uidata.append({"class": "ins-space-l"})
+        uidata.append({"start": "true", "class": "ins-flex ins-col-3 -filter-area ins-grey-d-color ins-padding-m full-height","style":"background:white;"})
+        uidata.append({"class": "ins-space-m"})
 
-        uidata.append({"_type": "input", "type": "text", "placeholder":"Product name Search..",  "pclass": "ins-col-12","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input", "name":"title","type": "text", "placeholder":"Product name Search..","class":" -product-filter-input",  "pclass": "ins-col-12","style":"    background: white;border-radius:4px;"})
+        uidata.append({"class": "ins-space-m"})
 
+        uidata.append({"start": "true", "class": "ins-flex ins-col-12  ins-gap-o"})
         uidata.append({"_data": "Category", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-font-m  "})
         for c in categories:
-            uidata.append({"_type": "input", "type": "checkbox", "value": "0", "_end": c["title"], "pclass": "ins-col-12  -product-list-chkbox"})
-        
+            uidata.append({"_type": "input", "name":"type", "type": "checkbox", "value": "0", "_end": c["title"],"class":" -product-filter-input", "pclass": "ins-col-12  -product-list-chkbox","style":"    width: 20px;","pstyle":"    height: 35px;"})
+        uidata.append({"end":"true"})
+
+
+
+
+        uidata.append({"class": "ins-space-m"})
 
         uidata.append({"_data": "Type", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-font-m  "})
         for t in types:
-            uidata.append({"_data": t, "class": "ins-button-s  -type-btn ins-strong-m ins-grey-color ins-col-4","style":"    border: 1px solid var(--grey-l);border-radius: 8px !important;"})
+            uidata.append({"_data": t, "name":"fk_category_id","class": "ins-button-s  -type-btn ins-strong-m ins-grey-color ins-col-4  -product-filter-input","style":"    border: 1px solid var(--grey-l);border-radius: 8px !important;"})
 
-        
-        
+        uidata.append({"class": "ins-space-m"})
+
+        uidata.append({"_data": "Weight", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-font-m  "})
+        uidata.append({"_type": "select",  "_data":",0.25gm,0.5gm,1gm,2.5gm,5gm,10gm,0.5oz / 15.55gm,20gm,1oz / 31.10gm,50gm,100gm,10 Tolas / 116.65gm,250gm,500gm,1000gm","_value":",0.25,0.5,1,2.5,5,10,15.55,20,31.10,50,100,116.65,250,500,1000", "name": "weight", "pclass": "ins-col-12","class":" -product-filter-input"})
+        uidata.append({"class": "ins-space-m"})
+
+        uidata.append({"class": "ins-line ins-col-12"})
+        uidata.append({"class": "ins-space-m"})
+
+        uidata.append({"start": "true", "class": "ins-col-12 ins-flex-space-between"})
+        uidata.append({"_data": "Reset", "class": "ins-col-6  ins-button -product-reset-btn ins-border"})
+        uidata.append({"_data": "Filter", "class": "ins-col-6 ins-gold-d ins-button -product-filter-btn"})
+        uidata.append({"end": "true"})
+
+
+
         uidata.append({"end": "true"})
 
 

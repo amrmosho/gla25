@@ -97,7 +97,7 @@ ins(".-add-cart-btn")._on("click", (o) => {
             title: "<i class='lni ins-icon lni-cart  '></i> Cart",
             data: data,
             data_style: "position: relative;top: 0;",
-            style: "width:500px;    "
+            style: "width:650px;    "
         });
     })
 
@@ -123,4 +123,15 @@ ins(".-remove-item-cart-btn")._on("click", (o) => {
         })
     }
 
+}, true)
+
+ins(".-product-filter-btn")._on("click", (o) => {
+    ins(".-filter-area")._data._submit((data) => {
+
+        ins("_filter")._ajax._app(data, (d) => {
+
+            console.log(d)
+        })
+
+    })
 }, true)

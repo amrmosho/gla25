@@ -15,6 +15,10 @@ class AppCheckout(App):
     def session_name(sel):
         return "glaproducts"
     
+    @property
+    def session_address_name(sel):
+        return "glaaddress"
+    
        
     def _update_item_data(self):
        data = self.ins._server._post()
@@ -163,22 +167,33 @@ class AppCheckout(App):
         uidata.append({"end":"true"})
         return self.ins._ui._render(uidata)
 
-
+    def _select_address(self):
+       post = self.ins._server._post()
+       adddress = {"id":post["aid"]}
+       self.ins._server._set_session(self.session_address_name,adddress)
+       return "1"
 
     def _addresses_area_ui(self,string=True):
         rsdata=  self.user._check()
-
+        
         addesses = self.ins._db._get_data("gla_address","*",f"fk_user_id = '{rsdata["id"]}' order by kit_created ASC")
 
         uidata=[{"start":"true","class":"ins-col-12 ins-flex  -addresses-area"}]
         uidata.append({"_data":"Saved Address","class":"ins-col-9 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"})
         uidata.append({"_data": "Add Address", "class": "ins-button-s -add-address ins-text-center ins-strong-m ins-col-3 ins-gold-bg  ins-text-upper"})
-        
+        asession = self.ins._server._get_session(self.session_address_name)
+
+        if type(asession) != dict:
+           asession = {"id":"-1"}
+
         
         for a in addesses:
-           
+           img = "style/radio.svg"
+
+           if str(a["id"]) == str(asession["id"]):
+              img = "style/radio_checked.svg"
            uidata.append({"start":"true","class":"ins-col-12 ins-card ins-flex-valign-center ins-padding-s -address-cont","style":"    line-height: 20px;"})
-           uidata.append({"_data":"<img class='-address-btn' src='"+p + "style/radio.svg"+"'></img>","class":"ins-flex ins-col-1"})
+           uidata.append({"_data":"<img data-aid = "+f"{a["id"]}"+" class='-address-btn' src='"+p + img+"'></img>","class":"ins-flex ins-col-1"})
            uidata.append({"start":"true","class":"ins-col-9 ins-flex"})
            uidata.append({"_data": a["title"],"class":" ins-title-s ins-strong-m ins-grey-d-color ins-col-12","style":"line-height: 24px;"})
            uidata.append({"_data": a["address"],"class":"ins-grey-color ins-col-12 ins-font-s","style":"line-height: 16px;"})
@@ -186,7 +201,7 @@ class AppCheckout(App):
            uidata.append({"end":"true"})
            uidata.append({"start":"true","class":"ins-col-2 ins-flex-end"})
            uidata.append({"_data":"<img src='"+p + "style/pen.svg"+"'></img>","class":"ins-text-center"})
-           uidata.append({"_data":"<img src='"+p + "style/trash.svg"+"'></img>","class":"ins-text-center -remove-address-btn"})
+           uidata.append({"_data":"<img src='"+p + "style/trash.svg"+"'></img>","data-aid":a["id"],"class":"ins-text-center -remove-address-btn"})
            uidata.append({"end":"true"})
 
            uidata.append({"end":"true"})
@@ -226,6 +241,16 @@ class AppCheckout(App):
 
         return uidata
 
+
+    def _remove_address(self):
+      data = self.ins._server._post()
+      self.ins._db._update("gla_address",{"kit_deleted":"1"},f"id='{data["aid"]}'")
+
+      return "1"
+
+
+
+
     def _add_address(self):
        sdata = self.user._check()
        data = self.ins._server._post()
@@ -241,12 +266,18 @@ class AppCheckout(App):
         sedata=self.ins._server._get_session(self.session_name)
 
         uidata=[{"start":"true","class":"ins-col-7 ins-flex ins-padding-2xl"}]
-
+        subtotal = 0
+        chargs = 3000
         for k,v in sedata.items():
+            subtotal+= v["price"]
             uidata.append({"start":True,"class":"ins-col-12 ins-padding-m ins-card"})
             uidata+= ELUI(self.ins).counter_pro_block(v)
             uidata.append({"end":True})
         uidata.append({"end":"true"})
+
+        total = subtotal + chargs
+
+
 
         ## Items Area
         uidata.append({"start":"true","class":"ins-col-5 ins-gap-o ins-flex   ins-padding-2xl","style":"background:white;height:100%;   border-left: 1px solid var(--primary-l);"})
@@ -257,14 +288,14 @@ class AppCheckout(App):
         uidata.append({"_data": "Your details", "class": "ins-col-12  ins-grey-d-color ins-font-l ins-strong-l "})
         uidata.append({"class":"ins-space-s"})
         uidata.append({"_data": "Subtotal", "class": "ins-col-6  ins-font-m  ins-grey-color ins-strong-m"})
-        uidata.append({"_data": "E£ 208,750.00", "class": "ins-col-6  ins-grey-d-color ins-font-m ins-strong-l ins-flex-end"})
+        uidata.append({"_data": "EGP "+str(subtotal), "class": "ins-col-6  ins-grey-d-color ins-font-m ins-strong-l ins-flex-end"})
         uidata.append({"_data": "Making Charge", "class": "ins-col-6  ins-font-m  ins-grey-color ins-strong-m"})
-        uidata.append({"_data": "EGP 1,960.00", "class": "ins-col-6  ins-grey-d-color ins-font-m ins-strong-l ins-flex-end"})
+        uidata.append({"_data": "EGP "+str(chargs), "class": "ins-col-6  ins-grey-d-color ins-font-m ins-strong-l ins-flex-end"})
         uidata.append({"_data": "Shipping", "class": "ins-col-6  ins-font-m  ins-grey-color ins-strong-m"})
         uidata.append({"_data": "Free", "class": "ins-col-6  ins-gold-d-color ins-font-m ins-strong-l ins-flex-end"})
         uidata.append({ "class": "ins-line ins-col-12"})
         uidata.append({"_data": "Total", "class": "ins-col-6  ins-font-m  ins-grey-color ins-strong-m"})
-        uidata.append({"_data": "E£ 208,750.00", "class": "ins-col-6  ins-grey-d-color ins-font-m ins-strong-l ins-flex-end"})
+        uidata.append({"_data":"EGP "+str(total), "class": "ins-col-6  ins-grey-d-color ins-font-m ins-strong-l ins-flex-end"})
         uidata.append({"end": "true"})
         uidata.append({"class":"ins-space-xl"})
 
@@ -290,12 +321,16 @@ class AppCheckout(App):
         uidata = []
         sedata=self.ins._server._get_session(self.session_name)
         rq = self.ins._server._req()
-        for k,v in sedata.items():
+        subtotal = 0
+        chargs = 3000
 
+        for k,v in sedata.items():
+            subtotal+= v["price"]
             uidata+= ELUI(self.ins).small_pro_block(v)
             uidata.append({"class":"ins-space-m"})
 
     
+        total = subtotal + chargs
 
         
 
@@ -310,19 +345,18 @@ class AppCheckout(App):
         
         uidata.append({"class":"ins-space-xl"})
 
-
         uidata.append({"start": "true", "class": "ins-flex ins-col-12  ins-padding-m","style":"border-radius:8px !important;border: 1px solid var(--grey-l);"})
         uidata.append({"_data": "Your details", "class": "ins-col-12 ins-title-s ins-grey-d-color ins-strong-l "})
         uidata.append({"class":"ins-space-s"})
         uidata.append({"_data": "Subtotal", "class": "ins-col-6  ins-font-m  ins-grey-color ins-strong-m"})
-        uidata.append({"_data": "E£ 208,750.00", "class": "ins-col-6  ins-grey-d-color ins-font-m ins-strong-l ins-flex-end"})
+        uidata.append({"_data": "EGP "+ str(subtotal), "class": "ins-col-6  ins-grey-d-color ins-font-m ins-strong-l ins-flex-end"})
         uidata.append({"_data": "Making Charge", "class": "ins-col-6  ins-font-m  ins-grey-color ins-strong-m"})
-        uidata.append({"_data": "EGP 1,960.00", "class": "ins-col-6  ins-grey-d-color ins-font-m ins-strong-l ins-flex-end"})
+        uidata.append({"_data": "EGP "+ str(chargs), "class": "ins-col-6  ins-grey-d-color ins-font-m ins-strong-l ins-flex-end"})
         uidata.append({"_data": "Shipping", "class": "ins-col-6  ins-font-m  ins-grey-color ins-strong-m"})
         uidata.append({"_data": "Free", "class": "ins-col-6  ins-gold-d-color ins-font-m ins-strong-l ins-flex-end"})
         uidata.append({ "class": "ins-line ins-col-12"})
         uidata.append({"_data": "Total", "class": "ins-col-6  ins-font-m  ins-grey-color ins-strong-m"})
-        uidata.append({"_data": "E£ 208,750.00", "class": "ins-col-6  ins-grey-d-color ins-font-m ins-strong-l ins-flex-end"})
+        uidata.append({"_data": "EGP "+ str(total), "class": "ins-col-6  ins-grey-d-color ins-font-m ins-strong-l ins-flex-end"})
         uidata.append({"end": "true"})
         uidata.append({"class":"ins-space-xl"})
         payment_url = self.ins._server._url({"mode":"payment"},["id"])
@@ -332,14 +366,15 @@ class AppCheckout(App):
          back_url = self.ins._server._url({"mode":"delivery"},["id"])
 
         if "mode" in rq and rq["mode"] == "payment":
-
+            s = self.ins._server._get_session(self.session_address_name)
+            address = self.ins._db._get_row("gla_address","*",f"id='{s["id"]}'")
             uidata.append({"start": "true", "class": "ins-flex ins-col-12  ins-padding-m","style":"border-radius:8px !important;border: 1px solid var(--grey-l);"})
             uidata.append({"_data": "Shipping Address", "class": "ins-col-8 ins-title-s ins-grey-d-color ins-strong-l "})
-            uidata.append({"_data": "Edit Address", "class": "ins-col-4 ins-flex-end ins-gold-d-color ins-strong-m ins-text-upper "})
+            uidata.append({"_data": "Edit Address", "class": "ins-col-4 ins-flex-end ins-gold-d-color ins-strong-m ins-text-upper ins-button-text"})
             uidata.append({"class":"ins-space-s"})
-            uidata.append({"_data": "Martin Philips", "class": "ins-col-12  ins-font-l  ins-grey-d-color ins-strong-l"})
-            uidata.append({"_data": "4 Nasr Road cross Makram Ebeid Nasr City, Cairo, Egypt", "class": "ins-col-12 ins-grey-color"})
-            uidata.append({"_data": "Mobile: 123-456-789-01  Email: example@gmail.com", "class": "ins-col-12 ins-grey-d-color ins-strong-m ","style":"font-size:14px"})
+            uidata.append({"_data": address.get("title",""), "class": "ins-col-12  ins-font-l  ins-grey-d-color ins-strong-l"})
+            uidata.append({"_data": address.get("address",""), "class": "ins-col-12 ins-grey-color"})
+            uidata.append({"_data": f"Mobile: {address.get("phone","")} Email: {address.get("email","")}", "class": "ins-col-12 ins-grey-d-color ins-strong-m ","style":"font-size:14px"})
             uidata.append({"end": "true"})
             uidata.append({"class":"ins-space-xl"})
             uidata.append({"_data": "Place Order <img src='"+p+"style/right_arrow.svg'></img>","class": "ins-button-s ins-flex-center ins-font-m ins-strong-m ins-flex-grow ins-gold-d -add-cart-btn ins-text-upper","style":"    height: 46px;    border: 1px solid var(--primary-d);"})
