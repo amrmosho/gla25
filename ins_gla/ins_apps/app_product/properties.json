@@ -1,4 +1,6 @@
 {
+   
+   
     "table": "gla_product",
     "form_data": [{
             "start": "True",
@@ -7,37 +9,32 @@
         {
             "name": "title",
             "title": "Title",
+            "title-ar": "العنوان",
             "_type": "input",
             "type": "text",
+            "_trans": "true",
             "required": "true",
-            "pclass": "ins-col-3"
+            "pclass": "ins-col-grow"
         },
         {
-            "name": "des",
-            "title": "Description",
-            "_type": "textarea",
-            "required": "true",
-            "pclass": "ins-col-12"
-        },
-        {
-            "name": "image",
-            "title": "image",
+            "name": "weight",
+            "title": "weight",
+            "title-ar": "وزن",
             "_type": "input",
-            "_dir": "images",
-            "_exts": "image/png",
-            "type": "upload",
+            "type": "text",
+            "_trans": "true",
             "required": "true",
-            "pclass": "ins-col-6"
+            "pclass": "ins-col-2"
         },
         {
-            "name": "thumbnail",
-            "title": "thumbnail",
+            "name": "kart",
+            "title": "caliber",
+            "title-ar": "عيار",
             "_type": "input",
-            "_dir": "images",
-            "_exts": "image/png",
-            "type": "upload",
+            "type": "text",
+            "_trans": "true",
             "required": "true",
-            "pclass": "ins-col-6"
+            "pclass": "ins-col-2"
         },
         {
             "name": "fk_product_category_id",
@@ -50,18 +47,87 @@
             "pclass": "ins-col-3"
         },
         {
+            "name": "des",
+            "title": "Description",
+            "title-ar": " الوصف",
+            "_type": "textarea",
+            "required": "true",
+            "pclass": "ins-col-12"
+        },
+        {
+            "end": "True"
+        },
+        {
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card ins-padding-m"
+        },
+
+        {
+            "name": "th_main",
+            "title": "thumbnail",
+            "title-ar": "الصورة المصغرة",
+            "_trans": "true",
+            "_type": "input",
+            "_dir": "images",
+            "_exts": "image/png",
+            "type": "upload",
+            "required": "true",
+            "pclass": "ins-col-6"
+        },
+        {
+            "name": "th_overlay",
+            "title": "thumbnail overlay",
+            "title-ar": " الصور المصغرة المتراكبة",
+            "_trans": "true",
+            "_type": "input",
+            "_dir": "images",
+            "_exts": "image/png",
+            "type": "upload",
+            "required": "true",
+            "pclass": "ins-col-6"
+        },
+        {
+            "name": "images",
+            "title": "images",
+            "title-ar": "الصور",
+            "_trans": "true",
+            "_type": "input",
+            "_dir": "images",
+            "_exts": "image/png",
+            "type": "upload",
+            "required": "true",
+            "pclass": "ins-col-12"
+        },
+        {
+            "end": "True"
+        },
+        {
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card ins-padding-m"
+        },
+        {
+            "_data": "Home screen options",
+            "_data-ar": "خيارات الشاشة الرئيسية",
+            "_trans": "true",
+            "class": "ins-col-12"
+        },
+
+        {
             "name": "display_home",
             "_end": "Display at home page",
+            "_end-ar": "عرض في الصفحة الرئيسية",
+            "_trans": "true",
             "_type": "input",
             "type": "bool",
             "value": "0",
-            "pclass": "ins-col-3"
+            "pclass": "ins-col-3 -home-checkbox"
         },
         {
             "name": "_order",
             "title": "Order",
+            "title-ar": "الترتيب",
             "_type": "input",
-            "type": "text",
+            "type": "number",
             "required": "true",
             "pclass": "ins-col-3"
         },
@@ -77,24 +143,49 @@
         },
         {
             "name": "title",
+            "title-ar": "العنوان",
             "title": "Title",
+            "_trans": "true",
             "view": "text",
             "class": "ins-col-grow"
         },
         {
             "name": "des",
             "title": "Description",
+            "title-ar": "الوصف",
+            "_trans": "true",
             "view": "text",
             "class": "ins-col-6"
         }
     ],
     "list_filter": [{
         "name": "title",
-        "title": "Search Title",
+        "title-ar": "العنوان",
+        "title": "Title",
         "_type": "input",
         "type": "text",
         "_info": "Search in <b>Title</b> by <b>@(value)</b>",
         "main": true,
-        "pclass": "ins-col-12"
-    }]
+        "pclass": "ins-col-12 ins-col-grow"
+    },
+    {
+        "name": "weight",
+        "title": "weight",
+        "title-ar": "وزن",
+        "_type": "input",
+        "type": "text",
+        "_trans": "true",
+        "pclass": "ins-col-3 ins-col-grow"
+    },
+    {
+        "name": "fk_product_category_id",
+        "title": "Product Category",
+        "_type": "select",
+        "type": "text",
+        "_data_type": "db",
+        "_table": "gla_product_category",
+        "pclass": "ins-col-8"
+    }
+
+]
 }
