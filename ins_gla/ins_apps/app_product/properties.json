@@ -1,6 +1,6 @@
 {
-
-
+   
+   
     "table": "gla_product",
     "form_data": [{
             "start": "True",
@@ -120,7 +120,7 @@
             "_type": "input",
             "type": "bool",
             "value": "0",
-            "pclass": "ins-col-3 -home-checkbox"
+            "pclass": "ins-col-3 style -home-checkbox"
         },
         {
             "name": "_order",
@@ -135,25 +135,25 @@
             "end": "True"
         }
     ],
-    "list_data": [{
-            "name": "id",
-            "title": "ID",
-            "view": "text",
-            "class": "ins-col-grow"
-        },
+    "list_data": [
+    
         {
-            "_type": "method",
-            "_data": "ins_gla.ins_apps.app_product._label",
-            "class": "ins-col-3",
-            "title": "xx"
-        },
-        {
-            "name": "title",
+            "_data": "ins_gla.ins_apps.app_product._image",
             "title-ar": "العنوان",
-            "title": "Title",
+            "title": "Image",
             "_trans": "true",
             "view": "text",
-            "class": "ins-col-grow"
+            "_type": "method",
+            "class": "ins-col-2 ins-col-grow ins-flex-start"
+        },
+        {
+            "_data": "ins_gla.ins_apps.app_product._title",
+            "title-ar": "العنوان",
+            "title": "Product deatils",
+            "_trans": "true",
+            "view": "text",
+            "_type": "method",
+            "class": "ins-col-2 ins-strong ins-flex-start"
         },
         {
             "name": "des",
@@ -161,37 +161,48 @@
             "title-ar": "الوصف",
             "_trans": "true",
             "view": "text",
-            "class": "ins-col-6"
-        }
-    ],
-    "list_filter": [{
-            "name": "title",
-            "title-ar": "العنوان",
-            "title": "Title",
-            "_type": "input",
-            "type": "text",
-            "_info": "Search in <b>Title</b> by <b>@(value)</b>",
-            "main": true,
-            "pclass": "ins-col-12 ins-col-grow"
-        },
-        {
-            "name": "weight",
-            "title": "weight",
-            "title-ar": "وزن",
-            "_type": "input",
-            "type": "text",
-            "_trans": "true",
-            "pclass": "ins-col-3 ins-col-grow"
+            "class": "ins-col-4"
         },
         {
             "name": "fk_product_category_id",
             "title": "Product Category",
             "_type": "select",
             "type": "text",
+            "_view":"select",
             "_data_type": "db",
             "_table": "gla_product_category",
-            "pclass": "ins-col-8"
+            "required": "true",
+            "class": "ins-col-3"
         }
+    ],
+    "list_filter": [{
+        "name": "title",
+        "title-ar": "العنوان",
+        "title": "Title",
+        "_type": "input",
+        "type": "text",
+        "_info": "Search in <b>Title</b> by <b>@(value)</b>",
+        "main": true,
+        "pclass": "ins-col-12 ins-col-grow"
+    },
+    {
+        "name": "weight",
+        "title": "weight",
+        "title-ar": "وزن",
+        "_type": "input",
+        "type": "text",
+        "_trans": "true",
+        "pclass": "ins-col-3 ins-col-grow"
+    },
+    {
+        "name": "fk_product_category_id",
+        "title": "Product Category",
+        "_type": "select",
+        "type": "text",
+        "_data_type": "db",
+        "_table": "gla_product_category",
+        "pclass": "ins-col-8"
+    }
 
-    ]
+]
 }
