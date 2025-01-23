@@ -36,7 +36,7 @@ class AppProductDetails(App):
         if 'type' in rq:
             image = images[rq["type"]]
         else:
-            image = images["main"]
+            image = images["george"]
         uidata.append({"start": "true", "class": "ins-flex-valign-start ins-col-6 "})
         uidata.append({"start": "true", "class": "ins-flex-center ins-col-2 "})
         p = "/ins_web/ins_uploads/"
@@ -155,7 +155,7 @@ class AppProductDetails(App):
         uidata.append({"start": "true", "class": "ins-flex ins-col-12"})
         uidata.append({"_data": "Related Products", "class": "ins-col-12 ins-grey-d-color ins-strong-m ins-text-upper","style":"font-size:36px"})
         uidata.append({"class": "ins-space-l"})
-        rpdata = self.ins._db._get_data("gla_product","*", f"   fk_category_id={data["fk_category_id"]} and id <>{data["id"]} limit 0,4 ")
+        rpdata = self.ins._db._get_data("gla_product","*", f"   fk_product_category_id={data["fk_product_category_id"]} and id <>{data["id"]} limit 0,4 ")
         uidata.append({"start": "true", "class": "ins-flex-space-between ins-col-12"})
         for d in rpdata:
             purl = self.ins._server._url({"id":d["id"]})

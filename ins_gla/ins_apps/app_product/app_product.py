@@ -6,6 +6,10 @@ class AppProduct(App):
         self.app: App = app
         super().__init__(app.ins)
 
+
+    def _label(ins , options , data):
+        return data["title"]
+
     def out(self):
         
         r = self.ins._apps._crud(properties=self.app._properties)

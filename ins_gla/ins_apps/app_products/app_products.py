@@ -38,7 +38,7 @@ class AppProducts(App):
 
         p =self.ins._server._post()
         pro= self.ins._db._jget("gla_product", "*", f"gla_product.id={p["pid"]}")
-        pro._jwith("gla_product_category category", "title,id", rfk="fk_category_id" ,join="left join")
+        pro._jwith("gla_product_category category", "title,id", rfk="fk_product_category_id" ,join="left join")
         ddata = pro._jrun()
 
         for data in ddata:

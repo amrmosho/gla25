@@ -1,6 +1,6 @@
 {
-   
-   
+
+
     "table": "gla_product",
     "form_data": [{
             "start": "True",
@@ -142,6 +142,12 @@
             "class": "ins-col-grow"
         },
         {
+            "_type": "method",
+            "_data": "ins_gla.ins_apps.app_product._label",
+            "class": "ins-col-3",
+            "title": "xx"
+        },
+        {
             "name": "title",
             "title-ar": "العنوان",
             "title": "Title",
@@ -159,33 +165,33 @@
         }
     ],
     "list_filter": [{
-        "name": "title",
-        "title-ar": "العنوان",
-        "title": "Title",
-        "_type": "input",
-        "type": "text",
-        "_info": "Search in <b>Title</b> by <b>@(value)</b>",
-        "main": true,
-        "pclass": "ins-col-12 ins-col-grow"
-    },
-    {
-        "name": "weight",
-        "title": "weight",
-        "title-ar": "وزن",
-        "_type": "input",
-        "type": "text",
-        "_trans": "true",
-        "pclass": "ins-col-3 ins-col-grow"
-    },
-    {
-        "name": "fk_product_category_id",
-        "title": "Product Category",
-        "_type": "select",
-        "type": "text",
-        "_data_type": "db",
-        "_table": "gla_product_category",
-        "pclass": "ins-col-8"
-    }
+            "name": "title",
+            "title-ar": "العنوان",
+            "title": "Title",
+            "_type": "input",
+            "type": "text",
+            "_info": "Search in <b>Title</b> by <b>@(value)</b>",
+            "main": true,
+            "pclass": "ins-col-12 ins-col-grow"
+        },
+        {
+            "name": "weight",
+            "title": "weight",
+            "title-ar": "وزن",
+            "_type": "input",
+            "type": "text",
+            "_trans": "true",
+            "pclass": "ins-col-3 ins-col-grow"
+        },
+        {
+            "name": "fk_product_category_id",
+            "title": "Product Category",
+            "_type": "select",
+            "type": "text",
+            "_data_type": "db",
+            "_table": "gla_product_category",
+            "pclass": "ins-col-8"
+        }
 
-]
+    ]
 }

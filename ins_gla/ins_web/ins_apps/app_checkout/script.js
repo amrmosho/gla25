@@ -104,3 +104,27 @@ ins(".-remove-address-btn")._on("click", (o) => {
 
     }
 }, true)
+
+function update_address_btn(o) {
+    var f = o._find(".-address-radio-btn");
+    ins(".-delivery-type-btn")._addClass("inactive")
+    ins(".-delivery-type-btn")._removeClass("ins-gold-bg")
+    o._removeClass("inactive")
+    o._addClass("ins-gold-bg")
+    ins(".-address-radio-btn")._setAttribute("src", "/ins_web/ins_uploads/style/radio.svg")
+    f._setAttribute("src", "/ins_web/ins_uploads/style/radio_checked.svg")
+}
+
+
+ins(".-delivery-type-btn")._on("click", (o) => {
+    update_address_btn(o);
+    ins("_upate_address_ui")._ajax._app(o._getData(), (d) => {
+        ins(".-addresses-area")._setHTML(d);
+    })
+
+
+
+
+
+
+}, true)
