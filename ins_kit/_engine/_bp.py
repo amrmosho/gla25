@@ -39,12 +39,8 @@ class Temp(ins_parent):
         lib_path = f"/{self.ins._map.WEB_FOLDER}/{self.ins._map.KIT_FOLDER}/"
 
         incs_path = f"/{self.ins._map.WEB_FOLDER}/ins_incs/"
-        """
-        self.header += "\t\n" + \
-            self.ins._files._include(f"{incs_path}line_icons/css/icons.css")"""
-
-        self.header += "\t\n" + \
-            self.ins._files._include(
+   
+        self.header += "\t\n" + self.ins._files._include(
                 f"{incs_path}line_icons_2/assets/icon-fonts/lineicons.css")
 
         css = ["ins_root",
@@ -57,10 +53,17 @@ class Temp(ins_parent):
                "ins_lang-" + self.ins._this._lang["name"]
                ]
         for c in css:
-            self.header += "\t\n" + \
-                self.ins._files._include(f"{lib_path}css/{c}.css")
+            self.header += "\t\n" +  self.ins._files._include(f"{lib_path}css/{c}.css")
+                
+                
+        mcss = ["ins_phone"]
+        for c in mcss:
+            att={"media":"only screen and (min-width: 0px) and (max-width: 1000px)","type":"text/css"}
+            self.header += "\t\n" + self.ins._files._include(f"{lib_path}css/{c}.css" ,att)
+                  
+                
 
-        js = ["ins"]
+        js = ["swiped","ins"]
         for j in js:
             self.header += "\t\n" + \
                 self.ins._files._include(f"{lib_path}js/{j}.js")

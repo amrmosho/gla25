@@ -8,7 +8,7 @@ class Database(ins_parent):
         if len(self.ins._eng._kit_settings) > 0 and name in self.ins._eng._kit_settings["db"]:
             return self.ins._eng._kit_settings["db"][name]
         else:
-            return name
+            return name 
 
     def _jar(self, operation):
 

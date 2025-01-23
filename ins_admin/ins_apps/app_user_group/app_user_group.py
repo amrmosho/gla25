@@ -6,7 +6,12 @@ class AppUserGroup(App):
     def __init__(self, app) -> None:
         self.app: App = app
         super().__init__(app.ins)
-
+    def _reval(ins ,opstions ,data ):
+        
+        d= ins._server._get()
+     
+        return str(data[opstions["v"]]) 
+       
     def _apps_call(self):
         req = self.ins._server._req()
         a = AppUserApps(self.app)

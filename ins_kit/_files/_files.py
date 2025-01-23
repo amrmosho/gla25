@@ -9,7 +9,7 @@ class Files(ins_parent):
         """Prints a message to the console."""
         print(message)
 
-    def _include(self, file_path):
+    def _include(self, file_path ,attrs={}):
         """Creates a file at the specified path with optional content."""
         try:
             ex = file_path.split(".")
@@ -25,8 +25,12 @@ class Files(ins_parent):
                 elif ex[-1] == "css":
                     ui = {"_type": "link", "rel": "stylesheet",
                           "media": "all", "href": f"{file_path}"}
+                    
+                   
+                    
                 self._console(f"File Included successfully: {file_path}")
-
+                if len(attrs) >0:
+                    ui.update(attrs)
                 return self.ins._ui.tag(ui)
             else:
                 self._console(f"Error Included file: {file_path}")

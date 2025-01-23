@@ -64,7 +64,7 @@ class WdgSlideshow(Widget):
         uidata.append({"end": "true"})
 
         e = [
-            {"start": "true", "class": "ins-flex-end wi-slideshow-th "}]
+            {"start": "true", "class": "ins-flex-end ins-m-hidden wi-slideshow-th "}]
 
         uidata += e
         itm=0

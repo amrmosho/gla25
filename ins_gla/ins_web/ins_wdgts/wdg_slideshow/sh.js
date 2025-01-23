@@ -1,8 +1,22 @@
 ins(".wi-slideshow-th-item")._on("click", function(o) {
+
     var indx = o._getData("in");
     trsn(indx)
 }, true)
 
+
+ins(".wi-slideshow-slide")._on("swiped-left", function(o) {
+    var ins_shc = ins(".wi-slideshow-th-item")._count();
+    indx++;
+    if (indx > ins_shc) {
+        indx = 1
+    }
+    trsn(indx)
+}, true)
+
+
+
+indx = 1
 var cc
 
 function trsn(indx) {
@@ -40,10 +54,13 @@ function trsn(indx) {
 
     cc = setTimeout(() => {
 
-        indx++;
-        console.log(indx)
 
-        if (indx > 4) {
+
+        var ins_shc = ins(".wi-slideshow-th-item")._count();
+
+
+        indx++;
+        if (indx > ins_shc) {
             indx = 1
         }
         trsn(indx);
@@ -53,5 +70,7 @@ function trsn(indx) {
 
 }
 ins(() => {
-    trsn(1);
+
+
+    trsn(indx);
 })._load()
