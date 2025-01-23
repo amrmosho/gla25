@@ -1477,6 +1477,7 @@ function INS(o) {
         }
         return this.o;
     };
+
     this._get = function(n, p) {
         let evo = [];
         if (typeof this.o === "string") {
@@ -1508,6 +1509,42 @@ function INS(o) {
             }
         } else {
             return evo;
+        }
+    };
+
+
+
+    this._getitems = function(n, p) {
+        this.evo = [];
+        if (typeof this.o === "string") {
+            if (p) {
+                this.evo = window.parent.document.querySelectorAll(this.o);
+            } else {
+                this.evo = document.querySelectorAll(this.o);
+            }
+        } else if (this.o === document) {
+            this.evo = [document];
+        } else {
+            if (this.o instanceof NodeList) {
+                this.evo = this.o;
+            } else if (this.o instanceof INS) {
+                this.evo = this.o._get();
+            } else {
+                this.evo = [this.o];
+            }
+        }
+        if (n != null) {
+            if (n == "last") {
+                return this.evo[evo.length - 1];
+            } else if (n == "first") {
+                return this.evo[0];
+            } else if (n == "count") {
+                return this.evo.length;
+            } else {
+                return this.evo[n];
+            }
+        } else {
+            return this.evo;
         }
     };
     this._each = function(fun, end) {
@@ -1746,6 +1783,8 @@ INS.prototype._getclasses = function(sp = null, not = []) {
         });
         return this;
     };
+
+    /**swiped-up,swiped-down,swiped-right,swiped-left*/
     INS.prototype._on = function(event, callback, ps, useCapture) {
         var o = this;
         var os = this.o;
@@ -2148,6 +2187,12 @@ INS.prototype._getclasses = function(sp = null, not = []) {
     };
     INS.prototype._height = function() {
         return this._get(0).offsetHeight;
+    };
+
+    INS.prototype._count = function() {
+        this._getitems().length;
+        return this.evo;
+
     };
     INS.prototype._parents = function(v) {
         var get_item = null;

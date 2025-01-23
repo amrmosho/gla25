@@ -1,5 +1,3 @@
-[class*="ins-fcol"],
-[class*="ins_col_"],
 [class*="ins-col-"] {
     max-width: 100% !important;
 }
@@ -10,23 +8,8 @@
     min-width: 150px;
 }
 
-.ins-grid [class*="ins_col_"],
-.ins_grid [class*="ins_col_"],
-.ins-grid [class*="ins_col_"],
-.ins_grid [class*="ins_col_"],
-.ins-grid [class*="ins-gcol-"],
-.ins_grid [class*="ins_gcol_"] {
-    grid-column-end: span 12 !important;
-}
-
-[class*="ins-flex"]>[class*="ins_col_"]:not(.ins-tr.ins-grid >*),
-[class*="ins-flex"]>[class*="ins-col-"]:not(.ins-tr.ins-grid >*),
-[class*="ins-tr"]>[class*="ins-col-"]:not(.ins-tr.ins-grid >*) {
-    grid-column-end: unset !important;
-}
-
-[class*="ins-flex"]>[class*="ins-col-"]:not(.ins-tr.ins-grid >*),
-[class*="ins-tr"]>[class*="ins-col-"]:not(.ins-tr.ins-grid >*) {
+[class*="ins-flex"]>[class*="ins-col-"],
+[class*="ins-tr"]>[class*="ins-col-"] {
     width: 100% !important;
 }
 
@@ -34,51 +17,51 @@
     --col12-item-width: : 8.33333333333 !important
 }
 
-.ins-mcol-1 {
+.ins-m-col-1 {
     width: calc(var(--col12-item-width) * 1 - var(--flex-gap))!important;
 }
 
-.ins-mcol-2 {
+.ins-m-col-2 {
     width: calc(var(--col12-item-width) * 2 - var(--flex-gap)) !important;
 }
 
-.ins-mcol-3 {
+.ins-m-col-3 {
     width: calc(var(--col12-item-width) * 3 - var(--flex-gap)) !important;
 }
 
-.ins-mcol-4 {
+.ins-m-col-4 {
     width: calc(var(--col12-item-width) * 4 - var(--flex-gap)) !important;
 }
 
-.ins-mcol-5 {
+.ins-m-col-5 {
     width: calc(var(--col12-item-width) * 5 - var(--flex-gap)) !important;
 }
 
-.ins-mcol-6 {
+.ins-m-col-6 {
     width: calc(var(--col12-item-width) * 6 - var(--flex-gap)) !important;
 }
 
-.ins-mcol-7 {
+.ins-m-col-7 {
     width: calc(var(--col12-item-width) * 7 - var(--flex-gap)) !important;
 }
 
-.ins-mcol-8 {
+.ins-m-col-8 {
     width: calc(var(--col12-item-width) * 8 - var(--flex-gap)) !important;
 }
 
-.ins-mcol-9 {
+.ins-m-col-9 {
     width: calc(var(--col12-item-width) * 9 - var(--flex-gap))!important;
 }
 
-.ins-mcol-10 {
+.ins-m-col-10 {
     width: calc(var(--col12-item-width) * 10 - var(--flex-gap))!important;
 }
 
-.ins-mcol-11 {
+.ins-m-col-11 {
     width: calc(var(--col12-item-width) * 11 - var(--flex-gap)) !important;
 }
 
-.ins-mcol-12 {
+.ins-m-col-12 {
     width: 100% !important;
 }
 
@@ -86,7 +69,10 @@
     display: none !important;
 }
 
-.ins-m-flex.ins-grid,
+.ins-m-show {
+    display: block !important;
+}
+
 .ins-m-flex {
     display: flex !important;
 }
@@ -107,4 +93,9 @@
 
 .ins-files-browser-body {
     top: 90px;
+}
+
+.ins-m-flex-space-between {
+    justify-content: space-between !important;
+    align-items: center !important;
 }

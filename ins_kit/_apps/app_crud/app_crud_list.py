@@ -356,13 +356,13 @@ class APPCRUDList(appCrudParent):
             rv = f"<div class='ins-flex ins-k-tags-area {mclass} ins-col-12'><i data-oid='{v["id"]}' data-obj='{
                 self.ops._table}' class='lni ins-button-text app-crud-list-add-tag  lni-bookmark-circle'></i>{str(tg)}</div>"
         elif "_type" in ops and ops["_type"] == "method":
-            area = self.ins._this._area["url"]
-            type = "ins_apps"
+            #area = self.ins._this._area["url"]
+            #type = "ins_apps"
             ds = ops["_data"].split(".")
-            _path = f'{area}.{type}.{ds[0]}.{ds[0]}'
-            _class_name = self.ins._map._get_class_name(ds[0])
+            _path = f'{ds[0]}.{ds[1]}.{ds[2]}.{ds[2]}'
+            _class_name = self.ins._map._get_class_name(ds[2])
             exec(f"from {_path} import {_class_name}")
-            rv = eval(f"{_class_name}.{ds[1]}(ops,v,self.ins)")
+            rv = eval(f"{_class_name}.{ds[3]}(self.ins,ops,v)")
         else:
             rv = str(v)
         return rv
@@ -510,7 +510,7 @@ class APPCRUDList(appCrudParent):
                 hr = {}
                 data = d
                 if "name" in h:
-                    data = d[h["name"]]
+                    data = d.get(h["name"] ,"")
 
                 hr["_data"] = self.__update_body_item(h, data)
                 hr["class"] = h["class"]

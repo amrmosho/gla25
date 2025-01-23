@@ -1,10 +1,36 @@
 {
     "list_data": [{
-        "name": "title",
-        "title": "my title",
-        "view": "text",
-        "class": "ins-col-grow"
-    }],
+            "name": "title",
+            "title": "my title",
+            "view": "text",
+            "class": "ins-col-grow"
+        }, {
+
+
+            "_type": "method",
+
+
+            "_data": "app_user_group._reval",
+
+
+            "v": "id",
+            "title": "ssss",
+            "class": "ins-col-4"
+        }, {
+
+
+            "_type": "method",
+            "_data": "ins_admin.ins_apps.app_user_group._reval",
+            "_area": "ins_admin",
+
+
+            "v": "title",
+            "title": "ssss",
+            "class": "ins-col-4"
+        }
+
+
+    ],
     "form_data": [{
             "start": "True",
             "class": "ins-col-12 ins-flex ins-card"
@@ -55,7 +81,7 @@
             "class": "ins-col-grow ins-title-m"
         },
         {
-            "_data": "<i data-gid='@(get.id)'  class='lni  ins-font-xl lni-circle-plus -ug-custom-per-add-btn  ins-button-text'></i>",
+            "_data": "<i data-gid='@(get.id)'  class='lni  ins-font-xl lni-plus -ug-custom-per-add-btn  ins-button-text'></i>",
             "style": "width:50px",
             "_trans": "true"
         },
@@ -89,7 +115,7 @@
             "class": "ins-col-grow ins-title-m"
         },
         {
-            "_data": "<i  data-gid='@(get.id)' class='lni  ins-font-xl lni-circle-plus -ug-apps-per-add-btn  ins-button-text'></i>",
+            "_data": "<i  data-gid='@(get.id)' class='lni  ins-font-xl lni-plus -ug-apps-per-add-btn  ins-button-text'></i>",
             "style": "width:50px",
             "_trans": "true"
 
