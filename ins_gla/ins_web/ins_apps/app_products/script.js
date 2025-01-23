@@ -6,15 +6,30 @@ ins(".-open-panel")._on("click", (o) => {
     }
 }, true)
 ins(".-type-btn")._on("click", (o) => {
-    ins(".-type-btn")._removeClass("ins-gold-bg");
-    ins(".-type-btn")._removeClass("ins-gold-color");
-    ins(".-type-btn")._addClass("ins-grey-color");
-    ins(".-type-btn")._setCSS({ border: " 1px solid var(--grey-l)" });
-    o._removeCSS("border");
-    o._addClass("ins-gold-bg");
-    o._addClass("ins-gold-color");
-    o._removeClass("ins-grey-color");
+
+
+
+    if (o._hasClass("ins-active")) {
+        o._setCSS({ border: " 1px solid var(--grey-l)" });
+        o._removeClass("ins-gold-bg", "ins-gold-color", "ins-active");
+        o._addClass("ins-grey-color");
+
+    } else {
+        ins(".-type-btn")._removeClass("ins-gold-bg", "ins-gold-color", "ins-active");
+        ins(".-type-btn")._addClass("ins-grey-color");
+        ins(".-type-btn")._setCSS({ border: " 1px solid var(--grey-l)" });
+        o._removeCSS("border");
+        o._addClass("ins-gold-bg", "ins-gold-color", "ins-active");
+        o._removeClass("ins-grey-color");
+    }
+
+
 }, true)
+
+
+
+
+
 ins(".-minus-btn")._on("click", (o) => {
     if (ins(".count-inpt")._getValue() > 1) {
         ins(".count-inpt")._setValue(ins(".count-inpt")._getValue() - 1);
@@ -68,7 +83,6 @@ ins(".ins-pagination-btn")._on("click", (o) => {
 }, true);
 
 function get_page(page) {
-    console.log(page);
     ins("generate_product_html")._ajax._app({ "page": page }, function(data) {
         ins(".-products-area")._setHTML(data);
     })
@@ -83,7 +97,7 @@ ins(".-add-cart-btn")._on("click", (o) => {
             title: "<i class='lni ins-icon lni-cart  '></i> Cart",
             data: data,
             data_style: "position: relative;top: 0;",
-            style: "width:500px;    "
+            style: "width:650px;    "
         });
     })
 
@@ -109,4 +123,15 @@ ins(".-remove-item-cart-btn")._on("click", (o) => {
         })
     }
 
+}, true)
+
+ins(".-product-filter-btn")._on("click", (o) => {
+    ins(".-filter-area")._data._submit((data) => {
+
+        ins("_filter")._ajax._app(data, (d) => {
+
+            console.log(d)
+        })
+
+    })
 }, true)

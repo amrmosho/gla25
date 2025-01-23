@@ -77,14 +77,14 @@ class AppProductDetails(App):
         uidata.append({"start": "true", "class": "ins-flex ins-col-12 ins-card ins-primary-w","style":"border-radius:8px 8px 0 0 !important;"})
         uidata.append({"_data": "Sell price", "class": "ins-col-12  ins-grey-d-color ins-font-l ins-strong-l "})
         uidata.append({"_data": "Gold Amount", "class": "ins-col-6  ins-font-m  ins-grey-color ins-strong-m"})
-        uidata.append({"_data": "E£ 208,750.00", "class": "ins-col-6  ins-grey-d-color ins-font-m ins-strong-l ins-flex-end"})
+        uidata.append({"_data": "E£ 208,750.00", "class": "ins-col-6  ins-grey-d-color ins-font-m ins-strong-l ins-flex-end "})
         uidata.append({"_data": "Making Charge + VAT", "class": "ins-col-6  ins-font-m  ins-grey-color  ins-strong-m"})
         uidata.append({"_data": "EGP 1,960.00", "class": "ins-col-6  ins-grey-d-color ins-font-m ins-strong-l ins-flex-end"})
         uidata.append({ "class": "ins-line ins-col-12"})
         uidata.append({"_data": "Total", "class": "ins-col-6  ins-font-m  ins-grey-color  ins-strong-m"})
-        uidata.append({"_data": "E£ 208,750.00", "class": "ins-col-6  ins-strong-l ins-flex-end ins-font-l"})
+        uidata.append({"_data": "E£ 208,750.00", "class": "ins-col-6  ins-strong-l ins-flex-end ins-font-l ins-primary-d-color"})
         vat = "59.60"
-        uidata.append({"_data": "Note: Vat amount is " + "<spam class='ins-grey-d-color'> EGP "+vat+"</span>", "class": "ins-col-6  ins-font-m ins-grey-color ins-strong-m "})
+        uidata.append({"_data": "Note: Vat amount is " + "<spam class='ins-grey-d-color'> EGP "+vat+"</span>", "class": "ins-col-6 ins-grey-color ins-strong-m ","style":"font-size:14px"})
         uidata.append({"end": "true"})
 
 
@@ -93,13 +93,13 @@ class AppProductDetails(App):
         uidata.append({"_data": "We buy at", "class": "ins-col-11  ins-grey-d-color ins-font-l ins-strong-l"})
         uidata.append({"_data":"<span class=' lni lni-chevron-up'></span>","class": "ins-col-1  ins-grey-color ins-font-xl ins-strong-l -buy-div"})
         uidata.append({"start": "true", "class": "ins-flex ins-col-12"})
-        uidata.append({"_data": "Gold Amount", "class": "ins-col-6 ins-grey-color ins-strong-l  ins-font-m  "})
-        uidata.append({"_data": "1,655.00", "class": "ins-col-6  ins-grey-d-color ins-font-l ins-strong-l ins-flex-end"})
-        uidata.append({"_data": "Cash back", "class": "ins-col-6 ins-grey-color ins-strong-l  ins-font-m  "})
-        uidata.append({"_data": "1,655.00", "class": "ins-col-6  ins-grey-d-color ins-font-l ins-strong-l ins-flex-end"})
+        uidata.append({"_data": "Gold Amount", "class": "ins-col-6  ins-font-m  ins-grey-color ins-strong-m"})
+        uidata.append({"_data": "E£ 208,750.00", "class": "ins-col-6  ins-grey-d-color ins-font-m ins-strong-l ins-flex-end"})
+        uidata.append({"_data": "Cash back", "class": "ins-col-6  ins-font-m  ins-grey-color  ins-strong-m"})
+        uidata.append({"_data": "EGP 1,960.00", "class": "ins-col-6  ins-grey-d-color ins-font-m ins-strong-l ins-flex-end"})
         uidata.append({ "class": "ins-line ins-col-12"})
-        uidata.append({"_data": "Total", "class": "ins-col-6   ins-font-m  ins-grey-color ins-strong-l"})
-        uidata.append({"_data": "1,655.00", "class": "ins-col-6  ins-font-xl ins-strong-2xl ins-flex-end"})
+        uidata.append({"_data": "Total", "class": "ins-col-6  ins-font-m  ins-grey-color  ins-strong-m"})
+        uidata.append({"_data": "E£ 208,750.00", "class": "ins-col-6  ins-strong-l ins-flex-end ins-font-l ins-primary-d-color"})
         uidata.append({"end": "true"})
         uidata.append({"end": "true"})
 
@@ -136,7 +136,7 @@ class AppProductDetails(App):
 
         ## Product Description
         uidata.append({"start": "true", "class": "ins-flex ins-col-12   -open-panel","style":"height: 30px;overflow: hidden;"})  
-        uidata.append({"_data": "Product Description", "class": "ins-col-11  ins-grey-d-color ins-font-l ins-strong-l"})
+        uidata.append({"_data": "Product Description", "class": "ins-col-11  ins-grey-d-color ins-font-m ins-strong-m"})
         uidata.append({"_data":"  <span class=' lni lni-chevron-up'></span>","class": "ins-col-1  ins-grey-color ins-font-xl ins-strong-l"})
         uidata.append({"_data": data["des"], "class": "ins-col-12  ins-grey-color","style":"font-size:14px"})
         uidata.append({"end": "true"})
@@ -145,7 +145,7 @@ class AppProductDetails(App):
        
         ## Product Details
         uidata.append({"start": "true", "class": "ins-flex ins-col-12   -open-panel","style":"height: 30px;overflow: hidden;"})  
-        uidata.append({"_data": "Product Details", "class": "ins-col-11  ins-grey-d-color ins-font-l ins-strong-l"})
+        uidata.append({"_data": "Product Details", "class": "ins-col-11  ins-grey-d-color ins-font-m ins-strong-m"})
         uidata.append({"_data":"  <span class=' lni lni-chevron-up'></span>","class": "ins-col-1  ins-grey-color ins-font-xl ins-strong-l"})
         uidata.append({"_data": data["des"], "class": "ins-col-12  ins-grey-color","style":"font-size:14px"})
         uidata.append({"end": "true"})
@@ -158,6 +158,8 @@ class AppProductDetails(App):
         rpdata = self.ins._db._get_data("gla_product","*", f"   fk_category_id={data["fk_category_id"]} and id <>{data["id"]} limit 0,4 ")
         uidata.append({"start": "true", "class": "ins-flex-space-between ins-col-12"})
         for d in rpdata:
+            purl = self.ins._server._url({"id":d["id"]})
+
             st = "width:316px;"
             r = [{"start": "true", "class": "ins-flex  gla-pro-block  ", "style": st},
                  {"start": "true", "class": " gla-img-cont  ",
@@ -167,14 +169,14 @@ class AppProductDetails(App):
                  {"src": p + d["th_main"], "_type": "img",
                      "class": "gla-pro-img"},
                  {"src": p + d["th_overlay"], "_type": "img", "class": "gla-pro-himg"},
-                 {"_data": "SHOP NOW <i class=' lni ins-icon lni-arrow-right'></i>",
+                 {"_type":"a","href":purl,"_data": "SHOP NOW <i class=' lni ins-icon lni-arrow-right'></i>",
                      "class": "ins-button gla-pro-hbutton ins-strong-m   ins-gold-bg"},
                  {"end": "true"},
                  {"class": "ins-space-s"},
                  {"_data": d["title"],
                      "class": "ins-col-12 ins-title-m ins-strong-m   ins-grey-color", "style": "line-height:24px"},
-                 {"_data": "250,000.00",
-                     "class": "ins-col-12  ins-strong-m  ins-primary-color", "style": "line-height:24px"},
+                 {"_data": "E£ 208,750.00",
+                     "class": "ins-col-12  ins-strong-m  ins-primary-d-color", "style": "line-height:24px"},
                  {"end": "true"}]
             uidata += r
         uidata.append({"end": "true"})

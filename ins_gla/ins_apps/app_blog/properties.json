@@ -103,12 +103,23 @@
         "title": "Title",
         "view": "text",
         "class": "ins-col-grow"
-    }],
-    "list_filter": [{
+    }
+   ],
+    "list_filter": [  {
         "name": "title",
         "title": "Title",
-        "view": "text",
-        "main": "true",
-        "class": "ins-col-grow"
-    }]
+        "_type": "input",
+        "type": "text",
+        "pclass": "ins-col-12"
+    },
+    {
+        "name": "fk_blog_category_id",
+        "title": "Blog Category",
+        "_type": "select",
+        "type": "text",
+        "_data_type": "db",
+        "_table": "gla_blog_category",
+        "pclass": "ins-col-12"
+    }
+]
 }

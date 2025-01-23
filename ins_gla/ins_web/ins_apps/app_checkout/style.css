@@ -18,3 +18,12 @@
     border-radius: 0 4px 4px 0 !important;
     color: var(--grey-d)
 }
+
+.payment-card {
+    height: 64px;
+    border: 1px solid var(--grey-l);
+    border-radius: 8px;
+    background: white;
+    padding: 20px 16px 20px 16px;
+    line-height: 10px;
+}
