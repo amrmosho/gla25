@@ -118,3 +118,17 @@
     position: absolute;
     left: 0px
 }
+
+.ins-border-start {
+    border-bottom-width: 0 !important;
+    border-top-width: 0 !important;
+    border-left-width: 0 !important;
+    border-right-width: var(--ins-border-width);
+}
+
+.ins-border-end {
+    border-bottom-width: 0 !important;
+    border-top-width: 0 !important;
+    border-right-width: 0 !important;
+    border-left-width: var(--ins-border-width) !important;
+}
