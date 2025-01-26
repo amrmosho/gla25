@@ -97,7 +97,7 @@
 }
 
 .ins-primary-d-color {
-    color: var(--primary-d);
+    color: var(--primary-d) !important;
 }
 
 .ins-primary-d-bg {
@@ -263,7 +263,7 @@
 }
 
 .ins-grey-d-color {
-    color: var(--grey-d);
+    color: var(--grey-d) !important;
 }
 
 .ins-grey-d-bg {

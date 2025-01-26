@@ -4,7 +4,7 @@ from ins_gla.ins_apps.app_products.app_product_details import AppProductDetails
 import json
 
 import math
-items_per_page = 12
+items_per_page = 3
 
 
 class AppProducts(App):
@@ -232,7 +232,7 @@ class AppProducts(App):
         uidata.append({"class": "ins-space-m"})
 
 
-        uidata.append({"_type": "textarea", "name":"sql","placeholder":"SQL..","class":" -sql-filter-input",  "pclass": "ins-col-12","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "textarea", "name":"sql","placeholder":"SQL..","class":" -sql-filter-input",  "pclass": "ins-col-12 ins-hidden","style":"    background: white;border-radius:4px;"})
 
 
         uidata.append({"class": "ins-line ins-col-12"})

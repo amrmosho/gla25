@@ -59,7 +59,8 @@ ins(".ins-pagination-btn")._on("click", (o) => {
 }, true);
 
 function get_page(page) {
-    ins("generate_product_html")._ajax._app({ "page": page }, function(data) {
+    var sql = ins(".-sql-filter-input")._getValue()
+    ins("generate_product_html")._ajax._app({ "page": page, "sql": sql }, function(data) {
         ins(".-products-area")._setHTML(data);
     })
 }
@@ -101,16 +102,7 @@ ins(".-remove-item-cart-btn")._on("click", (o) => {
 
 }, true)
 
-ins(".-product-filter-btn")._on("click", (o) => {
-    ins(".-filter-area")._data._submit((data) => {
 
-        ins("_filter")._ajax._app(data, (d) => {
-
-            console.log(d)
-        })
-
-    })
-}, true)
 
 
 
@@ -134,13 +126,11 @@ function updateSQL() {
     ins(".-sql-filter-input")._setValue(sql);
 }
 
+ins(".-title-input")._on("keyup", function(o, e) {
 
-
-
-
-
-
-ins(".-title-input")._on("keyup", function(o) {
+    if (e.keyCode == 13) {
+        submit_filter()
+    }
     var value = o._getValue().trim();
     if (value) {
         filterData["title"] = value;
@@ -151,15 +141,13 @@ ins(".-title-input")._on("keyup", function(o) {
 });
 
 
-// Handle Type Button Functionality
+
 ins(".-type-btn")._on("click", function(o) {
     var value = o._getData("name");
-
     if (o._hasClass("ins-active")) {
         o._setCSS({ border: "1px solid var(--grey-l)" });
         o._removeClass(["ins-gold-bg"], ["ins-gold-color"], ["ins-active"]);
         o._addClass("ins-grey-color");
-
         if (filterData["types"]) {
             filterData["types"] = filterData["types"].filter(function(v) {
                 return v !== value;
@@ -182,9 +170,9 @@ ins(".-type-btn")._on("click", function(o) {
             filterData["types"].push(value);
         }
     }
-
     updateSQL();
 });
+
 
 ins(".-category-checkbox")._on("click", function(o) {
     var value = o._getData("value");
@@ -217,12 +205,16 @@ ins(".-weight-select")._on("change", function(o) {
 });
 
 
-ins(".-product-filter-btn")._on("click", (o) => {
+
+function submit_filter() {
     var sql = ins(".-sql-filter-input")._getValue()
     ins("generate_product_html")._ajax._app({ "sql": sql }, function(data) {
         ins(".-products-area")._setHTML(data);
     })
+}
 
+ins(".-product-filter-btn")._on("click", (o) => {
+    submit_filter();
 })
 
 ins(".-product-reset-btn")._on("click", function() {
