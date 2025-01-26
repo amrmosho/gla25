@@ -4,12 +4,16 @@
         {
             "name": "image",
             "title": "Image",
+            "title-ar": "الصورة",
+            "_trans": "true",
             "_view": "image",
             "class": "ins-col-2"
         },
         {
             "name": "title",
             "title": "my title",
+            "title-ar": "العنوان",
+            "_trans": "true",
             "class": "ins-col-grow"
         }
     ],
@@ -20,6 +24,8 @@
         {
             "name": "title",
             "title": "title",
+            "title-ar": "العنوان",
+            "_trans": "true",
             "_type": "input",
             "type": "text",
             "required": "true",
@@ -28,6 +34,8 @@
         {
             "name": "email",
             "title": "email",
+            "title-ar": "البريد الالكتروني",
+            "_trans": "true",
             "_type": "input",
             "type": "text",
             "required": "true",
@@ -36,6 +44,8 @@
         {
             "name": "password",
             "title": "password",
+            "title-ar": "كلمة المرور",
+            "_trans": "true",
             "_type": "input",
             "type": "password",
             "pclass": "ins-col-6"
@@ -50,6 +60,8 @@
         {
             "name": "image",
             "title": "image",
+            "title-ar": "الصورة",
+            "_trans": "true",
             "_type": "input",
             "_dir": "users",
             "_exts": "image/png",
@@ -60,6 +72,8 @@
         {
             "name": "groups",
             "title": "groups",
+            "title-ar": "المجموعات",
+
             "_type": "select",
             "multiple": "true",
             "_data_type": "db",
@@ -75,10 +89,12 @@
     "list_filter": [{
         "name": "title",
         "title": "title",
+        "title-ar": "العنوان",
+        "_trans": "true",
         "_type": "input",
         "_info": " search in <b>Title</b> by <b>@(value)</b> ",
         "type": "text",
-        "main": true,
+        "main": "true",
         "pclass": "ins-col-12"
     }]
 }

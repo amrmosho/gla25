@@ -299,7 +299,7 @@ class APPCRUDList(appCrudParent):
 
         url = self.ins._server._url({}, remove=["filter"])
         filter = [{"start": "true", "_type": "form", "data-url": url, "method": "post",
-                   "data-url": "", "class": " ins-col-12 -crud-list-filter-area "}]
+                   "data-url": "", "class": " ins-col-12 -crud-list-filter-area ins-flex"}]
         filter += self.ops._list_filter
 
         filter_footer = [

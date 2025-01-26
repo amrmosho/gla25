@@ -27,3 +27,13 @@
     padding: 20px 16px 20px 16px;
     line-height: 10px;
 }
+
+.-delivery-type-btn.inactive {
+    color: var(--grey-m) !important;
+    background: var(--white) !important;
+    border: 1px solid var(--grey-l);
+}
+
+.-delivery-type-btn {
+    height: 48px
+}

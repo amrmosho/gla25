@@ -1,36 +1,12 @@
 {
     "list_data": [{
-            "name": "title",
-            "title": "my title",
-            "view": "text",
-            "class": "ins-col-grow"
-        }, {
-
-
-            "_type": "method",
-
-
-            "_data": "ins_admin.ins_apps.app_user_group._reval",
-
-
-            "v": "id",
-            "title": "ssss",
-            "class": "ins-col-4"
-        }, {
-
-
-            "_type": "method",
-            "_data": "ins_admin.ins_apps.app_user_group._reval",
-            "_area": "ins_admin",
-
-
-            "v": "title",
-            "title": "ssss",
-            "class": "ins-col-4"
-        }
-
-
-    ],
+        "name": "title",
+        "title": "my title",
+        "title-ar": "العنوان",
+        "_trans": "true",
+        "view": "text",
+        "class": "ins-col-grow"
+    }],
     "form_data": [{
             "start": "True",
             "class": "ins-col-12 ins-flex ins-card"
@@ -38,6 +14,8 @@
         {
             "name": "title",
             "title": "menu title *",
+            "title-ar": "العنوان",
+            "_trans": "true",
             "_type": "input",
             "type": "text",
             "end": "s",
@@ -47,12 +25,16 @@
         {
             "name": "tar_area",
             "title": "Target area",
+            "title-ar": "المنطقة المستهدفة",
+
             "_type": "select",
             "_data_type": "areas",
             "pclass": "ins-col-3"
         }, {
             "name": "level",
             "title": "level",
+            "title-ar": "المستوى",
+            "_trans": "true",
             "_type": "input",
             "type": "number",
             "value": "0",
@@ -61,6 +43,8 @@
         }, {
             "name": "all_permissions",
             "_end": " all_permissions",
+            "_end-ar": " جميع الصلاحيات",
+            "_trans": "true",
             "title": "",
             "_type": "input",
             "type": "bool",
@@ -78,10 +62,12 @@
 
         {
             "_data": "<i class='lni ins-icon lni-gear-1  '></i> Custom Permissions",
+            "_data-ar": " صلاحيات مخصصة",
+            "_trans": "true",
             "class": "ins-col-grow ins-title-m"
         },
         {
-            "_data": "<i data-gid='@(get.id)'  class='lni  ins-font-xl lni-plus -ug-custom-per-add-btn  ins-button-text'></i>",
+            "_data": "<i data-gid='@(get.id)'  class='lni  ins-font-xl lni-circle-plus -ug-custom-per-add-btn  ins-button-text'></i>",
             "style": "width:50px",
             "_trans": "true"
         },
@@ -112,10 +98,13 @@
 
         {
             "_data": "<i class='lni ins-icon lni-gear-1'></i> Apps Permissions",
+            "_data-ar": " صلاحيات التطبيقات",
+            "_trans": "true",
+
             "class": "ins-col-grow ins-title-m"
         },
         {
-            "_data": "<i  data-gid='@(get.id)' class='lni  ins-font-xl lni-plus -ug-apps-per-add-btn  ins-button-text'></i>",
+            "_data": "<i  data-gid='@(get.id)' class='lni  ins-font-xl lni-circle-plus -ug-apps-per-add-btn  ins-button-text'></i>",
             "style": "width:50px",
             "_trans": "true"
 
@@ -145,10 +134,12 @@
     "list_filter": [{
         "name": "kit_user_group",
         "title": "menu title *",
+        "title-ar": "العنوان",
+        "_trans": "true",
         "_type": "input",
         "_info": " search in <b>Title</b> by <b>@(value)</b> ",
         "type": "text",
-        "main": true,
+        "main": "true",
         "required": "true",
         "pclass": "ins-col-12"
     }]

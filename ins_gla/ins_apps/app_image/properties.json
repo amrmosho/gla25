@@ -7,6 +7,8 @@
         {
             "name": "title",
             "title": "Title",
+            "title-ar": "العنوان",
+            "_trans": "true",
             "_type": "input",
             "type": "text",
             "required": "true",
@@ -30,6 +32,8 @@
         {
             "name": "image",
             "title": "image",
+            "title-ar": " الصورة",
+            "_trans": "true",
             "_type": "input",
             "_dir": "images",
             "_exts": "image/png",
@@ -57,6 +61,8 @@
     "list_data": [{
             "name": "title",
             "title": "Title",
+            "title-ar": "العنوان",
+            "_trans": "true",
             "view": "text",
             "class": "ins-col-grow"
         }, {
@@ -72,10 +78,13 @@
     "list_filter": [{
         "name": "title",
         "title": "Title",
+        "title-ar": "العنوان",
+        "_trans": "true",
         "_type": "input",
         "type": "text",
-        "main": true,
+        "main": "true",
         "_info": "Search in <b>Title</b> by <b>@(value)</b>",
+        "_info-ar": "ابحث في <b>العنوان</b> بواسطة <b>@(value)</b>",
         "pclass": "ins-col-12"
     }]
 }

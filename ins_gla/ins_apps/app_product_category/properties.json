@@ -7,6 +7,8 @@
         {
             "name": "title",
             "title": "Title",
+            "title-ar": "العنوان",
+            "_trans": "true",
             "_type": "input",
             "type": "text",
             "required": "true",
@@ -19,16 +21,21 @@
     "list_data": [{
         "name": "title",
         "title": "Title",
+        "title-ar": "العنوان",
+        "_trans": "true",
         "view": "text",
         "class": "ins-col-grow"
     }],
     "list_filter": [{
         "name": "title",
         "title": "Search Title",
+        "title-ar": "البحث بواسطة العنوان",
+        "_trans": "true",
         "_type": "input",
         "type": "text",
         "_info": "Search in <b>Title</b> by <b>@(value)</b>",
-        "main": true,
+        "_info-ar": "ابحث في <b>العنوان</b> بواسطة <b>@(value)</b>",
+        "main": "true",
         "pclass": "ins-col-12"
     }]
 }

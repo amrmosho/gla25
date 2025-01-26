@@ -100,26 +100,22 @@
     ],
     "list_data": [{
         "name": "title",
+        "tittle-ar": "العنوان",
+        "_trans": "true",
         "title": "Title",
         "view": "text",
         "class": "ins-col-grow"
-    }
-   ],
-    "list_filter": [  {
+    }],
+    "list_filter": [{
         "name": "title",
-        "title": "Title",
+        "title": "Search Title",
+        "title-ar": "البحث بواسطة العنوان",
+        "_trans": "true",
         "_type": "input",
         "type": "text",
+        "_info": "Search in <b>Title</b> by <b>@(value)</b>",
+        "_info-ar": "ابحث في <b>العنوان</b> بواسطة <b>@(value)</b>",
+        "main": "true",
         "pclass": "ins-col-12"
-    },
-    {
-        "name": "fk_blog_category_id",
-        "title": "Blog Category",
-        "_type": "select",
-        "type": "text",
-        "_data_type": "db",
-        "_table": "gla_blog_category",
-        "pclass": "ins-col-12"
-    }
-]
+    }]
 }

@@ -67,7 +67,7 @@ class ELUI(ins_parent):
         p = "/ins_web/ins_uploads/"
 
         uidata =[
-         {"start":"true","class":"ins-col-12 ins-flex -item-card"}
+         {"start":"true","class":"ins-col-12 ins-flex -item-card ins-card"}
         ,{"src":f"{p}{data.get("th_main","")}", "_type": "img","class":"ins-radius-m","style":"    width: 97px;"}
         ,{"start":"true","class":"ins-col-6 ins-flex"}
         ,{"start":"true","class":"ins-col-12 ins-flex  ins-gap-o"}

@@ -13,6 +13,17 @@ ins(".-add-address")._on("click", (o) => {
     })
 })
 
+
+
+
+ins(".-update-address")._on("click", (o) => {
+
+    ins("_update_address_ui")._ajax._app(o._getData(), (data) => {
+        ins(".-addresses-area")._setHTML(data);
+    })
+})
+
+
 ins(".-payment-btn")._on("click", (o) => {
 
     window.location = ins()._data._addtourl(o._getData("url"), "/payment/")
@@ -26,6 +37,30 @@ ins(".-add-address-btn")._on("click", (o) => {
         })
     })
 }, true)
+
+ins(".-update-address-btn")._on("click", (o) => {
+    ins(".-update-address-area")._data._submit(function(data) {
+        ins("_update_address")._ajax._app(data, (d) => {
+            ins(".-addresses-area")._setHTML(d);
+            ins("Address updated successfully")._ui._notification()
+        })
+    })
+}, true)
+ins(".-proccesd-payment-btn")._on("click", (o) => {
+    ins("_check_address")._ajax._app({}, (d) => {
+        if (d == "-1") {
+            ins("You have to select address or store")._ui._notification({ class: "ins-danger" })
+        } else {
+            window.location = "/checkout/payment/"
+        }
+    })
+}, true)
+
+
+
+
+
+
 
 function update_data(p, k) {
     var value = p._getValue();
@@ -103,4 +138,28 @@ ins(".-remove-address-btn")._on("click", (o) => {
         })
 
     }
+}, true)
+
+function update_address_btn(o) {
+    var f = o._find(".-address-radio-btn");
+    ins(".-delivery-type-btn")._addClass("inactive")
+    ins(".-delivery-type-btn")._removeClass("ins-gold-bg")
+    o._removeClass("inactive")
+    o._addClass("ins-gold-bg")
+    ins(".-address-radio-btn")._setAttribute("src", "/ins_web/ins_uploads/style/radio.svg")
+    f._setAttribute("src", "/ins_web/ins_uploads/style/radio_checked.svg")
+}
+
+
+ins(".-delivery-type-btn")._on("click", (o) => {
+    update_address_btn(o);
+    ins("_select_address_ui")._ajax._app(o._getData(), (d) => {
+        ins(".-addresses-area")._setHTML(d);
+    })
+
+
+
+
+
+
 }, true)
