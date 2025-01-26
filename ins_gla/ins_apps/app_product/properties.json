@@ -142,12 +142,6 @@
             "class": "ins-col-grow"
         },
         {
-            "_type": "method",
-            "_data": "ins_gla.ins_apps.app_product._label",
-            "class": "ins-col-3",
-            "title": "xx"
-        },
-        {
             "name": "title",
             "title-ar": "العنوان",
             "title": "Title",

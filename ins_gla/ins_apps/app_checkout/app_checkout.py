@@ -142,9 +142,40 @@ class AppCheckout(App):
         uidata.append({"end":"true"})
         return uidata
 
+    def _check_address(self):
+       saddress = self.ins._server._get_session(self.session_address_name)
+       if type(saddress) == dict and "id" in saddress and "type" in saddress:
+          address = self.ins._db._get_row("gla_address","*",f"id='{saddress["id"]}'")
+          if address:
+            return "1"
+          else:
+             return "-1"
+       else:
+          return "-1"
 
 
+    def _update_address_ui(self):
+        rq = self.ins._server._post()
+        address = self.ins._db._get_row("gla_address","*",f"id='{rq["aid"]}'")
+        uidata = [{"start":"true","class":"ins-flex ins-col-12 "}]
+        uidata.append({"start":"true","class":"ins-flex ins-col-12 -update-address-area"})
+        uidata.append({"_data":"Add new Address","class":"ins-col-12 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"})
+        uidata.append({"_type": "input","value":address["first_name"],"type":"text","required":"true","placeholder":"First name*","name":"first_name","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","value":address["last_name"],"type":"text","required":"true","placeholder":"Last name*","name":"last_name","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","value":address["email"],"type":"text","required":"true","placeholder":"Email*","name":"email","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","value":address["phone"],"type":"text","required":"true","placeholder":"Phone*","name":"phone","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","value":address["state"],"type":"text","required":"true","placeholder":"State*","name":"state","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","value":address["city"],"type":"text","required":"true","placeholder":"City*","name":"city","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","value":address["address"],"type":"text","required":"true","placeholder":"Street address*","name":"address","pclass":"ins-col-12","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","value":address["address_2"],"type":"text","placeholder":"Apartment, suits, etc (Optional)","name":"address_2","pclass":"ins-col-12","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","value":address["id"],"type":"text","placeholder":"ID","name":"address_id","pclass":"ins-hidden"})
+        uidata.append({"end":"true"})
 
+        uidata.append({"class":"ins-space-s"})
+        uidata.append({"_data": "Update Address <img src='"+p+"style/right_arrow.svg'></img>", "class": "ins-button-s ins-strong-m ins-flex-center ins-text-upper  -update-address-btn ins-gold-d ins-col-4","style":"height: 46px;    border: 1px solid var(--primary-d);"})
+        uidata.append({"_data": " Back", "class": "ins-button-s ins-flex-center ins-strong-m ins-text-upper ins-gold-d-color   -back-address-btn  ins-col-2 ","style":"    height: 46px;"})
+        uidata.append({"end":"true"})
+        return self.ins._ui._render(uidata)
 
     def _add_address_ui(self):
 
@@ -200,7 +231,7 @@ class AppCheckout(App):
            uidata.append({"_data": "Mobile: "+a["phone"] + " | Email: "+ a["email"],"class":"ins-grey-d-color ins-col-12","style":"    font-size: 14px;"})
            uidata.append({"end":"true"})
            uidata.append({"start":"true","class":"ins-col-2 ins-flex-end"})
-           uidata.append({"_data":"<img src='"+p + "style/pen.svg"+"'></img>","class":"ins-text-center"})
+           uidata.append({"_data":"<img class='-update-address' data-aid = "+ str(a["id"])+" src='"+p + "style/pen.svg"+"'></img>","class":"ins-text-center"})
            uidata.append({"_data":"<img src='"+p + "style/trash.svg"+"'></img>","data-aid":a["id"],"class":"ins-text-center -remove-address-btn"})
            uidata.append({"end":"true"})
 
@@ -252,9 +283,7 @@ class AppCheckout(App):
         else:
             return self.ins._ui._render( uidata)
   
-
-
-    def _upate_address_ui(self):
+    def _select_address_ui(self):
        data = self.ins._server._post()
 
        if "type" in data:
@@ -314,23 +343,37 @@ class AppCheckout(App):
 
         return uidata
 
-
     def _remove_address(self):
       data = self.ins._server._post()
       self.ins._db._update("gla_address",{"kit_deleted":"1"},f"id='{data["aid"]}'")
 
       return "1"
 
-
-
-
     def _add_address(self):
        sdata = self.user._check()
        data = self.ins._server._post()
        data["fk_user_id"] = sdata["id"]
        data["title"] = data["first_name"] + " " +data["last_name"] 
-       self.ins._db._insert("gla_address",data)
+       aid = self.ins._db._insert("gla_address",data)
+       adta = {
+          "type":"delivery","id":aid
+       }
+       self.ins._server._set_session(self.session_address_name,adta)
        return self._addresses_area_ui()
+    
+
+    def _update_address(self):
+       sdata = self.user._check()
+       data = self.ins._server._post()
+       data["fk_user_id"] = sdata["id"]
+       data["title"] = data["first_name"] + " " +data["last_name"] 
+       self.ins._db._update("gla_address",data,f"id='{data["address_id"]}'")
+       adta = {
+          "type":"delivery","id":data["address_id"]
+       }
+       self.ins._server._set_session(self.session_address_name,adta)
+       return self._addresses_area_ui()
+    
 
    
     def _cart_step(self):
@@ -372,7 +415,7 @@ class AppCheckout(App):
 
         payment_url = self.ins._server._url({"mode":"delivery"},["id"])
         back_url = self.ins._server._url({"alias":"product"},["id","mode"])
-        uidata.append({"href":payment_url,"_type":"a","_data": "Procced to address <img src='"+p+"style/right_arrow.svg'></img>","class": "ins-button-s ins-flex-center ins-font-m ins-strong-m ins-flex-grow ins-gold-d -add-cart-btn ins-text-upper","style":"    height: 46px;    border: 1px solid var(--primary-d);"})
+        uidata.append({"href":payment_url,"_type":"a","_data": "Procced to address <img src='"+p+"style/right_arrow.svg'></img>","class": "ins-button-s ins-flex-center ins-font-m ins-strong-m ins-flex-grow ins-gold-d  ins-text-upper","style":"    height: 46px;    border: 1px solid var(--primary-d);"})
         uidata.append({"href":back_url,"_type":"a","_data": " <img src='"+p+"style/left_arrow.svg'></img> Back", "class": "ins-button-s ins-flex-center ins-strong-m ins-text-upper ins-gold-d-color   ins-col-12 ins-font-m	","style":"    height: 46px;"})
         uidata.append({"end":"true"})
 
@@ -443,14 +486,14 @@ class AppCheckout(App):
 
             address = self.ins._db._get_row("gla_address","*",f"id='{s["id"]}'")
             ainfo = [{"_data": "Shipping Address", "class": "ins-col-8 ins-title-s ins-grey-d-color ins-strong-l "},
-            {"_data": "Edit Address", "class": "ins-col-4 ins-flex-end ins-gold-d-color ins-strong-m ins-text-upper ins-button-text"},
+            {"_data": "Edit Address","data-aid" : str(address["id"]),"class": "-update-address ins-col-4 ins-flex-end ins-gold-d-color ins-strong-m ins-text-upper ins-button-text"},
             {"class":"ins-space-s"},
             {"_data": address.get("title",""), "class": "ins-col-12  ins-font-l  ins-grey-d-color ins-strong-l"},
             {"_data": address.get("address",""), "class": "ins-col-12 ins-grey-color"},
             {"_data": f"Mobile: {address.get("phone","")} Email: {address.get("email","")}", "class": "ins-col-12 ins-grey-d-color ins-strong-m ","style":"font-size:14px"},
             {"end": "true"},
             {"class":"ins-space-xl"},
-            {"_data": "Place Order <img src='"+p+"style/right_arrow.svg'></img>","class": "ins-button-s ins-flex-center ins-font-m ins-strong-m ins-flex-grow ins-gold-d -add-cart-btn ins-text-upper","style":"    height: 46px;    border: 1px solid var(--primary-d);"}
+            {"_data": "Place Order <img src='"+p+"style/right_arrow.svg'></img>","class": "ins-button-s ins-flex-center ins-font-m ins-strong-m ins-flex-grow ins-gold-d  ins-text-upper","style":"    height: 46px;    border: 1px solid var(--primary-d);"}
             ]
 
             asession = self.ins._server._get_session(self.session_address_name)
@@ -469,7 +512,7 @@ class AppCheckout(App):
                 {"_data": f"Mobile: {store.get("phone","")} Email: {store.get("email","")}", "class": "ins-col-12 ins-grey-d-color ins-strong-m ","style":"font-size:14px"},
                 {"end": "true"},
                 {"class":"ins-space-xl"},
-                {"_data": "Place Order <img src='"+p+"style/right_arrow.svg'></img>","class": "ins-button-s ins-flex-center ins-font-m ins-strong-m ins-flex-grow ins-gold-d -add-cart-btn ins-text-upper","style":"    height: 46px;    border: 1px solid var(--primary-d);"}
+                {"_data": "Place Order <img src='"+p+"style/right_arrow.svg'></img>","class": "ins-button-s ins-flex-center ins-font-m ins-strong-m ins-flex-grow ins-gold-d  ins-text-upper","style":"    height: 46px;    border: 1px solid var(--primary-d);"}
                 ]
 
             uidata+=ainfo
@@ -477,7 +520,8 @@ class AppCheckout(App):
 
 
         else:
-          uidata.append({"href":payment_url,"_type":"a","_data": "Procced to payment <img src='"+p+"style/right_arrow.svg'></img>","class": "ins-button-s ins-flex-center ins-font-m ins-strong-m ins-flex-grow ins-gold-d -add-cart-btn ins-text-upper","style":"    height: 46px;    border: 1px solid var(--primary-d);"})
+          #"href":payment_url,"_type":"a",
+          uidata.append({"_data": "Procced to payment <img src='"+p+"style/right_arrow.svg'></img>","class": "ins-button-s ins-flex-center ins-font-m ins-strong-m ins-flex-grow ins-gold-d -proccesd-payment-btn ins-text-upper","style":"    height: 46px;    border: 1px solid var(--primary-d);"})
 
 
 
