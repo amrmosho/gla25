@@ -111,20 +111,20 @@ ins(".-remove-item-cart-btn")._on("click", (o) => {
 var filterData = {};
 
 function updateSQL() {
-    var sqlParts = [];
+    var queryParts = [];
     for (var key in filterData) {
         if (Array.isArray(filterData[key])) {
-            var orConditions = filterData[key].map(function(v) {
-                return key + " LIKE '%" + v.toLowerCase() + "%'";
-            }).join(" OR ");
-            sqlParts.push("(" + orConditions + ")");
+            queryParts.push(key + "=" + filterData[key].join(","));
         } else {
-            sqlParts.push(key + " LIKE '%" + filterData[key].toLowerCase() + "%'");
+            queryParts.push(key + "=" + encodeURIComponent(filterData[key]));
         }
     }
-    var sql = sqlParts.join(" AND ");
-    ins(".-sql-filter-input")._setValue(sql);
+    var queryString = queryParts.join("&");
+    ins(".-sql-filter-input")._setValue(queryString);
+
 }
+
+
 
 ins(".-title-input")._on("keyup", function(o, e) {
 

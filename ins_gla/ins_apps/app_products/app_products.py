@@ -4,7 +4,7 @@ from ins_gla.ins_apps.app_products.app_product_details import AppProductDetails
 import json
 
 import math
-items_per_page = 3
+items_per_page = 12
 
 
 class AppProducts(App):
@@ -223,7 +223,7 @@ class AppProducts(App):
 
         uidata.append({"_data": "Type", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-font-m  "})
         for t in types:
-            uidata.append({"_data": t, "name":"type","data-name":t,"class": "ins-button-s  -type-btn ins-strong-m ins-grey-color ins-col-4  -product-filter-input","style":"    border: 1px solid var(--grey-l);border-radius: 8px !important;"})
+            uidata.append({"_data": t, "name":"type","data-name":t.lower(),"class": "ins-button-s  -type-btn ins-strong-m ins-grey-color ins-col-4  -product-filter-input","style":"    border: 1px solid var(--grey-l);border-radius: 8px !important;"})
 
         uidata.append({"class": "ins-space-m"})
 
@@ -232,7 +232,7 @@ class AppProducts(App):
         uidata.append({"class": "ins-space-m"})
 
 
-        uidata.append({"_type": "textarea", "name":"sql","placeholder":"SQL..","class":" -sql-filter-input",  "pclass": "ins-col-12 ins-hidden","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "textarea", "name":"sql","placeholder":"SQL..","class":" -sql-filter-input",  "pclass": "ins-col-12","style":"    background: white;border-radius:4px;"})
 
 
         uidata.append({"class": "ins-line ins-col-12"})
