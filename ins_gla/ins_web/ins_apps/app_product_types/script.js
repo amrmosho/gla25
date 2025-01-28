@@ -9,3 +9,7 @@ ins(".-show-subtypes-btn")._on("click", function(o) {
     })
 
 }, true)
+ins(".ins-view-close")._on("click", function(o) {
+    ins(".ins-panel-overlay")._remove()
+    ins()._ui._removeLightbox();
+}, true)
