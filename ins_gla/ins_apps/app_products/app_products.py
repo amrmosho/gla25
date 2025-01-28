@@ -1,10 +1,10 @@
 from ins_gla.ins_kit._elui import ELUI
 from ins_kit._engine._bp import App
 from ins_gla.ins_apps.app_products.app_product_details import AppProductDetails
-import json
-
+from urllib.parse import parse_qs
 import math
-items_per_page = 3
+
+items_per_page = 12
 
 
 class AppProducts(App):
@@ -14,6 +14,15 @@ class AppProducts(App):
     def session_name(sel):
         return "glaproducts"
     
+
+    def _filter_redirect(self):
+        rq = self.ins._server._post()
+        if "type" in rq and rq["type"] == "reset":
+            return "http://127.0.0.1:5000/product/"
+        
+        url = f'http://127.0.0.1:5000/product/do/filter/{rq["sql"]}'
+        return url
+
 
     def _remove_item_cart(self):
         data = self.ins._server._post()
@@ -78,21 +87,26 @@ class AppProducts(App):
 
             return self.ins._ui._render(uidata)      
 
-
-    
-      
     def __init__(self, app) -> None:
         self.app: App = app
         super().__init__(app.ins)
 
     def generate_product_html(self,string = False):
+        global items_per_page
+        g = self.ins._server._get("filter")
+        parsed_data = parse_qs(g)
+        filter_data = {key: value[0] for key, value in parsed_data.items()}
+        sql_parts = []
+        for key, value in filter_data.items():
+            sql_parts.append(f"{key} LIKE '%{value}%'")
+        
+        sql_query = " AND ".join(sql_parts)
         rq = self.ins._server._post()
 
-        global items_per_page
+
         
-        if "sql" in rq and rq["sql"] !="":
-            w = rq["sql"]
-            tcount = self.ins._db._get_row("gla_product", "count(id) as count", f"{w}")["count"]
+        if sql_query:
+            tcount = self.ins._db._get_row("gla_product", "count(id) as count", f"{sql_query}")["count"]
         else:
             tcount = self.ins._db._get_row("gla_product", "count(id) as count", "1=1")["count"]
 
@@ -110,9 +124,8 @@ class AppProducts(App):
 
         # Fetch and display products for the current page
 
-        if "sql" in rq and rq["sql"] !="":
-            w = rq["sql"]
-            rpdata = self.ins._db._get_data("gla_product", "*", f"{w} limit {offset}, {items_per_page}")
+        if sql_query:
+            rpdata = self.ins._db._get_data("gla_product", "*", f"{sql_query} limit {offset}, {items_per_page}")
 
         else:
             rpdata = self.ins._db._get_data("gla_product", "*", f"1=1 limit {offset}, {items_per_page}")
@@ -194,6 +207,11 @@ class AppProducts(App):
         return rq
 
     def _list(self):
+        g = self.ins._server._get("filter")
+        parsed_data = parse_qs(g)
+        filter_data = {key: value[0] for key, value in parsed_data.items()}
+
+
         categories = self.ins._db._get_data("gla_product_category", "title,id")
         types = ["ISLAMIC","ROYAL","COPTIC"]
         uidata = [{"start":"true","class":"ins-flex ","style":"background:white;height:124px;position: relative;    border-bottom: 1px solid var(--grey-l); "}]
@@ -202,18 +220,27 @@ class AppProducts(App):
 
         uidata.append({"start": "true", "class": "ins-flex-valign-start gla-container ins-col-12 ins-padding-2xl ins-padding-h"})
 
-
         ## Filter Area
         uidata.append({"start": "true", "class": "ins-flex ins-col-3 -filter-area ins-grey-d-color ins-padding-m full-height","style":"background:white;"})
         uidata.append({"class": "ins-space-m"})
 
-        uidata.append({"_type": "input", "name":"title","data-name":"title","type": "text", "placeholder":"Product name Search..","class":" -product-filter-input -title-input",  "pclass": "ins-col-12","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input", "name":"title","value":filter_data.get("title",""),"data-name":"title","type": "text", "placeholder":"Product name Search..","class":" -product-filter-input -title-input",  "pclass": "ins-col-12","style":"    background: white;border-radius:4px;"})
         uidata.append({"class": "ins-space-m"})
+
+
 
         uidata.append({"start": "true", "class": "ins-flex ins-col-12  ins-gap-o"})
         uidata.append({"_data": "Category", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-font-m  "})
+        category_ids = filter_data.get("fk_product_category_id", "").split(',')
+
         for c in categories:
-            uidata.append({"_type": "input", "name":"type", "data-value":c["id"],"data-name":"fk_product_category_id","type": "checkbox", "value": "0", "_end": c["title"],"class":" -product-filter-input  -category-checkbox", "pclass": "ins-col-12  -product-list-chkbox","style":"    width: 20px;","pstyle":"    height: 35px;"})
+            if str(c["id"]) in category_ids:
+                uidata.append({"_type": "input", "name":"type", "checked": "checked", "data-value":c["id"],"data-name":"fk_product_category_id","type": "checkbox", "value": "1", "_end": c["title"],"class":" -product-filter-input  -category-checkbox", "pclass": "ins-col-12  -product-list-chkbox","style":"    width: 20px;","pstyle":"    height: 35px;"})
+            else:
+                uidata.append({"_type": "input", "name":"type", "data-value":c["id"],"data-name":"fk_product_category_id","type": "checkbox", "value": "0", "_end": c["title"],"class":" -product-filter-input  -category-checkbox", "pclass": "ins-col-12  -product-list-chkbox","style":"    width: 20px;","pstyle":"    height: 35px;"})
+                
+       
+       
         uidata.append({"end":"true"})
 
 
@@ -222,18 +249,17 @@ class AppProducts(App):
         uidata.append({"class": "ins-space-m"})
 
         uidata.append({"_data": "Type", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-font-m  "})
+       
+        tys = filter_data.get("types", "").split(',')
         for t in types:
-            uidata.append({"_data": t, "name":"type","data-name":t,"class": "ins-button-s  -type-btn ins-strong-m ins-grey-color ins-col-4  -product-filter-input","style":"    border: 1px solid var(--grey-l);border-radius: 8px !important;"})
+            active = "ins-active" if t.lower() in tys else ""
+            uidata.append({"_data": t, "name":"type","data-name":t.lower(),"class": f"ins-button-s  -type-btn ins-strong-m  ins-col-4  -product-filter-input {active}"})
 
         uidata.append({"class": "ins-space-m"})
 
         uidata.append({"_data": "Weight", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-font-m  "})
-        uidata.append({"_type": "select", "data-name":"weight", "_data":",0.25gm,0.5gm,1gm,2.5gm,5gm,10gm,0.5oz / 15.55gm,20gm,1oz / 31.10gm,50gm,100gm,10 Tolas / 116.65gm,250gm,500gm,1000gm","value":",0.25,0.5,1,2.5,5,10,15.55,20,31.10,50,100,116.65,250,500,1000", "name": "weight", "pclass": "ins-col-12","class":" -product-filter-input -weight-select"})
+        uidata.append({"_type": "select", "value":filter_data.get("weight",""),"data-name":"weight", "_data":",0.25gm,0.5gm,1gm,2.5gm,5gm,10gm,0.5oz / 15.55gm,20gm,1oz / 31.10gm,50gm,100gm,10 Tolas / 116.65gm,250gm,500gm,1000gm", "name": "weight", "pclass": "ins-col-12","class":" -product-filter-input -weight-select"})
         uidata.append({"class": "ins-space-m"})
-
-
-        uidata.append({"_type": "textarea", "name":"sql","placeholder":"SQL..","class":" -sql-filter-input",  "pclass": "ins-col-12 ins-hidden","style":"    background: white;border-radius:4px;"})
-
 
         uidata.append({"class": "ins-line ins-col-12"})
         uidata.append({"class": "ins-space-m"})

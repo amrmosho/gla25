@@ -108,23 +108,25 @@ ins(".-remove-item-cart-btn")._on("click", (o) => {
 
 
 /**Filter Area */
+
+/*
 var filterData = {};
 
 function updateSQL() {
-    var sqlParts = [];
+    var queryParts = [];
     for (var key in filterData) {
         if (Array.isArray(filterData[key])) {
-            var orConditions = filterData[key].map(function(v) {
-                return key + " LIKE '%" + v.toLowerCase() + "%'";
-            }).join(" OR ");
-            sqlParts.push("(" + orConditions + ")");
+            queryParts.push(key + "=" + filterData[key].join(","));
         } else {
-            sqlParts.push(key + " LIKE '%" + filterData[key].toLowerCase() + "%'");
+            queryParts.push(key + "=" + encodeURIComponent(filterData[key]));
         }
     }
-    var sql = sqlParts.join(" AND ");
-    ins(".-sql-filter-input")._setValue(sql);
+    var queryString = queryParts.join("&");
+    ins(".-sql-filter-input")._setValue(queryString);
+
 }
+
+
 
 ins(".-title-input")._on("keyup", function(o, e) {
 
@@ -145,9 +147,7 @@ ins(".-title-input")._on("keyup", function(o, e) {
 ins(".-type-btn")._on("click", function(o) {
     var value = o._getData("name");
     if (o._hasClass("ins-active")) {
-        o._setCSS({ border: "1px solid var(--grey-l)" });
-        o._removeClass(["ins-gold-bg"], ["ins-gold-color"], ["ins-active"]);
-        o._addClass("ins-grey-color");
+        o._removeClass("ins-active");
         if (filterData["types"]) {
             filterData["types"] = filterData["types"].filter(function(v) {
                 return v !== value;
@@ -158,9 +158,8 @@ ins(".-type-btn")._on("click", function(o) {
         }
     } else {
         // Activate button styling
-        o._removeCSS("border");
-        o._addClass(["ins-gold-bg"], ["ins-gold-color"], ["ins-active"]);
-        o._removeClass("ins-grey-color");
+        o._addClass("ins-active");
+
 
         // Add value to filterData
         if (!filterData["types"]) {
@@ -208,39 +207,132 @@ ins(".-weight-select")._on("change", function(o) {
 
 function submit_filter() {
     var sql = ins(".-sql-filter-input")._getValue()
-    ins("generate_product_html")._ajax._app({ "sql": sql }, function(data) {
-        ins(".-products-area")._setHTML(data);
-    })
+    var url = "do/filter/" + sql;
+    window.location = url
+
 }
 
 ins(".-product-filter-btn")._on("click", (o) => {
+
     submit_filter();
 })
 
 ins(".-product-reset-btn")._on("click", function() {
-    // Reset filterData object
-    filterData = {};
-
-    // Reset input field for title
     ins(".-title-input")._setValue('');
-
-    // Reset weight select field
     ins(".-weight-select")._setValue('');
-
-    // Reset checkboxes (Category)
     ins(".-category-checkbox")._each(function(item) {
-        item._get(0).checked = false; // Uncheck all checkboxes
+        item._get(0).checked = false;
     });
-
-    // Reset type buttons (remove active styles)
     ins(".-type-btn")._each(function(button) {
         button._removeClass("ins-gold-bg", "ins-gold-color", "ins-active");
         button._addClass("ins-grey-color");
         button._setCSS({ border: "1px solid var(--grey-l)" });
     });
     ins("generate_product_html")._ajax._app({}, function(data) {
-            ins(".-products-area")._setHTML(data);
-        })
-        // Reset filter SQL
+        ins(".-products-area")._setHTML(data);
+    })
     updateSQL();
+    url = ins()._map._url({}, "do", "filter")
+    window.location = url
+});*/
+
+ins(".-type-btn")._on("click", function(o) {
+    var value = o._getData("name");
+    if (o._hasClass("ins-active")) {
+        o._removeClass("ins-active");
+    } else {
+        o._addClass("ins-active");
+    }
+});
+
+
+ins(".-product-filter-btn")._on("click", function(o) {
+    var title = "";
+    if (ins(".-title-input")._getValue() != "") {
+        title = "title=" + ins(".-title-input")._getValue();
+    }
+
+
+    var c = "";
+    sp = "";
+    ins(".-category-checkbox")._each(function(item) {
+        if (item._checked()) {
+            c += sp + item._getData("value");
+            sp = ",";
+        }
+    });
+    var category = "";
+    if (c != "") {
+        category = "fk_product_category_id=" + c;
+    }
+
+
+
+    t = "";
+    sp = "";
+    ins(".-type-btn.ins-active")._each(function(item) {
+        t += sp + item._getData("name");
+        sp = ",";
+    });
+
+    var types = "";
+    if (t != "") {
+        types = "types=" + t;
+    }
+
+    var weight = ""
+
+    if (ins(".-weight-select")._getValue() != "") {
+        weight = "weight=" + ins(".-weight-select")._getValue();
+    }
+
+    var sql = ""
+    spr = "";
+    if (title != "") {
+        sql = title;
+        spr = "&";
+
+    }
+    if (category != "") {
+        sql += spr + category;
+        spr = "&";
+    }
+    if (types != "") {
+        sql += spr + types;
+        spr = "&";
+    }
+    if (weight != "") {
+        sql += spr + weight;
+        spr = "&";
+    }
+
+    if (sql != "") {
+        ins("_filter_redirect")._ajax._app({ "sql": sql, "type": "search" }, function(data) {
+            window.location = data;
+        })
+    } else {
+        ins("No filter selected")._ui._notification()
+    }
+
+
+});
+
+ins(".-product-reset-btn")._on("click", function() {
+    ins(".-title-input")._setValue('');
+    ins(".-weight-select")._setValue('');
+    ins(".-category-checkbox")._each(function(item) {
+        item._get(0).checked = false;
+    });
+    ins(".-type-btn")._each(function(button) {
+        button._removeClass("ins-active");
+    });
+    ins("generate_product_html")._ajax._app({}, function(data) {
+        ins(".-products-area")._setHTML(data);
+    })
+
+    ins("_filter_redirect")._ajax._app({ "type": "reset" }, function(data) {
+        console.log(data)
+        window.location = data;
+    })
+
 });

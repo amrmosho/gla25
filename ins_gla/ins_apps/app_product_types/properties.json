@@ -1,0 +1,83 @@
+{
+    "table": "gla_product_types",
+    "form_data": [{
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card ins-padding-m"
+        },
+        {
+            "name": "title",
+            "title": "Title",
+            "title-ar": "العنوان",
+            "_type": "input",
+            "type": "text",
+            "_trans": "true",
+            "required": "true",
+            "pclass": "ins-col-grow"
+        },
+        {
+            "_type": "select",
+            "type": "db",
+            "_table": "gla_product_types",
+            "title": "Parent Type",
+            "name": "fk_parent_id",
+            "pclass": "ins-col-6"
+        },
+        {
+            "name": "des",
+            "title": "Description",
+            "title-ar": " الوصف",
+            "_type": "textarea",
+
+            "pclass": "ins-col-12"
+        },
+        {
+            "end": "True"
+        }
+    ],
+    "list_data": [{
+            "name": "title",
+            "title": "Title",
+            "title-ar": "الاسم",
+            "_trans": "true",
+            "view": "text",
+            "class": "ins-col-4 ins-col-grow"
+        },
+        {
+            "_type": "method",
+            "_data": "ins_gla.ins_apps.app_product_types._parent",
+            "title": "Parent",
+            "class": "ins-col-3"
+        },
+        {
+            "_type": "method",
+            "_data": "ins_gla.ins_apps.app_product_types._subtype",
+            "title": "Subtypes",
+            "class": "ins-col-3"
+        }
+    ],
+    "list_filter": [{
+            "name": "title",
+            "title-ar": "العنوان",
+            "title": "Title",
+            "_trans": "true",
+            "_type": "input",
+            "type": "text",
+            "_info": "Search in <b>Title</b> by <b>@(value)</b>",
+            "main": "true",
+            "pclass": "ins-col-12 ins-col-grow"
+        },
+
+        {
+            "name": "fk_parent_id",
+            "title": "Parent Type",
+            "title-ar": "النوع الرئيسي",
+            "_type": "select",
+            "type": "db",
+            "_table": "gla_product_types",
+            "main": "true",
+            "_info": "Search in <b>Parent Type</b> by <b>@(value)</b>",
+            "_info-ar": "ابحث في <b>النوع الرئيسي</b> بواسطة <b>@(value)</b>",
+            "pclass": "ins-col-6"
+        }
+    ]
+}
