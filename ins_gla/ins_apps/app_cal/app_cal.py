@@ -26,18 +26,18 @@ class AppCal(App):
         lf = lt-(lt/ops["offset"])
 
         r = self.ins._db._get_data(
-            "gla_product", "*", f" price>'{lf}'  and  price<'{lt}'")
+            "gla_product", "*", f" price>='{lf}'  and  price<='{lt}'")
 
         if len(r) == 0:
             for f in fill:
-                if f["price"] < lt:
+                if f["price"] <= lt:
                     r = [f]
 
         x = 0
         xr = {}
         if len(r) > 0:
             for a in r:
-                if float(a["price"]) > x:
+                if float(a["price"]) >= x:
                     x = float(a["price"])
                     xr = a
         return xr
@@ -69,7 +69,7 @@ class AppCal(App):
                     else:
                         k["count"] = 1
                         rl[int(k["id"])] = k
-            if lc > xl:
+            if lc >= xl:
                 xl = lc
                 x = rl
         return x
