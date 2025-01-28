@@ -31,10 +31,10 @@ class WdgBlog(Widget):
             {"class": "ins-col-grow "},
             {"_data": "ExpLORE MORE <i class=' lni ins-icon lni-arrow-right'></i>",  "style":"width:250px","class": "ins-button-l  ins-text-upper ins-gold"},
             {"class": "ins-space-l"},
-            {"start": "true", "class": "ins-flex-start" ,"style":gstyle},
+            {"start": "true", "class": "ins-flex-start pro-blog-parent " ,"style":gstyle},
         ]
         p = "/ins_web/ins_uploads/"
-        uidata.append({"start": "true", "class": "ins-flex " ,"style":"width:316px"})
+        uidata.append({"start": "true", "class": "ins-flex  pro-blog-cont -ba" ,"style":"width:316px"})
         for d in data:
             st = "width:316px;margin-bottom: 32px;"
             r = [{"start": "true", "class": "ins-flex   pro-blog-block ", "style": st},
@@ -43,7 +43,7 @@ class WdgBlog(Widget):
                  {"end": "true"}]
             uidata += r
         uidata.append({"end": "true"})
-        uidata.append({"start": "true", "class": "ins-flex " ,"style":"width:664px"})
+        uidata.append({"start": "true", "class": "ins-flex  pro-blog-cont  -bb" ,"style":"width:664px"})
         for d in data2:
             st = "width:664px"
             r = [{"start": "true", "class": "ins-flex   pro-blog-block ", "style": st},
@@ -52,7 +52,7 @@ class WdgBlog(Widget):
                  {"end": "true"}]
             uidata += r
         uidata.append({"end": "true"})  
-        uidata.append({"start": "true", "class": "ins-flex " ,"style":"width:316px"})
+        uidata.append({"start": "true", "class": "ins-flex pro-blog-cont -bc " ,"style":"width:316px"})
         for d in data3:
             st = "width:316px;margin-bottom: 32px;"
             r = [{"start": "true",  "class": "ins-flex pro-blog-block  ", "style": st},

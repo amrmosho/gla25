@@ -120,9 +120,16 @@ footer li {
     color: var(--primary-m);
 }
 
+.gla-pro-cont {
+    column-gap: 32px !important;
+    row-gap: 32px !important;
+    --flex-gap: 32px !important;
+}
+
 .gla-pro-block {
     position: relative;
     overflow: hidden;
+    width: 316px;
 }
 
 .gla-img-cont {
@@ -133,7 +140,6 @@ footer li {
     border-radius: 4px;
     display: flex;
     width: 100%;
-    width: 316px;
     height: 316px;
     overflow: hidden;
     position: relative;
@@ -152,6 +158,14 @@ footer li {
 .gla-img-cont:hover .gla-pro-himg,
 .gla-img-cont:hover .gla-pro-hbutton {
     display: block;
+}
+
+.-partners-title {
+    width: 178px;
+}
+
+.gla-icon-card {
+    min-width: 146px;
 }
 
 .gla-pro-hbutton {
@@ -192,4 +206,12 @@ footer li {
 
 .pro-blog-block img {
     max-width: 100%;
+}
+
+.gla-phone-menu {
+    display: none;
+}
+
+.ins-phone-nav {
+    display: non;
 }
