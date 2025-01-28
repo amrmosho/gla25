@@ -27,7 +27,7 @@
             "title": "Description",
             "title-ar": " الوصف",
             "_type": "textarea",
-            "required": "true",
+
             "pclass": "ins-col-12"
         },
         {
@@ -59,29 +59,25 @@
             "name": "title",
             "title-ar": "العنوان",
             "title": "Title",
+            "_trans": "true",
             "_type": "input",
             "type": "text",
             "_info": "Search in <b>Title</b> by <b>@(value)</b>",
-            "main": true,
+            "main": "true",
             "pclass": "ins-col-12 ins-col-grow"
         },
+
         {
-            "name": "weight",
-            "title": "weight",
-            "title-ar": "وزن",
-            "_type": "input",
-            "type": "text",
-            "_trans": "true",
-            "pclass": "ins-col-3 ins-col-grow"
-        },
-        {
-            "name": "fk_product_category_id",
-            "title": "Product Category",
+            "name": "fk_parent_id",
+            "title": "Parent Type",
+            "title-ar": "النوع الرئيسي",
             "_type": "select",
-            "type": "text",
-            "_data_type": "db",
-            "_table": "gla_product_category",
-            "pclass": "ins-col-8"
+            "type": "db",
+            "_table": "gla_product_types",
+            "main": "true",
+            "_info": "Search in <b>Parent Type</b> by <b>@(value)</b>",
+            "_info-ar": "ابحث في <b>النوع الرئيسي</b> بواسطة <b>@(value)</b>",
+            "pclass": "ins-col-6"
         }
     ]
 }
