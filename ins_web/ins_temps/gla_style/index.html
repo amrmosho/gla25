@@ -35,13 +35,21 @@
 
             <div class="gla-container gla-body ins-flex ins-m-flex-space-between">
 
-                <div style="" class="lni ins-font-2xl lni-menu-hamburger-1"></div>
+                <div class="lni ins-font-2xl  gla-phone-menu lni-menu-hamburger-1"></div>
 
                 <div style="width: 72px; height:72px" class="gla-elogo gla-logo"></div>
 
 
 
-                <nav class="ins-col-grow ins-m-hidden ">
+                <nav class="ins-col-grow  ">
+
+
+                    <div class="ins-flex-space-between  ins-phone-nav">
+                        <div style="width: 72px; height:72px" class="gla-elogo gla-logo"></div>
+                        <div class="lni ins-font-2xl  gla-phone-menu lni-xmark"></div>
+
+                    </div>
+
 
                     {{ wdgts["menu"]|safe }}
 
