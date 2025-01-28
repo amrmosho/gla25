@@ -193,7 +193,7 @@ class AppCal(App):
                     {"end": "true"}
                 ]
                 inputs = [
-                    {"start": "true", "class": " product-data-area ins-hidden","data-mname":uniq},
+                    {"start": "true", "class": " product-data-area ","data-mname":uniq},
                     {"_type": "input","type":"text","value":pro["id"],"pclass":"ins-col-12","name":"product_id"},
                     {"_type": "input","type":"text","value":pro["count"],"pclass":"ins-col-12","name":"product_count"},
                     {"end": "true"}

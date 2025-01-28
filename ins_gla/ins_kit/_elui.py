@@ -33,8 +33,8 @@ class ELUI(ins_parent):
     def cart_pro_block(self,data,string=False):
         
         p = "/ins_web/ins_uploads/"
-        item_total_des = int(data["count"]) * int(data["weight"])
-        item_total_amount = int(data["count"])* int(data["price"])
+        item_total_des = float(data["count"]) * float(data["weight"])
+        item_total_amount = float(data["count"])* float(data["price"])
 
         uidata =[
          {"start":"true","class":"ins-col-12 ins-flex -item-card ins-border ins-radius-l ins-gap-o"},
