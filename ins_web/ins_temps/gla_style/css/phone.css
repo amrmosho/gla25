@@ -147,3 +147,7 @@ body {
     font-size: 88px;
     font-family: "gotham_l";
 }
+
+.ins-phone-nav {
+    display: block;
+}
