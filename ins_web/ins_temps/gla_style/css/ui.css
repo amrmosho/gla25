@@ -647,8 +647,7 @@ body {
 
 .ins-button-cricle.ins-white:hover,
 .ins-button-cricle.ins-white:hover i {
-    background-color: var(--grey-l) !important;
-    color: var(--grey-m) !important;
+    color: var(--gold-d) !important;
 }
 
 .ins-button-cricle.ins-grey-d:hover {

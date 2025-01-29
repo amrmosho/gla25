@@ -176,13 +176,28 @@ footer li {
     bottom: 8px
 }
 
-.ins-menu-item a {
+.ins-menu-item {
     transition: 0.1s;
 }
 
-.ins-menu-item:hover a {
-    text-decoration: underline;
-    font-family: "gotham_l" !important;
+.ins-menu-item a {
+    transition: 0.1s;
+    color: var(--secondary-d);
+}
+
+.ins-menu-item a *,
+.ins-button-cricle,
+.ins-button-cricle i {
+    color: var(--secondary-d) !important;
+}
+
+.ins-menu-item:hover a,
+.ins-menu-item:hover a * {
+    color: var(--gold-d) !important;
+}
+
+.ins-menu-item:hover {
+    border-bottom: 2px solid var(--gold-d) !important
 }
 
 .pro-blog-block:hover {
@@ -205,7 +220,8 @@ footer li {
 }
 
 .pro-blog-block img {
-    max-width: 100%;
+    object-fit: cover;
+    width: 100%;
 }
 
 .gla-phone-menu {
@@ -214,4 +230,16 @@ footer li {
 
 .ins-phone-nav {
     display: none;
+}
+
+.pro-blog-cont.-bc {
+    width: 316px
+}
+
+.pro-blog-cont.-ba {
+    width: 316px
+}
+
+.pro-blog-cont.-bb {
+    width: 664px
 }
