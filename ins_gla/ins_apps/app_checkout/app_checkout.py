@@ -37,7 +37,7 @@ class AppCheckout(App):
         r["status"] = "2"
 
         if not ndata:
-            uidata=[{"_data":"There is no items in cart","class":"ins-col-12 ins-card ins-gold ins-text-upper ins-text-center ins-font-s","style":"padding: 7px;margin-top: 30px;"}]
+            uidata=[{"_data":"There is no items in cart","class":"ins-col-12 ins-card ins-gold ins-text-upper ins-text-center ins-title-12","style":"padding: 7px;margin-top: 30px;"}]
             r["status"] = "1"
             r["ui"] = self.ins._ui._render(uidata)
 
@@ -67,7 +67,7 @@ class AppCheckout(App):
            {"start":"true","class":"ins-col-5 ins-flex-end ins-card -login-form  ins-text-start"},
            {"_type":"input","title":"email","placeholder":"Enter your Email","type":"email","name":"email","pclass":"ins-col-12"},
            {"_type":"input","title":"password","type":"password","placeholder":"Enter your Password","name":"password","pclass":"ins-col-12"},
-           {"_data":"Forgot Password?","class":"ins-col-12 ins-strong-m ins-font-s ins-grey-color"},
+           {"_data":"Forgot Password?","class":"ins-col-12 ins-strong-m ins-title-12 ins-grey-color"},
            
            {"class":"ins-line ins-col-12"},
            {"_data":"Login","class":"ins-button ins-primary ins-col-3 -guser-login-btn"},
@@ -92,10 +92,10 @@ class AppCheckout(App):
        
         path = [
             {"start":"true","class":"ins-col-12 ins-flex ins-text-upper"},
-            {"_type":"a","href":home_url,"_data": "Home /","class":" ins-font-s	ins-grey-d-color ins-strong-m"},
-            {"_type":"a","href":products_url,"_data": "Product /","class":" ins-font-s	ins-grey-d-color ins-strong-m"},
-            {"_type":"a","href":product_url,"_data": "250gm Gold Bar /","class":" ins-font-s	ins-grey-d-color ins-strong-m"},
-            {"_data": "Checkout","class":" ins-font-s	ins-grey-color ins-strong-m"},
+            {"_type":"a","href":home_url,"_data": "Home /","class":" ins-title-12	ins-grey-d-color ins-strong-m"},
+            {"_type":"a","href":products_url,"_data": "Product /","class":" ins-title-12	ins-grey-d-color ins-strong-m"},
+            {"_type":"a","href":product_url,"_data": "250gm Gold Bar /","class":" ins-title-12	ins-grey-d-color ins-strong-m"},
+            {"_data": "Checkout","class":" ins-title-12	ins-grey-color ins-strong-m"},
             {"end":"true"}
             ]
 
@@ -136,7 +136,7 @@ class AppCheckout(App):
          if "mode" in rq and rq["mode"] == s["mode"]:
             active = "ins-gold-bg"
          uidata.append({"_data": "<img src='"+p +"style/"+ s["img"]+"'></img>"+f"{i}"+". "+s["text"], "class": f"ins-button-s  ins-flex {active}"})
-         sp="lni lni-chevron-left ins-font-l"
+         sp="lni lni-chevron-left ins-title-20	"
        
         uidata.append({"end":"true"})
         uidata.append({"end":"true"})
@@ -227,8 +227,8 @@ class AppCheckout(App):
            uidata.append({"_data":"<img data-aid = "+f"{a["id"]}"+" class='-address-btn' data-type='delivery' src='"+p + img+"'></img>","class":"ins-flex ins-col-1"})
            uidata.append({"start":"true","class":"ins-col-9 ins-flex"})
            uidata.append({"_data": a["title"],"class":" ins-title-s ins-strong-m ins-grey-d-color ins-col-12","style":"line-height: 24px;"})
-           uidata.append({"_data": a["address"],"class":"ins-grey-color ins-col-12 ins-font-s","style":"line-height: 16px;"})
-           uidata.append({"_data": "Mobile: "+a["phone"] + " | Email: "+ a["email"],"class":"ins-grey-d-color ins-col-12","style":"    font-size: 14px;"})
+           uidata.append({"_data": a["address"],"class":"ins-grey-color ins-col-12 ins-title-12","style":"line-height: 16px;"})
+           uidata.append({"_data": "Mobile: "+a["phone"] + " | Email: "+ a["email"],"class":"ins-grey-d-color ins-col-12  ins-title-14"})
            uidata.append({"end":"true"})
            uidata.append({"start":"true","class":"ins-col-2 ins-flex-end"})
            uidata.append({"_data":"<img class='-update-address' data-aid = "+ str(a["id"])+" src='"+p + "style/pen.svg"+"'></img>","class":"ins-text-center"})
@@ -268,8 +268,8 @@ class AppCheckout(App):
            uidata.append({"_data":"<img data-aid = "+f"{a["id"]}"+" class='-address-btn' data-type='store' src='"+p + img+"'></img>","class":"ins-flex ins-col-1"})
            uidata.append({"start":"true","class":"ins-col-11 ins-flex"})
            uidata.append({"_data": a["title"],"class":" ins-title-s ins-strong-m ins-grey-d-color ins-col-12","style":"line-height: 24px;"})
-           uidata.append({"_data": a["address"],"class":"ins-grey-color ins-col-12 ins-font-s","style":"line-height: 16px;"})
-           uidata.append({"_data": f"Phone: {a["phone"]} | WhatsApp: {a["whatsapp"]} | Email:  {a["email"]}" ,"class":"ins-grey-d-color ins-col-12","style":"    font-size: 14px;"})
+           uidata.append({"_data": a["address"],"class":"ins-grey-color ins-col-12 ins-title-12","style":"line-height: 16px;"})
+           uidata.append({"_data": f"Phone: {a["phone"]} | WhatsApp: {a["whatsapp"]} | Email:  {a["email"]}" ,"class":"ins-grey-d-color ins-col-12   ins-title-14"})
            uidata.append({"end":"true"})
 
 
@@ -399,24 +399,24 @@ class AppCheckout(App):
 
        
         uidata.append({"start": "true", "class": "ins-flex ins-col-12  ins-padding-m","style":"border-radius:8px !important;border: 1px solid var(--grey-l);"})
-        uidata.append({"_data": "Your details", "class": "ins-col-12  ins-grey-d-color ins-font-l ins-strong-l "})
+        uidata.append({"_data": "Your details", "class": "ins-col-12  ins-grey-d-color ins-title-s	 ins-strong-l "})
         uidata.append({"class":"ins-space-s"})
-        uidata.append({"_data": "Subtotal", "class": "ins-col-6  ins-font-m  ins-grey-color ins-strong-m"})
-        uidata.append({"_data": "EGP "+str(subtotal), "class": "ins-col-6  ins-grey-d-color ins-font-m ins-strong-l ins-flex-end"})
-        uidata.append({"_data": "Making Charge", "class": "ins-col-6  ins-font-m  ins-grey-color ins-strong-m"})
-        uidata.append({"_data": "EGP "+str(chargs), "class": "ins-col-6  ins-grey-d-color ins-font-m ins-strong-l ins-flex-end"})
-        uidata.append({"_data": "Shipping", "class": "ins-col-6  ins-font-m  ins-grey-color ins-strong-m"})
-        uidata.append({"_data": "Free", "class": "ins-col-6  ins-gold-d-color ins-font-m ins-strong-l ins-flex-end"})
+        uidata.append({"_data": "Subtotal", "class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
+        uidata.append({"_data": "EGP "+str(subtotal), "class": "ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end"})
+        uidata.append({"_data": "Making Charge", "class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
+        uidata.append({"_data": "EGP "+str(chargs), "class": "ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end"})
+        uidata.append({"_data": "Shipping", "class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
+        uidata.append({"_data": "Free", "class": "ins-col-6  ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end"})
         uidata.append({ "class": "ins-line ins-col-12"})
-        uidata.append({"_data": "Total", "class": "ins-col-6  ins-font-m  ins-grey-color ins-strong-m"})
-        uidata.append({"_data":"EGP "+str(total), "class": "ins-col-6  ins-grey-d-color ins-font-m ins-strong-l ins-flex-end"})
+        uidata.append({"_data": "Total", "class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
+        uidata.append({"_data":"EGP "+str(total), "class": "ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end"})
         uidata.append({"end": "true"})
         uidata.append({"class":"ins-space-xl"})
 
         payment_url = self.ins._server._url({"mode":"delivery"},["id"])
         back_url = self.ins._server._url({"alias":"product"},["id","mode"])
-        uidata.append({"href":payment_url,"_type":"a","_data": "Procced to address <img src='"+p+"style/right_arrow.svg'></img>","class": "ins-button-s ins-flex-center ins-font-m ins-strong-m ins-flex-grow ins-gold-d  ins-text-upper","style":"    height: 46px;    border: 1px solid var(--primary-d);"})
-        uidata.append({"href":back_url,"_type":"a","_data": " <img src='"+p+"style/left_arrow.svg'></img> Back", "class": "ins-button-s ins-flex-center ins-strong-m ins-text-upper ins-gold-d-color   ins-col-12 ins-font-m	","style":"    height: 46px;"})
+        uidata.append({"href":payment_url,"_type":"a","_data": "Procced to address <img src='"+p+"style/right_arrow.svg'></img>","class": "ins-button-s ins-flex-center ins-title-xs ins-strong-m ins-flex-grow ins-gold-d  ins-text-upper","style":"    height: 46px;    border: 1px solid var(--primary-d);"})
+        uidata.append({"href":back_url,"_type":"a","_data": " <img src='"+p+"style/left_arrow.svg'></img> Back", "class": "ins-button-s ins-flex-center ins-strong-m ins-text-upper ins-gold-d-color   ins-col-12 ins-title-xs	","style":"    height: 46px;"})
         uidata.append({"end":"true"})
 
 
@@ -462,15 +462,15 @@ class AppCheckout(App):
         uidata.append({"start": "true", "class": "ins-flex ins-col-12  ins-padding-m","style":"border-radius:8px !important;border: 1px solid var(--grey-l);"})
         uidata.append({"_data": "Your details", "class": "ins-col-12 ins-title-s ins-grey-d-color ins-strong-l "})
         uidata.append({"class":"ins-space-s"})
-        uidata.append({"_data": "Subtotal", "class": "ins-col-6  ins-font-m  ins-grey-color ins-strong-m"})
-        uidata.append({"_data": "EGP "+ str(subtotal), "class": "ins-col-6  ins-grey-d-color ins-font-m ins-strong-l ins-flex-end"})
-        uidata.append({"_data": "Making Charge", "class": "ins-col-6  ins-font-m  ins-grey-color ins-strong-m"})
-        uidata.append({"_data": "EGP "+ str(chargs), "class": "ins-col-6  ins-grey-d-color ins-font-m ins-strong-l ins-flex-end"})
-        uidata.append({"_data": "Shipping", "class": "ins-col-6  ins-font-m  ins-grey-color ins-strong-m"})
-        uidata.append({"_data": "Free", "class": "ins-col-6  ins-gold-d-color ins-font-m ins-strong-l ins-flex-end"})
+        uidata.append({"_data": "Subtotal", "class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
+        uidata.append({"_data": "EGP "+ str(subtotal), "class": "ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end"})
+        uidata.append({"_data": "Making Charge", "class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
+        uidata.append({"_data": "EGP "+ str(chargs), "class": "ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end"})
+        uidata.append({"_data": "Shipping", "class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
+        uidata.append({"_data": "Free", "class": "ins-col-6  ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end"})
         uidata.append({ "class": "ins-line ins-col-12"})
-        uidata.append({"_data": "Total", "class": "ins-col-6  ins-font-m  ins-grey-color ins-strong-m"})
-        uidata.append({"_data": "EGP "+ str(total), "class": "ins-col-6  ins-grey-d-color ins-font-m ins-strong-l ins-flex-end"})
+        uidata.append({"_data": "Total", "class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
+        uidata.append({"_data": "EGP "+ str(total), "class": "ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end"})
         uidata.append({"end": "true"})
         uidata.append({"class":"ins-space-xl"})
         payment_url = self.ins._server._url({"mode":"payment"},["id"])
@@ -488,12 +488,12 @@ class AppCheckout(App):
             ainfo = [{"_data": "Shipping Address", "class": "ins-col-8 ins-title-s ins-grey-d-color ins-strong-l "},
             {"_data": "Edit Address","data-aid" : str(address["id"]),"class": "-update-address ins-col-4 ins-flex-end ins-gold-d-color ins-strong-m ins-text-upper ins-button-text"},
             {"class":"ins-space-s"},
-            {"_data": address.get("title",""), "class": "ins-col-12  ins-font-l  ins-grey-d-color ins-strong-l"},
+            {"_data": address.get("title",""), "class": "ins-col-12  ins-title-20	  ins-grey-d-color ins-strong-l"},
             {"_data": address.get("address",""), "class": "ins-col-12 ins-grey-color"},
-            {"_data": f"Mobile: {address.get("phone","")} Email: {address.get("email","")}", "class": "ins-col-12 ins-grey-d-color ins-strong-m ","style":"font-size:14px"},
+            {"_data": f"Mobile: {address.get("phone","")} Email: {address.get("email","")}", "class": "ins-col-12 ins-grey-d-color ins-strong-m ins-title-14"},
             {"end": "true"},
             {"class":"ins-space-xl"},
-            {"_data": "Place Order <img src='"+p+"style/right_arrow.svg'></img>","class": "ins-button-s ins-flex-center ins-font-m ins-strong-m ins-flex-grow ins-gold-d  ins-text-upper","style":"    height: 46px;    border: 1px solid var(--primary-d);"}
+            {"_data": "Place Order <img src='"+p+"style/right_arrow.svg'></img>","class": "ins-button-s ins-flex-center ins-title-xs ins-strong-m ins-flex-grow ins-gold-d  ins-text-upper","style":"    height: 46px;    border: 1px solid var(--primary-d);"}
             ]
 
             asession = self.ins._server._get_session(self.session_address_name)
@@ -507,12 +507,12 @@ class AppCheckout(App):
                       store = s
                 ainfo = [{"_data": "Pickup Address", "class": "ins-col-12 ins-title-s ins-grey-d-color ins-strong-l "},
                 {"class":"ins-space-s"},
-                {"_data": store.get("title",""), "class": "ins-col-12  ins-font-l  ins-grey-d-color ins-strong-l"},
+                {"_data": store.get("title",""), "class": "ins-col-12  ins-title-20	  ins-grey-d-color ins-strong-l"},
                 {"_data": store.get("address",""), "class": "ins-col-12 ins-grey-color"},
-                {"_data": f"Mobile: {store.get("phone","")} Email: {store.get("email","")}", "class": "ins-col-12 ins-grey-d-color ins-strong-m ","style":"font-size:14px"},
+                {"_data": f"Mobile: {store.get("phone","")} Email: {store.get("email","")}", "class": "ins-col-12 ins-grey-d-color ins-strong-m ins-title-14"},
                 {"end": "true"},
                 {"class":"ins-space-xl"},
-                {"_data": "Place Order <img src='"+p+"style/right_arrow.svg'></img>","class": "ins-button-s ins-flex-center ins-font-m ins-strong-m ins-flex-grow ins-gold-d  ins-text-upper","style":"    height: 46px;    border: 1px solid var(--primary-d);"}
+                {"_data": "Place Order <img src='"+p+"style/right_arrow.svg'></img>","class": "ins-button-s ins-flex-center ins-title-xs ins-strong-m ins-flex-grow ins-gold-d  ins-text-upper","style":"    height: 46px;    border: 1px solid var(--primary-d);"}
                 ]
 
             uidata+=ainfo
@@ -521,11 +521,11 @@ class AppCheckout(App):
 
         else:
           #"href":payment_url,"_type":"a",
-          uidata.append({"_data": "Procced to payment <img src='"+p+"style/right_arrow.svg'></img>","class": "ins-button-s ins-flex-center ins-font-m ins-strong-m ins-flex-grow ins-gold-d -proccesd-payment-btn ins-text-upper","style":"    height: 46px;    border: 1px solid var(--primary-d);"})
+          uidata.append({"_data": "Procced to payment <img src='"+p+"style/right_arrow.svg'></img>","class": "ins-button-s ins-flex-center ins-title-xs ins-strong-m ins-flex-grow ins-gold-d -proccesd-payment-btn ins-text-upper","style":"    height: 46px;    border: 1px solid var(--primary-d);"})
 
 
 
-        uidata.append({"href":back_url,"_type":"a","_data": " <img src='"+p+"style/left_arrow.svg'></img> Back", "class": "ins-button-s ins-flex-center ins-strong-m ins-text-upper ins-gold-d-color   ins-col-12 ins-font-m	","style":"    height: 46px;"})
+        uidata.append({"href":back_url,"_type":"a","_data": " <img src='"+p+"style/left_arrow.svg'></img> Back", "class": "ins-button-s ins-flex-center ins-strong-m ins-text-upper ins-gold-d-color   ins-col-12 ins-title-xs	","style":"    height: 46px;"})
         uidata.append({"_data": "Your info will be saved to a Shop account. By continuing, you agree to Shop’s <a>Terms of Service</a> and acknowledge the  <a>Privacy Policy</a>.", "class": " ins-col-12 ins-grey-color ","style":"line-height:24px"})
 
         return uidata
@@ -537,8 +537,8 @@ class AppCheckout(App):
         uidata.append({"start":"true","class":"ins-col-12 ins-flex"})
 
         uidata.append({"start":"true","class":"ins-col-12 ins-gap-o"})
-        uidata.append({"_data":"payment","class":"ins-col-12 ins-font-l	 ins-strong-m ins-grey-d-color ins-text-upper"})
-        uidata.append({"_data":"All transactions are secure and encrypted","class":"ins-col-12 ins-font-m ins-grey-color"})
+        uidata.append({"_data":"payment","class":"ins-col-12 ins-title-m		 ins-strong-m ins-grey-d-color ins-text-upper"})
+        uidata.append({"_data":"All transactions are secure and encrypted","class":"ins-col-12 ins-title-xs ins-grey-color"})
         uidata.append({"end":"true"})
 
        

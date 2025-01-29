@@ -636,7 +636,7 @@ html {
 }
 
 .ins-radius-m {
-    border-radius: var(--ins-radius-s) !important;
+    border-radius: var(--ins-radius-m) !important;
 }
 
 .ins-radius-l {

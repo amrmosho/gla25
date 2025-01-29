@@ -34,7 +34,7 @@ class AppProducts(App):
         r["status"] = "2"
 
         if not ndata:
-            uidata=[{"_data":"There is no items in cart","class":"ins-col-12 ins-card ins-secondary ins-text-upper ins-text-center ins-font-s"}]
+            uidata=[{"_data":"There is no items in cart","class":"ins-col-12 ins-card ins-secondary ins-text-upper ins-text-center ins-title-12"}]
             r["status"] = "1"
             r["ui"] = self.ins._ui._render(uidata)
 
@@ -134,24 +134,8 @@ class AppProducts(App):
             uidata = []
 
             for d in rpdata:
-                st = "width:316px;"
-                ##purl = self.ins._server._url({"mode":"product","id": f"{d["id"]}"})
-                
-                
-                r = [
-                    {"start": "true", "class": "ins-flex  gla-pro-block  ", "style": st},
-                    {"start": "true", "class": " gla-img-cont  ", "style": ""},
-                    {"_data": "Bestseller", "class": "ins-tag ins-primary-d ins-strong-m ins-text-upper","style": "   position: absolute;top: 8px;left: 8px; font-size: 10px;    border-radius: 2px !important;"},
-                    {"src": p + d["th_main"], "_type": "img", "class": "gla-pro-img"},
-                    {"src": p + d["th_overlay"], "_type": "img", "class": "gla-pro-himg"},
-                    { "_type":"a" ,"_data": "SHOP NOW <i class=' lni ins-icon lni-arrow-right'></i>", "class": "ins-button gla-pro-hbutton ins-strong-m   ins-gold-bg","data-pid":f"{d['id']}"},
-                    {"end": "true"},
-                    {"class": "ins-space-s"},
-                    {"_data": f"{d["title"]}", "class": "ins-col-12 ins-font-l ins-strong-m   ins-grey-color", "style": "line-height:24px"},
-                    {"_data": "250,000.00", "class": "ins-col-12  ins-strong-m  ins-primary-color", "style": "line-height:24px"},
-                    {"end": "true"}
-                ]
-                uidata += r
+                uidata+= ELUI(self.ins).shop_pro_block(d,self.ins._server._url({"mode":"product","id": f"{d["id"]}"}))
+
 
             uidata.append({"start": "true", "class": "ins-flex-center ins-col-12 ins-pagination"})
             uidata.append({"_type": "button", "class": "ins-pagination-btn", "data-page": 1, "_data": "<<"})
@@ -184,8 +168,8 @@ class AppProducts(App):
        
         path = [
             {"start":"true","class":"ins-col-12 ins-flex ins-text-upper"},
-            {"_type":"a","href":home_url,"_data": "Home /","class":" ins-font-s	ins-grey-d-color ins-strong-m"},
-            {"_data": "Product","class":" ins-font-s	ins-grey-color ins-strong-m"},
+            {"_type":"a","href":home_url,"_data": "Home /","class":" ins-title-12	ins-grey-d-color ins-strong-m"},
+            {"_data": "Product","class":" ins-title-12	ins-grey-color ins-strong-m"},
             {"end":"true"}
             ]
       
@@ -230,7 +214,7 @@ class AppProducts(App):
 
 
         uidata.append({"start": "true", "class": "ins-flex ins-col-12  ins-gap-o"})
-        uidata.append({"_data": "Category", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-font-m  "})
+        uidata.append({"_data": "Category", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "})
         category_ids = filter_data.get("fk_product_category_id", "").split(',')
 
         for c in categories:
@@ -248,7 +232,7 @@ class AppProducts(App):
 
         uidata.append({"class": "ins-space-m"})
 
-        uidata.append({"_data": "Type", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-font-m  "})
+        uidata.append({"_data": "Type", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "})
        
         tys = filter_data.get("types", "").split(',')
         for t in types:
@@ -257,7 +241,7 @@ class AppProducts(App):
 
         uidata.append({"class": "ins-space-m"})
 
-        uidata.append({"_data": "Weight", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-font-m  "})
+        uidata.append({"_data": "Weight", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "})
         uidata.append({"_type": "select", "value":filter_data.get("weight",""),"data-name":"weight", "_data":",0.25gm,0.5gm,1gm,2.5gm,5gm,10gm,0.5oz / 15.55gm,20gm,1oz / 31.10gm,50gm,100gm,10 Tolas / 116.65gm,250gm,500gm,1000gm", "name": "weight", "pclass": "ins-col-12","class":" -product-filter-input -weight-select"})
         uidata.append({"class": "ins-space-m"})
 
@@ -276,8 +260,8 @@ class AppProducts(App):
 
 
         ## Products Area
-        uidata.append({"start": "true", "class": "ins-flex-gow ins-col-9 ins-padding-m "})
-        uidata.append({"_data": "", "class": "ins-col-9  ins-grey-d-color ins-font-xl ins-strong-m ins-text-upper"})
+        uidata.append({"start": "true", "class": "ins-col-9 ins-padding-m ins-flex"})
+        uidata.append({"_data":"","class": "ins-col-9"})
         uidata.append({"_type": "select", "_start": "Price", "_data": "High to Low,Low to High", "value": "high_to_low,low_to_high", "name": "order_by", "pclass": "ins-col-3"})
 
     

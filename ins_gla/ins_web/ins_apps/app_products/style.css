@@ -31,7 +31,10 @@
     color: var(--grey-d)
 }
 
-.-open-panel:hover,
+.-open-panel:hover {
+    cursor: pointer;
+}
+
 .ins-pagination-btn,
 .-side-img {
     cursor: pointer;

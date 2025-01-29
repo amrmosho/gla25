@@ -41,7 +41,7 @@ class APPCRUDTrash(appCrudParent):
                 {"start": True, "class": " ins-gap-o  -header-searh-group   ins-col-12  ins-group ins-flex  "},
                   {"_data":[{"class": "lni ins-icon lni-trash-3  ins-padding-s"},
                      {"_data": "Trash", "type": "span"}],
-                    "class": "ins-radius-xl ins-gap-o  ins-strong-l  ins-font-m   ins-flex-grow"}, {"class": "ins-flex-grow"},
+                    "class": "ins-radius-xl ins-gap-o  ins-strong-l  ins-title-xs   ins-flex-grow"}, {"class": "ins-flex-grow"},
 
                 {"style": "width:4px",  "class": "ins-border ins-border-left    "},
 

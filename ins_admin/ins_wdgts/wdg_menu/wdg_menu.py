@@ -40,7 +40,7 @@ class WdgMenu(Widget):
                 row = [
                     {"_type": "li", "class": f"ins-menu-item {mclass}", "start": True},
                     {"_type": "a", "class": "ins-col-12 ins-padding-m ins-flex-center",  "href": url, "_data": [
-                        {"_type": "i", "class": "ins-col-12 ins-text-center ins-font-m",
+                        {"_type": "i", "class": "ins-col-12 ins-text-center ins-title-xs",
                             "class": d["icon"]},
                         {"_type": "span", "class": "ins-col-12  ins-text-center",
                             "_data": d["title"]}

@@ -112,7 +112,7 @@ class APPCRUDForm(appCrudParent):
 
                 {"_data": [{"class": "lni ins-icon lni-plus  ins-padding-s"},
                            {"_data":  self.ins._langs._get("new_item_title"), "type": "span"}],
-                    "class": "ins-radius-xl  ins-strong-l  ins-gap-o ins-font-m   ins-flex-grow"},
+                    "class": "ins-radius-xl  ins-strong-l  ins-gap-o ins-title-xs   ins-flex-grow"},
 
 
 

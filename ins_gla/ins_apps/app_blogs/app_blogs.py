@@ -14,7 +14,7 @@ class AppBlogs(App):
        
         path = [
             {"start":"true","class":"ins-col-12 ins-flex ins-text-upper"},
-            {"_type":"a","href":home_url,"_data": "Home /","class":" ins-font-s	ins-grey-d-color ins-strong-m"},
+            {"_type":"a","href":home_url,"_data": "Home /","class":" ins-title-12	ins-grey-d-color ins-strong-m"},
             ]
         rq = self.ins._server._req()
 
@@ -23,12 +23,12 @@ class AppBlogs(App):
         if "mode" in rq and rq["mode"] == "blog":
             blogs_url = self.ins._server._url({},["mode","id"])
             title = self.ins._db._get_row("gla_blog","title",f"id={rq["id"]}")["title"]
-            path.append({"_data": "Media & News","_type":"a","href":blogs_url,"class":" ins-font-s	ins-grey-d-color ins-strong-m"})
-            path.append({"_data": " / "+title,"class":" ins-font-s	ins-grey-color ins-strong-m"})
+            path.append({"_data": "Media & News","_type":"a","href":blogs_url,"class":" ins-title-12	ins-grey-d-color ins-strong-m"})
+            path.append({"_data": " / "+title,"class":" ins-title-12	ins-grey-color ins-strong-m"})
 
                             
         else:
-         path.append({"_data": "Media & News","class":" ins-font-s	ins-grey-color ins-strong-m"})
+         path.append({"_data": "Media & News","class":" ins-title-12	ins-grey-color ins-strong-m"})
 
         path.append({"end":"true"})
       
@@ -75,7 +75,7 @@ class AppBlogs(App):
           
             {"start":"true","class":"ins-col-9"},
             {"_data": d["title"],"class":"ins-col-12 ins-grey-d-color ins-strong-l ins-title-m"},
-            {"_data": str(d["kit_created"]),"_view":"date","class":"ins-col-12 ins-strong-m ins-grey-m-color ins-font-s"},
+            {"_data": str(d["kit_created"]),"_view":"date","class":"ins-col-12 ins-strong-m ins-grey-m-color ins-title-12"},
             {"_data": d["content"],"class":"ins-col-12"},
           
             {"start":"true","class":"ins-col-12 ins-flex-end "},
@@ -92,7 +92,7 @@ class AppBlogs(App):
             blog = [
             {"start":"true","class":"ins-col-4 ins-padding-l   ins-card"},
             {"_data":f"<img style='max-width:320px' src= '{p}{d["image"]}'></img>","class":"ins-col-12 ins-text-center"},
-            {"_data": str(d["kit_created"]),"_view":"date","class":"ins-col-12 ins-grey-m-color ins-strong-m ins-font-s"},
+            {"_data": str(d["kit_created"]),"_view":"date","class":"ins-col-12 ins-grey-m-color ins-strong-m ins-title-12"},
             {"_data": d["title"],"class":"ins-col-12 ins-grey-d-color ins-strong-l ins-title-m"},
             {"_data": d["content"],"_view":"limit", "limit_ops":"50","class":"ins-col-12"},
             {"start":"true","class":"ins-col-12 ins-flex-end "},

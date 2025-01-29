@@ -8,26 +8,44 @@ class ELUI(ins_parent):
 
 
     def small_pro_block(self,data,string=False):
-
         p = "/ins_web/ins_uploads/"
         uidata =[
          {"start":"true","class":"ins-col-12 ins-flex -item-card"}
         ,{"src":f"{p}{data.get("th_main","")}", "_type": "img","class":"ins-radius-m","style":"    width: 97px;"}
         ,{"start":"true","class":"ins-col-8 ins-flex"}
         ,{"start":"true","class":"ins-col-12 ins-flex  ins-gap-o"}
-        ,{"_data":data.get("title","") ,"class":"ins-col-12 ins-font-l ins-strong-l ins-grey-d-color","style":"    !important;"}
-        ,{"_data": data.get("des",""),"class":"ins-grey-color ins-col-12","style":"font-size:14px; line-height: 20px; "}
+        ,{"_data":data.get("title","") ,"class":"ins-col-12 ins-title-s	 ins-strong-l ins-grey-d-color","style":"    !important;"}
+        ,{"_data": data.get("des",""),"class":"ins-grey-color ins-col-12 ins-title-14","style":"line-height: 20px; "}
         ,{"end":"true"}
-        ,{"_data": str(data["price"]),"class":"ins-col-12 ins-strong-l ins-primary-d-color","style":"    font-size: 20px;   ;"}
+        ,{"_data": str(data["price"]),"class":"ins-col-12 ins-strong-l ins-primary-d-color ins-title-20"}
         ,{"end":"true"}
         ,{"_data":f"<img src='{p}/style/trash.svg'><img>","class":"ins-flex-center ins-col-1 -remove-item-cart-btn","data-pid":data["id"]}
         ,{"end":"true"}
-
         ]
 
         if string:
            return  self.ins._ui._render(uidata)
         return uidata
+
+    def shop_pro_block(self,data,purl):
+         st = "width:316px;"
+         p = "/ins_web/ins_uploads/"
+         r = [
+                    {"start": "true", "class": "ins-flex  gla-pro-block  ", "style": st},
+                    {"start": "true", "class": " gla-img-cont  ", "style": ""},
+                    {"_data": "Bestseller", "class": "ins-tag ins-primary-d ins-strong-m ins-text-upper ins-title-10","style": "position: absolute;top: 8px;left: 8px;border-radius: 2px !important;"},
+                    {"src": p + data["th_main"], "_type": "img", "class": "gla-pro-img"},
+                    {"src": p + data["th_overlay"], "_type": "img", "class": "gla-pro-himg"},
+                    { "_type":"a" ,"href":purl,"_data": "SHOP NOW <i class=' lni ins-icon lni-arrow-right'></i>", "class": "ins-button gla-pro-hbutton ins-strong-m   ins-gold-bg","data-pid":f"{data['id']}"},
+                    {"end": "true"},
+                    {"class": "ins-space-s"},
+                    {"_data": f"{data["title"]}", "class": "ins-col-12 ins-title-20	 ins-strong-m   ins-grey-color", "style": "line-height:24px"},
+                    {"_data": f"{data["price"]}", "class": "ins-col-12  ins-strong-m  ins-primary-d-color", "style": "line-height:24px"},
+                    {"end": "true"}
+                ]
+         return r
+
+
 
 
     def cart_pro_block(self,data,string=False):
@@ -47,11 +65,11 @@ class ELUI(ins_parent):
 
          {"start":"true","class":"ins-col-8  ins-flex-grow ins-primary-w ins-padding-l","style":"border-radius: 0px 8px 8px 0px;    border-left: 1px solid var(--primary-l);"},
          {"_data":"Item summary" ,"class":"ins-col-12 ins-title-s ins-strong-l ins-grey-d-color"},        
-         {"_data": f"{data.get("count","")} x {data["title"]}" ,"class":"ins-col-8 ins-strong-m ins-grey-color","style":"font-size:14px"},
-         {"_data":str(data["price"]),"class":"ins-col-4 ins-strong-m ins-grey-d-color ins-flex-end","style":"font-size:14px"},
+         {"_data": f"{data.get("count","")} x {data["title"]}" ,"class":"ins-col-8 ins-strong-m ins-grey-color ins-title-14"},
+         {"_data":str(data["price"]),"class":"ins-col-4 ins-strong-m ins-grey-d-color ins-flex-end ins-title-14"},
          {"class":"ins-line ins-col-12"},
-         {"_data": f"{item_total_des}gm  {data.get("category","")} " ,"class":"ins-col-6 ins-strong-m ins-grey-color","style":"font-size:14px"},
-         {"_data":f"{item_total_amount}","class":"ins-col-6 ins-strong-m ins-grey-d-color ins-flex-end","style":"font-size:14px"},
+         {"_data": f"{item_total_des}gm  {data.get("category","")} " ,"class":"ins-col-6 ins-strong-m ins-grey-color ins-title-14"},
+         {"_data":f"{item_total_amount}","class":"ins-col-6 ins-strong-m ins-grey-d-color ins-flex-end ins-title-14"},
          {"end":"true"},
          {"end":"true"}
 
@@ -70,14 +88,14 @@ class ELUI(ins_parent):
         ,{"src":f"{p}{data.get("th_main","")}", "_type": "img","class":"ins-radius-m","style":"    width: 97px;"}
         ,{"start":"true","class":"ins-col-6 ins-flex"}
         ,{"start":"true","class":"ins-col-12 ins-flex  ins-gap-o"}
-        ,{"_data":data.get("title","") ,"class":"ins-col-12 ins-font-l ins-strong-l ins-grey-d-color","style":"    !important;"}
-        ,{"_data": data.get("des",""),"class":"ins-grey-color ins-col-12","style":"font-size:14px; line-height: 20px; "}
+        ,{"_data":data.get("title","") ,"class":"ins-col-12 ins-title-20	 ins-strong-l ins-grey-d-color","style":"    !important;"}
+        ,{"_data": data.get("des",""),"class":"ins-grey-color ins-col-12 ins-title-14","style":"line-height: 20px; "}
         ,{"end":"true"}
-        ,{"_data": str(data["price"]),"class":"ins-col-12 ins-strong-l ins-primary-d-color","style":"    font-size: 20px;   ;"}
+        ,{"_data": str(data["price"]),"class":"ins-col-12 ins-strong-l ins-primary-d-color  ins-title-20"}
         ,{"end":"true"},
         {"start": "true", "class": "ins-flex ins-col-3 -counter-cont ins-gap-o"},
         {"_data": "-", "class": "ins-button-s ins-flex-center ins-col-4 ins-gold-bg ins-font-2xl -minus-btn","data-pid" : data.get("id",0)},
-        {"_type": "input",  "name":"count_inpt","type": "text","value":data["count"], "pclass": "ins-col-4 ","class":"count-inpt ins-font-m ins-strong-l"},
+        {"_type": "input",  "name":"count_inpt","type": "text","value":data["count"], "pclass": "ins-col-4 ","class":"count-inpt ins-title-xs ins-strong-l"},
         {"_data": "+", "class": "ins-button-s ins-flex-center  ins-col-4  ins-gold-bg ins-font-2xl  -plus-btn","data-pid" : data.get("id",0)},
         {"end": "true"},
         {"_data":f"<img src='{p}/style/trash.svg'><img>","class":"ins-flex-center ins-col-1 -remove-item-cart-btn","data-pid":data["id"]},

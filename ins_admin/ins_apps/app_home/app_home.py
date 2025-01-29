@@ -66,7 +66,7 @@ class AppHome(App):
                     {"_type": "ul", "class": " ins-flex-center ins-col-12 ins-card", "start": True},
 
                     {"_type": "li", "class": "ins-padding-xl ins-border ins-flex ins-col-12 ins-card", "start": True},
-                    {"_type": "i", "class": " ins-font-m",
+                    {"_type": "i", "class": " ins-title-xs",
                      "class": d["icon"]},
                     {"class": "ins-title-m ins-strong",
                      "_data": d["title"]},

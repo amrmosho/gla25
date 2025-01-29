@@ -29,7 +29,7 @@ class AppProductTypes(App):
 
         uidata = [{"start": "true", "class": "ins-col-12 ins-flex"}]
         uidata.append({"_data": f"{title} types", "class": "ins-title-l ins-col-11"})
-        uidata.append({"type": "i","class": "lni lni-xmark ins-text-right ins-view-close ins-button-text-danger ins-font-l"})
+        uidata.append({"type": "i","class": "lni lni-xmark ins-text-right ins-view-close ins-button-text-danger ins-title-20	"})
         
         uidata.append({"start": "true", "class": "ins-col-12 ins-flex"})
         uidata.append({"class": "ins-space-m"})
