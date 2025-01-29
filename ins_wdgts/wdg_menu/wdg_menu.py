@@ -22,21 +22,19 @@ class WdgMenu(Widget):
             "menu_item_table", "*", f"fk_menu_id='{self.widget._options["id"]}' order by kit_order")
 
         for d in data:
-            url = f"/{d["alias"]}/"
-            row = [
-                {"_type": "li", "class": "ins-menu-item", "start": True},
-                {"_type": "a", "href": url, "_data": [
-                    {"_type": "span", "_data": d["title"]}
+            
+            if  str(d["kit_hidden"]) != "1":
+                url = f"/{d["alias"]}/"
+                row = [
+                    {"_type": "li", "class": "ins-menu-item", "start": True},
+                    {"_type": "a", "href": url, "_data": [
+                        {"_type": "span", "_data": d["title"]}
 
-                ]},
-                {"_type": "li", "end": True},
+                    ]},
+                    {"_type": "li", "end": True},
+                ]
 
-
-
-
-            ]
-
-            ui += row
+                ui += row
 
         ui.append({"class": "ins-col-12", "end": True})
         return self.ins._ui._render(ui)

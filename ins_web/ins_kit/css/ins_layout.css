@@ -904,3 +904,9 @@ a.ins-active {
 .ins-view-mode .ins-active .ins-view-mode-btn span {
     color: var(--primary) !important;
 }
+
+.ins-sticky-top {
+    position: sticky;
+    z-index: 11111;
+    top: 0px;
+}
