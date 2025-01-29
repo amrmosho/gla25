@@ -148,7 +148,7 @@ class AppProducts(App):
                     {"end": "true"},
                     {"class": "ins-space-s"},
                     {"_data": f"{d["title"]}", "class": "ins-col-12 ins-font-l ins-strong-m   ins-grey-color", "style": "line-height:24px"},
-                    {"_data": "250,000.00", "class": "ins-col-12  ins-strong-m  ins-primary-color", "style": "line-height:24px"},
+                    {"_data": f"{d["price"]}", "class": "ins-col-12  ins-strong-m  ins-primary-color", "style": "line-height:24px"},
                     {"end": "true"}
                 ]
                 uidata += r

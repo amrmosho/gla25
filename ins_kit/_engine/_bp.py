@@ -119,7 +119,7 @@ class Temp(ins_parent):
 
         if "lgstatus" in p and p["lgstatus"] == "login":
             if self.ins._users._login(p) == False:
-                m = "<div class='    ins_message   ins-message ins-danger'>Login failed : invalid email or password</div>"
+                m = "<div class='    ins_message   ins-message ins-danger'>Incorrect email or password. Please try again.</div>"
                 return render_template(f'{self.ins._this._temp["type"]}/login.html', msg=m,   temp=self)
 
         if not self.ins._users._is_login():
