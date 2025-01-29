@@ -33,11 +33,14 @@ class AppProductDetails(App):
 
 
     ## Images Container
-        images = json.loads(data["images"])
-        if 'type' in rq:
-            image = images[rq["type"]]
-        else:
-            image = images["george"]
+        image = {data["th_main"],data["th_overlay"]}
+        if data["images"] != None:
+            images = json.loads(data["images"])
+            if 'type' in rq:
+                image = images[rq["type"]]
+            else:
+                image = images["george"]
+
         uidata.append({"start": "true", "class": "ins-flex-valign-start ins-col-6 "})
         uidata.append({"start": "true", "class": "ins-flex-center ins-col-2 "})
         p = "/ins_web/ins_uploads/"
@@ -108,8 +111,11 @@ class AppProductDetails(App):
 
         ## Product types
         uidata.append({"_data": "Type", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "})
-        for t in data["types"].split(","):
-            uidata.append({"_data": t, "class": "ins-button-s  -type-btn ins-strong-m ins-grey-color ","style":"    border: 1px solid var(--grey-l);border-radius: 8px !important;"})
+
+        if data["types"] !=None:
+            for t in data["types"].split(","):
+                uidata.append({"_data": t, "class": "ins-button-s  -type-btn ins-strong-m ins-grey-color ","style":"    border: 1px solid var(--grey-l);border-radius: 8px !important;"})
+       
         uidata.append({"class": "ins-space-s"})
 
         uidata.append({ "class": "ins-line ins-col-12"})

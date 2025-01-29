@@ -205,7 +205,7 @@ class AppProducts(App):
         uidata.append({"start": "true", "class": "ins-flex-valign-start gla-container ins-col-12 ins-padding-2xl ins-padding-h"})
 
         ## Filter Area
-        uidata.append({"start": "true", "class": "ins-flex ins-col-3 -filter-area ins-grey-d-color ins-padding-m full-height","style":"background:white;"})
+        uidata.append({"start": "true", "class": "ins-flex ins-col-3 -filter-area ins-grey-d-color ins-padding-m full-height ins-sticky-top","style":"background:white;top:95px"})
         uidata.append({"class": "ins-space-m"})
 
         uidata.append({"_type": "input", "name":"title","value":filter_data.get("title",""),"data-name":"title","type": "text", "placeholder":"Product name Search..","class":" -product-filter-input -title-input",  "pclass": "ins-col-12","style":"    background: white;border-radius:4px;"})
