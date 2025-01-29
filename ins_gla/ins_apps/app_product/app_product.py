@@ -15,7 +15,7 @@ class AppProduct(App):
 
     def _title(ins,options,data):   
         uiadta = [
-            {"_data":data["title"] ,"class":"ins-primary-color ins-col-12 ins-font-m"},
+            {"_data":data["title"] ,"class":"ins-primary-color ins-col-12 ins-title-xs"},
             {"_data":data["weight"]+" GM","class":" ins-col-8 ins-text-center ins-title-xl ins-strong ins-font-s ins-tag ins-primary-color ins-flex-center"},
             {"_data":data["kart"]+" K","class":"ins-col-8 ins-text-center ins-title-xl ins-strong ins-font-s  ins-tag ins-primary-color ins-flex-cenetr"},
         ]
