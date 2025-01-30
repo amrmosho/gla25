@@ -54,8 +54,15 @@
     height: 100vh;
 }
 
+.ins-pagination-btn {
+    width: 28px !important;
+    height: 28px !important;
+}
+
 .ins-pagination-btn.active {
-    color: var(--primary);
+    background: var(--gold-d);
+    border-radius: 4px;
+    color: white;
 }
 
 .-side-img.ins-active {

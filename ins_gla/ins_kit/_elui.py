@@ -34,30 +34,29 @@ class ELUI(ins_parent):
         if string:
             return self.ins._ui._render(uidata)
         return uidata
-    def shop_pro_block(self, data, purl):
-        st = "width:316px;"
-        p = "/ins_web/ins_uploads/"
-        r = [
-            {"start": "true", "class": "ins-flex  gla-pro-block  ", "style": st},
-            {"start": "true", "class": " gla-img-cont  ", "style": ""},
-            {"_data": "Bestseller", "class": "ins-tag ins-primary-d ins-strong-m ins-text-upper ins-title-10",
-                "style": "position: absolute;top: 8px;left: 8px;border-radius: 2px !important;"},
-            {"src": p + data["th_main"],
-             "_type": "img", "class": "gla-pro-img"},
-            {"src": p + data["th_overlay"],
-             "_type": "img", "class": "gla-pro-himg"},
-            {"_type": "a", "href": purl, "_data": "SHOP NOW <i class=' lni ins-icon lni-arrow-right'></i>",
-                "class": "ins-button gla-pro-hbutton ins-strong-m   ins-gold-bg", "data-pid": f"{data['id']}"},
-            {"end": "true"},
-            {"class": "ins-space-s"},
-            {"_data": f"{
-                data["title"]}", "class": "ins-col-12 ins-title-20	 ins-strong-m   ins-grey-color", "style": "line-height:24px"},
-            {"_data": f"{
-                data["price"]}", "class": "ins-col-12  ins-strong-m  ins-primary-d-color", "style": "line-height:24px"},
-            {"end": "true"}
-        ]
-        return r
-    def cart_pro_block(self, data, string=False):
+
+    def shop_pro_block(self,data,purl,st = "width:316px;"):
+         p = "/ins_web/ins_uploads/"
+         r = [
+                    {"start": "true", "class": "ins-flex  gla-pro-block  ", "style": st},
+                    {"start": "true", "class": " gla-img-cont  ", "style": ""},
+                    {"_data": "Bestseller", "class": "ins-tag ins-primary-d ins-strong-m ins-text-upper ins-title-10","style": "position: absolute;top: 8px;left: 8px;border-radius: 2px !important;"},
+                    {"src": p + data["th_main"], "_type": "img", "class": "gla-pro-img"},
+                    {"src": p + data["th_overlay"], "_type": "img", "class": "gla-pro-himg"},
+                    { "_type":"a" ,"href":purl,"_data": "SHOP NOW <i class=' lni ins-icon lni-arrow-right'></i>", "class": "ins-button gla-pro-hbutton ins-strong-m   ins-gold-bg","data-pid":f"{data['id']}"},
+                    {"end": "true"},
+                    {"class": "ins-space-s"},
+                    {"_data": f"{data["title"]}", "class": "ins-col-12 ins-title-20	 ins-strong-m   ins-grey-color", "style": "line-height:24px"},
+                    {"_data": f"{data["price"]}", "class": "ins-col-12  ins-strong-m  ins-primary-d-color", "style": "line-height:24px"},
+                    {"end": "true"}
+                ]
+         return r
+
+
+
+
+    def cart_pro_block(self,data,string=False):
+        
         p = "/ins_web/ins_uploads/"
         item_total_des = float(data["count"]) * float(data["weight"])
         item_total_amount = float(data["count"]) * float(data["price"])
