@@ -6,6 +6,34 @@ ins(".-address-btn")._on("click", (o) => {
     o._setAttribute("src", "/ins_web/ins_uploads/style/radio_checked.svg")
 }, true)
 
+ins(".-payment-btn")._on("click", (o) => {
+
+    window.location = ins()._data._addtourl(o._getData("url"), "/payment/")
+
+}, true)
+
+
+
+ins(".-add-address-btn")._on("click", (o) => {
+    ins(".-add-address-area")._data._submit(function(data) {
+        ins("_add_address")._ajax._app(data, (d) => {
+            ins(".-addresses-area")._setHTML(d);
+            ins("Address added successfully")._ui._notification()
+        })
+    })
+}, true)
+
+ins(".-update-address-btn")._on("click", (o) => {
+    ins(".-update-address-area")._data._submit(function(data) {
+        ins("_update_address")._ajax._app(data, (d) => {
+            ins(".-addresses-area")._setHTML(d);
+            ins("Address updated successfully")._ui._notification()
+        })
+    })
+}, true)
+
+
+
 ins(".-add-address")._on("click", (o) => {
 
     ins("_add_address_ui")._ajax._app({}, (data) => {
@@ -24,28 +52,22 @@ ins(".-update-address")._on("click", (o) => {
 })
 
 
-ins(".-payment-btn")._on("click", (o) => {
+ins(".-remove-address-btn")._on("click", (o) => {
+    var p = o._parents(".-address-cont");
+    if (confirm("Are you sure you want to remove this address?")) {
+        ins("_remove_address")._ajax._app(o._getData(), (data) => {
+            ins("Address removed!")._ui._notification()
+            p._remove()
 
-    window.location = ins()._data._addtourl(o._getData("url"), "/payment/")
-
-}, true)
-ins(".-add-address-btn")._on("click", (o) => {
-    ins(".-add-address-area")._data._submit(function(data) {
-        ins("_add_address")._ajax._app(data, (d) => {
-            ins(".-addresses-area")._setHTML(d);
-            ins("Address added successfully")._ui._notification()
         })
-    })
+
+    }
 }, true)
 
-ins(".-update-address-btn")._on("click", (o) => {
-    ins(".-update-address-area")._data._submit(function(data) {
-        ins("_update_address")._ajax._app(data, (d) => {
-            ins(".-addresses-area")._setHTML(d);
-            ins("Address updated successfully")._ui._notification()
-        })
-    })
-}, true)
+
+
+
+
 ins(".-proccesd-payment-btn,.-payment-step-btn")._on("click", (o) => {
     ins("_check_address")._ajax._app({}, (d) => {
         if (d == "-1") {
@@ -123,17 +145,6 @@ ins(".-remove-item-cart-btn")._on("click", (o) => {
 }, true)
 
 
-ins(".-remove-address-btn")._on("click", (o) => {
-    var p = o._parents(".-address-cont");
-    if (confirm("Are you sure you want to remove this address?")) {
-        ins("_remove_address")._ajax._app(o._getData(), (data) => {
-            ins("Address removed!")._ui._notification()
-            p._remove()
-
-        })
-
-    }
-}, true)
 
 function update_address_btn(o) {
     var f = o._find(".-address-radio-btn");
@@ -191,7 +202,7 @@ ins(function() {
             }
             if (count == 0) {
                 clearInterval(countdown)
-                    //window.location = "/puser/orders/"
+                window.location = "/puser/orders/"
             }
         }, 1000)
     }

@@ -113,7 +113,7 @@ class ELUI(ins_parent):
             
             
             
-            {"src": f"{p}{data.get("th_main", "")}", "_type": "img", "class": "ins-radius-m", "style": "    width: 97px;"},
+            {"src": f"{p}{data.get("product_th_main", "")}", "_type": "img", "class": "ins-radius-m", "style": "    width: 97px;"},
             
             
             {"start": "true", "class": "ins-col-grow ins-flex"},
@@ -133,7 +133,7 @@ class ELUI(ins_parent):
                 "class": " ins-col-4  ins-title-xs  ins-text-center ins-grey-color ins-strong-m"},
             {"_data": f' Total  ',
              "class": " ins-col-4  ins-title-xs  ins-text-center ins-grey-color ins-strong-m"},
-            {"_data": data["count"],
+            {"_data": str(data["quantity"]),
              "class": " ins-col-4  ins-grey-d-color   ins-text-center ins-title-xs ins-strong-l"},
             {"_data": str(data["price"]),
              "class": " ins-col-4  ins-grey-d-color  ins-text-center ins-title-xs ins-strong-l"},

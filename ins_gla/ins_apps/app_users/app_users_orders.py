@@ -1,21 +1,26 @@
+from ins_gla.ins_kit._gusers import Gusers
 from ins_kit._engine._bp import App
 from ins_gla.ins_kit._elui import ELUI
 class AppUsersOrders(App):
     def __init__(self, app) -> None:
         self.app: App = app
         super().__init__(app.ins)
+        self.user= Gusers(app.ins)
+
     def u(self, mode):
         return self.ins._server._url({"mode": mode},)
-    @property
-    def session_name(sel):
-        return "glaproducts"
+
     def order(self):
-        sedata = self.ins._server._get_session(self.session_name)
+        g= self.ins._server._get()
+        sedata = self.ins._db._jget("gla_order_item", "*", f"fk_order_id='{g["id"]}'")
+        sedata._jwith("gla_product product", "th_main", rfk="fk_product_id" ,join="left join")
+        sedata=sedata._jrun()
+
         uidata = []
         subtotal = 0
         uidata = [{"start": "true", "class": "ins-col-12 ins-flex "},
-                  {"_data": "Order ID(8 /2025)", "class": "ins-col-12 ins-strong-m ins-title-m"}]
-        for k, v in sedata.items():
+                  {"_data": f"Order ID({g["id"]} /2025)", "class": "ins-col-12 ins-strong-m ins-title-m"}]
+        for v in sedata:
             subtotal += v["price"]
             uidata += ELUI(self.ins).counter_user_order_block(v)
         footer = [
@@ -41,14 +46,14 @@ class AppUsersOrders(App):
         uidata += footer
         return self.ins._ui._render(uidata)
     def out(self, ins):
-        usmenu = [
-            {"start": "true", "class": "  ins-col-12 ins-gap-20  ins-flex    ins-padding-2xl"},
+        udata = self.user._check()
+        odata = self.ins._db._get_data("gla_order", "*", f"fk_user_id='{udata["id"]}'")
+        usmenu = [{"start": "true", "class": "  ins-col-12 ins-gap-20  ins-flex    ins-padding-2xl"}]
          
          
-         
-            # order item block 1
-            {"start": "true", "class": " ins-flex-space-between  ins-card  ins-col-12 ins-border   ins-flex   ins-padding-l"},
-            {"_data": f'  Order  ID(8 /2025) ',
+        for v in odata:
+            order = [{"start": "true", "class": " ins-flex-space-between  ins-card  ins-col-12 ins-border   ins-flex   ins-padding-l"},
+            {"_data": f'  Order  ID({v["id"]} /2025) ',
                 "class": " ins-col-10  ins-primary-d-color ins-title-s	 ins-strong-l "},
             {"_data": f'  Done',
                 "class": " ins-col-2 ins-radius-m  ins-text-upper ins-avatar-s ins-success "},
@@ -60,49 +65,22 @@ class AppUsersOrders(App):
              "class": " ins-col-4    ins-grey-color"},
             {"_data": f' Orders Total ',
              "class": " ins-col-4 ins-grey-color "},
-            {"_data": f' 01/30/2025 ',
+            {"_data": f'{v["kit_created"]}',"_view":"date",
              "class": " ins-col-4  ins-grey-d-color ins-title-xs ins-strong-l ", "style": "    margin-top: -22px;"},
             {"_data": f' 15 ',
                 "class": " ins-col-4  ins-grey-d-color ins-title-xs ins-strong-l", "style": "    margin-top: -22px;"},
-            {"_data": f'EGP 3000 ',
+            {"_data": f'EGP {v["total"]}',
                 "class": " ins-col-4  ins-grey-d-color ins-title-xs ins-strong-l", "style": "    margin-top: -22px;"},
             {"end": "true"},
             {"class": " ins-col-1"},
-            {"class": "ins-button-cricle ins-grey-d",
+            {"_type":"a" ,"href":f"/puser/order/{v["id"]}","class": "ins-button-cricle ins-grey-d",
                 "_data": '<i class=" lni ins-icon ins-white-color lni-arrow-right"></i>'},
-            {"end": "true"},
+            {"end": "true"}]
             
+            usmenu+=order
             
-               # order item block 1
-            {"start": "true", "class": " ins-flex-space-between  ins-card  ins-col-12 ins-border   ins-flex   ins-padding-l"},
-            {"_data": f'  Order  ID(8 /2025) ',
-                "class": " ins-col-10  ins-primary-d-color ins-title-s	 ins-strong-l "},
-            {"_data": f'  Done',
-                "class": " ins-col-2 ins-radius-m  ins-text-upper ins-avatar-s ins-success "},
-            {"class": "ins-line ins-col-12"},
-            {"start": "true", "class": "ins-flex ins-col-10"},
-            {"_data": f' Date  ',
-                "class": " ins-col-4    ins-grey-color "},
-            {"_data": f' Items Count ',
-             "class": " ins-col-4    ins-grey-color"},
-            {"_data": f' Orders Total ',
-             "class": " ins-col-4 ins-grey-color "},
-            {"_data": f' 01/30/2025 ',
-             "class": " ins-col-4  ins-grey-d-color ins-title-xs ins-strong-l ", "style": "    margin-top: -22px;"},
-            {"_data": f' 15 ',
-                "class": " ins-col-4  ins-grey-d-color ins-title-xs ins-strong-l", "style": "    margin-top: -22px;"},
-            {"_data": f'EGP 3000 ',
-                "class": " ins-col-4  ins-grey-d-color ins-title-xs ins-strong-l", "style": "    margin-top: -22px;"},
-            {"end": "true"},
-            {"class": " ins-col-1"},
-            {"_type":"a" ,"href":"/puser/order/1","class": "ins-button-cricle ins-grey-d",
-                "_data": '<i class=" lni ins-icon ins-white-color lni-arrow-right"></i>'},
-            {"end": "true"},
-            {"end": "true"},
-            
-            
-            {"end": "true"}
-        ]
+        usmenu.append({"end": "true"})
+        
         uidata = [
             {"start": "true", "class": "ins-col-12  "},
             {"start": "true", "class": "gla-container ins-flex-start "},
