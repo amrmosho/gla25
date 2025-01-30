@@ -9,7 +9,10 @@ items_per_page = 12
 
 class AppProducts(App):
   
-  
+    def __init__(self, app) -> None:
+        self.app: App = app
+        super().__init__(app.ins)
+
     @property
     def session_name(sel):
         return "glaproducts"
@@ -87,19 +90,25 @@ class AppProducts(App):
 
             return self.ins._ui._render(uidata)      
 
-    def __init__(self, app) -> None:
-        self.app: App = app
-        super().__init__(app.ins)
+ 
 
     def generate_product_html(self,string = False):
         global items_per_page
         g = self.ins._server._get("filter")
         parsed_data = parse_qs(g)
+
         filter_data = {key: value[0] for key, value in parsed_data.items()}
         sql_parts = []
+
         for key, value in filter_data.items():
-            sql_parts.append(f"{key} LIKE '%{value}%'")
-        
+            values = value.split(",")
+            # Handle multiple values for the same key
+            if len(values) > 1:
+                condition = " OR ".join([f"{key} = '{v.strip()}'" for v in values])
+                sql_parts.append(f"({condition})")
+            else:
+                sql_parts.append(f"{key} LIKE '%{value.strip()}%'")
+
         sql_query = " AND ".join(sql_parts)
         rq = self.ins._server._post()
 
@@ -134,19 +143,40 @@ class AppProducts(App):
             uidata = []
 
             for d in rpdata:
-                uidata+= ELUI(self.ins).shop_pro_block(d,self.ins._server._url({"mode":"product","id": f"{d["id"]}"}))
+                
+                uidata+= ELUI(self.ins).shop_pro_block(d,f"/product/product/{d['id']}",st="width:300px;")
 
+            uidata.append({"class": "ins-space-xl"})
 
-            uidata.append({"start": "true", "class": "ins-flex-center ins-col-12 ins-pagination"})
-            uidata.append({"_type": "button", "class": "ins-pagination-btn", "data-page": 1, "_data": "<<"})
-            uidata.append({"_type": "button", "class": "ins-pagination-btn", "data-page": "prev", "_data": "<"})
+            uidata.append({"start": "true", "class": "ins-flex ins-col-12 ins-pagination-area ins-padding-l","style":"background:white;"})
+           
+           
+            uidata.append({"start": "true", "class": "ins-flex-start"})
+            uidata.append({"_type": "button", "class": "ins-pagination-btn", "data-page": "prev","_data": "<i class='lni lni-chevron-left'></i>"})
             start_page = max(1, current_page - 2)
             end_page = min(num_pages, current_page + 2)
             for page in range(start_page, end_page + 1):
                 active_class = "active" if page == current_page else ""
                 uidata.append({"_type": "button", "class": f"ins-pagination-btn {active_class}", "data-page": page, "_data": str(page)})
-            uidata.append({"_type": "button", "class": "ins-pagination-btn", "data-page": "next", "data-tpages":num_pages,"_data": ">"})
-            uidata.append({"_type": "button", "class": "ins-pagination-btn", "data-page": num_pages, "_data": ">>"})
+            uidata.append({"_type": "button", "class": "ins-pagination-btn", "data-page": "next", "data-tpages":num_pages,"_data": "<i class='lni lni-chevron-left' style='rotate:180deg'></i>"})
+            uidata.append({"end": "true"})
+
+           
+           
+           
+            uidata.append({"class": "ins-col-grow"})
+
+            uidata.append({"start": "true", "class": "ins-flex-end"})
+            uidata.append({"_data": "Go to page", "class": "ins-title-12 ins-grey-m-color"})
+            uidata.append({"_type": "input","type":"text","class":"-page-input ins-radius-s ins-white ins-text-center","pclass":"ins-col-2"})
+            uidata.append({"_data": "Go <i class='lni lni-chevron-left' style='rotate:180deg'></i>", "data-tpages":num_pages,"class": "ins-title-14 -go-to-page-btn ins-grey-color ins-button-text"})
+
+            uidata.append({"end": "true"})
+
+          
+          
+          
+          
             uidata.append({"end": "true"})
 
             
@@ -228,8 +258,6 @@ class AppProducts(App):
         uidata.append({"end":"true"})
 
 
-
-
         uidata.append({"class": "ins-space-m"})
 
         uidata.append({"_data": "Type", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "})
@@ -249,7 +277,7 @@ class AppProducts(App):
         uidata.append({"class": "ins-space-m"})
 
         uidata.append({"start": "true", "class": "ins-col-12 ins-flex-space-between"})
-        uidata.append({"_data": "Reset", "class": "ins-col-6  ins-button -product-reset-btn ins-border"})
+        uidata.append({"_data": "Reset", "class": "ins-col-6  ins-button ins-border","_type":"a","href":"/product/"})
         uidata.append({"_data": "Filter", "class": "ins-col-6 ins-gold-d ins-button -product-filter-btn"})
         uidata.append({"end": "true"})
 
@@ -261,13 +289,9 @@ class AppProducts(App):
 
         ## Products Area
         uidata.append({"start": "true", "class": "ins-col-9 ins-padding-m ins-flex"})
-        uidata.append({"_data":"","class": "ins-col-9"})
-        uidata.append({"_type": "select", "_start": "Price", "_data": "High to Low,Low to High", "value": "high_to_low,low_to_high", "name": "order_by", "pclass": "ins-col-3"})
-
-    
 
         # Add the product HTML
-        uidata.append({"start": "true", "class": "ins-flex-valign-start -products-area   ins-col-12 ins-padding-l"})
+        uidata.append({"start": "true", "class": "ins-flex-valign-start -products-area   ins-col-12 ins-padding-l ins-gap-20"})
         uidata += self.generate_product_html(True)
         uidata.append({"end": "true"})
 

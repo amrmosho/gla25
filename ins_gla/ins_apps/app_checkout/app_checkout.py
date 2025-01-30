@@ -19,6 +19,10 @@ class AppCheckout(App):
     def session_address_name(sel):
         return "glaaddress"
     
+    @property
+    def session_payment_name(sel):
+        return "glapayment"
+    
        
     def _update_item_data(self):
        data = self.ins._server._post()
@@ -44,9 +48,6 @@ class AppCheckout(App):
 
         return r
 
-
-
-
     def _login(self):
         
 
@@ -56,8 +57,6 @@ class AppCheckout(App):
            return "1"
         else:
            return "-1"
-        
-
 
 
     def _login_ui(self):
@@ -70,7 +69,7 @@ class AppCheckout(App):
            {"_data":"Forgot Password?","class":"ins-col-12 ins-strong-m ins-title-12 ins-grey-color"},
            
            {"class":"ins-line ins-col-12"},
-           {"_data":"Login","class":"ins-button ins-primary ins-col-3 -guser-login-btn"},
+           {"_data":"Login","class":"ins-button ins-gold-d ins-col-3 -guser-login-btn"},
            
             {"end":"true"}
             ,{"end":"true"}
@@ -112,15 +111,18 @@ class AppCheckout(App):
         steps = [
             {"text":"My Cart",
              "img":"ecart.svg",
-             "mode":"cart"
+             "mode":"cart",
+             "url":"/checkout/cart"
              },
                {"text":"Delivery",
              "img":"truck.svg",
-             "mode":"delivery"
+             "mode":"delivery",
+             "url":"/checkout/delivery"
              },
                {"text":"Payment",
              "img":"money.svg",
-             "mode":"payment"
+             "mode":"payment",
+             "url":""
              },
 
         ]
@@ -135,8 +137,12 @@ class AppCheckout(App):
          uidata.append({"class": sp,"style":"rotate:180deg"})
          if "mode" in rq and rq["mode"] == s["mode"]:
             active = "ins-gold-bg"
-         uidata.append({"_data": "<img src='"+p +"style/"+ s["img"]+"'></img>"+f"{i}"+". "+s["text"], "class": f"ins-button-s  ins-flex {active}"})
-         sp="lni lni-chevron-left ins-title-20	"
+         if s["mode"] != "payment":
+            uidata.append({"_type":"a","href":s["url"],"_data": "<img src='"+p +"style/"+ s["img"]+"'></img>"+f"{i}"+". "+s["text"], "class": f"ins-button-s -step-button ins-flex-center {active}"})
+         else:
+            uidata.append({"_data": "<img src='"+p +"style/"+ s["img"]+"'></img>"+f"{i}"+". "+s["text"], "class": f"ins-button-s -step-button ins-flex-center {active} -payment-step-btn"})
+
+         sp="lni lni-chevron-left"
        
         uidata.append({"end":"true"})
         uidata.append({"end":"true"})
@@ -152,7 +158,6 @@ class AppCheckout(App):
              return "-1"
        else:
           return "-1"
-
 
     def _update_address_ui(self):
         rq = self.ins._server._post()
@@ -361,7 +366,6 @@ class AppCheckout(App):
        self.ins._server._set_session(self.session_address_name,adta)
        return self._addresses_area_ui()
     
-
     def _update_address(self):
        sdata = self.user._check()
        data = self.ins._server._post()
@@ -428,7 +432,6 @@ class AppCheckout(App):
 
         return uidata
 
-
     def items_area(self):
        
         ## Items Area
@@ -485,15 +488,15 @@ class AppCheckout(App):
            
 
             address = self.ins._db._get_row("gla_address","*",f"id='{s["id"]}'")
-            ainfo = [{"_data": "Shipping Address", "class": "ins-col-8 ins-title-s ins-grey-d-color ins-strong-l "},
+            ainfo = [
+            {"_data": "Shipping Address", "class": "ins-col-8 ins-title-s ins-grey-d-color ins-strong-l "},
             {"_data": "Edit Address","data-aid" : str(address["id"]),"class": "-update-address ins-col-4 ins-flex-end ins-gold-d-color ins-strong-m ins-text-upper ins-button-text"},
             {"class":"ins-space-s"},
             {"_data": address.get("title",""), "class": "ins-col-12  ins-title-20	  ins-grey-d-color ins-strong-l"},
             {"_data": address.get("address",""), "class": "ins-col-12 ins-grey-color"},
-            {"_data": f"Mobile: {address.get("phone","")} Email: {address.get("email","")}", "class": "ins-col-12 ins-grey-d-color ins-strong-m ins-title-14"},
+            {"_data": f"Mobile: {address.get("phone","")} | Email: {address.get("email","")}", "class": "ins-col-12 ins-grey-d-color ins-strong-m ins-title-14"},
             {"end": "true"},
-            {"class":"ins-space-xl"},
-            {"_data": "Place Order <img src='"+p+"style/right_arrow.svg'></img>","class": "ins-button-s ins-flex-center ins-title-xs ins-strong-m ins-flex-grow ins-gold-d  ins-text-upper","style":"    height: 46px;    border: 1px solid var(--primary-d);"}
+            {"class":"ins-space-xl"}
             ]
 
             asession = self.ins._server._get_session(self.session_address_name)
@@ -505,17 +508,17 @@ class AppCheckout(App):
                 for s in stores:
                    if s["id"] == asession["id"]:
                       store = s
-                ainfo = [{"_data": "Pickup Address", "class": "ins-col-12 ins-title-s ins-grey-d-color ins-strong-l "},
+                ainfo = [
+                {"_data": "Pickup Address", "class": "ins-col-12 ins-title-s ins-grey-d-color ins-strong-l "},
                 {"class":"ins-space-s"},
                 {"_data": store.get("title",""), "class": "ins-col-12  ins-title-20	  ins-grey-d-color ins-strong-l"},
                 {"_data": store.get("address",""), "class": "ins-col-12 ins-grey-color"},
                 {"_data": f"Mobile: {store.get("phone","")} Email: {store.get("email","")}", "class": "ins-col-12 ins-grey-d-color ins-strong-m ins-title-14"},
                 {"end": "true"},
-                {"class":"ins-space-xl"},
-                {"_data": "Place Order <img src='"+p+"style/right_arrow.svg'></img>","class": "ins-button-s ins-flex-center ins-title-xs ins-strong-m ins-flex-grow ins-gold-d  ins-text-upper","style":"    height: 46px;    border: 1px solid var(--primary-d);"}
+                {"class":"ins-space-xl"}
                 ]
-
             uidata+=ainfo
+            uidata.append({"_data": "Place Order <img src='"+p+"style/right_arrow.svg'></img>","class": "ins-button-s ins-flex-center ins-title-xs ins-strong-m ins-flex-grow ins-gold-d  ins-text-upper -submit-order-btn","style":"    height: 46px;    border: 1px solid var(--primary-d);"})
 
 
 
@@ -530,6 +533,15 @@ class AppCheckout(App):
 
         return uidata
 
+    def _update_payment_data(self):
+         rq = self.ins._server._post()
+         pdata = {
+          "type":rq["name"]
+       }
+         self.ins._server._set_session(self.session_payment_name,pdata)
+         return "1"
+
+
     def _payment_step(self):
        
 
@@ -543,16 +555,37 @@ class AppCheckout(App):
 
        
         uidata.append({"class":"ins-space-s"})
-
-
-        uidata.append({"_data": "<img src='"+p + "style/radio.svg"+"'></img>"+"Cash on delivery", "class": "  ins-col-12   ins-flex ins-grey-m-color -payment-type-btn payment-card ins-strong-m"})
-        uidata.append({"_data": "<img src='"+p + "style/radio.svg"+"'></img>"+"Pay Via card", "class": "  ins-col-12   ins-flex ins-grey-m-color -payment-type-btn payment-card ins-strong-m"})
-        uidata.append({"_data": "<img src='"+p + "style/radio.svg"+"'></img>"+"InstaPay", "class": "  ins-col-12   ins-flex ins-grey-m-color -payment-type-btn payment-card ins-strong-m"})
-        uidata.append({"_data": "<img src='"+p + "style/radio.svg"+"'></img>"+"Bank transfer", "class": "  ins-col-12   ins-flex ins-grey-m-color -payment-type-btn payment-card ins-strong-m"})
-
         
+        pdata = self.ins._server._get_session(self.session_payment_name)
         
-        
+        payments = [
+           {"title":"Cash on delivery","name":"cash"},
+           {"title":"Pay Via card","name":"Card","img":"style/visa.svg"},
+           {"title":"InstaPay","name":"instapay","img":"style/instapay.svg"},
+           {"title":"Bank transfer","name":"bank"},
+        ]
+
+        for payment in payments:
+            img = "style/radio.svg"
+            pclass = ""
+            if pdata and pdata["type"] == payment["name"]:
+               img = "style/radio_checked_b.svg"
+               pclass = "ins-active"
+            pcard = [
+                  {"start":"true","data-name":payment["name"],"class":f"{pclass} ins-col-12 ins-flex-center -payment-type-btn"},
+                  {"_type":"img","src":f"{p}{img}","class":"-payment-type-btn-img"},
+                  {"_data": payment["title"],"class":"ins-strong-m ins-grey-m-color payment-title"},
+
+            ]
+            pcard.append({"class":"ins-col-grow"})
+
+            if "img" in payment:
+
+              pcard.append({"_type":"img","src":f"{p}{payment['img']}","class":"ins-flex-end"})
+
+            pcard.append({"end":"true"})
+            uidata+=pcard
+                    
         uidata.append({"end":"true"})
 
 
@@ -565,6 +598,27 @@ class AppCheckout(App):
 
 
         return uidata
+
+
+    def _placed_step(self):
+          uidata = [
+          {"start":"true","class":"ins-col-12 gla-container ins-flex-center ins-padding-2xl"},
+          {"start":"true","class":"ins-col-8 ins-card ins-flex"},
+          
+
+            {"class":" lni lni-check-circle-1 ins-font-4xl"},
+
+             {"start":"true","class":"ins-col-grow","style":"    padding: 0px;line-height: 15px;"},
+
+            {"_data":"Your order has been placed","class":"ins-title-s ins-strong-m ins-grey-d-color ins-col-12"},
+            {"_data":"You will be directed to orders page in <span class='-countdown ins-strong-m'>10 seconds</span>","class":"ins-title-14 ins-grey-color ins-col-12"},
+            {"end":"true"},
+            {"end":"true"}
+         ]
+
+          return uidata
+       
+
 
     def _ui(self):
        
@@ -580,11 +634,14 @@ class AppCheckout(App):
                uidata+=self._login_ui()
               else:
                uidata+=self._addresses_step()
-          
             elif rq["mode"] == "cart":
               uidata+=self._cart_step()
             elif rq["mode"] == "payment":
                uidata+=self._payment_step()
+            elif rq["mode"] == "order":
+               uidata+=self._placed_step()
+
+
         uidata.append({"end":"true"})
         return self.ins._ui._render(uidata)
     
@@ -595,6 +652,43 @@ class AppCheckout(App):
               {"end":"true"}
               ]
         return self.ins._ui._render(uidata)
+
+
+
+    def _submit_order(self):
+         sdata = self.user._check()
+         sedata=self.ins._server._get_session(self.session_name)
+         address = self.ins._server._get_session(self.session_address_name)
+         payment = self.ins._server._get_session(self.session_payment_name)
+         if not payment:
+            return "-1"
+         subtotal =0 
+         charges = 3000
+         for k,v in sedata.items():
+            subtotal+= v["price"]
+
+         total = subtotal + charges
+         order = {
+            "fk_user_id":sdata["id"],
+            "fk_address_id":address["id"],
+            "delivery_type":address["type"],
+            "payment_method":payment["type"],
+            "total":total,
+            "payment_status":"pending",
+            "order_status":"pending"
+         }
+         oid = self.ins._db._insert("gla_order",order)
+         for k,v in sedata.items():
+            order_item = {
+               "fk_order_id":oid,
+               "fk_product_id":v["id"],
+               "quantity":v["count"],
+               "price":v["price"],
+               "charges":charges
+            }
+            self.ins._db._insert("gla_order_item",order_item)
+         return "1"
+
 
     def out(self):
         self.app._include("style.css")

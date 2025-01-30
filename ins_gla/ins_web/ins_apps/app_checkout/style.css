@@ -19,15 +19,6 @@
     color: var(--grey-d)
 }
 
-.payment-card {
-    height: 64px;
-    border: 1px solid var(--grey-l);
-    border-radius: 8px;
-    background: white;
-    padding: 20px 16px 20px 16px;
-    line-height: 10px;
-}
-
 .-delivery-type-btn.inactive {
     color: var(--grey-m) !important;
     background: var(--white) !important;
@@ -36,4 +27,28 @@
 
 .-delivery-type-btn {
     height: 48px
+}
+
+.-step-button {
+    border: 1px solid var(--grey-l);
+    border-radius: 8px;
+    padding: 8px 12px 8px 12px;
+}
+
+.ins-active {
+    border: 1px solid var(--primary-d) !important;
+}
+
+.-payment-type-btn {
+    cursor: pointer;
+    height: 64px;
+    border: 1px solid var(--grey-l);
+    border-radius: 8px;
+    background: white;
+    padding: 20px 16px 20px 16px;
+    line-height: 10px;
+}
+
+.-payment-type-btn.ins-active .payment-title {
+    color: var(--primary-d) !important;
 }

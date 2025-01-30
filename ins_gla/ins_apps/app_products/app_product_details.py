@@ -58,7 +58,7 @@ class AppProductDetails(App):
             uidata.append({"class": "ins-space-xs"})
         uidata.append({"end": "true"})
         uidata.append({"src": p + aimage, "_type": "img",
-                 "class": " ins-radius-m ins-flex-grow ins-col-10 -main-img"})
+                 "class": " ins-radius-m ins-col-grow -main-img","style":"max-width:450px;"})
         uidata.append({"end": "true"})
 
         
@@ -110,9 +110,10 @@ class AppProductDetails(App):
         uidata.append({"class": "ins-space-s"})
 
         ## Product types
-        uidata.append({"_data": "Type", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "})
 
         if data["types"] !=None:
+            uidata.append({"_data": "Type", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "})
+
             for t in data["types"].split(","):
                 uidata.append({"_data": t, "class": "ins-button-s  -type-btn ins-strong-m ins-grey-color ","style":"    border: 1px solid var(--grey-l);border-radius: 8px !important;"})
        

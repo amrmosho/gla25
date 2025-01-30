@@ -46,7 +46,7 @@ ins(".-update-address-btn")._on("click", (o) => {
         })
     })
 }, true)
-ins(".-proccesd-payment-btn")._on("click", (o) => {
+ins(".-proccesd-payment-btn,.-payment-step-btn")._on("click", (o) => {
     ins("_check_address")._ajax._app({}, (d) => {
         if (d == "-1") {
             ins("You have to select address or store")._ui._notification({ class: "ins-danger" })
@@ -55,11 +55,6 @@ ins(".-proccesd-payment-btn")._on("click", (o) => {
         }
     })
 }, true)
-
-
-
-
-
 
 
 function update_data(p, k) {
@@ -156,10 +151,48 @@ ins(".-delivery-type-btn")._on("click", (o) => {
     ins("_select_address_ui")._ajax._app(o._getData(), (d) => {
         ins(".-addresses-area")._setHTML(d);
     })
-
-
-
-
-
-
 }, true)
+
+ins(".-payment-type-btn")._on("click", (o) => {
+    var f = o._find(".-payment-type-btn-img");
+    ins(".-payment-type-btn")._removeClass("ins-active")
+    o._addClass("ins-active")
+    ins(".-payment-type-btn-img")._setAttribute("src", "/ins_web/ins_uploads/style/radio.svg")
+    f._setAttribute("src", "/ins_web/ins_uploads/style/radio_checked_b.svg")
+    ins("_update_payment_data")._ajax._app(o._getData(), (d) => {
+
+    })
+}, true)
+
+
+
+ins(".-submit-order-btn")._on("click", (o) => {
+    ins("_submit_order")._ajax._app({}, (d) => {
+        if (d == "-1") {
+            ins("You have to select payment method")._ui._notification()
+        } else {
+            window.location = "/checkout/order/"
+        }
+    })
+}, true)
+
+
+ins(function() {
+    g = ins()._map._get();
+    if (g["mode"] == "order") {
+        let count = 10
+        const countdown = setInterval(() => {
+            count--
+            if (count > 1) {
+                ins(".-countdown")._setHTML(count + " seconds")
+
+            } else {
+                ins(".-countdown")._setHTML(count + " second")
+            }
+            if (count == 0) {
+                clearInterval(countdown)
+                    //window.location = "/puser/orders/"
+            }
+        }, 1000)
+    }
+})._load()

@@ -27,8 +27,7 @@ class ELUI(ins_parent):
            return  self.ins._ui._render(uidata)
         return uidata
 
-    def shop_pro_block(self,data,purl):
-         st = "width:316px;"
+    def shop_pro_block(self,data,purl,st = "width:316px;"):
          p = "/ins_web/ins_uploads/"
          r = [
                     {"start": "true", "class": "ins-flex  gla-pro-block  ", "style": st},
