@@ -210,10 +210,14 @@ footer li {
     color: var(--secondary-d);
 }
 
-.ins-menu-item a *,
-.ins-button-cricle,
 .ins-button-cricle i {
     color: var(--secondary-d) !important;
+}
+
+.ins-menu-item a *,
+.ins-button-cricle,
+.ins-button-cricle.ins-grey-d i {
+    color: white!important;
 }
 
 .ins-menu-item:hover a,
