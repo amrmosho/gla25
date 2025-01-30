@@ -41,16 +41,14 @@ class AppOrder(App):
      uiadta = [{"_data": str(data["delivery_type"])+ " - "+str(data["payment_method"]),  "class" : "  ins-flex-space-between ins-col-9 ins-flex ins-padding-l ins-padding-h ins-text-center",}]
      return ins._ui._render(uiadta)
     def _id(ins, options, data):
-     uiadta = [{"_data": "#"+ str(data["id"]),  "class" : "  ins-flex-space-between ins-col-9 ins-flex ins-padding-l ins-padding-h ins-text-center -order-btn",}]
+     uiadta = [{"_data": "#"+ str(data["id"]), "data-tid":data["id"], "class" : "  ins-flex-space-between ins-col-9 ins-flex ins-padding-l ins-padding-h ins-text-center -order-btn",}]
      return ins._ui._render(uiadta)
     
 
 
     def _order_ui(self):   
-        # rq = self.ins._server._post()
-        title = self.ins._db._get_row("gla_order_item", "title", f"id='{rq['tid']}'")["title"]
-        data = self.ins._db._get_data("gla_product_types", "*", f"fk_parent_id='{rq['tid']}'")
-
+        rq = self.ins._server._post()
+        #title = self.ins._db._get_row("gla_order_item", "title", f"id='{rq['tid']}'")["title"]
 
         uidata = [{"start": "true", "class": "ins-col-12 ins-flex"}]
         uidata.append({"_data": "types ", "class": "ins-title-l ins-col-11"})        
