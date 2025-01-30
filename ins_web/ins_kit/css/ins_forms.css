@@ -39,6 +39,10 @@
     border: none !important;
 }
 
+.ins-input-none:focus-visible {
+    outline: none !important
+}
+
 .ins-from-input-error,
 .ins-form-input-error {
     position: relative;

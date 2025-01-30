@@ -1,0 +1,69 @@
+{
+    "table": "gla_order",
+    "form_data": [
+    ],
+    "list_data": [
+        {
+            "_data": "ins_gla.ins_apps.app_order._id",
+            "title-ar": "العنوان",
+            "title": "id",
+            "_trans": "true",
+            "view": "text",
+            "_type": "method",
+            "class": "ins-col-1 ins-col-grow"
+        },
+    
+        {
+            "name": "fk_user_id",
+            "title": "Client",
+            "_type": "select",
+            "_data_type": "db",
+            "_view": "select",
+            "view": "text",
+            "_table": "kit_user",
+            "class": "ins-col-2"
+        },
+   
+    {
+        "_data": "ins_gla.ins_apps.app_order._deatils",
+        "title-ar": "العنوان",
+        "title": "Deatils",
+        "_trans": "true",
+        "view": "text",
+        "_type": "method",
+        "class": "ins-col-2"
+    },
+
+    {
+        "_data": "ins_gla.ins_apps.app_order._payment_status",
+        "title-ar": "العنوان",
+        "title": "payment status",
+        "_trans": "true",
+        "view": "text",
+        "_type": "method",
+        "class": "ins-col-2"
+    },
+    {
+        "_data": "ins_gla.ins_apps.app_order._status",
+        "title-ar": "العنوان",
+        "title": "order status",
+        "_trans": "true",
+        "view": "text",
+        "_type": "method",
+        "class": "ins-col-2"
+    },
+    {
+        "_data": "ins_gla.ins_apps.app_order._total",
+        "title-ar": "العنوان",
+        "title": "total",
+        "_trans": "true",
+        "view": "text",
+        "_type": "method",
+        "class": "ins-col-2"
+    }
+
+
+
+],
+    "list_filter": []
+}

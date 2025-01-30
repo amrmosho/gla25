@@ -17,7 +17,9 @@
         <header class=" ins-white  ins-sticky-top ins-flex  ">
             <div class="gla-container gla-body ins-flex ins-m-flex-space-between">
                 <div class="lni ins-font-2xl  gla-phone-menu lni-menu-hamburger-1"></div>
-                <div style="width: 72px; height:72px" class="gla-elogo gla-logo"></div>
+                <a href="/">
+                    <div style="width: 72px; height:72px" class="gla-elogo gla-logo"></div>
+                </a>
                 <nav class="ins-col-grow  ">
                     <div class="ins-flex-space-between  ins-phone-nav">
                         <div style="width: 72px; height:72px" class="gla-elogo gla-logo"></div>
@@ -27,14 +29,24 @@
                 </nav>
                 <div>
                     <div class="ins-flex">
-                        <div class="ins-button-cricle ins-white"><i class=" lni ins-icon  lni-search-1"></i></div>
+                        <div class="ins-button-cricle ins-white"><i class=" lni ins-icon gla-header-search-btn  lni-search-1"></i></div>
                         <div style="    font-size: 17px;    padding-top: 2px;" class="ins-button-cricle ins-font-type-m   ins-white">EN</div>
                         <div class="ins-button-cricle ins-white"><i class=" lni ins-icon  lni-user-4"></i></div>
                         <div class="ins-button-cricle ins-white"><a href="/checkout/cart"><i class=" lni ins-icon  lni-basket-shopping-3"></i></a></div>
                         <div>
                         </div>
                     </div>
+
         </header>
+
+        <div class="ins-flex-space-between ins-padding-xl ins-white -search-cont  ins-col-12">
+
+            <i class=" lni ins-icon ins-font-4xl lni-search-1
+"></i>
+            <input type="text" placeholder="What are you looking for?" class="ins-col-grow gla-header-search-input ins-font-xl ins-input-none" />
+            <i class=" lni ins-icon  ins-font-4xl lni-xmark gla-header-search-btn"></i>
+        </div>
+
         <div class=" ins-col-12 "> {{ wdgts["top"]|safe }}</div>
         <section style="min-height: 600px; " class="t-main   ins-flex ">
             <div class="ins-col-12 "> {{ app|safe }}</div>
