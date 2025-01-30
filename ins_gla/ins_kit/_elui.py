@@ -135,9 +135,9 @@ class ELUI(ins_parent):
              "class": " ins-col-4  ins-title-xs  ins-text-center ins-grey-color ins-strong-m"},
             {"_data": str(data["quantity"]),
              "class": " ins-col-4  ins-grey-d-color   ins-text-center ins-title-xs ins-strong-l"},
-            {"_data": str(data["price"]),
+            {"_data": "EGP "+str(data["price"]),
              "class": " ins-col-4  ins-grey-d-color  ins-text-center ins-title-xs ins-strong-l"},
-            {"_data": str(data["price"]),
+            {"_data": "EGP "+str(data["price"]),
              "class": " ins-col-4  ins-grey-d-color  ins-text-center ins-title-xs ins-strong-l"},
             
             

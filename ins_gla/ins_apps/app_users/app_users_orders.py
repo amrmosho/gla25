@@ -18,9 +18,11 @@ class AppUsersOrders(App):
 
         uidata = []
         subtotal = 0
+        tcount = 0
         uidata = [{"start": "true", "class": "ins-col-12 ins-flex "},
                   {"_data": f"Order ID({g["id"]} /2025)", "class": "ins-col-12 ins-strong-m ins-title-m"}]
         for v in sedata:
+            tcount += v["quantity"]
             subtotal += v["price"]
             uidata += ELUI(self.ins).counter_user_order_block(v)
         footer = [
@@ -33,11 +35,11 @@ class AppUsersOrders(App):
                 "class": " ins-col-4  ins-title-xs  ins-text-center ins-grey-color ins-strong-m"},
             {"_data": f' Total  ',
              "class": " ins-col-4  ins-title-xs  ins-text-center ins-grey-color ins-strong-m"},
-            {"_data": "2",
+            {"_data": str(tcount),
              "class": " ins-col-4  ins-grey-d-color   ins-text-center ins-title-xs ins-strong-l"},
             {"_data": "",
              "class": " ins-col-4  ins-grey-d-color  ins-text-center ins-title-xs ins-strong-l"},
-            {"_data": "3333",
+            {"_data": "EGP "+str(subtotal),
              "class": " ins-col-4  ins-grey-d-color  ins-text-center ins-title-xs ins-strong-l"},
             {"end": "true"},
             {"end": "true"},
