@@ -127,8 +127,6 @@ class AppProducts(App):
         else:
             current_page = int(rq["page"])
 
-
-        p = "/ins_web/ins_uploads/"
         offset = (current_page - 1) * items_per_page
 
         # Fetch and display products for the current page

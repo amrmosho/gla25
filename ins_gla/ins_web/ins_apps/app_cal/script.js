@@ -3,34 +3,6 @@ ins(".-type-btn")._on("click", (o) => {
     o._addClass("ins-active");
 })
 
-function _submit() {
-    var v = ins(".-cal-update-nput")._getValue();
-
-    if (v == "" || v == null || v == undefined || v == 0) {
-        ins("Please enter a valid number")._ui._notification({ "class": "ins-danger" });
-    } else {
-        window.location = "/plan/" + v + "/";
-    }
-
-
-}
-
-ins(".-cal-update-btn")._on("click", (o) => {
-    _submit();
-}, true)
-
-ins(".-cal-update-nput")._on("keyup", (o, e) => {
-    console.log(e.keyCode);
-    if (e.keyCode == 13) {
-        _submit();
-    }
-}, true)
-
-
-
-
-
-
 ins(".-add-cart-btn")._on("click", (o) => {
 
     var p = o._parents(".-plan-body")._find(".product-data-area");

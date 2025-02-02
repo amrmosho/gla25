@@ -66,12 +66,16 @@ class AppCheckout(App):
     def _otp_ui(self):
         rq = self.ins._server._post()
         uidata=[
-           {"start":"true","class":"ins-col-5 ins-flex-end ins-card -otp-form  ins-text-start"},
+           {"start":"true","class":"ins-col-5 ins-flex-center ins-card -otp-form  ins-text-start"},
            {"_data":"Login","class":"ins-title-m ins-strong-m ins-grey-d-color ins-text-upper ins-col-12"},
-           {"_type":"input","title":"OTP","placeholder":"- - - -","type":"number","name":"otp","class":"ins-title-l -login-otp-inpt ins-form-input ins-text-center","pclass":"ins-col-12"},
+           {"_type":"input","title":"OTP","placeholder":"----","type":"text","name":"otp","class":"ins-title-l -login-otp-inpt ins-form-input ins-text-center","pclass":"ins-col-6","style":"  letter-spacing: 25px;    height: 60px;"},
            {"_type":"input","type":"text","name":"mobile","value":rq["mobile"],"class":"-login-mobile-inpt","pclass":"ins-col-12 ins-hidden"},
+           {"_data": "Resend OTP in <span class='-otp-resend-counter ins-strong-m'>10</span>","class":"ins-grey-color ins-title-14 ins-col-12 ins-text-start -resend-count-otp"},
+           {"_data": "Resend OTP","class":"ins-grey-d-color ins-strong-m ins-title-14 ins-col-12 ins-text-start -resend-otp-btn ins-hidden","style":"cursor:pointer;"},
            {"class":"ins-line ins-col-12"},
-           {"_data":"Login","class":"ins-button-s ins-gold-d ins-col-3 -guser-o-btn"},
+           {"start":"true","class":"ins-col-12 ins-flex-end"},
+           {"_data":"Login","class":"ins-button-s ins-gold-d ins-col-5 -guser-o-btn"},
+           {"end":"true"},
            {"end":"true"}
            ]
         return self.ins._ui._render( uidata)

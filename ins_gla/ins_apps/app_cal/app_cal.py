@@ -26,7 +26,7 @@ class AppCal(App):
         lf = lt-(lt/ops["offset"])
 
         r = self.ins._db._get_data(
-            "gla_product", "*", f" price>='{lf}'  and  price<='{lt}'")
+            "gla_product", "*", f" price>='{lf}'  and  price<='{lt}' and fk_product_category_id <> '3'")
 
         if len(r) == 0:
             for f in fill:
@@ -343,6 +343,8 @@ class AppCal(App):
                     "class": "ins-button-s  -cal-update-btn ins-gold-d ins-flex-center","style":"height: 46px;"},
                 {"end": "true"}
             ]
+        
+
         uidata.append({"end": "true"})
         uidata.append({"end": "true"})
      

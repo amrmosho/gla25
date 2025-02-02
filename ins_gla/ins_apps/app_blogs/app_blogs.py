@@ -109,8 +109,6 @@ class AppBlogs(App):
     def out(self):
         rq = self.ins._server._req()
 
-   
-
         if "mode" in rq and rq["mode"] == "blog":
             return self.blog_ui(rq)
         else:

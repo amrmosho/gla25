@@ -15,25 +15,25 @@ class WdgSlideshow(Widget):
         data = [{
 
             "img": "ins_web/ins_uploads/style/sh1.svg",
-            "des": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">Premium1 <br> Gold Bars</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">El Galla Gold is one of the oldest family<br>-owned businesses in the Egyptian gold <br> market</div><div class="ins-space"></div><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">Shop now <i class=" lni ins-icon lni-arrow-right"></i></div>',
+            "des": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">Premium1 <br> Gold Bars</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">El Galla Gold is one of the oldest family<br>-owned businesses in the Egyptian gold <br> market</div><div class="ins-space"></div><a href="/product/"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">Shop now <i class=" lni ins-icon lni-arrow-right"></i></div></a>',
             "th": "ins_web/ins_uploads/style/sht1.svg"},
 
             {"img": "ins_web/ins_uploads/style/sht2.svg",
 
                     "img": "ins_web/ins_uploads/style/sh1.svg",
-            "des": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">Premium1 <br> Gold Bars</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">El Galla Gold is one of the oldest family<br>-owned businesses in the Egyptian gold <br> market</div><div class="ins-space"></div><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">Shop now <i class=" lni ins-icon lni-arrow-right"></i></div>',
+            "des": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">Premium1 <br> Gold Bars</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">El Galla Gold is one of the oldest family<br>-owned businesses in the Egyptian gold <br> market</div><div class="ins-space"></div><a href="/product/"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">Shop now <i class=" lni ins-icon lni-arrow-right"></i></div></a>',
 
                     "th": "ins_web/ins_uploads/style/sht2.svg"},
             {"img": "ins_web/ins_uploads/style/sh1.svg",
 
                     "img": "ins_web/ins_uploads/style/sht3.svg",
-            "des": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">Premium1 <br> Gold Bars</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">El Galla Gold is one of the oldest family<br>-owned businesses in the Egyptian gold <br> market</div><div class="ins-space"></div><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">Shop now <i class=" lni ins-icon lni-arrow-right"></i></div>',
+            "des": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">Premium1 <br> Gold Bars</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">El Galla Gold is one of the oldest family<br>-owned businesses in the Egyptian gold <br> market</div><div class="ins-space"></div><a href="/product/"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">Shop now <i class=" lni ins-icon lni-arrow-right"></i></div></a>',
 
                     "th": "ins_web/ins_uploads/style/sht3.svg"},
             {"img": "ins_web/ins_uploads/style/sh1.svg",
 
                     "img": "ins_web/ins_uploads/style/sh1.svg",
-            "des": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">Premium1 <br> Gold Bars</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">El Galla Gold is one of the oldest family<br>-owned businesses in the Egyptian gold <br> market</div><div class="ins-space"></div><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">Shop now <i class=" lni ins-icon lni-arrow-right"></i></div>',
+            "des": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">Premium1 <br> Gold Bars</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">El Galla Gold is one of the oldest family<br>-owned businesses in the Egyptian gold <br> market</div><div class="ins-space"></div><a href="/product/"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">Shop now <i class=" lni ins-icon lni-arrow-right"></i></div></a>',
 
                     "th": "ins_web/ins_uploads/style/sht3.svg"},
         ]

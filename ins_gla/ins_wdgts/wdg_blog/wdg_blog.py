@@ -29,7 +29,7 @@ class WdgBlog(Widget):
             {"_data": "Explore Our Stories",
                 "class": "ins-title-xl ins-grey-d-color ins-strong-m"},
             {"class": "ins-col-grow "},
-            {"_data": "ExpLORE MORE <i class=' lni ins-icon lni-arrow-right'></i>",  "style":"width:250px","class": "ins-button-l  ins-text-upper ins-gold"},
+            {"_type":"a","href":"blogs","_data": "ExpLORE MORE <i class=' lni ins-icon lni-arrow-right'></i>",  "style":"width:250px","class": "ins-button-l  ins-text-upper ins-gold-d"},
             {"class": "ins-space-l"},
             {"start": "true", "class": "ins-flex-start pro-blog-parent " ,"style":gstyle},
         ]
