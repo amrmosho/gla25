@@ -16,15 +16,6 @@ class AppUsers(App):
     def session_address_name(sel):
         return "glaaddress"
 
-    def _login(self):
-        
-
-        r=  self.user._loign()
-
-        if r :
-           return "1"
-        else:
-           return "-1"
 
     def u(self, mode):
         return self.ins._server._url({"mode": mode},)
@@ -74,19 +65,19 @@ class AppUsers(App):
                 "class": "ins-col-12 ins-padding-xl   ins-padding-h ins-font-s ", "style": "line-height: 20px;margin-top: -11px;margin-bottom: 11px;"},
             {"end": "true"},
             {"start": "true", "class": "  ins-col- 12 ins-primary-w    ins-flex ins-border ins-radius-xl    ins-padding-l"},
-            {"_type": "a",  "_data": f'<i class="lni ins-font-l lni-user-4"></i>  My Profile ',
+            {"_type": "a", "href":"profile", "_data": f'<i class="lni ins-font-l lni-user-4"></i>  My Profile ',
                 "class": " ins-title-s ins-col-12"},
             {"_data": f'Users Panel home des Users Panel home des Users Panel home des ',
                 "class": "ins-col-12 ins-padding-xl   ins-padding-h ins-font-s ", "style": "line-height: 20px;margin-top: -11px;margin-bottom: 11px;"},
             {"end": "true"},
             {"start": "true", "class": "  ins-col- 12    ins-primary-w  ins-flex ins-border ins-radius-xl    ins-padding-l"},
-            {"_type": "a",  "_data": f'<i class="lni ins-font-l lni-basket-shopping-3"></i>  My Orders ',
+            {"_type": "a", "href":"order", "_data": f'<i class="lni ins-font-l lni-basket-shopping-3"></i>  My Orders ',
                 "class": " ins-title-s ins-col-12"},
             {"_data": f'Users Panel home des Users Panel home des Users Panel home des ',
                 "class": "ins-col-12 ins-padding-xl   ins-padding-h ins-font-s ", "style": "line-height: 20px;margin-top: -11px;margin-bottom: 11px;"},
             {"end": "true"},
             {"start": "true", "class": "  ins-col- 12  ins-primary-w   ins-flex ins-border ins-radius-xl    ins-padding-l"},
-            {"_type": "a",  "_data": f'<i class="lni ins-font-l lni-gears-3"></i>  Settings ',
+            {"_type": "a","href":"settings",  "_data": f'<i class="lni ins-font-l lni-gears-3"></i>  Settings ',
                 "class": " ins-title-s ins-col-12"},
             {"_data": f'Users Panel home des Users Panel home des Users Panel home des ',
                 "class": "ins-col-12 ins-padding-xl   ins-padding-h ins-font-s ", "style": "line-height: 20px;margin-top: -11px;margin-bottom: 11px;"},
@@ -283,32 +274,56 @@ class AppUsers(App):
 
         return self.ins._ui._render(uidata)
 
-    def _login_ui(self):
+    def _mobile_no_ui(self):
        
         uidata=[
-           {"start":"true","class":"ins-col-12 ins-flex-center ins-padding-2xl ins-text-center"},
-           {"start":"true","class":"ins-col-5 ins-flex-end ins-card -login-form  ins-text-start"},
-           {"_type":"input","title":"email","placeholder":"Enter your Email","type":"email","name":"email","pclass":"ins-col-12"},
-           {"_type":"input","title":"password","type":"password","placeholder":"Enter your Password","name":"password","pclass":"ins-col-12"},
-           {"_data":"Forgot Password?","class":"ins-col-12 ins-strong-m ins-title-12 ins-grey-color"},
-           
+           {"start":"true","class":"ins-col-12 ins-flex-center ins-padding-2xl ins-text-center -login-area"},
+           {"start":"true","class":"ins-col-4 ins-flex-end ins-card -mobile-form  ins-text-start"},
+           {"_data":"Login","class":"ins-title-m ins-strong-m ins-grey-d-color ins-text-upper ins-col-12"},
+           {"_type":"input","title":"Mobile Number","placeholder":"Enter Mobile Number","type":"number","name":"mobile","_start":"+20","class":"-login-mobile-inpt","pclass":"ins-col-12"},
            {"class":"ins-line ins-col-12"},
-           {"_data":"Login","class":"ins-button ins-gold-d ins-col-3 -guser-login-btn"},
-           
-            {"end":"true"}
-            ,{"end":"true"}
+           {"_data":"Send OTP","class":"ins-button-s ins-gold-d ins-col-4 -guser-m-btn"},
+           {"end":"true"}
+           ,{"end":"true"}
            ]
-
-
         return uidata
 
+    def _otp_ui(self):
+        rq = self.ins._server._post()
+        uidata=[
+           {"start":"true","class":"ins-col-4 ins-flex-end ins-card -otp-form  ins-text-start"},
+           {"_data":"Login","class":"ins-title-m ins-strong-m ins-grey-d-color ins-text-upper ins-col-12"},
+           {"_type":"input","title":"OTP","placeholder":"- - - -","type":"number","name":"otp","class":"ins-title-l -login-otp-inpt ins-form-input ins-text-center","pclass":"ins-col-12"},
+           {"_type":"input","type":"text","name":"mobile","value":rq["mobile"],"class":"-login-mobile-inpt","pclass":"ins-col-12 ins-hidden"},
+           {"class":"ins-line ins-col-12"},
+           {"_data":"Login","class":"ins-button-s ins-gold-d ins-col-3 -guser-o-btn"},
+           {"end":"true"}
+           ]
+        return self.ins._ui._render( uidata)
+
+    def _login_mobile(self):
+        chck = self.user._mobile_login()
+
+        if(chck == "1"):
+            return self._otp_ui()
+        else:
+            return "-1"
+        
+
+    def _login_otp(self):
+        chck = self.user._otp_check()
+
+        if(chck):
+            return "1"
+        else:
+            return "-1"
    
 
     def out(self):
         self.app._include("script.js")
         udata = self.user._check()
         if not udata:
-            return self.ins._ui._render(self._login_ui())
+            return self.ins._ui._render(self._mobile_no_ui())
             
 
         g = self.ins._server._get()

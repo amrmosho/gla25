@@ -70,3 +70,69 @@ ins(".-remove-address-btn")._on("click", (o) => {
 
     }
 }, true)
+
+
+function _login_m() {
+
+    var mobile = ins(".-login-mobile-inpt")._getValue();
+    if (mobile == "" || mobile == null) {
+        ins("Mobile number is required")._ui._notification({ "class": "ins-danger" })
+        return false;
+    } else if (mobile.length < 10) {
+        ins("Invalid mobile number")._ui._notification({ "class": "ins-danger" })
+        return false;
+    }
+
+    ins("_login_mobile")._ajax._app({ "mobile": mobile }, (d) => {
+        if (d == "-1") {
+            ins("Invalid mobile number")._ui._notification({ "class": "ins-danger" })
+        } else {
+            ins("OTP sent successfully")._ui._notification()
+            ins(".-login-area")._setHTML(d)
+
+
+        }
+    })
+    ins(".-guser-m-menu")._toggleClass("ins-hide")
+}
+
+
+function _login_otp() {
+
+    ins(".-otp-form")._data._submit(function(data) {
+        ins("_login_otp")._ajax._app(data, (d) => {
+            if (d == "-1") {
+                ins("Invalid OTP")._ui._notification({ "class": "ins-danger" })
+            } else {
+                ins("Login successfully")._ui._notification()
+                ins(".-otp-form")._ui._addLoader()
+                setTimeout(() => {
+                    window.location.reload()
+                }, 3000);
+
+            }
+        })
+    })
+
+}
+
+ins(".-guser-m-btn")._on("click", (o) => {
+    _login_m()
+}, true)
+
+ins(".-login-mobile-inpt")._on("keyup", (o, e) => {
+    if (e.keyCode == 13) {
+        _login_m()
+    }
+})
+
+
+ins(".-guser-o-btn")._on("click", (o) => {
+    _login_otp()
+}, true)
+
+ins(".-login-otp-inpt")._on("keyup", (o, e) => {
+    if (e.keyCode == 13) {
+        _login_otp()
+    }
+})

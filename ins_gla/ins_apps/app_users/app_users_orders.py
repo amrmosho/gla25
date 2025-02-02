@@ -9,7 +9,6 @@ class AppUsersOrders(App):
 
     def u(self, mode):
         return self.ins._server._url({"mode": mode},)
-
     def order(self):
         g= self.ins._server._get()
         sedata = self.ins._db._jget("gla_order_item", "*", f"fk_order_id='{g["id"]}'")
@@ -52,13 +51,13 @@ class AppUsersOrders(App):
         odata = self.ins._db._get_data("gla_order", "*", f"fk_user_id='{udata["id"]}'")
         usmenu = [{"start": "true", "class": "  ins-col-12 ins-gap-20  ins-flex    ins-padding-2xl"}]
          
-         
+        odata.reverse()
         for v in odata:
             order = [{"start": "true", "class": " ins-flex-space-between  ins-card  ins-col-12 ins-border   ins-flex   ins-padding-l"},
             {"_data": f'  Order  ID({v["id"]} /2025) ',
                 "class": " ins-col-10  ins-primary-d-color ins-title-s	 ins-strong-l "},
-            {"_data": f'  Done',
-                "class": " ins-col-2 ins-radius-m  ins-text-upper ins-avatar-s ins-success "},
+            {"_data": f'{v["order_status"]}',
+                "class": " ins-col-2 ins-radius-m  ins-text-upper ins-avatar-s ins-gold-d "},
             {"class": "ins-line ins-col-12"},
             {"start": "true", "class": "ins-flex ins-col-10"},
             {"_data": f' Date  ',

@@ -48,36 +48,53 @@ class AppCheckout(App):
 
         return r
 
-    def _login(self):
-        
 
-        r=  self.user._loign()
-
-        if r :
-           return "1"
-        else:
-           return "-1"
-
-
-    def _login_ui(self):
+    def _mobile_no_ui(self):
        
         uidata=[
-           {"start":"true","class":"ins-col-12 ins-flex-center ins-padding-2xl ins-text-center"},
-           {"start":"true","class":"ins-col-5 ins-flex-end ins-card -login-form  ins-text-start"},
-           {"_type":"input","title":"email","placeholder":"Enter your Email","type":"email","name":"email","pclass":"ins-col-12"},
-           {"_type":"input","title":"password","type":"password","placeholder":"Enter your Password","name":"password","pclass":"ins-col-12"},
-           {"_data":"Forgot Password?","class":"ins-col-12 ins-strong-m ins-title-12 ins-grey-color"},
-           
+           {"start":"true","class":"ins-col-12 ins-flex-center ins-padding-2xl ins-text-center -login-area"},
+           {"start":"true","class":"ins-col-5 ins-flex-end ins-card -mobile-form  ins-text-start"},
+           {"_data":"Login","class":"ins-title-m ins-strong-m ins-grey-d-color ins-text-upper ins-col-12"},
+           {"_type":"input","title":"Mobile Number","placeholder":"Enter Mobile Number","type":"number","name":"mobile","_start":"+20","class":"-login-mobile-inpt","pclass":"ins-col-12"},
            {"class":"ins-line ins-col-12"},
-           {"_data":"Login","class":"ins-button ins-gold-d ins-col-3 -guser-login-btn"},
-           
-            {"end":"true"}
-            ,{"end":"true"}
+           {"_data":"Send OTP","class":"ins-button-s ins-gold-d ins-col-4 -guser-m-btn"},
+           {"end":"true"}
+           ,{"end":"true"}
            ]
-
-
         return uidata
 
+    def _otp_ui(self):
+        rq = self.ins._server._post()
+        uidata=[
+           {"start":"true","class":"ins-col-5 ins-flex-end ins-card -otp-form  ins-text-start"},
+           {"_data":"Login","class":"ins-title-m ins-strong-m ins-grey-d-color ins-text-upper ins-col-12"},
+           {"_type":"input","title":"OTP","placeholder":"- - - -","type":"number","name":"otp","class":"ins-title-l -login-otp-inpt ins-form-input ins-text-center","pclass":"ins-col-12"},
+           {"_type":"input","type":"text","name":"mobile","value":rq["mobile"],"class":"-login-mobile-inpt","pclass":"ins-col-12 ins-hidden"},
+           {"class":"ins-line ins-col-12"},
+           {"_data":"Login","class":"ins-button-s ins-gold-d ins-col-3 -guser-o-btn"},
+           {"end":"true"}
+           ]
+        return self.ins._ui._render( uidata)
+
+    def _login_mobile(self):
+        chck = self.user._mobile_login()
+
+        if(chck == "1"):
+            return self._otp_ui()
+        else:
+            return "-1"
+        
+
+    def _login_otp(self):
+        chck = self.user._otp_check()
+
+        if(chck):
+            return "1"
+        else:
+            return "-1"
+   
+
+  
 
     def header_ui(self):
         rq = self.ins._server._req()
@@ -151,6 +168,8 @@ class AppCheckout(App):
     def _check_address(self):
        saddress = self.ins._server._get_session(self.session_address_name)
        if type(saddress) == dict and "id" in saddress and "type" in saddress:
+          if saddress["type"] == "store":
+             return "1"
           address = self.ins._db._get_row("gla_address","*",f"id='{saddress["id"]}'")
           if address:
             return "1"
@@ -483,22 +502,8 @@ class AppCheckout(App):
          back_url = self.ins._server._url({"mode":"delivery"},["id"])
 
         if "mode" in rq and rq["mode"] == "payment":
-            s = self.ins._server._get_session(self.session_address_name)
             uidata.append({"start": "true", "class": "ins-flex ins-col-12  ins-padding-m","style":"border-radius:8px !important;border: 1px solid var(--grey-l);"})
            
-
-            address = self.ins._db._get_row("gla_address","*",f"id='{s["id"]}'")
-            ainfo = [
-            {"_data": "Shipping Address", "class": "ins-col-8 ins-title-s ins-grey-d-color ins-strong-l "},
-            {"_data": "Edit Address","data-aid" : str(address["id"]),"class": "-update-address ins-col-4 ins-flex-end ins-gold-d-color ins-strong-m ins-text-upper ins-button-text"},
-            {"class":"ins-space-s"},
-            {"_data": address.get("title",""), "class": "ins-col-12  ins-title-20	  ins-grey-d-color ins-strong-l"},
-            {"_data": address.get("address",""), "class": "ins-col-12 ins-grey-color"},
-            {"_data": f"Mobile: {address.get("phone","")} | Email: {address.get("email","")}", "class": "ins-col-12 ins-grey-d-color ins-strong-m ins-title-14"},
-            {"end": "true"},
-            {"class":"ins-space-xl"}
-            ]
-
             asession = self.ins._server._get_session(self.session_address_name)
             if type(asession) == dict and "type" in asession and  asession["type"] == "store":
                 stores = [
@@ -517,9 +522,21 @@ class AppCheckout(App):
                 {"end": "true"},
                 {"class":"ins-space-xl"}
                 ]
+            else:
+               address = self.ins._db._get_row("gla_address","*",f"id='{asession["id"]}'")
+               ainfo = [
+               {"_data": "Shipping Address", "class": "ins-col-8 ins-title-s ins-grey-d-color ins-strong-l "},
+               {"_data": "Edit Address","data-aid" : str(address["id"]),"class": "-update-address ins-col-4 ins-flex-end ins-gold-d-color ins-strong-m ins-text-upper ins-button-text"},
+               {"class":"ins-space-s"},
+               {"_data": address.get("title",""), "class": "ins-col-12  ins-title-20	  ins-grey-d-color ins-strong-l"},
+               {"_data": address.get("address",""), "class": "ins-col-12 ins-grey-color"},
+               {"_data": f"Mobile: {address.get("phone","")} | Email: {address.get("email","")}", "class": "ins-col-12 ins-grey-d-color ins-strong-m ins-title-14"},
+               {"end": "true"},
+               {"class":"ins-space-xl"}
+               ]
+
             uidata+=ainfo
             uidata.append({"_data": "Place Order <img src='"+p+"style/right_arrow.svg'></img>","class": "ins-button-s ins-flex-center ins-title-xs ins-strong-m ins-flex-grow ins-gold-d  ins-text-upper -submit-order-btn","style":"    height: 46px;    border: 1px solid var(--primary-d);"})
-
 
 
         else:
@@ -631,7 +648,7 @@ class AppCheckout(App):
             if  rq["mode"] == "delivery":
               r=  self.user._check()
               if not r:
-               uidata+=self._login_ui()
+               uidata+=self._mobile_no_ui()
               else:
                uidata+=self._addresses_step()
             elif rq["mode"] == "cart":
