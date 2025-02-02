@@ -44,20 +44,51 @@ class AppOrder(App):
      uiadta = [{"_data": "#"+ str(data["id"]), "data-tid":data["id"], "class" : "  ins-flex-space-between ins-col-9 ins-flex ins-padding-l ins-padding-h ins-text-center -order-btn",}]
      return ins._ui._render(uiadta)
     
+    def _change_status(ins,options,data):
+      uiadta = [{"_data": "<span class='lni lni-reload'></span>", "data-tid":data["id"], "class" : "   ins-col-9 ins-flex ins-padding-l ins-padding-h ins-text-center -change-status",}]
+      return ins._ui._render(uiadta)
+    
+
+    def _change_status_ui(self):   
+      rq = self.ins._server._post()
+      
+      uidata = [
+        {"start":"true","class":"ins-col-12 ins-padding-m ins-flex"},
+        {"_data":"Change status","class":"ins-col-9" },
+        {"class":"ins-button ins-primary -save-status","_data":"Update Status","data-tid":rq["tid"]},
+        {"_type":"select","_value":"pending","_data":"pending,confirmed","pclass":"ins-col-12","name":"status"},
+        {"end":"true"}
+
+        
+        ]
+      return self.ins._ui._render(uidata)
+
+
+    
+    def _update_statue(self):   
+      rq = self.ins._server._post()
+      new_status = rq["value"]
+      update_data = {"payment_status": new_status} 
+      return self.ins._db._update("gla_order", update_data, f"id='{"oid"}'")
+
+
 
 
     def _order_ui(self):   
-        rq = self.ins._server._post()
-        #title = self.ins._db._get_row("gla_order_item", "title", f"id='{rq['tid']}'")["title"]
+      rq = self.ins._server._post()
+      order_items = self.ins._db._ ("gla_order_item", "*", f"fk_order_id='{rq['tid']}'")
 
-        uidata = [{"start": "true", "class": "ins-col-12 ins-flex"}]
-        uidata.append({"_data": "types ", "class": "ins-title-l ins-col-11"})        
+      
+      uidata = [{"start": "true", "class": "ins-col-12 ins-flex"}]
+
+      for item in order_items:
+        uidata.append({"_data": f"{item['price']} ", "class": "ins-title-l ins-col-11"})
         uidata.append({"start": "true", "class": "ins-col-12 ins-flex"})
         uidata.append({"class": "ins-space-m"})
-        
-        uidata.append({"end": "true"})
 
-        return self.ins._ui._render(uidata)
+      uidata.append({"end": "true"})
+
+      return self.ins._ui._render(uidata)
         
     def out(self):
         self.app._include("script.js")

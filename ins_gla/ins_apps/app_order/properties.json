@@ -1,6 +1,116 @@
 {
     "table": "gla_order",
     "form_data": [
+        {
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card ins-padding-m"
+        },
+        {
+            "name": "fk_user_id",
+            "title": "Client",
+            "title-ar": "عميل",
+            "_type": "select",
+            "_data_type": "db",
+            "_view": "select",
+            "view": "text",
+            "_table": "kit_user",
+            "pclass": "ins-col-3 ins-col-grow"
+            
+        },
+        {
+            "name": "payment_method",
+            "title": "payment method",
+            "title-ar": "طريقة الدفع",
+            "_type": "input",
+            "type": "text",
+            "_trans": "true",
+            "required": "true",
+            "pclass": "ins-col-grow ins-col-3"
+        },
+        {
+            "name": "delivery_type",
+            "title": "deleivery type",
+            "title-ar": "نوع التسليم",
+            "_type": "input",
+            "type": "text",
+            "_trans": "true",
+            "required": "true",
+            "pclass": "ins-col-grow ins-col-3"
+        },
+        {
+            "name": "total",
+            "title": "Total",
+            "title-ar": "المجموع",
+            "_type": "input",
+            "type": "text",
+            "_trans": "true",
+            "required": "true",
+            "pclass": "ins-col-grow ins-col-2"
+        },
+       {
+            "name": "fk_address",
+            "title": "address",
+            "title-ar": " عنوان",
+            "_type": "textarea",
+            "required": "true",
+            "pclass": "ins-col-12"
+        },
+        {
+            "end": "True"
+        },
+        {
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card ins-padding-m"
+        },
+        {
+            "name": "payment_status",
+            "title": "payment status",
+            "title-ar": "حالة الدفع",
+            "_type": "input",
+            "type": "text",
+            "_trans": "true",
+            "required": "true",
+            "pclass": "ins-col-grow"
+        },
+        {
+            "name": "order_status",
+            "title": "Client",
+            "title-ar": "عميل",
+            "_type": "select",
+            "_data_type": "db",
+            "_view": "select",
+            "view": "text",
+            "_table": "kit_user",
+            "pclass": "ins-col-3 ins-col-grow"
+            
+        },
+        {
+            "name": "order_status",
+            "title": "ordder status",
+            "title-ar": "حالة الطلب",
+            "_type": "input",
+            "type": "text",
+            "_trans": "true",
+            "required": "true",
+            "pclass": "ins-col-grow"
+        },
+    
+        {
+            "name": "document",
+            "title": "Document",
+            "title-ar": " وثيقة",
+            "_trans": "true",
+            "_type": "input",
+            "_dir": "images",
+            "_exts": "image/png",
+            "type": "upload",
+            "required": "true",
+            "pclass": "ins-col-6"
+        },
+    
+        {
+            "end": "True"
+        }
     ],
     "list_data": [
         {
@@ -10,7 +120,7 @@
             "_trans": "true",
             "view": "text",
             "_type": "method",
-            "class": "ins-col-1 ins-col-grow"
+            "class": "ins-col-1 "
         },
     
         {
@@ -21,7 +131,7 @@
             "_view": "select",
             "view": "text",
             "_table": "kit_user",
-            "class": "ins-col-2"
+            "class": "ins-col-1 ins-col-grow"
         },
    
     {
@@ -60,6 +170,15 @@
         "view": "text",
         "_type": "method",
         "class": "ins-col-2"
+    },
+    {
+        "_data": "ins_gla.ins_apps.app_order._change_status",
+        "title-ar": "العنوان",
+        "title": "total",
+        "_trans": "true",
+        "view": "text",
+        "_type": "method",
+        "class": "ins-col-1"
     }
 
 
