@@ -71,38 +71,6 @@ class AppBlogs(App):
 
             ]
 
-            """  blog = [
-            {"start":"true","class":"ins-col-12  ins-flex-start ins-padding-l ins-card ins-gap-l"},
-            {"_data":f"<img style='    max-width: 320px;'  src= '{p}{d["image"]}'></img>","class":"ins-text-center"},
-          
-            {"start":"true","class":"ins-col-9"},
-            {"_data": d["title"],"class":"ins-col-12 ins-grey-d-color ins-strong-l ins-title-m"},
-            {"_data": str(d["kit_created"]),"_view":"date","class":"ins-col-12 ins-strong-m ins-grey-m-color ins-title-12"},
-            {"_data": d["content"],"class":"ins-col-12"},
-          
-            {"start":"true","class":"ins-col-12 ins-flex-end "},
-            {"class":"ins-space-l"},
-            {"class":"ins-button-s ins-gold ins-col-2 ins-text-center","_data":"More"},
-            {"end":"true"},
-          
-            {"end":"true"},
-            
-            {"end":"true"},
-            
-               ]
-
-            blog = [
-            {"start":"true","class":"ins-col-4 ins-padding-l   ins-card"},
-            {"_data":f"<img style='max-width:320px' src= '{p}{d["image"]}'></img>","class":"ins-col-12 ins-text-center"},
-            {"_data": str(d["kit_created"]),"_view":"date","class":"ins-col-12 ins-grey-m-color ins-strong-m ins-title-12"},
-            {"_data": d["title"],"class":"ins-col-12 ins-grey-d-color ins-strong-l ins-title-m"},
-            {"_data": d["content"],"_view":"limit", "limit_ops":"50","class":"ins-col-12"},
-            {"start":"true","class":"ins-col-12 ins-flex-end "},
-            {"class":"ins-button-s ins-gold ins-col-4 ins-text-center","_data":"More"},
-            {"end":"true"},
-            {"end":"true"},
-            
-               ]"""""
             uidata += blog
 
         uidata.append({"end": "true"})
