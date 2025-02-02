@@ -154,7 +154,9 @@ class Temp(ins_parent):
             
         self.css=self.ins._this._menu["css"]
 
-        return render_template(f'{self.ins._this._temp["type"]}/{s}', app=a, user=u, page=p_data, wdgts=ws,  temp=self)
+        se = self.ins._server._get_session()
+
+        return render_template(f'{self.ins._this._temp["type"]}/{s}', app=a, user=u, session =se, page=p_data, wdgts=ws,  temp=self)
 
 
 
@@ -170,6 +172,10 @@ class Temp(ins_parent):
         self.ins._server._update_get(path)
 
         u = self.ins._users._session_get()
+        se = self.ins._server._get_session()
+        
+        
+        
         if not u :
             u ={}
       

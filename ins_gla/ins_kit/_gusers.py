@@ -8,7 +8,7 @@ class Gusers(ins_parent):
         
     @property
     def n(self):
-        return "use_logindsds"
+        return "gla_login"
     
 
 

@@ -14,6 +14,42 @@
 
 <body class="ins-light-style ins-gla-style  ins-padding-xl   ins-wallpaper">
     <div class="">
+        <div class="ins-secondary marquee">
+
+            <div class="ins-flex ins-gap-20">
+
+                <span>Updated At: 7:40 PM, Saturday, 19 October 2024  </span>
+                <span> | </span>
+                <span>Updated At: 7:40 PM, Saturday, 19 October 2024  </span>
+                <span>| </span>
+                <span>Updated At: 7:40 PM, Saturday, 19 October 2024  </span>
+                <span> | </span>
+                <span>Updated At: 7:40 PM, Saturday, 19 October 2024  </span> <span> | </span>
+                <span>Updated At: 7:40 PM, Saturday, 19 October 2024  </span> <span> | </span>
+                <span>Updated At: 7:40 PM, Saturday, 19 October 2024  </span> <span> | </span>
+                <span>Updated At: 7:40 PM, Saturday, 19 October 2024  </span> <span> | </span>
+                <span>Updated At: 7:40 PM, Saturday, 19 October 2024  </span> <span> | </span>
+                <span>Updated At: 7:40 PM, Saturday, 19 October 2024  </span> <span> | </span>
+                <span>Updated At: 7:40 PM, Saturday, 19 October 2024  </span> <span> | </span>
+
+                <span>Updated At: 7:40 PM, Saturday, 19 October 2024  </span>
+                <span> | </span>
+                <span>Updated At: 7:40 PM, Saturday, 19 October 2024  </span>
+                <span>| </span>
+                <span>Updated At: 7:40 PM, Saturday, 19 October 2024  </span>
+                <span> | </span>
+                <span>Updated At: 7:40 PM, Saturday, 19 October 2024  </span> <span> | </span>
+                <span>Updated At: 7:40 PM, Saturday, 19 October 2024  </span> <span> | </span>
+                <span>Updated At: 7:40 PM, Saturday, 19 October 2024  </span> <span> | </span>
+                <span>Updated At: 7:40 PM, Saturday, 19 October 2024  </span> <span> | </span>
+                <span>Updated At: 7:40 PM, Saturday, 19 October 2024  </span> <span> | </span>
+                <span>Updated At: 7:40 PM, Saturday, 19 October 2024  </span> <span> | </span>
+                <span>Updated At: 7:40 PM, Saturday, 19 October 2024  </span>
+
+            </div>
+
+        </div>
+
         <header class=" ins-white  ins-sticky-top ins-flex  ">
             <div class="gla-container gla-body ins-flex ins-m-flex-space-between">
                 <div class="lni ins-font-2xl  gla-phone-menu lni-menu-hamburger-1"></div>
@@ -31,9 +67,52 @@
                     <div class="ins-flex">
                         <div class="ins-button-cricle ins-white"><i class=" lni ins-icon gla-header-search-btn  lni-search-1"></i></div>
                         <div style="    font-size: 17px;    padding-top: 2px;" class="ins-button-cricle ins-font-type-m   ins-white">EN</div>
+
+
+
+                        {% if "gla_login" not in session %}
                         <div class="ins-button-cricle ins-white">
                             <a href="/puser/"><i class=" lni ins-icon  lni-user-4"></i></a>
+
+
                         </div>
+
+                        {% endif %} {% if "gla_login" in session %}
+
+
+
+                        <div class="ins-button-cricle -user-menu-btn ins-white">
+                            <a><i class=" lni ins-icon  lni-user-4"></i></a>
+                        </div>
+
+
+
+
+                        <div class="-user-menu ins-white ins-padding-xl ins-card ins-border">
+
+                            <ul>
+                                <li class="ins-title-s"><a href="/puser/">Welcome <br> {{session["gla_login"]["title"]}}</a></li>
+                                <li>
+                                    <a href="/puser/" class="ins-title-12"> <i class="lni ins-font-l lni-home-2"></i> My Panel</a>
+                                </li>
+                                <li>
+                                    <a href="/puser/profile/" class="ins-title-12"> <i class="lni ins-font-l lni-user-4"></i> Profile</a>
+                                </li>
+                                <li>
+                                    <a href="/puser/order/" class="ins-title-12"> <i class="lni ins-font-l lni-basket-shopping-3"></i> Order</a>
+                                </li>
+                                <li>
+                                    <a href="/puser/addresses/" class="ins-title-12"> <i class="lni ins-font-l lni-buildings-1"></i> Address</a>
+                                </li>
+                            </ul>
+
+
+                        </div>
+
+
+
+                        {% endif %}
+
                         <div class="ins-button-cricle ins-white"><a href="/checkout/cart"><i class=" lni ins-icon  lni-basket-shopping-3"></i></a></div>
                         <div>
                         </div>
