@@ -148,7 +148,6 @@ class AppProductDetails(App):
         uidata.append({"_data":"  <span class=' lni lni-chevron-up'></span>","class": "ins-col-1  ins-grey-color ins-font-xl ins-strong-l"})
         uidata.append({"_data": data["des"], "class": "ins-col-12  ins-grey-color ins-title-14"})
         uidata.append({"end": "true"})
-        uidata.append({"class": "ins-line ins-col-12"})
 
       
         uidata.append({"end": "true"})

@@ -94,6 +94,9 @@ ins(".-continue-shopping-btn")._on("click", (o) => {
     ins(".ins-panel-overlay.ins-opened")._remove()
     ins()._ui._removeLightbox();
 }, true)
+
+
+
 ins(".-remove-item-cart-btn")._on("click", (o) => {
     var ops = o._getData()
     var p = o._parent(".-item-card");
@@ -104,10 +107,29 @@ ins(".-remove-item-cart-btn")._on("click", (o) => {
                 ins(".-cart-cont")._setHTML(jdata["ui"])
             }
             p._remove()
-            ins("Item removed!")._ui._notification({ "class": "ins-success" })
+            ins("Item removed!")._ui._notification()
         })
     }
 }, true)
+
+
+
+ins(".-remove-item-side-cart-btn")._on("click", (o) => {
+    var ops = o._getData()
+    var p = o._parents(".-item-card");
+    if (confirm("Are you sure tou want to remove this item from cart?")) {
+        ins("_remove_item_cart")._ajax._app(ops, (data) => {
+            var jdata = JSON.parse(data)
+            if (jdata["status"] == "1") {
+                ins(".-cart-cont")._setHTML(jdata["ui"])
+            }
+            p._remove()
+            ins("Item removed!")._ui._notification()
+        })
+    }
+}, true)
+
+
 
 /**Filter Area */
 ins(".-type-btn")._on("click", function(o) {

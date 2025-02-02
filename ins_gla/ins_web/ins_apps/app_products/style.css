@@ -105,3 +105,8 @@
 .ins_close.ins-close {
     font-size: 25px;
 }
+
+._a,
+._a_red {
+    cursor: pointer;
+}

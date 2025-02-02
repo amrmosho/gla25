@@ -81,6 +81,8 @@ ins(".-proccesd-payment-btn,.-payment-step-btn")._on("click", (o) => {
 
 function update_data(p, k) {
     var value = p._getValue();
+    console.log(value)
+    console.log(k)
     ins("_update_item_data")._ajax._app({ "value": value, "k": k }, (data) => {})
 }
 
@@ -91,6 +93,14 @@ ins(".-minus-btn")._on("click", (o) => {
         update_data(p, o._getData("pid"))
     }
 }, true)
+
+ins(".count-inpt")._on("change", (o) => {
+    if (o._getValue() > 1) {
+        update_data(o, o._getData("pid"))
+    }
+}, true)
+
+
 
 
 
@@ -265,6 +275,10 @@ ins(".-submit-order-btn")._on("click", (o) => {
     })
 }, true)
 
+ins(".-continue-shopping-btn")._on("click", (o) => {
+    ins(".ins-panel-overlay.ins-opened")._remove()
+    ins()._ui._removeLightbox();
+}, true)
 ins(function() {
     g = ins()._map._get();
     if (g["mode"] == "order") {

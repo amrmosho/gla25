@@ -124,7 +124,7 @@ class AppCheckout(App):
         if rq["mode"] == "cart":
            uidata.append({"_data":"My Cart","class":"ins-col-7 ins-title ins-strong-m ins-text-upper ins-grey-d-color"})
         elif rq["mode"] == "delivery":
-            uidata.append({"_data":"Shipping Address","class":"ins-col-7 ins-title ins-strong-m ins-text-upper ins-grey-d-color"})
+            uidata.append({"_data":"Delivery Details","class":"ins-col-7 ins-title ins-strong-m ins-text-upper ins-grey-d-color"})
         else:
            uidata.append({"_data":"Payment Information","class":"ins-col-7 ins-title ins-strong-m ins-text-upper ins-grey-d-color"})
 
@@ -412,17 +412,17 @@ class AppCheckout(App):
         subtotal = 0
         chargs = 3000
         for k,v in sedata.items():
-            subtotal+= v["price"]
+            subtotal+= float(v["price"]) * float(v["count"])
             uidata+= ELUI(self.ins).counter_pro_block(v)
         uidata.append({"end":"true"})
 
-        total = subtotal + chargs
 
 
 
         ## Items Area
         uidata.append({"start":"true","class":"ins-col-5 ins-gap-o ins-flex   ins-padding-2xl","style":"background:white;height:100%;   border-left: 1px solid var(--primary-l);"})
     
+        total = subtotal + chargs
 
        
         uidata.append({"start": "true", "class": "ins-flex ins-col-12  ins-padding-m","style":"border-radius:8px !important;border: 1px solid var(--grey-l);"})
@@ -433,7 +433,15 @@ class AppCheckout(App):
         uidata.append({"_data": "Making Charge", "class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
         uidata.append({"_data": str(chargs),"_view":"currency","_currency_symbol":" EGP", "class": "ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end"})
         uidata.append({"_data": "Shipping", "class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
-        uidata.append({"_data": "Free", "class": "ins-col-6  ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end"})
+
+        if total > 200000:
+          uidata.append({"_data": "Free", "class": "ins-col-6  ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end"})
+
+        else:
+          uidata.append({"_data": "200","_view":"currency","_currency_symbol":" EGP",  "class": "ins-col-6  ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end"})
+          total +=200
+
+      
         uidata.append({ "class": "ins-line ins-col-12"})
         uidata.append({"_data": "Total", "class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
         uidata.append({"_data":str(total), "_view":"currency","_currency_symbol":" EGP","class": "ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end"})
@@ -465,14 +473,10 @@ class AppCheckout(App):
         chargs = 3000
 
         for k,v in sedata.items():
-            subtotal+= v["price"]
+            subtotal+= float(v["price"]) * float(v["count"])
             uidata+= ELUI(self.ins).small_pro_block(v)
             uidata.append({"class":"ins-space-m"})
 
-    
-        total = subtotal + chargs
-
-        
 
         uidata.append({"class":"ins-space-m"})
 
@@ -484,6 +488,8 @@ class AppCheckout(App):
         uidata.append({"_type": "input","type":"text","placeholder":"code","name":"voucher","pclass":"ins-col-12","style":"    background: white;border-radius:4px;"})
         
         uidata.append({"class":"ins-space-xl"})
+       
+        total = subtotal + chargs 
 
         uidata.append({"start": "true", "class": "ins-flex ins-col-12  ins-padding-m","style":"border-radius:8px !important;border: 1px solid var(--grey-l);"})
         uidata.append({"_data": "Your details", "class": "ins-col-12 ins-title-s ins-grey-d-color ins-strong-l "})
@@ -493,7 +499,15 @@ class AppCheckout(App):
         uidata.append({"_data": "Making Charge", "class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
         uidata.append({"_data": str(chargs),"_view":"currency","_currency_symbol":" EGP", "class": "ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end"})
         uidata.append({"_data": "Shipping", "class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
-        uidata.append({"_data": "Free", "class": "ins-col-6  ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end"})
+       
+        if total > 200000:
+          uidata.append({"_data": "Free", "class": "ins-col-6  ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end"})
+
+        else:
+          uidata.append({"_data": "200","_view":"currency","_currency_symbol":" EGP",  "class": "ins-col-6  ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end"})
+          total +=200
+
+       
         uidata.append({ "class": "ins-line ins-col-12"})
         uidata.append({"_data": "Total", "class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
         uidata.append({"_data":  str(total),"_view":"currency","_currency_symbol":" EGP", "class": "ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end"})
@@ -632,7 +646,7 @@ class AppCheckout(App):
              {"start":"true","class":"ins-col-grow","style":"    padding: 0px;line-height: 15px;"},
 
             {"_data":"Your order has been placed","class":"ins-title-s ins-strong-m ins-grey-d-color ins-col-12"},
-            {"_data":"You will be directed to orders page in <span class='-countdown ins-strong-m'>10 seconds</span>","class":"ins-title-14 ins-grey-color ins-col-12"},
+            {"_data":"You will be directed to orders page in <span class='-countdown ins-strong-m'>10 seconds</span>","class":"ins-title-14 ins-grey-color ins-col-12" ,"style":"    text-transform: lowercase;"},
             {"end":"true"},
             {"end":"true"}
          ]
