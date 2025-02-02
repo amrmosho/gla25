@@ -150,3 +150,8 @@ class ELUI(ins_parent):
         if string:
             return self.ins._ui._render(uidata)
         return uidata
+
+
+    def to_currency (self,  amount1):
+        n= self.ins._data._format_currency(amount1,symbol=False) 
+        return f"{n}EGP"

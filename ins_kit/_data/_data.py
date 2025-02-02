@@ -1,4 +1,5 @@
 from datetime import datetime
+import locale
 from ins_kit.ins_parent import ins_parent
 import hashlib
 import secrets
@@ -44,4 +45,47 @@ class Data(ins_parent):
        else:
            
          return self.ins._json._decode(data["content"]) 
+
+    def _format_currency(self,number, locale_str='en_US' , symbol =True):
+        """
+        
+        
+        
+        Formats a number as currency using the specified locale.
+
+        Args:
+            number: The number to format.
+            locale_str: The locale string to use (e.g., 'en_US', 'de_DE', 'fr_CA' ,ar_EG). 
+                        If empty, it uses the system's default locale.
+
+        Returns:
+            A string representing the formatted currency, or None if there's an error.
+        """
+
+        try:
+            if locale_str:
+                locale.setlocale(locale.LC_ALL, locale_str)  # Set the locale
+            else:
+                locale.setlocale(locale.LC_ALL, '') #sets to default locale
+                
+            if symbol:
+                return locale.currency(number, grouping=True)  # Format with grouping
+            else:
+                
+                formatted = locale.format_string("%d", number, grouping=True) #for integers
+                try:
+                    formatted = locale.format_string("%10.2f", number, grouping=True) #for floats
+                except ValueError:
+                    pass #if the number is integer, then the previous line will raise ValueError, so we pass it
+                return formatted
+
+        except locale.Error as e:
+            print(f"Locale error: {e}")  # Handle locale errors
+            return None
+        except TypeError as e:
+            print(f"Type error: {e}")  # Handle type errors
+            return None
+        except Exception as e: #catch any other error
+            print(f"An error occurred: {e}")
+            return None
 

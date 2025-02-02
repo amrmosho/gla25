@@ -6,8 +6,7 @@ class Ui(ins_parent):
     def __init__(self, Ins) -> None:
         super().__init__(Ins)
 
-
-    def __get_plgin(self, name, attrs ,parent="render"):
+    def __get_plgin(self, name, attrs, parent="render"):
         if "not_plgin" in attrs and attrs["not_plgin"] == True:
             del attrs["not_plgin"]
             return self.tag(attrs)
@@ -16,19 +15,10 @@ class Ui(ins_parent):
             _path = f"ins_kit._ui.ui_plgins.{name}"
             exec(f"from {_path} import {_class_name}")
            # _class = eval(f"{_class_name}(self.ins)")
-            
-            
-            return  eval(f"{_class_name}(self.ins).{parent}(attrs)")
-            
-            
-        
-        
-        
-        
 
+            return eval(f"{_class_name}(self.ins).{parent}(attrs)")
 
-
-    def _render(self, data ):
+    def _render(self, data):
         r = ''
         for v in data:
             r += self._item(v)
@@ -38,10 +28,9 @@ class Ui(ins_parent):
 
         r = ""
 
-
         if "_trans" in attrs:
-            attrs = self.ins._langs._render_tags(attrs) 
-            
+            attrs = self.ins._langs._render_tags(attrs)
+
         plgs = ["wdgt", "input", "app", "table", "panel"]
         if "_type" in attrs:
             if "not_plgin" not in attrs or attrs["not_plgin"] != True:
@@ -61,17 +50,16 @@ class Ui(ins_parent):
 
                 if "type" in attrs:
                     type = attrs["type"]
-                    
+
                 if "area" in attrs:
-                    area = attrs["area"]    
-                ds =  attrs["_data"].split(".")
+                    area = attrs["area"]
+                ds = attrs["_data"].split(".")
 
                 _path = f'{area}.{type}.{ds[0]}.{ds[0]}'
                 _class_name = self.ins._map._get_class_name(ds[0])
                 exec(f"from {_path} import {_class_name}")
                 r = eval(f"{_class_name}.{ds[1]}(self.ins)")
-                
- 
+
             else:
                 r = self.tag(attrs)
 
@@ -104,16 +92,28 @@ class Ui(ins_parent):
             rv = self.clean_html(data)
             if len(rv) > l:
                 rv = f"<span title='{rv}'>{rv[:l]}...</span>"
-        
         elif ops["_view"] == "select":
             ops["value"] = str(data)
-            rv = self.__get_plgin("plg_select", ops,"trans")
-            
+            rv = self.__get_plgin("plg_select", ops, "trans")
         elif ops["_view"] == "color":
-            rv = f"<div style='color:{data}'>{data} </div>" 
-            
+            rv = f"<div style='color:{data}'>{data} </div>"
+        elif ops["_view"] == "date":
+            rv = self.ins._date._ui()._format(data, "date")
+        elif ops["_view"] == "datetime":
+            rv = self.ins._date._ui()._format(data)
+        elif ops["_view"] == "dbdate":
+            rv = self.ins._date._format(data, "date")
+        elif ops["_view"] == "dbdatetime":
+            rv = self.ins._date._format(data)
+        elif ops["_view"] == "currency":
+            if "_currency_symbol" in ops:
+                n = self.ins._data._format_currency(float(data), symbol=False)
+                rv = f"{n}{ops["_currency_symbol"]}"
+            else:
+                rv = self.ins._data._format_currency(float(data))
         elif ops["_view"] == "image":
-            rv = f"<a target='_blank' href='{self.ins._map.UPLOADS_FOLDER}{data}'><img style='max-width:100%;max-height:250px' src='{self.ins._map.UPLOADS_FOLDER}{data}'/></a>" 
+            rv = f"<a target='_blank' href='{self.ins._map.UPLOADS_FOLDER}{
+                data}'><img style='max-width:100%;max-height:250px' src='{self.ins._map.UPLOADS_FOLDER}{data}'/></a>"
 
         else:
             rv = data
@@ -122,10 +122,9 @@ class Ui(ins_parent):
 
     def tag(self, attrs):
         if "_trans" in attrs:
-            for  a in  attrs:
-               attrs[a] = self.ins._langs._render(attrs[a]) 
-               
-                    
+            for a in attrs:
+                attrs[a] = self.ins._langs._render(attrs[a])
+
         if "_type" in attrs:
             my_type = attrs["_type"]
             del attrs["_type"]

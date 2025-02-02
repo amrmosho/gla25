@@ -3,6 +3,7 @@ from datetime import datetime, timezone, timedelta
 import pytz
 
 
+
 class DateTime(ins_parent):
     def __init__(self, Ins) -> None:
         super().__init__(Ins)
@@ -87,12 +88,15 @@ class DateTime(ins_parent):
                 format = self.ins._map.UI_DATETIME_FORMAT
             else :
                 format = self.ins._map.DB_DATETIME_FORMAT
+      
         if format == "date":
             if self.__ui_format:
                 format = self.ins._map.UI_DATE_FORMAT
             else :
                 format = self.ins._map.DB_DATE_FORMAT
+                
         if format == "time":
+            
             if self.__ui_format:
                 format = self.ins._map.UI_TIME_FORMAT
             else :
@@ -101,7 +105,10 @@ class DateTime(ins_parent):
         return format
                 
 
-    def _format(self, date: datetime, format=""):
+    def _format(self, date, format=""):
+        if type(date) ==str:
+            date = self._str_to_date(date)
+        
         if format == "src":
             return date
         format =self._get_format(format)
@@ -165,3 +172,53 @@ class DateTime(ins_parent):
         start_date = self.src(start_date)
         end_date = self.src(end_date)
         return (check_date >= start_date and check_date <= end_date)
+    def _str_to_date(self,date_string:str):
+        """
+        Attempts to convert a string to a datetime object without a specified format,
+        trying several common formats.
+
+        Args:
+            date_string: The string to convert.
+
+        Returns:
+            A datetime object, or None if conversion fails.
+        """
+        formats = [
+            "%Y-%m-%d",        # YYYY-MM-DD
+            "%m/%d/%Y",        # MM/DD/YYYY
+            "%d/%m/%Y",        # DD/MM/YYYY
+            "%Y/%m/%d",        # YYYY/MM/DD
+            "%m-%d-%Y",        # MM-DD-YYYY
+            "%d-%m-%Y",        # DD-MM-YYYY
+            "%Y%m%d",          # YYYYMMDD
+            "%b %d, %Y",       # e.g., Nov 28, 2023
+            "%B %d, %Y",       # e.g., November 28, 2023
+            "%d %b %Y",       # 28 Nov 2023
+            "%d %B %Y",       # 28 November 2023
+
+            "%Y-%m-%d %H:%M:%S",  # YYYY-MM-DD HH:MM:SS
+            "%m/%d/%Y %H:%M:%S",  # MM/DD/YYYY HH:MM:SS
+            "%d/%m/%Y %H:%M:%S",  # DD/MM/YYYY HH:MM:SS
+            "%Y/%m/%d %H:%M:%S",  # YYYY/MM/DD HH:MM:SS
+            "%m-%d-%Y %H:%M:%S",  # MM-DD-YYYY HH:MM:SS
+            "%d-%m-%Y %H:%M:%S",  # DD-MM-YYYY HH:MM:SS
+
+            "%Y-%m-%d %H:%M",     # YYYY-MM-DD HH:MM
+            "%m/%d/%Y %H:%M",     # MM/DD/YYYY HH:MM
+            "%d/%m/%Y %H:%M",     # DD/MM/YYYY HH:MM
+            "%Y/%m/%d %H:%M",     # YYYY/MM/DD HH:MM
+            "%m-%d-%Y %H:%M",     # MM-DD-YYYY HH:MM
+            "%d-%m-%Y %H:%M",     # DD-MM-YYYY HH:MM
+
+            "%Y-%m-%dT%H:%M:%S", # ISO 8601 format (YYYY-MM-DDTHH:MM:SS) - often used in APIs
+            "%Y-%m-%dT%H:%M",    # ISO 8601 format (YYYY-MM-DDTHH:MM)
+        ]
+
+        date_string=date_string.strip()
+        for fmt in formats:
+            try:
+                return datetime.strptime(date_string, fmt)
+            except ValueError:
+                continue  # Try the next format
+
+        return None  # No format matched
