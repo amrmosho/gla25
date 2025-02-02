@@ -13,7 +13,7 @@ class AppOrder(App):
      status_style = "background: #41b983; color: white;" 
 
      if data["order_status"] == "pending":
-        status_style = "background: #12437D; color: white;"
+        status_style = "background: #FFC106; color: white;"
      elif data["order_status"] == "confirmed":
         status_style = "background:#41b983; color: white;"
 
@@ -24,7 +24,7 @@ class AppOrder(App):
      status_style = "background: #41b983; color: white;" 
 
      if data["payment_status"] == "pending":
-        status_style = "background: #12437D; color: white;"
+        status_style = "background: #FFC106; color: white;"
      elif data["payment_status"] == "confirmed":
         status_style = "background:#41b983; color: white;"
 
@@ -45,7 +45,7 @@ class AppOrder(App):
      return ins._ui._render(uiadta)
     
     def _change_status(ins,options,data):
-      uiadta = [{"_data": "<span class='lni lni-reload'></span>", "data-tid":data["id"], "class" : "   ins-col-9 ins-flex ins-padding-l ins-padding-h ins-text-center -change-status",}]
+      uiadta = [{"_data": "<span class='lni lni-refresh-user-1'></span>", "data-tid":data["id"], "class" : "   ins-col-12 ins-flex ins-padding-l ins-padding-h ins-font-xl -change-status",}]
       return ins._ui._render(uiadta)
     
 
@@ -53,6 +53,7 @@ class AppOrder(App):
       rq = self.ins._server._post()
       
       uidata = [
+        {"_data":"<span class='lni lni-xmark'></span>","class":"ins-text-right ins-view-close  ins-title-20"},
         {"start":"true","class":"ins-col-12 ins-padding-m ins-flex"},
         {"_data":"Change status","class":"ins-col-9" },
         {"class":"ins-button ins-primary -save-status","_data":"Update Status","data-tid":rq["tid"]},
@@ -68,9 +69,9 @@ class AppOrder(App):
     def _update_statue(self):   
       rq = self.ins._server._post()
       new_status = rq["value"]
-      update_data = {"payment_status": new_status} 
-      return self.ins._db._update("gla_order", update_data, f"id='{"oid"}'")
-
+      update_data = {"order_status": new_status} 
+      self.ins._db._update("gla_order", update_data, f"id='{rq["oid"]}'")
+      return "1"
 
 
 
@@ -92,6 +93,7 @@ class AppOrder(App):
         
     def out(self):
         self.app._include("script.js")
+        self.app._include("style.css")
 
         r = self.ins._apps._crud(properties=self.app._properties)
 
