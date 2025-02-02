@@ -72,6 +72,8 @@ ins(".-remove-address-btn")._on("click", (o) => {
 }, true)
 
 
+
+
 function _login_m() {
 
     var mobile = ins(".-login-mobile-inpt")._getValue();
@@ -89,13 +91,43 @@ function _login_m() {
         } else {
             ins("OTP sent successfully")._ui._notification()
             ins(".-login-area")._setHTML(d)
-
+            resend_otp();
 
         }
     })
     ins(".-guser-m-menu")._toggleClass("ins-hide")
 }
 
+
+function resend_otp() {
+
+    let count = 10
+    const countdown = setInterval(() => {
+        count--
+        if (count > 1) {
+            ins(".-otp-resend-counter")._setHTML(count)
+
+        } else {
+            ins(".-otp-resend-counter")._setHTML(count)
+        }
+        if (count == 0) {
+            ins(".-resend-count-otp")._addClass("ins-hidden")
+            ins(".-resend-otp-btn")._removeClass("ins-hidden")
+            clearInterval(countdown)
+        }
+    }, 1000)
+
+}
+
+ins(".-resend-otp-btn")._on("click", (o) => {
+    ins(".-otp-resend-counter")._setHTML("10")
+    ins(".-resend-count-otp")._removeClass("ins-hidden")
+    ins(".-resend-otp-btn")._addClass("ins-hidden")
+    ins("OTP sent successfully")._ui._notification()
+    resend_otp();
+
+
+})
 
 function _login_otp() {
 
@@ -115,6 +147,8 @@ function _login_otp() {
     })
 
 }
+
+
 
 ins(".-guser-m-btn")._on("click", (o) => {
     _login_m()

@@ -1,3 +1,4 @@
+from ins_gla.ins_kit._elui import ELUI
 from ins_kit._engine._bp import Widget
 
 
@@ -7,16 +8,9 @@ class WdgProducts(Widget):
         super().__init__(widget.ins)
 
     def out(self):
-        data = [
-            {"title": "250gm Gold Bar", "price": "E£ 208,750.00",
-             "image": "style/g1.svg", "class": ""},
-            {"title": "250gm Gold Bar",
-                "image": "style/g1.svg", "class": "", "price": "E£ 208,750.00"},
-            {"title": "250gm Gold Bar",
-                "image": "style/g1.svg", "class": "", "price": "E£ 208,750.00"},
-            {"title": "250gm Gold Bar",
-                "image": "style/g1.svg", "class": "", "price": "E£ 208,750.00"},
-        ]
+
+        data = self.ins._db._get_data("gla_product","*","1=1 limit 0,4")
+
         uidata = [
             {"start": "true", "class": "ins-flex-center  ins-padding-2xl gla-container "},
             {"class": "ins-space-l"},
@@ -34,31 +28,12 @@ class WdgProducts(Widget):
 
             {"start": "true", "class": "ins-flex-start gla-pro-cont"},
         ]
-        p = "/ins_web/ins_uploads/"
         for d in data:
-          
-            r = [{"start": "true", "class": "ins-flex  gla-pro-block  "},
-                 {"start": "true", "class": " gla-img-cont  ",
-                     "style": ""},
-                 {"_data": "Bestseller", "class": "ins-tag ins-primary  ins-radius-s",
-                     "style": "   position: absolute;top: 8px;left: 8px;"},
-                 {"src": p + d["image"], "_type": "img",
-                     "class": "gla-pro-img"},
-                 {"src": p + "style/n5.svg", "_type": "img", "class": "gla-pro-himg"},
-                 {"_data": "SHOP NOW <i class=' lni ins-icon lni-arrow-right'></i>",
-                     "class": "ins-button gla-pro-hbutton ins-strong-m   ins-gold-bg"},
-                 {"end": "true"},
-                 {"class": "ins-space-s"},
-                 {"_data": d["title"],
-                     "class": "ins-col-12 ins-title-m ins-strong-m   ins-grey-color", "style": "line-height:24px"},
-                 {"_data": d["price"],
-                     "class": "ins-col-12  ins-strong-m  ins-primary-color", "style": "line-height:24px"},
-                 {"end": "true"}]
-            uidata += r
+            uidata+= ELUI(self.ins).shop_pro_block(d,f"/product/product/{d['id']}",st="width:316px;")
         uidata.append({"end": "true"})
         uidata.append({"class": "ins-space"})
         uidata.append({"class": "ins-space-xs"})
-        uidata.append({"_data": "View MORE <i class=' lni ins-icon lni-arrow-right'></i>",
-                      "style": "width:185px", "class": "ins-button  ins-text-upper ins-gold"},)
+        uidata.append({"_type":"a","href":"product","_data": "View MORE <i class=' lni ins-icon lni-arrow-right'></i>",
+                      "style": "width:185px", "class": "ins-button  ins-text-upper ins-gold-d"},)
         uidata.append({"end": "true"})
         return self.ins._ui._render(uidata)

@@ -21,3 +21,24 @@ ins(".gla-header-search-input")._on("keyup", (o, e) => {
         window.location = "/product/do/filter/title=" + v;
     }
 }, true);
+
+function _submit() {
+    var v = ins(".-cal-update-nput")._getValue();
+    if (v == "" || v == null || v == undefined || v == 0) {
+        ins("Please enter a valid number")._ui._notification({ "class": "ins-danger" });
+    } else {
+        window.location = "/plan/" + v + "/";
+    }
+
+
+}
+
+ins(".-cal-update-btn")._on("click", (o) => {
+    _submit();
+}, true)
+
+ins(".-cal-update-nput")._on("keyup", (o, e) => {
+    if (e.keyCode == 13) {
+        _submit();
+    }
+}, true)

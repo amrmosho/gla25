@@ -141,10 +141,6 @@ class AppBlogs(App):
     def out(self):
         rq = self.ins._server._req()
 
-        t = [{"_data": "03-02-2023", "_view": "dbdatetime"}]
-        amount1 = 1234
-        return ELUI(self.ins).to_currency(amount1)
-
         if "mode" in rq and rq["mode"] == "blog":
             return self.blog_ui(rq)
         else:

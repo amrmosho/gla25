@@ -27,7 +27,7 @@ class AppUsers(App):
         sc = ""
         if g.get("mode") == "profile":
             pc = " ins-gold-bg "
-        elif g.get("mode") == "settings":
+        elif g.get("mode") == "addresses":
             sc = " ins-gold-bg "
         elif g.get("mode") == "order":
             oc = " ins-gold-bg "
@@ -36,15 +36,15 @@ class AppUsers(App):
         ui = [{"start": "true", "class": "ins-col-6 ins-flex-end"},
               {"_data": "<i class='lni ins-font-l lni-home-2'></i>Home",
                   "class": f"ins-button-s  ins-text-upper {hc}  ins-flex", "_type": "a", "href": self.u("")},
-              {"_data": "/", "class": " "},
+              {"_data": "|", "class": " "},
               {"_data": "<i class='lni ins-font-l lni-user-4'></i>My Profile",
                   "class": f"ins-button-s ins-text-upper {pc}  ins-flex", "_type": "a", "href": self.u("profile")},
-              {"_data": "/", "class": " "},
+              {"_data": "|", "class": " "},
               {"_data": "<i class='lni ins-font-l lni-basket-shopping-3'></i>My Orders",
                   "class": f"ins-button-s  ins-text-upper {oc} ins-flex ", "_type": "a", "href": self.u("order")},
-              {"_data": "/", "class": "  "},
-              {"_data": "<i class='lni ins-font-l lni-gears-3'></i>Settings",
-                  "class": f"ins-button-s ins-text-upper   {sc} ins-flex ", "_type": "a", "href": self.u("settings")},
+              {"_data": "|", "class": "  "},
+              {"_data": "<i class='lni ins-font-l lni-buildings-1'></i>My Addresses",
+                  "class": f"ins-button-s ins-text-upper   {sc} ins-flex ", "_type": "a", "href": self.u("addresses")},
               {"end": "true"}
               ]
         return ELUI(self.ins).page_title("Users Panel", [{"_data": "Users Panel / ", "href": "/puser"}, {"_data": "Profile"}], ui)
@@ -77,7 +77,7 @@ class AppUsers(App):
                 "class": "ins-col-12 ins-padding-xl   ins-padding-h ins-font-s ", "style": "line-height: 20px;margin-top: -11px;margin-bottom: 11px;"},
             {"end": "true"},
             {"start": "true", "class": "  ins-col- 12  ins-primary-w   ins-flex ins-border ins-radius-xl    ins-padding-l"},
-            {"_type": "a","href":"settings",  "_data": f'<i class="lni ins-font-l lni-gears-3"></i>  Settings ',
+            {"_type": "a","href":"addresses",  "_data": f'<i class="lni ins-font-l  lni-buildings-1"></i>  addresses ',
                 "class": " ins-title-s ins-col-12"},
             {"_data": f'Users Panel home des Users Panel home des Users Panel home des ',
                 "class": "ins-col-12 ins-padding-xl   ins-padding-h ins-font-s ", "style": "line-height: 20px;margin-top: -11px;margin-bottom: 11px;"},
@@ -260,7 +260,7 @@ class AppUsers(App):
 
     
 
-    def settings(self, g,udata):
+    def addresses(self, g,udata):
 
 
         uidata=[{"start":"true","class":"ins-col-12 ins-flex   gla-container"}]
@@ -288,15 +288,20 @@ class AppUsers(App):
            ]
         return uidata
 
+  
     def _otp_ui(self):
         rq = self.ins._server._post()
         uidata=[
-           {"start":"true","class":"ins-col-4 ins-flex-end ins-card -otp-form  ins-text-start"},
+           {"start":"true","class":"ins-col-4 ins-flex-center ins-card -otp-form  ins-text-start"},
            {"_data":"Login","class":"ins-title-m ins-strong-m ins-grey-d-color ins-text-upper ins-col-12"},
-           {"_type":"input","title":"OTP","placeholder":"- - - -","type":"number","name":"otp","class":"ins-title-l -login-otp-inpt ins-form-input ins-text-center","pclass":"ins-col-12"},
+           {"_type":"input","title":"OTP","placeholder":"----","type":"text","name":"otp","class":"ins-title-l -login-otp-inpt ins-form-input ins-text-center","pclass":"ins-col-6","style":"  letter-spacing: 25px;    height: 60px;"},
            {"_type":"input","type":"text","name":"mobile","value":rq["mobile"],"class":"-login-mobile-inpt","pclass":"ins-col-12 ins-hidden"},
+           {"_data": "Resend OTP in <span class='-otp-resend-counter ins-strong-m'>10</span>","class":"ins-grey-color ins-title-14 ins-col-12 ins-text-start -resend-count-otp"},
+           {"_data": "Resend OTP","class":"ins-grey-d-color ins-strong-m ins-title-14 ins-col-12 ins-text-start -resend-otp-btn ins-hidden","style":"cursor:pointer;"},
            {"class":"ins-line ins-col-12"},
-           {"_data":"Login","class":"ins-button-s ins-gold-d ins-col-3 -guser-o-btn"},
+           {"start":"true","class":"ins-col-12 ins-flex-end"},
+           {"_data":"Login","class":"ins-button-s ins-gold-d ins-col-5 -guser-o-btn"},
+           {"end":"true"},
            {"end":"true"}
            ]
         return self.ins._ui._render( uidata)
@@ -330,8 +335,8 @@ class AppUsers(App):
         r = self.header(g)
         if g.get("mode") == "profile":
             r += self.profile(g)
-        elif g.get("mode") == "settings":
-            r += self.settings(g,udata)
+        elif g.get("mode") == "addresses":
+            r += self.addresses(g,udata)
         elif g.get("mode") == "order":
             r += self.orders(g)
         else:
