@@ -45,7 +45,7 @@ class AppOrder(App):
      return ins._ui._render(uiadta)
     
     def _change_status(ins,options,data):
-      uiadta = [{"_data": "<span class='lni lni-reload'></span>", "data-tid":data["id"], "class" : "   ins-col-9 ins-flex ins-padding-l ins-padding-h ins-text-center -change-status",}]
+      uiadta = [{"_data": "<span class='lni lni-home-2'></span>", "data-tid":data["id"], "class" : "   ins-col-9 ins-flex ins-padding-l ins-padding-h ins-text-center -change-status",}]
       return ins._ui._render(uiadta)
     
 
@@ -69,8 +69,9 @@ class AppOrder(App):
       rq = self.ins._server._post()
       new_status = rq["value"]
       update_data = {"payment_status": new_status} 
-      return self.ins._db._update("gla_order", update_data, f"id='{"oid"}'")
+      self.ins._db._update("gla_order", update_data, f"id='{rq["oid"]}'")
 
+      return "1"
 
 
 
