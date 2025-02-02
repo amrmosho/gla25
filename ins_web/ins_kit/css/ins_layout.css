@@ -908,6 +908,6 @@ a.ins-active {
 
 .ins-sticky-top {
     position: sticky;
-    z-index: 11111;
+    z-index: 1111;
     top: 0px;
 }
