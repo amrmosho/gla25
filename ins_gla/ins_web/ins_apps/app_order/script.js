@@ -28,7 +28,8 @@ ins(".ins-view-close")._on("click", function(o) {
 
 ins(".-save-status")._on("click",(o)=>{
     ins("_update_statue")._ajax._app({"value":ins("select.status")._getValue() , "oid" :o._getData("tid")}, (data) => {
-        alert(data)
+
+        window.location.reload()
     });
 
 })

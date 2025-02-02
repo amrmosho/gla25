@@ -41,21 +41,30 @@ ins(".ins-pagination-btn")._on("click", (o) => {
     var currentPage = parseInt(ins(".ins-pagination-btn.active")._getData("page"), 10);
     if (page === "prev") {
         if (currentPage > 1) {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
             get_page(currentPage - 1);
         }
     } else if (page == "next") {
         var numPages = o._getData("tpages");
         if (currentPage < numPages) {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
             get_page(currentPage + 1);
         }
     } else if (page != currentPage) {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
         get_page(parseInt(page, 10));
         o._addClass("active");
     }
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
+
 }, true);
 ins(".-go-to-page-btn")._on("click", (o) => {
     var numPages = o._getData("tpages");
