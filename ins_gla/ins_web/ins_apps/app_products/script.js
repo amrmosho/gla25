@@ -22,7 +22,18 @@ ins(".-side-img")._on("click", (o) => {
         ins(".-side-img-cont")._removeClass("ins-active");
         o._addClass("ins-active");
         p._addClass("ins-active");
-        ins(".-main-img")._setAttribute("src", src);
+
+        ins(".-main-img")._addClass("gla-ahide");
+        setTimeout(() => {
+            ins(".-main-img")._setAttribute("src", src);
+
+            ins(".-main-img")._removeClass("gla-ahide");
+
+        }, 100);
+
+
+
+
     }, true)
     // Pagination
 ins(".ins-pagination-btn")._on("click", (o) => {
