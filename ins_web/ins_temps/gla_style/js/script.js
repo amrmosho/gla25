@@ -13,6 +13,16 @@ ins(".gla-header-search-btn")._on("click", (o) => {
     }
 }, true);
 
+
+ins(".-user-menu-btn")._on("click", (o) => {
+    if (ins("body")._hasClass("open-user-menu")) {
+        ins("body")._removeClass("open-user-menu")
+    } else {
+        ins("body")._addClass("open-user-menu")
+    }
+}, true);
+
+
 ins(".gla-header-search-input")._on("keyup", (o, e) => {
     if (e.keyCode == 13) {
 
