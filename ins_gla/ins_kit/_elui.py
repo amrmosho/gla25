@@ -29,7 +29,7 @@ class ELUI(ins_parent):
         p = "/ins_web/ins_uploads/"
         uidata = [
             {"start": "true", "class": "ins-col-12 ins-flex -item-card"}, {"src": f"{p}{data.get("th_main", "")}", "_type": "img", "class": "ins-radius-m", "style": "    width: 97px;"}, {"start": "true", "class": "ins-col-8 ins-flex"}, {"start": "true", "class": "ins-col-12 ins-flex  ins-gap-o"}, {"_data": data.get("title", ""), "class": "ins-col-12 ins-title-s	 ins-strong-l ins-grey-d-color", "style": "    !important;"}, {
-                "_data": data.get("des", ""), "class": "ins-grey-color ins-col-12 ins-title-14", "style": "line-height: 20px; "}, {"end": "true"}, {"_data": str(data["price"]), "class": "ins-col-12 ins-strong-l ins-primary-d-color ins-title-20"}, {"end": "true"}, {"_data": f"<img src='{p}/style/trash.svg'><img>", "class": "ins-flex-center ins-col-1 -remove-item-cart-btn", "data-pid": data["id"]}, {"end": "true"}
+                "_data": data.get("des", ""), "class": "ins-grey-color ins-col-12 ins-title-14", "style": "line-height: 20px; "}, {"end": "true"}, {"_data": str(data["price"]),"_view":"currency","_currency_symbol":" EGP", "class": "ins-col-12 ins-strong-l ins-primary-d-color ins-title-20"}, {"end": "true"}, {"_data": f"<img src='{p}/style/trash.svg'><img>", "class": "ins-flex-center ins-col-1 -remove-item-cart-btn", "data-pid": data["id"]}, {"end": "true"}
         ]
         if string:
             return self.ins._ui._render(uidata)
@@ -47,7 +47,7 @@ class ELUI(ins_parent):
                     {"end": "true"},
                     {"class": "ins-space-s"},
                     {"_data": f"{data["title"]}", "class": "ins-col-12 ins-title-20	 ins-strong-m   ins-grey-color", "style": "line-height:24px"},
-                    {"_data": f"{data["price"]}", "class": "ins-col-12  ins-strong-m  ins-primary-d-color", "style": "line-height:24px"},
+                    {"_data": f"{data["price"]}","_view":"currency","_currency_symbol":" EGP", "class": "ins-col-12  ins-strong-m  ins-primary-d-color", "style": "line-height:24px"},
                     {"end": "true"}
                 ]
          return r
@@ -58,28 +58,20 @@ class ELUI(ins_parent):
     def cart_pro_block(self,data,string=False):
         
         p = "/ins_web/ins_uploads/"
-        item_total_des = float(data["count"]) * float(data["weight"])
+        item_total_des = int(float(data["count"]) * float(data["weight"]))
         item_total_amount = float(data["count"]) * float(data["price"])
         uidata = [
             {"start": "true", "class": "ins-col-12 ins-flex -item-card ins-border ins-radius-l ins-gap-o"},
-            {"start": "true", "class": "ins-col-4 ins-flex-center",
-                "style": "height:160px;overflow: hidden;    border-radius: 8px 0px 0px 8px;"},
-            {"src": f"{p}{data.get("th_main", "")}", "_type": "img",
-             "class": "ins-radius-m", "style": "    height: 100%;"},
+            {"start": "true", "class": "ins-col-4 ins-flex-center","style": "height:160px;overflow: hidden;    border-radius: 8px 0px 0px 8px;"},
+            {"src": f"{p}{data.get("th_main", "")}", "_type": "img","class": "ins-radius-m", "style": "    height: 100%;"},
             {"end": "true"},
-            {"start": "true", "class": "ins-col-8  ins-flex-grow ins-primary-w ins-padding-l",
-             "style": "border-radius: 0px 8px 8px 0px;    border-left: 1px solid var(--primary-l);"},
-            {"_data": "Item summary",
-             "class": "ins-col-12 ins-title-s ins-strong-l ins-grey-d-color"},
-            {"_data": f"{data.get("count", "")} x {
-             data["title"]}", "class": "ins-col-8 ins-strong-m ins-grey-color ins-title-14"},
-            {"_data": str(
-             data["price"]), "class": "ins-col-4 ins-strong-m ins-grey-d-color ins-flex-end ins-title-14"},
+            {"start": "true", "class": "ins-col-8  ins-flex-grow ins-primary-w ins-padding-l","style": "border-radius: 0px 8px 8px 0px;    border-left: 1px solid var(--primary-l);"},
+            {"_data": "Item summary","class": "ins-col-12 ins-title-s ins-strong-l ins-grey-d-color"},
+            {"_data": f"{data.get("count", "")} x {data["title"]}", "class": "ins-col-7 ins-strong-m ins-grey-color ins-title-14"},
+            {"_data": str(data["price"]),"_view":"currency","_currency_symbol":" EGP", "class": "ins-col-5 ins-strong-m ins-grey-d-color ins-flex-end ins-title-14"},
             {"class": "ins-line ins-col-12"},
-            {"_data": f"{item_total_des}gm  {data.get(
-             "category", "")} ", "class": "ins-col-6 ins-strong-m ins-grey-color ins-title-14"},
-            {"_data": f"{item_total_amount}",
-             "class": "ins-col-6 ins-strong-m ins-grey-d-color ins-flex-end ins-title-14"},
+            {"_data": f"{item_total_des}gm  {data.get("category", "")} ", "class": "ins-col-7 ins-strong-m ins-grey-color ins-title-14"},
+            {"_data": f"{item_total_amount}","_view":"currency","_currency_symbol":" EGP","class": "ins-col-5 ins-strong-m ins-grey-d-color ins-flex-end ins-title-14"},
             {"end": "true"},
             {"end": "true"}
         ]
@@ -90,7 +82,7 @@ class ELUI(ins_parent):
         p = "/ins_web/ins_uploads/"
         uidata = [
             {"start": "true", "class": "ins-col-12 ins-flex -item-card ins-card"}, {"src": f"{p}{data.get("th_main", "")}", "_type": "img", "class": "ins-radius-m", "style": "    width: 97px;"}, {"start": "true", "class": "ins-col-6 ins-flex"}, {"start": "true", "class": "ins-col-12 ins-flex  ins-gap-o"}, {"_data": data.get(
-                "title", ""), "class": "ins-col-12 ins-title-20	 ins-strong-l ins-grey-d-color", "style": "    !important;"}, {"_data": data.get("des", ""), "class": "ins-grey-color ins-col-12 ins-title-14", "style": "line-height: 20px; "}, {"end": "true"}, {"_data": str(data["price"]), "class": "ins-col-12 ins-strong-l ins-primary-d-color  ins-title-20"}, {"end": "true"},
+                "title", ""), "class": "ins-col-12 ins-title-20	 ins-strong-l ins-grey-d-color", "style": "    !important;"}, {"_data": data.get("des", ""), "class": "ins-grey-color ins-col-12 ins-title-14", "style": "line-height: 20px; "}, {"end": "true"}, {"_data": str(data["price"]),"_view":"currency","_currency_symbol":" EGP", "class": "ins-col-12 ins-strong-l ins-primary-d-color  ins-title-20"}, {"end": "true"},
             {"start": "true", "class": "ins-flex ins-col-3 -counter-cont ins-gap-o"},
             {"_data": "-", "class": "ins-button-s ins-flex-center ins-col-4 ins-gold-bg ins-font-2xl -minus-btn",
                 "data-pid": data.get("id", 0)},
@@ -129,15 +121,15 @@ class ELUI(ins_parent):
                 "des", ""), "class": "ins-grey-color ins-col-12 ins-title-14", "style": "line-height: 20px; "},
             {"_data": f' Count  ',
                 "class": " ins-col-4  ins-title-xs  ins-text-center ins-grey-color ins-strong-m"},
-            {"_data": f' Price  ',
+            {"_data": f' Price  ',"_view":"currency","_currency_symbol":" EGP",
                 "class": " ins-col-4  ins-title-xs  ins-text-center ins-grey-color ins-strong-m"},
             {"_data": f' Total  ',
              "class": " ins-col-4  ins-title-xs  ins-text-center ins-grey-color ins-strong-m"},
             {"_data": str(data["quantity"]),
              "class": " ins-col-4  ins-grey-d-color   ins-text-center ins-title-xs ins-strong-l"},
-            {"_data": "EGP "+str(data["price"]),
+            {"_data": str(data["price"]),"_view":"currency","_currency_symbol":" EGP",
              "class": " ins-col-4  ins-grey-d-color  ins-text-center ins-title-xs ins-strong-l"},
-            {"_data": "EGP "+str(data["price"]),
+            {"_data": str(data["price"]),"_view":"currency","_currency_symbol":" EGP",
              "class": " ins-col-4  ins-grey-d-color  ins-text-center ins-title-xs ins-strong-l"},
             
             
