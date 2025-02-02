@@ -39,6 +39,7 @@ ins(".-remove-item-side-cart-btn")._on("click", (o) => {
                 ins(".-cart-cont")._setHTML(jdata["ui"])
             }
             p._remove()
+
             ins("Item removed!")._ui._notification()
         })
     }

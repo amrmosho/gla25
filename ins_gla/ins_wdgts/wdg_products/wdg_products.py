@@ -9,9 +9,9 @@ class WdgProducts(Widget):
 
     def out(self):
 
-        data = self.ins._db._get_data("gla_product","*","1=1 limit 0,4")
-        data_b= self.ins._db._get_data("gla_product","*","1=1 limit 4,4")
-        data_c= self.ins._db._get_data("gla_product","*","1=1 limit 8,4")
+        data = self.ins._db._get_data("gla_product","*","fk_product_category_id = 1 limit 0,4")
+        data_b= self.ins._db._get_data("gla_product","*","fk_product_category_id = 2 limit 0,4")
+        data_c= self.ins._db._get_data("gla_product","*","fk_product_category_id = 3 limit 0,4 ")
 
         self.widget._include("wpros.js")
         uidata = [
@@ -24,8 +24,8 @@ class WdgProducts(Widget):
             {"class": "ins-space-l"},
             {"start": "true", "class": "ins-flex gla-tabs-header"},
             {"_data": "Gold Bars", "data-view":".cat_a", "class": " ins-strong-m wi-pros-tab-btn  gla-active "},
-            {"_data": "Gold Bars" , "data-view":".cat_b","class":"wi-pros-tab-btn"},
-            {"_data": "Gold Bars", "data-view":".cat_c" ,"class":"wi-pros-tab-btn"},
+            {"_data": "Gold Coins" , "data-view":".cat_b","class":"wi-pros-tab-btn"},
+            {"_data": "Gifts", "data-view":".cat_c" ,"class":"wi-pros-tab-btn"},
             {"end": "true"},           
             {"class": "ins-space-s"},
 

@@ -14,15 +14,14 @@ class AppUsersOrders(App):
         sedata = self.ins._db._jget("gla_order_item", "*", f"fk_order_id='{g["id"]}'")
         sedata._jwith("gla_product product", "th_main", rfk="fk_product_id" ,join="left join")
         sedata=sedata._jrun()
+        data = self.ins._db._get_row("gla_order", "*", f"id='{g["id"]}'")
 
         uidata = []
-        subtotal = 0
         tcount = 0
         uidata = [{"start": "true", "class": "ins-col-12 ins-flex "},
                   {"_data": f"Order ID({g["id"]} /2025)", "class": "ins-col-12 ins-strong-m ins-title-m"}]
         for v in sedata:
             tcount += v["quantity"]
-            subtotal += float(v["price"])
             uidata += ELUI(self.ins).counter_user_order_block(v)
         footer = [
             {"start": "true", "class": "ins-col-12 ins-flex -item-card ins-card"},
@@ -38,7 +37,7 @@ class AppUsersOrders(App):
              "class": " ins-col-4  ins-grey-d-color   ins-text-center ins-title-xs ins-strong-l"},
             {"_data": "",
              "class": " ins-col-4  ins-grey-d-color  ins-text-center ins-title-xs ins-strong-l"},
-            {"_data": str(subtotal),"_view":"currency","_currency_symbol":" EGP",
+            {"_data": str(data["total"]),"_view":"currency","_currency_symbol":" EGP",
              "class": " ins-col-4  ins-grey-d-color  ins-text-center ins-title-xs ins-strong-l"},
             {"end": "true"},
             {"end": "true"},
@@ -46,6 +45,9 @@ class AppUsersOrders(App):
         ]
         uidata += footer
         return self.ins._ui._render(uidata)
+    
+
+
     def out(self, ins):
         udata = self.user._check()
         odata = self.ins._db._get_data("gla_order", "*", f"fk_user_id='{udata["id"]}'")
