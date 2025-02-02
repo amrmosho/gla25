@@ -265,7 +265,6 @@ ins(".-submit-order-btn")._on("click", (o) => {
     })
 }, true)
 
-
 ins(function() {
     g = ins()._map._get();
     if (g["mode"] == "order") {
@@ -273,10 +272,10 @@ ins(function() {
         const countdown = setInterval(() => {
             count--
             if (count > 1) {
-                ins(".-otp-resend-counter")._setHTML(count + " seconds")
+                ins(".-countdown")._setHTML(count + " seconds")
 
             } else {
-                ins(".-otp-resend-counter")._setHTML(count + " second")
+                ins(".-countdown")._setHTML(count + " second")
             }
             if (count == 0) {
                 clearInterval(countdown)

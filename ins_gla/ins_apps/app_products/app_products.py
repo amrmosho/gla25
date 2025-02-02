@@ -233,7 +233,7 @@ class AppProducts(App):
         uidata.append({"start": "true", "class": "ins-flex-valign-start gla-container ins-col-12 ins-padding-2xl ins-padding-h"})
 
         ## Filter Area
-        uidata.append({"start": "true", "class": "ins-flex ins-col-3 -filter-area ins-grey-d-color ins-padding-m full-height ins-sticky-top","style":"background:white;top:95px"})
+        uidata.append({"start": "true", "class": "ins-flex ins-col-3 -filter-area ins-grey-d-color ins-padding-2xl full-height ins-sticky-top","style":"background:white;top:95px"})
         uidata.append({"class": "ins-space-m"})
 
         uidata.append({"_type": "input", "name":"title","value":filter_data.get("title",""),"data-name":"title","type": "text", "placeholder":"Product name Search..","class":" -product-filter-input -title-input",  "pclass": "ins-col-12","style":"    background: white;border-radius:4px;"})
@@ -263,7 +263,7 @@ class AppProducts(App):
         tys = filter_data.get("types", "").split(',')
         for t in types:
             active = "ins-active" if t.lower() in tys else ""
-            uidata.append({"_data": t, "name":"type","data-name":t.lower(),"class": f"ins-button-s  -type-btn ins-strong-m  ins-col-4  -product-filter-input {active}"})
+            uidata.append({"_data": t, "name":"type","data-name":t.lower(),"class": f"ins-button-s  -type-btn ins-flex-center ins-strong-m  ins-col-4  -product-filter-input {active}"})
 
         uidata.append({"class": "ins-space-m"})
 

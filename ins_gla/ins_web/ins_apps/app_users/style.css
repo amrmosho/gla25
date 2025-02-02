@@ -1,0 +1,7 @@
+._a,
+._a_red {
+    cursor: pointer;
+    font-size: 25px;
+    color: var(--grey-m);
+    height: 25px;
+}

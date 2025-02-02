@@ -29,7 +29,7 @@ class ELUI(ins_parent):
         p = "/ins_web/ins_uploads/"
         uidata = [
             {"start": "true", "class": "ins-col-12 ins-flex -item-card"}, {"src": f"{p}{data.get("th_main", "")}", "_type": "img", "class": "ins-radius-m", "style": "    width: 97px;"}, {"start": "true", "class": "ins-col-8 ins-flex"}, {"start": "true", "class": "ins-col-12 ins-flex  ins-gap-o"}, {"_data": data.get("title", ""), "class": "ins-col-12 ins-title-s	 ins-strong-l ins-grey-d-color", "style": "    !important;"}, {
-                "_data": data.get("des", ""), "class": "ins-grey-color ins-col-12 ins-title-14", "style": "line-height: 20px; "}, {"end": "true"}, {"_data": str(data["price"]),"_view":"currency","_currency_symbol":" EGP", "class": "ins-col-12 ins-strong-l ins-primary-d-color ins-title-20"}, {"end": "true"}, {"_data": f"<i  class='lni lni-trash-3'></i>", "class": "ins-flex-center ins-col-1 -remove-item-cart-btn", "data-pid": data["id"]}, {"end": "true"}
+                "_data": data.get("des", ""), "class": "ins-grey-color ins-col-12 ins-title-14", "style": "line-height: 20px; "}, {"end": "true"}, {"_data": str(data["price"]),"_view":"currency","_currency_symbol":" EGP", "class": "ins-col-12 ins-strong-l ins-primary-d-color ins-title-20"}, {"end": "true"}, {"_data": f"<i  class='lni lni-trash-3 _a_red'></i>", "class": "ins-flex-center ins-col-1 -remove-item-cart-btn", "data-pid": data["id"]}, {"end": "true"}
         ]
         if string:
             return self.ins._ui._render(uidata)
@@ -40,7 +40,7 @@ class ELUI(ins_parent):
          r = [
                     {"start": "true", "class": "ins-flex  gla-pro-block  ", "style": st},
                     {"start": "true", "class": " gla-img-cont  ", "style": ""},
-                    {"_data": "Bestseller", "class": "ins-tag ins-primary-d ins-strong-m ins-text-upper ins-title-10","style": "position: absolute;top: 8px;left: 8px;border-radius: 2px !important;"},
+                    {"_data": "Bestseller", "class": "ins-tag ins-primary-d ins-strong-m ins-text-upper ins-title-10","style": "position: absolute;top: 8px;left: 8px;border-radius: 2px !important;z-index:111"},
                     {"src": p + data["th_main"], "_type": "img", "class": "gla-pro-img"},
                     {"src": p + data["th_overlay"], "_type": "img", "class": "gla-pro-himg"},
                     { "_type":"a" ,"href":purl,"_data": "SHOP NOW <i class=' lni ins-icon lni-arrow-right'></i>", "class": "ins-button gla-pro-hbutton ins-strong-m   ins-gold-bg","data-pid":f"{data['id']}"},
@@ -91,7 +91,7 @@ class ELUI(ins_parent):
             {"_data": "+", "class": "ins-button-s ins-flex-center  ins-col-4  ins-gold-bg ins-font-2xl  -plus-btn",
                 "data-pid": data.get("id", 0)},
             {"end": "true"},
-            {"_data": f"<i  class='lni lni-trash-3'></i>",
+            {"_data": f"<i  class='lni lni-trash-3 _a_red'></i>",
                 "class": "ins-flex-center ins-col-1 -remove-item-cart-btn", "data-pid": data["id"]},
             {"end": "true"},
         ]

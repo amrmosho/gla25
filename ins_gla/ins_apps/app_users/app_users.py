@@ -169,8 +169,8 @@ class AppUsers(App):
            uidata.append({"_data": "Mobile: "+a["phone"] + " | Email: "+ a["email"],"class":"ins-grey-d-color ins-col-12  ins-title-14"})
            uidata.append({"end":"true"})
            uidata.append({"start":"true","class":"ins-col-2 ins-flex-end"})
-           uidata.append({"_data":"<img class='-update-address' data-aid = "+ str(a["id"])+" src='"+p + "style/pen.svg"+"'></img>","class":"ins-text-center"})
-           uidata.append({"_data":"<i style='    font-size: 23px;color: var(--grey-m);height: 25px;' class='lni lni-trash-3'></i>","data-aid":a["id"],"class":"ins-text-center -remove-address-btn"})
+           uidata.append({"_data":"<i class='-update-address  _a lni lni-pencil-1' data-aid = "+ str(a["id"])+" ></i>","class":"ins-text-center"})
+           uidata.append({"_data":"<i class='lni lni-trash-3 _a_red'></i>","data-aid":a["id"],"class":"ins-text-center -remove-address-btn"})
            uidata.append({"end":"true"})
 
            uidata.append({"end":"true"})
@@ -326,6 +326,7 @@ class AppUsers(App):
 
     def out(self):
         self.app._include("script.js")
+        self.app._include("style.css")
         udata = self.user._check()
         if not udata:
             return self.ins._ui._render(self._mobile_no_ui())

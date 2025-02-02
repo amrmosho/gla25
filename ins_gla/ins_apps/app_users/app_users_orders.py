@@ -50,14 +50,29 @@ class AppUsersOrders(App):
         udata = self.user._check()
         odata = self.ins._db._get_data("gla_order", "*", f"fk_user_id='{udata["id"]}'")
         usmenu = [{"start": "true", "class": "  ins-col-12 ins-gap-20  ins-flex    ins-padding-2xl"}]
-         
+        i = 0
         odata.reverse()
         for v in odata:
-            order = [{"start": "true", "class": " ins-flex-space-between  ins-card  ins-col-12 ins-border   ins-flex   ins-padding-l"},
-            {"_data": f'  Order  ID({v["id"]} /2025) ',
-                "class": " ins-col-10  ins-primary-d-color ins-title-s	 ins-strong-l "},
-            {"_data": f'{v["order_status"]}',
-                "class": " ins-col-2 ins-radius-m  ins-text-upper ins-avatar-s ins-gold-d "},
+            if (v["order_status"] == "pending"):
+                status_class = "ins-warning"
+            elif (v["order_status"] == "confirmed"):
+                status_class = "ins-secondary"
+            elif (v["order_status"] == "canceled"):
+                status_class = "ins-danger"
+            elif (v["order_status"] == "delivered"):
+                status_class = "ins-success"
+            i += 1
+            style = ""
+            if i == 1:
+                style = "border: 2px solid var(--gold) !important;"
+            order = [{"start": "true", "class": " ins-flex-space-between  ins-card  ins-col-12 ins-border   ins-flex   ins-padding-l","style":style},
+            {"_data": f'  Order  ID({v["id"]} /2025) ',"class": " ins-col-9 ins-primary-d-color ins-title-s	 ins-strong-l "}
+            ]
+            if i == 1:
+                order+=[{"_data": f'  New ',"class": "ins-tag ins-gold  ins-strong-m  ins-text-upper ins-radius-m  ins-text-upper ins-text-center"}]
+
+            order+=[{"_data": f'{v["order_status"]}',
+                "class": f"{status_class} ins-col-2 ins-radius-m  ins-text-upper ins-avatar-s ins-gold-d "},
             {"class": "ins-line ins-col-12"},
             {"start": "true", "class": "ins-flex ins-col-10"},
             {"_data": f' Date  ',
@@ -70,7 +85,7 @@ class AppUsersOrders(App):
              "class": " ins-col-4  ins-grey-d-color ins-title-xs ins-strong-l ", "style": "    margin-top: -22px;"},
             {"_data": f' 15 ',
                 "class": " ins-col-4  ins-grey-d-color ins-title-xs ins-strong-l", "style": "    margin-top: -22px;"},
-            {"_data": f'EGP {v["total"]}',
+            {"_data": f'{v["total"]}', "_view": "currency", "_currency_symbol": " EGP",
                 "class": " ins-col-4  ins-grey-d-color ins-title-xs ins-strong-l", "style": "    margin-top: -22px;"},
             {"end": "true"},
             {"class": " ins-col-1"},

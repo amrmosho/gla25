@@ -41,6 +41,10 @@ ins(".ins-pagination-btn")._on("click", (o) => {
         get_page(parseInt(page, 10));
         o._addClass("active");
     }
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
 }, true);
 ins(".-go-to-page-btn")._on("click", (o) => {
     var numPages = o._getData("tpages");
@@ -56,9 +60,14 @@ ins(".-go-to-page-btn")._on("click", (o) => {
                 ins("This page not exist")._ui._notification({ class: "ins-danger" });
             } else {
                 get_page(page);
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
             }
         }
     }
+
 }, true);
 
 function get_page(page) {

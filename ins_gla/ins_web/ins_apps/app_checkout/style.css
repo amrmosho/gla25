@@ -53,7 +53,8 @@
     color: var(--primary-d) !important;
 }
 
-.lni {
+._a,
+._a_red {
     cursor: pointer;
     font-size: 25px;
     color: var(--grey-m);
