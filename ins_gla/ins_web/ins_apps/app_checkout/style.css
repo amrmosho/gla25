@@ -52,3 +52,10 @@
 .-payment-type-btn.ins-active .payment-title {
     color: var(--primary-d) !important;
 }
+
+.lni {
+    cursor: pointer;
+    font-size: 25px;
+    color: var(--grey-m);
+    height: 25px;
+}

@@ -24,8 +24,4 @@ ins(".-add-cart-btn")._on("click", (o) => {
         });
     })
 
-
-
-
-
 })

@@ -170,7 +170,7 @@ class AppUsers(App):
            uidata.append({"end":"true"})
            uidata.append({"start":"true","class":"ins-col-2 ins-flex-end"})
            uidata.append({"_data":"<img class='-update-address' data-aid = "+ str(a["id"])+" src='"+p + "style/pen.svg"+"'></img>","class":"ins-text-center"})
-           uidata.append({"_data":"<img src='"+p + "style/trash.svg"+"'></img>","data-aid":a["id"],"class":"ins-text-center -remove-address-btn"})
+           uidata.append({"_data":"<i style='    font-size: 23px;color: var(--grey-m);height: 25px;' class='lni lni-trash-3'></i>","data-aid":a["id"],"class":"ins-text-center -remove-address-btn"})
            uidata.append({"end":"true"})
 
            uidata.append({"end":"true"})

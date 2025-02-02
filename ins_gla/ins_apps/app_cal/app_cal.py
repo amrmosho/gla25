@@ -187,8 +187,7 @@ class AppCal(App):
                     {"class": "ins-space-xl"},
                     {"_data": pro["title"], "class": "ins-strong-m ins-grey-color ins-text-upper",
                         "style": "    line-height: 20px;"},
-                    {"_data": str(
-                        pro["price"]), "class": "ins-strong-m ins-primary-d-color ins-title-14"},
+                    {"_data": str(pro["price"]),"_view":"currency","_currency_symbol":" EGP",  "class": "ins-strong-m ins-primary-d-color ins-title-14"},
                     {"class": "ins-space-s"},
                     {"_data": f"Qty: {pro["count"]}",
                         "class": "ins-strong-l ins-grey-color "},
@@ -208,7 +207,7 @@ class AppCal(App):
            
             summary = [
                 {"end": "true"},
-                {"start": "true", "class": "ins-primary-w ins-padding-l ins-flex ins-gap-o","style": "width:360px"},
+                {"start": "true", "class": "ins-primary-w ins-padding-l ins-flex ins-gap-o","style": "width:400px"},
                 {"_data": "Item summary","class": "ins-col-12 ins-title-xs ins-grey-d-color ins-strong-l"},
                 {"class": "ins-space-xl"}
                 ]
@@ -216,15 +215,15 @@ class AppCal(App):
             for k, pro in product.items():
                 stotal = float(pro["count"]) * float(pro["price"])
                 total +=stotal
-                summary+=[{"_data": f"{pro["count"]} x {pro["title"]}","class": "ins-col-8 ins-strong-m ins-grey-color"},
-                          {"_data": str(stotal),"class": "ins-col-4  ins-grey-d-color ins-strong-l ins-flex-end"}]
+                summary+=[{"_data": f"{pro["count"]} x {pro["title"]}","class": "ins-col-6 ins-strong-m ins-grey-color"},
+                          {"_data": str(stotal),"_view":"currency","_currency_symbol":" EGP", "class": "ins-col-6  ins-grey-d-color ins-strong-l ins-flex-end"}]
 
             summary+=[
                 {"class": "ins-space-s"},
                 {"class": "ins-line ins-col-12"},
                 {"class": "ins-space-s"},
                 {"_data": "Total", "class": "ins-col-6 ins-strong-m ins-grey-color"},
-                {"_data": str(total),"class": "ins-col-6  ins-grey-d-color ins-strong-l ins-flex-end"},
+                {"_data": str(total),"_view":"currency","_currency_symbol":" EGP", "class": "ins-col-6  ins-grey-d-color ins-strong-l ins-flex-end"},
                 {"class": "ins-space-2xl"},
                 {"_data": "ADD TO CART <i class = 'lni lni-arrow-right ins-white-color'></i>", "class": "ins-col-12 ins-button-s ins-flex-center  ins-white-color ins-strong-m ins-gold-d -add-cart-btn ins-title-14","style": "    height: 32px;    border: 1px solid var(--primary-d);"},
                 {"end": "true"},
