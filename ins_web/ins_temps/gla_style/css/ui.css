@@ -6,6 +6,10 @@
     background-position: center;
 }
 
+a:hover {
+    color: var(--gold-d) !important;
+}
+
 @font-face {
     font-family: 'gotham_s';
     font-style: normal;

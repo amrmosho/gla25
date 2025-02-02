@@ -149,6 +149,8 @@ footer li {
 
 .gla-img-cont img {
     max-width: 200px;
+    background: url(imgs/loading.gif) 50% no-repeat;
+    position: absolute;
 }
 
 .gla-pro-himg,
@@ -249,6 +251,8 @@ footer li {
 .pro-blog-block img {
     object-fit: cover;
     width: 100%;
+    min-height: 250px;
+    background: url(imgs/loading.gif) 50% no-repeat;
 }
 
 .gla-phone-menu {

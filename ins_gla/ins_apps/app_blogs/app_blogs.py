@@ -64,7 +64,7 @@ class AppBlogs(App):
             blog = [
 
                 {"start": "true", "class": "ins-flex   pro-blog-block ", "style": st},
-                {"src": "xx", "_type": "img"},
+                {"src": p + d["image"], "_type": "img"},
                 {"_data": d["title"], "_type": "a", "href": burl,
                     "class": "ins-col-12 ins-title-m   ins-grey-color"},
                 {"end": "true"}
