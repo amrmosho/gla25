@@ -143,7 +143,7 @@ class AppCal(App):
                 {"_data": "E£", "class": "ins-border-end ins-padding-m ins-padding-h",
                     "style": "height: 24px;line-height: 24px;"},
                 {"_type": "input", "value":total, "placeholder": "Enter your amount",
-                    "type": "number", "class": " -cal-update-nput ins-input-none"},
+                    "type": "text", "class": " -cal-update-nput ins-input-none"},
                 {"_data": "<i class='lni ins-white-color lni-arrow-right'></i>",
                     "class": "ins-button-s  -cal-update-btn ins-gold-d"},
                 {"end": "true"},
@@ -155,6 +155,29 @@ class AppCal(App):
 
         r = self.ins._ui._render(uidata)
         return r
+
+
+
+
+    def _remove_item_cart(self):
+        data = self.ins._server._post()
+        sedata=self.ins._server._get_session(self.session_name)
+        sedata.pop(data["pid"]) 
+        self.ins._server._set_session(self.session_name,sedata)
+        ndata=self.ins._server._get_session(self.session_name)
+        r = {}
+        r["status"] = "2"
+
+        if not ndata:
+            uidata=[{"_data":"There is no items in cart","class":"ins-col-12 ins-card ins-secondary ins-text-upper ins-text-center ins-title-12"}]
+            r["status"] = "1"
+            r["ui"] = self.ins._ui._render(uidata)
+
+
+        return r
+
+
+
 
 
     def plan_ui(self,product,title):
@@ -337,7 +360,7 @@ class AppCal(App):
                 {"_data": "E£", "class": "ins-border-end ins-padding-m ins-padding-h ins-title-20 ins-grey-color",
                     "style": "height: 24px;line-height: 24px;"},
                 {"_type": "input",  "placeholder": "Enter your amount",
-                    "type": "number", "class": " -cal-update-nput ins-input-none","pclass":"ins-col-grow"},
+                    "type": "text", "class": " -cal-update-nput ins-input-none","pclass":"ins-col-grow"},
                 {"_data": "CALCULATOR <i class='lni ins-white-color lni-arrow-right'></i>",
                     "class": "ins-button-s  -cal-update-btn ins-gold-d ins-flex-center","style":"height: 46px;"},
                 {"end": "true"}

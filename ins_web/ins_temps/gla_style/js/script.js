@@ -34,7 +34,7 @@ ins(".gla-header-search-input")._on("keyup", (o, e) => {
 
 function _submit() {
     var v = ins(".-cal-update-nput")._getValue();
-    if (v == "" || v == null || v == undefined || v == 0) {
+    if (v === "" || v === null || v === undefined || v == 0 || isNaN(v)) {
         ins("Please enter a valid number")._ui._notification({ "class": "ins-danger" });
     } else {
         window.location = "/plan/" + v + "/";
