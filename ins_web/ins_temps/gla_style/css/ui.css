@@ -6,8 +6,17 @@
     background-position: center;
 }
 
-a:hover {
+a:hover,
+._a:hover {
     color: var(--gold-d) !important;
+}
+
+._a_red:hover {
+    color: var(--danger) !important;
+}
+
+._a_success:hover {
+    color: var(--success) !important;
 }
 
 @font-face {
