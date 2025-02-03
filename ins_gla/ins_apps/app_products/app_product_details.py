@@ -41,7 +41,7 @@ class AppProductDetails(App):
             else:
                 image = images["george"]
 
-        uidata.append({"start": "true", "class": "ins-flex-valign-start ins-col-6 "})
+        uidata.append({"start": "true", "class": "ins-flex-valign-start ins-col-6  -side-mimg-cont "})
         uidata.append({"start": "true", "class": "ins-flex-center ins-col-2 "})
         p = "/ins_web/ins_uploads/"
         count = 0
@@ -52,7 +52,7 @@ class AppProductDetails(App):
             if count == 1:
                aclass = "ins-active"
                aimage =  i
-            uidata.append({"start": "true","class":f"-side-img-cont ins-text-center ins-radius-l  {aclass}"})
+            uidata.append({"start": "true", "class":f"-side-img-cont ins-text-center ins-radius-l  {aclass}"})
             uidata.append({"src": p + i, "_type": "img","data-src":p + i,"class": f" ins-radius-m -side-img {aclass}", "style":"width:100%;"})  
             uidata.append({"end": "true"})
             uidata.append({"class": "ins-space-xs"})
