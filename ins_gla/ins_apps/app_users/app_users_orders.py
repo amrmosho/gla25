@@ -55,6 +55,7 @@ class AppUsersOrders(App):
         i = 0
         odata.reverse()
         for v in odata:
+            icount = self.ins._db._get_row("gla_order_item", "sum(quantity) as quantity", f"fk_order_id='{v["id"]}'")["quantity"]
             if (v["order_status"] == "pending"):
                 status_class = "ins-warning"
             elif (v["order_status"] == "confirmed"):
@@ -79,13 +80,12 @@ class AppUsersOrders(App):
             {"start": "true", "class": "ins-flex ins-col-10"},
             {"_data": f' Date  ',
                 "class": " ins-col-4    ins-grey-color "},
-            {"_data": f' Items Count ',
-             "class": " ins-col-4    ins-grey-color"},
+            {"_data": f' Items Count ',"class": " ins-col-4    ins-grey-color"},
             {"_data": f' Orders Total ',
              "class": " ins-col-4 ins-grey-color "},
             {"_data": f'{v["kit_created"]}',"_view":"date",
              "class": " ins-col-4  ins-grey-d-color ins-title-xs ins-strong-l ", "style": "    margin-top: -22px;"},
-            {"_data": f' 15 ',
+            {"_data": f'{icount}',
                 "class": " ins-col-4  ins-grey-d-color ins-title-xs ins-strong-l", "style": "    margin-top: -22px;"},
             {"_data": f'{v["total"]}', "_view": "currency", "_currency_symbol": " EGP",
                 "class": " ins-col-4  ins-grey-d-color ins-title-xs ins-strong-l", "style": "    margin-top: -22px;"},
