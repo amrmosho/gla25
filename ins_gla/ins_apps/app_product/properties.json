@@ -220,7 +220,7 @@
             "title-ar": "الوصف",
             "_trans": "true",
             "view": "text",
-            "class": "ins-col-4"
+            "class": "ins-col-3"
         },
         {
             "name": "fk_product_category_id",
@@ -231,7 +231,15 @@
             "_data_type": "db",
             "_table": "gla_product_category",
             "required": "true",
-            "class": "ins-col-3"
+            "class": "ins-col-2"
+        },
+        {
+            "name": "price",
+            "title": "Price",
+            "_type": "select",
+            "type": "text",         
+            "required": "true",
+            "class": "ins-col-2"
         }
     ],
     "list_filter": [{
