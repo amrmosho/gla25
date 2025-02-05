@@ -128,6 +128,65 @@
             "title-ar": "الترتيب",
             "_type": "input",
             "type": "number",
+            "pclass": "ins-col-3"
+        },
+        {
+            "end": "True"
+        },
+        {
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card ins-padding-m"
+        },
+        {
+            "_data": "Finance",
+            "_data-ar": "خيارات الشاشة الرئيسية",
+            "_trans": "true",
+            "class": "ins-col-12"
+        },
+        {
+            "name": "stamp",
+            "title": "Manufacturing + stamp",
+            "title-ar": "العنوان",
+            "_type": "input",
+            "type": "number",
+            "required": "true",
+            "pclass": "ins-col-4"
+        },
+        {
+            "name": "gram",
+            "_end": "Gram",
+            "_end-ar": "عرض في الصفحة الرئيسية",
+            "_trans": "true",
+            "_type": "input",
+            "type": "bool",
+            "value": "0",
+            "pclass": "ins-col-1 style -gram"
+        },
+        {
+            "name": "piece",
+            "_end": "Piece",
+            "_end-ar": "عرض في الصفحة الرئيسية",
+            "_trans": "true",
+            "_type": "input",
+            "type": "bool",
+            "value": "0",
+            "pclass": "ins-col-1 style -gram"
+        },
+        {
+            "name": "vat",
+            "title": "Vat",
+            "title-ar": "العنوان",
+            "_type": "input",
+            "type": "number",
+            "required": "true",
+            "pclass": "ins-col-3"
+        },
+        {
+            "name": "cashback",
+            "title": "CashBack",
+            "title-ar": "العنوان",
+            "_type": "input",
+            "type": "number",
             "required": "true",
             "pclass": "ins-col-3"
         },
