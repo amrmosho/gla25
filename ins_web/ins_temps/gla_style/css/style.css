@@ -2,11 +2,6 @@
     justify-content: start !important;
 }
 
-.ins-menu a {
-    text-transform: uppercase;
-    font-family: 'gotham';
-}
-
 header .gla-body {
     padding: 12px 40px;
 }
@@ -108,7 +103,6 @@ footer li {
 .gla-ltabs {
     border-top: 3px solid var(--primary-l);
     color: var(--grey-m);
-    font-family: "gotham_m";
     cursor: pointer;
 }
 
@@ -116,7 +110,6 @@ footer li {
 .gla-ltabs:hover {
     border-top: 3px solid var(--primary-d);
     color: var(--primary-d);
-    font-family: "gotham_m";
 }
 
 .gla-ltabs:hover {

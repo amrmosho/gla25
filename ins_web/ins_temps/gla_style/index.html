@@ -3,13 +3,13 @@
 
 <head>
     <meta charset="utf-8"> {{ temp.header|safe }}
+    <link rel="stylesheet" href="/{{ temp._weburl|safe }}css/style-{{lang['name']}}.css" />
+
     <link rel="stylesheet" href="/{{ temp._weburl|safe }}css/ui.css" />
     <link rel="stylesheet" href="/{{ temp._weburl|safe }}css/style.css" />
-    <link rel="stylesheet" href="/{{ temp._weburl|safe }}css/style.css" />
 
 
 
-    <link rel="stylesheet" href="/{{ temp._weburl|safe }}css/style-{{lang['name']}}.css" />
 
 
     <link href="/{{ temp._weburl|safe }}css/phone.css" rel="stylesheet" media="only screen and (min-width: 0px) and (max-width: 1000px)" type="text/css">
@@ -93,7 +93,7 @@
             <div class="gla-container gla-body ins-flex ins-m-flex-space-between">
                 <div class="lni ins-font-2xl  gla-phone-menu lni-menu-hamburger-1"></div>
                 <a href="/">
-                    <div style="width: 72px; height:72px" class="gla-elogo gla-logo"></div>
+                    <div style="width: 72px; height:72px" class="gla-logo gla-logo"></div>
                 </a>
                 <nav class="ins-col-grow  ">
                     <div class="ins-flex-space-between  ins-phone-nav">

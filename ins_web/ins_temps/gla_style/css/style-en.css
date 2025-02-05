@@ -1,1 +1,155 @@
-body {}
+@font-face {
+    font-family: 'gotham_s';
+    font-style: normal;
+    font-display: swap;
+    src: url(fonts/en/gotham/Gotham_Thin.otf);
+}
+
+@font-face {
+    font-family: 'gotham_m';
+    font-style: normal;
+    font-display: swap;
+    src: url(fonts/en/gotham/Gotham_Medium.otf);
+}
+
+@font-face {
+    font-family: 'gotham';
+    font-style: normal;
+    font-display: swap;
+    src: url(fonts/en/gotham/Gotham_Book.otf);
+}
+
+@font-face {
+    font-family: 'gotham_l';
+    font-style: normal;
+    font-display: swap;
+    src: url(fonts/en/gotham/Gotham_Bold.otf);
+}
+
+.ins-button,
+.ins-menu a,
+.ins-button-s,
+.ins-button-l,
+body,
+.ins-title-10,
+.ins-title,
+.ins-title-12,
+.ins-title-l,
+.ins-title-m,
+.ins-title-s,
+.ins-title-xl,
+.ins-title-14,
+.ins-title-20,
+.ins-title-xs,
+.ins-title-s {
+    font-family: "gotham";
+}
+
+.ins-menu a {
+    text-transform: uppercase;
+}
+
+body {
+    font-size: 16px;
+}
+
+.ins-title,
+.ins-title-l,
+.ins-title-m,
+.ins-title-s,
+.ins-title-xl {
+    font-size: 28px;
+    line-height: 32px;
+}
+
+.ins-title-10 {
+    font-size: 10px;
+}
+
+.ins-title-12 {
+    font-size: 12px;
+}
+
+.ins-title-14 {
+    font-size: 14px;
+}
+
+.ins-title-20 {
+    font-size: 20px;
+}
+
+.ins-title-xs {
+    font-size: 16px;
+}
+
+.ins-title-s {
+    font-size: 18px;
+}
+
+.ins-title-m {
+    font-size: 24px;
+}
+
+.ins-title-l {
+    font-size: 32px;
+}
+
+.ins-title-xl {
+    font-size: 36px;
+    font-family: "gotham_m";
+}
+
+.ins-title-2xl {
+    font-size: 40px;
+    font-family: "gotham_l";
+}
+
+.ins-title-3xl {
+    font-size: 56px;
+    font-family: "gotham_l";
+}
+
+.ins-title-4xl {
+    font-size: 80px;
+    font-family: "gotham_l";
+}
+
+.ins-strong-s {
+    font-family: "gotham_s";
+}
+
+.ins-strong-m {
+    font-family: "gotham_m" !important;
+}
+
+.ins-strong-l {
+    font-family: "gotham_l";
+}
+
+.gla-tabs-header>div.gla-active,
+.gla-tabs-header>div:hover,
+.gla-ltabs,
+.gla-ltabs.gla-active,
+.gla-ltabs:hover {
+    font-family: "gotham_m";
+}
+
+.gla-logo {
+    background-image: url(imgs/elogo_gold.png);
+}
+
+.gla-logo-primary {
+    background-image: url(imgs/elogo_primary.png);
+}
+
+.gla-logo-black {
+    background-image: url(imgs/elogo_black.png);
+}
+
+.gla-logo-white {
+    background-image: url(imgs/elogo_white.png);
+}
+
+.gla-logo-grey {
+    background-image: url(imgs/elogo_grey.png);
+}

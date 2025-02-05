@@ -19,34 +19,6 @@ a:hover,
     color: var(--success) !important;
 }
 
-@font-face {
-    font-family: 'gotham_s';
-    font-style: normal;
-    font-display: swap;
-    src: url(fonts/en/gotham/Gotham_Thin.otf);
-}
-
-@font-face {
-    font-family: 'gotham_m';
-    font-style: normal;
-    font-display: swap;
-    src: url(fonts/en/gotham/Gotham_Medium.otf);
-}
-
-@font-face {
-    font-family: 'gotham';
-    font-style: normal;
-    font-display: swap;
-    src: url(fonts/en/gotham/Gotham_Book.otf);
-}
-
-@font-face {
-    font-family: 'gotham_l';
-    font-style: normal;
-    font-display: swap;
-    src: url(fonts/en/gotham/Gotham_Bold.otf);
-}
-
 .ins-gla-style {
     --input-bg: #f9f8f7;
     --primary: hwb(38 49% 31%);
@@ -460,92 +432,10 @@ a:hover,
 
 /**fonts*/
 
-.ins-title,
-.ins-title-l,
-.ins-title-m,
-.ins-title-s,
-.ins-title-xl {
-    font-family: "gotham";
-    font-size: 28px;
-    line-height: 32px;
-}
-
-.ins-title-10 {
-    font-size: 10px;
-    font-family: "gotham";
-}
-
-.ins-title-12 {
-    font-size: 12px;
-    font-family: "gotham";
-}
-
-.ins-title-14 {
-    font-size: 14px;
-    font-family: "gotham";
-}
-
-.ins-title-20 {
-    font-size: 20px;
-    font-family: "gotham";
-}
-
-.ins-title-xs {
-    font-size: 16px;
-    font-family: "gotham";
-}
-
-.ins-title-s {
-    font-size: 18px;
-    font-family: "gotham";
-}
-
-.ins-title-m {
-    font-size: 24px;
-    font-family: "gotham";
-}
-
-.ins-title-l {
-    font-size: 32px;
-}
-
-.ins-title-xl {
-    font-size: 36px;
-    font-family: "gotham_m";
-}
-
-.ins-title-2xl {
-    font-size: 40px;
-    font-family: "gotham_l";
-}
-
-.ins-title-3xl {
-    font-size: 56px;
-    font-family: "gotham_l";
-}
-
-.ins-title-4xl {
-    font-size: 80px;
-    font-family: "gotham_l";
-}
-
-.ins-strong-s {
-    font-family: "gotham_s";
-}
-
-.ins-strong-m {
-    font-family: "gotham_m" !important;
-}
-
-.ins-strong-l {
-    font-family: "gotham_l";
-}
-
 .ins-button,
 .ins-button-s,
 .ins-button-l {
     font-size: 16px;
-    font-family: "gotham";
     padding: 0 16px;
     border-radius: 6px;
     height: 46px;
@@ -587,6 +477,7 @@ a:hover,
     text-align: center;
 }
 
+[class*="gla-logo"],
 [class*="gla-alogo"],
 [class*="gla-elogo"] {
     background-size: 100% auto;
@@ -645,8 +536,6 @@ a {
 }
 
 body {
-    font-family: "gotham";
-    font-size: 16px;
     line-height: 32px;
     letter-spacing: 1px;
     color: var(--text);
@@ -708,7 +597,6 @@ body {
 .gla-tabs-header>div:hover {
     border-bottom: 1px solid var(--grey-d);
     color: var(--grey-d);
-    font-family: "gotham_m";
 }
 
 .ins-text-upper {
