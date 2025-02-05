@@ -44,12 +44,15 @@ class Engine(ins_parent):
                 self.ins._this._area = self.ins._this._settings["areas"]["home"]
                 a= """""
 
-    def _run(self, area ,lang="en"):
+    def _run(self, area):
         """*---------- load Kit settings*"""
         self._kit_settings = self.ins._json._file_read(
             "./ins_kit/_options/kit_settings.json")
         self.ins._this._area = self._areas(area)
-        self.ins._this._lang = self.ins._this._settings["langs"][lang]
+        
+        self.ins._langs._this_set()
+        a = self.ins._langs._this_get()
+        self.ins._this._lang = self.ins._langs._this_get()
         self.__data(area)
 
     def __data(self, area):
