@@ -97,6 +97,13 @@ class Server(ins_parent):
     @property
     def _session(self):
         return session
+    
+    
+    def _has_session(self, name: str = ""):
+    
+        return (name in session)
+          
+
 
     def _get_session(self, name: str = "",defult=False):
 

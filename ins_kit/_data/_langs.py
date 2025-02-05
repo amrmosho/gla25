@@ -6,13 +6,18 @@ class Languages(ins_parent):
     def __init__(self, Ins) -> None:
         super().__init__(Ins)
 
-    def _this_set(self ,lang=""):
+    def _this_set(self ,lang="",defu=False):
+        
         if lang =="":
             g=  self.ins._server._get()
             if "lang" in g :
-                self.ins._server._set_session("inslang" ,g["lang"])
+              lang = g["lang"]
+        
+        
+        
         if lang !="":
-             return self.ins._server._set_session("inslang" ,lang)
+            if  not defu or not self.ins._server._has_session("inslang") :
+                 return self.ins._server._set_session("inslang" ,lang)
     
     def _this_get(self ,code=False):
        lang = self.ins._server._get_session("inslang" ,"en")

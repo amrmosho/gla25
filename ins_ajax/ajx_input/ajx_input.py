@@ -26,16 +26,15 @@ class AjxInput(App):
         uidata = [
             {"start": "true", "class": "ins-flex ins-padding-xl ui-input-lang-area"},
             {"start": "true", "class": "ins-flex-end ins-gap-m ins-padding-2xl ins-card ins-col-12 ins-border "},
-            {"_data": f"<i class='lni lni-database-2'></i> update languages : {
-                ps["n"]}({d[ps["n"]]})", "class": "ins-flex ins-title-m ins-strong  ins-col-12"},
+            {"_data": f"<i class='lni lni-database-2'></i> update languages : ", "class": "ins-flex ins-title-m ins-strong  ins-col-12"},
         ]
         for k, l in ls.items():
             v = ""
             if l["name"] in dbl and  ps["n"] in dbl[l["name"]]:
                 v = dbl[l["name"]][ps["n"]]
 
-            i = [{"_type": "input", "name": l["name"],
-                  "title": l["title"], "value": v, "pclass": "ins-col-12"}]
+            i = [{"_type": "textarea", "name": l["name"],
+                  "title": l["title"], "_data": v, "pclass": "ins-col-12"}]
             uidata += i
         for k in ps:
             i = [{"_type": "input", "type": "hidden", "name": k,

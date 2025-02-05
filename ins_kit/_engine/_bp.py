@@ -151,7 +151,11 @@ class Temp(ins_parent):
 
         p_data = {}
         p_data["class"] = f"ins-{u["settings"]["style"]}-style"
-        p_data["title"] = self._page_title
+        
+        
+        
+        self._add_to_header(self.ins._this._settings["pro"].get("header" ,""))
+        p_data["title"] =self.ins._this._settings["pro"].get("page_title" ,"")+ self._page_title
         
         
 
@@ -191,7 +195,7 @@ class Temp(ins_parent):
             u["settings"]["style"] = "light"
 
         if "lang" in u["settings"]:
-            self.ins._langs._this_set(u["settings"]["lang"])
+            self.ins._langs._this_set(u["settings"]["lang"],True)
 
         self.ins._eng._run(area)
         self._weburl = f"{self.ins._this._temp_url}{

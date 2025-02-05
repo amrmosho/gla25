@@ -1,7 +1,6 @@
 {
-    "table": "gla_settings",
-    "form_data": [
-        {
+    "table": "app_settings",
+    "form_data": [{
             "start": "True",
             "class": "ins-col-12 ins-flex ins-card ins-padding-m"
         },
@@ -38,8 +37,7 @@
             "end": "True"
         }
     ],
-    "list_data": [
-        {
+    "list_data": [{
             "name": "title",
             "title": "Price",
             "_type": "select",
@@ -64,8 +62,7 @@
             "class": "ins-col-2"
         }
     ],
-    "list_filter": [
-        {
+    "list_filter": [{
             "name": "title",
             "title-ar": "العنوان",
             "title": "Title",
@@ -90,6 +87,6 @@
             "type": "text",
             "pclass": "ins-col-3 ins-col-grow"
         }
-   
+
     ]
 }

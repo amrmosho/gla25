@@ -75,6 +75,8 @@ class Engine(ins_parent):
             "template_table", where=f"tar_area='{area}' and kit_default ='1'")
 
         """*---------- load  menu data*"""
+        self.ins._this._settings["pro"]=self.ins._db._get_row("kit_pro_settings	")
+        
         if (self.ins._server.GET["alias"] == "home"):
             menus = self.ins._db._get_row("menu_item_table", where=f"tar_area='{
                                           area}' and kit_home ='1'")
