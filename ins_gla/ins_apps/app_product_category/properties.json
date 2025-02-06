@@ -10,6 +10,8 @@
             "title-ar": "العنوان",
             "_trans": "true",
             "_type": "input",
+            "_lang": "true",
+
             "type": "text",
             "required": "true",
             "pclass": "ins-col-12"
