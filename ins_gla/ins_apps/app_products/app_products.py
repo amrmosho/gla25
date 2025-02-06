@@ -165,7 +165,7 @@ class AppProducts(App):
             uidata.append({"class": "ins-col-grow"})
 
             uidata.append({"start": "true", "class": "ins-flex-end"})
-            uidata.append({"_data": "Go to page", "class": "ins-title-12 ins-grey-m-color"})
+            uidata.append({"_data": "Go to page","_data-ar": "انتقل إلى الصفحة","_trans": "true", "class": "ins-title-12 ins-grey-m-color"})
             uidata.append({"_type": "input","type":"text","class":"-page-input ins-radius-s ins-white ins-text-center","pclass":"ins-col-2"})
             uidata.append({"_data": "Go <i class='lni lni-chevron-left' style='rotate:180deg'></i>", "data-tpages":num_pages,"class": "ins-title-14 -go-to-page-btn ins-grey-color ins-button-text"})
 
@@ -204,7 +204,7 @@ class AppProducts(App):
         uidata+=path
 
 
-        uidata.append({"_data":"Products","class":"ins-col-7 ins-title ins-strong-m ins-text-upper ins-grey-d-color"})
+        uidata.append({"_data":"Products","_data-ar": "منتجات","_trans": "true","class":"ins-col-7 ins-title ins-strong-m ins-text-upper ins-grey-d-color"})
 
        
 
@@ -236,13 +236,13 @@ class AppProducts(App):
         uidata.append({"start": "true", "class": "ins-flex ins-col-3 -filter-area ins-grey-d-color ins-padding-2xl full-height ins-sticky-top","style":"background:white;top:95px"})
         uidata.append({"class": "ins-space-m"})
 
-        uidata.append({"_type": "input", "name":"title","value":filter_data.get("title",""),"data-name":"title","type": "text", "placeholder":"Product name Search..","class":" -product-filter-input -title-input",  "pclass": "ins-col-12","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input", "name":"title","value":filter_data.get("title",""),"data-name":"title","type": "text", "placeholder":"Product name Search..","_placeholder-ar": "انتقل إلى الصفحة","_trans": "true","class":" -product-filter-input -title-input",  "pclass": "ins-col-12","style":"    background: white;border-radius:4px;"})
         uidata.append({"class": "ins-space-m"})
 
 
 
         uidata.append({"start": "true", "class": "ins-flex ins-col-12  ins-gap-o"})
-        uidata.append({"_data": "Category", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "})
+        uidata.append({"_data": "Category","_data-ar": "تصنيف","_trans": "true", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "})
         category_ids = filter_data.get("fk_product_category_id", "").split(',')
 
         for c in categories:
@@ -258,7 +258,7 @@ class AppProducts(App):
 
         uidata.append({"class": "ins-space-m"})
 
-        uidata.append({"_data": "Type", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "})
+        uidata.append({"_data": "Type","_data-ar": "نوع","_trans": "true", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "})
        
         tys = filter_data.get("types", "").split(',')
         for t in types:
@@ -267,7 +267,7 @@ class AppProducts(App):
 
         uidata.append({"class": "ins-space-m"})
 
-        uidata.append({"_data": "Weight", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "})
+        uidata.append({"_data": "Weight","_data-ar": "وزن","_trans": "true", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "})
         uidata.append({"_type": "select", "value":filter_data.get("weight",""),"data-name":"weight", "_data":",0.25gm,0.5gm,1gm,2.5gm,5gm,10gm,0.5oz / 15.55gm,20gm,1oz / 31.10gm,50gm,100gm,10 Tolas / 116.65gm,250gm,500gm,1000gm", "name": "weight", "pclass": "ins-col-12","class":" -product-filter-input -weight-select"})
         uidata.append({"class": "ins-space-m"})
 
@@ -275,7 +275,7 @@ class AppProducts(App):
         uidata.append({"class": "ins-space-m"})
 
         uidata.append({"start": "true", "class": "ins-col-12 ins-flex-space-between"})
-        uidata.append({"_data": "Reset", "class": "ins-col-6  ins-button ins-border","_type":"a","href":"/product/"})
+        uidata.append({"_data": "Reset","_data-ar": "إعادة ضبط","_trans": "true", "class": "ins-col-6  ins-button ins-border","_type":"a","href":"/product/"})
         uidata.append({"_data": "Filter","_data-ar": "بحث","_trans": "true", "class": "ins-col-6 ins-gold-d ins-button -product-filter-btn"})
         uidata.append({"end": "true"})
 
