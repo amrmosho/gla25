@@ -276,7 +276,7 @@ class AppProducts(App):
 
         uidata.append({"start": "true", "class": "ins-col-12 ins-flex-space-between"})
         uidata.append({"_data": "Reset", "class": "ins-col-6  ins-button ins-border","_type":"a","href":"/product/"})
-        uidata.append({"_data": "Filter", "class": "ins-col-6 ins-gold-d ins-button -product-filter-btn"})
+        uidata.append({"_data": "Filter","_data-ar": "بحث","_trans": "true", "class": "ins-col-6 ins-gold-d ins-button -product-filter-btn"})
         uidata.append({"end": "true"})
 
 

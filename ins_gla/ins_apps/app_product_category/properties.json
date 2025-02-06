@@ -11,7 +11,7 @@
             "_trans": "true",
             "_type": "input",
             "_lang": "true",
-
+            "_table": "gla_product_category",
             "type": "text",
             "required": "true",
             "pclass": "ins-col-12"
