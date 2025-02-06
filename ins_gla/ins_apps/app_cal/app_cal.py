@@ -325,7 +325,7 @@ class AppCal(App):
        
        
         uidata.append({"start":"true", "class":"ins-flex ins-radius-xxl ins-padding-xl","style":"width:535px;background-color: white;"})
-        uidata.append({"_data":"Start your saving plan today and see the value of your money in gold!", "class": "ins-col-12 ins-title-20 ins-text-upper ins-grey-d-color ins-strong-m"})
+        uidata.append({"_data":"Start your saving plan today and see the value of your money in gold!","_data-ar": "ابدأ خطة الادخار الخاصة بك اليوم وشاهد قيمة أموالك بالذهب!","_trans": "true", "class": "ins-col-12 ins-title-20 ins-text-upper ins-grey-d-color ins-strong-m"})
         uidata.append({"class":"ins-space-xs"})  
         uidata.append({"class":"ins-line ins-col-12"})  
         uidata.append({"class":"ins-space-xs"})  
@@ -351,17 +351,17 @@ class AppCal(App):
         uidata.append({"start":"true", "class":" ins-col-grow ins-flex-center ins-text-center"})
 
         uidata.append({"start":"true", "class":"ins-flex","style":"max-width: 720px;"})
-        uidata.append({"_data": "Gold calculator", "class": "ins-title-xl ins-grey-d-color ins-strong-m ins-col-12 ins-text-upper","style":"    line-height: 40px;"})
-        uidata.append({"_data": "See how much gold you can own!", "class": "ins-title-20 ins-grey-color ins-col-12 "})
+        uidata.append({"_data": "Gold calculator", "_data-ar":"حاسبة الذهب","_trans":"true","class": "ins-title-xl ins-grey-d-color ins-strong-m ins-col-12 ins-text-upper","style":"    line-height: 40px;"})
+        uidata.append({"_data": "See how much gold you can own!","_data-ar":" شاهد كم من الذهب يمكنك أن تملكه!","_trans":"true", "class": "ins-title-20 ins-grey-color ins-col-12 "})
         uidata.append({"class": "ins-space-l"})
 
         uidata += [
                 {"start": "true", "class": "  ins-flex  ins-border ins-radius-m ins-padding-m ","style":"width: 720px;background-color: white;"},
                 {"_data": "E£", "class": "ins-border-end ins-padding-m ins-padding-h ins-title-20 ins-grey-color",
                     "style": "height: 24px;line-height: 24px;"},
-                {"_type": "input",  "placeholder": "Enter your amount",
+                {"_type": "input",  "placeholder": "Enter your amount","_placeholder-ar":"أدخل المبلغ الخاص بك","_trans":"true",
                     "type": "text", "class": " -cal-update-nput ins-input-none","pclass":"ins-col-grow"},
-                {"_data": "CALCULATOR <i class='lni ins-white-color lni-arrow-right'></i>",
+                {"_data": "CALCULATOR <i class='lni ins-white-color lni-arrow-right'></i>","_data-ar":"احسب ","_trans":"true",
                     "class": "ins-button-s  -cal-update-btn ins-gold-d ins-flex-center","style":"height: 46px;"},
                 {"end": "true"}
             ]
