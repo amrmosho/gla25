@@ -163,16 +163,6 @@
             "pclass": "ins-col-1 style -gram"
         },
         {
-            "name": "piece",
-            "_end": "Piece",
-            "_end-ar": "قطعة",
-            "_trans": "true",
-            "_type": "input",
-            "type": "bool",
-            "value": "0",
-            "pclass": "ins-col-1 style -gram"
-        },
-        {
             "name": "vat",
             "title": "Vat",
             "title-ar": "الضريبة",
@@ -189,6 +179,16 @@
             "type": "number",
             "required": "true",
             "pclass": "ins-col-3"
+        },
+        {
+            "name": "cashback_gram",
+            "_end": "Gram",
+            "_end-ar": "قطعة",
+            "_trans": "true",
+            "_type": "input",
+            "type": "bool",
+            "value": "0",
+            "pclass": "ins-col-1 style -gram"
         },
         {
             "end": "True"
