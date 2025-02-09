@@ -52,6 +52,49 @@ InsMap.prototype._lang = function() {
     }
     return g["lang"];
 };
+
+
+
+InsMap.prototype._surl = function(adds = {}, ...remove) {
+    var url = "/";
+    if (this.o == "undefined" || this.o == null) {
+        this.o = ".ins-app"
+    }
+    var j = JSON.parse(ins(this.o)._getData("data"));
+    var urldata = j["_g"];
+    Object.keys(adds).forEach(function(k) {
+        urldata[k] = adds[k];
+    });
+
+
+
+    if (j["_a"] != null) {
+        url += "/" + j["_a"] + "/";
+    }
+
+    if (urldata["alias"] != null) {
+        url += "/" + urldata["alias"] + "/";
+        delete urldata.alias;
+    }
+    if (urldata["mode"] != null && !remove.includes("mode")) {
+        url += "/" + urldata["mode"] + "/";
+        delete urldata.mode;
+    }
+    if (urldata["id"] != null) {
+        url += "/" + urldata["id"] + "/";
+        delete urldata.id;
+    }
+    url += "do/"
+    Object.keys(urldata).forEach(function(k) {
+        if (!remove.includes(k)) {
+            url += "/" + k + "/" + urldata[k];
+        }
+    });
+    url = ins()._data._replaceAll("///", "/", url);
+    url = ins()._data._replaceAll("//", "/", url);
+    return url;
+};
+
 InsMap.prototype._url = function(adds = {}, ...remove) {
     var url = "/";
     if (this.o == "undefined" || this.o == null) {
@@ -62,8 +105,11 @@ InsMap.prototype._url = function(adds = {}, ...remove) {
     Object.keys(adds).forEach(function(k) {
         urldata[k] = adds[k];
     });
-    if (j["_a"] != null) {
-        url += "/" + j["_a"] + "/";
+
+
+
+    if (j["_ta"] != null) {
+        url += "/" + j["_ta"] + "/";
     }
 
     if (urldata["alias"] != null) {

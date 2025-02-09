@@ -1,5 +1,5 @@
 {
-    "table": "app_settings",
+    "table": "kit_pro_settings",
     "form_data": [{
             "start": "True",
             "class": "ins-col-12 ins-flex ins-card ins-padding-m"
@@ -9,28 +9,22 @@
             "title": "Title",
             "title-ar": "العنوان",
             "_type": "input",
-            "type": "text",
-            "_trans": "true",
+            "type": "textarea",
             "pclass": "ins-col-grow ins-col-12"
         },
-        {
-            "name": "header",
-            "title": "header",
-            "type": "text",
-            "_trans": "true",
-            "_type": "input",
 
-            "required": "true",
-            "pclass": "ins-col-12"
-        },
         {
             "name": "page_title",
             "title": "page title",
-            "type": "text",
-            "_trans": "true",
             "_type": "input",
+            "type": "textarea",
 
-            "required": "true",
+            "pclass": "ins-col-12"
+        }, {
+            "name": "header",
+            "title": "header",
+            "_type": "input",
+            "type": "textarea",
             "pclass": "ins-col-12"
         },
         {
@@ -38,30 +32,13 @@
         }
     ],
     "list_data": [{
-            "name": "title",
-            "title": "Price",
-            "_type": "select",
-            "type": "text",
-            "required": "true",
-            "class": "ins-col-2"
-        },
-        {
-            "name": "header",
-            "title": "header",
-            "_type": "select",
-            "type": "text",
-            "required": "true",
-            "class": "ins-col-2"
-        },
-        {
-            "name": "page_title",
-            "title": "page title",
-            "_type": "select",
-            "type": "text",
-            "required": "true",
-            "class": "ins-col-2"
-        }
-    ],
+        "name": "title",
+        "title": "Price",
+        "_type": "select",
+        "type": "text",
+        "required": "true",
+        "class": "ins-col-grow"
+    }],
     "list_filter": [{
             "name": "title",
             "title-ar": "العنوان",
