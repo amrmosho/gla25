@@ -26,10 +26,10 @@ class WdgBlog(Widget):
         uidata = [
             {"start": "true", "class": "ins-flex  ins-padding-2xl gla-container " ,"style":"padding-bottom:12px"},
             {"class": "ins-space-l"},
-            {"_data": "Explore Our Stories",
+            {"_data": "Explore Our Stories","_data-ar":"اكتشف قصصنا","_trans":"true",
                 "class": "ins-title-xl ins-grey-d-color ins-strong-m"},
             {"class": "ins-col-grow "},
-            {"_type":"a","href":"blogs","_data": "ExpLORE MORE <i class=' lni ins-icon lni-arrow-right'></i>",  "style":"width:250px","class": "ins-button-l  ins-text-upper ins-gold-d"},
+            {"_type":"a","href":"blogs","_data": "ExpLORE MORE <i class=' lni ins-icon lni-arrow-right'></i>","_data-ar":"اكتشف المزيد " ,"_trans":"true",  "style":"width:250px","class": "ins-button-l  ins-text-upper ins-gold-d"},
             {"class": "ins-space-l"},
             {"start": "true", "class": "ins-flex-start pro-blog-parent " ,"style":gstyle},
         ]

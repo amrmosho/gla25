@@ -137,7 +137,7 @@ class AppCal(App):
         uidata = [
             {"start": "true", "class": "ins-white"},
                 {"start": "true", "class": " ins-flex-center gla-container ins-padding-xl "},
-                {"_data": "Gold calculator", "style": "position: absolute;left: 20px;",
+                {"_data": "Gold calculator", "_data-ar":"حاسبة الذهب","_trans":"true","style": "position: absolute;left: 20px;",
                     "class": "ins-title-l ins-padding-xl ins-strong-m ins-text-upper"},
                 {"start": "true", "class": "  ins-flex  ins-border ins-padding-m ins-radius-m"},
                 {"_data": "E£", "class": "ins-border-end ins-padding-m ins-padding-h",
@@ -231,7 +231,7 @@ class AppCal(App):
             summary = [
                 {"end": "true"},
                 {"start": "true", "class": "ins-primary-w ins-padding-l ins-flex ins-gap-o","style": "width:400px"},
-                {"_data": "Item summary","class": "ins-col-12 ins-title-xs ins-grey-d-color ins-strong-l"},
+                {"_data": "Item summary","_data-ar":"ملخص العنصر","_trans":"true","class": "ins-col-12 ins-title-xs ins-grey-d-color ins-strong-l"},
                 {"class": "ins-space-xl"}
                 ]
             total = 0
@@ -245,7 +245,7 @@ class AppCal(App):
                 {"class": "ins-space-s"},
                 {"class": "ins-line ins-col-12"},
                 {"class": "ins-space-s"},
-                {"_data": "Total", "class": "ins-col-6 ins-strong-m ins-grey-color"},
+                {"_data": "Total", "_data-ar":"المجموع","_trans":"true","class": "ins-col-6 ins-strong-m ins-grey-color"},
                 {"_data": str(total),"_view":"currency","_currency_symbol":" EGP", "class": "ins-col-6  ins-grey-d-color ins-strong-l ins-flex-end"},
                 {"class": "ins-space-2xl"},
                 {"_data": "ADD TO CART <i class = 'lni lni-arrow-right ins-white-color'></i>", "class": "ins-col-12 ins-button-s ins-flex-center  ins-white-color ins-strong-m ins-gold-d -add-cart-btn ins-title-14","style": "    height: 32px;    border: 1px solid var(--primary-d);"},
@@ -267,7 +267,7 @@ class AppCal(App):
         if len(fproduct) == 0 and len(sproduct) == 0 and len(tproduct) == 0:
             uidata = [
             {"class":"ins-space-l"},
-            {"_data":"The entered amount doesn't match any available plan","class":"gla-container ins-card ins-padding-m ins-flex-center ins-col-6"}
+            {"_data":"The entered amount doesn't match any available plan","_data-ar":"المبلغ المدخل لا يتطابق مع أي خطة متاحة","_trans":"true","class":"gla-container ins-card ins-padding-m ins-flex-center ins-col-6"}
             ]
             return self.ins._ui._render(uidata)
        
@@ -276,12 +276,12 @@ class AppCal(App):
         filter = [
             {"class":"ins-space-2xl"},
             {"start": "true", "class": "ins-col-12 ins-flex-end  gla-container"},
-            {"_data": "Filter by", "class": "ins-strong-m ins-grey-d-color ins-title-14"},
-            {"_data": "Mix", "name": "type",
+            {"_data": "Filter by", "_data-ar":"تصفية حسب","_trans":"true","class": "ins-strong-m ins-grey-d-color ins-title-14"},
+            {"_data": "Mix", "name": "type","_data-ar":"مزج","_trans":"true",
                 "class": "ins-button-s  -type-btn ins-strong-m ins-active"},
-            {"_data": "24 Karat (Gold Bars)",
+            {"_data": "24 Karat (Gold Bars)","_data-ar":"سبائك الذهب عيار 24","_trans":"true",
              "class": "ins-button-s  -type-btn ins-strong-m "},
-            {"_data": "21 Karat (Gold Coins)",
+            {"_data": "21 Karat (Gold Coins)","_data-ar":"21 قيراط (عملات ذهبية)","_trans":"true",
              "class": "ins-button-s  -type-btn ins-strong-m "},
             {"end": "true"}
 
@@ -325,7 +325,7 @@ class AppCal(App):
        
        
         uidata.append({"start":"true", "class":"ins-flex ins-radius-xxl ins-padding-xl","style":"width:535px;background-color: white;"})
-        uidata.append({"_data":"Start your saving plan today and see the value of your money in gold!", "class": "ins-col-12 ins-title-20 ins-text-upper ins-grey-d-color ins-strong-m"})
+        uidata.append({"_data":"Start your saving plan today and see the value of your money in gold!","_data-ar": "ابدأ خطة الادخار الخاصة بك اليوم وشاهد قيمة أموالك بالذهب!","_trans": "true", "class": "ins-col-12 ins-title-20 ins-text-upper ins-grey-d-color ins-strong-m"})
         uidata.append({"class":"ins-space-xs"})  
         uidata.append({"class":"ins-line ins-col-12"})  
         uidata.append({"class":"ins-space-xs"})  
@@ -351,17 +351,17 @@ class AppCal(App):
         uidata.append({"start":"true", "class":" ins-col-grow ins-flex-center ins-text-center"})
 
         uidata.append({"start":"true", "class":"ins-flex","style":"max-width: 720px;"})
-        uidata.append({"_data": "Gold calculator", "class": "ins-title-xl ins-grey-d-color ins-strong-m ins-col-12 ins-text-upper","style":"    line-height: 40px;"})
-        uidata.append({"_data": "See how much gold you can own!", "class": "ins-title-20 ins-grey-color ins-col-12 "})
+        uidata.append({"_data": "Gold calculator", "_data-ar":"حاسبة الذهب","_trans":"true","class": "ins-title-xl ins-grey-d-color ins-strong-m ins-col-12 ins-text-upper","style":"    line-height: 40px;"})
+        uidata.append({"_data": "See how much gold you can own!","_data-ar":" شاهد كم من الذهب يمكنك أن تملكه!","_trans":"true", "class": "ins-title-20 ins-grey-color ins-col-12 "})
         uidata.append({"class": "ins-space-l"})
 
         uidata += [
                 {"start": "true", "class": "  ins-flex  ins-border ins-radius-m ins-padding-m ","style":"width: 720px;background-color: white;"},
                 {"_data": "E£", "class": "ins-border-end ins-padding-m ins-padding-h ins-title-20 ins-grey-color",
                     "style": "height: 24px;line-height: 24px;"},
-                {"_type": "input",  "placeholder": "Enter your amount",
+                {"_type": "input",  "placeholder": "Enter your amount","_placeholder-ar":"أدخل المبلغ الخاص بك","_trans":"true",
                     "type": "text", "class": " -cal-update-nput ins-input-none","pclass":"ins-col-grow"},
-                {"_data": "CALCULATOR <i class='lni ins-white-color lni-arrow-right'></i>",
+                {"_data": "CALCULATOR <i class='lni ins-white-color lni-arrow-right'></i>","_data-ar":"احسب ","_trans":"true",
                     "class": "ins-button-s  -cal-update-btn ins-gold-d ins-flex-center","style":"height: 46px;"},
                 {"end": "true"}
             ]

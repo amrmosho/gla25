@@ -33,7 +33,6 @@
             "_type": "input",
             "type": "text",
             "_trans": "true",
-            "required": "true",
             "pclass": "ins-col-2"
         },
         {
@@ -50,7 +49,8 @@
             "name": "des",
             "title": "Description",
             "title-ar": " الوصف",
-            "_type": "textarea",
+            "_type": "input",
+            "type": "textarea",
             "required": "true",
             "pclass": "ins-col-12"
         },
@@ -139,14 +139,14 @@
         },
         {
             "_data": "Finance",
-            "_data-ar": "خيارات الشاشة الرئيسية",
+            "_data-ar": "المالية",
             "_trans": "true",
             "class": "ins-col-12"
         },
         {
             "name": "stamp",
             "title": "Manufacturing + stamp",
-            "title-ar": "العنوان",
+            "title-ar": "دمغة",
             "_type": "input",
             "type": "number",
             "required": "true",
@@ -155,7 +155,7 @@
         {
             "name": "gram",
             "_end": "Gram",
-            "_end-ar": "عرض في الصفحة الرئيسية",
+            "_end-ar": "جرام",
             "_trans": "true",
             "_type": "input",
             "type": "bool",
@@ -165,7 +165,7 @@
         {
             "name": "piece",
             "_end": "Piece",
-            "_end-ar": "عرض في الصفحة الرئيسية",
+            "_end-ar": "قطعة",
             "_trans": "true",
             "_type": "input",
             "type": "bool",
@@ -175,7 +175,7 @@
         {
             "name": "vat",
             "title": "Vat",
-            "title-ar": "العنوان",
+            "title-ar": "الضريبة",
             "_type": "input",
             "type": "number",
             "required": "true",
@@ -184,7 +184,7 @@
         {
             "name": "cashback",
             "title": "CashBack",
-            "title-ar": "العنوان",
+            "title-ar": "استرداد النقود",
             "_type": "input",
             "type": "number",
             "required": "true",
