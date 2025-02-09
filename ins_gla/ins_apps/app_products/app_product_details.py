@@ -67,8 +67,8 @@ class AppProductDetails(App):
 
         
         ## Tags
-        uidata.append({"_data": "Bestseller", "class": "ins-tag ins-primary-d ins-strong-m  ins-text-upper ins-title-10","style":"border-radius: 2px !important;"})
-        uidata.append({"_data": "In Stock", "class": "ins-tag ins-secondary  ins-strong-m  ins-text-upper ins-title-10","style":"border-radius: 2px !important;"})
+        uidata.append({"_data": "Bestseller","_data-ar":"الأكثر مبيعًا","_trans":"true", "class": "ins-tag ins-primary-d ins-strong-m  ins-text-upper ins-title-10","style":"border-radius: 2px !important;"})
+        uidata.append({"_data": "In Stock","_data-ar":"متوفر","_trans":"true", "class": "ins-tag ins-secondary  ins-strong-m  ins-text-upper ins-title-10","style":"border-radius: 2px !important;"})
         uidata.append({"class": "ins-space-xs"})
 
 
@@ -79,30 +79,30 @@ class AppProductDetails(App):
 
         ## Sell Card
         uidata.append({"start": "true", "class": "ins-flex ins-col-12 ins-card ins-primary-w","style":"border-radius:8px 8px 0 0 !important;"})
-        uidata.append({"_data": "Sell price", "class": "ins-col-12  ins-grey-d-color ins-title-s	 ins-strong-l "})
-        uidata.append({"_data": "Gold Amount", "class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
+        uidata.append({"_data": "Sell price","_data-ar":"سعر البيع","_trans":"true", "class": "ins-col-12  ins-grey-d-color ins-title-s	 ins-strong-l "})
+        uidata.append({"_data": "Gold Amount","_data-ar":"كمية الذهب","_trans":"true", "class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
         uidata.append({"_data":  str(data["price"]),"_view":"currency","_currency_symbol":" EGP",  "class": "ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end "})
-        uidata.append({"_data": "Making Charge + VAT", "class": "ins-col-6  ins-title-xs  ins-grey-color  ins-strong-m"})
+        uidata.append({"_data": "Making Charge + VAT","_data-ar":"رسوم التصنيع + ضريبة القيمة المضافة","_trans":"true", "class": "ins-col-6  ins-title-xs  ins-grey-color  ins-strong-m"})
         uidata.append({"_data": "1,960.00 EGP", "class": "ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end"})
         uidata.append({ "class": "ins-line ins-col-12"})
-        uidata.append({"_data": "Total", "class": "ins-col-6  ins-title-xs  ins-grey-color  ins-strong-m"})
+        uidata.append({"_data": "Total","_data-ar":"المجموع","_trans":"true", "class": "ins-col-6  ins-title-xs  ins-grey-color  ins-strong-m"})
         uidata.append({"_data":  str(data["price"]),"_view":"currency","_currency_symbol":" EGP",  "class": "ins-col-6  ins-strong-l ins-flex-end ins-title-20	 ins-primary-d-color"})
         vat = "59.60"
-        uidata.append({"_data": "Note: Vat amount is " + "<spam class='ins-grey-d-color'>  "+vat+" EGP</span>", "class": "ins-col-6 ins-grey-color ins-strong-m ins-title-14"})
+        uidata.append({"_data": "Note: Vat amount is " + "<spam class='ins-grey-d-color'>  "+vat+" EGP</span>", "_data-ar":" ملحوظة: مبلغ ضريبة القيمة المضافة هو"+vat,"_trans":"true","class": "ins-col-8 ins-grey-color ins-strong-m ins-title-14"})
         uidata.append({"end": "true"})
 
 
         ## Buy Card
         uidata.append({"start": "true", "class": "ins-flex ins-col-12 ins-card ins-primary-bg  -open-panel","style":"border-radius: 0 0 8px 8px !important;position: relative;top: -8px;height: 65px;overflow: hidden;    border-top: 1px solid var(--primary-l)"})
-        uidata.append({"_data": "We buy at", "class": "ins-col-11  ins-grey-d-color ins-title-20	 ins-strong-l"})
+        uidata.append({"_data": "We buy at","_data-ar":"نحن نشتري في","_trans":"true", "class": "ins-col-11  ins-grey-d-color ins-title-20	 ins-strong-l"})
         uidata.append({"_data":"<span class=' lni lni-chevron-up'></span>","class": "ins-col-1  ins-grey-color ins-font-xl ins-strong-l -buy-div"})
         uidata.append({"start": "true", "class": "ins-flex ins-col-12"})
-        uidata.append({"_data": "Gold Amount", "class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
+        uidata.append({"_data": "Gold Amount","_data-ar":"كمية الذهب","_trans":"true", "class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
         uidata.append({"_data": str(data["price"]),"_view":"currency","_currency_symbol":" EGP", "class": "ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end"})
-        uidata.append({"_data": "Cash back", "class": "ins-col-6  ins-title-xs  ins-grey-color  ins-strong-m"})
+        uidata.append({"_data": "Cash back","_data-ar":"استرداد النقود","_trans":"true", "class": "ins-col-6  ins-title-xs  ins-grey-color  ins-strong-m"})
         uidata.append({"_data": "1,960.00 EGP", "class": "ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end"})
         uidata.append({ "class": "ins-line ins-col-12"})
-        uidata.append({"_data": "Total", "class": "ins-col-6  ins-title-xs  ins-grey-color  ins-strong-m"})
+        uidata.append({"_data": "Total","_data-ar":"المجموع","_trans":"true", "class": "ins-col-6  ins-title-xs  ins-grey-color  ins-strong-m"})
         uidata.append({"_data":  str(data["price"]),"_view":"currency","_currency_symbol":" EGP",  "class": "ins-col-6  ins-strong-l ins-flex-end ins-title-20	 ins-primary-d-color"})
         uidata.append({"end": "true"})
         uidata.append({"end": "true"})
@@ -112,7 +112,7 @@ class AppProductDetails(App):
         ## Product types
 
         if data["types"] !=None:
-            uidata.append({"_data": "Type", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "})
+            uidata.append({"_data": "Type","_data-ar":"نوع","_trans":"true", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "})
 
             for t in data["types"].split(","):
                 uidata.append({"_data": t, "class": "ins-button-s  -type-btn ins-strong-m ins-grey-color ","style":"    border: 1px solid var(--grey-l);border-radius: 8px !important;"})
@@ -134,17 +134,17 @@ class AppProductDetails(App):
             ]
         uidata+=counter
         ## Add to cart button
-        uidata.append({"_data": "<img src='"+p+"style/cart.svg'></img> ADD TO CART","data-pid":data["id"], "class": "ins-button-s ins-flex-center ins-title-xs ins-strong-m ins-flex-grow ins-gold-d -add-cart-btn","style":"    height: 46px;    border: 1px solid var(--primary-d);"})
+        uidata.append({"_data": "<img src='"+p+"style/cart.svg'></img> ADD TO CART","_data-ar":"أضف إلى السلة","_trans":"true","data-pid": str(data["id"]), "class": "ins-button-s ins-flex-center ins-title-xs ins-strong-m ins-flex-grow ins-gold-d -add-cart-btn","style":"    height: 46px;    border: 1px solid var(--primary-d);"})
         uidata.append({"end": "true"})
         ## Terms area
-        uidata.append({"_data": "<img src='"+p+"style/truck.svg ' style='position: relative;top: 4px;'></img> Free shipping for orders above EGP200k", "class": "ins-col-12 ins-grey-color ins-title-14"})
-        uidata.append({"_data": "<img src='"+p+"style/gift.svg' style='position: relative;top: 4px;'></img> Include gift wrapping?", "class": "ins-col-11 ins-grey-color ins-title-14"})
+        uidata.append({"_data": "<img src='"+p+"style/truck.svg ' style='position: relative;top: 4px;'></img> Free shipping for orders above EGP200k","_data-ar":"شحن مجاني للطلبات التي تزيد عن 200 ألف جنيه مصري","_trans":"true", "class": "ins-col-12 ins-grey-color ins-title-14"})
+        uidata.append({"_data": "<img src='"+p+"style/gift.svg' style='position: relative;top: 4px;'></img> Include gift wrapping?", "_data-ar":"تشمل تغليف الهدايا؟","_trans":"true","class": "ins-col-11 ins-grey-color ins-title-14"})
         uidata.append({"_type": "input",  "type": "checkbox","value":"0", "class": "ins-form-bool-f"})
         uidata.append({"class": "ins-space-s"})
 
         ## Product Description
         uidata.append({"start": "true", "class": "ins-flex ins-col-12   -open-panel ins-active","style":"height: 30px;overflow: hidden;"})  
-        uidata.append({"_data": "Product Description", "class": "ins-col-11  ins-grey-d-color ins-title-xs ins-strong-m"})
+        uidata.append({"_data": "Product Description","_data-ar":"وصف المنتج","_trans":"true", "class": "ins-col-11  ins-grey-d-color ins-title-xs ins-strong-m"})
         uidata.append({"_data":"  <span class=' lni lni-chevron-up'></span>","class": "ins-col-1  ins-grey-color ins-font-xl ins-strong-l"})
         uidata.append({"_data": data["des"], "class": "ins-col-12  ins-grey-color ins-title-14"})
         uidata.append({"end": "true"})
@@ -154,7 +154,7 @@ class AppProductDetails(App):
         uidata.append({"class": "ins-space-4xl"})
         ## Related Products
         uidata.append({"start": "true", "class": "ins-flex ins-col-12"})
-        uidata.append({"_data": "Related Products", "class": "ins-col-12 ins-grey-d-color ins-strong-m ins-text-upper","style":"font-size:36px"})
+        uidata.append({"_data": "Related Products","_data-ar":"المنتجات ذات الصلة","_trans":"true", "class": "ins-col-12 ins-grey-d-color ins-strong-m ins-text-upper","style":"font-size:36px"})
         uidata.append({"class": "ins-space-l"})
         rpdata = self.ins._db._get_data("gla_product","*", f"   fk_product_category_id={data["fk_product_category_id"]} and id <>{data["id"]} limit 0,4 ")
         uidata.append({"start": "true", "class": "ins-flex-space-between ins-col-12"})
