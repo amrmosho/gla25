@@ -81,7 +81,7 @@ class Languages(ins_parent):
                    
        
                 
-                
+        del data["_trans"]
                 
         return data
 

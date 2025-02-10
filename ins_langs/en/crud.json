@@ -1,6 +1,9 @@
 {
     "_new": "New",
 
+
+    "filter": "Filter",
+
     "save": "Save",
     "update": "Update",
     "delete": "Delete",

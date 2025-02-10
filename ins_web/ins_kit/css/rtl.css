@@ -132,3 +132,26 @@
     border-right-width: 0 !important;
     border-left-width: var(--ins-border-width) !important;
 }
+
+[class*="ins-fixpanel"] {
+    left: auto;
+    right: 0;
+}
+
+.ins-fixpanel-end {
+    right: auto;
+    transform: translateX(-100%);
+    left: 0;
+}
+
+.ins-fixpanel-end.ins-opened {
+    transform: translateX(0);
+}
+
+.ins-fixpanel-start {
+    transform: translateX(100%);
+}
+
+.ins-fixpanel-start.ins-opened {
+    transform: translateX(0);
+}

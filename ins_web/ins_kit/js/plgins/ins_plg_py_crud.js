@@ -327,7 +327,7 @@ export class ins_plg_py_crud {
         ins(".ch-tag-item-save")._on("click", function(o) {
             ins(".ch-tag-item-add-area")._data._submit(function(data) {
                 ins("ajx_tags/save")._ajax._ins_ajax(data, (data) => {
-                    ins(".ins-fixpanel-right .ins-data  ")._setHTML(data);
+                    ins(".ins-fixpanel-end .ins-data  ")._setHTML(data);
                 })
             })
 
@@ -344,7 +344,7 @@ export class ins_plg_py_crud {
 
         ins(".ch-tag-item-back")._on("click", function(o) {
             ins("ajx_tags/ui")._ajax._ins_ajax(o._getData(), (data) => {
-                ins(".ins-fixpanel-right .ins-data  ")._setHTML(data);
+                ins(".ins-fixpanel-end .ins-data  ")._setHTML(data);
             })
 
 
@@ -354,7 +354,7 @@ export class ins_plg_py_crud {
 
         ins(".ch-tag-item-add")._on("click", function(o) {
             ins("ajx_tags/add")._ajax._ins_ajax(o._getData(), (data) => {
-                ins(".ins-fixpanel-right .ins-data  ")._setHTML(data);
+                ins(".ins-fixpanel-end .ins-data  ")._setHTML(data);
             })
 
 
@@ -364,7 +364,7 @@ export class ins_plg_py_crud {
         ins(".ch-tag-item-remove")._on("click", function(o) {
             if (confirm("Are you sure you won't delete this tag?")) {
                 ins("ajx_tags/remove")._ajax._ins_ajax(o._getData(), (data) => {
-                    ins(".ins-fixpanel-right .ins-data  ")._setHTML(data);
+                    ins(".ins-fixpanel-end .ins-data  ")._setHTML(data);
                 })
 
             }

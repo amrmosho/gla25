@@ -318,11 +318,11 @@ class APPCRUDList(appCrudParent):
         filter += filter_footer
 
         ui = [
-            {"start": "true", "class": " ins-fixpanel-right  -crud-list-filter-panel ",
+            {"start": "true", "class": " ins-fixpanel-end  -crud-list-filter-panel ",
                 "style": "width:600px"},
             {"class": " ins-header ins-flex-space-between", "_data": [
                 {"class": "ins-title-m",
-                    "_data":  '<i class=" ins-icon  lni lni-magnifier"></i>'+"Filter"},
+                    "_data":  '<i class=" ins-icon  lni lni-magnifier"></i>'+self.ins._langs._get("filter", "crud") },
                 {"class": "-crud-list-filter-close-btn ins-button-text-danger  lni  lni-xmark"}, ]},
             {"start": "true", "class": " ins-col-12 ins-filter-body  ins-padding-xl ",
              "_data": filter,
@@ -469,6 +469,9 @@ class APPCRUDList(appCrudParent):
             return self.ins._ui._render(ui)
         header = []
         for h in self.ops._list_data:
+            if "_trans" in h:
+                    h = self.ins._langs._render_tags(h)
+            
             hr = {}
             url = ""
             if "name" in h:

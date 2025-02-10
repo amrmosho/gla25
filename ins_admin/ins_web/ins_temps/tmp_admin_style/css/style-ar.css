@@ -17,3 +17,9 @@
     left: 0;
     right: auto;
 }
+
+.ins-table-data .ins-raw-selector,
+.ins-table-data .ins-raw-selector-all {
+    left: auto;
+    right: 0px;
+}

@@ -140,6 +140,8 @@ class APPCRUDTrash(appCrudParent):
         for d in data:
             rd = []
             for h in self.ops._list_data:
+                if "_trans" in h:
+                    h = self.ins._langs._render_tags(h)
                 hr = {}
                 data = d
                 if "name" in h:

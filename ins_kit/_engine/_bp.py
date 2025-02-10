@@ -48,10 +48,13 @@ class Temp(ins_parent):
                "ins_dark_style",  "ins_light_style",
                "ins_colors", "ins_layout", "ins_content",
                "ins_forms", "ins_ui",
-               "ltr",
 
                "ins_lang-" + self.ins._this._lang["name"]
                ]
+        
+        lng= self.ins._langs._this_get()
+        css.append(lng["direction"])  
+        
         for c in css:
             self.header += "\t\n" + \
                 self.ins._files._include(f"{lib_path}css/{c}.css")

@@ -45,7 +45,7 @@ class APPCRUDSettings(appCrudParent):
         uidata.append({"_data": '<i class="lni lni-agenda ins-icon"></i> List',
                        "data-g": "list",
                       "class": "ins-col-12 ins-padding-m ins-button-text  crd-set-update-btn ins-radius-m"})
-        uidata.append({"_data": '<i class="lni lni-search-text ins-icon"></i> Filter',
+        uidata.append({"_data": '<i class="lni lni-search-text ins-icon"></i> '+self.ins._langs._get("filter", "crud"),
                        "data-g": "filter",
                       "class": "ins-col-12 ins-padding-m  ins-button-text   crd-set-update-btn ins-radius-m"})
         uidata.append({"_data": '<i class="lni lni-pen-to-square ins-icon"></i> Form',

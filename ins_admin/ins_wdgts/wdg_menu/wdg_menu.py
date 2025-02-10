@@ -19,14 +19,14 @@ class WdgMenu(Widget):
         self.widget._include("style.css")
         ui.append({"class": "ins-col-12 ins-flex wdg-admin-menu", "start": True})
         data = self.ins._db._get_data(
-            "menu_item_table", "*", f"fk_menu_id='{self.widget._options["id"]}'  and fk_menu_item_id=0 order by kit_order")
+            "menu_item_table", "*", f"fk_menu_id='{self.widget._options["id"]}'  and fk_menu_item_id=0 order by kit_order",True)
 
         for d in data:
 
             if self.ins._users._per_check_menu(d["id"]) and str(d["kit_hidden"]) != "1":
 
                 subdata = self.ins._db._get_data(
-                    "menu_item_table", "*", f"fk_menu_id='{self.widget._options["id"]}'  and fk_menu_item_id={d["id"]} order by kit_order")
+                    "menu_item_table", "*", f"fk_menu_id='{self.widget._options["id"]}'  and fk_menu_item_id={d["id"]} order by kit_order",True)
 
                 mclass = ""
                 if len(subdata) == 0:

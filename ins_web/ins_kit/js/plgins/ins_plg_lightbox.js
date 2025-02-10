@@ -43,13 +43,13 @@ export class ins_plg_lightbox {
     _out() {
         if (this.options["mode"] == "right_panel") {
             this.parentClass = "ins-panel-overlay ins-opened";
-            this.bodyClass = "ins-fixpanel-right ins-opened";
+            this.bodyClass = "ins-fixpanel-end ins-opened";
             this.dataClass = " ins-data  ";
             this.bodyDefualtstyle = "";
             this.bodyMorestyle = "";
         } else if (this.options["mode"] == "left_panel") {
             this.parentClass = "ins-panel-overlay ins-opened";
-            this.bodyClass = "ins-fixpanel-left ins-opened";
+            this.bodyClass = "ins-fixpanel-start ins-opened";
             this.dataClass = " ins-data  ";
             this.bodyDefualtstyle = "";
             this.bodyMorestyle = "";
