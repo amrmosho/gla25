@@ -1,98 +1,46 @@
-[
-    {
-        "Name": "Eighth Gold Coin",
-        "Price": "3,860.00"
+{
+    "amount": {
+        { AMOUNT_CENTS } }, // amount_cents must be equal to the sum of the items amounts
+    "currency": "EGP",
+    "payment_methods": [{
+        { Integration_ID } }], //Enter your integration ID as an Integar, you can list multiple integration IDs as -> "payment_methods": [{{Integration_ID_1}}, {{Integration_ID_2}}, {{Integration_ID_3}}], so the user can choose the payment method within the checkout page
+
+    "items": [{
+            "name": "Item name",
+            "amount": {
+                { AMOUNT2_CENTS } },
+            "description": "Item description",
+            "quantity": 1
+        },
+        {
+            "name": "Item name",
+            "amount": {
+                { AMOUNT2_CENTS } },
+            "description": "Item description",
+            "quantity": 1
+        }
+    ],
+    "billing_data": {
+        "apartment": "dumy",
+        "first_name": "{{First_Name}}", // First Name, Last Name, Phone number, & Email are mandatory fields within sending the intention request
+        "last_name": "{{Last_Name}}",
+        "street": "dumy",
+        "building": "dumy",
+        "phone_number": "{{Customer_Phone_Number}}",
+        "city": "dumy",
+        "country": "dumy",
+        "email": "{{customer_email}}",
+        "floor": "dumy",
+        "state": "dumy"
     },
-    {
-        "Name": "Quarter Gold Coin",
-        "Price": "7,705.00"
+
+    "extras": {
+        "ee": 22
     },
-    {
-        "Name": "Half Gold Coin",
-        "Price": "15,385.00"
-    },
-    {
-        "Name": "One Gold Coin (Aswan)",
-        "Price": "30,720.00"
-    },
-    {
-        "Name": "Five Pound Elizabeth Coin",
-        "Price": "153,560.00"
-    },
-    {
-        "Name": "2.5gr Gold Baby Bottle (Girl)",
-        "Price": "11,090.00"
-    },
-    {
-        "Name": "2.5gr Gold Baby Bottle (Boy)",
-        "Price": "11,090.00"
-    },
-    {
-        "Name": "5gr Gold Baby Bottle (Girl)",
-        "Price": "22,130.00"
-    },
-    {
-        "Name": "5gr Gold Baby Bottle (Boy)",
-        "Price": "22,130.00"
-    },
-    {
-        "Name": "0.25gr Gold Bar",
-        "Price": "1,280.00"
-    },
-    {
-        "Name": "0.5gr Gold Bar",
-        "Price": "2,360.00"
-    },
-    {
-        "Name": "1gr Gold Bar",
-        "Price": "4,460.00"
-    },
-    {
-        "Name": "2.5gr Gold Bar",
-        "Price": "11,050.00"
-    },
-    {
-        "Name": "5gr Gold Bar",
-        "Price": "21,940.00"
-    },
-    {
-        "Name": "10gr Gold Bar",
-        "Price": "43,870.00"
-    },
-    {
-        "Name": "Half Troy Ounce Gold Bar",
-        "Price": "68,200.00"
-    },
-    {
-        "Name": "20gr Gold Bar",
-        "Price": "87,700.00"
-    },
-    {
-        "Name": "One Troy Ounce Gold Bar",
-        "Price": "136,310.00"
-    },
-    {
-        "Name": "50gr Gold Bar",
-        "Price": "219,050.00"
-    },
-    {
-        "Name": "100gr Gold Bar",
-        "Price": "438,000.00"
-    },
-    {
-        "Name": "Ten Tolas Gold Bar",
-        "Price": "509,470.00"
-    },
-    {
-        "Name": "250gr Gold Bar",
-        "Price": "1,090,625.00"
-    },
-    {
-        "Name": "500gr Gold Bar",
-        "Price": "2,180,500.00"
-    },
-    {
-        "Name": "1000gr Gold Bar",
-        "Price": "4,359,000.00"
-    }
-]
+    "special_reference": "phe4sjw11q-1122-221", // Refer to a unique or special identifier or reference associated with a transaction or order. It can be used for tracking or categorizing specific types of transactions and it returns within the transaction callback under merchant_order_id
+
+    "notification_url": "https://webhook.site/f60597f3-97b9-4992-90e1-6f98a63fc32d",
+    "redirection_url": "https://www.google.com/"
+        //Notification and redirection URL are working only with Cards and they overlap the transaction processed and response callbacks sent per Integration ID
+
+}

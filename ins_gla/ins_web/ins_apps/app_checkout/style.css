@@ -60,3 +60,32 @@
     color: var(--grey-m);
     height: 25px;
 }
+
+.-payment-subtype-area {
+    height: 0;
+    overflow: hidden;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.3s ease, height 0s;
+}
+
+.-payment-subtype-area.ins-active {
+    cursor: pointer;
+    transform: scaleY(1);
+    height: auto;
+    min-height: 64px;
+    border: 1px solid var(--grey-l);
+    border-radius: 0px 0px 8px 8px;
+    background: var(--primary-bg);
+    border: 1px solid var(--primary-d);
+    padding: 20px 16px;
+    max-height: 300px;
+    overflow: auto;
+}
+
+.-payment-type-btn.ins-active {
+    border-radius: 8px 8px 0px 0px !important;
+    border-width: 1px 1px 0 1px !important;
+    border-style: solid !important;
+    border-color: var(--primary-d) !important;
+}

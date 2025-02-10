@@ -131,7 +131,7 @@ class ELUI(ins_parent):
              "class": " ins-col-4  ins-grey-d-color   ins-text-center ins-title-xs ins-strong-l"},
             {"_data": str(data["price"]),"_view":"currency","_currency_symbol":" EGP",
              "class": " ins-col-4  ins-grey-d-color  ins-text-center ins-title-xs ins-strong-l"},
-            {"_data": str(data["price"]),"_view":"currency","_currency_symbol":" EGP",
+            {"_data": str(data["price"] * data["quantity"]),"_view":"currency","_currency_symbol":" EGP",
              "class": " ins-col-4  ins-grey-d-color  ins-text-center ins-title-xs ins-strong-l"},
             
             

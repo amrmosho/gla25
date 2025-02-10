@@ -24,9 +24,15 @@ class AppCal(App):
         r = []
         lt = (ops["total"]/ops["count"])
         lf = lt-(lt/ops["offset"])
+        w =  f" price>='{lf}'  and  price<='{lt}' and fk_product_category_id <> '3' "
+        if "type" in ops:
+            if ops["type"] == "bars":
+                w += " and fk_product_category_id = '1'"
+            elif ops["type"] == "coins":
+                w += " and fk_product_category_id = '2'"
 
         r = self.ins._db._get_data(
-            "gla_product", "*", f" price>='{lf}'  and  price<='{lt}' and fk_product_category_id <> '3'")
+            "gla_product", "*",w)
 
         if len(r) == 0:
             for f in fill:
@@ -42,8 +48,8 @@ class AppCal(App):
                     xr = a
         return xr
 
-    def level(self, total, count=5, fill=[]):
-        ops = {"offset": self.offset, "count": count, "total": total}
+    def level(self, total, count=5, fill=[],type = ""):
+        ops = {"offset": self.offset, "count": count, "total": total,"type":type}
         d = self.step(ops, fill)
         fill.append(d)
         count = count - 1
@@ -51,14 +57,14 @@ class AppCal(App):
             return fill
         if count > 0:
             nt = total - float(d["price"])
-            self.level(nt, count, fill)
+            self.level(nt, count, fill,type)
         return fill
 
-    def search(self, total, ops):
+    def search(self, total, ops,type):
         x= {}
         xl = 0
         for i in range(ops["f"], ops["t"]+1):
-            l = self.level(total, i, [])
+            l = self.level(total, i, [],type)
             lc = 0
             rl = {}
             for k in l:
@@ -260,9 +266,13 @@ class AppCal(App):
 
 
     def ui_body(self, total):
-        fproduct = self.search(total, {"f": 1, "t": 3})
-        sproduct = self.search(total, {"f": 4, "t": 9})
-        tproduct = self.search(total, {"f": 10, "t": 24})
+        g = self.ins._server._get()
+        type = ""
+        if "id" in g:
+            type = g["id"]
+        fproduct = self.search(total, {"f": 1, "t": 3},type)
+        sproduct = self.search(total, {"f": 4, "t": 9},type)
+        tproduct = self.search(total, {"f": 10, "t": 24},type)
 
         if len(fproduct) == 0 and len(sproduct) == 0 and len(tproduct) == 0:
             uidata = [
@@ -272,25 +282,40 @@ class AppCal(App):
             return self.ins._ui._render(uidata)
        
        
-        uidata=[]
-        filter = [
-            {"class":"ins-space-2xl"},
+        uidata=[  {"class":"ins-space-2xl"},
             {"start": "true", "class": "ins-col-12 ins-flex-end  gla-container"},
-            {"_data": "Filter by", "class": "ins-strong-m ins-grey-d-color ins-title-14"},
-            {"_data": "Mix", "name": "type",
-                "class": "ins-button-s  -type-btn ins-strong-m ins-active"},
-            {"_data": "24 Karat (Gold Bars)",
-             "class": "ins-button-s  -type-btn ins-strong-m "},
-            {"_data": "21 Karat (Gold Coins)",
-             "class": "ins-button-s  -type-btn ins-strong-m "},
-            {"end": "true"}
-
+             {"_data": "Filter by", "class": "ins-strong-m ins-grey-d-color ins-title-14"}]
+        fdata = [
+            {"name":"mix","title":"Mix","url":f"{self.ins._server._url({},"id")}"},
+            {"name":"bars","title":"24 Karat (Gold Bars)","url":"bars"},
+            {"name":"coins","title":"21 Karat (Gold Coins)","url":"coins"}
+            
         ]
-        uidata += filter
+        
+        for f in fdata:
+            aclass = ""
+            if "id" in g and g["id"] == f["name"] or "id" not in g and  f["name"] == "mix" :
+                aclass = "ins-active"
+            
+            
+            uidata+= [{"_data": f["title"],"_type":"a","href":f["url"],"class": f"ins-button-s {aclass}  -type-btn ins-strong-m"}]
 
-        uidata += self.plan_ui(fproduct,"1 - 3 items")
-        uidata += self.plan_ui(sproduct,"4 - 9 items")
-        uidata += self.plan_ui(tproduct,"10 - 24 items")
+        uidata.append( {"end": "true"})
+        
+        
+        i = 1
+        plan_data = [
+            (fproduct),
+            (sproduct),
+            (tproduct)
+        ]
+
+        for product in plan_data:
+            if product:
+                title = f"Option {i}"
+                uidata += self.plan_ui(product, title)
+                i += 1
+
 
         uidata.append({"class": "ins-space-4xl"})
 

@@ -170,3 +170,34 @@ ins(".-login-otp-inpt")._on("keyup", (o, e) => {
         _login_otp()
     }
 })
+
+ins(".-logout-btn")._on("click", (o) => {
+    ins("_logout")._ajax._app({}, (d) => {
+        window.location = "/"
+    })
+
+}, true)
+
+
+ins(".-show-password")._on("click", (o) => {
+    if (o._hasClass("ins-active")) {
+        o._removeClass("ins-active")
+        ins(".-update-password-inpt")._setAttribute("type", "password")
+    } else {
+        ins(".-update-password-inpt")._setAttribute("type", "")
+        o._addClass("ins-active")
+    }
+}, true);
+
+
+
+
+ins(".-show-confirm-password")._on("click", (o) => {
+    if (o._hasClass("ins-active")) {
+        o._removeClass("ins-active")
+        ins(".-update-confirm-password-inpt")._setAttribute("type", "password")
+    } else {
+        ins(".-update-confirm-password-inpt")._setAttribute("type", "")
+        o._addClass("ins-active")
+    }
+}, true);
