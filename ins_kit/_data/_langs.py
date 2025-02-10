@@ -66,10 +66,23 @@ class Languages(ins_parent):
         return self._update(content, data)
 
     def _render_tags(self, data: dict = {}):
+        
+        del_keys=[]
         for k in data.keys():
             lk = f"{k}-{self.ins._this._lang["name"]}"
             if lk in data:
                 data[k] = data[lk]
+                del_keys.append(lk)
+                
+                
+                
+        for d in del_keys:
+                del data[d]
+                   
+       
+                
+                
+                
         return data
 
     def _render_db_row(self, r: dict = {}):

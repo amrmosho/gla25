@@ -30,7 +30,8 @@ class Ui(ins_parent):
 
         if "_trans" in attrs:
             attrs = self.ins._langs._render_tags(attrs)
-
+            del attrs["_trans"]
+           
         plgs = ["wdgt", "input", "app", "table", "panel"]
         if "_type" in attrs:
             if "not_plgin" not in attrs or attrs["not_plgin"] != True:
@@ -123,7 +124,9 @@ class Ui(ins_parent):
     def tag(self, attrs):
         if "_trans" in attrs:
             for a in attrs:
-                attrs[a] = self.ins._langs._render(attrs[a])
+                attrs = self.ins._langs._render_tags(attrs)
+                del attrs["_trans"]
+             #   attrs[a] = self.ins._langs._render(attrs[a])
 
         if "_type" in attrs:
             my_type = attrs["_type"]

@@ -9,5 +9,5 @@ class AppMenu(App):
     def out(self):
 
 
-         r = self.ins._apps._crud(properties=self.app._properties)
-        return r
+
+        return self.ins._apps._crud(properties=self.app._properties)

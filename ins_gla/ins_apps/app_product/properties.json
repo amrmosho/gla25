@@ -38,6 +38,9 @@
         {
             "name": "fk_product_category_id",
             "title": "Product Category",
+            "title-ar": "ت جرريس ",
+            "_trans": "true",
+
             "_type": "select",
             "type": "text",
             "_data_type": "db",
@@ -48,6 +51,8 @@
         {
             "name": "des",
             "title": "Description",
+            "_trans": "true",
+
             "title-ar": " الوصف",
             "_type": "input",
             "type": "textarea",
@@ -237,7 +242,7 @@
             "name": "price",
             "title": "Price",
             "_type": "select",
-            "type": "text",         
+            "type": "text",
             "required": "true",
             "class": "ins-col-2"
         }

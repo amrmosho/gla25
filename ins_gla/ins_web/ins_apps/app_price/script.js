@@ -13,6 +13,7 @@ ins(".a-price-report-btn")._on("click", (o) => {
 
 
 
+
 function update(st) {
 
     ins(".a-price-cont")._data._submit((data) => {
