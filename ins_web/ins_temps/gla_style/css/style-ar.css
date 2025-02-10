@@ -1,0 +1,140 @@
+@font-face {
+    font-family: 'regular';
+    font-style: normal;
+    font-display: swap;
+    src: url(fonts/ar/GEDinarTwo/GE_Dinar_Two_Regular.otf);
+}
+
+@font-face {
+    font-family: 'bold';
+    font-style: normal;
+    font-display: swap;
+    src: url(fonts/ar/Norsal/Norsal_SemiBold.otf);
+}
+
+@font-face {
+    font-family: 'exbold';
+    font-style: normal;
+    font-display: swap;
+    src: url(fonts/ar/Norsal/Norsal_ExtraBold.otf);
+}
+
+.ins-button,
+.ins-menu a,
+.ins-button-s,
+.ins-button-l,
+body,
+.ins-title-10,
+.ins-title,
+.ins-title-12,
+.ins-title-l,
+.ins-title-m,
+.ins-title-s,
+.ins-title-xl,
+.ins-title-14,
+.ins-title-20,
+.ins-title-xs,
+.ins-title-s {
+    font-family: "regular";
+}
+
+body {
+    font-size: 16px;
+}
+
+.ins-title,
+.ins-title-l,
+.ins-title-m,
+.ins-title-s,
+.ins-title-xl {
+    font-size: 28px;
+    line-height: 32px;
+}
+
+.ins-title-10 {
+    font-size: 10px;
+}
+
+.ins-title-12 {
+    font-size: 12px;
+}
+
+.ins-title-14 {
+    font-size: 14px;
+}
+
+.ins-title-20 {
+    font-size: 20px;
+}
+
+.ins-title-xs {
+    font-size: 16px;
+}
+
+.ins-title-s {
+    font-size: 18px;
+}
+
+.ins-title-m {
+    font-size: 24px;
+}
+
+.ins-title-l {
+    font-size: 32px;
+}
+
+.ins-title-xl {
+    font-size: 36px;
+}
+
+.ins-title-2xl {
+    font-size: 40px;
+}
+
+.ins-title-3xl {
+    font-size: 56px;
+}
+
+.ins-title-4xl {
+    font-size: 80px;
+}
+
+.ins-strong-s {
+    font-family: "regular";
+}
+
+.ins-strong-m {
+    font-family: "bold" !important;
+}
+
+.ins-strong-l {
+    font-family: "exbold";
+}
+
+.gla-tabs-header>div.gla-active,
+.gla-tabs-header>div:hover,
+.gla-ltabs,
+.gla-ltabs.gla-active,
+.gla-ltabs:hover {
+    font-family: "Dinar";
+}
+
+.gla-logo {
+    background-image: url(imgs/alogo_gold.png);
+}
+
+.gla-logo-primary {
+    background-image: url(imgs/alogo_primary.png);
+}
+
+.gla-logo-black {
+    background-image: url(imgs/alogo_black.png);
+}
+
+.gla-logo-white {
+    background-image: url(imgs/alogo_white.png);
+}
+
+.gla-logo-grey {
+    background-image: url(imgs/alogo_grey.png);
+}

@@ -11,7 +11,7 @@ class WdgContent(Widget):
         if "id" not in self.widget._options:
             return ""
         data = self.ins._db._get_row(
-            "content_table", "*", f"id={self.widget._options["id"]}")
+            "content_table", "*", f"id={self.widget._options["id"]}" ,True)
         if not data :
             pass
             ##return " No content selected "

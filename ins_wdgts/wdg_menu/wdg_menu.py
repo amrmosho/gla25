@@ -19,7 +19,7 @@ class WdgMenu(Widget):
         self.widget._include("style.css")
         ui.append({"class": "ins-col-12 ins-flex ins-menu", "start": True})
         data = self.ins._db._get_data(
-            "menu_item_table", "*", f"fk_menu_id='{self.widget._options["id"]}' order by kit_order")
+            "menu_item_table", "*", f"fk_menu_id='{self.widget._options["id"]}' order by kit_order",True)
 
         for d in data:
             

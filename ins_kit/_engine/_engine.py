@@ -44,12 +44,15 @@ class Engine(ins_parent):
                 self.ins._this._area = self.ins._this._settings["areas"]["home"]
                 a= """""
 
-    def _run(self, area ,lang="en"):
+    def _run(self, area):
         """*---------- load Kit settings*"""
         self._kit_settings = self.ins._json._file_read(
             "./ins_kit/_options/kit_settings.json")
         self.ins._this._area = self._areas(area)
-        self.ins._this._lang = self.ins._this._settings["langs"][lang]
+        
+        self.ins._langs._this_set()
+        a = self.ins._langs._this_get()
+        self.ins._this._lang = self.ins._langs._this_get()
         self.__data(area)
 
     def __data(self, area):
@@ -72,6 +75,8 @@ class Engine(ins_parent):
             "template_table", where=f"tar_area='{area}' and kit_default ='1'")
 
         """*---------- load  menu data*"""
+        self.ins._this._settings["pro"]=self.ins._db._get_row("kit_pro_settings	")
+        
         if (self.ins._server.GET["alias"] == "home"):
             menus = self.ins._db._get_row("menu_item_table", where=f"tar_area='{
                                           area}' and kit_home ='1'")

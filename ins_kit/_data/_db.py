@@ -8,7 +8,7 @@ class Database(ins_parent):
         if len(self.ins._eng._kit_settings) > 0 and name in self.ins._eng._kit_settings["db"]:
             return self.ins._eng._kit_settings["db"][name]
         else:
-            return name 
+            return name
 
     def _jar(self, operation):
 
@@ -46,7 +46,7 @@ class Database(ins_parent):
             self.cursor = self.connection.cursor()
             self._console_print("Connected to MySQL database successfully")
         except mysql.connector.Error as err:
-            self.ins._console.error("db", "db_connection_failed" ,err.msg)
+            self.ins._console.error("db", "db_connection_failed", err.msg)
 
     def __db_open(self):
         if not hasattr(self, "connection") or not self.connection or not self.connection.is_connected:
@@ -167,21 +167,20 @@ class Database(ins_parent):
 
         except mysql.connector.Error as err:
 
-
             if return_error:
                 return f"Error executing query: {err}"
             if self.open_status:
                 self._close()
                 self.open_status = False
 
-            self.ins._console.error("db", "db_query_failed" ,err.msg)
+            self.ins._console.error("db", "db_query_failed", err.msg)
 
             return False
 
-    def _get_data(self, table="", custom="*", where="1=1"):
+    def _get_data(self, table="", custom="*", where="1=1" ,update_lang=False):
 
         table = self._table(table)
-        
+
         if not self.__get_deleted:
             where = f"   {table}.kit_deleted<>1  and  {where} "
 
@@ -192,34 +191,38 @@ class Database(ins_parent):
             self.__get_disabled = False
 
         self.query = f"SELECT {custom} FROM {table} where  {where}"
-        return self._get_query(self.query)
+        rs= self._get_query(self.query)
+        if update_lang:
+            for r in rs:
+                r = self.update_lang(r)
+        return rs
+
+    def update_lang(self, r):
+        ln =self.ins._langs._this_get(True)
+        if "kit_lang" in r and r["kit_lang"] !="" :
+            lss = self.ins._json._decode(r["kit_lang"])
+            if ln in lss:
+                ls = lss[ln]
+                for k, v in r.items():
+                    if k in ls.keys():
+                        r[k] = ls[k]
+        return r
 
     def _get_row(self, table="", custom="*", where="1=1", update_lang=False):
 
         try:
 
-            rs = self._get_data(table, custom, where)
+            rs = self._get_data(table, custom, where ,update_lang)
 
             if rs == False or len(rs) == 0:
-               return False
+                return False
             r = rs[0]
 
-            if update_lang:
-                lss = self.ins._json._decode(r["kit_lang"])
-                #self.ins._this._lang["name"] = "ar"
-                ls = lss[self.ins._this._lang["name"]]
-                for k, v in r.items():
-                    if k in ls.keys():
-                        r[k] = ls[k]
-
+     
             return r
-        
-        
-        except IndexError as err:
-          return       self.ins._console.error("db", "db_record_not_found" ,self.query)
-                
 
-        
+        except IndexError as err:
+            return self.ins._console.error("db", "db_record_not_found", self.query)
 
     def _update_filds(self, table_name, data: dict) -> dict:
         fs = self._get_table_fields(table_name)
@@ -267,8 +270,7 @@ class Database(ins_parent):
             return inserted_id
         except mysql.connector.Error as err:
             self.__db_close()
-            self.ins._console.error("db", "db_query_failed" ,err.msg)
-
+            self.ins._console.error("db", "db_query_failed", err.msg)
 
     def _update(self, table_name, data: dict, condition):
         """
@@ -302,7 +304,7 @@ class Database(ins_parent):
             self.__db_close()
 
         except mysql.connector.Error as err:
-            self.ins._console.error("db", "db_query_failed" ,err.msg)
+            self.ins._console.error("db", "db_query_failed", err.msg)
             self.__db_close()
 
     def _delete(self, table_name, condition):
@@ -324,7 +326,7 @@ class Database(ins_parent):
             self.__db_close()
 
         except mysql.connector.Error as err:
-            self.ins._console.error("db", "db_query_failed" ,err.msg)
+            self.ins._console.error("db", "db_query_failed", err.msg)
             self.__db_close()
 
     def _set_query(self, query):
@@ -343,7 +345,7 @@ class Database(ins_parent):
             return r
 
         except mysql.connector.Error as err:
-            self.ins._console.error("db", "db_query_failed" ,err.msg)
+            self.ins._console.error("db", "db_query_failed", err.msg)
 
             self.__db_close()
 
@@ -367,8 +369,7 @@ class Database(ins_parent):
             self.cursor.execute(query)
             self._console_print(f"Table {table_name} created successfully")
         except mysql.connector.Error as err:
-            self.ins._console.error("db", "db_query_failed" ,err.msg)
-
+            self.ins._console.error("db", "db_query_failed", err.msg)
 
     def _get_table_fields(self, table_name):
         """
@@ -391,8 +392,7 @@ class Database(ins_parent):
 
         except mysql.connector.Error as err:
             self.__db_close()
-            self.ins._console.error("db", "db_query_failed" ,err.msg)
-
+            self.ins._console.error("db", "db_query_failed", err.msg)
 
             return None
 
@@ -442,5 +442,3 @@ class Database(ins_parent):
 
         r = f"({r})"
         return r
-
-

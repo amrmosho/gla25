@@ -61,6 +61,7 @@ class This(ins_parent):
     def _clear(self):
      self._area = {}
      self._settings = {}
+
      self._lang = {}
      self._menu = {}
      self._temp = {"url": ""}

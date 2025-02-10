@@ -24,7 +24,8 @@ class AppProduct(App):
 
 
     def out(self):
-        
+        self.app._include("style.css")
+
         r = self.ins._apps._crud(properties=self.app._properties)
 
         return r

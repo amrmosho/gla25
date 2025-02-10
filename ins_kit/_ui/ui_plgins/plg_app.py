@@ -12,7 +12,7 @@ class PlgApp(Ui):
         
         
         data = {"_p": ops["type"], "_s": g["alias"],
-                "_a": ops["src_area"], "_g": g, "_h": self.ins._server._path}
+                "_a": ops["src_area"], "_ta": ops["tar_area"], "_g": g, "_h": self.ins._server._path}
         data["_s"] = g["alias"]
         
         return json.dumps(data)

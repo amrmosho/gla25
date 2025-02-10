@@ -97,8 +97,15 @@ class Server(ins_parent):
     @property
     def _session(self):
         return session
+    
+    
+    def _has_session(self, name: str = ""):
+    
+        return (name in session)
+          
 
-    def _get_session(self, name: str = ""):
+
+    def _get_session(self, name: str = "",defult=False):
 
         if name == "":
             return session
@@ -106,7 +113,7 @@ class Server(ins_parent):
         elif name in session:
             return session[name]
         else:
-            return False
+            return defult
 
     def _set_session(self, name: str="", value ="",data={}):
 

@@ -39,31 +39,31 @@ class Temp(ins_parent):
         lib_path = f"/{self.ins._map.WEB_FOLDER}/{self.ins._map.KIT_FOLDER}/"
 
         incs_path = f"/{self.ins._map.WEB_FOLDER}/ins_incs/"
-   
+
         self.header += "\t\n" + self.ins._files._include(
-                f"{incs_path}line_icons_2/assets/icon-fonts/lineicons.css")
+            f"{incs_path}line_icons_2/assets/icon-fonts/lineicons.css")
 
         css = ["ins_root",
                "ins_elements",
                "ins_dark_style",  "ins_light_style",
                "ins_colors", "ins_layout", "ins_content",
-               "ins_forms", "ins_ui", 
+               "ins_forms", "ins_ui",
                "ltr",
 
                "ins_lang-" + self.ins._this._lang["name"]
                ]
         for c in css:
-            self.header += "\t\n" +  self.ins._files._include(f"{lib_path}css/{c}.css")
-                
-                
+            self.header += "\t\n" + \
+                self.ins._files._include(f"{lib_path}css/{c}.css")
+
         mcss = ["ins_phone"]
         for c in mcss:
-            att={"media":"only screen and (min-width: 0px) and (max-width: 1000px)","type":"text/css"}
-            self.header += "\t\n" + self.ins._files._include(f"{lib_path}css/{c}.css" ,att)
-                  
-                
+            att = {
+                "media": "only screen and (min-width: 0px) and (max-width: 1000px)", "type": "text/css"}
+            self.header += "\t\n" + \
+                self.ins._files._include(f"{lib_path}css/{c}.css", att)
 
-        js = ["swiped","ins"]
+        js = ["swiped", "ins"]
         for j in js:
             self.header += "\t\n" + \
                 self.ins._files._include(f"{lib_path}js/{j}.js")
@@ -86,22 +86,24 @@ class Temp(ins_parent):
         self.header_end = ""
         self.ins._server._update_get(path)
         u = self.ins._users._session_get()
-       
-        if not u :
-            u ={}       
-            
-            u["settings"] ={}
+
+        if not u:
+            u = {}
+
+            u["settings"] = {}
 
         u["settings"] = self._user_settings = self.ins._users._get_settings(
             "gen")
-        
+
         if "style" not in u["settings"]:
             u["settings"]["style"] = "light"
-            
-        if "lang" not in u["settings"]:
-            u["settings"]["lang"] = "en"  
-            
-        self.ins._eng._run(area ,u["settings"]["lang"])
+
+        if "lang" in u["settings"]:
+            self.ins._langs._this_set(u["settings"]["lang"])
+
+
+        self.ins._eng._run(area)
+        
         self._weburl = f"{self.ins._this._temp_url}{
             self.ins._this._temp["type"]}/"
 
@@ -109,11 +111,9 @@ class Temp(ins_parent):
 
         self._imagesurl = f"/{area_url}/{self.ins._map.WEB_FOLDER}/{
             self.ins._map.IMAGES_FOLDER}/"
+            
         self._area = self.ins._eng._areas(area)
 
-        self._page_title = self.ins._this._menu["title"]
-
-        self._header()
 
         p = self.ins._server._req()
 
@@ -125,108 +125,90 @@ class Temp(ins_parent):
         if not self.ins._users._is_login():
             return render_template(f'{self.ins._this._temp["type"]}/login.html',   temp=self)
 
+
+
+        se = self.ins._server._get_session()
+        
+        return self.get_template(area,se ,u)
+          
+    
+    
+    def get_template(self ,area,se ,u):
+        
+        self._header()
+        self._page_title = self.ins._this._menu["title"]
         self._properties = self.ins._json._file_read(
-            f"./{self._weburl}/properties.json")
+        f"./{self._weburl}/properties.json")
+        area_url = self.ins._eng._areas(area)["url"]
+        self._imagesurl = f"/{area_url}{self.ins._map.IMAGES_FOLDER}/"    
         ws = self.ins._eng._widgets()
         a = self.ins._eng._App()
         if self.ins._server._get("insrender") == "app":
             return a
 
-
-        if "title"  in u :
+        if "title" in u:
             u["avatar"] = u["title"][0]
-       
-                 
-                 
-                 
-   
-
 
         p_data = {}
         p_data["class"] = f"ins-{u["settings"]["style"]}-style"
         
         
-           
-        if  "insrender" in self.ins._server._get() :
-            s=f"{self.ins._server._get("insrender")}.html"
+        
+        self._add_to_header(self.ins._this._settings["pro"].get("header" ,""))
+        p_data["title"] =self.ins._this._settings["pro"].get("page_title" ,"")+ self._page_title
+        
+        
+
+        if "insrender" in self.ins._server._get():
+            s = f"{self.ins._server._get("insrender")}.html"
         else:
-            s="index.html"
-            
-        self.css=self.ins._this._menu["css"]
+            s = "index.html"
+           
+        self.css = self.ins._this._menu["css"]
+        lang = self.ins._langs._this_get()
+        def url(_set={}, remove=[], claer=False):
+            return self.ins._server._url(_set, remove, claer)
 
-        se = self.ins._server._get_session()
-
-        return render_template(f'{self.ins._this._temp["type"]}/{s}', app=a, user=u, session =se, page=p_data, wdgts=ws,  temp=self)
+        return render_template(f'{self.ins._this._temp["type"]}/{s}', app=a, session=se, user=u, lang=lang, url=url, page=p_data,  wdgts=ws,  temp=self)
 
 
 
-    def _con(self ,message):
-        a =message
+    def _con(self, message):
+        a = message
         return render_template(f'tmp_admin_style/error.html', app=a,   temp=self)
-
 
     def _render(self,  area, path):
 
         self.header_end = ""
-        
+
         self.ins._server._update_get(path)
 
         u = self.ins._users._session_get()
-        se = self.ins._server._get_session()
-        
-        
-        
-        if not u :
-            u ={}
-      
+
+        if not u:
+            u = {}
+
         u["settings"] = self._user_settings = self.ins._users._get_settings(
             "gen")
 
         if "style" not in u["settings"]:
             u["settings"]["style"] = "light"
-        
-        if "lang" not in u["settings"]:
-            u["settings"]["lang"] = "en"    
-            
-            
-            
-            
-        self.ins._eng._run(area ,u["settings"]["lang"])
+
+        if "lang" in u["settings"]:
+            self.ins._langs._this_set(u["settings"]["lang"],True)
+
+        self.ins._eng._run(area)
         self._weburl = f"{self.ins._this._temp_url}{
             self.ins._this._temp["type"]}/"
 
-        self._page_title = self.ins._this._menu["title"]
-
-        self._header()
-        self._properties = self.ins._json._file_read(
-            f"./{self._weburl}/properties.json")
-
-        area_url = self.ins._eng._areas(area)["url"]
-
-        self._imagesurl = f"/{area_url}{self.ins._map.IMAGES_FOLDER}/"
-        ws = self.ins._eng._widgets()
-        a = self.ins._eng._App()
-        if self.ins._server._get("insrender") == "app":
-            return a
 
 
 
-
-        p_data = {}
-        p_data["class"] = f"ins-{u["settings"]["style"]}-style"
-        
-                   
-        if  "insrender" in self.ins._server._get() :
-            s=f"{self.ins._server._get("insrender")}.html"
-        else:
-            s="index.html"
-        
-        self.css=self.ins._this._menu["css"]
-
-        return render_template(f'{self.ins._this._temp["type"]}/{s}', app=a, user=u, page=p_data,  wdgts=ws,  temp=self)
-
-
-
+       
+       
+        return self.get_template(area,{} ,u)
+       
+   
 
 
 """App Class---------------------------------------"""
@@ -251,7 +233,7 @@ class App(ins_parent):
 
     def _infos(self, type, area):
         r = {}
-        
+
         try:
 
             area_url = self.ins._eng._areas(area)["url"]
@@ -266,19 +248,18 @@ class App(ins_parent):
             r["path"] += f"{self.ins._map.APPS_FOLDER}.{type}.{type}"
             r["weburl"] = f"/{url_area}{self.ins._map.WEB_FOLDER}/{r["url"]}"
             r["url"] = f"{url_area}{r["url"]}"
-            
+
             r["properties"] = self._pros("properties", r["url"])
-            
+
             r["lang"] = self._pros(self.ins._this._lang["name"], r["url"])
 
-            
-            r["properties"]["url"] =r["url"]
-            r["properties"]["pros_name"] ="properties"
-            
+            r["properties"]["url"] = r["url"]
+            r["properties"]["pros_name"] = "properties"
+
             return r
-        except FileNotFoundError as  err:
+        except FileNotFoundError as err:
             a = err
-        except TypeError as  err:
+        except TypeError as err:
             a = err
 
     def _pros(self, name, url=""):

@@ -1,0 +1,69 @@
+{
+    "table": "kit_pro_settings",
+    "form_data": [{
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card ins-padding-m"
+        },
+        {
+            "name": "title",
+            "title": "Title",
+            "title-ar": "العنوان",
+            "_type": "input",
+            "type": "textarea",
+            "pclass": "ins-col-grow ins-col-12"
+        },
+
+        {
+            "name": "page_title",
+            "title": "page title",
+            "_type": "input",
+            "type": "textarea",
+
+            "pclass": "ins-col-12"
+        }, {
+            "name": "header",
+            "title": "header",
+            "_type": "input",
+            "type": "textarea",
+            "pclass": "ins-col-12"
+        },
+        {
+            "end": "True"
+        }
+    ],
+    "list_data": [{
+        "name": "title",
+        "title": "Price",
+        "_type": "select",
+        "type": "text",
+        "required": "true",
+        "class": "ins-col-grow"
+    }],
+    "list_filter": [{
+            "name": "title",
+            "title-ar": "العنوان",
+            "title": "Title",
+            "_type": "input",
+            "type": "text",
+            "_info": "Search in <b>Title</b> by <b>@(value)</b>",
+            "main": true,
+            "pclass": "ins-col-12 ins-col-grow"
+        },
+        {
+            "name": "header",
+            "title": "header",
+            "_type": "input",
+            "type": "text",
+            "pclass": "ins-col-3 ins-col-grow"
+        },
+        {
+            "name": "page_title",
+            "title": "page title",
+            "title-ar": "وزن",
+            "_type": "input",
+            "type": "text",
+            "pclass": "ins-col-3 ins-col-grow"
+        }
+
+    ]
+}

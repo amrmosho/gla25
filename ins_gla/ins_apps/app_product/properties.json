@@ -13,6 +13,8 @@
             "_type": "input",
             "type": "text",
             "_trans": "true",
+            "_lang": "true",
+            "_table": "gla_product",
             "required": "true",
             "pclass": "ins-col-grow"
         },
@@ -33,12 +35,14 @@
             "_type": "input",
             "type": "text",
             "_trans": "true",
-            "required": "true",
             "pclass": "ins-col-2"
         },
         {
             "name": "fk_product_category_id",
             "title": "Product Category",
+            "title-ar": "ت جرريس ",
+            "_trans": "true",
+
             "_type": "select",
             "type": "text",
             "_data_type": "db",
@@ -49,8 +53,11 @@
         {
             "name": "des",
             "title": "Description",
+            "_trans": "true",
+
             "title-ar": " الوصف",
-            "_type": "textarea",
+            "_type": "input",
+            "type": "textarea",
             "required": "true",
             "pclass": "ins-col-12"
         },
@@ -128,8 +135,67 @@
             "title-ar": "الترتيب",
             "_type": "input",
             "type": "number",
+            "pclass": "ins-col-3"
+        },
+        {
+            "end": "True"
+        },
+        {
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card ins-padding-m"
+        },
+        {
+            "_data": "Finance",
+            "_data-ar": "المالية",
+            "_trans": "true",
+            "class": "ins-col-12"
+        },
+        {
+            "name": "stamp",
+            "title": "Manufacturing + stamp",
+            "title-ar": "دمغة",
+            "_type": "input",
+            "type": "number",
+            "required": "true",
+            "pclass": "ins-col-4"
+        },
+        {
+            "name": "gram",
+            "_end": "Gram",
+            "_end-ar": "جرام",
+            "_trans": "true",
+            "_type": "input",
+            "type": "bool",
+            "value": "0",
+            "pclass": "ins-col-1 style -gram"
+        },
+        {
+            "name": "vat",
+            "title": "Vat",
+            "title-ar": "الضريبة",
+            "_type": "input",
+            "type": "number",
             "required": "true",
             "pclass": "ins-col-3"
+        },
+        {
+            "name": "cashback",
+            "title": "CashBack",
+            "title-ar": "استرداد النقود",
+            "_type": "input",
+            "type": "number",
+            "required": "true",
+            "pclass": "ins-col-3"
+        },
+        {
+            "name": "cashback_gram",
+            "_end": "Gram",
+            "_end-ar": "قطعة",
+            "_trans": "true",
+            "_type": "input",
+            "type": "bool",
+            "value": "0",
+            "pclass": "ins-col-1 style -gram"
         },
         {
             "end": "True"
@@ -161,7 +227,7 @@
             "title-ar": "الوصف",
             "_trans": "true",
             "view": "text",
-            "class": "ins-col-4"
+            "class": "ins-col-3"
         },
         {
             "name": "fk_product_category_id",
@@ -172,7 +238,15 @@
             "_data_type": "db",
             "_table": "gla_product_category",
             "required": "true",
-            "class": "ins-col-3"
+            "class": "ins-col-2"
+        },
+        {
+            "name": "price",
+            "title": "Price",
+            "_type": "select",
+            "type": "text",
+            "required": "true",
+            "class": "ins-col-2"
         }
     ],
     "list_filter": [{

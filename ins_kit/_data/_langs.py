@@ -6,6 +6,32 @@ class Languages(ins_parent):
     def __init__(self, Ins) -> None:
         super().__init__(Ins)
 
+    def _this_set(self ,lang="",defu=False):
+        
+        if lang =="":
+            g=  self.ins._server._get()
+            if "lang" in g :
+              lang = g["lang"]
+        
+        
+        
+        if lang !="":
+            if  not defu or not self.ins._server._has_session("inslang") :
+                 return self.ins._server._set_session("inslang" ,lang)
+    
+    def _this_get(self ,code=False):
+       lang = self.ins._server._get_session("inslang" ,"en")
+       
+       if code:
+           return lang
+       else:
+         return   self.ins._this._settings["langs"][lang]
+
+       
+       
+    
+    
+
     def _search(self, text: str) -> list[str]:
         pattern = r'\@\((.*?)\)'
         matches = re.findall(pattern, text)
@@ -40,10 +66,23 @@ class Languages(ins_parent):
         return self._update(content, data)
 
     def _render_tags(self, data: dict = {}):
+        
+        del_keys=[]
         for k in data.keys():
             lk = f"{k}-{self.ins._this._lang["name"]}"
             if lk in data:
                 data[k] = data[lk]
+                del_keys.append(lk)
+                
+                
+                
+        for d in del_keys:
+                del data[d]
+                   
+       
+                
+                
+                
         return data
 
     def _render_db_row(self, r: dict = {}):

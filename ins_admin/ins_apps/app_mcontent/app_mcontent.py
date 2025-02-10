@@ -39,6 +39,8 @@ class AppMcontent(App):
                 "name": "content",
                 "title": "my content",
                 "_type": "input",
+                "_lang": "true",
+            "_table": "kit_content",
                 "type": "textarea",
                 "style":"height:350px",
                 "pclass": "ins-col-12"
