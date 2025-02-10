@@ -602,3 +602,11 @@ body {
 .ins-text-upper {
     text-transform: uppercase;
 }
+
+.ins-text-none {
+    text-transform: none !important;
+}
+
+.ins-text-lower {
+    text-transform: lowercase !important;
+}

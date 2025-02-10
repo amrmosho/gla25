@@ -1,3 +1,4 @@
+from flask import redirect
 from ins_gla.ins_apps.app_users.app_users_orders import AppUsersOrders
 from ins_gla.ins_apps.app_users.app_users_profile import AppUsersProfile
 from ins_gla.ins_kit._gusers import Gusers
@@ -18,7 +19,7 @@ class AppUsers(App):
 
 
     def u(self, mode):
-        return self.ins._server._url({"mode": mode},)
+        return self.ins._server._url({"mode": mode},"id")
 
     def header(self, g):
         hc = ""
@@ -33,12 +34,12 @@ class AppUsers(App):
             oc = " ins-gold-bg "
         else:
             hc = " ins-gold-bg "
-        ui = [{"start": "true", "class": "ins-col-6 ins-flex-end"},
+        ui = [{"start": "true", "class": "ins-col-7 ins-flex-end"},
               {"_data": "<i class='lni ins-font-l lni-home-2'></i>Home",
                   "class": f"ins-button-s  ins-text-upper {hc}  ins-flex", "_type": "a", "href": self.u("")},
               {"_data": "|", "class": " "},
-              {"_data": "<i class='lni ins-font-l lni-user-4'></i>My Profile",
-                  "class": f"ins-button-s ins-text-upper {pc}  ins-flex", "_type": "a", "href": self.u("profile")},
+              {"_data": "<i class='lni ins-font-l lni-user-4'></i>Profile Management",
+                  "class": f"ins-button-s ins-text-upper {pc}  ins-flex", "_type": "a", "href": self.u("profile")+"/user_setting"},
               {"_data": "|", "class": " "},
               {"_data": "<i class='lni ins-font-l lni-basket-shopping-3'></i>My Orders",
                   "class": f"ins-button-s  ins-text-upper {oc} ins-flex ", "_type": "a", "href": self.u("order")},
@@ -57,89 +58,43 @@ class AppUsers(App):
 
     def home(self, g):
         usmenu = [
-            {"start": "true", "class": "  ins-col-12  ins-flex ins-white   ins-padding-2xl"},
-            {"start": "true", "class": "  ins-col- 12 ins-primary-w   ins-flex ins-border ins-radius-xl    ins-padding-l"},
-            {"_type": "a",  "_data": f'<i class="lni ins-font-l lni-home-2"></i>  Home ',
+            {"start": "true", "class": "  ins-col-12  ins-flex   ins-padding-2xl"},
+          
+          
+          
+
+
+            {"start": "true", "class": "  ins-col-4 ins-primary-w  ins-white  ins-flex ins-border ins-radius-xl    ins-padding-l"},
+            {"_type": "a", "href":"profile/user_setting", "_data": f'<i class="lni ins-font-l lni-user-4"></i>  Profile Management ',
                 "class": " ins-title-s ins-col-12"},
-            {"_data": f'Users Panel home des Users Panel home des Users Panel home des ',
+            {"_data": f'Update your name, email, and password to keep your account secure.',
                 "class": "ins-col-12 ins-padding-xl   ins-padding-h ins-font-s ", "style": "line-height: 20px;margin-top: -11px;margin-bottom: 11px;"},
             {"end": "true"},
-            {"start": "true", "class": "  ins-col- 12 ins-primary-w    ins-flex ins-border ins-radius-xl    ins-padding-l"},
-            {"_type": "a", "href":"profile", "_data": f'<i class="lni ins-font-l lni-user-4"></i>  My Profile ',
-                "class": " ins-title-s ins-col-12"},
-            {"_data": f'Users Panel home des Users Panel home des Users Panel home des ',
-                "class": "ins-col-12 ins-padding-xl   ins-padding-h ins-font-s ", "style": "line-height: 20px;margin-top: -11px;margin-bottom: 11px;"},
-            {"end": "true"},
-            {"start": "true", "class": "  ins-col- 12    ins-primary-w  ins-flex ins-border ins-radius-xl    ins-padding-l"},
+
+
+            {"start": "true", "class": "  ins-col-4    ins-primary-w ins-white ins-flex ins-border ins-radius-xl    ins-padding-l"},
             {"_type": "a", "href":"order", "_data": f'<i class="lni ins-font-l lni-basket-shopping-3"></i>  My Orders ',
                 "class": " ins-title-s ins-col-12"},
-            {"_data": f'Users Panel home des Users Panel home des Users Panel home des ',
+            {"_data": f'Access detailed information about your current and past orders, including status and history.',
                 "class": "ins-col-12 ins-padding-xl   ins-padding-h ins-font-s ", "style": "line-height: 20px;margin-top: -11px;margin-bottom: 11px;"},
             {"end": "true"},
-            {"start": "true", "class": "  ins-col- 12  ins-primary-w   ins-flex ins-border ins-radius-xl    ins-padding-l"},
-            {"_type": "a","href":"addresses",  "_data": f'<i class="lni ins-font-l  lni-buildings-1"></i>  addresses ',
+
+
+
+            {"start": "true", "class": "  ins-col-4  ins-primary-w ins-white  ins-flex ins-border ins-radius-xl    ins-padding-l"},
+            {"_type": "a","href":"addresses",  "_data": f'<i class="lni ins-font-l  lni-buildings-1"></i> My Addresses ',
                 "class": " ins-title-s ins-col-12"},
-            {"_data": f'Users Panel home des Users Panel home des Users Panel home des ',
+            {"_data": f'Add, edit, or remove saved addresses to simplify and speed up future purchases.',
                 "class": "ins-col-12 ins-padding-xl   ins-padding-h ins-font-s ", "style": "line-height: 20px;margin-top: -11px;margin-bottom: 11px;"},
             {"end": "true"},
-            {"_data": f' <i class="lni ins-font-l ins-danger-color lni-share-2"></i>  Logout',
-             "class": " ins-col-12 ins-button ins-danger-color"},
             {"end": "true"}
         ]
-        infos = [
-            {"start": "true", "class": "  ins-col-12 ins-card ins-gap-20  ins-flex ins-white   "},
-            {"start": "true", "class": "  ins-col-12 ins-border ins-radius-xl   ins-flex   ins-padding-l"},
-            {"_data": f' Last Order  details ',
-                "class": " ins-col-12  ins-grey-d-color ins-title-s	 ins-strong-l "},
-            {"_data": f' Orders Count ',
-                "class": " ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"},
-            {"_data": f' 15 ',
-             "class": " ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end"},
-            {"_data": f' Items Count ',
-                "class": " ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"},
-            {"_data": f' 15 ',
-                "class": " ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end"},
-            {"class": "ins-line ins-col-12"},
-            {"_data": f' Orders Total ',
-                "class": " ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"},
-            {"_data": f'EGP 3000 ',
-                "class": " ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end"},
-            {"end": "true"},
-            
-            
-            {"start": "true", "class": "  ins-col-12 ins-border ins-radius-xl   ins-flex   ins-padding-l"},
-            {"_data": f' Orders details ',
-                "class": " ins-col-12  ins-grey-d-color ins-title-s	 ins-strong-l "},
-            {"_data": f' Orders Count ',
-                "class": " ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"},
-            {"_data": f' 15 ',
-             "class": " ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end"},
-            {"_data": f' Items Count ',
-                "class": " ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"},
-            {"_data": f' 15 ',
-                "class": " ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end"},
-            {"class": "ins-line ins-col-12"},
-            {"_data": f' Orders Total ',
-                "class": " ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"},
-            {"_data": f'EGP 3000 ',
-                "class": " ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end"},
-            {"end": "true"},
-            {"end": "true"},
-        ]
-        user = self.user._check()
+       
         uidata = [
             {"start": "true", "class": "ins-col-12  "},
             {"start": "true", "class": "gla-container ins-flex-start "},
-            {"start": "true", "class": "  ins-flex-start  ins-padding-2xl  ins-col-7"},
-            {"start": "true", "class": "  ins-flex-start    ins-col-12"},
-            {"_data": f'<i class="lni ins-font-2xl lni-user-4"></i> Welcome {user.get("title")}', "class": "ins-title-m ins-col-12"},
-            {"_data": f' <i class="lni ins-font-l lni-phone"></i> {user.get("phone","+201123881630")}',
-                "class": " ins-col-12"},
-            {"end": "true"},
         ]
-        uidata += infos
-        uidata .append({"end": "true"})
-        uidata .append({"start": "true", "class": "ins-flex ins-col-5 "})
+        uidata .append({"start": "true", "class": "ins-flex ins-col-12 "})
         uidata += usmenu
         uidata .append({"end": "true"})
         uidata .append({"end": "true"})
@@ -158,23 +113,27 @@ class AppUsers(App):
         if type(asession) != dict:
            asession = {"type":"delivery","id":"-1"}
 
-        
-        for a in addesses:
-           if str(a["id"]) == str(asession["id"]) and asession["type"] == "delivery":
-              img = "style/radio_checked.svg"
-           uidata.append({"start":"true","class":"ins-col-12 ins-card ins-flex-valign-center ins-padding-s -address-cont","style":"    line-height: 20px;"})
-           uidata.append({"start":"true","class":"ins-col-10 ins-flex"})
-           uidata.append({"_data": a["title"],"class":" ins-title-s ins-strong-m ins-grey-d-color ins-col-12","style":"line-height: 24px;"})
-           uidata.append({"_data": a["address"],"class":"ins-grey-color ins-col-12 ins-title-12","style":"line-height: 16px;"})
-           uidata.append({"_data": "Mobile: "+a["phone"] + " | Email: "+ a["email"],"class":"ins-grey-d-color ins-col-12  ins-title-14"})
-           uidata.append({"end":"true"})
-           uidata.append({"start":"true","class":"ins-col-2 ins-flex-end"})
-           uidata.append({"_data":"<i class='-update-address  _a lni lni-pencil-1' data-aid = "+ str(a["id"])+" ></i>","class":"ins-text-center"})
-           uidata.append({"_data":"<i class='lni lni-trash-3 _a_red'></i>","data-aid":a["id"],"class":"ins-text-center -remove-address-btn"})
-           uidata.append({"end":"true"})
+        if addesses:
+            for a in addesses:
+               uidata.append({"start":"true","class":"ins-col-12 ins-card ins-flex-valign-center ins-padding-s -address-cont","style":"    line-height: 20px;"})
+               uidata.append({"start":"true","class":"ins-col-10 ins-flex"})
+               uidata.append({"_data": a["title"],"class":" ins-title-s ins-strong-m ins-grey-d-color ins-col-12","style":"line-height: 24px;"})
+               uidata.append({"_data": a["address"],"class":"ins-grey-color ins-col-12 ins-title-12","style":"line-height: 16px;"})
+               uidata.append({"_data": "Mobile: "+a["phone"] + " | Email: "+ a["email"],"class":"ins-grey-d-color ins-col-12  ins-title-14"})
+               uidata.append({"end":"true"})
+               uidata.append({"start":"true","class":"ins-col-2 ins-flex-end"})
+               uidata.append({"_data":"<i class='-update-address  _a lni lni-pencil-1' data-aid = "+ str(a["id"])+" ></i>","class":"ins-text-center"})
+               uidata.append({"_data":"<i class='lni lni-trash-3 _a_red'></i>","data-aid":a["id"],"class":"ins-text-center -remove-address-btn"})
+               uidata.append({"end":"true"})
 
-           uidata.append({"end":"true"})
+               uidata.append({"end":"true"})
 
+        else:
+           uidata.append({"start":"true","class":"ins-col-12 ins-padding-m ins-flex-center"})
+           uidata.append({"start":"true","class":"ins-col-8  ins-card ins-flex-center"})
+           uidata.append({"_data":"No saved addresses yet"})
+           uidata.append({"end":"true"})
+           uidata.append({"end":"true"})
 
 
         if string == False:
@@ -324,12 +283,22 @@ class AppUsers(App):
             return "-1"
    
 
+    def _logout(self):
+        self.user._logout()
+        return "1"
+
     def out(self):
         self.app._include("script.js")
         self.app._include("style.css")
+       
         udata = self.user._check()
         if not udata:
-            return self.ins._ui._render(self._mobile_no_ui())
+            self.ins._server._set_session("redirect", "/puser")
+            return """
+            <script>
+                window.location.href = "/login";
+            </script>
+            """
             
 
         g = self.ins._server._get()
