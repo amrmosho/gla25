@@ -9,7 +9,10 @@
             "title": "Title",
             "title-ar": "العنوان",
             "_trans": "true",
+            "lang":"true",
             "_type": "input",
+            "_lang": "true",
+            "_table":"gla_blog",
             "type": "text",
             "required": "true",
             "pclass": "ins-col-8"
@@ -96,7 +99,7 @@
             "value": "0",
             "pclass": "ins-col-6 -home-checkbox"
         }, {
-            "name": "order",
+            "name": "_order",
             "title": "Order",
             "title-ar": "الترتيب",
             "_trans": "true",
