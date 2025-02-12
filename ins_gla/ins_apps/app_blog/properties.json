@@ -56,9 +56,20 @@
             "pclass": "ins-col-6"
         },
         {
+            "name": "link",
+            "title": "Link",
+            "title-ar": "ربط",
+            "_trans": "true",
+            "_type": "input",
+            "type": "text",
+            "pclass": "ins-col-12"
+        },
+        {
             "name": "content",
             "title": "Content",
             "_type": "textarea",
+            "type": "textarea",
+
             "required": "true",
             "pclass": "ins-col-12"
         },
@@ -90,7 +101,6 @@
             "title-ar": "الترتيب",
             "_trans": "true",
             "type": "number",
-            "value": "0",
             "_type": "input",
             "pclass": "ins-col-6"
         },
