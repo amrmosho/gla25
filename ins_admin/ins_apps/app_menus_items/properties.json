@@ -36,8 +36,10 @@
             "name": "fk_menu_id",
             "title": "Package",
             "_view": "select",
+
             "fl_type": "db",
             "fl_table": "kit_menu",
+            "fl_start": "0,--",
             "view": "text",
             "class": "ins-col-2"
         },
@@ -183,6 +185,8 @@
             "title": "Package",
             "_type": "select",
             "fl_type": "db",
+            "fl_start": "0,--",
+
             "fl_table": "kit_menu",
             "pclass": "ins-col-6"
         },
