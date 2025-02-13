@@ -23,32 +23,32 @@ class WdgMenu(Widget):
             if str(d["kit_hidden"]) != "1":
                 url = f"/{d["alias"]}/{d["add_to_url"]}"
 
-                if len(subdata) >0 :
-                     row = [
-                    {"_type": "li", "class": "ins-menu-item", "start": True},
-                    {"_type": "a", "_data": [
-                        {"_type": "span", "_data": d["title"]}]},
-
-                ]
-                else:  
-                    
-                    row = [
-                        {"_type": "li", "class": "ins-menu-item", "start": True},
-                        {"_type": "a", "href": url, "_data": [
-                            {"_type": "span", "_data": d["title"]}]},
-
-                    ]
+            
 
                 subdata = self.ins._db._get_data(
                     "menu_item_table", gt, f"fk_menu_id='{self.widget._options["id"]}'  and kit_menu_item.fk_menu_item_id='{d["id"]}' order by kit_order", True)
 
+                if len(subdata) > 0 :
+                                 row = [
+                                {"_type": "li", "class": "ins-menu-item", "start": True},
+                                {"_type": "a", "_data": [
+                                    {"_type": "span", "_data": d["title"]}]},
 
+                            ]
+                else:  
+                                
+                                row = [
+                                    {"_type": "li", "class": "ins-menu-item", "start": True},
+                                    {"_type": "a", "href": url, "_data": [
+                                        {"_type": "span", "_data": d["title"]}]},
+
+                                ]
                 if len(subdata) >0 :
 
                     row.append({"_type": "ul", "start": True ,"class":"ins-menu-sub ins-white ins-padding-xl"})
 
                     for sd in subdata:
-                        surl = f"/{d["alias"]}/{d["add_to_url"]}"
+                        surl = f"/{d["alias"]}/{sd["add_to_url"]}"
                         
                         
                         subrow = [

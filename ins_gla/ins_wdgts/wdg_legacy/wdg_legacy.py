@@ -13,8 +13,6 @@ class WdgLegacy(Widget):
         self.widget._include("leg.css")
         self.widget._include("leg.js")
         
-        
-        
         data_50 = [
 
             {"start": "true", "class": "ins-col-12 _1  active gla-ltabs-item leg-item ins-flex"},
