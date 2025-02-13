@@ -250,7 +250,7 @@ class AppProductDetails(App):
         rpdata = self.ins._db._get_data("gla_product","*", f"   fk_product_category_id={data["fk_product_category_id"]} and id <>{data["id"]} limit 0,4 ")
         uidata.append({"start": "true", "class": "ins-flex-space-between ins-col-12"})
         for d in rpdata:
-            uidata+= ELUI(self.ins).shop_pro_block(d,self.ins._server._url({"id":d["id"]}))
+            uidata+= ELUI(self.ins).shop_pro_block(d,self.ins._server._url({"id":d["id"]},["filter","type"]))
 
         uidata.append({"end": "true"})
         uidata.append({"end": "true"})

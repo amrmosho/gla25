@@ -164,7 +164,7 @@ class ELUI(ins_parent):
          else:
                 th_main_image = data.get("th_main", "") 
                 th_overlay_image = data.get("th_overlay", "")
-
+        
          if tys:
              purl +=f"/do/type/types={tys}"
          if stys:
