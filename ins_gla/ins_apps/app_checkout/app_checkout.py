@@ -493,7 +493,7 @@ class AppCheckout(App):
           for bank in bank_details:
             uidata.append({"start": "true", "class": f"ins-col-12 -bank-card-{bank["name"]} ins-card ins-padding-s ins-margin-xs"})
             uidata.append({"start": "true", "class": "ins-col-12 ins-flex ins-align-center"})
-            uidata.append({"_type": "img", "style":"width: 30px;","src": f"{p}images/bank/{bank['logo']}", "class": "ins-logo-xs"})
+            uidata.append({"_type": "img", "style":"width: 30px;","src": f"{p}images/bank/{bank['logo']}","loading":"lazy", "class": "ins-logo-xs"})
             uidata.append({"_data": f"{bank['Bank Name']}", "class": "ins-col-10 ins-title-xs ins-strong-m ins-grey-d-color"})
             uidata.append({"end": "true"})
             uidata.append({"_data": f"Account Number: {bank['Account Number']}", "class": "ins-col-12 ins-title-xxs ins-grey-d-color"})
@@ -525,7 +525,7 @@ class AppCheckout(App):
          for method in online_methods:
             uidata.append({"start": "true", "class": "ins-col-12 ins-card ins-padding-s ins-margin-xs"})
             uidata.append({"start": "true", "class": "ins-col-12 ins-flex ins-align-center"})
-            uidata.append({"_type": "img", "style": "width: 30px;", "src": f"{p}images/payment/{method['logo']}", "class": "ins-logo-xs"})
+            uidata.append({"_type": "img", "style": "width: 30px;", "src": f"{p}images/payment/{method['logo']}","loading":"lazy", "class": "ins-logo-xs"})
             uidata.append({"_data": f"{method['name']}", "class": "ins-col-10 ins-title-xs ins-strong-m ins-grey-d-color"})
             uidata.append({"end": "true"})
             uidata.append({"end": "true"})
@@ -570,12 +570,12 @@ class AppCheckout(App):
             pcard = [
                   {"start":"true","class":"ins-col-12 ins-flex ins-gap-o"},
                   {"start":"true","data-name":payment["name"],"class":f"{pclass} ins-col-12 ins-flex-center -payment-type-btn {payment.get("class","")}"},
-                  {"_type":"img","src":f"{p}{img}","class":"-payment-type-btn-img"},
+                  {"_type":"img","src":f"{p}{img}","loading":"lazy","class":"-payment-type-btn-img"},
                   {"_data": payment["title"],"class":"ins-strong-m ins-grey-m-color payment-title"},
             ]
             pcard.append({"class":"ins-col-grow"})
             if "img" in payment:
-              pcard.append({"_type":"img","src":f"{p}{payment['img']}","class":"ins-flex-end"})
+              pcard.append({"_type":"img","src":f"{p}{payment['img']}","loading":"lazy","class":"ins-flex-end"})
             pcard.append({"end":"true"})
             pcard.append({"_data":st_data,"class":f"ins-col-12 -payment-subtype-area -payment-subtype-area-{payment["name"]} {pclass}"})
             pcard.append({"end":"true"})

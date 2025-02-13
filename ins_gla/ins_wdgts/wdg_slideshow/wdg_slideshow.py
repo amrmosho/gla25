@@ -49,7 +49,7 @@ class WdgSlideshow(Widget):
 
             item = [
                 {"start": "true", "class": f"wi-slideshow-slide {a} _{itm}"},
-                {"_type": "img", "class": "wi-slideshow-image",
+                {"_type": "img", "class": "wi-slideshow-image","loading":"lazy",
                     "src": d["img"]},
                 {"_type": "img", "class": "wi-slideshow-cimage", "src": "ins_web/ins_uploads/style/sh1c.svg",
                     "style": "position: absolute;left: 0;"},
@@ -74,7 +74,7 @@ class WdgSlideshow(Widget):
             
             item = [
             {"start": "true", "data-in": itm, "class": f"wi-slideshow-th-item _{itm} "},
-             {"_type": "img",
+             {"_type": "img","loading":"lazy",
                           "class": f"", "src": d["th"]},
                 
                 {"end": "true"}

@@ -139,7 +139,7 @@ class ELUI(ins_parent):
 
         uidata = [
             {"start": "true", "class": "ins-col-12 ins-flex -item-card"},
-            {"src": f"{data["th_main_image"]}", "_type": "img", "class": "ins-radius-m", "style": "    width: 97px;"}, 
+            {"src": f"{data["th_main_image"]}", "loading":"lazy","_type": "img", "class": "ins-radius-m", "style": "    width: 97px;"}, 
             {"start": "true", "class": "ins-col-8 ins-flex"}, {"start": "true", "class": "ins-col-12 ins-flex  ins-gap-o"},
             {"_data": f"{data["full_title"]}", "class": "ins-col-12 ins-title-s	 ins-strong-l ins-grey-d-color", "style": "    !important;"},
             {"_data": data.get("des", ""), "class": "ins-grey-color ins-col-12 ins-title-14", "style": "line-height: 20px; "},
@@ -178,8 +178,8 @@ class ELUI(ins_parent):
                     {"start": "true", "class": "ins-flex  gla-pro-block  ", "style": st},
                     {"start": "true", "class": " gla-img-cont  ", "style": ""},
                     {"_data": "Bestseller", "class": "ins-tag ins-primary-d ins-strong-m ins-text-upper ins-title-10","style": "position: absolute;top: 8px;left: 8px;border-radius: 2px !important;z-index:111"},
-                    {"src": p +th_main_image, "_type": "img", "class": "gla-pro-img"},
-                    {"src": p + th_overlay_image, "_type": "img", "class": "gla-pro-himg"},
+                    {"src": p +th_main_image, "loading":"lazy","_type": "img", "class": "gla-pro-img"},
+                    {"src": p + th_overlay_image, "loading":"lazy","_type": "img", "class": "gla-pro-himg"},
                     { "_type":"a" ,"href":purl,"_data": "SHOP NOW <i class=' lni ins-icon lni-arrow-right'></i>", "class": "ins-button gla-pro-hbutton ins-strong-m   ins-gold-bg","data-pid":f"{data['id']}"},
                     {"end": "true"},
                     {"class": "ins-space-s"},
@@ -197,7 +197,7 @@ class ELUI(ins_parent):
         uidata = [
             {"start": "true", "class": "ins-col-12 ins-flex -item-card ins-border ins-radius-l ins-gap-o","style":"overflow: hidden;"},
             {"start": "true", "class": "ins-col-4 ins-flex-center","style": "height:100px;"},
-            {"src": f"{data["th_main_image"]}", "_type": "img","class": "ins-radius-m", "style": "    height: 100%;"},
+            {"src": f"{data["th_main_image"]}","loading":"lazy", "_type": "img","class": "ins-radius-m", "style": "    height: 100%;"},
             {"end": "true"},
             {"start": "true", "class": "ins-col-8  ins-flex-grow ins-primary-w ins-padding-l","style": "border-radius: 0px 8px 8px 0px;    border-left: 1px solid var(--primary-l);"},
             {"_data": "Item summary","class": "ins-col-11 ins-title-s ins-strong-l ins-grey-d-color"},
@@ -216,7 +216,7 @@ class ELUI(ins_parent):
     def counter_pro_block(self,  data, string=False):
         uidata = [
             {"start": "true", "class": "ins-col-12 ins-flex -item-card ins-card"},
-              {"src": f"{data["th_main_image"]}", "_type": "img", "class": "ins-radius-m", "style": "    width: 97px;"}, 
+              {"src": f"{data["th_main_image"]}", "loading":"lazy","_type": "img", "class": "ins-radius-m", "style": "    width: 97px;"}, 
               {"start": "true", "class": "ins-col-6 ins-flex"},
                 {"start": "true", "class": "ins-col-12 ins-flex  ins-gap-o"}, {"_data": f"{data["full_title"]}", "class": "ins-col-12 ins-title-20	 ins-strong-l ins-grey-d-color", "style": "    !important;"}, {"_data": data.get("des", ""), "class": "ins-grey-color ins-col-12 ins-title-14", "style": "line-height: 20px; "}, {"end": "true"}, {"_data": str(data["price"]),"_view":"currency","_currency_symbol":" EGP", "class": "ins-col-12 ins-strong-l ins-primary-d-color  ins-title-20"}, {"end": "true"},
             {"start": "true", "class": "ins-flex ins-col-3 -counter-cont ins-gap-o"},
@@ -241,7 +241,7 @@ class ELUI(ins_parent):
         image = f"{p}{data["product_th_main"]}"
         uidata = [
             {"start": "true", "class": "ins-col-12 ins-flex -item-card ins-card"},
-            {"src": image, "_type": "img", "class": "ins-radius-m", "style": "    width: 97px;"},
+            {"src": image,"loading":"lazy", "_type": "img", "class": "ins-radius-m", "style": "    width: 97px;"},
             {"start": "true", "class": "ins-col-grow ins-flex"},
             {"start": "true", "class": "ins-col-12 ins-flex  ins-gap-o"},
             {"_data": data.get(

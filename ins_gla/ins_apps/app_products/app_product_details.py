@@ -111,11 +111,11 @@ class AppProductDetails(App):
                aclass = "ins-active"
                aimage =  i
             uidata.append({"start": "true", "class":f"-side-img-cont ins-text-center ins-radius-l  {aclass}"})
-            uidata.append({"src": p + i, "_type": "img","data-src":p + i,"class": f" ins-radius-m -side-img {aclass}", "style":"width:100%;"})  
+            uidata.append({"src": p + i, "loading":"lazy","_type": "img","data-src":p + i,"class": f" ins-radius-m -side-img {aclass}", "style":"width:100%;"})  
             uidata.append({"end": "true"})
             uidata.append({"class": "ins-space-xs"})
         uidata.append({"end": "true"})
-        uidata.append({"src": p + aimage, "_type": "img",
+        uidata.append({"src": p + aimage, "loading":"lazy","_type": "img",
                  "class": " ins-radius-m ins-col-grow -main-img","style":"max-width:450px;"})
         uidata.append({"end": "true"})
 

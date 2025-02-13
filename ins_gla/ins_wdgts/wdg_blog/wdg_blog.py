@@ -36,17 +36,17 @@ class WdgBlog(Widget):
             for d in data:
                 uidata += [
                     {"start": "true", "class": "ins-flex pro-blog-block", "style": "width:100%; margin-bottom: 32px;"},
-                    {"src": p + d.get("image", "style/n1.svg"), "_type": "img"},
+                    {"src": p + d.get("image", "style/n1.svg"),"loading":"lazy", "_type": "img"},
                     {"_data": d.get("title", "Untitled"), "class": "ins-col-12 ins-title-m ins-grey-color"},
                     {"end": "true"}
                 ]
             uidata.append({"end": "true"})  
 
         if featured_blog:
-            uidata.append({"start": "true", "class": "ins-flex pro-blog-cont -bb", "style": "height: 100%; position: relative; overflow: hidden;"})
+            uidata.append({"start": "true", "class": "ins-flex pro-blog-cont -bb", "style": "height: 711px; position: relative; overflow: hidden;"})
             uidata += [
                 {"start": "true", "class": "ins-flex pro-blog-block", "style": "height: 100%; width: 100%; position: relative;"},
-                {"src": p + featured_blog.get("image", "style/n5.svg"), "_type": "img", "style": "height: 100%; width: 100%; object-fit: cover;"},
+                {"src": p + featured_blog.get("image", "style/n5.svg"), "loading":"lazy","_type": "img", "style": "height: 100%; width: 100%; object-fit: cover;"},
                 {"start": "true", "class": "ins-overlay", "style": "position: absolute; bottom: 0; width: 100%; padding: 16px;"},
                 {"_data": featured_blog.get("title", "Untitled"), "class": "ins-col-12 ins-title-m ins-white-color"},
                 {"end": "true"},
@@ -59,7 +59,7 @@ class WdgBlog(Widget):
             for d in data3:
                 uidata += [
                     {"start": "true", "class": "ins-flex pro-blog-block", "style": "width:100%; margin-bottom: 32px;"},
-                    {"src": p + d.get("image", "style/n3.svg"), "_type": "img"},
+                    {"src": p + d.get("image", "style/n3.svg"), "loading":"lazy","_type": "img"},
                     {"_data": d.get("title", "Untitled"), "class": "ins-col-12 ins-title-m ins-grey-color"},
                     {"end": "true"}
                 ]

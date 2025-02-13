@@ -161,7 +161,7 @@ class AppCal(App):
 
                     {"start": "true", "style": "width:210px"},
                     {"start": "true", "class": " product-img-cont ", "style": ""},
-                    {"src": p + pro["th_main"], "_type": "img"},
+                    {"src": p + pro["th_main"], "loading":"lazy","_type": "img"},
                     {"end": "true"},
                     {"class": "ins-space-xl"},
                     {"_data": pro["title"], "class": "ins-strong-m ins-grey-color ins-text-upper",
@@ -283,7 +283,7 @@ class AppCal(App):
     def create_step(self,img, title, des):
         return [
             {"start": "true", "class": "ins-col-12 ins-flex", "style": "z-index: 1;"},
-            {"_type": "img", "src": img},
+            {"_type": "img","loading":"lazy", "src": img},
             {"start": "true", "class": "ins-col-10"},
             {"_data": title, "class": "ins-title-xs ins-grey-d-color ins-strong-l", "style": "line-height: 24px;"},
             {"_data": des, "class": "ins-title-14 ins-grey-color", "style": "line-height: 20px;"},

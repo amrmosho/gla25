@@ -48,7 +48,7 @@ class AppBlogs(App):
 
     def _ui(self):
 
-        data = self.ins._db._get_data("gla_blog", "*")
+        data = self.ins._db._get_data("gla_blog", "*"," fk_blog_category_id <>'18'")
         p = "/ins_web/ins_uploads/"
         uidata = [{"start": "true", "class": "ins-flex ",
                    "style": "background:white;height:124px;position: relative;    border-bottom: 1px solid var(--grey-l); "}]
@@ -65,7 +65,7 @@ class AppBlogs(App):
             blog = [
 
                 {"start": "true", "class": "ins-flex   pro-blog-block ", "style": st},
-                { "_type": "a","src": p + d["image"], "_type": "img","href": turl, "target": "_blank",},
+                { "_type": "a","src": p + d["image"],"loading":"lazy", "_type": "img","href": turl, "target": "_blank",},
                 {"_data": d["title"], "_type": "a", "href": burl,"class": "ins-col-12 ins-title-m   ins-grey-color"},
                 {"_data": "See More", "_type": "a", "href": turl,"target": "_blank",},
 
@@ -80,7 +80,7 @@ class AppBlogs(App):
         return self.ins._ui._render(uidata)
 
     def blog_ui(self, rq):
-        bdata = self.ins._db._get_row("gla_blog", "*", f"id={rq["id"]}")
+        bdata = self.ins._db._get_row("gla_blog", "*", f"id={rq["id"]} ")
         p = "/ins_web/ins_uploads/"
 
         uidata = [{"start": "true", "class": "ins-flex ",
@@ -91,7 +91,7 @@ class AppBlogs(App):
             {"start": "true", "class": "ins-flex gla-container ins-padding-2xl ins-col-12 ins-gap-2xl"})
         img = [
             {"start": "true", "class": "ins-flex ins-col-4"},
-            {"src": p + bdata["image"], "_type": "img",
+            {"src": p + bdata["image"],"loading":"lazy", "_type": "img",
                 "style": "width:100%;"},
             {"end": "true"}
         ]

@@ -46,7 +46,7 @@ class WdgProducts(Widget):
         for d in data_b:
             uidata+= ELUI(self.ins).shop_pro_block(d,f"/product/product/{d['id']}",st="width:316px;")
            
-        uidata.append({"_type":"a","href":"product/do/filter/fk_product_category_id=2","_data": "View MORE <i class=' lni ins-icon lni-arrow-right'></i>",
+        uidata.append({"_type":"a","href":"product/do/filter/fk_product_category_id=2&types=royal","_data": "View MORE <i class=' lni ins-icon lni-arrow-right'></i>",
                   "_data-ar":"عرض المزيد","_trans":"true",    "style": "width:185px", "class": "ins-button  ins-text-upper ins-gold-d"},)
         uidata.append({"end": "true"})
         
