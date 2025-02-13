@@ -9,7 +9,10 @@
             "title": "Title",
             "title-ar": "العنوان",
             "_trans": "true",
+            "lang":"true",
             "_type": "input",
+            "_lang": "true",
+            "_table":"gla_blog",
             "type": "text",
             "required": "true",
             "pclass": "ins-col-8"
@@ -56,9 +59,20 @@
             "pclass": "ins-col-6"
         },
         {
+            "name": "link",
+            "title": "Link",
+            "title-ar": "ربط",
+            "_trans": "true",
+            "_type": "input",
+            "type": "text",
+            "pclass": "ins-col-12"
+        },
+        {
             "name": "content",
             "title": "Content",
             "_type": "textarea",
+            "type": "textarea",
+
             "required": "true",
             "pclass": "ins-col-12"
         },
@@ -85,12 +99,11 @@
             "value": "0",
             "pclass": "ins-col-6 -home-checkbox"
         }, {
-            "name": "order",
+            "name": "_order",
             "title": "Order",
             "title-ar": "الترتيب",
             "_trans": "true",
             "type": "number",
-            "value": "0",
             "_type": "input",
             "pclass": "ins-col-6"
         },

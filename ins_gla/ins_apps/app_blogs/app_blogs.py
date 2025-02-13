@@ -61,12 +61,14 @@ class AppBlogs(App):
         for d in data:
             st = "width:316px;margin-bottom: 32px;"
             burl = self.ins._server._url({"mode": "blog", "id": d["id"]})
+            turl = d["link"]
             blog = [
 
                 {"start": "true", "class": "ins-flex   pro-blog-block ", "style": st},
-                {"src": p + d["image"], "_type": "img"},
-                {"_data": d["title"], "_type": "a", "href": burl,
-                    "class": "ins-col-12 ins-title-m   ins-grey-color"},
+                { "_type": "a","src": p + d["image"], "_type": "img","href": turl, "target": "_blank",},
+                {"_data": d["title"], "_type": "a", "href": burl,"class": "ins-col-12 ins-title-m   ins-grey-color"},
+                {"_data": "See More", "_type": "a", "href": turl,"target": "_blank",},
+
                 {"end": "true"}
 
             ]

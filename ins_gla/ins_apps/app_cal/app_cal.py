@@ -306,6 +306,13 @@ class AppCal(App):
        
         uidata.append({"start":"true", "class":"ins-col-12 ins-flex","style":"position:relative"})
         uidata.append({"class":"ins-line-vertical","style":"    height: 475px;position: absolute;left: -6px;top: 0;"})    
+        steps_ar = [
+        (f"{p}money_circle.svg", "مدخراتك", "أدخل مبلغ مدخراتك"),
+        (f"{p}wallet_circle.svg", "اكتشف الذهب ضمن ميزانيتك", "اكتشف منتجات الذهب بناءً على ميزانيتك."),
+        (f"{p}cart_circle.svg", "راجع سلة التسوق", "راجع سلة التسوق الخاصة بك للمتابعة مع اختيارك."),
+        (f"{p}order_circle.svg", "أكمل طلبك", "أدخل تفاصيل الشحن الخاصة بك، ثم قم بتأكيد الطلب."),
+        (f"{p}truck_circle.svg", "استمتع بالتوصيل إلى المنزل", "استرخ واستمتع بتوصيل مدخراتك الذهبية إلى باب منزلك بأمان وراحة.")
+        ]
         steps = [
         (f"{p}money_circle.svg", "Your savings", "Insert Your Savings Amount"),
         (f"{p}wallet_circle.svg", "Discover gold within your budget", "Discover gold products based on your budget."),
@@ -313,6 +320,7 @@ class AppCal(App):
         (f"{p}order_circle.svg", "Complete your order", "Fill in your delivery details, and confirm your order."),
         (f"{p}truck_circle.svg", "Enjoy Home Delivery", "Sit back and relax as your gold savings is delivered directly to your doorstep, securely and conveniently.")
     ]
+        
 
         for img, title, des in steps:
             uidata.extend(self.create_step(img, title, des))

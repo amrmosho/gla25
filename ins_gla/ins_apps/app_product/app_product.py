@@ -20,6 +20,22 @@ class AppProduct(App):
             {"_data":data["kart"]+" K","class":"ins-col-8 ins-text-center ins-title-xl ins-strong ins-font-s  ins-tag ins-primary-color ins-flex-cenetr"},
         ]
         return ins._ui._render(uiadta)
+    def _price(ins,options,data):
+        uidata=[
+        {"_data": str(data["price"])+" EGP",  "style" :"border:solid 2px #12437D" ,"class" : " ins-card ins-title-center ins-col-5 ins-flex-center ins-padding-l ins-padding-h ins-text-center",},
+        {"_data": str(data["buy_price"])+" EGP",  "style" :"border:solid 2px #12437D" ,"class" : " ins-card  ins-col-5 ins-title-center ins-flex-center ins-padding-l ins-padding-h ins-text-center",},
+
+        ]
+        return ins._ui._render(uidata)
+    def _stamp(ins,options,data):
+        total = data["stamp"] + data["vat"]
+
+        uidata=[
+        {"_data": str(total),"style" :"background: #C4B293; color: white;" ,"class" : "  ins-card  ins-col-12 ins-title-center ins-flex-center ins-padding-l ins-padding-h ins-text-center",},
+
+        ]
+        return ins._ui._render(uidata)
+
     
 
 
