@@ -244,6 +244,7 @@ footer li {
 
 .pro-blog-block img {
     transition: 0.3s;
+    border-radius: 8px;
 }
 
 .pro-blog-block:hover img {

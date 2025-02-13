@@ -28,11 +28,11 @@ class WdgLegacy(Widget):
             {"_data": "The Beginning",
                 "class": "ins-text-upper ins-title-m  ins-strong-m ins-col-12"},
             {"class": "ins-space-s"},
-            {"_data": "1950s", "class": "ins-text-upper ins-title-4xl ins-grey-d-color  ins-col-12",
+            {"_data": "1950s", "class": "ins-text-upper ins-title-4xl ins-grey-d-color  ins-col-12 ins-text-none",
                 "style": "line-height:60px"},
             {"class": "ins-space-s"},
             {"_data": "El Galla Gold was established in 1950, our family-owned business has been passed down through generations, each adding to our rich legacy with their unique knowledge and experience, carrying forward the vision that originally started with Hassan El Galla.",
-                "class": " ins-col-12 ins-strong-m ", "style": "line-height:24px;font-size:20px"},
+                "class": " ins-col-12 ", "style": "line-height:24px;font-size:20px"},
             {"end": "true"},
 
             # data
@@ -67,11 +67,11 @@ class WdgLegacy(Widget):
             {"_data": "The Beginning",
                 "class": "ins-text-upper ins-title-m  ins-strong-m ins-col-12"},
             {"class": "ins-space-s"},
-            {"_data": "1980s", "class": "ins-text-upper ins-title-4xl ins-grey-d-color  ins-col-12",
+            {"_data": "1980s", "class": "ins-text-upper ins-title-4xl ins-grey-d-color  ins-col-12 ins-text-none",
                 "style": "line-height:60px"},
             {"class": "ins-space-s"},
             {"_data": "The second generation, led by Ahmed Hassan El-Galla, expanded our operations and embraced modern business practices. He was a mentor and leader to many, and his tenure marked a significant growth phase as we expanded our product range and strengthened our market presence.",
-                "class": " ins-col-12 ins-strong-m ", "style": "line-height:24px;font-size:20px"},
+                "class": " ins-col-12  ", "style": "line-height:24px;font-size:20px"},
             {"end": "true"},
 
             # data
@@ -107,11 +107,11 @@ class WdgLegacy(Widget):
             {"_data": "The Beginning",
                 "class": "ins-text-upper ins-title-m  ins-strong-m ins-col-12"},
             {"class": "ins-space-s"},
-            {"_data": "2020s", "class": "ins-text-upper ins-title-4xl ins-grey-d-color  ins-col-12",
+            {"_data": "2020s", "class": "ins-text-upper ins-title-4xl ins-grey-d-color  ins-col-12 ins-text-none",
                 "style": "line-height:60px"},
             {"class": "ins-space-s"},
             {"_data": "Today, the third generation, under the leadership of our CEO Osama Ahmed Hassan El-Galla, continues to build upon the strong foundation laid by our predecessors. He introduced new ways of using technology to simplify buying and selling gold.",
-                "class": " ins-col-12 ins-strong-m ", "style": "line-height:24px;font-size:20px"},
+                "class": " ins-col-12  ", "style": "line-height:24px;font-size:20px"},
             {"end": "true"},
 
             # data
@@ -150,7 +150,7 @@ class WdgLegacy(Widget):
                 "style": "line-height:60px"},
             {"class": "ins-space-s"},
             {"_data": "As we look to the future, we remain committed to our heritage, morals, and passion. The name of El-Galla Gold will remain, as we have always promised, a symbol of trust.",
-                "class": " ins-col-12 ins-strong-m ", "style": "line-height:24px;font-size:20px"},
+                "class": " ins-col-12  ", "style": "line-height:24px;font-size:20px"},
             {"end": "true"},
 
             # data
