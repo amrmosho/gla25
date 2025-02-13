@@ -43,13 +43,13 @@ export class ins_plg_lightbox {
     _out() {
         if (this.options["mode"] == "right_panel") {
             this.parentClass = "ins-panel-overlay ins-opened";
-            this.bodyClass = "ins-fixpanel-end ins-opened";
+            this.bodyClass = "ins-fixpanel-end  ins-fixpanel";
             this.dataClass = " ins-data  ";
             this.bodyDefualtstyle = "";
             this.bodyMorestyle = "";
         } else if (this.options["mode"] == "left_panel") {
-            this.parentClass = "ins-panel-overlay ins-opened";
-            this.bodyClass = "ins-fixpanel-start ins-opened";
+            this.parentClass = "ins-panel-overlay  ins-fixpanel ins-opened";
+            this.bodyClass = "ins-fixpanel-start ins-fixpanel  ins-opened";
             this.dataClass = " ins-data  ";
             this.bodyDefualtstyle = "";
             this.bodyMorestyle = "";
@@ -57,7 +57,7 @@ export class ins_plg_lightbox {
         } else {
             this.parentClass = " ins_lightbox ins-lightbox ";
             this.dataClass = " ins_lightbox_data ins-lightbox-data  ";
-            this.bodyClass = " ins_lightbox_body ins-lightbox-body ";
+            this.bodyClass = " ins_lightbox_body  ins-lightbox-body ";
             this.bodyDefualtstyle = "width:60%;height:60%";
             this.bodyMorestyle = ";min-height:100px;";
 
@@ -132,10 +132,16 @@ export class ins_plg_lightbox {
         ins(lclose)._event("click", () => {
 
 
-            if (ins(this.options.onclose)._isExists()) {
-                this.options.onclose();
-            }
-            ins("." + id)._remove();
+            ins(".ins-fixpanel  ")._removeClass("ins-opened")
+
+            setTimeout(() => {
+
+                if (ins(this.options.onclose)._isExists()) {
+                    this.options.onclose();
+                }
+                ins("." + id)._remove();
+            }, 100);
+
 
         });
 
@@ -144,6 +150,16 @@ export class ins_plg_lightbox {
             addto = this.options.addto;
         }
         ins(addto)._append(this.node);
+
+
+
+
+        setTimeout(() => {
+            ins(".ins-fixpanel")._addClass("ins-opened")
+
+
+        }, 100);
+
 
         ins()._ui._update();
 
