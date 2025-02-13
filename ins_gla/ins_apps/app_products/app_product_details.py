@@ -1,3 +1,4 @@
+from urllib.parse import parse_qs
 from ins_gla.ins_kit._elui import ELUI
 from ins_kit._engine._bp import App
 import json
@@ -8,11 +9,68 @@ class AppProductDetails(App):
         super().__init__(app.ins)
 
 
+    def _show_subtypes(self,subtypes,stys="",string=False):
+        if subtypes:
+            uidata = [
+            {"start":"true","class":"ins-flex ins-col-12"},
+            {"_data": "Subtype","_data-ar": " نوع فرعي", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "}
+            ]
+            for v,s in subtypes.items():
+                active = "ins-active" if v == stys else ""
+                uidata +=[{"_data": s["title"], "name":"type","data-name": v,"data-tid": s["id"],"class": f"ins-button-s  -subtype-inner-btn ins-flex-center ins-strong-m -product-filter-input {active}"}]
+            uidata.append({"end":"true"})
+            if string:
+                return self.ins._ui._render(uidata)
+            else:
+             return uidata
+
+
+    def calculate_charge(self,data):
+        chargs = 0
+        if data["gram"] == 1:
+            chargs = (float(data["stamp"]) + float(data["vat"]) ) * float(data["weight"])
+        else:
+            chargs = (float(data["weight"])  * float(data["vat"])  ) + float(data["stamp"]) 
+        return chargs
+
+
+    def calculate_chashback(self,data):
+        chashback = 0
+        if data["cashback_gram"] == 1:
+            chashback = float(data["cashback"]) * float(data["weight"])
+        else:
+            chashback = data["cashback"]
+        return chashback
 
 
     
     def _ui(self,rq):
         data = self.ins._db._get_row("gla_product", "*", f"id={rq["id"]}")
+        filter_data = {}
+        stys = ""
+        tys = ""
+        if rq.get("type") and rq["type"]:
+            parsed_data = parse_qs(rq["type"])
+            filter_data = {key: value[0] for key, value in parsed_data.items()}
+            stys = filter_data.get("subtypes", "")
+            tys = filter_data.get("types", "")
+
+
+
+        if not stys:
+         if data["fk_product_category_id"] == 2:
+             stys = "george"
+         elif data["fk_product_category_id"] == 1:
+             stys = "standard"
+
+        if not tys:
+         if data["fk_product_category_id"] == 2:
+             tys = "royal"
+         elif data["fk_product_category_id"] == 1:
+             tys = "standard"
+
+
+
         if not data:
             return self.ins._ui._error("Product not found") 
         uidata = [
@@ -35,11 +93,11 @@ class AppProductDetails(App):
     ## Images Container
         image = {data["th_main"],data["th_overlay"]}
         if data["images"] != None:
-            images = json.loads(data["images"])
-            if 'type' in rq:
-                image = images[rq["type"]]
+            image = json.loads(data["images"])
+            if stys in image :
+                image = image[stys]
             else:
-                image = images["george"]
+               image = image["george"]
 
         uidata.append({"start": "true", "class": "ins-flex-valign-start ins-col-6  -side-mimg-cont "})
         uidata.append({"start": "true", "class": "ins-flex-center ins-col-2 "})
@@ -77,17 +135,27 @@ class AppProductDetails(App):
 
         uidata.append({"class": "ins-space-s"})
 
+        scharges  = self.calculate_charge(data)
+        sprice_before = float(data.get("price","")) -  float(scharges)
+        if data["buy_price"]:
+         cashback  = self.calculate_chashback(data)
+         bprice_before = float(data.get("buy_price","")) -  float(cashback)
+        else:
+         bprice_before = 9000
+         cashback = 100
+         data["buy_price"] = 10000
+
         ## Sell Card
         uidata.append({"start": "true", "class": "ins-flex ins-col-12 ins-card ins-primary-w","style":"border-radius:8px 8px 0 0 !important;"})
         uidata.append({"_data": "Sell price","_data-ar":"سعر البيع","_trans":"true", "class": "ins-col-12  ins-grey-d-color ins-title-s	 ins-strong-l "})
         uidata.append({"_data": "Gold Amount","_data-ar":"كمية الذهب","_trans":"true", "class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
-        uidata.append({"_data":  str(data["price"]),"_view":"currency","_currency_symbol":" EGP",  "class": "ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end "})
+        uidata.append({"_data":  str(sprice_before),"_view":"currency","_currency_symbol":" EGP",  "class": "ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end "})
         uidata.append({"_data": "Making Charge + VAT","_data-ar":"رسوم التصنيع + ضريبة القيمة المضافة","_trans":"true", "class": "ins-col-6  ins-title-xs  ins-grey-color  ins-strong-m"})
-        uidata.append({"_data": "1,960.00 EGP", "class": "ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end"})
+        uidata.append({"_data": str(scharges), "_view":"currency","_currency_symbol":" EGP", "class": "ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end"})
         uidata.append({ "class": "ins-line ins-col-12"})
         uidata.append({"_data": "Total","_data-ar":"المجموع","_trans":"true", "class": "ins-col-6  ins-title-xs  ins-grey-color  ins-strong-m"})
-        uidata.append({"_data":  str(data["price"]),"_view":"currency","_currency_symbol":" EGP",  "class": "ins-col-6  ins-strong-l ins-flex-end ins-title-20	 ins-primary-d-color"})
-        vat = "59.60"
+        uidata.append({"_data":  str(data.get("price",10000)),"_view":"currency","_currency_symbol":" EGP",  "class": "ins-col-6  ins-strong-l ins-flex-end ins-title-20	 ins-primary-d-color"})
+        vat = str(data["vat"])
         uidata.append({"_data": "Note: Vat amount is " + "<spam class='ins-grey-d-color'>  "+vat+" EGP</span>", "_data-ar":" ملحوظة: مبلغ ضريبة القيمة المضافة هو"+vat,"_trans":"true","class": "ins-col-8 ins-grey-color ins-strong-m ins-title-14"})
         uidata.append({"end": "true"})
 
@@ -98,25 +166,45 @@ class AppProductDetails(App):
         uidata.append({"_data":"<span class=' lni lni-chevron-up'></span>","class": "ins-col-1  ins-grey-color ins-font-xl ins-strong-l -buy-div"})
         uidata.append({"start": "true", "class": "ins-flex ins-col-12"})
         uidata.append({"_data": "Gold Amount","_data-ar":"كمية الذهب","_trans":"true", "class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
-        uidata.append({"_data": str(data["price"]),"_view":"currency","_currency_symbol":" EGP", "class": "ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end"})
+        uidata.append({"_data": str(bprice_before),"_view":"currency","_currency_symbol":" EGP", "class": "ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end"})
         uidata.append({"_data": "Cash back","_data-ar":"استرداد النقود","_trans":"true", "class": "ins-col-6  ins-title-xs  ins-grey-color  ins-strong-m"})
-        uidata.append({"_data": "1,960.00 EGP", "class": "ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end"})
+        uidata.append({"_data": str(cashback),"_view":"currency","_currency_symbol":" EGP",  "class": "ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end"})
         uidata.append({ "class": "ins-line ins-col-12"})
         uidata.append({"_data": "Total","_data-ar":"المجموع","_trans":"true", "class": "ins-col-6  ins-title-xs  ins-grey-color  ins-strong-m"})
-        uidata.append({"_data":  str(data["price"]),"_view":"currency","_currency_symbol":" EGP",  "class": "ins-col-6  ins-strong-l ins-flex-end ins-title-20	 ins-primary-d-color"})
+        uidata.append({"_data":  str(data.get("buy_price",9000)),"_view":"currency","_currency_symbol":" EGP",  "class": "ins-col-6  ins-strong-l ins-flex-end ins-title-20	 ins-primary-d-color"})
         uidata.append({"end": "true"})
         uidata.append({"end": "true"})
 
         uidata.append({"class": "ins-space-s"})
-
-        ## Product types
-
-        if data["types"] !=None:
-            uidata.append({"_data": "Type","_data-ar":"نوع","_trans":"true", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "})
-
-            for t in data["types"].split(","):
-                uidata.append({"_data": t, "class": "ins-button-s  -type-btn ins-strong-m ins-grey-color ","style":"    border: 1px solid var(--grey-l);border-radius: 8px !important;"})
        
+        ## Product types
+        if data["types_data"]:
+            data["types_data"] = json.loads(data["types_data"])
+            subtypes = []
+
+            uidata.append({"_data": "Type", "_data-ar": "نوع", "_trans": "true", "class": "ins-col-12 ins-grey-d-color ins-strong-l ins-title-xs"})
+            for t_key, t_value in data["types_data"].items():
+                active = ""
+                cclass= ""
+
+                #if (filter_data.get("types") and filter_data["types"] == t_key) or (not filter_data.get("types") and t_key in ["royal", "standard"]):
+                if tys == t_key:
+                        active = "ins-active"
+                        subtypes = t_value["data"]
+
+
+
+                uidata.append({
+                    "_data": t_value["title"],"data-name": t_key,"data-pid":data["id"],
+                    "class": f"ins-button-s {active} {cclass} -type-inner-btn ins-strong-m ins-grey-color"
+                })
+
+  
+
+            uidata.append({"start": "true", "class": "-subtypes-area ins-col-12"})
+            uidata += self._show_subtypes(subtypes, stys, False)
+            uidata.append({"end": "true"})
+
         uidata.append({"class": "ins-space-s"})
 
         uidata.append({ "class": "ins-line ins-col-12"})
@@ -134,7 +222,10 @@ class AppProductDetails(App):
             ]
         uidata+=counter
         ## Add to cart button
-        uidata.append({"_data": "<img src='"+p+"style/cart.svg'></img> ADD TO CART","_data-ar":"أضف إلى السلة","_trans":"true","data-pid": str(data["id"]), "class": "ins-button-s ins-flex-center ins-title-xs ins-strong-m ins-flex-grow ins-gold-d -add-cart-btn","style":"    height: 46px;    border: 1px solid var(--primary-d);"})
+
+       
+
+        uidata.append({"_data": "<img src='"+p+"style/cart.svg'></img> ADD TO CART","_data-ar":"أضف إلى السلة","_trans":"true","data-pid": str(data["id"]), "data-subtype":stys,"data-type":tys,"class": "ins-button-s ins-flex-center ins-title-xs ins-strong-m ins-flex-grow ins-gold-d -add-cart-btn","style":"    height: 46px;    border: 1px solid var(--primary-d);"})
         uidata.append({"end": "true"})
         ## Terms area
         uidata.append({"_data": "<img src='"+p+"style/truck.svg ' style='position: relative;top: 4px;'></img> Free shipping for orders above EGP200k","_data-ar":"شحن مجاني للطلبات التي تزيد عن 200 ألف جنيه مصري","_trans":"true", "class": "ins-col-12 ins-grey-color ins-title-14"})

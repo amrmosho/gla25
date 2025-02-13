@@ -13,25 +13,28 @@ class Gusers(ins_parent):
     def n(self):
         return "gla_login"
     
-    def _create_otp(self, mobile):
+    def _create_otp(self, mobile = ""):
         otp = randint(1000, 9999)
-        current_time = datetime.now()
-        expiry = current_time + timedelta(minutes=5)
-        data = {
-            "mobile":mobile,
-            "otp":otp,
-            "expiry":expiry
-        }
-        old_data =  self.ins._db._get_row("gla_login_temp","*",f"mobile='{mobile}'")
-        if old_data:
-         self.ins._db._update("gla_login_temp",data,f"mobile='{mobile}'")
-        else:
-          self.ins._db._insert("gla_login_temp",data)
-        
-        sms = SMS()
-        response = sms.send_sms(f"Hello from Elgalla Gold! This is OTP code {otp}", [mobile])
+        if mobile:
+            current_time = datetime.now()
+            expiry = current_time + timedelta(minutes=5)
+            data = {
+                "mobile":mobile,
+                "otp":otp,
+                "expiry":expiry
+            }
+            old_data =  self.ins._db._get_row("gla_login_temp","*",f"mobile='{mobile}'")
+            if old_data:
+             self.ins._db._update("gla_login_temp",data,f"mobile='{mobile}'")
+            else:
+              self.ins._db._insert("gla_login_temp",data)
+            
+            sms = SMS()
+            response = sms.send_sms(f"Hello from Elgalla Gold! This is OTP code {otp}", [mobile])
 
-        return "1"
+            return "1"
+        else:
+            return otp
         
 
     def _check_otp(self, mobile, otp):

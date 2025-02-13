@@ -36,6 +36,8 @@ class AppPartners(App):
         for d in data:
             blog = [
 
+
+
                 {"start": "true", "class": "ins-flex   pro-partner-block ins-card"},
                 {"src": p + d["image"], "_type": "img","class":"ins-radius-l"},
                 {"_data": d["title"], "class": "ins-col-12 ins-title-m   ins-grey-color ins-strong-m"},

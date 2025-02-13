@@ -606,7 +606,7 @@ class AppCheckout(App):
                self.ins._server._set_session("redirect", "/checkout/delivery")
                return """
                <script>
-                   window.location.href = "/login";
+                   window.location.href = "/login/";
                </script>
                """
               else:
@@ -664,12 +664,15 @@ class AppCheckout(App):
          payment_url = ""
          if payment["type"] == "online":
             paymob = PaymobAPI()
-            payment_url = paymob.create_pay_wdgt(total, oid, 4919279 )
+            paytotal = total * 100
+            payment_url = paymob.create_pay_wdgt(paytotal, oid, 4919279 )
          for k,v in sedata.items():
             order_item = {
                "fk_order_id":oid,
                "fk_product_id":v["id"],
                "quantity":v["count"],
+               "type":v["type"],
+               "subtype":v["subtype"],
                "price":v["price"],
                "chargs":chargs
             }
@@ -677,6 +680,12 @@ class AppCheckout(App):
          if payment_url:
             return payment_url
          return "1"
+    
+    def update_payment_status(self, order_id, status):
+      self.ins._db._update("gla_order", {"payment_status": status}, f"id='{order_id}'")
+      if status == "paid":
+         self.ins._db._update("gla_order", {"order_status": "confirmed"}, f"id='{order_id}'")
+      return "1"
     
 
     def payment_callback(self):
@@ -695,7 +704,8 @@ class AppCheckout(App):
         self.app._include("style.css")
         self.app._include("script.js")
         rq = self.ins._server._get()
-        if self.ins._server._get_session(self.session_name):
+        sdata = self.ins._server._get_session(self.session_name)
+        if sdata:
            if "mode" in rq and rq["mode"] == "payment_check":
               return self.payment_callback()
            return self._ui()

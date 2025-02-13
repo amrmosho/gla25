@@ -22,18 +22,11 @@ ins(".-side-img")._on("click", (o) => {
         ins(".-side-img-cont")._removeClass("ins-active");
         o._addClass("ins-active");
         p._addClass("ins-active");
-
         ins(".-main-img")._addClass("gla-ahide");
         setTimeout(() => {
             ins(".-main-img")._setAttribute("src", src);
-
             ins(".-main-img")._removeClass("gla-ahide");
-
         }, 100);
-
-
-
-
     }, true)
     // Pagination
 ins(".ins-pagination-btn")._on("click", (o) => {
@@ -64,7 +57,6 @@ ins(".ins-pagination-btn")._on("click", (o) => {
         get_page(parseInt(page, 10));
         o._addClass("active");
     }
-
 }, true);
 ins(".-go-to-page-btn")._on("click", (o) => {
     var numPages = o._getData("tpages");
@@ -87,7 +79,6 @@ ins(".-go-to-page-btn")._on("click", (o) => {
             }
         }
     }
-
 }, true);
 
 function get_page(page) {
@@ -114,9 +105,6 @@ ins(".-continue-shopping-btn")._on("click", (o) => {
     ins(".ins-panel-overlay.ins-opened")._remove()
     ins()._ui._removeLightbox();
 }, true)
-
-
-
 ins(".-remove-item-cart-btn")._on("click", (o) => {
     var ops = o._getData()
     var p = o._parent(".-item-card");
@@ -131,41 +119,234 @@ ins(".-remove-item-cart-btn")._on("click", (o) => {
         })
     }
 }, true)
-
-
-
 ins(".-remove-item-side-cart-btn")._on("click", (o) => {
-    var ops = o._getData()
-    var p = o._parents(".-item-card");
-    if (confirm("Are you sure tou want to remove this item from cart?")) {
-        ins("_remove_item_cart")._ajax._app(ops, (data) => {
-            var jdata = JSON.parse(data)
-            if (jdata["status"] == "1") {
-                ins(".-cart-cont")._setHTML(jdata["ui"])
-            }
-            p._remove()
-            ins("Item removed!")._ui._notification()
-        })
-    }
-}, true)
+        var ops = o._getData()
+        var p = o._parents(".-item-card");
+        if (confirm("Are you sure tou want to remove this item from cart?")) {
+            ins("_remove_item_cart")._ajax._app(ops, (data) => {
+                var jdata = JSON.parse(data)
+                if (jdata["status"] == "1") {
+                    ins(".-cart-cont")._setHTML(jdata["ui"])
+                }
+                p._remove()
+                ins("Item removed!")._ui._notification()
+            })
+        }
+    }, true)
+    /**Filter Area */
 
-
-
-/**Filter Area */
 ins(".-type-btn")._on("click", function(o) {
-    var value = o._getData("name");
+
     if (o._hasClass("ins-active")) {
-        o._removeClass("ins-active");
+        ins(".-type-btn")._removeClass("ins-active")
     } else {
+        ins(".-type-btn")._removeClass("ins-active")
+        o._addClass("ins-active")
+    }
+
+    _submitfilter()
+
+
+    /*else {
+        ins(".-subtype-btn")._removeClass("ins-active")
+        ins(".-type-btn")._removeClass("ins-active")
         o._addClass("ins-active");
+        var ops = o._getData()
+        ins("_show_subtypes")._ajax._app(ops, (d) => {
+            ins(".-subtypes-area")._setHTML(d)
+        })
+    }*/
+});
+/*
+ins(".-subtype-btn")._on("click", function(o) {
+
+    if (o._hasClass("ins-active")) {
+        ins(".-subtype-btn")._removeClass("ins-active")
+        ins(".-type-btn")._removeClass("ins-active")
+        _submitfilter()
+    } else {
+        ins(".-subtype-btn")._removeClass("ins-active")
+        o._addClass("ins-active");
+        _submitfilter()
+    }
+});
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+ins(".-type-inner-btn")._on("click", function(o) {
+    if (o._hasClass("ins-active")) {
+        ins(".-subtype-inner-btn")._removeClass("ins-active")
+        ins(".-type-inner-btn")._removeClass("ins-active")
+    } else {
+        ins(".-subtype-inner-btn")._removeClass("ins-active")
+        ins(".-type-inner-btn")._removeClass("ins-active")
+        o._addClass("ins-active");
+        var ops = o._getData()
+        ins("_show_subtypes_inner")._ajax._app(ops, (d) => {
+            ins(".-subtypes-area")._setHTML(d)
+        })
     }
 });
 
-function _submitfilter() {
-    var title = "";
-    if (ins(".-title-input")._getValue() != "") {
-        title = "title=" + ins(".-title-input")._getValue();
+
+ins(".-subtype-inner-btn")._on("click", function(o) {
+
+    if (o._hasClass("ins-active")) {
+        ins(".-subtype-inner-btn")._removeClass("ins-active")
+        ins(".-type-inner-btn")._removeClass("ins-active")
+        _submitfilterInner()
+    } else {
+        ins(".-subtype-inner-btn")._removeClass("ins-active")
+        o._addClass("ins-active");
+        _submitfilterInner()
     }
+});
+
+
+
+function _submitfilterInner() {
+    t = "";
+    sp = "";
+    pid = 0
+
+    ins(".-type-inner-btn.ins-active")._each(function(item) {
+        t += sp + item._getData("name");
+        pid = item._getData("pid")
+        sp = ",";
+    });
+    st = "";
+    sp = "";
+    ins(".-subtype-inner-btn.ins-active")._each(function(sitem) {
+        st += sp + sitem._getData("name");
+        sp = ",";
+    });
+
+    var types = "";
+    if (t != "") {
+        types = "types=" + t;
+    }
+
+    var subtypes = "";
+    if (st != "") {
+        subtypes = "subtypes=" + st;
+    }
+    var sql = ""
+    spr = "";
+    if (types != "") {
+        sql += spr + types;
+        spr = "&";
+    }
+    if (subtypes != "") {
+        sql += spr + subtypes;
+        spr = "&";
+    }
+    if (sql != "") {
+        ins("_filter_redirect_inner")._ajax._app({ "sql": sql, "type": "search", "pid": pid }, function(data) {
+            window.location = data;
+        })
+    } else {
+        ins("No filter selected")._ui._notification()
+    }
+}
+
+
+ins(".-category-checkbox")._on("change", function(o) {
+    if (o._get(0).checked) {
+        ins(".-category-checkbox")._each(function(item) {
+            item._get(0).checked = false;
+        });
+        o._get(0).checked = true;
+    } else {
+        o._get(0).checked = false;
+    }
+    _submitfilter();
+}, true);
+
+
+
+
+ins(".-filter-price-btn")._on("click", function(o) {
+
+    var from = ins(".-price-from-input")._getValue()
+    var to = ins(".-price-to-input")._getValue()
+    if (from == "" && to == "") {
+        ins("You have to enter 'From' and 'To' values")._ui._notification({ class: "ins-danger" })
+
+    } else if (from == "") {
+        ins("You have to enter 'From' value")._ui._notification({ class: "ins-danger" })
+
+    } else if (to == "")(
+        ins("You have to enter 'To' value")._ui._notification({ class: "ins-danger" })
+
+    )
+    else {
+        _submitfilter()
+
+    }
+
+
+
+
+}, true)
+
+ins(".-price-to-filter-input")._on("keyup", (o, e) => {
+    if (e.keyCode == 13) {
+        _submitfilter()
+    }
+})
+
+
+function _remove_filter(name, type = "") {
+
+    if (name == "fk_product_category_id" || type == "all") {
+        ins(".-category-checkbox")._each(function(item) {
+            item._get(0).checked = false;
+        });
+    }
+    if (name == "types" || type == "all") {
+        ins(".-type-btn.ins-active")._each(function(item) {
+            item._removeClass("ins-active")
+        });
+    }
+
+    if (name == "price_range" || type == "all") {
+        ins(".-price-from-input")._setValue("")
+        ins(".-price-to-input")._setValue("")
+    }
+
+    if (name == "weight" || type == "all") {
+        ins(".-weight-select")._setValue("")
+    }
+
+    _submitfilter()
+}
+
+
+
+
+
+ins(".-remove-filter-btn")._on("click", (o) => {
+    _remove_filter(o._getData("name"), type = "")
+
+})
+
+ins(".-remove-filter-all-btn")._on("click", (o) => {
+    _remove_filter("", "all")
+
+})
+
+
+function _submitfilter() {
     var c = "";
     sp = "";
     ins(".-category-checkbox")._each(function(item) {
@@ -178,6 +359,7 @@ function _submitfilter() {
     if (c != "") {
         category = "fk_product_category_id=" + c;
     }
+
     t = "";
     sp = "";
     ins(".-type-btn.ins-active")._each(function(item) {
@@ -188,20 +370,27 @@ function _submitfilter() {
     if (t != "") {
         types = "types=" + t;
     }
-    var weight = ""
+
+    var weight = "";
     if (ins(".-weight-select")._getValue() != "") {
         weight = "weight=" + ins(".-weight-select")._getValue();
     }
-    var sql = ""
-    spr = "";
-    if (title != "") {
-        sql = title;
-        spr = "&";
+
+    var fromPrice = ins(".-price-from-filter-input")._getValue();
+    var toPrice = ins(".-price-to-filter-input")._getValue();
+    var priceRange = "";
+    if (fromPrice != "" && toPrice != "") {
+        priceRange = "price_range=" + fromPrice + "-" + toPrice;
     }
+
+    var sql = "";
+    spr = "";
+
     if (category != "") {
         sql += spr + category;
         spr = "&";
     }
+
     if (types != "") {
         sql += spr + types;
         spr = "&";
@@ -210,19 +399,56 @@ function _submitfilter() {
         sql += spr + weight;
         spr = "&";
     }
+    if (priceRange != "") {
+        sql += spr + priceRange;
+        spr = "&";
+    }
+
     if (sql != "") {
-        ins("_filter_redirect")._ajax._app({ "sql": sql, "type": "search" }, function(data) {
-            window.location = data;
-        })
+
+        stype = "search"
     } else {
-        ins("No filter selected")._ui._notification()
+        stype = "reset"
     }
+    ins("_filter_redirect")._ajax._app({ "sql": sql, "type": stype }, function(data) {
+        window.location = data;
+    });
 }
-ins(".-product-filter-input")._on("keyup", function(o, e) {
-    if (e.keyCode == 13) {
-        _submitfilter()
+
+
+ins(".-price-slider")._on("input", (o) => {
+    let minValue = ins(".-min-price")._getValue();
+    let maxValue = ins(".-max-price")._getValue();
+
+    if (parseInt(minValue) > parseInt(maxValue)) {
+        [minValue, maxValue] = [maxValue, minValue]; // Swap values if needed
     }
-});
-ins(".-product-filter-btn")._on("click", function(o) {
-    _submitfilter()
-});
+
+    ins(".-price-label-min")._setValue(`$${minValue}`);
+    ins(".-price-label-max")._setValue(`$${maxValue}`);
+}, true);
+
+ins(".-min-price")._on("change", (o) => {
+    let minValue = parseInt(o._getValue(), 10);
+    let maxValue = parseInt(ins(".-max-price")._getValue(), 10);
+
+    if (minValue > maxValue) {
+        ins(".-min-price")._setValue(maxValue);
+    }
+}, true);
+
+ins(".-max-price")._on("change", (o) => {
+    let minValue = parseInt(ins(".-min-price")._getValue(), 10);
+    let maxValue = parseInt(o._getValue(), 10);
+
+    if (maxValue < minValue) {
+        ins(".-max-price")._setValue(minValue);
+    }
+}, true);
+
+ins(".-search-btn")._on("click", () => {
+    let minPrice = ins(".-min-price")._getValue();
+    let maxPrice = ins(".-max-price")._getValue();
+
+    console.log(`Searching for products between $${minPrice} and $${maxPrice}`);
+}, true);
