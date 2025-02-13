@@ -218,8 +218,17 @@ footer li {
     color: white!important;
 }
 
-.ins-menu-item:hover a,
-.ins-menu-item:hover a * {
+.ins-menu-item>a {
+    line-height: 40px;
+}
+
+.ins-menu-item:hover>a,
+.ins-menu-item:hover>a * {
+    color: var(--gold-d) !important;
+}
+
+.ins-menu-sub-item:hover>a,
+.ins-menu-sub-item:hover>a * {
     color: var(--gold-d) !important;
 }
 
