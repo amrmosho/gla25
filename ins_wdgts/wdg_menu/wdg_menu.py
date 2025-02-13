@@ -23,6 +23,9 @@ class WdgMenu(Widget):
             if str(d["kit_hidden"]) != "1":
                 url = f"/{d["alias"]}/{d["add_to_url"]}"
 
+                if len(subdata) >0 :
+                    url ="#"
+                    
                 row = [
                     {"_type": "li", "class": "ins-menu-item", "start": True},
                     {"_type": "a", "href": url, "_data": [
