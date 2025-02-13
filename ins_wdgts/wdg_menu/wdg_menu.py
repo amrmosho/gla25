@@ -24,14 +24,20 @@ class WdgMenu(Widget):
                 url = f"/{d["alias"]}/{d["add_to_url"]}"
 
                 if len(subdata) >0 :
-                    url ="#"
-                    
-                row = [
+                     row = [
                     {"_type": "li", "class": "ins-menu-item", "start": True},
-                    {"_type": "a", "href": url, "_data": [
+                    {"_type": "a", "_data": [
                         {"_type": "span", "_data": d["title"]}]},
 
                 ]
+                else:  
+                    
+                    row = [
+                        {"_type": "li", "class": "ins-menu-item", "start": True},
+                        {"_type": "a", "href": url, "_data": [
+                            {"_type": "span", "_data": d["title"]}]},
+
+                    ]
 
                 subdata = self.ins._db._get_data(
                     "menu_item_table", gt, f"fk_menu_id='{self.widget._options["id"]}'  and kit_menu_item.fk_menu_item_id='{d["id"]}' order by kit_order", True)
