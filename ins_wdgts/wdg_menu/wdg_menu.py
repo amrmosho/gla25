@@ -14,14 +14,15 @@ class WdgMenu(Widget):
         self.widget._include("script.js")
         self.widget._include("style.css")
         ui.append({"class": "ins-col-12 ins-flex ins-menu", "start": True})
-        gt = "title,id,kit_hidden,alias"
+        gt = "title,id,kit_hidden,alias,add_to_url"
         data = self.ins._db._get_data(
             "menu_item_table", gt, f"fk_menu_id='{self.widget._options["id"]}'   and kit_menu_item.fk_menu_item_id='0' order by kit_order", True)
 
         for d in data:
 
             if str(d["kit_hidden"]) != "1":
-                url = f"/{d["alias"]}/"
+                url = f"/{d["alias"]}/{d["add_to_url"]}"
+
                 row = [
                     {"_type": "li", "class": "ins-menu-item", "start": True},
                     {"_type": "a", "href": url, "_data": [
@@ -38,7 +39,9 @@ class WdgMenu(Widget):
                     row.append({"_type": "ul", "start": True ,"class":"ins-menu-sub ins-white ins-padding-xl"})
 
                     for sd in subdata:
-                        surl = f"/{d["alias"]}/"
+                        surl = f"/{d["alias"]}/{d["add_to_url"]}"
+                        
+                        
                         subrow = [
                             {"_type": "li", "class": "ins-menu-sub-item", "start": True},
                             {"_type": "a", "href": surl, "_data": [
