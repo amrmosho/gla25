@@ -257,8 +257,12 @@ ins(".-payment-type-btn")._on("click", (o) => {
 }, true);
 
 
-
-
+ins(".-african-bank-button")._on("click", function() {
+    let targetCard = ins(".-payment-subtype-area-bank .-bank-card-african")._get(0);
+    if (targetCard) {
+        targetCard.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+});
 
 
 ins(".-submit-order-btn")._on("click", (o) => {

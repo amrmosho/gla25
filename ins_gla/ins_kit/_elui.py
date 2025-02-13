@@ -237,9 +237,11 @@ class ELUI(ins_parent):
     
 
     def counter_user_order_block(self,  data, string=False):
+        p = "/ins_web/ins_uploads/"
+        image = f"{p}{data["product_th_main"]}"
         uidata = [
             {"start": "true", "class": "ins-col-12 ins-flex -item-card ins-card"},
-            {"src": f"{data.get("product_th_main", "")}", "_type": "img", "class": "ins-radius-m", "style": "    width: 97px;"},
+            {"src": image, "_type": "img", "class": "ins-radius-m", "style": "    width: 97px;"},
             {"start": "true", "class": "ins-col-grow ins-flex"},
             {"start": "true", "class": "ins-col-12 ins-flex  ins-gap-o"},
             {"_data": data.get(

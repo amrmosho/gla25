@@ -23,8 +23,8 @@ class AppUsersOrders(App):
             {"start": "true", "class": "ins-col-12 ins-flex"},
             {"_data": f"Order ID({g['id']} /2025)", "class": "ins-col-12 ins-strong-m ins-title-m"},
             {"_data": f"User Address: {user_address['address']}, {user_address['city']}, {user_address['state']}", "class": "ins-col-12 ins-grey-d-color ins-title-xs ins-strong-l"},
-            {"_data": f"Order Status: <span class='ins-{self.get_status_color(data['order_status'])} ins-col-2 ins-radius-m  ins-text-upper ins-avatar-s'>{data['order_status']}</span>", "class": "ins-col-12 ins-title-xs ins-strong-l"},
-            {"_data": f"Payment Status: <span class='ins-{self.get_payment_status_color(data['payment_status'])} ins-col-2 ins-radius-m  ins-text-upper ins-avatar-s '>{data['payment_status']}</span>", "class": "ins-col-12 ins-title-xs ins-strong-l"},
+            {"_data": f"Order Status: <span class='ins-{self.get_status_color(data['order_status'])}-color ins-col-2 ins-text-upper'>{data['order_status']}</span>", "class": "ins-col-12 ins-grey-d-color ins-title-xs ins-strong-l"},
+            {"_data": f"Payment Status: <span class='ins-{self.get_payment_status_color(data['payment_status'])}-color ins-col-2 ins-text-upper '>{data['payment_status']}</span>", "class": "ins-col-12 ins-grey-d-color ins-title-xs ins-strong-l"},
             {"_data": f"Payment Method: {data['payment_method']}", "class": "ins-col-12 ins-grey-d-color ins-title-xs ins-strong-l"}
         ]
         for v in sedata:
