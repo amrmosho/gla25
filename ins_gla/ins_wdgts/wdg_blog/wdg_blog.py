@@ -4,6 +4,8 @@ class WdgBlog(Widget):
         self.widget: Widget = widget
         super().__init__(widget.ins)
     def out(self):
+
+
         data = [
             {"title": "The History of Gold From Ancient Times to Modern Investments",
                 "image": "style/n1.svg", "class": ""},
@@ -19,6 +21,9 @@ class WdgBlog(Widget):
             {"title": "The History of Gold From Ancient Times to Modern Investments",
                 "image": "style/n4.svg", "class": ""},
             ]
+ 
+ 
+ 
         gstyle='column-gap: 32px !important;row-gap: 32px !important;--flex-gap: 32px !important;'
        
        

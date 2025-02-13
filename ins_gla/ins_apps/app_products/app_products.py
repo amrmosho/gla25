@@ -65,13 +65,16 @@ class AppProducts(App):
                     condition = " OR ".join([f"{key} = '{v.strip()}'" for v in values])
                     sql_parts.append(f"({condition})")
                 else:
-                    if key != "price_range":
+                    if key != "price_range" and key != "weight" :
                         sql_parts.append(f"{key} LIKE '%{value.strip()}%'")
-                    else:
+                    elif key == "price_range":
                         range_price = value.split("-")
                         min_price = range_price[0]
                         max_price = range_price[1]
                         sql_parts.append(f"price BETWEEN '{min_price}' AND '{max_price}'")
+                    elif key == "weight":
+                         sql_parts.append(f"{key} ='{value}'")
+
 
 
         sql_query = " AND ".join(sql_parts)
@@ -320,9 +323,26 @@ class AppProducts(App):
                        
                        "data-name":"weight",
                        
-                       "fl_data":",0.25gm,0.5gm,1gm,2.5gm,5gm,10gm,0.5oz / 15.55gm,20gm,1oz / 31.10gm,50gm,100gm,10 Tolas / 116.65gm,250gm,500gm,1000gm", 
+                       "fl_data":{
+                           "0":"-",
+  "0.25": "0.25gm",
+  "0.5": "0.5gm",
+  "1": "1gm",
+  "2.5": "2.5gm",
+  "5": "5gm",
+  "10": "10gm",
+  "15.55": "0.5oz / 15.55gm",
+  "20": "20gm",
+  "31.10": "1oz / 31.10gm",
+  "50": "50gm",
+  "100": "100gm",
+  "116.65": "10 Tolas / 116.65gm",
+  "250": "250gm",
+  "500": "500gm",
+  "1000": "1000gm"
+}
+, 
                        
-                       "value":"0.25gm",
                        "name": "weight", "pclass": "ins-col-12","class":" -product-filter-input -weight-select"})
         uidata.append({"class": "ins-space-m"})
 

@@ -328,6 +328,12 @@ function _remove_filter(name, type = "") {
         ins(".-weight-select")._setValue("")
     }
 
+    if (name == "title" || type == "all") {
+        ins(".-product-filter-input")._setValue("")
+    }
+
+
+
     _submitfilter()
 }
 
@@ -346,7 +352,22 @@ ins(".-remove-filter-all-btn")._on("click", (o) => {
 })
 
 
+ins(".-product-filter-input")._on("change", (o) => {
+    _submitfilter()
+})
+
+
+
+
 function _submitfilter() {
+
+    var tit = ins(".-product-filter-input")._getValue();
+    var title = ""
+    if (tit != "") {
+        title = "title=" + tit
+    }
+
+
     var c = "";
     sp = "";
     ins(".-category-checkbox")._each(function(item) {
@@ -372,7 +393,7 @@ function _submitfilter() {
     }
 
     var weight = "";
-    if (ins(".-weight-select")._getValue() != "") {
+    if (ins(".-weight-select")._getValue() != "" && ins(".-weight-select")._getValue() != 0) {
         weight = "weight=" + ins(".-weight-select")._getValue();
     }
 
@@ -390,7 +411,10 @@ function _submitfilter() {
         sql += spr + category;
         spr = "&";
     }
-
+    if (title != "") {
+        sql += spr + title;
+        spr = "&";
+    }
     if (types != "") {
         sql += spr + types;
         spr = "&";
@@ -414,41 +438,3 @@ function _submitfilter() {
         window.location = data;
     });
 }
-
-
-ins(".-price-slider")._on("input", (o) => {
-    let minValue = ins(".-min-price")._getValue();
-    let maxValue = ins(".-max-price")._getValue();
-
-    if (parseInt(minValue) > parseInt(maxValue)) {
-        [minValue, maxValue] = [maxValue, minValue]; // Swap values if needed
-    }
-
-    ins(".-price-label-min")._setValue(`$${minValue}`);
-    ins(".-price-label-max")._setValue(`$${maxValue}`);
-}, true);
-
-ins(".-min-price")._on("change", (o) => {
-    let minValue = parseInt(o._getValue(), 10);
-    let maxValue = parseInt(ins(".-max-price")._getValue(), 10);
-
-    if (minValue > maxValue) {
-        ins(".-min-price")._setValue(maxValue);
-    }
-}, true);
-
-ins(".-max-price")._on("change", (o) => {
-    let minValue = parseInt(ins(".-min-price")._getValue(), 10);
-    let maxValue = parseInt(o._getValue(), 10);
-
-    if (maxValue < minValue) {
-        ins(".-max-price")._setValue(minValue);
-    }
-}, true);
-
-ins(".-search-btn")._on("click", () => {
-    let minPrice = ins(".-min-price")._getValue();
-    let maxPrice = ins(".-max-price")._getValue();
-
-    console.log(`Searching for products between $${minPrice} and $${maxPrice}`);
-}, true);
