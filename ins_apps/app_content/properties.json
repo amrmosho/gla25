@@ -2,8 +2,8 @@
     "options": [{
         "_type": "select",
 
-        "type": "db",
-        "_table": "kit_content",
+        "fl_type": "db",
+        "fl_table": "kit_content",
         "title": "content",
         "name": "id",
         "pclass": "ins-col-6"
