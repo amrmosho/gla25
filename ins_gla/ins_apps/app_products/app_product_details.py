@@ -262,3 +262,4 @@ class AppProductDetails(App):
         self.app._include("script.js")
         rq = self.ins._server._req()
         return self._ui(rq)
+

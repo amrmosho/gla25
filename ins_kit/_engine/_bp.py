@@ -49,7 +49,7 @@ class Temp(ins_parent):
                "ins_colors", "ins_layout", "ins_content",
                "ins_forms", "ins_ui",
 
-               "ins_lang-" + self.ins._this._lang["name"]
+               "ins_lang-" + self.ins._this._lang.get("name" )
                ]
         
         lng= self.ins._langs._this_get()
@@ -139,7 +139,10 @@ class Temp(ins_parent):
         se = self.ins._server._get_session()
 
         self._header()
-        self._page_title = self.ins._this._menu["title"]
+
+     
+        self._page_title = self.ins._this._menu.get("title")
+
         self._properties = self.ins._json._file_read(
         f"./{self._weburl}/properties.json")
         area_url = self.ins._eng._areas(area)["url"]
@@ -210,8 +213,10 @@ class Temp(ins_parent):
             self.ins._langs._this_set(u["settings"]["lang"],True)
 
         self.ins._eng._run(area)
-        self._weburl = f"{self.ins._this._temp_url}{
-            self.ins._this._temp["type"]}/"
+
+        if  "type" in  self.ins._this._temp:
+            self._weburl = f"{self.ins._this._temp_url}{
+                self.ins._this._temp["type"]}/"
 
 
 

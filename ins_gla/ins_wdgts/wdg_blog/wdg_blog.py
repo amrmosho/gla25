@@ -37,7 +37,7 @@ class WdgBlog(Widget):
                 uidata += [
                     {"start": "true", "class": "ins-flex pro-blog-block", "style": "width:100%; margin-bottom: 32px;"},
                     {"src": p + d.get("image", "style/n1.svg"),"loading":"lazy", "_type": "img"},
-                    {"_data": d.get("title", "Untitled"), "class": "ins-col-12 ins-title-m ins-grey-color"},
+                    {"_data": d.get("title", "Untitled"), "class": "ins-col-12 ins-title-s ins-grey-color"},
                     {"end": "true"}
                 ]
             uidata.append({"end": "true"})  
@@ -48,7 +48,7 @@ class WdgBlog(Widget):
                 {"start": "true", "class": "ins-flex pro-blog-block", "style": "height: 100%; width: 100%; position: relative;"},
                 {"src": p + featured_blog.get("image", "style/n5.svg"), "loading":"lazy","_type": "img", "style": "height: 100%; width: 100%; object-fit: cover;"},
                 {"start": "true", "class": "ins-overlay", "style": "position: absolute; bottom: 0; width: 100%; padding: 16px;"},
-                {"_data": featured_blog.get("title", "Untitled"), "class": "ins-col-12 ins-title-m ins-white-color"},
+                {"_data": featured_blog.get("title", "Untitled"), "class": "ins-col-12 ins-title-s ins-white-color"},
                 {"end": "true"},
                 {"end": "true"}
             ]
@@ -60,7 +60,7 @@ class WdgBlog(Widget):
                 uidata += [
                     {"start": "true", "class": "ins-flex pro-blog-block", "style": "width:100%; margin-bottom: 32px;"},
                     {"src": p + d.get("image", "style/n3.svg"), "loading":"lazy","_type": "img"},
-                    {"_data": d.get("title", "Untitled"), "class": "ins-col-12 ins-title-m ins-grey-color"},
+                    {"_data": d.get("title", "Untitled"), "class": "ins-col-12 ins-title-s ins-grey-color"},
                     {"end": "true"}
                 ]
             uidata.append({"end": "true"})  

@@ -14,28 +14,28 @@ class WdgSlideshow(Widget):
 
         data = [{
 
-            "img": "ins_web/ins_uploads/style/sh1.svg",
+            "img": "/ins_web/ins_uploads/style/sh1.svg",
             "des": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">Premium1 <br> Gold Bars</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">El Galla Gold is one of the oldest family<br>-owned businesses in the Egyptian gold <br> market</div><div class="ins-space"></div><a href="/product/"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">Shop now <i class=" lni ins-icon lni-arrow-right"></i></div></a>',
-            "th": "ins_web/ins_uploads/style/sht1.svg"},
+            "th": "/ins_web/ins_uploads/style/sht1.svg"},
 
-            {"img": "ins_web/ins_uploads/style/sht2.svg",
+            {"img": "/ins_web/ins_uploads/style/sht2.svg",
 
-                    "img": "ins_web/ins_uploads/style/sh1.svg",
-            "des": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">Premium1 <br> Gold Bars</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">El Galla Gold is one of the oldest family<br>-owned businesses in the Egyptian gold <br> market</div><div class="ins-space"></div><a href="/product/"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">Shop now <i class=" lni ins-icon lni-arrow-right"></i></div></a>',
-
-                    "th": "ins_web/ins_uploads/style/sht2.svg"},
-            {"img": "ins_web/ins_uploads/style/sh1.svg",
-
-                    "img": "ins_web/ins_uploads/style/sht3.svg",
+                    "img": "/ins_web/ins_uploads/style/sh1.svg",
             "des": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">Premium1 <br> Gold Bars</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">El Galla Gold is one of the oldest family<br>-owned businesses in the Egyptian gold <br> market</div><div class="ins-space"></div><a href="/product/"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">Shop now <i class=" lni ins-icon lni-arrow-right"></i></div></a>',
 
-                    "th": "ins_web/ins_uploads/style/sht3.svg"},
-            {"img": "ins_web/ins_uploads/style/sh1.svg",
+                    "th": "/ins_web/ins_uploads/style/sht2.svg"},
+            {"img": "/ins_web/ins_uploads/style/sh1.svg",
 
-                    "img": "ins_web/ins_uploads/style/sh1.svg",
+                    "img": "/ins_web/ins_uploads/style/sht3.svg",
             "des": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">Premium1 <br> Gold Bars</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">El Galla Gold is one of the oldest family<br>-owned businesses in the Egyptian gold <br> market</div><div class="ins-space"></div><a href="/product/"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">Shop now <i class=" lni ins-icon lni-arrow-right"></i></div></a>',
 
-                    "th": "ins_web/ins_uploads/style/sht3.svg"},
+                    "th": "/ins_web/ins_uploads/style/sht3.svg"},
+            {"img": "/ins_web/ins_uploads/style/sh1.svg",
+
+                    "img": "/ins_web/ins_uploads/style/sh1.svg",
+            "des": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">Premium1 <br> Gold Bars</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">El Galla Gold is one of the oldest family<br>-owned businesses in the Egyptian gold <br> market</div><div class="ins-space"></div><a href="/product/"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">Shop now <i class=" lni ins-icon lni-arrow-right"></i></div></a>',
+
+                    "th": "/ins_web/ins_uploads/style/sht3.svg"},
         ]
         uidata = [
             {"start": "true", "class": "ins-primary-w wi-slideshow-cont "},
@@ -51,7 +51,7 @@ class WdgSlideshow(Widget):
                 {"start": "true", "class": f"wi-slideshow-slide {a} _{itm}"},
                 {"_type": "img", "class": "wi-slideshow-image","loading":"lazy",
                     "src": d["img"]},
-                {"_type": "img", "class": "wi-slideshow-cimage", "src": "ins_web/ins_uploads/style/sh1c.svg",
+                {"_type": "img", "class": "wi-slideshow-cimage", "src": "/ins_web/ins_uploads/style/sh1c.svg",
                     "style": "position: absolute;left: 0;"},
                 {"_data": d["des"], "class": "gla-data  wi-slideshow-data",
                     "style": "position: absolute;left: 70px; bottom: 70px; width:100%;"},
@@ -60,6 +60,9 @@ class WdgSlideshow(Widget):
             ]
             uidata += item
             a = ""
+
+
+
 
         uidata.append({"end": "true"})
 
