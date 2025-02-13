@@ -111,6 +111,7 @@
             "name": "type",
             "title": "Type",
             "_type": "select",
+            "fl_data": "",
             "pclass": "ins-col-6"
         },
         {
@@ -170,6 +171,7 @@
             "name": "tar_area",
             "title": "Target area",
             "_type": "select",
+
             "fl_type": "areas",
             "pclass": "ins-col-6"
         },

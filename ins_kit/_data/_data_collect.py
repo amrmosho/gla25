@@ -76,5 +76,7 @@ class DataCollect(ins_parent):
                 ops = self.__db(ops)
         elif "fl_data" in ops:
             self.__data(ops)
+        else:
+               ops["fl_data"] ={}
 
         return ops

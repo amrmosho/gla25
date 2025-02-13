@@ -16,8 +16,8 @@
         },
         {
             "_type": "select",
-            "type": "db",
-            "_table": "gla_product_types",
+            "fl_type": "db",
+            "fl_table": "gla_product_types",
             "title": "Parent Type",
             "name": "fk_parent_id",
             "pclass": "ins-col-6"
@@ -72,8 +72,8 @@
             "title": "Parent Type",
             "title-ar": "النوع الرئيسي",
             "_type": "select",
-            "type": "db",
-            "_table": "gla_product_types",
+            "fl_type": "db",
+            "fl_table": "gla_product_types",
             "main": "true",
             "_info": "Search in <b>Parent Type</b> by <b>@(value)</b>",
             "_info-ar": "ابحث في <b>النوع الرئيسي</b> بواسطة <b>@(value)</b>",
