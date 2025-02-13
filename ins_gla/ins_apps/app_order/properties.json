@@ -1,7 +1,6 @@
 {
     "table": "gla_order",
-    "form_data": [
-        {
+    "form_data": [{
             "start": "True",
             "class": "ins-col-12 ins-flex ins-card ins-padding-m"
         },
@@ -10,12 +9,12 @@
             "title": "Client",
             "title-ar": "عميل",
             "_type": "select",
-            "_data_type": "db",
+            "fl_type": "db",
             "_view": "select",
             "view": "text",
-            "_table": "kit_user",
+            "fl_table": "kit_user",
             "pclass": "ins-col-3 ins-col-grow"
-            
+
         },
         {
             "name": "payment_method",
@@ -47,7 +46,7 @@
             "required": "true",
             "pclass": "ins-col-grow ins-col-2"
         },
-       {
+        {
             "name": "fk_address",
             "title": "address",
             "title-ar": " عنوان",
@@ -77,12 +76,12 @@
             "title": "Client",
             "title-ar": "عميل",
             "_type": "select",
-            "_data_type": "db",
+            "fl_type": "db",
             "_view": "select",
             "view": "text",
-            "_table": "kit_user",
+            "fl_table": "kit_user",
             "pclass": "ins-col-3 ins-col-grow"
-            
+
         },
         {
             "name": "order_status",
@@ -94,7 +93,7 @@
             "required": "true",
             "pclass": "ins-col-grow"
         },
-    
+
         {
             "name": "document",
             "title": "Document",
@@ -107,13 +106,12 @@
             "required": "true",
             "pclass": "ins-col-6"
         },
-    
+
         {
             "end": "True"
         }
     ],
-    "list_data": [
-        {
+    "list_data": [{
             "_data": "ins_gla.ins_apps.app_order._id",
             "title-ar": "العنوان",
             "title": "id",
@@ -122,67 +120,67 @@
             "_type": "method",
             "class": "ins-col-1 "
         },
-    
+
         {
             "name": "fk_user_id",
             "title": "Client",
             "_type": "select",
-            "_data_type": "db",
+            "fl_type": "db",
             "_view": "select",
             "view": "text",
-            "_table": "kit_user",
+            "fl_table": "kit_user",
             "class": "ins-col-1 ins-col-grow"
         },
-   
-    {
-        "_data": "ins_gla.ins_apps.app_order._deatils",
-        "title-ar": "العنوان",
-        "title": "Deatils",
-        "_trans": "true",
-        "view": "text",
-        "_type": "method",
-        "class": "ins-col-2"
-    },
 
-    {
-        "_data": "ins_gla.ins_apps.app_order._payment_status",
-        "title-ar": "العنوان",
-        "title": "payment status",
-        "_trans": "true",
-        "view": "text",
-        "_type": "method",
-        "class": "ins-col-2"
-    },
-    {
-        "_data": "ins_gla.ins_apps.app_order._status",
-        "title-ar": "العنوان",
-        "title": "order status",
-        "_trans": "true",
-        "view": "text",
-        "_type": "method",
-        "class": "ins-col-2"
-    },
-    {
-        "_data": "ins_gla.ins_apps.app_order._total",
-        "title-ar": "العنوان",
-        "title": "total",
-        "_trans": "true",
-        "view": "text",
-        "_type": "method",
-        "class": "ins-col-2"
-    },
-    {
-        "_data": "ins_gla.ins_apps.app_order._change_status",
-        "title-ar": "العنوان",
-        "title": "ch.status",
-        "_trans": "true",
-        "view": "text",
-        "_type": "method",
-        "class": "ins-col-1"
-    }
+        {
+            "_data": "ins_gla.ins_apps.app_order._deatils",
+            "title-ar": "العنوان",
+            "title": "Deatils",
+            "_trans": "true",
+            "view": "text",
+            "_type": "method",
+            "class": "ins-col-2"
+        },
+
+        {
+            "_data": "ins_gla.ins_apps.app_order._payment_status",
+            "title-ar": "العنوان",
+            "title": "payment status",
+            "_trans": "true",
+            "view": "text",
+            "_type": "method",
+            "class": "ins-col-2"
+        },
+        {
+            "_data": "ins_gla.ins_apps.app_order._status",
+            "title-ar": "العنوان",
+            "title": "order status",
+            "_trans": "true",
+            "view": "text",
+            "_type": "method",
+            "class": "ins-col-2"
+        },
+        {
+            "_data": "ins_gla.ins_apps.app_order._total",
+            "title-ar": "العنوان",
+            "title": "total",
+            "_trans": "true",
+            "view": "text",
+            "_type": "method",
+            "class": "ins-col-2"
+        },
+        {
+            "_data": "ins_gla.ins_apps.app_order._change_status",
+            "title-ar": "العنوان",
+            "title": "ch.status",
+            "_trans": "true",
+            "view": "text",
+            "_type": "method",
+            "class": "ins-col-1"
+        }
 
 
 
-],
+    ],
     "list_filter": []
 }

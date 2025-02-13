@@ -69,9 +69,9 @@
 }
 
 .ins-fixpanel-end {
-    right: auto;
+    right: 0;
     transform: translateX(100%);
-    left: 0;
+    left: auto;
 }
 
 .ins-fixpanel-end.ins-opened {

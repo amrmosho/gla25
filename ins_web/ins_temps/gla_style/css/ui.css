@@ -569,8 +569,13 @@ body {
 }
 
 .ins-button-cricle.ins-white:hover,
-.ins-button-cricle.ins-white:hover i {
+.ins-button-cricle.ins-white:hover i,
+.ins-button-cricle.ins-white:hover path {
     color: var(--gold-d) !important;
+}
+
+.ins-button-cricle.ins-white:hover path {
+    fill: var(--gold-d) !important;
 }
 
 .ins-button-cricle.ins-grey-d:hover {

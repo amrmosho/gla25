@@ -45,8 +45,8 @@
 
             "_type": "select",
             "type": "text",
-            "_data_type": "db",
-            "_table": "gla_product_category",
+            "fl_type": "db",
+            "fl_table": "gla_product_category",
             "required": "true",
             "pclass": "ins-col-3"
         },
@@ -235,8 +235,8 @@
             "_type": "select",
             "type": "text",
             "_view": "select",
-            "_data_type": "db",
-            "_table": "gla_product_category",
+            "fl_type": "db",
+            "fl_table": "gla_product_category",
             "required": "true",
             "class": "ins-col-2"
         },
@@ -273,8 +273,8 @@
             "title": "Product Category",
             "_type": "select",
             "type": "text",
-            "_data_type": "db",
-            "_table": "gla_product_category",
+            "fl_type": "db",
+            "fl_table": "gla_product_category",
             "pclass": "ins-col-8"
         }
 

@@ -28,7 +28,7 @@
             "title-ar": "المنطقة المستهدفة",
 
             "_type": "select",
-            "_data_type": "areas",
+            "fl_type": "areas",
             "pclass": "ins-col-3"
         }, {
             "name": "level",
@@ -38,7 +38,7 @@
             "_type": "input",
             "type": "number",
             "value": "0",
-            "_data_type": "areas",
+            "fl_type": "areas",
             "pclass": "ins-col-2"
         }, {
             "name": "all_permissions",
@@ -49,7 +49,7 @@
             "_type": "input",
             "type": "bool",
             "value": "0",
-            "_data_type": "areas",
+            "fl_type": "areas",
             "pclass": "ins-col-2"
         },
         {

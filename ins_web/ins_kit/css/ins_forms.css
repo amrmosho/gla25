@@ -785,3 +785,58 @@ ange .ins-ui-input {
 .cm-s-mbo.CodeMirror {
     width: 100%;
 }
+
+.-auto-list-inp .-auto-list-label-inp {
+    border: 1px solid var(--border);
+    width: 100%;
+}
+
+.-auto-list-cont-inp.ins-open .-auto-list-label-inp {
+    background: var(--ins-color) !important;
+    border-radius: var(--ins-radius-l) var(--ins-radius-l) 0 0;
+}
+
+.-auto-list-inp {
+    border-radius: 6px;
+    padding: 16px;
+    position: absolute !important;
+    width: calc(100% - 0px);
+    left: 0px;
+    max-height: 200px;
+    z-index: 11;
+    overflow: auto;
+    display: none;
+    background: var(--ins-color);
+    top: 38px;
+    border-radius: 0 0 var(--ins-radius-l) var(--ins-radius-l);
+    border-top: 0 !important;
+}
+
+.ins-open .-auto-list-inp {
+    display: flex;
+}
+
+.-auto-list-inp li {
+    cursor: pointer;
+    line-height: 35px;
+    border-bottom: 1px solid #00000014;
+}
+
+.-auto-list-inp li:hover {
+    font-weight: bold;
+}
+
+.-auto-list-cont-inp {
+    position: relative;
+    transition: 0.2s;
+}
+
+.-auto-list-cont-inp.ins-open {
+    background: var(--ins-color);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 8px 16px -8px;
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.-auto-list-show-btn {
+    cursor: pointer;
+}

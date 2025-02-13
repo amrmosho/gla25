@@ -19,8 +19,8 @@
             "title": "Image Category",
             "_type": "select",
             "type": "text",
-            "_data_type": "db",
-            "_table": "kit_image_category",
+            "fl_type": "db",
+            "fl_table": "kit_image_category",
             "required": "true",
             "pclass": "ins-col-6"
         }, {

@@ -148,6 +148,21 @@ body {
     font-family: "gotham_l";
 }
 
+header .gla-body {
+    padding: 24px 40px;
+}
+
+header .ins-icon {
+    font-size: 34px;
+}
+
 .ins-phone-nav {
     display: block;
+}
+
+header .gla-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 14px;
 }

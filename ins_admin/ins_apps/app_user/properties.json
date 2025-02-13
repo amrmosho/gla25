@@ -76,8 +76,8 @@
 
             "_type": "select",
             "multiple": "true",
-            "_data_type": "db",
-            "_table": "kit_user_group",
+            "fl_type": "db",
+            "fl_table": "kit_user_group",
             "required": "true",
             "pclass": "ins-col-6"
         },

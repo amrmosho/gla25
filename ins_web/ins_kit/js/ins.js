@@ -1531,6 +1531,7 @@ function INS(o) {
             } else {
                 evo = document.querySelectorAll(this.o);
             }
+
         } else if (this.o === document) {
             evo = [document];
         } else {
@@ -1548,7 +1549,31 @@ function INS(o) {
             } else if (n == "first") {
                 return evo[0];
             } else if (n == "count") {
-                return evo.length;
+                if (evo != null) {
+                    return evo.length;
+
+                } else {
+
+                    return 0;
+
+                }
+
+            } else if (n == "index") {
+
+                var children = evo[0].parentNode.childNodes;
+
+
+                i = 0;
+                for (; i < children.length; i++) {
+                    if (children[i] == evo[0]) {
+                        return i;
+                    }
+                }
+                return -1;
+
+
+
+
             } else {
                 return evo[n];
             }

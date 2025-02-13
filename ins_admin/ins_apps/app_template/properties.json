@@ -24,14 +24,14 @@
             "name": "src_area",
             "title": "source area",
             "_type": "select",
-            "_data_type": "areas",
+            "fl_type": "areas",
             "pclass": "ins-col-6"
         },
         {
             "name": "tar_area",
             "title": "Target area",
             "_type": "select",
-            "_data_type": "areas",
+            "fl_type": "areas",
             "pclass": "ins-col-5"
         },
         {
@@ -99,7 +99,7 @@
             "name": "src_area",
             "title": "source area",
             "_type": "select",
-            "_data_type": "areas",
+            "fl_type": "areas",
             "_info": "Search in <b>Source area</b> by <b>@(value)</b>",
             "pclass": "ins-col-12"
         },
@@ -108,7 +108,7 @@
             "title": "Target area",
             "_type": "select",
             "_info": "Search in <b>Target area</b> by <b>@(value)</b>",
-            "_data_type": "areas",
+            "fl_type": "areas",
             "pclass": "ins-col-12"
         }
     ]

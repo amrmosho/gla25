@@ -268,7 +268,14 @@ class AppProducts(App):
         uidata.append({"class": "ins-space-m"})
 
         uidata.append({"_data": "Weight","_data-ar": "وزن","_trans": "true", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "})
-        uidata.append({"_type": "select", "value":filter_data.get("weight",""),"data-name":"weight", "_data":",0.25gm,0.5gm,1gm,2.5gm,5gm,10gm,0.5oz / 15.55gm,20gm,1oz / 31.10gm,50gm,100gm,10 Tolas / 116.65gm,250gm,500gm,1000gm", "name": "weight", "pclass": "ins-col-12","class":" -product-filter-input -weight-select"})
+        uidata.append({"_type": "select", "value":filter_data.get("weight",""),
+                       
+                       "data-name":"weight",
+                       
+                       "fl_data":",0.25gm,0.5gm,1gm,2.5gm,5gm,10gm,0.5oz / 15.55gm,20gm,1oz / 31.10gm,50gm,100gm,10 Tolas / 116.65gm,250gm,500gm,1000gm", 
+                       
+                       "value":"0.25gm",
+                       "name": "weight", "pclass": "ins-col-12","class":" -product-filter-input -weight-select"})
         uidata.append({"class": "ins-space-m"})
 
         uidata.append({"class": "ins-line ins-col-12"})

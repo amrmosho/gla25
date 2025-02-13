@@ -96,7 +96,7 @@ class AppUserApps(App):
             
         ui = [
             {"start": "true", "class": "ins-col-12 ins-flex-center ins-margin-xl  -apps-per-ui-cont ins-margin-v  ins-padding-xl  "},
-            {"_type": "select", "_data_type": "db", "_table": "kit_menu", "title": "menu",
+            {"_type": "select", "fl_type": "db", "fl_table": "kit_menu", "title": "menu",
                 "name": "menu", "value": data.get("menu", "0"), "pclass": "ins-col-12"}, _app,
 
             {"_type": "input", "title": "level", "type": "number",

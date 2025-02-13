@@ -19,8 +19,8 @@
             "title": "Blog Category",
             "_type": "select",
             "type": "text",
-            "_data_type": "db",
-            "_table": "gla_blog_category",
+            "fl_type": "db",
+            "fl_table": "gla_blog_category",
             "required": "true",
             "pclass": "ins-col-4"
         },

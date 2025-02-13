@@ -1,6 +1,7 @@
 from ins_kit._options._map import Map, This
 from ins_kit._data._db import Database 
 from ins_kit._data._data import Data 
+from ins_kit._data._data_collect import DataCollect 
 
 from ins_kit._data._langs import Languages 
 from ins_kit._data._date_time import DateTime 
@@ -29,6 +30,7 @@ class InsKit():
         self._files = Files (self)
         self._db = Database (self)
         self._data = Data (self)
+        self._data_collect = DataCollect (self)
         
         self._langs = Languages(self)
         self._ajax = Ajax(self)

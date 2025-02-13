@@ -130,14 +130,14 @@ class Temp(ins_parent):
 
 
 
-        se = self.ins._server._get_session()
         
-        return self.get_template(area,se ,u)
+        return self.get_template(area ,u)
           
     
     
-    def get_template(self ,area,se ,u):
-        
+    def get_template(self ,area ,u):
+        se = self.ins._server._get_session()
+
         self._header()
         self._page_title = self.ins._this._menu["title"]
         self._properties = self.ins._json._file_read(
@@ -169,10 +169,19 @@ class Temp(ins_parent):
            
         self.css = self.ins._this._menu["css"]
         lang = self.ins._langs._this_get()
+        
+        
         def url(_set={}, remove=[], claer=False):
             return self.ins._server._url(_set, remove, claer)
+        
+        
+        def session_count(name):
+            if name in se:
+                return len(se[name])
+            else:
+             return 0
 
-        return render_template(f'{self.ins._this._temp["type"]}/{s}', app=a, session=se, user=u, lang=lang, url=url, page=p_data,  wdgts=ws,  temp=self)
+        return render_template(f'{self.ins._this._temp["type"]}/{s}', app=a, session=se,session_count=session_count, user=u, lang=lang, url=url, page=p_data,  wdgts=ws,  temp=self)
 
 
 
@@ -207,9 +216,9 @@ class Temp(ins_parent):
 
 
 
+
        
-       
-        return self.get_template(area,{} ,u)
+        return self.get_template(area ,u)
        
    
 
