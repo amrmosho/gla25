@@ -75,14 +75,14 @@ function update_data(p, k) {
 
 ins(".-minus-btn")._on("click", (o) => {
     var p = o._parent(".-counter-cont")._find(".count-inpt")
-    if (p._getValue() > 1) {
+    if (p._getValue() >= 1) {
         p._setValue(p._getValue() - 1);
         update_data(p, o._getData("pid"))
     }
 }, true)
 
 ins(".count-inpt")._on("change", (o) => {
-    if (o._getValue() > 1) {
+    if (o._getValue() >= 1) {
         update_data(o, o._getData("pid"))
     }
 }, true)

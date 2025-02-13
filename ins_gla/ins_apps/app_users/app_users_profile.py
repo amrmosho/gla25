@@ -11,13 +11,19 @@ class AppUsersProfile(App):
     def u(self, mode):
         return self.ins._server._url({"mode": mode})
 
+
+
+
     def user_setting(self, user):
+        
         return [
             {"start": "true", "class": "ins-col-12 ins-flex-end ins-padding-2xl "},
             {"_type": "input", "required": "true", "value": user["first_name"], "title": "First Name", "placeholder": "Enter First Name", "type": "text", "name": "first_name", "class": "-signup-first-name-inpt", "pclass": "ins-col-12"},
             {"_type": "input", "required": "true", "value": user["last_name"], "title": "Last Name", "placeholder": "Enter Last Name", "type": "text", "name": "last_name", "class": "-signup-last-name-inpt", "pclass": "ins-col-12"},
             {"class": "ins-line ins-col-12"},
-            {"_data": "Update", "class": "ins-button-s ins-gold-d ins-col-2 ins-flex-center -update-name-btn","style":"height:40px"},
+            {"_data": "Update", "class": "ins-button-m ins-gold-d ins-col-2 ins-flex-center -update-name-btn"},
+            {"end": "true"}
+
         ]
 
     def change_password(self, data):
@@ -26,17 +32,25 @@ class AppUsersProfile(App):
             {"_type": "input", "required": "true", "title": "Password", "_end": '<i class="-show-password lni lni-eye"></i>', "placeholder": "Enter Password", "type": "password", "name": "password", "class": "-update-password-inpt", "pclass": "ins-col-12"},
             {"_type": "input", "required": "true", "title": "Confirm Password", "_end": '<i class="-show-confirm-password lni lni-eye"></i>', "placeholder": "Confirm Password", "type": "password", "name": "confirm_password", "class": "-update-confirm-password-inpt", "pclass": "ins-col-12"},
             {"class": "ins-line ins-col-12"},
-            {"_data": "Update", "class": "ins-button-s ins-gold-d ins-col-2 ins-flex-center -update-password-btn","style":"height:40px"},
+            {"_data": "Update", "class": "ins-button-m ins-gold-d ins-col-2 ins-flex-center -update-password-btn"},
+            {"end": "true"}
+
         ]
 
     def change_email(self, data):
         return [
-            {"start": "true", "class": "ins-col-12 ins-flex-end ins-padding-2xl "},
-            {"_type": "input", "value": data.get("email", ""), "title": "Email", "placeholder": "Enter Email", "type": "email", "name": "email", "class": "-update-email-inpt", "pclass": "ins-col-10"},
-            {"_data": "Verify", "class": "ins-button-s ins-strong-m   ins-gold-bg  ins-col-2 -send-email-veri-btn ins-flex-center", "style": "height: 40px; margin-top: 35px;"},
+            {"start": "true", "class": "ins-col-12 ins-flex ins-padding-2xl "},
+            {"_type": "input", "value": data.get("email", ""), "title": "Email", "placeholder": "Enter Email", "type": "email", "name": "email", "class": "-update-email-inpt", "pclass": "ins-col-9"},
+            {"_data": "Verification Code", "class": "ins-button-m ins-strong-m   ins-gold-bg  ins-col-3 -send-email-veri-btn ins-flex-center", "style": " margin-top: 35px;"},
             {"_type": "input", "title": "Verification Code", "placeholder": "Enter Verification Code", "type": "text", "name": "verification", "class": "-update-verification-inpt", "pclass": "ins-col-12"},
             {"class": "ins-line ins-col-12"},
-            {"_data": "Update", "class": "ins-button-s ins-gold-d ins-col-2 ins-flex-center -update-email-btn","style":"height:40px"},
+            
+            {"start": "true", "class": "ins-col-12 ins-flex-end "},
+            {"_data": "Verify", "class": "ins-button-m ins-gold-d ins-col-2 ins-flex-center -update-email-btn"},
+            {"end": "true"},
+            {"end": "true"}
+
+       
         ]
 
     def out(self, ins):
@@ -74,7 +88,9 @@ class AppUsersProfile(App):
             {"start": "true", "class": "ins-col-8 ins-flex"},
         ]
 
-        user = self.user._check()
+        u = self.user._check()
+        user = self.ins._db._get_row("kit_user","*",f"id='{u["id"]}'")
+
 
         if g.get("id") == "user_setting":
             uidata += self.user_setting(user)

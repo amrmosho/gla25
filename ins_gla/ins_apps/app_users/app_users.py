@@ -1,3 +1,4 @@
+from random import randint
 from flask import redirect
 from ins_gla.ins_apps.app_users.app_users_orders import AppUsersOrders
 from ins_gla.ins_apps.app_users.app_users_profile import AppUsersProfile
@@ -55,6 +56,97 @@ class AppUsers(App):
 
     def profile(self, g): 
         return AppUsersProfile(self.app).out(self.ins)
+
+
+    def _update_user_name(self):
+        rq = self.ins._server._req()
+        udata = self.user._check()
+        data = {
+            "first_name":rq["fname"],
+            "last_name":rq["lname"],
+            "title":f"{rq["fname"]} {rq["lname"]}",
+            "user_name":f"{rq["fname"]} {rq["lname"]}"
+        }
+        r = {}
+                
+        r["status"] = "-1"
+        r["msg"] = "There is an error while updating user data"
+
+        if udata:
+            self.ins._db._update("kit_user",data,f"id='{udata["id"]}'")
+            r["status"] = "1"
+            r["msg"] = "User data updated successfully"
+            return r
+        return r
+            
+
+
+
+    def _update_password(self):
+        rq = self.ins._server._req()
+        udata = self.user._check()
+        rq["password"] = self.ins._data.hash_password(rq["password"])
+        data = {
+          "password":rq["password"],
+ 
+        }
+        r = {}
+        
+        r["status"] = "-1"
+        r["msg"] = "There is an error while updating password"
+
+        if udata:
+            self.ins._db._update("kit_user",data,f"id='{udata["id"]}'")
+            r["status"] = "1"
+            r["msg"] = "Password updated successfully"
+            return r
+        return r
+            
+    def _send_email_otp(self):
+        rq = self.ins._server._req()
+        udata = self.user._check()
+        otp = self.user._create_otp()
+        if otp:
+            self.ins._db._update("kit_user",{"otp":otp},f"id='{udata["id"]}'")
+            self.ins._server._set_session("temp_mail",{"email":rq["email"]})
+        return "1"
+    
+    def _update_email(self):
+        rq = self.ins._server._req()
+        udata = self.user._check()
+        data = self.ins._db._get_row("kit_user","*",f"id='{udata["id"]}'")
+        r = {}
+        if data["otp"]:
+             if data["otp"] == rq["otp"]:
+                update_data = {
+                    "email":self.ins._server._get_session("temp_mail")["email"],
+                    "email_status":"verified",
+                    "otp":""
+                }
+                self.ins._db._update("kit_user",update_data,f"id='{udata["id"]}'")
+                self.ins._server._del_session("temp_mail")
+                r["status"] = "1"
+                r["msg"] = "Your email has been successfully verified."
+             else:
+                r["status"] = "-1"
+                r["msg"] = "The verification code you entered is invalid. Please try again."
+        else:
+            r["status"] = "-2"
+            r["msg"] = "It seems the verification code wasn't sent successfully. Please try again."
+        
+        return r
+
+
+ 
+
+
+
+
+
+
+
+
+
 
     def home(self, g):
         usmenu = [
@@ -296,7 +388,7 @@ class AppUsers(App):
             self.ins._server._set_session("redirect", "/puser")
             return """
             <script>
-                window.location.href = "/login";
+                window.location.href = "/login/";
             </script>
             """
             

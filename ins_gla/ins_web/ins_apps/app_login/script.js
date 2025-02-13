@@ -1,9 +1,3 @@
-ins(".-signup-btn")._on("click", (o) => {
-    ins("_signup_ui_step1")._ajax._app({}, (data) => {
-        ins(".-signup-area")._setHTML(data);
-    });
-}, true);
-
 ins(".-signup-step-1-btn")._on("click", (o) => {
     if (ins(".-signup-mobile-inpt")._getValue() == "") {
         ins("Please enter mobile number")._ui._notification({ "class": "ins-danger" });
@@ -50,11 +44,9 @@ ins(".-signup-step-2-btn")._on("click", (o) => {
 ins(".-signup-step-3-btn")._on("click", (o) => {
     var password = ins(".-signup-password-inpt")._getValue();
     var confirmPassword = ins(".-signup-confirm-password-inpt")._getValue();
-
     if (password !== confirmPassword) {
         ins("Passwords do not match")._ui._notification({ "class": "ins-danger" });
     } else {
-
         ins(".-signup-form")._data._submit(function(data) {
             ins("_signup")._ajax._app(data, (d) => {
                 if (d != "-1") {
@@ -66,20 +58,12 @@ ins(".-signup-step-3-btn")._on("click", (o) => {
     }
 }, true);
 
-ins(".-forgot-password-btn")._on("click", (o) => {
-    ins(".-signup-form")._data._submit(function(data) {
-        ins("_forgot_ui_step1")._ajax._app(data, (d) => {
-            ins(".-signup-area")._setHTML(d);
-        });
-    });
-}, true);
-
 
 ins(".-forgot-step-1-btn")._on("click", (o) => {
     if (ins(".-forgot-mobile-inpt")._getValue() == "") {
         ins("Please enter mobile number")._ui._notification({ "class": "ins-danger" });
     } else {
-        ins(".-signup-form")._data._submit(function(data) {
+        ins(".-forgot-form")._data._submit(function(data) {
             ins("_forgot_ui_step2")._ajax._app(data, (d) => {
                 if (d == "-1") {
                     ins("This mobile doesn't have an account")._ui._notification({ "class": "ins-danger" });
@@ -100,7 +84,7 @@ ins(".-forgot-step-2-btn")._on("click", (o) => {
     if (otp.trim() === "") {
         ins("OTP cannot be empty")._ui._notification({ "class": "ins-danger" });
     } else {
-        ins(".-signup-form")._data._submit(function(data) {
+        ins(".-forgot-form")._data._submit(function(data) {
             ins("_forgot_ui_step3")._ajax._app(data, (d) => {
                 if (d == "-1") {
                     ins("Invalid OTP")._ui._notification({ "class": "ins-danger" });
@@ -121,7 +105,7 @@ ins(".-forgot-step-3-btn")._on("click", (o) => {
         ins("Passwords do not match")._ui._notification({ "class": "ins-danger" });
     } else {
 
-        ins(".-signup-form")._data._submit(function(data) {
+        ins(".-forgot-form")._data._submit(function(data) {
             ins("_reset_password")._ajax._app(data, (d) => {
                 if (d != "-1") {
                     ins("Password rest successfully")._ui._notification();
@@ -226,4 +210,11 @@ ins(".-show-confirm-password")._on("click", (o) => {
         ins(".-signup-confirm-password-inpt")._setAttribute("type", "")
         o._addClass("ins-active")
     }
+}, true);
+
+
+ins(".-signup-back-1-btn")._on("click", (o) => {
+    ins("_signup_ui_step1")._ajax._app({}, (d) => {
+        ins(".-signup-area")._setHTML(d);
+    })
 }, true);

@@ -85,57 +85,7 @@ class AppCal(App):
 
 
     def _cart_lightbox_ui(self):
-
-        data = self.ins._server._post()["data"]
-        products = json.loads(data)
-
-        for k, p in products.items():
-                
-            pro= self.ins._db._jget("gla_product", "*", f"gla_product.id={p["product_id"]}")
-            pro._jwith("gla_product_category category", "title,id", rfk="fk_product_category_id" ,join="left join")
-            ddata = pro._jrun()
-
-            for data in ddata:
-
-                sedata=self.ins._server._get_session(self.session_name)
-                if type(sedata) != dict:
-                    sedata ={}
-                adddata = {"id":data["id"] ,"title":data["title"],"category":data["category_title"] ,"weight":data["weight"] ,"price" :data["price"],"des" :data.get("des" ,"") ,"th_main" :data["th_main"]  ,"count":p["product_count"] }
-                sedata[str(data["id"])] =adddata
-
-                self.ins._server._set_session(self.session_name,sedata)
-
-
-                sedata=self.ins._server._get_session(self.session_name)
-
-                uidata=[
-                    {"class":"ins-space-l"}
-                    ,{"start":True ,"class":"ins-col-12 ins-flex -cart-cont"}]
-
-
-                for k,v in sedata.items():
-               
-                    uidata+= ELUI(self.ins).cart_pro_block(v)
-                    uidata.append({"class":"ins-space-xs"})
-
-
-                footer=[{"start":True ,"class":"ins-flex-space-between ins-col-12 ins-padding-l"},
-
-                {"_data":"Continue Shopping" ,"class":"ins-button-s  ins-text-upper ins-gold-d ins-col-6 -continue-shopping-btn"},
-                {"_data":"To cart","_type":"a","href":"/checkout/cart" ,"class":"ins-button-s  ins-gold-d  ins-text-upper ins-col-5"},
-                {"end":True},
-                                    {"class":"ins-space-l"}
-
-                
-                ]
-
-                uidata += footer
-                
-                uidata.append({"end":True})
-
-
-        return self.ins._ui._render(uidata)      
-
+        return ELUI(self.ins)._cart_lightbox_ui()
 
     def ui_header(self ,total):
 
@@ -226,7 +176,7 @@ class AppCal(App):
                 inputs = [
                     {"start": "true", "class": " product-data-area ins-hidden","data-mname":uniq},
                     {"_type": "input","type":"text","value":pro["id"],"pclass":"ins-col-12","name":"product_id"},
-                    {"_type": "input","type":"text","value":pro["count"],"pclass":"ins-col-12","name":"product_count"},
+                    {"_type": "input","type":"text","value":pro["count"],"pclass":"ins-col-12","name":"count"},
                     {"end": "true"}
                 ]
                 uidata += products

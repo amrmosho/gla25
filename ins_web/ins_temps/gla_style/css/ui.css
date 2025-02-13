@@ -434,6 +434,7 @@ a:hover,
 
 .ins-button,
 .ins-button-s,
+.ins-button-m,
 .ins-button-l {
     font-size: 16px;
     padding: 0 16px;
@@ -450,6 +451,13 @@ a:hover,
     padding: 0 11px;
     height: 32px;
     line-height: 32px !important;
+}
+
+.ins-button-m {
+    font-size: 16px;
+    padding: 0 14px;
+    height: 40px;
+    line-height: 40px !important;
 }
 
 .ins-button-l {

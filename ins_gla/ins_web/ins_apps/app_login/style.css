@@ -1,0 +1,5 @@
+.-signup-form,
+.-email-form,
+.-forgot-form {
+    max-width: 650px !important;
+}

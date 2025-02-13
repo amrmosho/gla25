@@ -86,7 +86,8 @@
     padding: 20px !important;
 }
 
-.-type-btn {
+.-type-btn,
+.-type-inner-btn {
     color: var(--grey-m) !important;
     background: var(--white) !important;
     border: 1px solid var(--grey-l);
@@ -94,7 +95,26 @@
     font-size: 14px;
 }
 
-.-type-btn.ins-active {
+.-type-btn.ins-active,
+.-type-inner-btn.ins-active {
+    color: var(--gold-d) !important;
+    background: var(--gold-bg) !important;
+    border: 1px solid var(--gold-d);
+    border-radius: 8px !important;
+    font-size: 14px;
+}
+
+.-subtype-btn,
+.-subtype-inner-btn {
+    color: var(--grey-m) !important;
+    background: var(--white) !important;
+    border: 1px solid var(--grey-l);
+    border-radius: 8px !important;
+    font-size: 14px;
+}
+
+.-subtype-btn.ins-active,
+.-subtype-inner-btn.ins-active {
     color: var(--gold-d) !important;
     background: var(--gold-bg) !important;
     border: 1px solid var(--gold-d);
@@ -109,4 +129,49 @@
 ._a,
 ._a_red {
     cursor: pointer;
+}
+
+.ins-filter-card {
+    padding: 4px 8px;
+    color: var(--grey) !important;
+    background: var(--white) !important;
+    border: 1px solid var(--grey-l);
+    border-radius: 8px !important;
+    font-size: 14px;
+}
+
+.-remove-filter-btn:hover {
+    color: var(--danger);
+}
+
+.-price-to-input {
+    border-radius: 0px !important;
+    text-align: center;
+    border-right: none;
+    border-left: none;
+    background: white;
+}
+
+.-price-to-input:focus {
+    border-left: 1px solid var(--primary) !important;
+}
+
+.-price-from-input {
+    border-radius: 4px 0 0 4px !important;
+    background: white;
+}
+
+.-filter-price-btn {
+    color: var(--primary);
+    height: 43px;
+    border-radius: 0 4px 4px 0 !important;
+    background: var(--gold-bg);
+    width: 60px;
+    border: 1px solid var(--primary);
+    font-size: 20px;
+}
+
+.-weight-select {
+    background: white;
+    border-radius: 4px;
 }

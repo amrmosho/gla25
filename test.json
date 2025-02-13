@@ -1,46 +1,14 @@
 {
-    "amount": {
-        { AMOUNT_CENTS } }, // amount_cents must be equal to the sum of the items amounts
-    "currency": "EGP",
-    "payment_methods": [{
-        { Integration_ID } }], //Enter your integration ID as an Integar, you can list multiple integration IDs as -> "payment_methods": [{{Integration_ID_1}}, {{Integration_ID_2}}, {{Integration_ID_3}}], so the user can choose the payment method within the checkout page
-
-    "items": [{
-            "name": "Item name",
-            "amount": {
-                { AMOUNT2_CENTS } },
-            "description": "Item description",
-            "quantity": 1
-        },
-        {
-            "name": "Item name",
-            "amount": {
-                { AMOUNT2_CENTS } },
-            "description": "Item description",
-            "quantity": 1
+    "standard": {
+        "id": 16,
+        "title": "Standard",
+        "des": "Standard",
+        "data": {
+            "standard": {
+                "id": 8,
+                "title": "Standard",
+                "des": "Standard"
+            }
         }
-    ],
-    "billing_data": {
-        "apartment": "dumy",
-        "first_name": "{{First_Name}}", // First Name, Last Name, Phone number, & Email are mandatory fields within sending the intention request
-        "last_name": "{{Last_Name}}",
-        "street": "dumy",
-        "building": "dumy",
-        "phone_number": "{{Customer_Phone_Number}}",
-        "city": "dumy",
-        "country": "dumy",
-        "email": "{{customer_email}}",
-        "floor": "dumy",
-        "state": "dumy"
-    },
-
-    "extras": {
-        "ee": 22
-    },
-    "special_reference": "phe4sjw11q-1122-221", // Refer to a unique or special identifier or reference associated with a transaction or order. It can be used for tracking or categorizing specific types of transactions and it returns within the transaction callback under merchant_order_id
-
-    "notification_url": "https://webhook.site/f60597f3-97b9-4992-90e1-6f98a63fc32d",
-    "redirection_url": "https://www.google.com/"
-        //Notification and redirection URL are working only with Cards and they overlap the transaction processed and response callbacks sent per Integration ID
-
+    }
 }

@@ -15,10 +15,10 @@ class WdgProducts(Widget):
 
         self.widget._include("wpros.js")
         uidata = [
-            {"start": "true", "class": "ins-flex-center  ins-padding-2xl gla-container "},
+            {"start": "true", "class": "ins-flex-center  ins-padding-2xl gla-container"},
             {"class": "ins-space-l"},
             {"_data": "El Galla Gold Collection","_data-ar":"منتجات الجلا جولد","_trans":"true",
-                "class": "ins-title-xl ins-grey-d-color ins-strong-m"},
+                "class": "ins-title-xl ins-grey-d-color ins-strong-m ins-text-upper"},
             {"class": "ins-col-grow "},
            
             {"class": "ins-space-l"},
@@ -32,32 +32,36 @@ class WdgProducts(Widget):
           
         ]
         
-        uidata.append({"start": "true", "class": " cat_a ins-flex-start wi-pros-tab-cont gla-show  gla-pro-cont"})
+        uidata.append({"start": "true", "class": " cat_a ins-flex-center wi-pros-tab-cont gla-show  gla-pro-cont"})
         
         for d in data:
             uidata+= ELUI(self.ins).shop_pro_block(d,f"/product/product/{d['id']}",st="width:316px;")
-        
+           
+        uidata.append({"_type":"a","href":"product/do/filter/fk_product_category_id=1","_data": "View MORE <i class=' lni ins-icon lni-arrow-right'></i>",
+                  "_data-ar":"عرض المزيد","_trans":"true",    "style": "width:185px", "class": "ins-button  ins-text-upper ins-gold-d"},)
         uidata.append({"end": "true"})
         
-        uidata.append({"start": "true", "class": " cat_b ins-flex-start wi-pros-tab-cont gla-pro-cont"})
+        uidata.append({"start": "true", "class": " cat_b ins-flex-center wi-pros-tab-cont gla-pro-cont"})
         
         for d in data_b:
             uidata+= ELUI(self.ins).shop_pro_block(d,f"/product/product/{d['id']}",st="width:316px;")
-        
+           
+        uidata.append({"_type":"a","href":"product/do/filter/fk_product_category_id=2","_data": "View MORE <i class=' lni ins-icon lni-arrow-right'></i>",
+                  "_data-ar":"عرض المزيد","_trans":"true",    "style": "width:185px", "class": "ins-button  ins-text-upper ins-gold-d"},)
         uidata.append({"end": "true"})
         
         
-        uidata.append({"start": "true", "class": " cat_c ins-flex-start wi-pros-tab-cont gla-pro-cont"})
+        uidata.append({"start": "true", "class": " cat_c ins-flex-center wi-pros-tab-cont gla-pro-cont"})
         
         for d in data_c:
             uidata+= ELUI(self.ins).shop_pro_block(d,f"/product/product/{d['id']}",st="width:316px;")
-        
-        uidata.append({"end": "true"})
-        
-        
-        uidata.append({"class": "ins-space"})
-        uidata.append({"class": "ins-space-xs"})
-        uidata.append({"_type":"a","href":"product","_data": "View MORE <i class=' lni ins-icon lni-arrow-right'></i>",
+           
+        uidata.append({"_type":"a","href":"product/do/filter/fk_product_category_id=3","_data": "View MORE <i class=' lni ins-icon lni-arrow-right'></i>",
                   "_data-ar":"عرض المزيد","_trans":"true",    "style": "width:185px", "class": "ins-button  ins-text-upper ins-gold-d"},)
         uidata.append({"end": "true"})
+
+
+        
+        uidata.append({"end": "true"})
+
         return self.ins._ui._render(uidata)
