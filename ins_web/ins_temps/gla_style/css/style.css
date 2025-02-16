@@ -310,7 +310,6 @@ footer li {
     position: absolute;
     z-index: 1111;
     top: 65px;
-    right: 0px;
     width: 250px;
     max-height: 0;
     overflow: hidden;

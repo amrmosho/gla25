@@ -49,7 +49,7 @@ class AppCheckout(App):
            ]
         return uidata
     def _otp_ui(self):
-        rq = self.ins._server._post()
+        rq = self.ins._server._post()  
         uidata=[
            {"start":"true","class":"ins-col-5 ins-flex-center ins-card -otp-form  ins-text-start"},
            {"_data":"Login","class":"ins-title-m ins-strong-m ins-grey-d-color ins-text-upper ins-col-12"},
@@ -312,7 +312,7 @@ class AppCheckout(App):
         uidata.append({"_type": "input","type":"text","required":"true","placeholder":"First name*","placeholder-ar":"الاسم الأول*","_trans":"true","name":"first_name","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
         uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Last name*","placeholder-ar":" اسم العائلة*","_trans":"true","name":"last_name","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
         uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Email*","placeholder-ar":" بريد إلكتروني*","_trans":"true","name":"email","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Phone*","placeholder-ar":" Phone*","_trans":"true","name":"phone","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Phone*","placeholder-ar":" هاتف*","_trans":"true","name":"phone","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
         uidata.append({"_type": "input","type":"text","required":"true","placeholder":"State*","placeholder-ar":" ولاية*","_trans":"true","name":"state","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
         uidata.append({"_type": "input","type":"text","required":"true","placeholder":"City*","placeholder-ar":" مدينة*","_trans":"true","name":"city","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
         uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Street address*","placeholder-ar":" عنوان الشارع*","_trans":"true","name":"address","pclass":"ins-col-12","style":"    background: white;border-radius:4px;"})
@@ -600,13 +600,16 @@ class AppCheckout(App):
         uidata.append({"end":"true"})
         return uidata
     def _placed_step(self):
+          text = "You will be directed to orders page in <span class='-countdown ins-strong-m'>10</span> seconds"
+          if self.ins._langs._this_get()["name"] == "ar":
+             text = "سوف يتم اعادة توجيهك لصفحة الطلبات في <span class='-countdown ins-strong-m'>10</span> ثوان"
           uidata = [
           {"start":"true","class":"ins-col-12 gla-container ins-flex-center ins-padding-2xl"},
           {"start":"true","class":"ins-col-8 ins-card ins-flex"},
             {"class":" lni lni-check-circle-1 ins-font-4xl"},
              {"start":"true","class":"ins-col-grow","style":"    padding: 0px;line-height: 15px;"},
-            {"_data":"Your order has been placed","class":"ins-title-s ins-strong-m ins-grey-d-color ins-col-12"},
-            {"_data":"You will be directed to orders page in <span class='-countdown ins-strong-m'>10 seconds</span>","class":"ins-title-14 ins-grey-color ins-col-12" ,"style":"    text-transform: lowercase;"},
+            {"_data":"Your order has been placed","_data-ar":"لقد تم اتمام طلبك","_trans":"true","class":"ins-title-s ins-strong-m ins-grey-d-color ins-col-12"},
+            {"_data":text,"class":"ins-title-14 ins-grey-color ins-col-12" ,"style":"    text-transform: lowercase;"},
             {"end":"true"},
             {"end":"true"}
          ]
@@ -659,8 +662,10 @@ class AppCheckout(App):
          sedata=self.ins._server._get_session(self.session_name)
          address = self.ins._server._get_session(self.session_address_name)
          payment = self.ins._server._get_session(self.session_payment_name)
+         r = {}
          if not payment:
-            return "-1"
+            r["status"] == "-1"
+            return r
          subtotal =0 
          for k,v in sedata.items():
             subtotal+= (float(v["price"]) * float(v["count"]))
@@ -675,6 +680,8 @@ class AppCheckout(App):
             "delivery_type":address["type"],
             "payment_method":payment["type"],
             "total":total,
+            "document":"1",
+            "kit_modified":self.ins._date._date_time(),
             "payment_status":"pending",
             "order_status":"pending"
          }
@@ -692,40 +699,27 @@ class AppCheckout(App):
                "type":v["type"],
                "subtype":v["subtype"],
                "price":v["price"],
-               "chargs":chargs
+               "charges":chargs,
+               "kit_modified":self.ins._date._date_time()
+
             }
             self.ins._db._insert("gla_order_item",order_item)
          if payment_url:
-            return payment_url
-         return "1"
+            r["status"] = "2"
+            r["url"] = payment_url
+            return r
+         else:
+            r["status"] = "1"
+            r["oid"] = oid
+            return r
     
-    def update_payment_status(self, order_id, status):
-      self.ins._db._update("gla_order", {"payment_status": status}, f"id='{order_id}'")
-      if status == "paid":
-         self.ins._db._update("gla_order", {"order_status": "confirmed"}, f"id='{order_id}'")
-      return "1"
-    
-
-    def payment_callback(self):
-       data = self.ins._server._req()
-       order_id = data.get("merchant_order_id")
-       payment_status = data.get("payment_status")
-       if payment_status == "success":
-           self.update_payment_status(order_id, "paid")
-           return f'<script>window.location.href = "/order_success/{order_id}";</script>'
-       else:
-           return f'<script>window.location.href = "/order_failed/{order_id}";</script>'
-       
-
+ 
 
     def out(self):
         self.app._include("style.css")
         self.app._include("script.js")
-        rq = self.ins._server._get()
         sdata = self.ins._server._get_session(self.session_name)
         if sdata:
-           if "mode" in rq and rq["mode"] == "payment_check":
-              return self.payment_callback()
            return self._ui()
         else:
             return self.no_data()
