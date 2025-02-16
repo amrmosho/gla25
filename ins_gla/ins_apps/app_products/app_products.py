@@ -137,9 +137,9 @@ class AppProducts(App):
             uidata.append({"end": "true"})
             uidata.append({"class": "ins-col-grow"})
             uidata.append({"start": "true", "class": "ins-flex-end"})
-            uidata.append({"_data": "Go to page","_data-ar": "انتقل إلى الصفحة", "class": "ins-title-12 ins-grey-m-color"})
+            uidata.append({"_data": "Go to page","_data-ar": "انتقل إلى الصفحة", "_trans":"true","class": "ins-title-12 ins-grey-m-color"})
             uidata.append({"_type": "input","type":"text","class":"-page-input ins-radius-s ins-white ins-text-center","pclass":"ins-col-2"})
-            uidata.append({"_data": "Go <i class='lni lni-chevron-left' style='rotate:180deg'></i>", "data-tpages":num_pages,"class": "ins-title-14 -go-to-page-btn ins-grey-color ins-button-text"})
+            uidata.append({"_data": "Go <i class='lni lni-chevron-left' style='rotate:180deg'></i>","_data-ar":"انتقل","_trans":"true", "data-tpages":num_pages,"class": "ins-title-14 -go-to-page-btn ins-grey-color ins-button-text"})
             uidata.append({"end": "true"})
             uidata.append({"end": "true"})
             uidata.append({"end": "true"})
@@ -161,7 +161,7 @@ class AppProducts(App):
         path = [
             {"start":"true","class":"ins-col-12 ins-flex ins-text-upper"},
             {"_type":"a","href":home_url,"_data": "Home /","_data-ar":"الرئيسية /","_trans":"true","class":" ins-title-12	ins-grey-d-color ins-strong-m"},
-            {"_data": "Product","class":" ins-title-12	ins-grey-color ins-strong-m"},
+            {"_data": "Product","_data-ar": "المنتجات","_trans":"true","class":" ins-title-12	ins-grey-color ins-strong-m"},
             {"end":"true"}
             ]
         uidata+=path
@@ -177,20 +177,31 @@ class AppProducts(App):
             for k,v in filter_data.items():
                 if k == "fk_product_category_id":
                     name = "Category"
-                    v = self.ins._db._get_row("gla_product_category","title",f"id='{v}'")["title"]
+                    if self.ins._langs._this_get()["name"] == "ar" :
+                        name = "تصنيف"
+                    d = self.ins._db._get_row("gla_product_category","title,kit_lang",f"id='{v}'",update_lang=True)
+                    v = d["title"]
                 elif k == "types":
                     name = "Type"
-                    v = self.ins._db._get_row("gla_product_types","title",f"alias='{v}'")["title"]
+                    d = self.ins._db._get_row("gla_product_types","title,kit_lang",f"alias='{v}'",update_lang=True)
+                    v = d["title"]
+                    if self.ins._langs._this_get()["name"] == "ar" :
+                        name = "النوع"
                 elif k == "title":
                     name = "Title"
+                    if self.ins._langs._this_get()["name"] == "ar" :
+                        name = "اسم المنتج"
                 elif k == "weight":
                     name = "Weight"
+                    if self.ins._langs._this_get()["name"] == "ar" :
+                        name = "الوزن"
                 elif k == "price_range":
                     name = "Price range"
                     v = v.replace("-", ":" )
-
+                    if self.ins._langs._this_get()["name"] == "ar" :
+                        name = "السعر"
                 filter_area.append({"_data":f"{name}: {v} <i data-name={k} class='lni lni-xmark -remove-filter-btn'></i>","class":"ins-filter-card"})
-            filter_area.append({"_data":"Clear All","class":"ins-danger-color ins-button-text -remove-filter-all-btn ins-title-12"})
+            filter_area.append({"_data":"Clear All","_data-ar":"حذف الكل","_trans":"true","class":"ins-danger-color ins-button-text -remove-filter-all-btn ins-title-12"})
             filter_area.append({"end":"true"})
         
         
@@ -262,7 +273,7 @@ class AppProducts(App):
         g = self.ins._server._get("filter")
         parsed_data = parse_qs(g)
         filter_data = {key: value[0] for key, value in parsed_data.items()}
-        categories = self.ins._db._get_data("gla_product_category", "title,id",update_lang=True)
+        categories = self.ins._db._get_data("gla_product_category", "title,id,kit_lang","1=1",update_lang=True)
         min_price = ""
         max_price = ""
         if "price_range" in filter_data and filter_data["price_range"]:
@@ -322,6 +333,7 @@ class AppProducts(App):
         uidata.append({"_type": "select", "value":filter_data.get("weight",""),
                        
                        "data-name":"weight",
+                       "_trans":"true",
                        
                        "fl_data":{
                            "0":"-",
@@ -341,7 +353,24 @@ class AppProducts(App):
   "500": "500gm",
   "1000": "1000gm"
 }
-, 
+,    "fl_data-ar":{
+                           "0":"-",
+  "0.25": "0.25 جرام",
+  "0.5": "0.5 جرام",
+  "1": "1 جرام",
+  "2.5": "2.5 جرام",
+  "5": "5 جرام",
+  "10": "10 جرام",
+  "15.55": "0.5oz / 15.55جرام",
+  "20": "20 جرام",
+  "31.10": "1 أونصة / 31.10 جرام",
+  "50": "50 جرام",
+  "100": "100 جرام",
+  "116.65": "10 تولة / 116.65 جرام",
+  "250": "250 جرام",
+  "500": "500 جرام",
+  "1000": "1000 جرام"
+},
                        
                        "name": "weight", "pclass": "ins-col-12","class":" -product-filter-input -weight-select"})
         uidata.append({"class": "ins-space-m"})
