@@ -29,7 +29,7 @@ class AppPartners(App):
         uidata = [{"start": "true", "class": "ins-flex ","style": "background:white;height:124px;position: relative;    border-bottom: 1px solid var(--grey-l); "}]
         uidata += self.header_ui()
         uidata.append({"end": "true"})
-        data = self.ins._db._get_data("gla_blog", "*","fk_blog_category_id = '18'")
+        data = self.ins._db._get_data("gla_blog", "*","fk_blog_category_id = '18'",update_lang=True)
         uidata.append(
             {"start": "true", "class": "ins-col-12 gla-container ins-padding-2xl ins-flex ins-gap-l"})
         p = "/ins_web/ins_uploads/"
