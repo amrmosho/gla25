@@ -172,7 +172,7 @@ class AppProducts(App):
         if filter_data:
             filter_area = [
                 {"start":"true","class":"ins-col-grow ins-flex-end"},
-                {"_data":"Filter by","class":"ins-strong-m ins-grey-d-color ins-title-14"}
+                {"_data":"Filter by",  "_data-ar":"تصفية حسب","_trans":"true","class":"ins-strong-m ins-grey-d-color ins-title-14"}
             ]
             for k,v in filter_data.items():
                 if k == "fk_product_category_id":
