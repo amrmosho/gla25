@@ -208,7 +208,7 @@ class AppCheckout(App):
            {"id":"2","address":"Street 88 , Palm Hills , 6th of October, Giza","title":"EL-GALLA Store","whatsapp":"01009539999","phone":"17153","email":"info@elgallagold.com"}
         ]
         uidata=[{"start":"true","class":"ins-col-12 ins-flex  -addresses-area"}]
-        uidata.append({"_data":"Our Stores","class":"ins-col-12 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"})
+        uidata.append({"_data":"Our Stores","_data-ar":"متاجرنا","_trans":"true","class":"ins-col-12 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"})
         asession = self.ins._server._get_session(self.session_address_name)
         if type(asession) != dict:
            asession = {"type":"store","id":"-1"}
@@ -315,19 +315,19 @@ class AppCheckout(App):
     def _add_address_ui(self):
         uidata = [{"start":"true","class":"ins-flex ins-col-12 "}]
         uidata.append({"start":"true","class":"ins-flex ins-col-12 -add-address-area"})
-        uidata.append({"_data":"Add new Address","class":"ins-col-12 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"})
-        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"First name*","placeholder-ar":"للل","_trans":"true","name":"first_name","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Last name*","name":"last_name","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Email*","name":"email","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Phone*","name":"phone","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"State*","name":"state","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"City*","name":"city","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Street address*","name":"address","pclass":"ins-col-12","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","type":"text","placeholder":"Apartment, suits, etc (Optional)","name":"address_2","pclass":"ins-col-12","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_data":"Add new Address","_data-ar":"إضافة عنوان جديد","_trans":"true","class":"ins-col-12 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"})
+        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"First name*","placeholder-ar":"الاسم الأول*","_trans":"true","name":"first_name","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Last name*","placeholder-ar":" اسم العائلة*","_trans":"true","name":"last_name","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Email*","placeholder-ar":" بريد إلكتروني*","_trans":"true","name":"email","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Phone*","placeholder-ar":" Phone*","_trans":"true","name":"phone","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"State*","placeholder-ar":" ولاية*","_trans":"true","name":"state","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"City*","placeholder-ar":" مدينة*","_trans":"true","name":"city","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Street address*","placeholder-ar":" عنوان الشارع*","_trans":"true","name":"address","pclass":"ins-col-12","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","type":"text","placeholder":"Apartment, suits, etc (Optional)","placeholder-ar":"شقة، جناح، الخ (اختياري)*","_trans":"true","name":"address_2","pclass":"ins-col-12","style":"    background: white;border-radius:4px;"})
         uidata.append({"end":"true"})
         uidata.append({"class":"ins-space-s"})
-        uidata.append({"_data": "Add Address <img src='"+p+"style/right_arrow.svg'></img>", "class": "ins-button-s ins-strong-m ins-flex-center ins-text-upper  -add-address-btn ins-gold-d ins-col-3","style":"height: 46px;    border: 1px solid var(--primary-d);"})
-        uidata.append({"_data": " Back", "class": "ins-button-s ins-flex-center ins-strong-m ins-text-upper ins-gold-d-color   -back-address-btn  ins-col-2 ","style":"    height: 46px;"})
+        uidata.append({"_data": "Add Address <img src='"+p+"style/right_arrow.svg'></img>","_data-ar":"إضافة عنوان ","_trans":"true", "class": "ins-button-s ins-strong-m ins-flex-center ins-text-upper  -add-address-btn ins-gold-d ins-col-3","style":"height: 46px;    border: 1px solid var(--primary-d);"})
+        uidata.append({"_data": " Back","_data-ar":"خلف","_trans":"true", "class": "ins-button-s ins-flex-center ins-strong-m ins-text-upper ins-gold-d-color   -back-address-btn  ins-col-2 ","style":"    height: 46px;"})
         uidata.append({"end":"true"})
         return self.ins._ui._render(uidata)
     def _cart_step(self):
@@ -378,8 +378,8 @@ class AppCheckout(App):
         uidata.append({"class":"ins-space-m"})
         uidata.append({"class":"ins-line ins-col-12"})
         uidata.append({"class":"ins-space-m"})
-        uidata.append({"_data": "Voucher", "class": "ins-col-12  ins-grey-d-color ins-strong-m  "})
-        uidata.append({"_type": "input","type":"text","placeholder":"code","name":"voucher","pclass":"ins-col-12","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_data": "Voucher", "_data-ar":" قسيمة","_trans":"true","class": "ins-col-12  ins-grey-d-color ins-strong-m  "})
+        uidata.append({"_type": "input","type":"text","placeholder":"code","placeholder-ar":" رمز","_trans":"true","name":"voucher","pclass":"ins-col-12","style":"    background: white;border-radius:4px;"})
         uidata.append({"class":"ins-space-xl"})
         uidata.append({"start": "true", "class": "ins-flex ins-col-12  ins-padding-m","style":"border-radius:8px !important;border: 1px solid var(--grey-l);"})
         uidata.append({"_data": "Your details","_data-ar":"تفاصيلك","_trans":"true", "class": "ins-col-12 ins-title-s ins-grey-d-color ins-strong-l "})
@@ -439,8 +439,8 @@ class AppCheckout(App):
             else:
                address = self.ins._db._get_row("gla_address","*",f"id='{asession["id"]}'")
                ainfo = [
-               {"_data": "Shipping Address", "class": "ins-col-8 ins-title-s ins-grey-d-color ins-strong-l "},
-               {"_data": "Edit Address","data-aid" : str(address["id"]),"class": "-update-address ins-col-4 ins-flex-end ins-gold-d-color ins-strong-m ins-text-upper ins-button-text"},
+               {"_data": "Shipping Address","_data-ar":"عنوان الشحن","_trans":"true", "class": "ins-col-8 ins-title-s ins-grey-d-color ins-strong-l "},
+               {"_data": "Edit Address","_data-ar":"تعديل العنوان","_trans":"true","data-aid" : str(address["id"]),"class": "-update-address ins-col-4 ins-flex-end ins-gold-d-color ins-strong-m ins-text-upper ins-button-text"},
                {"class":"ins-space-s"},
                {"_data": address.get("title",""), "class": "ins-col-12  ins-title-20	  ins-grey-d-color ins-strong-l"},
                {"_data": address.get("address",""), "class": "ins-col-12 ins-grey-color"},
@@ -506,7 +506,8 @@ class AppCheckout(App):
             {"Bank Name": "Emirates NBD", "Account Number": "1019342954301", "name":"nbd","Swift Code": "EBILEGCXXXX", "IBAN number": "EG10001400540000101934295430", "Bank Branch": "Al Azhar", "Company Name": "EL GALLA GOLD", "logo": "enbd_logo.png"}
           ]
           uidata = [{"start": "true", "class": "ins-col-12 ins-flex ins-gap-m"},
-                    {"_data":" Note: If you use InstaPay, please transfer the amount to our bank account at <a class='-african-bank-button ins-strong-m'>Arab African International Bank</a>","class":"ins-col-12 ins-title-xs ins-grey-color ins-text-none"}
+                    {"_data":" Note: If you use InstaPay, please transfer the amount to our bank account at <a class='-african-bank-button ins-strong-m'>Arab African International Bank</a>","_data-ar": "ملاحظة: إذا كنت تستخدم InstaPay، يرجى تحويل المبلغ إلى حسابنا البنكي في <a class='-african-bank-button ins-strong-m'>البنك العربي الأفريقي الدولي</a>",
+  "_trans": "true","class":"ins-col-12 ins-title-xs ins-grey-color ins-text-none"}
                     ]
           
           for bank in bank_details:
@@ -528,7 +529,7 @@ class AppCheckout(App):
     def _cash_ui(self, string=False):
       uidata = [
          {"start": "true", "class": "ins-col-12 ins-flex ins-gap-s"},
-         {"_data": "Pay with cash upon delivery. Please ensure you have the exact amount ready as our delivery personnel may not have change.", "class": "ins-col-12 ins-title-xs ins-grey-color ins-text-none"},
+         {"_data": "Pay with cash upon delivery. Please ensure you have the exact amount ready as our delivery personnel may not have change.","_data-ar":"ادفع نقدًا عند الاستلام. يرجى التأكد من أن لديك المبلغ المحدد جاهزًا لأن موظفي التوصيل لدينا قد لا يكون لديهم أي نقود.","_trans":"true", "class": "ins-col-12 ins-title-xs ins-grey-color ins-text-none"},
          {"end": "true"}
       ]
       if string:
@@ -565,16 +566,16 @@ class AppCheckout(App):
         uidata=[{"start":"true","class":"ins-col-7 ins-flex ins-padding-2xl"}]
         uidata.append({"start":"true","class":"ins-col-12 ins-flex"})
         uidata.append({"start":"true","class":"ins-col-12 ins-gap-o"})
-        uidata.append({"_data":"payment","class":"ins-col-12 ins-title-m		 ins-strong-m ins-grey-d-color ins-text-upper"})
-        uidata.append({"_data":"All transactions are secure and encrypted","class":"ins-col-12 ins-title-xs ins-grey-color"})
+        uidata.append({"_data":"payment","_data-ar":"دفع","_trans":"true","class":"ins-col-12 ins-title-m		 ins-strong-m ins-grey-d-color ins-text-upper"})
+        uidata.append({"_data":"All transactions are secure and encrypted","_data-ar":"جميع المعاملات آمنة ومشفرة","_trans":"true","class":"ins-col-12 ins-title-xs ins-grey-color"})
         uidata.append({"end":"true"})
         uidata.append({"class":"ins-space-s"})
         pdata = self.ins._server._get_session(self.session_payment_name)
         payments = [
-           {"title":"Cash on delivery","name":"cash"},
-           {"title":"Online Payment (Aman, Contact, Mogo)","name":"online"},
+           {"title":"Cash on delivery","name":"cash","title_ar":"الدفع عند التسليم"},
+           {"title":"Online Payment (Aman, Contact, Mogo)","name":"online","title_ar":"الدفع عبر الإنترنت (أمان، كونتكت، موغو)"},
            #{"title":"InstaPay","name":"instapay","img":"style/instapay.svg"},
-           {"title":"Bank transfer","name":"bank"},
+           {"title":"Bank transfer","name":"bank","title_ar":"التحويل البنكي"},
         ]
         for payment in payments:
             img = "style/radio.svg"
@@ -590,7 +591,7 @@ class AppCheckout(App):
                   {"start":"true","class":"ins-col-12 ins-flex ins-gap-o"},
                   {"start":"true","data-name":payment["name"],"class":f"{pclass} ins-col-12 ins-flex-center -payment-type-btn {payment.get("class","")}"},
                   {"_type":"img","src":f"{p}{img}","loading":"lazy","class":"-payment-type-btn-img"},
-                  {"_data": payment["title"],"class":"ins-strong-m ins-grey-m-color payment-title"},
+                  {"_data": payment["title"],"_data-ar":payment["title_ar"],"_trans":"true","class":"ins-strong-m ins-grey-m-color payment-title"},
             ]
             pcard.append({"class":"ins-col-grow"})
             if "img" in payment:
