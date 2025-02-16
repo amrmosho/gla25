@@ -74,8 +74,8 @@ class ELUI(ins_parent):
             uidata.append({"class": "ins-space-xs"})
         footer = [
             {"start": True, "class": "ins-flex-space-between ins-col-12 ins-padding-l"},
-            {"_data": "Continue Shopping","_data-ar":"متابعة التسوق","_trans":"true", "class": "ins-button-s ins-text-upper ins-gold-d ins-col-6 -continue-shopping-btn"},
-            {"_data": "To cart","_data-ar":"الى سلة التسوق","_trans":"true", "_type": "a", "href": "/checkout/cart", "class": "ins-button-s ins-gold-d ins-text-upper ins-col-5"},
+            {"_data": "Continue Shopping","_data-ar":"لللل","_trans":"true", "class": "ins-button-s ins-text-upper ins-gold-d ins-col-6 -continue-shopping-btn"},
+            {"_data": "To cart", "_type": "a", "href": "/checkout/cart", "class": "ins-button-s ins-gold-d ins-text-upper ins-col-5"},
             {"end": True},
             {"class": "ins-space-l"}
         ]
@@ -89,14 +89,8 @@ class ELUI(ins_parent):
     def _cart_lightbox_ui(self, single_product=False):
   
         sedata = self.ins._server._get_session(self.session_name)
-        
-
         if type(sedata) != dict:
             sedata = {}
-            
-            
-            
-            
         if single_product:
             p = self.ins._server._post()
             pro = self.ins._db._jget("gla_product", "*", f"gla_product.id={p['pid']}")
@@ -180,14 +174,13 @@ class ELUI(ins_parent):
              subtype_title = self.ins._db._get_row("gla_product_types", "title", f"alias='{data['subtype']}'")["title"]
              full_title = f"{data["title"]} ({subtype_title})"
 
-     
          r = [
                     {"start": "true", "class": "ins-flex  gla-pro-block  ", "style": st},
                     {"start": "true", "class": " gla-img-cont  ", "style": ""},
-                    {"_data": "Bestseller","_data-ar":"الأكثر مبيعًا","_trans":"true", "class": "ins-tag ins-primary-d ins-strong-m ins-text-upper ins-title-10","style": "position: absolute;top: 8px;left: 8px;border-radius: 2px !important;z-index:111"},
+                    {"_data": "Bestseller", "class": "ins-tag ins-primary-d ins-strong-m ins-text-upper ins-title-10","style": "position: absolute;top: 8px;left: 8px;border-radius: 2px !important;z-index:111"},
                     {"src": p +th_main_image, "loading":"lazy","_type": "img", "class": "gla-pro-img"},
                     {"src": p + th_overlay_image, "loading":"lazy","_type": "img", "class": "gla-pro-himg"},
-                    { "_type":"a" ,"href":purl,"_data": "SHOP NOW <i class=' lni ins-icon lni-arrow-right'></i>", "_data-ar":"تسوق الآن","_trans":"true","class": "ins-button gla-pro-hbutton ins-strong-m   ins-gold-bg","data-pid":f"{data['id']}"},
+                    { "_type":"a" ,"href":purl,"_data": "SHOP NOW <i class=' lni ins-icon lni-arrow-right'></i>", "class": "ins-button gla-pro-hbutton ins-strong-m   ins-gold-bg","data-pid":f"{data['id']}"},
                     {"end": "true"},
                     {"class": "ins-space-s"},
                     {"_data": f"{full_title}", "class": "ins-col-12 ins-title-20	 ins-strong-m   ins-grey-color", "style": "line-height:24px"},
@@ -207,7 +200,7 @@ class ELUI(ins_parent):
             {"src": f"{data["th_main_image"]}","loading":"lazy", "_type": "img","class": "ins-radius-m", "style": "    height: 100%;"},
             {"end": "true"},
             {"start": "true", "class": "ins-col-8  ins-flex-grow ins-primary-w ins-padding-l","style": "border-radius: 0px 8px 8px 0px;    border-left: 1px solid var(--primary-l);"},
-            {"_data": "Item summary","_data-ar":"الى سلة التسوق","_trans":"true","class": "ins-col-11 ins-title-s ins-strong-l ins-grey-d-color"},
+            {"_data": "Item summary","class": "ins-col-11 ins-title-s ins-strong-l ins-grey-d-color"},
             {"_data": f"<i  class='lni lni-trash-3 _a_red'></i>","class": "ins-flex-center ins-col-1 -remove-item-side-cart-btn", "data-pid": data["prefix"]},
 
             {"_data": f"{data.get("count", "")} x {data["full_title"]}", "class": "ins-col-7 ins-strong-m ins-grey-color ins-title-14"},

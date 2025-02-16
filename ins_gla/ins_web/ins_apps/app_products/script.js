@@ -92,6 +92,7 @@ function get_page(page) {
 ins(".-add-cart-btn")._on("click", (o) => {
     var ops = o._getData();
     ops.count = ins(".count-inpt")._getValue()
+    ops["lang"] = "ar"
     ins("_cart_lightbox_ui")._ajax._app(ops, (data) => {
         ins()._ui._addLightbox({
             "mode": "right_panel",

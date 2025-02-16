@@ -69,7 +69,7 @@ class Languages(ins_parent):
         
         del_keys=[]
         for k in data.keys():
-            lk = f"{k}-{self.ins._this._lang["name"]}"
+            lk = f"{k}-{self.ins._langs._this_get()["name"]}"
             if lk in data:
                 data[k] = data[lk]
                 del_keys.append(lk)
