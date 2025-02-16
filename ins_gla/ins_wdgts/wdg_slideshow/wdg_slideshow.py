@@ -69,8 +69,7 @@ class WdgSlideshow(Widget):
                 {"start": "true", "class": f"wi-slideshow-slide {a} _{itm}"},
                 {"_type": "img", "class": "wi-slideshow-image","loading":"lazy",
                     "src": d["img"]},
-                {"_type": "img", "class": "wi-slideshow-cimage", "src": "/ins_web/ins_uploads/style/sh1c.svg",
-                    "style": "position: absolute;left: 0;"},
+                
                 {"_data": d["des"], "class": "gla-data  wi-slideshow-data",
                     "style": "position: absolute;left: 70px; bottom: 70px; width:100%;"},
                 {"end": "true"}
