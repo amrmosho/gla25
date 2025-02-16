@@ -15,7 +15,7 @@ class WdgProducts(Widget):
 
         self.widget._include("wpros.js")
         uidata = [
-            {"start": "true", "class": "ins-flex-center  ins-padding-2xl gla-container"},
+            {"start": "true", "class": "ins-flex-center  ins-padding-2xl gla-container "},
             {"class": "ins-space-l"},
             {"_data": "El Galla Gold Collection","_data-ar":"منتجات الجلا جولد","_trans":"true",
                 "class": "ins-title-xl ins-grey-d-color ins-strong-m ins-text-upper"},

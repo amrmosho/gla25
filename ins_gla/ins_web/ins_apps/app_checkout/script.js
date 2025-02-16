@@ -269,15 +269,16 @@ ins(".-submit-order-btn")._on("click", (o) => {
     ins()._ui._addLoader()
     ins("Redirecting to payment...")._ui._notification()
     ins("_submit_order")._ajax._app({}, (d) => {
-        if (d == "-1") {
+        jdata = JSON.parse(d)
+        if (jdata["status"] == "-1") {
             ins("You have to select payment method")._ui._notification()
             ins()._ui._removeLoader()
-        } else if (d == "1") {
-            window.location = "/checkout/order/"
+        } else if (jdata["status"] == "1") {
+            window.location = "/checkout/order/?merchant_order_id=" + jdata["oid"]
             ins()._ui._removeLoader()
         } else {
             setTimeout(() => {
-                window.location = d
+                window.location = jdata["url"]
                 ins()._ui._removeLoader()
             }, 3000);
         }
@@ -290,14 +291,14 @@ ins(".-continue-shopping-btn")._on("click", (o) => {
 }, true)
 ins(function() {
     g = ins()._map._get();
-    if (g["mode"] == "order") {
+    if (g["mode"] == "order" || g["mode"] == "payment_check") {
         let count = 10
         const countdown = setInterval(() => {
             count--
             if (count > 1) {
-                ins(".-countdown")._setHTML(count + " seconds")
+                ins(".-countdown")._setHTML(count)
             } else {
-                ins(".-countdown")._setHTML(count + " second")
+                ins(".-countdown")._setHTML(count)
             }
             if (count == 0) {
                 clearInterval(countdown)

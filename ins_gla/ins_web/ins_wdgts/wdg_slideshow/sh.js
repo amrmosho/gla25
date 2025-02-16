@@ -6,7 +6,7 @@ ins(".wi-slideshow-th-item")._on("click", function(o) {
 
 
 ins(".wi-slideshow-slide")._on("swiped-left", function(o) {
-    var ins_shc = 4;
+    var ins_shc = 3;
     indx++;
     if (indx > ins_shc) {
         indx = 1
@@ -56,7 +56,7 @@ function trsn(indx) {
 
 
 
-        var ins_shc = 4;
+        var ins_shc = 3;
 
 
         indx++;

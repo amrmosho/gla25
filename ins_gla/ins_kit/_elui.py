@@ -74,8 +74,8 @@ class ELUI(ins_parent):
             uidata.append({"class": "ins-space-xs"})
         footer = [
             {"start": True, "class": "ins-flex-space-between ins-col-12 ins-padding-l"},
-            {"_data": "Continue Shopping","_data-ar":"لللل","_trans":"true", "class": "ins-button-s ins-text-upper ins-gold-d ins-col-6 -continue-shopping-btn"},
-            {"_data": "To cart", "_type": "a", "href": "/checkout/cart", "class": "ins-button-s ins-gold-d ins-text-upper ins-col-5"},
+            {"_data": "Continue Shopping","_data-ar":"متابعة التسوق","_trans":"true", "class": "ins-button-s ins-text-upper ins-gold-d ins-col-6 -continue-shopping-btn"},
+            {"_data": "To cart","_data-ar":"الى السلة","_trans":"true", "_type": "a", "href": "/checkout/cart", "class": "ins-button-s ins-gold-d ins-text-upper ins-col-5"},
             {"end": True},
             {"class": "ins-space-l"}
         ]
@@ -204,7 +204,7 @@ class ELUI(ins_parent):
             {"src": f"{data["th_main_image"]}","loading":"lazy", "_type": "img","class": "ins-radius-m", "style": "    height: 100%;"},
             {"end": "true"},
             {"start": "true", "class": "ins-col-8  ins-flex-grow ins-primary-w ins-padding-l","style": "border-radius: 0px 8px 8px 0px;    border-left: 1px solid var(--primary-l);"},
-            {"_data": "Item summary","class": "ins-col-11 ins-title-s ins-strong-l ins-grey-d-color"},
+            {"_data": "Item summary","_data-ar": "ملخص السعر","_trans":"true","class": "ins-col-11 ins-title-s ins-strong-l ins-grey-d-color"},
             {"_data": f"<i  class='lni lni-trash-3 _a_red'></i>","class": "ins-flex-center ins-col-1 -remove-item-side-cart-btn", "data-pid": data["prefix"]},
 
             {"_data": f"{data.get("count", "")} x {data["full_title"]}", "class": "ins-col-7 ins-strong-m ins-grey-color ins-title-14"},

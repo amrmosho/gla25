@@ -96,7 +96,7 @@ class AppCal(App):
                 {"_data": "Gold calculator", "_data-ar":"حاسبة الذهب","_trans":"true","style": "position: absolute;left: 20px;",
                     "class": "ins-title-l ins-padding-xl ins-strong-m ins-text-upper"},
                 {"start": "true", "class": "  ins-flex  ins-border ins-padding-m ins-radius-m"},
-                {"_data": "E£", "class": "ins-border-end ins-padding-m ins-padding-h",
+                {"_data": "EGP",  "_data-ar": "جنيه","_trans":"true","class": "ins-border-end ins-padding-m ins-padding-h",
                     "style": "height: 24px;line-height: 24px;"},
                 {"_type": "input", "value":total, "placeholder": "Enter your amount","placeholder-ar":"أدخل المبلغ الخاص بك","_trans":"true",
                     "type": "text", "class": " -cal-update-nput ins-input-none"},
@@ -204,7 +204,7 @@ class AppCal(App):
                 {"class": "ins-space-s"},
                 {"class": "ins-line ins-col-12"},
                 {"class": "ins-space-s"},
-                {"_data": "Total", "_data-ar":"المجموع","_trans":"true","class": "ins-col-6 ins-strong-m ins-grey-color"},
+                {"_data": "Total", "_data-ar":"المجموع ","_trans":"true","class": "ins-col-6 ins-strong-m ins-grey-color"},
                 {"_data": str(total),"_view":"currency","_currency_symbol":" EGP", "class": "ins-col-6  ins-grey-d-color ins-strong-l ins-flex-end"},
                 {"class": "ins-space-2xl"},
                 {"_data": "ADD TO CART <i class = 'lni lni-arrow-right ins-white-color'></i>","_data-ar":"أضف إلى السلة","_trans":"true", "class": "ins-col-12 ins-button-s ins-flex-center  ins-white-color ins-strong-m ins-gold-d -add-cart-btn ins-title-14","style": "    height: 32px;    border: 1px solid var(--primary-d);"},
@@ -340,7 +340,7 @@ class AppCal(App):
 
         uidata += [
                 {"start": "true", "class": "  ins-flex  ins-border ins-radius-m ins-padding-m ","style":"width: 720px;background-color: white;"},
-                {"_data": "E£", "class": "ins-border-end ins-padding-m ins-padding-h ins-title-20 ins-grey-color",
+                {"_data": "EGP", "_data-ar": "جنيه","_trans":"true", "class": "ins-border-end ins-padding-m ins-padding-h ins-title-20 ins-grey-color",
                     "style": "height: 24px;line-height: 24px;"},
                 {"_type": "input",  "placeholder": 
                     
