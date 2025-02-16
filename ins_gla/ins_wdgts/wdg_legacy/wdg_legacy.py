@@ -25,13 +25,15 @@ class WdgLegacy(Widget):
             {"class": "ins-space-l"},
             {"start": "true", "class": "ins-flex-center ins-grey-color ",
                 "style": "width:500px;height:406px"},
-            {"_data": "The Beginning",
+            {"_data": "The Beginning","_data-ar":"البداية" ,"_trans":"true",
                 "class": "ins-text-upper ins-title-m  ins-strong-m ins-col-12"},
             {"class": "ins-space-s"},
-            {"_data": "1950s", "class": "ins-text-upper ins-title-4xl ins-grey-d-color  ins-col-12 ins-text-none",
+            {"_data": "1950s","_data-ar":"١٩٥٠" ,"_trans":"true", "class": "ins-text-upper ins-title-4xl ins-grey-d-color  ins-col-12 ins-text-none",
                 "style": "line-height:60px"},
             {"class": "ins-space-s"},
             {"_data": "El Galla Gold was established in 1950, our family-owned business has been passed down through generations, each adding to our rich legacy with their unique knowledge and experience, carrying forward the vision that originally started with Hassan El Galla.",
+                "_data-ar":"تأسست شركة الجلا جولد عام 1950 تحت قيادة مؤسسها الحاج حسن الجلا،  وتم توارثها من جيل لجيل، وزي الذهب اتعرف الحاج حسن بصدقه والتزامه وكانت القيم والدروس التي اكتسبها في حياته مصدر إلهام في مسيرته لتحقيق الجودة و الوصول إلى رضاء العملاء و اللي بنعتبره القوة الدافعة وراء نجاحنا." ,"_trans":"true",
+                
                 "class": " ins-col-12 ", "style": "line-height:24px;font-size:20px"},
             {"end": "true"},
 
