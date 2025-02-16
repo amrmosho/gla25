@@ -16,7 +16,7 @@ class AppBlogs(App):
 
         path = [
             {"start": "true", "class": "ins-col-12 ins-flex ins-text-upper"},
-            {"_type": "a", "href": home_url, "_data": "Home /",
+            {"_type": "a", "href": home_url, "_data": "Home /","_data-ar":"الرئيسية /","_trans":"true",
                 "class": " ins-title-12	ins-grey-d-color ins-strong-m"},
         ]
         rq = self.ins._server._req()
@@ -31,7 +31,7 @@ class AppBlogs(App):
                 {"_data": " / "+title, "class": " ins-title-12	ins-grey-color ins-strong-m"})
 
         else:
-            path.append({"_data": "Media & News",
+            path.append({"_data": "Media & News","_data-ar":"أحدث الأخبار","_trans":"true",
                         "class": " ins-title-12	ins-grey-color ins-strong-m"})
 
         path.append({"end": "true"})
