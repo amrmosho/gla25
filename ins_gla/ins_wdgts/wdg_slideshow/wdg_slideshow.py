@@ -12,30 +12,48 @@ class WdgSlideshow(Widget):
         self.widget._include("shstyle.css")
         self.widget._include("sh.js")
 
-        data = [{
 
-            "img": "/ins_web/ins_uploads/style/sh1.svg",
-            "des": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">Premium1 <br> Gold Bars</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">El Galla Gold is one of the oldest family<br>-owned businesses in the Egyptian gold <br> market</div><div class="ins-space"></div><a href="/product/"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">Shop now <i class=" lni ins-icon lni-arrow-right"></i></div></a>',
-            "th": "/ins_web/ins_uploads/style/sht1.svg"},
 
-            {"img": "/ins_web/ins_uploads/style/sht2.svg",
+        # data = [
+        #  {
+        # "img": "/ins_web/ins_uploads/style/bar.png",
+        # "des": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">الجلا جولد<br> سبيكة ذهبية أونصة واحدة</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">قيمة مدى الحياة</div><div class="ins-space"></div><a href="/product/"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">تسوق الآن <i class=" lni ins-icon lni-arrow-right"></i></div></a>',
+        # "th": "/ins_web/ins_uploads/style/bar.png"
+        #     },
+        #  {
+        # "img": "/ins_web/ins_uploads/style/sh1.svg",
+        # "des": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">الجلا جولد<br> زجاجات الطفل الذهبية</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">الهدية المثالية للاحتفال بوصول المولود الجديد</div><div class="ins-space"></div><a href="/product/"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">تسوق الآن <i class=" lni ins-icon lni-arrow-right"></i></div></a>',
+        # "th": "/ins_web/ins_uploads/style/geroge.png"
+        #  },
+        #  {
+        # "img": "/ins_web/ins_uploads/style/baby.png",
+        # "des": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">عملة جورج الذهبية<br> ذات الخمسة أرطال</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">رمز خالد - للثروة والتراث</div><div class="ins-space"></div><a href="/product/"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">تسوق الآن <i class=" lni ins-icon lni-arrow-right"></i></div></a>',
+        # "th": "/ins_web/ins_uploads/style/baby.png"
+        #    }
+        #     ]
 
-                    "img": "/ins_web/ins_uploads/style/sh1.svg",
-            "des": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">Premium1 <br> Gold Bars</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">El Galla Gold is one of the oldest family<br>-owned businesses in the Egyptian gold <br> market</div><div class="ins-space"></div><a href="/product/"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">Shop now <i class=" lni ins-icon lni-arrow-right"></i></div></a>',
+        data = [
+            
 
-                    "th": "/ins_web/ins_uploads/style/sht2.svg"},
+
+            {"img": "/ins_web/ins_uploads/style/bar.png",
+
+                    "img": "/ins_web/ins_uploads/style/bar.png",
+            "des": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">EL GALLA GOLDS <br>ONE-OUNCE GOLD BAR</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">A Lifetime of VALUE</div><div class="ins-space"></div><a href="/product/"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">Shop now <i class=" lni ins-icon lni-arrow-right"></i></div></a>',
+
+                    "th": "/ins_web/ins_uploads/style/bar.png"},
             {"img": "/ins_web/ins_uploads/style/sh1.svg",
 
-                    "img": "/ins_web/ins_uploads/style/sht3.svg",
-            "des": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">Premium1 <br> Gold Bars</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">El Galla Gold is one of the oldest family<br>-owned businesses in the Egyptian gold <br> market</div><div class="ins-space"></div><a href="/product/"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">Shop now <i class=" lni ins-icon lni-arrow-right"></i></div></a>',
+                    "img": "/ins_web/ins_uploads/style/geroge.png",
+            "des": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">EL GALLA GOLDS <br> GOLDEN BABAY BOTTLES</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">The perfect gift to celebrate a newborn arrival</div><div class="ins-space"></div><a href="/product/"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">Shop now <i class=" lni ins-icon lni-arrow-right"></i></div></a>',
 
-                    "th": "/ins_web/ins_uploads/style/sht3.svg"},
-            {"img": "/ins_web/ins_uploads/style/sh1.svg",
+                    "th": "/ins_web/ins_uploads/style/geroge.png"},
+            {"img": "/ins_web/ins_uploads/style/baby.png",
 
-                    "img": "/ins_web/ins_uploads/style/sh1.svg",
-            "des": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">Premium1 <br> Gold Bars</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">El Galla Gold is one of the oldest family<br>-owned businesses in the Egyptian gold <br> market</div><div class="ins-space"></div><a href="/product/"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">Shop now <i class=" lni ins-icon lni-arrow-right"></i></div></a>',
+                    "img": "/ins_web/ins_uploads/style/baby.png",
+            "des": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">FIVE-POUND <br> GEORGE GOLD COIN</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">A Timeless Symbol of - WEALTH AND HERITAGE</div><div class="ins-space"></div><a href="/product/"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">Shop now <i class=" lni ins-icon lni-arrow-right"></i></div></a>',
 
-                    "th": "/ins_web/ins_uploads/style/sht3.svg"},
+                    "th": "/ins_web/ins_uploads/style/baby.png"},
         ]
         uidata = [
             {"start": "true", "class": "ins-primary-w wi-slideshow-cont "},
