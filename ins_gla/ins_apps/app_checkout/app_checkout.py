@@ -84,8 +84,8 @@ class AppCheckout(App):
         product_url = self.ins._server._url({"alias":"product","mode":"product","id":1})
         path = [
             {"start":"true","class":"ins-col-12 ins-flex ins-text-upper"},
-            {"_type":"a","href":home_url,"_data": "Home /","class":" ins-title-12	ins-grey-d-color ins-strong-m"},
-            {"_type":"a","href":products_url,"_data": "Product /","class":" ins-title-12	ins-grey-d-color ins-strong-m"},
+            {"_type":"a","href":home_url,"_data": "Home /","_data-ar":"الرئيسية /","_trans":"true","class":" ins-title-12	ins-grey-d-color ins-strong-m"},
+            {"_type":"a","href":products_url,"_data": "Product /","_data-ar":"منتجات /","_trans":"true", "class":" ins-title-12	ins-grey-d-color ins-strong-m"},
             {"_type":"a","href":product_url,"_data": "250gm Gold Bar /","class":" ins-title-12	ins-grey-d-color ins-strong-m"},
             {"_data": "Checkout","class":" ins-title-12	ins-grey-color ins-strong-m"},
             {"end":"true"}

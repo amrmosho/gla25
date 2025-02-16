@@ -16,7 +16,7 @@ class ELUI(ins_parent):
             {"start": "true", "class": "ins-col-12 ins-white ins-border ins-border-top"},
             {"start": "true", "class": "gla-container ins-flex ins-padding-2xl"},
             {"start": "true", "class": "ins-col-12 ins-flex ins-text-upper"},
-            {"_type": "a", "href": "/", "_data": "Home /",
+            {"_type": "a", "href": "/", "_data": "Home /","_data-ar":"الرئيسية /","_trans":"true",
                 "class": " ins-title-12	ins-grey-d-color ins-strong-m"},
         ]
         for b in bc:
