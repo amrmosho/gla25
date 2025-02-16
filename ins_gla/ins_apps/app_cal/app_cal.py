@@ -168,7 +168,7 @@ class AppCal(App):
                         "style": "    line-height: 20px;"},
                     {"_data": str(pro["price"]),"_view":"currency","_currency_symbol":" EGP",  "class": "ins-strong-m ins-primary-d-color ins-title-14"},
                     {"class": "ins-space-s"},
-                    {"_data": f"Qty: {pro["count"]}",
+                    {"_data": f"Qty: {pro["count"]}","_data-ar": f"الكمية: {pro["count"]}","_trans":"true",
                         "class": "ins-strong-l ins-grey-color "},
                     {"end": "true"},
                     {"end": "true"}
@@ -204,7 +204,7 @@ class AppCal(App):
                 {"_data": "Total", "_data-ar":"المجموع","_trans":"true","class": "ins-col-6 ins-strong-m ins-grey-color"},
                 {"_data": str(total),"_view":"currency","_currency_symbol":" EGP", "class": "ins-col-6  ins-grey-d-color ins-strong-l ins-flex-end"},
                 {"class": "ins-space-2xl"},
-                {"_data": "ADD TO CART <i class = 'lni lni-arrow-right ins-white-color'></i>", "class": "ins-col-12 ins-button-s ins-flex-center  ins-white-color ins-strong-m ins-gold-d -add-cart-btn ins-title-14","style": "    height: 32px;    border: 1px solid var(--primary-d);"},
+                {"_data": "ADD TO CART <i class = 'lni lni-arrow-right ins-white-color'></i>","_data-ar":"أضف إلى السلة","_trans":"true", "class": "ins-col-12 ins-button-s ins-flex-center  ins-white-color ins-strong-m ins-gold-d -add-cart-btn ins-title-14","style": "    height: 32px;    border: 1px solid var(--primary-d);"},
                 {"end": "true"},
                 {"end": "true"},
                 {"end": "true"},
@@ -234,7 +234,7 @@ class AppCal(App):
        
         uidata=[  {"class":"ins-space-2xl"},
             {"start": "true", "class": "ins-col-12 ins-flex-end  gla-container"},
-             {"_data": "Filter by",  "_data-ar":"تصفية حسب","class": "ins-strong-m ins-grey-d-color ins-title-14"}]
+             {"_data": "Filter by",  "_data-ar":"تصفية حسب","_trans":"true","class": "ins-strong-m ins-grey-d-color ins-title-14"}]
         fdata = [
             {"name":"mix","title":"Mix","title_ar":"مزج","url":f"{self.ins._server._url({},"id")}"},
             {"name":"bars","title":"24 Karat (Gold Bars)","title_ar":"سبائك الذهب عيار 24","url":"bars"},
