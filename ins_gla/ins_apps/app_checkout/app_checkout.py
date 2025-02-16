@@ -289,12 +289,13 @@ class AppCheckout(App):
        }
        self.ins._server._set_session(self.session_address_name,adta)
        return self._addresses_area_ui()
+    
     def _update_address_ui(self):
         rq = self.ins._server._post()
         address = self.ins._db._get_row("gla_address","*",f"id='{rq["aid"]}'")
         uidata = [{"start":"true","class":"ins-flex ins-col-12 "}]
         uidata.append({"start":"true","class":"ins-flex ins-col-12 -update-address-area"})
-        uidata.append({"_data":"Add new Address","class":"ins-col-12 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"})
+        uidata.append({"_data":"Edit Address","class":"ins-col-12 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"})
         uidata.append({"_type": "input","value":address["first_name"],"type":"text","required":"true","placeholder":"First name*","name":"first_name","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
         uidata.append({"_type": "input","value":address["last_name"],"type":"text","required":"true","placeholder":"Last name*","name":"last_name","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
         uidata.append({"_type": "input","value":address["email"],"type":"text","required":"true","placeholder":"Email*","name":"email","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
@@ -310,11 +311,12 @@ class AppCheckout(App):
         uidata.append({"_data": " Back", "class": "ins-button-s ins-flex-center ins-strong-m ins-text-upper ins-gold-d-color   -back-address-btn  ins-col-2 ","style":"    height: 46px;"})
         uidata.append({"end":"true"})
         return self.ins._ui._render(uidata)
+    
     def _add_address_ui(self):
         uidata = [{"start":"true","class":"ins-flex ins-col-12 "}]
         uidata.append({"start":"true","class":"ins-flex ins-col-12 -add-address-area"})
         uidata.append({"_data":"Add new Address","class":"ins-col-12 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"})
-        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"First name*","name":"first_name","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"First name*","placeholder-ar":"للل","_trans":"true","name":"first_name","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
         uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Last name*","name":"last_name","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
         uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Email*","name":"email","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
         uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Phone*","name":"phone","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
