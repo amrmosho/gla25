@@ -32,7 +32,7 @@ class AppCal(App):
                 w += " and fk_product_category_id = '2'"
 
         r = self.ins._db._get_data(
-            "gla_product", "*",w)
+            "gla_product", "*",w ,update_lang=True)
 
         if len(r) == 0:
             for f in fill:
@@ -98,7 +98,7 @@ class AppCal(App):
                 {"start": "true", "class": "  ins-flex  ins-border ins-padding-m ins-radius-m"},
                 {"_data": "E£", "class": "ins-border-end ins-padding-m ins-padding-h",
                     "style": "height: 24px;line-height: 24px;"},
-                {"_type": "input", "value":total, "placeholder": "Enter your amount","_placeholder-ar":"أدخل المبلغ الخاص بك","_trans":"true",
+                {"_type": "input", "value":total, "placeholder": "Enter your amount","placeholder-ar":"أدخل المبلغ الخاص بك","_trans":"true",
                     "type": "text", "class": " -cal-update-nput ins-input-none"},
                 {"_data": "<i class='lni ins-white-color lni-arrow-right'></i>",
                     "class": "ins-button-s  -cal-update-btn ins-gold-d"},
@@ -136,7 +136,7 @@ class AppCal(App):
 
 
 
-    def plan_ui(self,product,title):
+    def plan_ui(self,product,title ,title_ar =""):
         p = "/ins_web/ins_uploads/"
         uidata = []
         uniq = 0
@@ -146,7 +146,10 @@ class AppCal(App):
                 {"class": "ins-space-l"},
                 {"start": "true", "class": "ins-white ins-radius-xl ins-border  gla-container "},
                 {"start": "true", "class": " ins-flex ins-padding-xl  ins-col-12"},
-                {"_data": title, "class": "ins-title-20	 ins-strong-l ins-grey-d-color"},
+                { "_trans":"true","_data": title, "class": "ins-title-20	 ins-strong-l ins-grey-d-color"},
+                
+                
+                
                 {"class": "ins-line ins-col-12"},
                 {"start": "true", "class": " ins-radius-l ins-border ins-col-12 ins-flex -plan-body",
                     "style": "overflow: hidden;"},
@@ -261,7 +264,8 @@ class AppCal(App):
 
         for product in plan_data:
             if product:
-                title = f"Option {i}"
+                title =   f"{self.ins._langs._get("option" ,"gla")} {i}"
+
                 uidata += self.plan_ui(product, title)
                 i += 1
 
@@ -280,13 +284,16 @@ class AppCal(App):
     
 
 
-    def create_step(self,img, title, des):
+    def create_step(self,img, title, des ,title_ar ="",des_ar=""):
+        
+        
+        
         return [
             {"start": "true", "class": "ins-col-12 ins-flex", "style": "z-index: 1;"},
             {"_type": "img","loading":"lazy", "src": img},
             {"start": "true", "class": "ins-col-10"},
-            {"_data": title, "class": "ins-title-xs ins-grey-d-color ins-strong-l", "style": "line-height: 24px;"},
-            {"_data": des, "class": "ins-title-14 ins-grey-color", "style": "line-height: 20px;"},
+            {"_trans":"true","_data": title,"_data-ar": title_ar, "class": "ins-title-xs ins-grey-d-color ins-strong-l", "style": "line-height: 24px;"},
+            {"_trans":"true","_data": des, "_data-ar": des_ar, "class": "ins-title-14 ins-grey-color", "style": "line-height: 20px;"},
             {"end": "true"},
             {"end": "true"},
             {"class": "ins-space-2xl"}
@@ -305,25 +312,19 @@ class AppCal(App):
         uidata.append({"class":"ins-space-xs"})  
        
         uidata.append({"start":"true", "class":"ins-col-12 ins-flex","style":"position:relative"})
-        uidata.append({"class":"ins-line-vertical","style":"    height: 475px;position: absolute;left: -6px;top: 0;"})    
-        steps_ar = [
-        (f"{p}money_circle.svg", "مدخراتك", "أدخل مبلغ مدخراتك"),
-        (f"{p}wallet_circle.svg", "اكتشف الذهب ضمن ميزانيتك", "اكتشف منتجات الذهب بناءً على ميزانيتك."),
-        (f"{p}cart_circle.svg", "راجع سلة التسوق", "راجع سلة التسوق الخاصة بك للمتابعة مع اختيارك."),
-        (f"{p}order_circle.svg", "أكمل طلبك", "أدخل تفاصيل الشحن الخاصة بك، ثم قم بتأكيد الطلب."),
-        (f"{p}truck_circle.svg", "استمتع بالتوصيل إلى المنزل", "استرخ واستمتع بتوصيل مدخراتك الذهبية إلى باب منزلك بأمان وراحة.")
-        ]
+        uidata.append({"class":"ins-line-vertical -cal-line"})    
+       
         steps = [
-        (f"{p}money_circle.svg", "Your savings", "Insert Your Savings Amount"),
-        (f"{p}wallet_circle.svg", "Discover gold within your budget", "Discover gold products based on your budget."),
-        (f"{p}cart_circle.svg", "Review your cart", "Review your cart to proceed with your selection."),
-        (f"{p}order_circle.svg", "Complete your order", "Fill in your delivery details, and confirm your order."),
-        (f"{p}truck_circle.svg", "Enjoy Home Delivery", "Sit back and relax as your gold savings is delivered directly to your doorstep, securely and conveniently.")
+        (f"{p}money_circle.svg", "Your savings", "Insert Your Savings Amount" ,"مدخراتك", "أدخل مبلغ مدخراتك"),
+        (f"{p}wallet_circle.svg", "Discover gold within your budget", "Discover gold products based on your budget." ,"اكتشف الذهب ضمن ميزانيتك", "اكتشف منتجات الذهب بناءً على ميزانيتك."),
+        (f"{p}cart_circle.svg", "Review your cart", "Review your cart to proceed with your selection." , "راجع سلة التسوق", "راجع سلة التسوق الخاصة بك للمتابعة مع اختيارك."),
+        (f"{p}order_circle.svg", "Complete your order", "Fill in your delivery details, and confirm your order." ,"أكمل طلبك", "أدخل تفاصيل الشحن الخاصة بك، ثم قم بتأكيد الطلب."),
+        (f"{p}truck_circle.svg", "Enjoy Home Delivery", "Sit back and relax as your gold savings is delivered directly to your doorstep, securely and conveniently." ,"استمتع بالتوصيل إلى المنزل", "استرخ واستمتع بتوصيل مدخراتك الذهبية إلى باب منزلك بأمان وراحة.")
     ]
         
 
-        for img, title, des in steps:
-            uidata.extend(self.create_step(img, title, des))
+        for img, title, des ,title_ar ,des_ar in steps:
+            uidata.extend(self.create_step(img, title, des,title_ar,des_ar))
             
         uidata.append({"end":"true"})
 
@@ -341,7 +342,9 @@ class AppCal(App):
                 {"start": "true", "class": "  ins-flex  ins-border ins-radius-m ins-padding-m ","style":"width: 720px;background-color: white;"},
                 {"_data": "E£", "class": "ins-border-end ins-padding-m ins-padding-h ins-title-20 ins-grey-color",
                     "style": "height: 24px;line-height: 24px;"},
-                {"_type": "input",  "placeholder": "Enter your amount","_placeholder-ar":"أدخل المبلغ الخاص بك","_trans":"true",
+                {"_type": "input",  "placeholder": 
+                    
+                    "Enter your amount","placeholder-ar":"أدخل المبلغ الخاص بك","_trans":"true",
                     "type": "text", "class": " -cal-update-nput ins-input-none","pclass":"ins-col-grow"},
                 {"_data": "CALCULATOR <i class='lni ins-white-color lni-arrow-right'></i>","_data-ar":"احسب ","_trans":"true",
                     "class": "ins-button-s  -cal-update-btn ins-gold-d ins-flex-center","style":"height: 46px;"},

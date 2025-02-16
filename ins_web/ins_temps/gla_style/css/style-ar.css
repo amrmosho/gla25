@@ -154,3 +154,7 @@
         left: auto;
         right: 0;
     }
+    
+    .-cal-line {
+        right: -6px;
+    }

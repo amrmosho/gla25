@@ -422,3 +422,9 @@ footer li {
     max-height: 400px;
     opacity: 0;
 }
+
+.-cal-line {
+    height: 475px;
+    position: absolute;
+    top: 0
+}
