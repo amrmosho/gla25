@@ -98,7 +98,7 @@ class AppCal(App):
                 {"start": "true", "class": "  ins-flex  ins-border ins-padding-m ins-radius-m"},
                 {"_data": "E£", "class": "ins-border-end ins-padding-m ins-padding-h",
                     "style": "height: 24px;line-height: 24px;"},
-                {"_type": "input", "value":total, "placeholder": "Enter your amount",
+                {"_type": "input", "value":total, "placeholder": "Enter your amount","_placeholder-ar":"أدخل المبلغ الخاص بك","_trans":"true",
                     "type": "text", "class": " -cal-update-nput ins-input-none"},
                 {"_data": "<i class='lni ins-white-color lni-arrow-right'></i>",
                     "class": "ins-button-s  -cal-update-btn ins-gold-d"},
