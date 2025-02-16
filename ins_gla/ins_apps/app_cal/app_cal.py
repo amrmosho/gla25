@@ -125,7 +125,7 @@ class AppCal(App):
         r["status"] = "2"
 
         if not ndata:
-            uidata=[{"_data":"There is no items in cart","class":"ins-col-12 ins-card ins-secondary ins-text-upper ins-text-center ins-title-12"}]
+            uidata=[{"_data":"There is no items in cart","_data-ar":"لا يوجد أي عناصر في سلة التسوق","_trans":"true","class":"ins-col-12 ins-card ins-secondary ins-text-upper ins-text-center ins-title-12"}]
             r["status"] = "1"
             r["ui"] = self.ins._ui._render(uidata)
 
