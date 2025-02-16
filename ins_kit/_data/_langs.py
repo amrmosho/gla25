@@ -19,7 +19,7 @@ class Languages(ins_parent):
             if  not defu or not self.ins._server._has_session("inslang") :
                  return self.ins._server._set_session("inslang" ,lang)
     
-    def _this_get(self ,code=False):
+    def _this_get(self ,code=False ):
        lang = self.ins._server._get_session("inslang" ,"en")
        
        if code:
@@ -41,7 +41,7 @@ class Languages(ins_parent):
         return self.ins._this._settings["langs"]
 
     def _update(self, content: str, lang_data: dict):
-        d = self.ins._this._lang
+        d =  self.ins._langs._this_get()
         f_search = self._search(content)
         r = content
         for w in f_search:
@@ -87,8 +87,7 @@ class Languages(ins_parent):
 
     def _render_db_row(self, r: dict = {}):
             lss = self.ins._json._decode(r["kit_lang"])
-            self.ins._this._lang["name"] = "ar"
-            ls = lss[self.ins._this._lang["name"]]
+            ls = lss[self.ins._langs._this_get()["name"]]
             for k, v in r.items():
                 if k in ls.keys():
                     r[k] = ls[k]
@@ -99,7 +98,7 @@ class Languages(ins_parent):
     
 
     def _get(self, name, type ="crud"):
-        l = self.ins._this._lang
+        l = self.ins._langs._this_get()
         url = f"ins_langs/{l.get("name" ,"en")}"
         data = self.ins._json._file_read(f"./{url}/{type}.json")
 

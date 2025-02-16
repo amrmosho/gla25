@@ -49,7 +49,7 @@ class Temp(ins_parent):
                "ins_colors", "ins_layout", "ins_content",
                "ins_forms", "ins_ui",
 
-               "ins_lang-" + self.ins._this._lang.get("name" )
+               "ins_lang-" +  self.ins._langs._this_get().get("name" )
                ]
         
         lng= self.ins._langs._this_get()
@@ -268,7 +268,7 @@ class App(ins_parent):
 
             r["properties"] = self._pros("properties", r["url"])
 
-            r["lang"] = self._pros(self.ins._this._lang["name"], r["url"])
+            r["lang"] = self._pros(self.ins._langs._this_get()["name"], r["url"])
 
             r["properties"]["url"] = r["url"]
             r["properties"]["pros_name"] = "properties"
