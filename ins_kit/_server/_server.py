@@ -152,12 +152,18 @@ class Server(ins_parent):
         if "mode" in _set and "mode" not in remove:
             url += f"{_set['mode']}/"
 
+        if "filter" in _set and "filter" not in remove:
+            url += f"{_set['filter']}/"
+
+        if "page" in _set and "page" not in remove:
+            url += f"{_set['page']}/"
+
         if clear == True:
             return url
 
         if "id" in _set and "id" not in remove:
             url += f"{_set['id']}/"
-        ex = ["id", "mode", "alias", "area", "_t", "_area", "_alias"]
+        ex = ["id", "mode", "alias", "area", "_t", "_area", "_alias","filter","page"]
 
         exurl = ""
         for k in _set.keys():

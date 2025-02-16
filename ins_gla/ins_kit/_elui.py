@@ -271,3 +271,72 @@ class ELUI(ins_parent):
     def to_currency (self,  amount1):
         n= self.ins._data._format_currency(amount1,symbol=False) 
         return f"{n}EGP"
+    
+    
+    def _bank_ui(self,string=False):
+          p = "/ins_web/ins_uploads/"
+          bank_details = [
+            {"Bank Name": "CIB", "Account Number": "100022388147","name":"cib", "Swift Code": "CIBEEGCX097", "IBAN number": "EG590010009700000100022388147", "Bank Branch": "El Mokattam", "Company Name": "EL GALLA GOLD", "logo": "cib_logo.png"},
+            {"Bank Name": "National Bank Of Egypt", "Account Number": "1033071123260201011","name":"national", "Swift Code": "NBEGEGCX103", "IBAN number": "EG940003010330711232602010110", "Bank Branch": "Al Hamzawy", "Company Name": "EL GALLA GOLD", "logo": "nbe_logo.png"},
+            {"Bank Name": "Banque Misr", "Account Number": "1070199000006941","name":"misr", "Swift Code": "BMISEGCXXX", "IBAN number": "EG920002010701070199000006941", "Bank Branch": "Cairo Branch", "Company Name": "EL GALLA GOLD", "logo": "banque_misr_logo.png"},
+            {"Bank Name": "Bank Of Alexandria", "Account Number": "103026301001","name":"alex", "Swift Code": "ALEXEGCX003", "IBAN number": "EG21000510030000010302630100", "Bank Branch": "Sherif Branch", "Company Name": "EL GALLA GOLD", "logo": "alex_bank_logo.png"},
+            {"Bank Name": "Arab African International Bank", "Account Number": "11066655","name":"african", "Swift Code": "ARAIEGCXAZH", "IBAN number": "EG85005700200110666551001020", "Bank Branch": "Cairo Branch", "Company Name": "EL GALLA GOLD", "logo": "aaib_logo.png"},
+            {"Bank Name": "Abu Dhabi Islamic Bank (ADIB)", "Account Number": "100000545327", "name":"islamic","Swift Code": "ABDIEGCAXX", "IBAN number": "EG97003001280000010000054532", "Bank Branch": "Al Darasa", "Company Name": "EL GALLA GOLD", "logo": "adib_logo.png"},
+            {"Bank Name": "Emirates NBD", "Account Number": "1019342954301", "name":"nbd","Swift Code": "EBILEGCXXXX", "IBAN number": "EG10001400540000101934295430", "Bank Branch": "Al Azhar", "Company Name": "EL GALLA GOLD", "logo": "enbd_logo.png"}
+          ]
+          uidata = [{"start": "true", "class": "ins-col-12 ins-flex ins-gap-m"},
+                    {"_data":" Note: If you use InstaPay, please transfer the amount to our bank account at <a class='-african-bank-button ins-strong-m'>Arab African International Bank</a>","class":"ins-col-12 ins-title-xs ins-grey-color ins-text-none"}
+                    ]
+          
+          for bank in bank_details:
+            uidata.append({"start": "true", "class": f"ins-col-12 -bank-card-{bank["name"]} ins-card ins-padding-s ins-margin-xs"})
+            uidata.append({"start": "true", "class": "ins-col-12 ins-flex ins-align-center"})
+            uidata.append({"_type": "img", "style":"width: 30px;","src": f"{p}images/bank/{bank['logo']}","loading":"lazy", "class": "ins-logo-xs"})
+            uidata.append({"_data": f"{bank['Bank Name']}", "class": "ins-col-10 ins-title-xs ins-strong-m ins-grey-d-color"})
+            uidata.append({"end": "true"})
+            uidata.append({"_data": f"Account Number: {bank['Account Number']}", "class": "ins-col-12 ins-title-xxs ins-grey-d-color"})
+            uidata.append({"_data": f"Swift Code: {bank['Swift Code']}", "class": "ins-col-12 ins-title-xxs ins-grey-d-color"})
+            uidata.append({"_data": f"IBAN number: {bank['IBAN number']}", "class": "ins-col-12 ins-title-xxs ins-grey-d-color"})
+            uidata.append({"_data": f"Bank Branch: {bank['Bank Branch']}", "class": "ins-col-12 ins-title-xxs ins-grey-d-color"})
+            uidata.append({"_data": f"Company Name: {bank['Company Name']}", "class": "ins-col-12 ins-title-xxs ins-grey-d-color"})
+            uidata.append({"end": "true"})
+          uidata.append({"end": "true"})
+          if string:
+             return uidata
+          return self.ins._ui._render(uidata)
+   
+   
+   
+
+   
+    def _cash_ui(self, string=False):
+      uidata = [
+         {"start": "true", "class": "ins-col-12 ins-flex ins-gap-s"},
+         {"_data": "Pay with cash upon delivery. Please ensure you have the exact amount ready as our delivery personnel may not have change.", "class": "ins-col-12 ins-title-xs ins-grey-color ins-text-none"},
+         {"end": "true"}
+      ]
+      if string:
+         return uidata
+      return self.ins._ui._render(uidata)
+    
+    def _online_ui(self, string=False):
+         p = "/ins_web/ins_uploads/"
+         online_methods = [
+            {"name": "Aman", "logo": "aman_logo.png"},
+            {"name": "Contact", "logo": "contact_logo.png"},
+            {"name": "Mogo", "logo": "mogo_logo.png"}
+         ]
+         uidata = [{"start": "true", "class": "ins-col-12 ins-flex"}]
+         for method in online_methods:
+            uidata.append({"start": "true", "class": "ins-col-12 ins-card ins-padding-s ins-margin-xs"})
+            uidata.append({"start": "true", "class": "ins-col-12 ins-flex ins-align-center"})
+            uidata.append({"_type": "img", "style": "width: 30px;", "src": f"{p}images/payment/{method['logo']}","loading":"lazy", "class": "ins-logo-xs"})
+            uidata.append({"_data": f"{method['name']}", "class": "ins-col-10 ins-title-xs ins-strong-m ins-grey-d-color"})
+            uidata.append({"end": "true"})
+            uidata.append({"end": "true"})
+         uidata.append({"end": "true"})
+         if string:
+            return uidata
+         return self.ins._ui._render(uidata)
+  
+  

@@ -23,11 +23,15 @@ ins(".-user-menu-btn")._on("click", (o) => {
 }, true);
 
 
+
+ins(".gla-search-btn")._on("click", (o, e) => {
+    var v = ins(".gla-header-search-input")._getValue();
+    window.location = "/product/do/filter/title=" + v;
+}, true);
+
 ins(".gla-header-search-input")._on("keyup", (o, e) => {
     if (e.keyCode == 13) {
-
         var v = o._getValue();
-
         window.location = "/product/do/filter/title=" + v;
     }
 }, true);

@@ -47,11 +47,11 @@ class AppProducts(App):
     def _cart_lightbox_ui(self):
          return ELUI(self.ins)._cart_lightbox_ui(True)
 
-        
 
 
     def generate_product_html(self,string = False):
         items_per_page = 12
+        f = self.ins._server._get("page")
         g = self.ins._server._get("filter")
         parsed_data = parse_qs(g)
         filter_data = {key: value[0] for key, value in parsed_data.items()}
@@ -92,10 +92,10 @@ class AppProducts(App):
        
        
         num_pages = math.ceil(tcount / items_per_page)
-        if not "page" in rq:
+        if not f:
             current_page = 1
         else:
-            current_page = int(rq["page"])
+            current_page = int(f)
         offset = (current_page - 1) * items_per_page
        
 
@@ -349,8 +349,8 @@ class AppProducts(App):
         uidata.append({"_data": "Price ","_data-ar": "السعر","_trans": "true", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "})
       
         uidata.append({"start": "true", "class": "ins-col-12 ins-flex ins-gap-o"})
-        uidata.append({"_type": "input", "name":"from","value":min_price,"data-name":"from","type": "text", "placeholder":"from","_placeholder-ar": "من","_trans": "true","class":" -price-from-filter-input -price-from-input",  "pclass": "ins-col-5 "})
-        uidata.append({"_type": "input", "name":"to","value":max_price,"data-name":"to","type": "text", "placeholder":"to","_placeholder-ar": "إلى","_trans": "true","class":" -price-to-filter-input -price-to-input",  "pclass": "ins-col-5 "})
+        uidata.append({"_type": "input","step":"1000",  "name":"from","value":min_price,"data-name":"from","type": "number", "placeholder":"from","_placeholder-ar": "من","_trans": "true","class":" -price-from-filter-input -price-from-input",  "pclass": "ins-col-5 "})
+        uidata.append({"_type": "input","step":"1000","name":"to","value":max_price,"data-name":"to","type": "number", "placeholder":"to","_placeholder-ar": "إلى","_trans": "true","class":" -price-to-filter-input -price-to-input",  "pclass": "ins-col-5 "})
         uidata.append({"_data":"<i class='lni lni-search-1'></i>","class":" ins-gold-d-color ins-flex-center -filter-price-btn"})
         uidata.append({"end": "true"})
 
