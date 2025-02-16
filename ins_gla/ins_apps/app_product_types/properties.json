@@ -9,6 +9,8 @@
             "title": "Title",
             "title-ar": "العنوان",
             "_type": "input",
+            "_lang": "true",
+            "_table": "gla_product_types",
             "type": "text",
             "_trans": "true",
             "required": "true",
