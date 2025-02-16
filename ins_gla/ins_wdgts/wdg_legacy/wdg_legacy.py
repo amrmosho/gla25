@@ -20,7 +20,7 @@ class WdgLegacy(Widget):
             {"_data": "A Legacy of Gold<br/> The Story of El-Galla Gold ","_data-ar":"إرث من الذهب<br/> قصة الذهب في الجلا" ,"_trans":"true",
                 "class": "ins-title-xl ins-grey-d-color ins-strong-m", "style": "line-height:50px"},
             {"class": "ins-col-grow "},
-            {"_type":"a","href":"about_us","_data": "About US  <i class=' lni ins-icon lni-arrow-right'></i>",
+            {"_type":"a","href":"about_us","_data": "About US  <i class=' lni ins-icon lni-arrow-right'></i>","_data-ar":"معلومات عنا","_trans":"true",
                 "style": "width:250px", "class": "ins-button-l  ins-text-upper ins-gold-d"},
             {"class": "ins-space-l"},
             {"start": "true", "class": "ins-flex-center ins-grey-color ",
