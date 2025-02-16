@@ -23,8 +23,20 @@ class PaymobAPI:
             "merchant_order_id": order_id,
             "amount_cents": amount,
             "currency": "EGP",
-            "delivery_needed": False
+            "delivery_needed": False,
+            "billing_data": {
+                "first_name": "ala", 
+                "last_name": "zain",
+                "email": "ali@gmail.com",
+                "phone_number": "+92345xxxxxxxx",
+                "address": "1234 Street",
+                "city": "dumy",
+                "state": "dumy",
+                "country": "EG",
+                "postal_code": "12345"
+            }
         }
+
         try:
             response = requests.post(url, json=payload, headers=headers)
             response.raise_for_status()
@@ -41,6 +53,19 @@ class PaymobAPI:
             "amount_cents": amount,
             "currency": "EGP",
             "integration_id": integration_id,
+            "billing_data": {
+                "apartment": "dumy",
+                "first_name": "ala",
+                "last_name": "zain",
+                "street": "dumy",
+                "building": "dumy",
+                "phone_number": "+92345xxxxxxxx",
+                "city": "dumy",
+                "country": "dumy",
+                "email": "ali@gmail.com",
+                "floor": "dumy",
+                "state": "dumy"
+              }
         }
         try:
             response = requests.post(url, json=payload, headers=headers)

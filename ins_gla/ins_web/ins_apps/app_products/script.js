@@ -81,16 +81,18 @@ ins(".-go-to-page-btn")._on("click", (o) => {
     }
 }, true);
 
+
+
 function get_page(page) {
     ins(".ins-pagination-btn")._removeClass("active");
-    var sql = ins(".-sql-filter-input")._getValue()
-    ins("generate_product_html")._ajax._app({ "page": page, "sql": sql }, function(data) {
-        ins(".-products-area")._setHTML(data);
-    })
+
+    url = ins()._map._hurl({ "page": page })
+    window.location = url
 }
 ins(".-add-cart-btn")._on("click", (o) => {
     var ops = o._getData();
     ops.count = ins(".count-inpt")._getValue()
+    ops["lang"] = "ar"
     ins("_cart_lightbox_ui")._ajax._app(ops, (data) => {
         ins()._ui._addLightbox({
             "mode": "right_panel",
@@ -184,10 +186,7 @@ ins(".-subtype-btn")._on("click", function(o) {
 
 
 ins(".-type-inner-btn")._on("click", function(o) {
-    if (o._hasClass("ins-active")) {
-        ins(".-subtype-inner-btn")._removeClass("ins-active")
-        ins(".-type-inner-btn")._removeClass("ins-active")
-    } else {
+    if (!o._hasClass("ins-active")) {
         ins(".-subtype-inner-btn")._removeClass("ins-active")
         ins(".-type-inner-btn")._removeClass("ins-active")
         o._addClass("ins-active");
@@ -201,11 +200,7 @@ ins(".-type-inner-btn")._on("click", function(o) {
 
 ins(".-subtype-inner-btn")._on("click", function(o) {
 
-    if (o._hasClass("ins-active")) {
-        ins(".-subtype-inner-btn")._removeClass("ins-active")
-        ins(".-type-inner-btn")._removeClass("ins-active")
-        _submitfilterInner()
-    } else {
+    if (!o._hasClass("ins-active")) {
         ins(".-subtype-inner-btn")._removeClass("ins-active")
         o._addClass("ins-active");
         _submitfilterInner()

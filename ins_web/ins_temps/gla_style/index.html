@@ -20,29 +20,9 @@
 </head>
 
 <body class="ins-light-style ins-gla-style  ins-padding-xl   ins-wallpaper">
+
     <div class="">
-        <div style="z-index: 1113   " class="ins-secondary ins-sticky-top i ">
-
-            <div class="ins-flex-center  ins-gap-20">
-
-                <span>Updated At: 7:40 PM, Saturday, 19 October 2024  </span>
-                <span> | </span>
-                <span>Buy - EGP 4,457.00   </span>
-                <span class="ins-primary-d" style="max-height: 24px;line-height: 21px;padding: 2px;">(24K) </span>
-                <span>Sell - EGP 4,434.00   </span>
-
-                <span> | </span>
-                <span>Buy - EGP 3,880.00   </span>
-                <span class="ins-primary-d" style="max-height: 24px;line-height: 21px;padding: 2px;">(21K) </span>
-                <span>Sell - EGP 3,850.00   </span>
-
-
-
-
-
-            </div>
-
-        </div>
+        {{ wdgts["ticker"]|safe }}
 
         <header style="z-index: 1112;  top: 32px;" class=" ins-white   ins-flex  ">
             <div class="gla-container gla-body ins-flex ins-m-flex-space-between">
@@ -150,8 +130,7 @@
 
         <div class="ins-flex-space-between ins-padding-xl ins-white -search-cont  ins-col-12">
 
-            <i class=" lni ins-icon ins-font-2xl lni-search-1
-"></i>
+            <i class=" lni ins-icon ins-font-2xl lni-search-1 gla-search-btn"></i>
             <input type="text" placeholder="What are you looking for?" class="ins-col-grow gla-header-search-input ins-font-l ins-input-none" />
             <i class=" lni ins-icon  ins-font-2xl lni-xmark gla-header-search-btn"></i>
         </div>

@@ -81,8 +81,8 @@ class AppProductDetails(App):
        
         path = [
             {"start":"true","class":"ins-col-12 ins-flex ins-text-upper"},
-            {"_type":"a","href":home_url,"_data": "Home /","class":" ins-title-12	ins-grey-d-color ins-strong-m"},
-            {"_type":"a","href":product_url,"_data": "Product /","class":" ins-title-12	ins-grey-d-color ins-strong-m"},
+            {"_type":"a","href":home_url,"_data": "Home /","_data-ar":"الرئيسية /","_trans":"true","class":" ins-title-12	ins-grey-d-color ins-strong-m"},
+            {"_type":"a","href":product_url,"_data": "Product /","_data-ar":"منتجات /","_trans":"true", "class":" ins-title-12	ins-grey-d-color ins-strong-m"},
             {"_data": data["title"],"class":" ins-title-12	ins-grey-color ins-strong-m"},
             {"end":"true"}
             ]
@@ -187,7 +187,6 @@ class AppProductDetails(App):
                 active = ""
                 cclass= ""
 
-                #if (filter_data.get("types") and filter_data["types"] == t_key) or (not filter_data.get("types") and t_key in ["royal", "standard"]):
                 if tys == t_key:
                         active = "ins-active"
                         subtypes = t_value["data"]
@@ -247,7 +246,7 @@ class AppProductDetails(App):
         uidata.append({"start": "true", "class": "ins-flex ins-col-12"})
         uidata.append({"_data": "Related Products","_data-ar":"المنتجات ذات الصلة","_trans":"true", "class": "ins-col-12 ins-grey-d-color ins-strong-m ins-text-upper","style":"font-size:36px"})
         uidata.append({"class": "ins-space-l"})
-        rpdata = self.ins._db._get_data("gla_product","*", f"   fk_product_category_id={data["fk_product_category_id"]} and id <>{data["id"]} limit 0,4 ")
+        rpdata = self.ins._db._get_data("gla_product","*", f"   fk_product_category_id={data["fk_product_category_id"]} and id <>{data["id"]} limit 0,4 ",update_lang=True)
         uidata.append({"start": "true", "class": "ins-flex-space-between ins-col-12"})
         for d in rpdata:
             uidata+= ELUI(self.ins).shop_pro_block(d,self.ins._server._url({"id":d["id"]},["filter","type"]))

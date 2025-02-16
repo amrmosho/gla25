@@ -95,6 +95,57 @@ InsMap.prototype._surl = function(adds = {}, ...remove) {
     return url;
 };
 
+
+InsMap.prototype._hurl = function(adds = {}, ...remove) {
+    var url = "/";
+
+    if (this.o == "undefined" || this.o == null) {
+        this.o = ".ins-app"
+    }
+
+    var j = JSON.parse(ins(this.o)._getData("data"));
+    var urldata = j["_g"];
+
+    Object.keys(adds).forEach(function(k) {
+        urldata[k] = adds[k];
+    });
+
+    if (j["_a"] != null && j["_a"] !== "ins_gla" && j["_a"] !== "home") {
+        url += "/" + j["_a"];
+    }
+
+
+    if (urldata["alias"] != null && urldata["alias"] !== "home") {
+        url += "/" + urldata["alias"];
+        delete urldata.alias;
+    }
+
+    if (urldata["mode"] != null && !remove.includes("mode")) {
+        url += "/" + urldata["mode"];
+        delete urldata.mode;
+    }
+
+    if (urldata["id"] != null) {
+        url += "/" + urldata["id"];
+        delete urldata.id;
+    }
+
+    url += "/do";
+
+    Object.keys(urldata).forEach(function(k) {
+        if (!remove.includes(k)) {
+            url += "/" + k + "/" + urldata[k];
+        }
+    });
+    console.log(j);
+    console.log(urldata);
+
+    url = ins()._data._replaceAll("///", "/", url);
+    url = ins()._data._replaceAll("//", "/", url);
+    return url;
+};
+
+
 InsMap.prototype._url = function(adds = {}, ...remove) {
     var url = "/";
     if (this.o == "undefined" || this.o == null) {

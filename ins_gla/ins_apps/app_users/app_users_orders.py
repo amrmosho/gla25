@@ -70,7 +70,7 @@ class AppUsersOrders(App):
 
     def out(self, ins):
         udata = self.user._check()
-        odata = self.ins._db._get_data("gla_order", "*", f"fk_user_id='{udata["id"]}'")
+        odata = self.ins._db._get_data("gla_order", "*", f"fk_user_id='{udata["id"]}'",update_lang=True)
         usmenu = [{"start": "true", "class": "  ins-col-12 ins-gap-20  ins-flex    ins-padding-2xl"}]
         i = 0
         odata.reverse()

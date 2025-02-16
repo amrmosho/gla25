@@ -286,7 +286,6 @@ footer li {
 
 .-search-cont {
     z-index: 111111;
-    position: fixed;
     top: 126px;
     width: 100%;
     border-top: 1px solid var(--border);

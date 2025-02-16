@@ -16,7 +16,7 @@ class AppBlogs(App):
 
         path = [
             {"start": "true", "class": "ins-col-12 ins-flex ins-text-upper"},
-            {"_type": "a", "href": home_url, "_data": "Home /",
+            {"_type": "a", "href": home_url, "_data": "Home /","_data-ar":"الرئيسية /","_trans":"true",
                 "class": " ins-title-12	ins-grey-d-color ins-strong-m"},
         ]
         rq = self.ins._server._req()
@@ -31,14 +31,14 @@ class AppBlogs(App):
                 {"_data": " / "+title, "class": " ins-title-12	ins-grey-color ins-strong-m"})
 
         else:
-            path.append({"_data": "Media & News",
+            path.append({"_data": "Media & News","_data-ar":"أحدث الأخبار","_trans":"true",
                         "class": " ins-title-12	ins-grey-color ins-strong-m"})
 
         path.append({"end": "true"})
 
         uidata += path
 
-        uidata.append({"_data": "Media / News",
+        uidata.append({"_data": "Media / News","_data-ar":"أحدث الأخبار","_trans":"true",
                       "class": "ins-col-7 ins-title ins-strong-m ins-text-upper ins-grey-d-color"})
 
         # checkout steps
@@ -48,7 +48,7 @@ class AppBlogs(App):
 
     def _ui(self):
 
-        data = self.ins._db._get_data("gla_blog", "*"," fk_blog_category_id <>'18'")
+        data = self.ins._db._get_data("gla_blog", "*"," fk_blog_category_id <>'18'",update_lang=True)
         p = "/ins_web/ins_uploads/"
         uidata = [{"start": "true", "class": "ins-flex ",
                    "style": "background:white;height:124px;position: relative;    border-bottom: 1px solid var(--grey-l); "}]

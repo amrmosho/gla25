@@ -9,14 +9,14 @@ class AppPartners(App):
         home_url = self.ins._server._url({}, ["mode", "id", "alias"])
         path = [
             {"start": "true", "class": "ins-col-12 ins-flex ins-text-upper"},
-            {"_type": "a", "href": home_url, "_data": "Home /",
+            {"_type": "a", "href": home_url, "_data": "Home /","_data-ar":"الرئيسية /","_trans":"true",
                 "class": " ins-title-12	ins-grey-d-color ins-strong-m"},
         ]
-        path.append({"_data": "Partners",
+        path.append({"_data": "Partners","_data-ar":"شركاؤنا ","_trans":"true",
                         "class": " ins-title-12	ins-grey-color ins-strong-m"})
         path.append({"end": "true"})
         uidata += path
-        uidata.append({"_data": "Our Partners",
+        uidata.append({"_data": "Our Partners","_data-ar":"شركاؤنا","_trans":"true",
                       "class": "ins-col-7 ins-title ins-strong-m ins-text-upper ins-grey-d-color"})
         uidata.append({"end": "true"})
         return uidata
@@ -29,7 +29,7 @@ class AppPartners(App):
         uidata = [{"start": "true", "class": "ins-flex ","style": "background:white;height:124px;position: relative;    border-bottom: 1px solid var(--grey-l); "}]
         uidata += self.header_ui()
         uidata.append({"end": "true"})
-        data = self.ins._db._get_data("gla_blog", "*","fk_blog_category_id = '18'")
+        data = self.ins._db._get_data("gla_blog", "*","fk_blog_category_id = '18'",update_lang=True)
         uidata.append(
             {"start": "true", "class": "ins-col-12 gla-container ins-padding-2xl ins-flex ins-gap-l"})
         p = "/ins_web/ins_uploads/"
