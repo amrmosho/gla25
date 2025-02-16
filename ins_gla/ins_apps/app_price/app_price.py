@@ -18,94 +18,93 @@ class AppPrice(App):
     def reportui(self, data):
         r = ""
 
-        header = [{"_data": "id", "class": ""  ,"style":"width:50px"},
-                  {"_data": "title", "class": "ins-col-grow" ,"style":""},
-                  {"_data": " buy price", "class": "" ,"style":"width:120px"},
-                  
-                  
-                  
-                  {"_data": " sell price", "class": "","style":"width:120px"},
-                  {"_data": "weight", "class": "" ,"style":"width:50px"},
-                  {"_data": "stamp", "class": "" ,"style":"width:150px"},
-                  {"_data": "vat", "class": "" ,"style":"width:50px"},
-                  {"_data": "cashback", "class": "","style":"width:150px"},
-                  
-                                    {"_data": "", "class": "ins-danger","style":"width:1px"},
+        header = [{"_data": "id", "class": "", "style": "width:50px"},
+                  {"_data": "title", "class": "ins-col-grow", "style": ""},
+                  {"_data": " buy price", "class": "", "style": "width:120px"},
 
-                  
-                  {"_data": "buy price","class": "" ,"style":"width:120px"},
-                  {"_data": "Gram", "class": "" ,"style":"width:120px"},
-                  {"_data": "price","class": "ins-primary-color" ,"style":"width:120px"},
 
-                
-                  
-                  {"_data": "sell price","class": "" ,"style":"width:120px"},
-                  {"_data": "Gram ", "class": "" ,"style":"width:120px"},
-                  {"_data": "price", "class": " ins-primary-color" ,"style":"width:120px"},
+
+                  {"_data": " sell price", "class": "", "style": "width:120px"},
+                  {"_data": "weight", "class": "", "style": "width:50px"},
+                  {"_data": "stamp", "class": "", "style": "width:150px"},
+                  {"_data": "vat", "class": "", "style": "width:50px"},
+                  {"_data": "cashback", "class": "", "style": "width:150px"},
+
+                  {"_data": "", "class": "ins-danger", "style": "width:1px"},
+
+
+                  {"_data": "buy price", "class": "", "style": "width:120px"},
+                  {"_data": "Gram", "class": "", "style": "width:120px"},
+                  {"_data": "price", "class": "ins-primary-color",
+                      "style": "width:120px"},
+
+
+
+                  {"_data": "sell price", "class": "", "style": "width:120px"},
+                  {"_data": "Gram ", "class": "", "style": "width:120px"},
+                  {"_data": "price", "class": " ins-primary-color",
+                      "style": "width:120px"},
 
                   ]
-        
-        
-       
 
-
-
-        
         body = []
 
-
-
-        
-        
-        
-        
         for d in data:
 
             grm = "G"
-            if str(d["gram"]) !="1":
-                grm ="P"
+            if str(d["gram"]) != "1":
+                grm = "P"
             cgrm = "G"
-            if str(d["cashback_gram"]) !="1":
-                cgrm ="P"
-            rw = [{"_data": str(d["id"]), "class": "" ,"style":"width:50px"}, 
-                  {"_data": d["title"], "class": "ins-col-grow" , "style":""}, 
-                  {"_data": str(d["price"]), "class": "ins-col-1"}, 
-                  {"_data": str(d["price"]), "class": "ins-col-1"}, 
-                  {"_data":  str(d["weight"]), "class": "" ,"style":"width:50px"}, 
-                  {"_data": str(d["stamp"])+"/"+grm, "class": "" ,"style":"width:150px"}, 
-                  {"_data": str(d["vat"]), "class":"" ,"style":"width:50px"}, 
-                  {"_data": str(d["cashback"])+"/"+cgrm, "class": "" ,"style":"width:150px"}, 
-                {"_data": "", "class": "ins-bg-6","style":"width:1px"},
-                  {"_data": f"<b>{str(d["new_main_bprce"])}</b>","class": "" ,"style":"width:120px"}, 
-                  {"_data":f"<b>{str(d["gram_price_bay"])}</b>"  ,"class": "" ,"style":"width:120px"}, 
-                  {"_data": f"<b  class=''>{str(d["new_bay_price_f"])}</b>","class": " ins-primary" ,"style":"width:120px"}, 
-                  {"_data": f"<b>{str(d["new_main_prce"])}</b>" ,"class": "" ,"style":"width:120px"}, 
-                  {"_data":f"<b>{str(d["gram_price_sell"])}</b>"  ,"class": "" ,"style":"width:120px"}, 
-                    {"_data": f"<b>{str(d["new_sell_price_f"])}</b>","class": "ins-primary" ,"style":"width:120px"}, 
+            if str(d["cashback_gram"]) != "1":
+                cgrm = "P"
+            rw = [{"_data": str(d["id"]), "class": "", "style": "width:50px"},
+                  {"_data": d["title"], "class": "ins-col-grow", "style": ""},
+                  {"_data": str(d["price"]), "class": "ins-col-1"},
+                  {"_data": str(d["price"]), "class": "ins-col-1"},
+                  {"_data":  str(d["weight"]), "class": "",
+                   "style": "width:50px"},
+                  {"_data": str(d["stamp"])+"/"+grm,
+                   "class": "", "style": "width:150px"},
+                  {"_data": str(d["vat"]), "class": "", "style": "width:50px"},
+                  {"_data": str(d["cashback"])+"/"+cgrm,
+                   "class": "", "style": "width:150px"},
+                  {"_data": "", "class": "ins-bg-6", "style": "width:1px"},
+                  {"_data": f"<b>{str(d["new_main_bprce"])}</b>",
+                   "class": "", "style": "width:120px"},
+                  {"_data": f"<b>{str(d["gram_price_bay"])}</b>",
+                   "class": "", "style": "width:120px"},
+                  {"_data": f"<b  class=''>{str(d["new_bay_price_f"])}</b>",
+                   "class": " ins-primary", "style": "width:120px"},
+                  {"_data": f"<b>{str(d["new_main_prce"])}</b>",
+                   "class": "", "style": "width:120px"},
+                  {"_data": f"<b>{str(d["gram_price_sell"])}</b>",
+                   "class": "", "style": "width:120px"},
+                  {"_data": f"<b>{str(d["new_sell_price_f"])}</b>",
+                   "class": "ins-primary", "style": "width:120px"},
 
 
 
                   ]
 
-      
             body.append(rw)
 
         uidata = [
             {"start": "true", "class": "ins-col-12 ins-flex-center ins-padding-xl "},
             {"start": "true", "class": "ins-col-12 ins-card ins-flex ins-gap-20"},
-            
-            {"_data": "<i class='lni-bar-chart-4 lni ins-icon '></i>  Update price report", "class": "ins-col-grow ins-title-m ins-flex"},
-                        
-                        
-                        
 
-                        {"_data": "" ,"class":"lni lni-refresh-circle-1-clockwise   lni-printer ins-font-xl "},
+            {"_data": "<i class='lni-bar-chart-4 lni ins-icon '></i>  Update price report",
+                "class": "ins-col-grow ins-title-m ins-flex"},
 
-                        
-                        {"_data": "" ,"class":"lni ins-icon  lni-printer ins-font-xl "},
-                        {"_data": "" ,"class":"lni ins-icon   ins-font-xl lni-download-1"},
 
-                        {"": "" ,"class":"ins-line ins-col-12"},
+
+
+            {"_data": "", "class": "lni lni-refresh-circle-1-clockwise   lni-printer ins-font-xl "},
+
+
+            {"_data": "", "class": "lni ins-icon  lni-printer ins-font-xl "},
+            {"_data": "", "class": "lni ins-icon   ins-font-xl lni-download-1"},
+
+            {"": "", "class": "ins-line ins-col-12"},
 
             {"_type": "table",
              "class": " ins-col-12 ins-table ins-table-regular ins-pading-xl ", "data": body, "header": header},
@@ -116,7 +115,7 @@ class AppPrice(App):
 
         return self.ins._ui._render(uidata)
 
-    def cal(self,g, st="report"):
+    def cal(self, g, st="report"):
 
         r = ""
 
@@ -124,7 +123,7 @@ class AppPrice(App):
 
         for d in data:
             price = g["sell"]
-            bprice =  g["buy"]
+            bprice = g["buy"]
 
             del d["images"]
             del d["th_main"]
@@ -143,9 +142,6 @@ class AppPrice(App):
                 price = (float(price) * 999.9) / 875
                 bprice = (float(bprice) * 999.9) / 875
 
-
-
-
             price = float(price)
 
             price = round(price)
@@ -162,7 +158,7 @@ class AppPrice(App):
             if d["gram"] == 1:
                 gram_price_sell += float(d["stamp"])
 
-            d["gram_price_sell"] =round(gram_price_sell) 
+            d["gram_price_sell"] = round(gram_price_sell)
 
             new_sell_price = gram_price_sell * float(d["weight"])
 
@@ -182,7 +178,7 @@ class AppPrice(App):
             if d["cashback_gram"] == 1:
                 gram_price_bay = bprice + float(d["cashback"])
 
-            d["gram_price_bay"] = round(gram_price_bay)  
+            d["gram_price_bay"] = round(gram_price_bay)
             new_bay_price = gram_price_bay * float(d["weight"])
 
             if d["cashback_gram"] != 1:
@@ -193,15 +189,33 @@ class AppPrice(App):
             new_bay_price = self.myround(new_bay_price)
 
             d["new_bay_price_f"] = new_bay_price
+            r = ""
+            if st == "update":
+                sql = {"price": d["new_sell_price_f"],
+                       "buy_price": d["new_bay_price_f"]}
 
-        r = self.reportui(data)
+                self.ins._db._update("gla_product", sql, f"id='{d["id"]}'")
+
+                uidata = [
+                    {"start": "true", "class": "ins-col-12  ins-padding-l  ins-padding-v  ins-flex-center"},
+
+
+                    { "class": "ins-card ins-flex ins-col-6 ins-font-xl ins-info" ,"_data": "<i class='lni lni-check-circle-1 ins-icon'> </i>  Data updated successfully."},
+
+
+                    {"end": "true"},
+
+                ]
+                r = self.ins._ui._render(uidata)
+
+        r += self.reportui(data)
         return r
 
-    def report(self,g):
+    def report(self, g):
         return self.cal(g)
 
-    def update(self,g):
-        return self.cal(g)
+    def update(self, g):
+        return self.cal(g, "update")
 
     def ui(self, g):
 
