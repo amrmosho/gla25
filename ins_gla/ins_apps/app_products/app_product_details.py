@@ -13,7 +13,7 @@ class AppProductDetails(App):
         if subtypes:
             uidata = [
             {"start":"true","class":"ins-flex ins-col-12"},
-            {"_data": "Subtype","_data-ar": " نوع فرعي", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "}
+            {"_data": "Subtype","_data-ar": "نوع فرعي","_trans":"true", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "}
             ]
             for v,s in subtypes.items():
                 active = "ins-active" if v == stys else ""
