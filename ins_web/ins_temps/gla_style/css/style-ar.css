@@ -139,3 +139,13 @@ body {
 .gla-logo-grey {
     background-image: url(imgs/alogo_grey.png);
 }
+
+.wi-slideshow-th {
+    left: 70px;
+    right: auto !important
+}
+
+.wi-slideshow-data {
+    right: 70px;
+    left: auto !important
+}

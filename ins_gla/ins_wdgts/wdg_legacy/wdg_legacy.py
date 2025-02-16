@@ -43,12 +43,9 @@ class WdgLegacy(Widget):
             {"start": "true", "class": "ins-flex gla-alogo-primary-l",
              "style": "    background-size: 166px auto;background-position: 58% top;"},
             {"start": "true", "class": "ins-flex-start","style": "width:316px;height:406px;margin:0 10px"},
-            {"_type": "img","loading":"lazy", "src": "ins_web/ins_uploads/images/about_us/1950s.png"},
+            {"_type": "img","loading":"lazy", "src": "/ins_web/ins_uploads/images/about_us/1950s.png"},
             {"end": "true"},
-            # {"start": "true", "class": "ins-flex-end    ",
-            #  "style": "width:316px;height:406px"},
-            # # {"_type": "img","loading":"lazy", "src": "ins_web/ins_uploads/style/l2.svg"},
-            # {"end": "true"},
+     
             {"end": "true"},
             {"end": "true"}
             # end imegsa
@@ -85,12 +82,9 @@ class WdgLegacy(Widget):
              "style": "    background-size: 166px auto;background-position: 58% top;"},
             {"start": "true", "class": "ins-flex-start",
              "style": "width:316px;height:406px;margin:0 10px"},
-            {"_type": "img","loading":"lazy", "src": "ins_web/ins_uploads/images/about_us/1980s.png"},
+            {"_type": "img","loading":"lazy", "src": "/ins_web/ins_uploads/images/about_us/1980s.png"},
             {"end": "true"},
-               # {"start": "true", "class": "ins-flex-end    ",
-            #  "style": "width:316px;height:406px"},
-            # # {"_type": "img","loading":"lazy", "src": "ins_web/ins_uploads/style/l2.svg"},
-            # {"end": "true"},
+           
             {"end": "true"},
             {"end": "true"}
             # end imegsa
@@ -128,12 +122,9 @@ class WdgLegacy(Widget):
              "style": "    background-size: 166px auto;background-position: 58% top;"},
             {"start": "true", "class": "ins-flex-start",
              "style": "width:316px;height:406px;margin:0 10px"},
-            {"_type": "img","loading":"lazy", "src": "ins_web/ins_uploads/images/about_us/2020.png"},
+            {"_type": "img","loading":"lazy", "src": "/ins_web/ins_uploads/images/about_us/2020.png"},
             {"end": "true"},
-               # {"start": "true", "class": "ins-flex-end    ",
-            #  "style": "width:316px;height:406px"},
-            # # {"_type": "img","loading":"lazy", "src": "ins_web/ins_uploads/style/l2.svg"},
-            # {"end": "true"},
+          
             {"end": "true"},
             {"end": "true"}
             # end imegsa
@@ -168,12 +159,9 @@ class WdgLegacy(Widget):
              "style": "    background-size: 166px auto;background-position: 58% top;"},
             {"start": "true", "class": "ins-flex-start",
              "style": "width:316px;height:406px;margin:0 10px"},
-            {"_type": "img","loading":"lazy", "src": "ins_web/ins_uploads/images/about_us/now.png"},
+            {"_type": "img","loading":"lazy", "src": "/ins_web/ins_uploads/images/about_us/now.png"},
             {"end": "true"},
-               # {"start": "true", "class": "ins-flex-end    ",
-            #  "style": "width:316px;height:406px"},
-            # # {"_type": "img","loading":"lazy", "src": "ins_web/ins_uploads/style/l2.svg"},
-            # {"end": "true"},
+           
             {"end": "true"},
             {"end": "true"}
             # end imegsa

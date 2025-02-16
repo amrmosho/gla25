@@ -72,17 +72,16 @@ class Engine(ins_parent):
 
         """*---------- load temp data*"""
         self.ins._this._temp = self.ins._db._get_row(
-            "template_table", where=f"tar_area='{area}' and kit_default ='1'")
+            "template_table", where=f"tar_area='{area}' and kit_default ='1'" , update_lang=True)
 
         """*---------- load  menu data*"""
-        self.ins._this._settings["pro"]=self.ins._db._get_row("kit_pro_settings	")
+        self.ins._this._settings["pro"]=self.ins._db._get_row("kit_pro_settings	" , update_lang=True)
         
         if (self.ins._server.GET["alias"] == "home"):
             menus = self.ins._db._get_row("menu_item_table", where=f"tar_area='{
-                                          area}' and kit_home ='1'")
+                                          area}' and kit_home ='1'" , update_lang=True )
         else:
-            menus = self.ins._db._get_row("menu_item_table", where=f"tar_area='{
-                                          area}' and alias ='{self.ins._server.GET["alias"]}'")
+            menus = self.ins._db._get_row("menu_item_table", where=f"tar_area='{area}' and alias ='{self.ins._server.GET["alias"]}'" , update_lang=True)
 
 
         if menus == False :

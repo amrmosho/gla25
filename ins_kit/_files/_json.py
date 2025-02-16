@@ -18,6 +18,9 @@ class JSON(ins_parent):
             return json.dumps(data)
 
     def _decode(self, data: str) -> dict:
+        
+        if data == None:
+             return {}
         return json.loads(data)
 
     def _file_create(self, data):

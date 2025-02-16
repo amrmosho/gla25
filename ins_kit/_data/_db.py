@@ -208,7 +208,7 @@ class Database(ins_parent):
                         r[k] = ls[k]
         return r
 
-    def _get_row(self, table="", custom="*", where="1=1", update_lang=False):
+    def _get_row(self, table="", custom="*", where="1=1", update_lang=True):
 
         try:
 

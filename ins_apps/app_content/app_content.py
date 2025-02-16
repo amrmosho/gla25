@@ -13,7 +13,7 @@ class AppContent(App):
         if "id" not in self.app._options:
             return " No content selected "
         data = self.ins._db._get_row(
-            "content_table", "*", f"id={self.app._options["id"]}")
+            "content_table", "*", f"id={self.app._options["id"]}" ,True)
         if not data :
             return " No content selected "
             
