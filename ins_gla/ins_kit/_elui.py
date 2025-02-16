@@ -89,8 +89,14 @@ class ELUI(ins_parent):
     def _cart_lightbox_ui(self, single_product=False):
   
         sedata = self.ins._server._get_session(self.session_name)
+        
+
         if type(sedata) != dict:
             sedata = {}
+            
+            
+            
+            
         if single_product:
             p = self.ins._server._post()
             pro = self.ins._db._jget("gla_product", "*", f"gla_product.id={p['pid']}")
