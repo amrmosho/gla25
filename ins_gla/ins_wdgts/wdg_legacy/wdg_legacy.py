@@ -17,7 +17,7 @@ class WdgLegacy(Widget):
 
             {"start": "true", "class": "ins-col-12 _1  active gla-ltabs-item leg-item ins-flex"},
             {"class": "ins-space-l"},
-            {"_data": "A Legacy of Gold<br/> The Story of El-Galla Gold ",
+            {"_data": "A Legacy of Gold<br/> The Story of El-Galla Gold ","_data-ar":"إرث من الذهب<br/> قصة الذهب في الجلا" ,"_trans":"true",
                 "class": "ins-title-xl ins-grey-d-color ins-strong-m", "style": "line-height:50px"},
             {"class": "ins-col-grow "},
             {"_type":"a","href":"about_us","_data": "About US  <i class=' lni ins-icon lni-arrow-right'></i>",
@@ -58,7 +58,7 @@ class WdgLegacy(Widget):
 
             {"start": "true", "class": "ins-col-12 _2  gla-ltabs-item leg-item ins-flex"},
             {"class": "ins-space-l"},
-            {"_data": "A Legacy of Gold<br/> The Story of El-Galla Gold ",
+            {"_data": "A Legacy of Gold<br/> The Story of El-Galla Gold ","_data-ar":"إرث من الذهب<br/> قصة الذهب في الجلا" ,"_trans":"true",
                 "class": "ins-title-xl ins-grey-d-color ins-strong-m", "style": "line-height:50px"},
             {"class": "ins-col-grow "},
             {"_type":"a","href":"about_us","_data": "About US  <i class=' lni ins-icon lni-arrow-right'></i>",
@@ -98,7 +98,9 @@ class WdgLegacy(Widget):
 
             {"start": "true", "class": "ins-col-12 _3  gla-ltabs-item leg-item ins-flex"},
             {"class": "ins-space-l"},
-            {"_data": "A Legacy of Gold<br/> The Story of El-Galla Gold ",
+
+            {"_data": "A Legacy of Gold<br/> The Story of El-Galla Gold ","_data-ar":"إرث من الذهب<br/> قصة الذهب في الجلا" ,"_trans":"true",
+             
                 "class": "ins-title-xl ins-grey-d-color ins-strong-m", "style": "line-height:50px"},
             {"class": "ins-col-grow "},
             {"_type":"a","href":"about_us","_data": "About US  <i class=' lni ins-icon lni-arrow-right'></i>",
@@ -137,7 +139,7 @@ class WdgLegacy(Widget):
 
             {"start": "true", "class": "ins-col-12 gla-ltabs-item   _4 leg-item ins-flex"},
             {"class": "ins-space-l"},
-            {"_data": "A Legacy of Gold<br/> The Story of El-Galla Gold ",
+            {"_data": "A Legacy of Gold<br/> The Story of El-Galla Gold ","_data-ar":"إرث من الذهب<br/> قصة الذهب في الجلا" ,"_trans":"true",
                 "class": "ins-title-xl ins-grey-d-color ins-strong-m", "style": "line-height:50px"},
             {"class": "ins-col-grow "},
             {"_type":"a","href":"about_us","_data": "About US  <i class=' lni ins-icon lni-arrow-right'></i>",
@@ -199,13 +201,13 @@ class WdgLegacy(Widget):
             {"start": "true", "class": "ins-flex ins-col-12", },
             
             
-            {"_data": "1950s", "data-show":"_1", "style": "font-size:20px",
+            {"_data": "1950s","_data-ar":"١٩٥٠" ,"_trans":"true", "data-show":"_1", "style": "font-size:20px",
              "class": "ins-col-3 gla-ltabs gla-active"},
-            {"_data": "1980s","data-show":"_2",  "style": "font-size:20px",
+            {"_data": "1980s","_data-ar":"١٩٨٠" ,"_trans":"true","data-show":"_2",  "style": "font-size:20px",
              "class": "ins-col-3 gla-ltabs", },
-            {"_data": "2020s", "data-show":"_3", "style": "font-size:20px",
+            {"_data": "2020s","_data-ar":"٢٠٢٠" ,"_trans":"true", "data-show":"_3", "style": "font-size:20px",
              "class": "ins-col-3  gla-ltabs", },
-            {"_data": "Present Day", "data-show":"_4", "style": "font-size:20px",
+            {"_data": "Present Day","_data-ar":"اليوم الحاضر" ,"_trans":"true", "data-show":"_4", "style": "font-size:20px",
              "class": "ins-col-3  gla-ltabs"},
 
 
