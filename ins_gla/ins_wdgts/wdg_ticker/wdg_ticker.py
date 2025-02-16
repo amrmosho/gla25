@@ -10,6 +10,8 @@ class WdgTicker(Widget):
     def _ui(self):
          coin = self.ins._db._get_row("gla_product","price,buy_price,stamp,vat,cashback","id='2'")
          bar = self.ins._db._get_row("gla_product","price,buy_price,stamp,vat,cashback","id='12'")
+         
+         
          coin_price = float(coin["price"]) -  float(coin["stamp"]) -  float(coin["vat"])
          coin_buy = float(coin["buy_price"]) -  float(coin["cashback"]) 
         
@@ -21,6 +23,8 @@ class WdgTicker(Widget):
 
          bar_price = self.ins._data._format_currency(float(bar_price), symbol=False)
          bar_buy = self.ins._data._format_currency(float(bar_buy), symbol=False)
+
+            
 
 
 

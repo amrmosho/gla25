@@ -81,6 +81,13 @@ class AppPrice(App):
     def cal(self, g, st="report"):
         r = ""
         data = self.ins._db._get_data("gla_product")
+        
+
+        if st == "update":
+            sql = {"sell": g["sell"],
+                       "bay": g["buy"]}
+            self.ins._db._update("gla_price", sql ,"1=1")
+
         for d in data:
             oprice = g["sell"]
             obprice = g["buy"]
@@ -217,6 +224,8 @@ class AppPrice(App):
                 sql = {"price": d["new_sell_price_f"],
                        "buy_price": d["new_bay_price_f"]}
                 self.ins._db._update("gla_product", sql, f"id='{d["id"]}'")
+                
+                
                 uidata = [
                     {"start": "true", "class": "ins-col-12  ins-padding-l  ins-padding-v  ins-flex-center"},
                     { "class": "ins-card ins-flex ins-col-6 ins-font-xl ins-info" ,"_data": "<i class='lni lni-check-circle-1 ins-icon'> </i>  Data updated successfully."},
