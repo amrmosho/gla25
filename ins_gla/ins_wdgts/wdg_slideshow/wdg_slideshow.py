@@ -40,18 +40,21 @@ class WdgSlideshow(Widget):
 
                     "img": "/ins_web/ins_uploads/style/bar.png",
             "des": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">EL GALLA GOLDS <br>ONE-OUNCE GOLD BAR</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">A Lifetime of VALUE</div><div class="ins-space"></div><a href="/product/"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">Shop now <i class=" lni ins-icon lni-arrow-right"></i></div></a>',
+            "des_ar": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">بيسيبسيب <br>ONE-OUNCE GOLD BAR</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">A Lifetime of VALUE</div><div class="ins-space"></div><a href="/product/"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">Shop now <i class=" lni ins-icon lni-arrow-right"></i></div></a>',
 
                     "th": "/ins_web/ins_uploads/style/bar.png"},
             {"img": "/ins_web/ins_uploads/style/sh1.svg",
 
                     "img": "/ins_web/ins_uploads/style/geroge.png",
             "des": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">EL GALLA GOLDS <br> GOLDEN BABAY BOTTLES</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">The perfect gift to celebrate a newborn arrival</div><div class="ins-space"></div><a href="/product/"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">Shop now <i class=" lni ins-icon lni-arrow-right"></i></div></a>',
+            "des_ar": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">بسيبسي <br> GOLDEN BABAY BOTTLES</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">The perfect gift to celebrate a newborn arrival</div><div class="ins-space"></div><a href="/product/"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">Shop now <i class=" lni ins-icon lni-arrow-right"></i></div></a>',
 
                     "th": "/ins_web/ins_uploads/style/geroge.png"},
             {"img": "/ins_web/ins_uploads/style/baby.png",
 
                     "img": "/ins_web/ins_uploads/style/baby.png",
             "des": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">FIVE-POUND <br> GEORGE GOLD COIN</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">A Timeless Symbol of - WEALTH AND HERITAGE</div><div class="ins-space"></div><a href="/product/"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">Shop now <i class=" lni ins-icon lni-arrow-right"></i></div></a>',
+            "des_ar": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">FIVE-POUND <br> جورج</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">A Timeless Symbol of - WEALTH AND HERITAGE</div><div class="ins-space"></div><a href="/product/"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">Shop now <i class=" lni ins-icon lni-arrow-right"></i></div></a>',
 
                     "th": "/ins_web/ins_uploads/style/baby.png"},
         ]
@@ -70,7 +73,7 @@ class WdgSlideshow(Widget):
                 {"_type": "img", "class": "wi-slideshow-image","loading":"lazy",
                     "src": d["img"]},
                 
-                {"_data": d["des"], "class": "gla-data  wi-slideshow-data",
+                {"_data": d["des"], "_data-ar":d.get("des_ar",""),"_trans":"true","class": "gla-data  wi-slideshow-data",
                     "style": "position: absolute;left: 70px; bottom: 70px; width:100%;"},
                 {"end": "true"}
 
