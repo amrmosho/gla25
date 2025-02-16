@@ -90,61 +90,54 @@ class AppCheckout(App):
             ]
         uidata+=path
         if rq["mode"] == "cart":
-           uidata.append({"_data":"My Cart","_data-ar":"عربة التسوق","_trans":"true","class":"ins-col-7 ins-title ins-strong-m ins-text-upper ins-grey-d-color"})
+           uidata.append({"_data":"My Cart","_data-ar":"عربة التسوق","_trans":"true","class":"ins-col-6 ins-title ins-strong-m ins-text-upper ins-grey-d-color"})
         elif rq["mode"] == "delivery":
-            uidata.append({"_data":"Delivery Details","_data-ar":"تفاصيل التسليم","_trans":"true","class":"ins-col-7 ins-title ins-strong-m ins-text-upper ins-grey-d-color"})
+            uidata.append({"_data":"Delivery Details","_data-ar":"تفاصيل التسليم","_trans":"true","class":"ins-col-6 ins-title ins-strong-m ins-text-upper ins-grey-d-color"})
         else:
-           uidata.append({"_data":"Payment Information","_data-ar":"معلومات الدفع","_trans":"true","class":"ins-col-7 ins-title ins-strong-m ins-text-upper ins-grey-d-color"})
+           uidata.append({"_data":"Payment Information","_data-ar":"معلومات الدفع","_trans":"true","class":"ins-col-6 ins-title ins-strong-m ins-text-upper ins-grey-d-color"})
         steps = [
-            {"text":"My Cart",
+            {
+               "text":"My Cart",
+               "text-ar":"عربة التسوق",
              "img":"ecart.svg",
              "mode":"cart",
              "url":"/checkout/cart"
              },
-               {"text":"Delivery",
+               {"text":"Delivery",          
+                     "text-ar":"تفاصيل التسليم",
+
              "img":"truck.svg",
              "mode":"delivery",
              "url":"/checkout/delivery"
              },
-               {"text":"Payment",
+               {"text":"Payment",             
+                  "text-ar":"معلومات الدفع",
+
              "img":"money.svg",
              "mode":"payment",
              "url":""
              },
         ]
 
-      #   steps_ar = [
-      #   {"text": "سلتي", 
-      #      "img": "ecart.svg", 
-      #        "mode": "cart", 
-      #    "url": "/checkout/cart"
-      #     },
-      #      {"text": "التوصيل", 
-      #    "img": "truck.svg", 
-      #       "mode": "delivery", 
-      #    "url": "/checkout/delivery"
-      #       },
-      #      {"text": "الدفع", 
-      #       "img": "money.svg", 
-      #       "mode": "payment", 
-      #       "url": ""
-      #                  },
-      #       ]
-
         ## checkout steps
-        uidata.append({"start":"true","class":"ins-col-5 ins-flex"})
+        uidata.append({"start":"true","class":"ins-col-6 ins-flex"})
         i = 0
         sp = ""
         for s in steps:
-         active = ""
          i+=1
+
+         text = "<img src='"+p +"style/"+ s["img"]+"'></img>"+f"{i}"+". "+s["text"]
+
+         if self.ins._langs._this_get()["name"] == "ar":
+            text = "<img src='"+p +"style/"+ s["img"]+"'></img>"+f"{i}"+". "+s["text-ar"]
+         active = ""
          uidata.append({"class": sp,"style":"rotate:180deg"})
          if "mode" in rq and rq["mode"] == s["mode"]:
             active = "ins-gold-bg"
          if s["mode"] != "payment":
-            uidata.append({"_type":"a","href":s["url"],"_data": "<img src='"+p +"style/"+ s["img"]+"'></img>"+f"{i}"+". "+s["text"], "class": f"ins-button-s -step-button ins-flex-center {active}"})
+            uidata.append({"_type":"a","href":s["url"],"_data": text, "class": f"ins-button-s -step-button ins-flex-center {active}"})
          else:
-            uidata.append({"_data": "<img src='"+p +"style/"+ s["img"]+"'></img>"+f"{i}"+". "+s["text"], "class": f"ins-button-s -step-button ins-flex-center {active} -payment-step-btn"})
+            uidata.append({"_data": text, "class": f"ins-button-s -step-button ins-flex-center {active} -payment-step-btn"})
          sp="lni lni-chevron-left"
         uidata.append({"end":"true"})
         uidata.append({"end":"true"})
@@ -170,7 +163,7 @@ class AppCheckout(App):
         rsdata=  self.user._check()
         addesses = self.ins._db._get_data("gla_address","*",f"fk_user_id = '{rsdata["id"]}' order by kit_created ASC",update_lang=True)
         uidata=[{"start":"true","class":"ins-col-12 ins-flex  -addresses-area"}]
-        uidata.append({"_data":"Saved Address","_data-ar":"العنوان المحفوظ ","_trans":"true","class":"ins-col-9 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"})
+        uidata.append({"_data":"Saved Address","_data-ar":"العناوين المحفوظة ","_trans":"true","class":"ins-col-9 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"})
         uidata.append({"_data": "Add Address","_data-ar":" إضافة عنوان","_trans":"true","class": "ins-button-s -add-address ins-text-center ins-strong-m ins-col-3 ins-gold-bg  ins-text-upper"})
         asession = self.ins._server._get_session(self.session_address_name)
         if type(asession) != dict:
@@ -242,10 +235,10 @@ class AppCheckout(App):
         uidata=[{"start":"true","class":"ins-col-7 ins-flex ins-padding-2xl"}]
         uidata.append({"_data":"Select delivery type","_data-ar":"حدد نوع التسليم","_trans":"true","class":"ins-col-12 ins-title-s ins-strong-m ins-grey-d-color "})
         atype_btns= [{"_data": "<img class='-address-radio-btn' src='"+p + "style/radio_checked.svg"+"'></img>"+"Home Delivery","_data-ar": "<img class='-address-radio-btn' src='" + p + "style/radio_checked.svg" + "'></img>" + "توصيل الطلبات","_trans":"true", "data-type":"delivery","class": f"ins-button-s ins-text ins-col-6  ins-gold-bg ins-flex-center -delivery-type-btn ins-strong-m ins-gold-bg"},
-                {"_data": "<img class='-address-radio-btn' src='"+p +"style/radio.svg"+"'></img>"+"Pickup in Store","_data-ar": "<img class='-address-radio-btn' src='" + p + "style/radio_checked.svg" + "'></img>" + "الاستلام من المتجر " ,"_trans":"true","data-type":"store","class": f"ins-button-s  ins-col-6 ins-flex ins-flex-center -delivery-type-btn ins-strong-m inactive insactive"}
+                {"_data": "<img class='-address-radio-btn' src='"+p +"style/radio.svg"+"'></img>"+"Pickup in Store","_data-ar": "<img class='-address-radio-btn' src='" + p + "style/radio.svg" + "'></img>" + "الاستلام من المتجر " ,"_trans":"true","data-type":"store","class": f"ins-button-s  ins-col-6 ins-flex ins-flex-center -delivery-type-btn ins-strong-m inactive insactive"}
                 ]
         if type(asession) == dict and "type" in asession and  asession["type"] == "store":
-         atype_btns= [{"_data": "<img class='-address-radio-btn' src='"+p +"style/radio.svg"+"'></img>"+"Home Delivery", "_data-ar": "<img class='-address-radio-btn' src='" + p + "style/radio_checked.svg" + "'></img>" + "توصيل الطلبات","_trans":"true","data-type":"delivery","class": f"ins-button-s ins-text ins-col-6 ins-flex-center -delivery-type-btn ins-strong-m inactive"},
+         atype_btns= [{"_data": "<img class='-address-radio-btn' src='"+p +"style/radio.svg"+"'></img>"+"Home Delivery", "_data-ar": "<img class='-address-radio-btn' src='" + p + "style/radio.svg" + "'></img>" + "توصيل الطلبات","_trans":"true","data-type":"delivery","class": f"ins-button-s ins-text ins-col-6 ins-flex-center -delivery-type-btn ins-strong-m inactive"},
                 {"_data": "<img class='-address-radio-btn' src='"+p + "style/radio_checked.svg"+"'></img>"+"Pickup in Store","_data-ar": "<img class='-address-radio-btn' src='" + p + "style/radio_checked.svg" + "'></img>" + " الاستلام من المتجر" ,"_trans":"true","data-type":"store","class": f"ins-button-s  ins-col-6 ins-flex ins-flex-center -delivery-type-btn ins-strong-m  ins-gold-bg"}
                 ]
         uidata+=atype_btns
@@ -395,7 +388,7 @@ class AppCheckout(App):
              chargs+= (float(v["weight"]) * float(v["count"])) * 20
         total = subtotal + chargs 
         uidata.append({"start": "true", "class": f"-online-payment-fee  ins-col-12 ins-flex {pclass}"})
-        uidata.append({"_data": "Online payment fee", "class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
+        uidata.append({"_data": "Online payment fee","_data-ar": "رسوم الدفع عبر الإنترنت", "_trans":"true","class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
         uidata.append({"_data": str(chargs),"data-value" : chargs,"_view":"currency","_currency_symbol":" EGP", "class": "ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end -chargs-text"})
         uidata.append({"end": "true"})
         uidata.append({"_data": "Shipping", "_data-ar":" شحن","_trans":"true", "class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
@@ -432,7 +425,7 @@ class AppCheckout(App):
                 {"class":"ins-space-s"},
                 {"_data": store.get("title",""), "class": "ins-col-12  ins-title-20	  ins-grey-d-color ins-strong-l"},
                 {"_data": store.get("address",""), "class": "ins-col-12 ins-grey-color"},
-                {"_data": f"Mobile: {store.get("phone","")} Email: {store.get("email","")}", "class": "ins-col-12 ins-grey-d-color ins-strong-m ins-title-14"},
+                {"_data": f"Mobile: {store.get("phone","")} Email: {store.get("email","")}","_data-ar": f"موبايل: {store.get("phone","")} بريد الكتروني: {store.get("email","")}","_trans":"true", "class": "ins-col-12 ins-grey-d-color ins-strong-m ins-title-14"},
                 {"end": "true"},
                 {"class":"ins-space-xl"}
                 ]
@@ -449,7 +442,7 @@ class AppCheckout(App):
                {"class":"ins-space-xl"}
                ]
             uidata+=ainfo
-            uidata.append({"_data": "Place Order <img src='"+p+"style/right_arrow.svg'></img>","class": "ins-button-s ins-flex-center ins-title-xs ins-strong-m ins-flex-grow ins-gold-d  ins-text-upper -submit-order-btn","style":"    height: 46px;    border: 1px solid var(--primary-d);"})
+            uidata.append({"_data": "Place Order <img src='"+p+"style/right_arrow.svg'></img>","_data-ar": "اتمام الشراء ","_trans":"true","class": "ins-button-s ins-flex-center ins-title-xs ins-strong-m ins-flex-grow ins-gold-d  ins-text-upper -submit-order-btn","style":"    height: 46px;    border: 1px solid var(--primary-d);"})
         else:
           #"href":payment_url,"_type":"a",
           uidata.append({"_data": "Procced to payment <img src='"+p+"style/right_arrow.svg'></img>", "_data-ar":" انتقل إلى الدفع","_trans":"true","class": "ins-button-s ins-flex-center ins-title-xs ins-strong-m ins-flex-grow ins-gold-d -proccesd-payment-btn ins-text-upper","style":"    height: 46px;    border: 1px solid var(--primary-d);"})

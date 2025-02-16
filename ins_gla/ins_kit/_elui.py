@@ -173,6 +173,10 @@ class ELUI(ins_parent):
          if stys:
              subtype_title = self.ins._db._get_row("gla_product_types", "title", f"alias='{data['subtype']}'")["title"]
              full_title = f"{data["title"]} ({subtype_title})"
+         button_title = "SHOP NOW <i class=' lni ins-icon lni-arrow-right'></i>"
+         if self.ins._langs._this_get()["name"] == "ar" :
+          button_title = "تسوق الأن <i class=' lni ins-icon lni-arrow-left'></i>"
+
 
          r = [
                     {"start": "true", "class": "ins-flex  gla-pro-block  ", "style": st},
@@ -180,7 +184,7 @@ class ELUI(ins_parent):
                     {"_data": "Bestseller", "class": "ins-tag ins-primary-d ins-strong-m ins-text-upper ins-title-10","style": "position: absolute;top: 8px;left: 8px;border-radius: 2px !important;z-index:111"},
                     {"src": p +th_main_image, "loading":"lazy","_type": "img", "class": "gla-pro-img"},
                     {"src": p + th_overlay_image, "loading":"lazy","_type": "img", "class": "gla-pro-himg"},
-                    { "_type":"a" ,"href":purl,"_data": "SHOP NOW <i class=' lni ins-icon lni-arrow-right'></i>", "class": "ins-button gla-pro-hbutton ins-strong-m   ins-gold-bg","data-pid":f"{data['id']}"},
+                    { "_type":"a" ,"href":purl,"_data":button_title , "class": "ins-button gla-pro-hbutton ins-strong-m   ins-gold-bg","data-pid":f"{data['id']}"},
                     {"end": "true"},
                     {"class": "ins-space-s"},
                     {"_data": f"{full_title}", "class": "ins-col-12 ins-title-20	 ins-strong-m   ins-grey-color", "style": "line-height:24px"},

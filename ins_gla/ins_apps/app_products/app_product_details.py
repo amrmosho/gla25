@@ -187,7 +187,6 @@ class AppProductDetails(App):
                 active = ""
                 cclass= ""
 
-                #if (filter_data.get("types") and filter_data["types"] == t_key) or (not filter_data.get("types") and t_key in ["royal", "standard"]):
                 if tys == t_key:
                         active = "ins-active"
                         subtypes = t_value["data"]
