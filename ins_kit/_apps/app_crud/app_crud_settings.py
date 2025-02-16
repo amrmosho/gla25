@@ -12,7 +12,7 @@ class APPCRUDSettings(appCrudParent):
         back_url = self.ins._server._url({},remove=["mode", "id"])
 
         to ="left"
-        if self.ins._this._lang["direction"] =="rtl":
+        if  self.ins._langs._this_get()["direction"] =="rtl":
             to ="right"
         uidata.append(             {"style": "width:100px", "_type": "a", "href": back_url, "_data": [
                     {"class": f"lni ins-icon  lni-arrow-{to}  ins-padding-s"},

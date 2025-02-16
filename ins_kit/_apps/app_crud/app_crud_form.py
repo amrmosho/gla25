@@ -86,7 +86,7 @@ class APPCRUDForm(appCrudParent):
         if self.get["mode"] == "edit":
             save_button_title = self.ins._langs._get("update")
         to = "left"
-        if self.ins._this._lang["direction"] == "rtl":
+        if  self.ins._langs._this_get()["direction"] == "rtl":
             to = "right"
         more_menu = [
             {"start": True, "class": "ins-menu ins-end"},
