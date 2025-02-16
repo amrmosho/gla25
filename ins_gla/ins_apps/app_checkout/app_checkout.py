@@ -84,10 +84,8 @@ class AppCheckout(App):
         product_url = self.ins._server._url({"alias":"product","mode":"product","id":1})
         path = [
             {"start":"true","class":"ins-col-12 ins-flex ins-text-upper"},
-            {"_type":"a","href":home_url,"_data": "Home /","class":" ins-title-12	ins-grey-d-color ins-strong-m"},
-            {"_type":"a","href":products_url,"_data": "Product /","class":" ins-title-12	ins-grey-d-color ins-strong-m"},
-            {"_type":"a","href":product_url,"_data": "250gm Gold Bar /","class":" ins-title-12	ins-grey-d-color ins-strong-m"},
-            {"_data": "Checkout","class":" ins-title-12	ins-grey-color ins-strong-m"},
+            {"_type":"a","href":home_url,"_data": "Home /","_data-ar":"الرئيسية /","_trans":"true","class":" ins-title-12	ins-grey-d-color ins-strong-m"},
+            {"_data": "Checkout","_data-ar":"الدفع","_trans":"true","class":" ins-title-12	ins-grey-color ins-strong-m"},
             {"end":"true"}
             ]
         uidata+=path
@@ -170,10 +168,10 @@ class AppCheckout(App):
        return "1"
     def _addresses_area_ui(self,string=True):
         rsdata=  self.user._check()
-        addesses = self.ins._db._get_data("gla_address","*",f"fk_user_id = '{rsdata["id"]}' order by kit_created ASC")
+        addesses = self.ins._db._get_data("gla_address","*",f"fk_user_id = '{rsdata["id"]}' order by kit_created ASC",update_lang=True)
         uidata=[{"start":"true","class":"ins-col-12 ins-flex  -addresses-area"}]
-        uidata.append({"_data":"Saved Address","class":"ins-col-9 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"})
-        uidata.append({"_data": "Add Address", "class": "ins-button-s -add-address ins-text-center ins-strong-m ins-col-3 ins-gold-bg  ins-text-upper"})
+        uidata.append({"_data":"Saved Address","_data-ar":"العنوان المحفوظ ","_trans":"true","class":"ins-col-9 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"})
+        uidata.append({"_data": "Add Address","_data-ar":" إضافة عنوان","_trans":"true","class": "ins-button-s -add-address ins-text-center ins-strong-m ins-col-3 ins-gold-bg  ins-text-upper"})
         asession = self.ins._server._get_session(self.session_address_name)
         if type(asession) != dict:
            asession = {"type":"delivery","id":"-1"}
@@ -242,13 +240,13 @@ class AppCheckout(App):
         asession = self.ins._server._get_session(self.session_address_name)
       ## Addresses Area
         uidata=[{"start":"true","class":"ins-col-7 ins-flex ins-padding-2xl"}]
-        uidata.append({"_data":"Select delivery type","class":"ins-col-12 ins-title-s ins-strong-m ins-grey-d-color "})
-        atype_btns= [{"_data": "<img class='-address-radio-btn' src='"+p + "style/radio_checked.svg"+"'></img>"+"Home Delivery", "data-type":"delivery","class": f"ins-button-s ins-text ins-col-6  ins-gold-bg ins-flex-center -delivery-type-btn ins-strong-m ins-gold-bg"},
-                {"_data": "<img class='-address-radio-btn' src='"+p +"style/radio.svg"+"'></img>"+"Pickup in Store", "data-type":"store","class": f"ins-button-s  ins-col-6 ins-flex ins-flex-center -delivery-type-btn ins-strong-m inactive insactive"}
+        uidata.append({"_data":"Select delivery type","_data-ar":"حدد نوع التسليم","_trans":"true","class":"ins-col-12 ins-title-s ins-strong-m ins-grey-d-color "})
+        atype_btns= [{"_data": "<img class='-address-radio-btn' src='"+p + "style/radio_checked.svg"+"'></img>"+"Home Delivery","_data-ar": "<img class='-address-radio-btn' src='" + p + "style/radio_checked.svg" + "'></img>" + "توصيل الطلبات","_trans":"true", "data-type":"delivery","class": f"ins-button-s ins-text ins-col-6  ins-gold-bg ins-flex-center -delivery-type-btn ins-strong-m ins-gold-bg"},
+                {"_data": "<img class='-address-radio-btn' src='"+p +"style/radio.svg"+"'></img>"+"Pickup in Store","_data-ar": "<img class='-address-radio-btn' src='" + p + "style/radio_checked.svg" + "'></img>" + "الاستلام من المتجر " ,"_trans":"true","data-type":"store","class": f"ins-button-s  ins-col-6 ins-flex ins-flex-center -delivery-type-btn ins-strong-m inactive insactive"}
                 ]
         if type(asession) == dict and "type" in asession and  asession["type"] == "store":
-         atype_btns= [{"_data": "<img class='-address-radio-btn' src='"+p +"style/radio.svg"+"'></img>"+"Home Delivery", "data-type":"delivery","class": f"ins-button-s ins-text ins-col-6 ins-flex-center -delivery-type-btn ins-strong-m inactive"},
-                {"_data": "<img class='-address-radio-btn' src='"+p + "style/radio_checked.svg"+"'></img>"+"Pickup in Store", "data-type":"store","class": f"ins-button-s  ins-col-6 ins-flex ins-flex-center -delivery-type-btn ins-strong-m  ins-gold-bg"}
+         atype_btns= [{"_data": "<img class='-address-radio-btn' src='"+p +"style/radio.svg"+"'></img>"+"Home Delivery", "_data-ar": "<img class='-address-radio-btn' src='" + p + "style/radio_checked.svg" + "'></img>" + "توصيل الطلبات","_trans":"true","data-type":"delivery","class": f"ins-button-s ins-text ins-col-6 ins-flex-center -delivery-type-btn ins-strong-m inactive"},
+                {"_data": "<img class='-address-radio-btn' src='"+p + "style/radio_checked.svg"+"'></img>"+"Pickup in Store","_data-ar": "<img class='-address-radio-btn' src='" + p + "style/radio_checked.svg" + "'></img>" + " الاستلام من المتجر" ,"_trans":"true","data-type":"store","class": f"ins-button-s  ins-col-6 ins-flex ins-flex-center -delivery-type-btn ins-strong-m  ins-gold-bg"}
                 ]
         uidata+=atype_btns
         uidata.append({"class":"ins-space-l"})

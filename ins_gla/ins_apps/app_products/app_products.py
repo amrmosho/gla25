@@ -160,7 +160,7 @@ class AppProducts(App):
         home_url = self.ins._server._url({},["mode","id","alias"])
         path = [
             {"start":"true","class":"ins-col-12 ins-flex ins-text-upper"},
-            {"_type":"a","href":home_url,"_data": "Home /","class":" ins-title-12	ins-grey-d-color ins-strong-m"},
+            {"_type":"a","href":home_url,"_data": "Home /","_data-ar":"الرئيسية /","_trans":"true","class":" ins-title-12	ins-grey-d-color ins-strong-m"},
             {"_data": "Product","class":" ins-title-12	ins-grey-color ins-strong-m"},
             {"end":"true"}
             ]
