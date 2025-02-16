@@ -38,7 +38,7 @@ class AppBlogs(App):
 
         uidata += path
 
-        uidata.append({"_data": "Media / News",
+        uidata.append({"_data": "Media / News","_data-ar":"أحدث الأخبار","_trans":"true",
                       "class": "ins-col-7 ins-title ins-strong-m ins-text-upper ins-grey-d-color"})
 
         # checkout steps
@@ -48,7 +48,7 @@ class AppBlogs(App):
 
     def _ui(self):
 
-        data = self.ins._db._get_data("gla_blog", "*"," fk_blog_category_id <>'18'")
+        data = self.ins._db._get_data("gla_blog", "*"," fk_blog_category_id <>'18'",update_lang=True)
         p = "/ins_web/ins_uploads/"
         uidata = [{"start": "true", "class": "ins-flex ",
                    "style": "background:white;height:124px;position: relative;    border-bottom: 1px solid var(--grey-l); "}]

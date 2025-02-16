@@ -101,9 +101,9 @@ class AppProducts(App):
 
        
         if sql_query:
-            rpdata = self.ins._db._get_data("gla_product", "*", f"{sql_query} limit {offset}, {items_per_page}")
+            rpdata = self.ins._db._get_data("gla_product", "*", f"{sql_query} limit {offset}, {items_per_page}",update_lang=True)
         else:
-         rpdata = self.ins._db._get_data("gla_product", "*", f"1=1 limit {offset}, {items_per_page}")
+         rpdata = self.ins._db._get_data("gla_product", "*", f"1=1 limit {offset}, {items_per_page}",update_lang=True)
         ndata = []
 
         if tys:
@@ -172,7 +172,7 @@ class AppProducts(App):
         if filter_data:
             filter_area = [
                 {"start":"true","class":"ins-col-grow ins-flex-end"},
-                {"_data":"Filter by","class":"ins-strong-m ins-grey-d-color ins-title-14"}
+                {"_data":"Filter by",  "_data-ar":"تصفية حسب","_trans":"true","class":"ins-strong-m ins-grey-d-color ins-title-14"}
             ]
             for k,v in filter_data.items():
                 if k == "fk_product_category_id":
@@ -237,10 +237,10 @@ class AppProducts(App):
         
         rq = self.ins._server._post()
         if rq:
-            subtypes = self.ins._db._get_data("gla_product_types","*",f"fk_parent_id='{rq["tid"]}'")
+            subtypes = self.ins._db._get_data("gla_product_types","*",f"fk_parent_id='{rq["tid"]}'",update_lang=True)
 
         else:
-            subtypes = self.ins._db._get_data("gla_product_types","*",f"fk_parent_id='{tid}'")
+            subtypes = self.ins._db._get_data("gla_product_types","*",f"fk_parent_id='{tid}'",update_lang=True)
 
         if subtypes:
             uidata = [
@@ -262,7 +262,7 @@ class AppProducts(App):
         g = self.ins._server._get("filter")
         parsed_data = parse_qs(g)
         filter_data = {key: value[0] for key, value in parsed_data.items()}
-        categories = self.ins._db._get_data("gla_product_category", "title,id")
+        categories = self.ins._db._get_data("gla_product_category", "title,id",update_lang=True)
         min_price = ""
         max_price = ""
         if "price_range" in filter_data and filter_data["price_range"]:
@@ -271,7 +271,7 @@ class AppProducts(App):
             max_price = price_range[1]
 
        
-        types = self.ins._db._get_data("gla_product_types","*","fk_parent_id='0'")
+        types = self.ins._db._get_data("gla_product_types","*","fk_parent_id='0'",update_lang=True)
        
         uidata = [{"start":"true","class":"ins-flex ","style":"background:white;height:124px;position: relative;    border-bottom: 1px solid var(--grey-l); "}]
         uidata+=self.header_ui()
@@ -280,7 +280,7 @@ class AppProducts(App):
        
         ## Filter Area
         uidata.append({"start": "true", "class": "ins-flex ins-col-3 -filter-area ins-grey-d-color ins-padding-2xl full-height ins-sticky-top","style":"background:white;"})
-        uidata.append({"_type": "input", "name":"title","value":filter_data.get("title",""),"data-name":"title","type": "text", "placeholder":"Product name Search..","_placeholder-ar": "انتقل إلى الصفحة","_trans": "true","class":" -product-filter-input -title-input",  "pclass": "ins-col-12 ins-hidden","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input", "name":"title","value":filter_data.get("title",""),"data-name":"title","type": "text", "placeholder":"Product name Search..","placeholder-ar": "انتقل إلى الصفحة","_trans": "true","class":" -product-filter-input -title-input",  "pclass": "ins-col-12 ins-hidden","style":"    background: white;border-radius:4px;"})
         uidata.append({"start": "true", "class": "ins-flex ins-col-12  ins-gap-o"})
         uidata.append({"_data": "Category","_data-ar": "تصنيف","_trans": "true", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "})
         category_ids = filter_data.get("fk_product_category_id", "").split(',')
@@ -349,8 +349,8 @@ class AppProducts(App):
         uidata.append({"_data": "Price ","_data-ar": "السعر","_trans": "true", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "})
       
         uidata.append({"start": "true", "class": "ins-col-12 ins-flex ins-gap-o"})
-        uidata.append({"_type": "input","step":"1000",  "name":"from","value":min_price,"data-name":"from","type": "number", "placeholder":"from","_placeholder-ar": "من","_trans": "true","class":" -price-from-filter-input -price-from-input",  "pclass": "ins-col-5 "})
-        uidata.append({"_type": "input","step":"1000","name":"to","value":max_price,"data-name":"to","type": "number", "placeholder":"to","_placeholder-ar": "إلى","_trans": "true","class":" -price-to-filter-input -price-to-input",  "pclass": "ins-col-5 "})
+        uidata.append({"_type": "input", "name":"from","value":min_price,"data-name":"from","type": "text", "placeholder":"from","placeholder-ar": "من","_trans": "true","class":" -price-from-filter-input -price-from-input",  "pclass": "ins-col-5 "})
+        uidata.append({"_type": "input", "name":"to","value":max_price,"data-name":"to","type": "text", "placeholder":"to","placeholder-ar": "إلى","_trans": "true","class":" -price-to-filter-input -price-to-input",  "pclass": "ins-col-5 "})
         uidata.append({"_data":"<i class='lni lni-search-1'></i>","class":" ins-gold-d-color ins-flex-center -filter-price-btn"})
         uidata.append({"end": "true"})
 

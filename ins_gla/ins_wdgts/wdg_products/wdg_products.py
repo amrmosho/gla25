@@ -9,9 +9,9 @@ class WdgProducts(Widget):
 
     def out(self):
 
-        data = self.ins._db._get_data("gla_product","*","fk_product_category_id = 1 limit 0,4")
-        data_b= self.ins._db._get_data("gla_product","*","fk_product_category_id = 2 limit 0,4")
-        data_c= self.ins._db._get_data("gla_product","*","fk_product_category_id = 3 limit 0,4 ")
+        data = self.ins._db._get_data("gla_product","*","fk_product_category_id = 1 limit 0,4" ,True) 
+        data_b= self.ins._db._get_data("gla_product","*","fk_product_category_id = 2 limit 0,4",True)
+        data_c= self.ins._db._get_data("gla_product","*","fk_product_category_id = 3 limit 0,4 ",True)
 
         self.widget._include("wpros.js")
         uidata = [

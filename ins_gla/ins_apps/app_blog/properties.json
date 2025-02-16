@@ -72,7 +72,8 @@
             "title": "Content",
             "_type": "textarea",
             "type": "textarea",
-
+            "_lang": "true",
+            "_table":"gla_blog",
             "required": "true",
             "pclass": "ins-col-12"
         },

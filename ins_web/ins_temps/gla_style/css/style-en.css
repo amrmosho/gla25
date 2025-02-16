@@ -154,3 +154,7 @@ body {
 .gla-logo-grey {
     background-image: url(imgs/elogo_grey.png);
 }
+
+.-cal-line {
+    left: -6px;
+}

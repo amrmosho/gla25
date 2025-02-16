@@ -14,9 +14,9 @@ class WdgMenu(Widget):
         self.widget._include("script.js")
         self.widget._include("style.css")
         ui.append({"class": "ins-col-12 ins-flex ins-menu", "start": True})
-        gt = "title,id,kit_hidden,alias,add_to_url"
+        gt = "title,id,kit_hidden,alias,add_to_url,kit_lang"
         data = self.ins._db._get_data(
-            "menu_item_table", gt, f"fk_menu_id='{self.widget._options["id"]}'   and kit_menu_item.fk_menu_item_id='0' order by kit_order", True)
+            "menu_item_table", gt, f"fk_menu_id='{self.widget._options["id"]}'   and kit_menu_item.fk_menu_item_id='0' order by kit_order", update_lang=True)
 
         for d in data:
 
@@ -26,7 +26,7 @@ class WdgMenu(Widget):
             
 
                 subdata = self.ins._db._get_data(
-                    "menu_item_table", gt, f"fk_menu_id='{self.widget._options["id"]}'  and kit_menu_item.fk_menu_item_id='{d["id"]}' order by kit_order", True)
+                    "menu_item_table", gt, f"fk_menu_id='{self.widget._options["id"]}'  and kit_menu_item.fk_menu_item_id='{d["id"]}' order by kit_order", update_lang=True)
 
                 if len(subdata) > 0 :
                                  row = [
