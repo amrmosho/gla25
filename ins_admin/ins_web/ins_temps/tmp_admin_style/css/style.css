@@ -124,7 +124,6 @@ body {
     transition: 0.02s;
 }
 
-.ins-table-data .ins-tr:hover .ins-td:first-child,
 .ins-table-data .ins-tr.active .ins-td:first-child {
     padding-left: 30px;
 }
