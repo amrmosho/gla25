@@ -135,6 +135,11 @@ body {
     width: 25px;
 }
 
+.ins-table-regular .ins-tr:nth-child(odd) .ins-td {
+    border-top: 1px solid #7878782e !important;
+    border-bottom: 1px solid #7878782e !important;
+}
+
 .ins-table-data .ins-tr.active .ins-raw-selector,
 .ins-table-data .ins-raw-selector-all.active {
     background-color: var(--secondary);
