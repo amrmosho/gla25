@@ -54,13 +54,13 @@ class AppPrice(App):
                   {"_data": f"<b>{str(d["gram_price_bay"])}</b>",
                    "class": "", "style": "width:120px"},
                   {"_data": f"<b class='insaction ' data-insaction='ins_tooltip' data-tip='{d["new_bay_price_tip"]}'  class=''>{str(d["new_bay_price_f"])}</b>",
-                   "class": " ins-primary", "style": "width:120px"},
+                   "class": " ins-primary", "style": "width:120px;    cursor: alias;"},
                   {"_data": f"<b>{str(d["new_main_prce"])}</b>",
                    "class": "", "style": "width:120px"},
                   {"_data": f"<b>{str(d["gram_price_sell"])}</b>",
                    "class": "", "style": "width:120px"},
                   {"_data": f"<b class='insaction ' data-insaction='ins_tooltip' data-tip='{d["new_sell_price_tip"]}'>{str(d["new_sell_price_f"])}</b>",
-                   "class": "ins-primary", "style": "width:120px"},
+                   "class": "ins-primary", "style": "width:120px;    cursor: alias;"},
                   ]
             body.append(rw)
         uidata = [
@@ -81,16 +81,32 @@ class AppPrice(App):
     def cal(self, g, st="report"):
         r = ""
         data = self.ins._db._get_data("gla_product")
-        
-
+        oprice = float(g["sell"])
+        obprice = float(g["buy"])
+        price_24 = (float(oprice) * 999.9) / 875
+        bprice_24 = (float(obprice) * 999.9) / 875
+        price_24 = round(price_24)
+        bprice_24 = round(bprice_24)
         if st == "update":
-            sql = {"sell": g["sell"],
-                       "bay": g["buy"]}
+        
+            
+            sql = {"sell": g["sell"], 
+                       "bay": g["buy"] ,
+                       
+                       "sell_24": price_24, 
+                       "bay_24": bprice_24
+                       
+                       
+                       
+                       }
+            
+            
+            
+            
             self.ins._db._update("gla_price", sql ,"1=1")
 
         for d in data:
-            oprice = g["sell"]
-            obprice = g["buy"]
+      
             del d["images"]
             del d["th_main"]
             del d["kit_created"]
@@ -109,11 +125,9 @@ class AppPrice(App):
 
             spt ="<br/>"
             if d["kart"] != "21":
-                price = (float(oprice) * 999.9) / 875
-                bprice = (float(obprice) * 999.9) / 875
-                price = float(price)
-                price = round(price)
-                bprice = round(bprice)
+                price = price_24
+                bprice = bprice_24
+
 
                 d["new_bay_price_tip"] +="<b> kart : 24  </b>"
                 d["new_bay_price_tip"] +=f'{sptl} <b> Main Price </b> <br/> (price * 999.9) / 875 {spt} ({obprice} * 999.9) / 875 =  <b class="ins-info-color"> {bprice} </b>'
@@ -123,9 +137,9 @@ class AppPrice(App):
 
                 d["new_sell_price_tip"] +=f'{sptl} <b> Main Price </b> <br/> (price * 999.9) / 875 {spt} ({oprice} * 999.9) / 875 =  <b class="ins-info-color"> {price} </b>'
             else :
-                price = float(oprice) 
+                price =oprice 
                 price = round(price)
-                bprice = float(obprice)
+                bprice = obprice
                 bprice = round(bprice)
                 d["new_sell_price_tip"] +="<b> kart : 21  </b> "
                 d["new_sell_price_tip"] +=f'{sptl} <b> Main Price </b> <br/>  {oprice}'
