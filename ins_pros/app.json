@@ -1,7 +1,7 @@
 {
     "db": {
         "main": {
-            "name": "py_insya_2",
+            "name": "py_insya",
             "user": "root",
             "password": "",
             "host": "localhost"

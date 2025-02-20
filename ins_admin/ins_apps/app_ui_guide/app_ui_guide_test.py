@@ -11,18 +11,25 @@ class AppUiGuideTest(App):
         uidata = [
             {"start": "true", "class": "ins-col-6 ins-card  ins-flex "},
 
-            {"_type": "input", "type": "auto_select", "title": "_Title",
-             "name": "_unname", "pclass": "ins-col-12 ", "value":"3",
-             "fl_data": {"0": 'sssss', "2": 'sasdasdss', "3": '888', "9": '8989'}},
+           
             {"end": "true"},
            
            
            
             {"start": "true", "class": "ins-col-6 ins-card  ins-flex "},
 
-         
-            {"_type": "select",  "title": "_Title",
-             "name": "_unname", "pclass": "ins-col-12 ",
+        
+            {"_type": "input","type": "auto_select",  "title": "_Title",
+             "name": "_unname", "pclass": "ins-col-12 ",  "fl_data": {
+                 
+                 
+                 "0": 'sssss', "2": 'sasdasdss', "3": '888', "9": '8989',
+                                  "01": 'sssss', "21": 'sasdasdss', "31": '888', "91": '8989'
+
+                 
+                 
+                 
+                 }
             
                
              

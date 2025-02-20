@@ -241,8 +241,11 @@ var updated = [];
 function updateui(m, t) {
     switch (t) {
         case "plgin":
+
+
             var op = m._getData();
             op.o = m;
+
             ins(m._getData("plgin"))._plgin(op, function(cls) {});
             break;
         case "plgin_change":
@@ -567,13 +570,20 @@ UI.prototype._update = function() {
     ins(".jsaction,.ins_jsaction,.insaction")
         ._get()
         .forEach(function(e) {
+
+
             if (!updated.includes(e)) {
+
                 updated.push(e);
                 var m = ins(e);
                 if (ins(m._getData("insaction"))._isExists()) {
+
+
                     ui._updateObject(m, "insaction");
                 }
                 var events = ["click", "change", "mouseover", "mouseout", "keydown", "focus", "submit", "mousedown", "mouseup", "mousemove", "dblclick"];
+
+
                 events.forEach(function(e) {
                     if (ins(m._getData("ins" + e))._isExists()) {
                         m._on(e, function(o) {
@@ -585,8 +595,13 @@ UI.prototype._update = function() {
         });
 };
 UI.prototype._updateObject = function(obj, act = "insclick") {
+
+
+
     var ex = obj._getData(act).split(",");
     ex.forEach(function(e) {
+
+
         updateui(obj, e);
     });
 };
@@ -2498,8 +2513,10 @@ INS.prototype._plgin = function(Options, onReady) {
     try {
         var plg = this.o;
         var myplgin = plg.trim();
-        if (!addplgins.includes(myplgin)) {
-            addplgins.push(myplgin);
+
+
+        if (!Object.keys(plgins).includes(myplgin)) {
+
             var pl = "/ins_web/ins_kit/js/plgins/" + plg + ".js?003";
             import (pl).then((module) => {
                 Object.keys(module).forEach(function(k) {
@@ -2507,17 +2524,24 @@ INS.prototype._plgin = function(Options, onReady) {
                         window[k] = module[k]
                     }
                 })
+
                 if (Options == null) {
                     Options = {};
                 }
+
                 var k = ins()._data._get_unique_id();
+
                 plgins[myplgin] = new module[myplgin](Options, k);
                 plgins[myplgin]._out();
+
+
+
                 if (onReady != null) {
                     onReady(plgins[myplgin]);
                 }
             });
         } else {
+
             plgins[myplgin]["options"] = Options;
             plgins[myplgin]._out();
         }

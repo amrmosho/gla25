@@ -64,7 +64,18 @@ class AppUiGuideInputs(App):
         uidata.append( {"start": "true", "class": "ins-col-12 ins-bg-4 ins-border ins-card  ins-flex "})
         uidata.append({"_data": f"> Select ", "class": "ins-col-12 ins-title-m  "})
         
-        uidata += self._input(type="auto" ,title="Sample Auto" ,m={"_data": "option_1,option_2,option_3"})
+        uidata += self._input(type="auto" ,title="Sample Auto" ,m={"fl_data": "option_1,option_2,option_3"})
+
+
+        uidata += self._input(type="auto_select" ,title="Sample Auto" ,m={"fl_data": "option_1,option_2,option_3,option_4,option_5,option_6"})
+
+        uidata += self._input(type="tags" ,title="Tages" ,m={"fl_data": "option_1,option_2,option_3,option_4,option_5,option_6"})
+
+
+
+
+
+
 
         uidata.append({"end": "true"})
 
@@ -72,14 +83,21 @@ class AppUiGuideInputs(App):
         
        
         uidata.append( {"start": "true", "class": "ins-col-12 ins-bg-4 ins-border ins-card  ins-flex "})
+        
+        
+        
         uidata.append({"_data": f"> Select ", "class": "ins-col-12 ins-title-m  "})
-        uidata += self._input("select", "", "sample select",{"_data": "option_1,option_2,option_3"})
-    
-
-        uidata += self._input("select", "areas", " select areas")
-        uidata += self._input("select", "db", " select from db ",m={"_table":"kit_menu" ,"_text":"title" ,"_value":"id" ,"_where":'id>2'} )
+        uidata += self._input("select", "", "sample select",{"fl_data": "option_1,option_2,option_3"})
+        uidata += self._input("select", "areas", " select areas" )
+        
+        uidata += self._input("select", "", " select from db ",m={"fl_table":"kit_menu" ,"fl_type":"db","fl_text":"title" ,"fl_value":"id" ,"fl_where":'id>2'} )
 
         uidata.append({"end": "true"})
+        
+        
+        
+        
+        
 
         uidata.append({"end": "true"})
 

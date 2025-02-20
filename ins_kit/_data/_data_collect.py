@@ -69,7 +69,7 @@ class DataCollect(ins_parent):
 
         # fl
 
-        if "fl_type" in ops:
+        if "fl_type" in ops and ops["fl_type"] !="":
             if ops["fl_type"] == "areas":
                 ops = self.__area(ops)
             elif ops["fl_type"] == "db":

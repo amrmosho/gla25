@@ -141,12 +141,11 @@ class PlgInput(Ui):
             {"_type": "datalist", "id": f"{ops["name"]}_list", "start": True},
         ]
 
-        if type(ops["_data"]) != list:
-            ops["data"] = ops["_data"].split(",")
-            del ops["_data"]
 
-        for o in ops["data"]:
-            ui.append({"_type": "option", "value": o})
+        ops =self.ins._data_collect._render(ops)
+
+        for k,v in ops["fl_data"].items():
+            ui.append({"_type": "option", "value": v})
 
         ui.append({"_type": "datalist", "end": True})
 
@@ -156,8 +155,8 @@ class PlgInput(Ui):
         if "name" not in ops:
             ops["name"] = "_" + self.ins._data._unid
 
-        ii = {"_type": "input", "placeholder": "Add new Item",
-              "name": f"{ops["name"]}_adder",  "clean": "true",  "class": "ins-col-grow ins-input-adder", "style": "width:auto"}
+        ii = {"_type": "input", "placeholder": "Add new Item", "list": f"{ops["name"]}_list",
+              "name": f"{ops["name"]}_adder",  "clean": "true",  "class": "ins-col-grow  ins-input-none ins-input-adder", "style": "width:auto"}
 
         if "data" in ops:
             ii["list"] = f"{ops["name"]}_list"
@@ -167,7 +166,7 @@ class PlgInput(Ui):
 
             {"data-insaction": 'plgin',
                 "data-plgin": 'ins_plg_input_multi',    "start": True, "class": " insaction  ins-flex"},
-            {"start": True, "class": " ins-input-cont ins-flex  ins-padding-m   ins-col-12"},
+            {"start": True, "class": " ins-input-cont ins-flex  ins-form-input  ins-col-12"},
             ii,
             {"end": True},
             {"_type": "input", "name": f"{ops["name"]}",  "clean": "true",
@@ -178,18 +177,19 @@ class PlgInput(Ui):
 
         ]
 
-        if "data" in ops:
-            ui.append({"_type": "datalist", "id": f"{
-                      ops["name"]}_list", "start": True})
-            if type(ops["data"]) != list:
-                ops["data"] = ops["data"].split(",")
 
-            for o in ops["data"]:
-                ui.append({"_type": "option", "value": o})
+        ui.append({"_type": "datalist", "id": f"{ops["name"]}_list", "start": True})
 
-            ui.append({"_type": "datalist", "end": True})
+        
 
-            ui.append({"end": True})
+        ops =self.ins._data_collect._render(ops)
+
+        for k,v in ops["fl_data"].items():
+            ui.append({"_type": "option", "value": v})
+
+        ui.append({"_type": "datalist", "end": True})
+
+        ui.append({"end": True})
 
         return ui
 
@@ -207,7 +207,7 @@ class PlgInput(Ui):
             inp = self._auto(ops)
         elif ops["type"] == "auto_select":
             inp = self.auto_select(ops)
-        elif ops["type"] == "multi":
+        elif ops["type"] == "multi" or ops["type"] == "tags":
             inp = self._multi(ops)
 
         elif ops["type"] == "json":
