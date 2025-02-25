@@ -3,7 +3,7 @@ import locale
 from ins_kit.ins_parent import ins_parent
 import hashlib
 import secrets
-
+import uuid
 
 class Data(ins_parent):
     def __init__(self, Ins) -> None:
@@ -11,11 +11,13 @@ class Data(ins_parent):
        
     @property 
     def unid(s):
-       return  datetime.now().strftime('%Y%m%d%H%M%S')
+       return uuid.uuid4().hex
+
    
     @property 
     def _unid(s):
-       return  datetime.now().strftime('%Y%m%d%H%M%S')  
+       return  uuid.uuid4().hex
+
         
     
     def generate_salt(self):

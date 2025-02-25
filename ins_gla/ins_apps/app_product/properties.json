@@ -88,6 +88,9 @@
             "_trans": "true",
             "_type": "input",
             "_dir": "images",
+
+
+
             "_exts": "image/png",
             "type": "upload",
             "required": "true",

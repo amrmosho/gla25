@@ -241,8 +241,11 @@ var updated = [];
 function updateui(m, t) {
     switch (t) {
         case "plgin":
+
+
             var op = m._getData();
             op.o = m;
+
             ins(m._getData("plgin"))._plgin(op, function(cls) {});
             break;
         case "plgin_change":
@@ -567,13 +570,20 @@ UI.prototype._update = function() {
     ins(".jsaction,.ins_jsaction,.insaction")
         ._get()
         .forEach(function(e) {
+
+
             if (!updated.includes(e)) {
+
                 updated.push(e);
                 var m = ins(e);
                 if (ins(m._getData("insaction"))._isExists()) {
+
+
                     ui._updateObject(m, "insaction");
                 }
                 var events = ["click", "change", "mouseover", "mouseout", "keydown", "focus", "submit", "mousedown", "mouseup", "mousemove", "dblclick"];
+
+
                 events.forEach(function(e) {
                     if (ins(m._getData("ins" + e))._isExists()) {
                         m._on(e, function(o) {
@@ -585,8 +595,13 @@ UI.prototype._update = function() {
         });
 };
 UI.prototype._updateObject = function(obj, act = "insclick") {
+
+
+
     var ex = obj._getData(act).split(",");
     ex.forEach(function(e) {
+
+
         updateui(obj, e);
     });
 };
@@ -1845,6 +1860,9 @@ INS.prototype._getclasses = function(sp = null, not = []) {
             }
         });
     };
+
+
+
     INS.prototype._document_event = function(event, callback, useCapture) {
         document.addEventListener(
             event,
@@ -2423,6 +2441,24 @@ var addplgins = [];
 INS.prototype._add_plgin = function(plgin_name, plg) {
     plgins[plgin_name] = plg;
 }
+
+
+
+INS.prototype._isNet = function() {
+    return window.navigator.onLine
+
+}
+
+INS.prototype._chkNet = function(online, ofline) {
+    window.addEventListener('online', online);
+    window.addEventListener('offline', ofline);
+}
+
+
+
+
+
+
 INS.prototype._check_plgin = function(plgin_name) {
     if (Object.keys(plgins).includes(plgin_name)) {
         return plgins[plgin_name];
@@ -2441,6 +2477,7 @@ INS.prototype._getPlgin = function(Options, onReady) {
     var plg = this.o;
     try {
         if (!(plg in plgins)) {
+
             var pl = "/ins_web/ins_kit/js/plgins/" + plg + ".js";
             import (pl).then((module) => {
                 Object.keys(module).forEach(function(k) {
@@ -2456,12 +2493,14 @@ INS.prototype._getPlgin = function(Options, onReady) {
                 if (onReady != null) {
                     onReady(plgins[plg]);
                 }
+
+                console.log(plgins)
                 return plgins[plg];
             });
         } else {
-            plgins[plg]["options"] = Options;
-            onReady(plgins[plg]);
-            return plgins[plg];
+            /* plgins[plg]["options"] = Options;
+             onReady(plgins[plg]);
+             return plgins[plg];*/
         }
     } catch (err) {}
 };
@@ -2498,8 +2537,10 @@ INS.prototype._plgin = function(Options, onReady) {
     try {
         var plg = this.o;
         var myplgin = plg.trim();
-        if (!addplgins.includes(myplgin)) {
-            addplgins.push(myplgin);
+
+
+        if (!Object.keys(plgins).includes(myplgin)) {
+
             var pl = "/ins_web/ins_kit/js/plgins/" + plg + ".js?003";
             import (pl).then((module) => {
                 Object.keys(module).forEach(function(k) {
@@ -2507,17 +2548,24 @@ INS.prototype._plgin = function(Options, onReady) {
                         window[k] = module[k]
                     }
                 })
+
                 if (Options == null) {
                     Options = {};
                 }
+
                 var k = ins()._data._get_unique_id();
+
                 plgins[myplgin] = new module[myplgin](Options, k);
                 plgins[myplgin]._out();
+
+
+
                 if (onReady != null) {
                     onReady(plgins[myplgin]);
                 }
             });
         } else {
+
             plgins[myplgin]["options"] = Options;
             plgins[myplgin]._out();
         }

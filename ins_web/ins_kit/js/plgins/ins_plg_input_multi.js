@@ -64,10 +64,19 @@ export class ins_plg_input_multi {
 
         var old = this._f(".ins-input")._getValue();
 
-        old += "," + a;
+        var oa = old.split(",");
+        console.log(oa);
+        console.log(a);
 
-        this._f(".ins-input")._setValue(old)
-        this._itob()
+        if (!oa.includes(a)) {
+
+            old += "," + a;
+
+            this._f(".ins-input")._setValue(old)
+            this._itob()
+
+        }
+
 
     }
 

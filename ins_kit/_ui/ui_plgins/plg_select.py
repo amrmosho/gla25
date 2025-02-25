@@ -36,8 +36,12 @@ class PlgSelect(Ui):
     def __update_data(self, ops):
         self.__data.clear()
 
-
-        ops = self.ins._data_collect._render(ops)
+        d=ops
+        if "fl_type" not in ops  and "type" in ops :
+            d["fl_type"] =ops["type"]
+            
+            
+        ops = self.ins._data_collect._render(d)
         for k, v in ops["fl_data"].items():
             self.__data.append({"value": k, "_data": v})
 

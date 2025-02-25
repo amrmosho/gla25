@@ -24,29 +24,81 @@ class PlgInput(Ui):
     def _upload(self, ops: dict):
 
         v = ""
+        id = "_" + self.ins._data._unid
         if "value" in ops:
 
             v = self.ins._map.UPLOADS_FOLDER + ops.get("value", "")
 
-        tar = {"_data": "upload", "_data-ar": "رفع", "_trans": "true", "data-insaction": "plgin", "data-plgin": "ins_plg_py_form_image",
-               "clean": "true", "data-insaction": "plgin", "style": "   ", "class": "insaction ins-button ins-form-upload-btn ins-primary ins-form-upload-input"}
+        tar = {
+            "_trans": "true",
+            "data-insaction": "plgin",
+            "data-plgin": "ins_plg_py_form_image",
+
+
+
+            "data-p": id,
+            "clean": "true", "style": 'line-height: 40px;',
+            "class": "insaction lni lni-upload-1 ins-primary-color ins-form-upload-btn  ins-font-l  ins-form-upload-input"}
+
+        if "_mode" in ops:
+            tar["data-mode"] = ops["_mode"]
+
         if "_dir" in ops:
             tar["data-_dir"] = ops["_dir"]
         if "_exts" in ops:
             tar["data-_exts"] = ops["_exts"]
         if "_size" in ops:
             tar["data-_size"] = ops["_size"]
+        vals = {}
+        row = []
+
+        if ("value" in ops):
+            if "_mode" in ops and ops["_mode"] == "multi":
+                vls = ops["value"].split(",")
+
+                for v in vls:
+                    if v != "":
+
+                        row.append(
+                            {"start": "true", "class": "-img-cont ins-flex-center", "draggable": "true"})
+                        row.append(
+                            {"data-p": v,   "class": "lni lni-xmark  ins-rounded ins-danger    ins-button-text -img-remove"})
+
+                        row.append({"_type": "a", "href": self.ins._map.UPLOADS_FOLDER + v, "target": "_black",
+                                   "class": "lni lni-link-2-angular-right ins-rounded ins-dark   ins-button-text -img-link"})
+
+                        row.append(
+                            {"data-p": v,  "class": "lni lni-menu-meatballs-1  ins-rounded   ins-dark  -img-darg"})
+
+                        row.append({"_type": "img",
+                                    "src": self.ins._map.UPLOADS_FOLDER + v})
+                        row.append({"end": "true"})
+
+            else:
+                row = [
+
+                    {"start": "true", "class": "-img-cont ins-flex-center"},
+                    {"data-p": ops["value"],   "class": "lni lni-xmark  ins-rounded ins-danger    ins-button-text -img-remove"},
+                    {"_type": "a", "href": self.ins._map.UPLOADS_FOLDER +
+                        ops["value"], "target": "_black",   "class": "lni lni-link-2-angular-right ins-rounded ins-dark   ins-button-text -img-link"},
+                    {"_type": "img",
+                        "src": self.ins._map.UPLOADS_FOLDER + ops["value"]},
+                    {"end": "true"}
+
+
+                ]
+
         ui = [
-            {"start": "true", "class": "ins-col-12 ins-flex"},   tar,
-
-
-            {"_type": "img", "clean": "true",
-                "style": "      max-height: 200px;  max-width: 100%;", "src": v},
-            {"_type": "input", "name": ops["name"], "value": ops.get("value", ""),
-                "type": "hidden", "clean": "true",  "class": "ins-form-upload-input ins-hidden"},
-            {"end": "true"}
-
+            {"start": "true", "data-id":id, "class": f"ins-col-12 {id} ins-form-input  ins-flex-end ins-form-upload-imgs-cont"},
+            {"start": "true", "class": "ins-col-grow ins-form-upload-imgs ins-flex-center"}
         ]
+        ui += row
+
+        ui.append({"end": "true"})
+        ui.append(tar)
+        ui.append({"_type": "input", "name": ops["name"], "value": ops.get("value", ""),
+                   "type": "hidden", "clean": "true",  "class": "ins-form-upload-input ins-hidden"})
+        ui.append({"end": "true"})
 
         return ui
 
@@ -87,7 +139,6 @@ class PlgInput(Ui):
     def auto_select(self, ops: dict):
         if "name" not in ops:
             ops["name"] = "_" + self.ins._data._unid
-            
 
         ui = [
 
@@ -111,18 +162,13 @@ class PlgInput(Ui):
                 "class": f"{ops["name"]}_auto_list -auto-list-inp ins-border ins-flex", "start": True},
         ]
 
-       
-       
-        ops =self.ins._data_collect._render( ops)
+        ops = self.ins._data_collect._render(ops)
 
+        for k, v in ops["fl_data"].items():
+            cls = ""
+            if "value" in ops and str(ops["value"]) == str(k):
+                cls = "-set-selected"
 
-
-        for k,v in ops["fl_data"].items():
-            cls=""
-            if "value" in  ops and str(ops["value"]) ==str(k):
-                            cls="-set-selected"
-
-            
             ui.append({"_type": "li", "data-value": k,
                       "class": f"ins-col-12 {cls} ins-vis", "_data": v})
 
@@ -141,12 +187,10 @@ class PlgInput(Ui):
             {"_type": "datalist", "id": f"{ops["name"]}_list", "start": True},
         ]
 
-        if type(ops["_data"]) != list:
-            ops["data"] = ops["_data"].split(",")
-            del ops["_data"]
+        ops = self.ins._data_collect._render(ops)
 
-        for o in ops["data"]:
-            ui.append({"_type": "option", "value": o})
+        for k, v in ops["fl_data"].items():
+            ui.append({"_type": "option", "value": v})
 
         ui.append({"_type": "datalist", "end": True})
 
@@ -156,8 +200,8 @@ class PlgInput(Ui):
         if "name" not in ops:
             ops["name"] = "_" + self.ins._data._unid
 
-        ii = {"_type": "input", "placeholder": "Add new Item",
-              "name": f"{ops["name"]}_adder",  "clean": "true",  "class": "ins-col-grow ins-input-adder", "style": "width:auto"}
+        ii = {"_type": "input", "placeholder": "Add new Item", "list": f"{ops["name"]}_list",
+              "name": f"{ops["name"]}_adder",  "clean": "true",  "class": "ins-col-grow  ins-input-none ins-input-adder", "style": "width:auto"}
 
         if "data" in ops:
             ii["list"] = f"{ops["name"]}_list"
@@ -167,7 +211,7 @@ class PlgInput(Ui):
 
             {"data-insaction": 'plgin',
                 "data-plgin": 'ins_plg_input_multi',    "start": True, "class": " insaction  ins-flex"},
-            {"start": True, "class": " ins-input-cont ins-flex  ins-padding-m   ins-col-12"},
+            {"start": True, "class": " ins-input-cont ins-flex  ins-form-input  ins-col-12"},
             ii,
             {"end": True},
             {"_type": "input", "name": f"{ops["name"]}",  "clean": "true",
@@ -178,18 +222,17 @@ class PlgInput(Ui):
 
         ]
 
-        if "data" in ops:
-            ui.append({"_type": "datalist", "id": f"{
-                      ops["name"]}_list", "start": True})
-            if type(ops["data"]) != list:
-                ops["data"] = ops["data"].split(",")
+        ui.append(
+            {"_type": "datalist", "id": f"{ops["name"]}_list", "start": True})
 
-            for o in ops["data"]:
-                ui.append({"_type": "option", "value": o})
+        ops = self.ins._data_collect._render(ops)
 
-            ui.append({"_type": "datalist", "end": True})
+        for k, v in ops["fl_data"].items():
+            ui.append({"_type": "option", "value": v})
 
-            ui.append({"end": True})
+        ui.append({"_type": "datalist", "end": True})
+
+        ui.append({"end": True})
 
         return ui
 
@@ -207,7 +250,7 @@ class PlgInput(Ui):
             inp = self._auto(ops)
         elif ops["type"] == "auto_select":
             inp = self.auto_select(ops)
-        elif ops["type"] == "multi":
+        elif ops["type"] == "multi" or ops["type"] == "tags":
             inp = self._multi(ops)
 
         elif ops["type"] == "json":
@@ -226,7 +269,6 @@ class PlgInput(Ui):
         #
 
         addcls = " ins-form-input "
-
 
         if type(inp) == dict and "class" not in inp:
             inp["class"] = addcls
