@@ -34,11 +34,7 @@ class PlgInput(Ui):
 
         tar = {
             "_trans": "true",
-            
             "data-plgin": "ins_plg_py_form_image",
-
-
-
             "data-p": id,
             "clean": "true", "style": 'line-height: 40px;',
             "class": " lni lni-upload-1 ins-primary-color ins-form-upload-btn  ins-font-l  ins-form-upload-input"}
@@ -49,8 +45,11 @@ class PlgInput(Ui):
             tar["class"] +=" insaction "
 
 
+        if "class"  in ops:
+            tar["class"] += " " +ops["class"] +" "
+            
+            
 
-       
         if "_mode" in ops:
             tar["data-mode"] = ops["_mode"]
 

@@ -18,6 +18,10 @@ export class ins_plg_py_form_image {
             ins(ds["p"])._find(".ins-form-upload-imgs")._setHTML(imgs)
         }
     }
+
+
+
+
     m_actions(ds) {
         var data = ds;
         if (ds["p"] != "") {
@@ -55,6 +59,10 @@ export class ins_plg_py_form_image {
             o._parent()._remove()
             t.reval(p)
         }, true)
+
+
+
+
         ins(".-img-cont")._on(
             "dragstart", (o, ev) => {
                 var id = "drag-" + new Date().getTime();

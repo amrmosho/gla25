@@ -10,7 +10,25 @@ class AppBlogs(App):
 
     def header_ui(self):
 
+        self.app._include("script.js")
+
+
+
         uidata = [
+            
+            
+              {'_type': 'input',"nojs":"true", 'type': 'upload', 'title': 'Upload image', 'name': '_unname',"class":"-upload-image",
+               'placeholder': '_add placeholder hear',
+                                       'pclass': 'ins-col-12 ',
+                                       
+                                       
+                                       "value":"usss/42cc0b03c1d9420fa2aa13a8ba2bbc0c__th.png",
+                                       
+                                       
+                                       'required': 'true', '_dir': 'test', '_exts': 'image/png'},
+     
+            
+            
             {"start": "true", "class": "ins-flex ins-col-12 gla-container ins-padding-2xl"}]
         home_url = self.ins._server._url({}, ["mode", "id", "alias"])
 
