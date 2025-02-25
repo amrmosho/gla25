@@ -29,17 +29,28 @@ class PlgInput(Ui):
 
             v = self.ins._map.UPLOADS_FOLDER + ops.get("value", "")
 
+
+
+
         tar = {
             "_trans": "true",
-            "data-insaction": "plgin",
+            
             "data-plgin": "ins_plg_py_form_image",
 
 
 
             "data-p": id,
             "clean": "true", "style": 'line-height: 40px;',
-            "class": "insaction lni lni-upload-1 ins-primary-color ins-form-upload-btn  ins-font-l  ins-form-upload-input"}
+            "class": " lni lni-upload-1 ins-primary-color ins-form-upload-btn  ins-font-l  ins-form-upload-input"}
 
+        if "nojs" not in ops:
+            tar["data-insaction"] ="plgin"
+            tar["data-plgin"] ="ins_plg_py_form_image"
+            tar["class"] +=" insaction "
+
+
+
+       
         if "_mode" in ops:
             tar["data-mode"] = ops["_mode"]
 
