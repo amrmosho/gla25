@@ -61,7 +61,7 @@ class AppUsersOrders(App):
             {"start": "true", "class": "ins-col-12 ins-flex ins-card"},
             {"_data": f"Order ID({g['id']} /2025)", "class": "ins-col-12"},
            
-                       {"start": "true", "class": "ins-col-6 ins-flex "},
+                       {"start": "true", "class": "ins-col-4 ins-flex "},
 
            
             {"_data": "user address", "_data-ar": "عنوان المستخدم", "_trans": "true", "class": "ins-col-12 ins-grey-d-color"},
@@ -70,7 +70,7 @@ class AppUsersOrders(App):
             {"_data": status,"_data-ar":status_ar,"_trans":"true", "class": f"ins-col-12 ins-{self.get_status_color(data["order_status"])}-color ins-title-xs ins-strong-l"},
                        {"end": "true"},
 
-                       {"start": "true", "class": "ins-col-6 ins-flex "},
+                       {"start": "true", "class": "ins-col-4 ins-flex "},
 
            
             {"_data": "payment status", "_data-ar": "حالة الدفع", "_trans": "true", "class": "ins-col-12 ins-grey-d-color"},
@@ -79,7 +79,10 @@ class AppUsersOrders(App):
             {"_data": payments["title"], "class": "ins-col-12 ins-grey-d-color ins-title-xs ins-strong-l"},
                         {"end": "true"},
 
-            
+                                   {"start": "true", "class": "ins-col-4 ins-flex "},
+                                   
+                        {"end": "true"},
+
             
             {"end": "true"},
             {"_data": "Products", "_data-ar": "المنتجات", "_trans": "true", "class": "ins-col-12 ins-strong-m ins-title-m"},
