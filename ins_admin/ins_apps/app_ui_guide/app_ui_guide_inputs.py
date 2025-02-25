@@ -26,7 +26,7 @@ class AppUiGuideInputs(App):
 
 
 
-        uidata.append( {"start": "true", "class": "ins-col-12 ins-bg-4 ins-border ins-card  ins-flex "})
+        uidata.append( {"start": "true", "class": "ins-col-12  ins-margin-xl ins-bg-4 ins-border ins-card  ins-flex "})
         uidata.append({"_data": f"> Input ", "class": "ins-col-12 ins-title-m  "})
 
         uidata += self._input(title="sample input")
@@ -61,7 +61,7 @@ class AppUiGuideInputs(App):
         uidata.append({"end": "true"})
 
         
-        uidata.append( {"start": "true", "class": "ins-col-12 ins-bg-4 ins-border ins-card  ins-flex "})
+        uidata.append( {"start": "true", "class": "ins-col-12  ins-margin-xl ins-bg-4 ins-border ins-card  ins-flex "})
         uidata.append({"_data": f"> Select ", "class": "ins-col-12 ins-title-m  "})
         
         uidata += self._input(type="auto" ,title="Sample Auto" ,m={"fl_data": "option_1,option_2,option_3"})
@@ -82,16 +82,33 @@ class AppUiGuideInputs(App):
         
         
        
-        uidata.append( {"start": "true", "class": "ins-col-12 ins-bg-4 ins-border ins-card  ins-flex "})
+        uidata.append( {"start": "true", "class": "ins-col-12 ins-bg-4  ins-margin-xl ins-border ins-card  ins-flex "})
         
-        
-        
+    
         uidata.append({"_data": f"> Select ", "class": "ins-col-12 ins-title-m  "})
         uidata += self._input("select", "", "sample select",{"fl_data": "option_1,option_2,option_3"})
         uidata += self._input("select", "areas", " select areas" )
         
         uidata += self._input("select", "", " select from db ",m={"fl_table":"kit_menu" ,"fl_type":"db","fl_text":"title" ,"fl_value":"id" ,"fl_where":'id>2'} )
 
+        uidata.append({"end": "true"})
+        
+        
+        
+        uidata.append( {"start": "true", "class": "ins-col-12 ins-bg-4  ins-margin-xl ins-border ins-card  ins-flex "})
+        
+    
+        uidata.append({"_data": f"> Upload ", "class": "ins-col-12 ins-title-m  "})
+     
+
+        uidata += self._input(type="upload" ,title="Upload image" ,m={ "_dir": "test","_exts": "image/png" })
+        
+        
+        uidata += self._input(type="upload" ,title="multi  images Upload" ,m={ "_dir": "test","_mode":"multi" ,"_exts": "image/png" })
+
+
+
+       
         uidata.append({"end": "true"})
         
         

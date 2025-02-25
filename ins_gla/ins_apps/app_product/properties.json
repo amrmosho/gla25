@@ -88,6 +88,9 @@
             "_trans": "true",
             "_type": "input",
             "_dir": "images",
+
+
+
             "_exts": "image/png",
             "type": "upload",
             "required": "true",
@@ -221,7 +224,7 @@
             "_type": "method",
             "class": "ins-col-2 ins-strong ins-flex-start"
         },
-   
+
         {
             "name": "fk_product_category_id",
             "title": "Product Category",

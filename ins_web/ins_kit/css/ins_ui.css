@@ -1540,39 +1540,13 @@ ul.ins-list-h,
     max-width: 80px;
 }
 
-
-/*.ins-upload-drop-hover-area {
-    position: absolute;
-    height: 80%;
-    width: 80%;
-    text-align: center;
-    font-size: 24px;
-    font-family: var(--font-alt);
-    color: var(--primary);
-    border: 1px dashed;
-    opacity: 0.5;
-    display: none;
-}*/
-
 .ins-upload-drop-hover {
     border: 1px dashed;
     background: var(--opacity-bg);
 }
 
-.ins-upload-drop-hover span {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    display: block;
-    transform: translate(-50%, -50%);
-}
-
-.ins-upload-drop-hover .ins-upload-drop-hover-area {
-    display: block;
-}
-
-.ins-upload-drop-hover .ins-uploader-file-btn {
-    display: none;
+.ins-upload-drop-hover {
+    border: 3px dashed var(--warning) !important;
 }
 
 .ins-tr._readonly .ins-list-rowactions {
@@ -1624,4 +1598,70 @@ ul.ins-list-h,
     box-sizing: border-box;
     flex-direction: column;
     flex-wrap: nowrap;
+}
+
+.ins-form-upload-cont img {
+    border-radius: var(--ins-radius-l);
+    max-height: 100px;
+    max-width: 100%;
+    border-radius: 8px;
+    border: 2px solid var(--border);
+    pointer-events: none;
+}
+
+.ins-form-upload-cont .-img-cont {
+    position: relative;
+}
+
+.ins-form-upload-imgs {
+    padding: 5px;
+}
+
+.-img-cont .-img-remove,
+.-img-cont .-img-link,
+.-img-cont .-img-darg {
+    position: absolute;
+    text-align: center;
+    opacity: 0;
+    transition: 0.2s ease-in-out;
+    width: 25px;
+    height: 25px;
+    z-index: 11;
+}
+
+.-img-cont .-img-remove,
+.-img-cont .-img-link {
+    bottom: 6px;
+    right: 5px;
+    line-height: 25px !important;
+}
+
+.-img-cont .-img-link {
+    right: 35px;
+}
+
+.-img-cont .-img-darg {
+    top: 50%;
+    left: 50%;
+    font-size: 25px;
+    transform: translate(-50%, -50%);
+    cursor: move;
+}
+
+.-img-cont:hover .-img-darg,
+.-img-cont:hover .-img-remove,
+.-img-cont:hover .-img-link {
+    opacity: 1;
+}
+
+.-img-drag {
+    opacity: 0.2;
+}
+
+.-img-drop-hover {
+    border-left: 10px solid var(--warning);
+}
+
+.-img-drop-hover * {
+    pointer-events: none;
 }

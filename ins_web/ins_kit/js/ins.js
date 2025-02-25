@@ -1860,6 +1860,9 @@ INS.prototype._getclasses = function(sp = null, not = []) {
             }
         });
     };
+
+
+
     INS.prototype._document_event = function(event, callback, useCapture) {
         document.addEventListener(
             event,
@@ -2438,6 +2441,24 @@ var addplgins = [];
 INS.prototype._add_plgin = function(plgin_name, plg) {
     plgins[plgin_name] = plg;
 }
+
+
+
+INS.prototype._isNet = function() {
+    return window.navigator.onLine
+
+}
+
+INS.prototype._chkNet = function(online, ofline) {
+    window.addEventListener('online', online);
+    window.addEventListener('offline', ofline);
+}
+
+
+
+
+
+
 INS.prototype._check_plgin = function(plgin_name) {
     if (Object.keys(plgins).includes(plgin_name)) {
         return plgins[plgin_name];
@@ -2456,6 +2477,7 @@ INS.prototype._getPlgin = function(Options, onReady) {
     var plg = this.o;
     try {
         if (!(plg in plgins)) {
+
             var pl = "/ins_web/ins_kit/js/plgins/" + plg + ".js";
             import (pl).then((module) => {
                 Object.keys(module).forEach(function(k) {
@@ -2471,12 +2493,14 @@ INS.prototype._getPlgin = function(Options, onReady) {
                 if (onReady != null) {
                     onReady(plgins[plg]);
                 }
+
+                console.log(plgins)
                 return plgins[plg];
             });
         } else {
-            plgins[plg]["options"] = Options;
-            onReady(plgins[plg]);
-            return plgins[plg];
+            /* plgins[plg]["options"] = Options;
+             onReady(plgins[plg]);
+             return plgins[plg];*/
         }
     } catch (err) {}
 };

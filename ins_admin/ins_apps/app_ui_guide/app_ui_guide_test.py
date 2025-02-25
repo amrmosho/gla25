@@ -10,15 +10,19 @@ class AppUiGuideTest(App):
 
         uidata = [
             {"start": "true", "class": "ins-col-6 ins-card  ins-flex "},
+           {'_type': 'input', "value":"test/6e28baed72984230aa5a420c9d803ca8__th.png", 'type': 'upload', 'title': 'Upload image', 'name': '_unname', 'placeholder': '_add placeholder hear', 'pclass': 'ins-col-12 ', 'required': 'true', '_dir': 'test', '_exts': 'image/*'},
 
-           
+
+
+           {'_type': 'input', 'type': 'upload', "_mode":"multi" ,'title': 'Upload image', 'name': '_unname', 'placeholder': '_add placeholder hear', 'pclass': 'ins-col-12 ', 'required': 'true', '_dir': 'test', '_exts': 'image/png'}
+
+,
+
             {"end": "true"},
            
            
            
             {"start": "true", "class": "ins-col-6 ins-card  ins-flex "},
-
-        
             {"_type": "input","type": "auto_select",  "title": "_Title",
              "name": "_unname", "pclass": "ins-col-12 ",  "fl_data": {
                  

@@ -5,17 +5,13 @@
  */
 export class ins_plg_py_upload {
     options = {};
+    _files = []
+    updateCount = 0;
+    filesCount = 0;
+    updated = [];
     constructor(o) {
         this.options = o;
-
-
     }
-
-
-
-
-
-
     _panel(o) {
         var title = "";
         if (this.options.o._getData("ptitle") != null) {
@@ -24,18 +20,13 @@ export class ins_plg_py_upload {
             title = "Upload"
         }
         var f = 'image/png,image/jpg';
-
         if (!ins(this.options["exts"])._isEmpty()) {
             f = this.options["exts"];
         }
-
-
         var size = 3;
         if (!ins(this.options["size"])._isEmpty()) {
             size = this.options["size"];
         }
-
-
         var fs = f.split(",");
         var format = '';
         var sp = ' '
@@ -47,21 +38,21 @@ export class ins_plg_py_upload {
             sp = ', '
         })
         var id = ins()._data._get_unique_id()
-
         format += ` and size: ${size}MB`
-
-
-
         var pdata = "<div class='ins-padding-m'>";
         pdata += `<div class='ins-title-m ins-strong'>${title}</div>`;
         pdata += `<div class='-pupload-filea-names ins-paddng-xl'></div>`;
         pdata += "<div class='ins-padding-xl '>";
-        pdata += "<div style='height:167px  ;  border: 2px var(--border) dashed;' class='ins-padding-xl ins-flex-center ins-card'>";
+        pdata += "<div style='height:167px  ;  border: 2px var(--border) dashed;' class='ins-padding-xl -pupload-upload-zone  ins-flex-center ins-card'>";
         pdata += "<div class='  ins-col-6 ins-flex-center'><i class='lni ins-text-center ins-font-2xl ins-col-12 lni-upload'> </i> <span class='ins-col-12'> Drag and drop, or  <label for='" + id + "_file'  class='ins-primary-color'> choose a file</label></span><span class='ins-col-12 ins-font-s'> Accepted formats: " + format + "</span></div>";
         pdata += "</div>";
-        pdata += "<input multiple type='file' accept='" + f + "' id='" + id + "_file' class='-pupload-file-input ins-hidden'>";
         pdata += "<div class='ins-flex-end  ins-col-12 ins-padding-m'>";
-        pdata += "<div class='ins-button -pupload-filea-upload ins-primary ins-col-4'> Confrim </div>";
+        if (this.options.mode == "multi") {
+            pdata += "<input multiple type='file' accept='" + f + "' id='" + id + "_file' class='-pupload-file-input ins-hidden'>";
+            // pdata += "<div class='ins-button -pupload-filea-upload ins-primary ins-col-4'> Confrim </div>";
+        } else {
+            pdata += "<input  type='file' accept='" + f + "' id='" + id + "_file' class='-pupload-file-input ins-hidden'>";
+        }
         pdata += "</div>";
         pdata += "</div>";
         var ops = {
@@ -72,8 +63,6 @@ export class ins_plg_py_upload {
         }
         ins()._ui._addLightbox(ops);
     }
-    _files = []
-
     _update_files() {
         var t = this
         var h = "<ul class='ins-flex ins-padding-xl ins-padding-h'>"
@@ -81,15 +70,9 @@ export class ins_plg_py_upload {
         if (!ins(this.options["size"])._isEmpty()) {
             max = this.options["size"];
         }
-
-
         Array.from(t._files).forEach((a, i) => {
-
             var _size = a.size;
-
-
             i = 0;
-
             var d = true;
             if (_size > 900) {
                 _size /= 1024;
@@ -100,8 +83,6 @@ export class ins_plg_py_upload {
                     var d = false;
                 }
             }
-
-
             if (d) {
                 var cls = a["name"].replace(".", "_");
                 h += `<li class='ins-font-s ins-col-12 ins-flex'>
@@ -113,25 +94,22 @@ export class ins_plg_py_upload {
         })
         ins(".-pupload-filea-names")._setHTML(h)
         h += "</ul>"
+            // if (this.options.mode != "multi") {
+        this._g_upload()
+            //}
     }
-
-
-
-
-
     _on_done(j) {
+        j["p"] = this.options._p;
+        if (this.options.mode != null) {
+            j["mode"] = this.options.mode;
 
 
+        }
         if (j["status"] == "-1") {
-
             ins(j["msg"])._ui._notification({ "class": "ins-danger" })
         } else {
             ins()._ui._removeLightbox()
-
             if (!ins(this.options["ondone"])._isEmpty()) {
-
-
-
                 if (typeof this.options["ondone"] === "string") {
                     window[this.options["ondone"]](j);
                 } else {
@@ -140,11 +118,14 @@ export class ins_plg_py_upload {
             }
         }
     }
-
-
     _on_end(j) {
+        j["p"] = this.options._p;
+
+        if (this.options.mode != null) {
+            j["mode"] = this.options.mode;
 
 
+        }
 
         if (!ins(this.options["onend"])._isEmpty()) {
             if (typeof this.options["onend"] === "string") {
@@ -155,33 +136,12 @@ export class ins_plg_py_upload {
         }
     }
     _onprogress(percentComplete, data, options) {
-        var filedata = data.get("uploads");
-
         ins(".-update-lb-progress")._setAttribute("value", percentComplete);
-
-
-        if (percentComplete == 100) {
-
-
-            // ins(".-update-lb-progress")._remove()
-
-
-
-        }
-
-
-
+        if (percentComplete == 100) {}
     }
-
-    updateCount = 0;
-    filesCount = 0;
-    updated = [];
-
-
     _upload(data, options) {
         var t = this;
         let xhttp = new XMLHttpRequest();
-
         if (options["dir"] != null) {
             data.dir = options["dir"];
             data.append("dir", options["dir"]);
@@ -190,35 +150,25 @@ export class ins_plg_py_upload {
             data.exts = options["exts"];
             data.append("exts", options["exts"]);
         }
-
         if (options["size"] != null) {
             data.exts = options["size"];
             data.append("size", options["size"]);
         }
-
-
-
-
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 var j = JSON.parse(this.responseText);
-                console.log(j);
-                console.log(j["status"]);
                 if (j["status"] == 0) {
-
                     ins(j["msg"])._ui._notification({ "class": "ins-danger" })
-
                 } else {
-
                     t.updateCount++;
                     t.updated.push(j);
                     t._on_done(j, options);
                     if (t.filesCount == t.updateCount) {
                         t._on_end(t.updated, options);
+                        t.updated = [];
+                        t.updateCount = 0
                     }
-
                 }
-
             }
         };
         xhttp.upload.o = options;
@@ -228,40 +178,77 @@ export class ins_plg_py_upload {
                 t._onprogress(percentComplete, data, this.o);
             }
         };
-
-
-
-
-
-
         var url = " /ins_ajax/home/ajx_upload/upload_file/do/_t/ajx/";
         xhttp.open("POST", url, true);
+        t.updateCount = 0;
         xhttp.send(data);
         return xhttp;
-
-
     }
-
-
-    _out() {
+    _g_upload() {
+        var t = this;
+        t.filesCount = t._files.length;
+        Array.from(t._files).forEach((file) => {
+            var data = new FormData();
+            data.append("uploads", file);
+            t._upload(data, t.options);
+        });
+    }
+    _g(n) {
+        return ins(p)._find(n)
+    }
+    coll_actions = false;
+    _actions() {
         var t = this
-        ins(".-pupload-filea-upload")._on("click", (o) => {
-
-            var t = this;
-            t.filesCount = t._files.length;
-            Array.from(t._files).forEach((file) => {
-                var data = new FormData();
-                data.append("uploads", file);
-                t._upload(data, t.options);
-            });
-
+        ins(".-pupload-file-input")._on("change", (o, ev) => {
+            ev.preventDefault()
+            t._files = o._get(0).files
+            t._update_files();
         })
-
-
-
-
-
-
+        ins(".-pupload-upload-zone")._on(
+            "drop",
+            function(o, ev) {
+                ev.preventDefault();
+                let dt = ev.dataTransfer
+                let files = dt.files
+                t._files = files
+                t._update_files();
+            })
+        ins(".-pupload-upload-zone")._on(
+            "dragleave",
+            function(o, ev) {
+                o._removeClass("ins-upload-drop-hover");
+            },
+            true
+        );
+        ins(".-pupload-upload-zone")._on(
+            "dragleave",
+            function(o, ev) {
+                ev.preventDefault();
+                o._removeClass("ins-upload-drop-hover");
+            },
+            true
+        );
+        ins(".-pupload-upload-zone")._on(
+            "dragover",
+            function(o, ev) {
+                ev.preventDefault()
+                o._addClass("ins-upload-drop-hover")
+            },
+            false
+        );
+        ins(".-pupload-upload-zone")._on(
+            "dragenter",
+            function(o, ev) {
+                ev.preventDefault()
+                o._addClass("ins-upload-drop-hover")
+            },
+            false
+        );
+        if (this.options.mode != "multi") {
+            ins(".-pupload-filea-upload")._on("click", (o) => {
+                t._g_upload()
+            })
+        }
         ins(".-pupload-files-remove")._on("click", (o) => {
             const filesArray = [...t._files];
             filesArray.splice(o._getData("i"), 1);
@@ -273,13 +260,19 @@ export class ins_plg_py_upload {
                 ins(".-pupload-file-input")._setValue("");
             }
         })
-        ins(".-pupload-file-input")._on("change", (o) => {
-            t._files = o._get(0).files
-            t._update_files();
-        })
-        var th = this
-        th.options.o._on("click", (o) => {
-            th._panel(o)
-        })
+    }
+    _callActions() {
+        var t = this
+        return function() {
+            if (!t.coll_actions) {
+                t._actions();
+                t.coll_actions = true;
+            } else {}
+        };
+    }
+    _out() {
+        const callOnce = this._callActions();
+        callOnce()
+        this._panel(this.options.o)
     }
 }
