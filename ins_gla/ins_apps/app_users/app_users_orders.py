@@ -80,7 +80,7 @@ class AppUsersOrders(App):
                         {"end": "true"},
 
                                    {"start": "true", "class": "ins-col-4 ins-flex "},
-                                   {'_type': 'input', 'type': 'upload', 'title': 'Upload image', 'name': '_unname', 'placeholder': '_add placeholder hear', 'pclass': 'ins-col-12 ', 'required': 'true', '_dir': 'test', '_exts': 'image/png'},
+                                   {'_type': 'input', "nojs":"true",'type': 'upload', 'title': 'Upload image', 'name': '_unname', 'placeholder': '_add placeholder hear', 'pclass': 'ins-col-12 ', 'required': 'true', '_dir': 'test', '_exts': 'image/png'},
                         {"end": "true"},
 
             
