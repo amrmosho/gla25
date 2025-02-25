@@ -130,7 +130,7 @@
             "pclass": "ins-col-3 style -home-checkbox"
         },
         {
-            "name": "_order",
+            "name": "kit_order",
             "title": "Order",
             "title-ar": "الترتيب",
             "_type": "input",
@@ -221,7 +221,7 @@
             "_type": "method",
             "class": "ins-col-2 ins-strong ins-flex-start"
         },
-   
+
         {
             "name": "fk_product_category_id",
             "title": "Product Category",

@@ -169,12 +169,12 @@ footer li {
 }
 
 .gla-img-cont:hover .gla-pro-img {
-    transform: rotateY(0);
+    transform: rotateY(180deg);
     opacity: 0;
 }
 
 .gla-pro-img {
-    transform: rotateY(180deg);
+    transform: rotateY(0);
     opacity: 1;
 }
 

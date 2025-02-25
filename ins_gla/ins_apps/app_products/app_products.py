@@ -14,16 +14,27 @@ class AppProducts(App):
     def _filter_redirect(self):
         rq = self.ins._server._post()
         if "type" in rq and rq["type"] == "reset":
-            return "http://127.0.0.1:5000/product/"
-        url = f'http://127.0.0.1:5000/product/do/filter/{rq["sql"]}'
+            return "/product/"
+        
+        if rq.get("order") and rq.get("sql"):
+         url = f'/product/do/filter/{rq["sql"]}/order/{rq["order"]}'
+
+        elif rq.get("order") and not rq.get("sql"):
+         url = f'/product/do/order/{rq["order"]}'
+        
+        else:
+         url = f'/product/do/filter/{rq["sql"]}'
+
+
+
         return url
     
 
     def _filter_redirect_inner(self):
         rq = self.ins._server._post()
         if "type" in rq and rq["type"] == "reset":
-            return "http://127.0.0.1:5000/product/"
-        url = f'http://127.0.0.1:5000/product/product/{rq["pid"]}/do/type/{rq["sql"]}'
+            return "/product/"
+        url = f'/product/product/{rq["pid"]}/do/type/{rq["sql"]}'
         return url
 
     
@@ -53,6 +64,7 @@ class AppProducts(App):
         items_per_page = 12
         f = self.ins._server._get("page")
         g = self.ins._server._get("filter")
+        o = self.ins._server._get("order")
         parsed_data = parse_qs(g)
         filter_data = {key: value[0] for key, value in parsed_data.items()}
         tys = filter_data.get("types", "")
@@ -79,7 +91,6 @@ class AppProducts(App):
 
         sql_query = " AND ".join(sql_parts)
       
-        rq = self.ins._server._post()
         
         
         if sql_query:
@@ -98,18 +109,34 @@ class AppProducts(App):
             current_page = int(f)
         offset = (current_page - 1) * items_per_page
        
+        order = "order by price asc"
+        if o:
+            if o == "old":
+             order = "order by id asc"
+            elif o == "new":
+             order = "order by id desc"
+            elif o == "high":
+             order = "order by price desc" 
+            elif o == "trend":
+             order = "order by kit_order desc"
 
-       
+
+
+
+
+
+
         if sql_query:
-            rpdata = self.ins._db._get_data("gla_product", "*", f"{sql_query} limit {offset}, {items_per_page}",update_lang=True)
+            rpdata = self.ins._db._get_data("gla_product", "*", f"{sql_query} {order} limit {offset}, {items_per_page}",update_lang=True)
         else:
-         rpdata = self.ins._db._get_data("gla_product", "*", f"1=1 limit {offset}, {items_per_page}",update_lang=True)
+         rpdata = self.ins._db._get_data("gla_product", "*", f"1=1 {order} limit   {offset}, {items_per_page}",update_lang=True)
         ndata = []
 
         if tys:
          for r in rpdata:
                 types_data = json.loads(r["types_data"])
-                types = types_data[tys]["data"]
+                types = {k: v for k, v in sorted(types_data[tys]["data"].items(), key=lambda item: int(item[1].get("order",float('1'))))}
+
                 for k,v in types.items():
                     new_r = r.copy()
                     new_r["subtype"] = k
@@ -156,8 +183,11 @@ class AppProducts(App):
         g = self.ins._server._get("filter")
         parsed_data = parse_qs(g)
         filter_data = {key: value[0] for key, value in parsed_data.items()}
+
+
+        order_data = self.ins._server._get("order")
         uidata=[{"start":"true","class":"ins-flex ins-col-12 gla-container ins-padding-2xl"}]
-        home_url = self.ins._server._url({},["mode","id","alias"])
+        home_url = self.ins._server._url({},["mode","id","alias","filter"])
         path = [
             {"start":"true","class":"ins-col-12 ins-flex ins-text-upper"},
             {"_type":"a","href":home_url,"_data": "Home /","_data-ar":"الرئيسية /","_trans":"true","class":" ins-title-12	ins-grey-d-color ins-strong-m"},
@@ -168,10 +198,37 @@ class AppProducts(App):
 
         uidata.append({"start":"true","class":"ins-col-12 ins-flex"})
         uidata.append({"_data":"Products","_data-ar": "منتجات","_trans": "true","class":"ins-col-3 ins-title ins-strong-m ins-text-upper ins-grey-d-color"})
+        vorder = "low"
+        if order_data:
+            vorder =  order_data
+        uidata.append({"start":"true","class":"ins-col-grow ins-flex-end"})
+
+        order_area = [
+                {"start":"true","class":" ins-flex-end"},
+                {"_data":"Order by",  "_data-ar":"ترتيب حسب","_trans":"true","class":"ins-strong-m ins-grey-d-color ins-title-14"},
+                {"_type":"select","name":"order","fl_data":{
+                    "low":"Lowest to highest",
+                    "high":"highest to Lowest",
+                    "old":"Oldest to Newest",
+                    "new":"Newest to oldest",
+                    "trend":"Trending"
+                },"fl_data-ar":{
+                    "low":"من الارخص للأغلى",
+                    "high":"من الأغلى للأرخص",
+                    "old":"من الأقدم للأجدد",
+                    "new":"من الأجدد للأقدم",
+                    "trend":"الأكثر تداولاً"
+                },"_trans":"true","value":vorder,"pclass":"ins-col-grow","class":"-order-select"},
+                {"end":"true"}
+            ]
+
+
+        uidata+=order_area 
+
 
         if filter_data:
             filter_area = [
-                {"start":"true","class":"ins-col-grow ins-flex-end"},
+                {"start":"true","class":" ins-flex-end"},
                 {"_data":"Filter by",  "_data-ar":"تصفية حسب","_trans":"true","class":"ins-strong-m ins-grey-d-color ins-title-14"}
             ]
             for k,v in filter_data.items():
@@ -195,6 +252,7 @@ class AppProducts(App):
                     name = "Weight"
                     if self.ins._langs._this_get()["name"] == "ar" :
                         name = "الوزن"
+
                 elif k == "price_range":
                     name = "Price range"
                     v = v.replace("-", ":" )
@@ -209,6 +267,7 @@ class AppProducts(App):
         
 
       
+        uidata.append({"end":"true"})
         uidata.append({"end":"true"})
         uidata.append({"end":"true"})
         return uidata
@@ -227,45 +286,29 @@ class AppProducts(App):
         pdata = self.ins._db._get_row("gla_product","types_data",f"id='{rq["pid"]}'")["types_data"]
 
         types_data = json.loads(pdata)
+
         subtypes =types_data[rq["name"]]["data"]
+        subtypes = {k: v for k, v in sorted(subtypes.items(), key=lambda item: int(item[1].get("order",float('1'))))}
 
         if subtypes:
             uidata = [
             {"start":"true","class":"ins-flex ins-col-12"},
-            {"_data": "Subtype","_data-ar": " نوع فرعي", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "}
+            {"_data": "Subtype","_data-ar": " نوع فرعي","_trans":"true", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "}
             ]
+            i = 0
             for v,s in subtypes.items():
-                uidata +=[{"_data": s["title"], "name":"type","data-name": v,"data-tid": s["id"],"class": f"ins-button-s  -subtype-inner-btn ins-flex-center ins-strong-m -product-filter-input"}]
+                sdata = self.ins._db._get_row("gla_product_types","title,kit_lang",f"alias='{v}'",update_lang=True)
+                i+=1
+                sclass = ""
+                if i == 1:
+                    sclass = "ins-active"
+
+                uidata +=[{"_data": sdata["title"], "name":"type","data-name": v,"data-tid": s["id"],"class": f"ins-button-s  -subtype-inner-btn ins-flex-center ins-strong-m -product-filter-input {sclass}"}]
             uidata.append({"end":"true"})
      
      
         return self.ins._ui._render(uidata)
 
-
-    def _show_subtypes(self,tid="",stys="",string=True):
-       
-       
-        
-        rq = self.ins._server._post()
-        if rq:
-            subtypes = self.ins._db._get_data("gla_product_types","*",f"fk_parent_id='{rq["tid"]}'",update_lang=True)
-
-        else:
-            subtypes = self.ins._db._get_data("gla_product_types","*",f"fk_parent_id='{tid}'",update_lang=True)
-
-        if subtypes:
-            uidata = [
-            {"start":"true","class":"ins-flex ins-col-12"},
-            {"_data": "Subtype","_data-ar": " نوع فرعي", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "}
-            ]
-            for s in subtypes:
-                active = "ins-active" if s["alias"] == stys else ""
-                uidata +=[{"_data": s["title"], "name":"type","data-name": s["alias"],"data-tid": s["id"],"class": f"ins-button-s  -subtype-btn ins-flex-center ins-strong-m -product-filter-input {active}"}]
-            uidata.append({"end":"true"})
-            if string:
-                return self.ins._ui._render(uidata)
-            else:
-             return uidata
 
 
     def _list(self):
@@ -280,10 +323,12 @@ class AppProducts(App):
             price_range = filter_data["price_range"].split("-")
             min_price = price_range[0]
             max_price = price_range[1]
+        w = "fk_parent_id='0' "
+        if filter_data.get("fk_product_category_id"):
+          w+= f" and fk_product_category_id like '%{filter_data.get("fk_product_category_id")}%'"
+         
+        types = self.ins._db._get_data("gla_product_types","*",f"{w} order by kit_order desc ",update_lang=True)
 
-       
-        types = self.ins._db._get_data("gla_product_types","*","fk_parent_id='0'",update_lang=True)
-       
         uidata = [{"start":"true","class":"ins-flex ","style":"background:white;height:124px;position: relative;    border-bottom: 1px solid var(--grey-l); "}]
         uidata+=self.header_ui()
         uidata.append({"end":"true"})
@@ -303,74 +348,33 @@ class AppProducts(App):
         
         uidata.append({"end":"true"})
         uidata.append({"class": "ins-space-m"})
-        uidata.append({"_data": "Type","_data-ar": "نوع","_trans": "true", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "})
-      
-      
-        tys = filter_data.get("types", "").split(',')
-        stys = filter_data.get("subtypes", "")
-        
-        tid = ""
-        for t in types:
-            active = ""
-            if t["alias"] in tys:
-                active = "ins-active"
-                tid =  t["id"]
-            uidata.append({"_data": t["title"], "name":"type","data-name": t["alias"],"data-tid": t["id"],"class": f"ins-button-s  -type-btn ins-flex-center ins-strong-m  ins-col-4  -product-filter-input {active}"})
-      
-        uidata.append({"class": "ins-space-m"})
+        if types:
+            uidata.append({"_data": "Type","_data-ar": "نوع","_trans": "true", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "})
 
-        """if not stys:
-            uidata.append({"class": "-subtypes-area"})
-
-        else:
-            uidata.append({"start":"true","class": "-subtypes-area"})
-            uidata+=self._show_subtypes(tid,stys,False)
-            uidata.append({"end": "true"})"""
+            tys = filter_data.get("types", "").split(',')
+            for t in types:
+                active = ""
+                if t["alias"] in tys:
+                    active = "ins-active"
+                
+                uidata.append({"_data": t["title"], "name":"type","data-name": t["alias"],"data-tid": t["id"],"class": f"ins-button-s  -type-btn ins-flex-center ins-strong-m  ins-col-4  -product-filter-input {active}"})
+          
+            uidata.append({"class": "ins-space-m"})
 
        
+        filter = self.ins._data._get_options("1")["content"]
+        filter = json.loads(filter)
+        fen = filter["gen"]["en"]
+        far = filter["gen"]["ar"]
+
+        if filter_data.get("fk_product_category_id"):
+            fen = filter[filter_data.get("fk_product_category_id")]["en"]
+            far = filter[filter_data.get("fk_product_category_id")]["ar"]
+
+
        
         uidata.append({"_data": "Weight","_data-ar": "وزن","_trans": "true", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "})
-        uidata.append({"_type": "select", "value":filter_data.get("weight",""),
-                       
-                       "data-name":"weight",
-                       "_trans":"true",
-                       
-                       "fl_data":{
-                           "0":"-",
-  "0.25": "0.25gm",
-  "0.5": "0.5gm",
-  "1": "1gm",
-  "2.5": "2.5gm",
-  "5": "5gm",
-  "10": "10gm",
-  "15.55": "0.5oz / 15.55gm",
-  "20": "20gm",
-  "31.10": "1oz / 31.10gm",
-  "50": "50gm",
-  "100": "100gm",
-  "116.65": "10 Tolas / 116.65gm",
-  "250": "250gm",
-  "500": "500gm",
-  "1000": "1000gm"
-}
-,    "fl_data-ar":{
-                           "0":"-",
-  "0.25": "0.25 جرام",
-  "0.5": "0.5 جرام",
-  "1": "1 جرام",
-  "2.5": "2.5 جرام",
-  "5": "5 جرام",
-  "10": "10 جرام",
-  "15.55": "0.5oz / 15.55جرام",
-  "20": "20 جرام",
-  "31.10": "1 أونصة / 31.10 جرام",
-  "50": "50 جرام",
-  "100": "100 جرام",
-  "116.65": "10 تولة / 116.65 جرام",
-  "250": "250 جرام",
-  "500": "500 جرام",
-  "1000": "1000 جرام"
-},
+        uidata.append({"_type": "select", "value":filter_data.get("weight",""),"data-name":"weight","_trans":"true","fl_data":fen,"fl_data-ar":far,
                        
                        "name": "weight", "pclass": "ins-col-12","class":" -product-filter-input -weight-select"})
         uidata.append({"class": "ins-space-m"})
@@ -396,6 +400,12 @@ class AppProducts(App):
     def out(self):
         self.app._include("style.css")
         self.app._include("script.js")
+
+        if self.ins._langs._this_get()["name"] == "ar":
+          self.app._include("style_ar.css")
+        else:
+          self.app._include("style_en.css")
+
         rq = self.ins._server._req()
         if not "mode" in rq:
          return self._list()

@@ -21,13 +21,11 @@
 
 .-minus-btn {
     height: 46px;
-    border-radius: 4px 0 0 4px !important;
     color: var(--grey-d)
 }
 
 .-plus-btn {
     height: 46px;
-    border-radius: 0 4px 4px 0 !important;
     color: var(--grey-d)
 }
 
@@ -171,7 +169,8 @@
     font-size: 20px;
 }
 
-.-weight-select {
+.-weight-select,
+.-order-select {
     background: white;
     border-radius: 4px;
 }

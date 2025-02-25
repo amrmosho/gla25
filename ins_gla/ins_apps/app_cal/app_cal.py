@@ -1,7 +1,6 @@
 from ins_gla.ins_kit._elui import ELUI
 from ins_kit._engine._bp import App
 import uuid
-import json
 
 
 class AppCal(App):
@@ -14,7 +13,7 @@ class AppCal(App):
 
     @property
     def offset(self):
-        return 10
+        return 90
     
     @property
     def session_name(sel):
@@ -23,7 +22,8 @@ class AppCal(App):
     def step(self, ops, fill):
         r = []
         lt = (ops["total"]/ops["count"])
-        lf = lt-(lt/ops["offset"])
+        offset = ops["offset"] / 100
+        lf = lt-(lt * offset)
         w =  f" price>='{lf}'  and  price<='{lt}' and fk_product_category_id <> '3' "
         if "type" in ops:
             if ops["type"] == "bars":
@@ -169,7 +169,7 @@ class AppCal(App):
                     {"class": "ins-space-xl"},
                     {"_data": pro["title"], "class": "ins-strong-m ins-grey-color ins-text-upper",
                         "style": "    line-height: 20px;"},
-                    {"_data": str(pro["price"]),"_view":"currency","_currency_symbol":" EGP",  "class": "ins-strong-m ins-primary-d-color ins-title-14"},
+                    {"_data": str(pro["price"]),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",  "class": "ins-strong-m ins-primary-d-color ins-title-14"},
                     {"class": "ins-space-s"},
                     {"_data": f"Qty: {pro["count"]}","_data-ar": f"الكمية: {pro["count"]}","_trans":"true",
                         "class": "ins-strong-l ins-grey-color "},
@@ -198,14 +198,14 @@ class AppCal(App):
                 stotal = float(pro["count"]) * float(pro["price"])
                 total +=stotal
                 summary+=[{"_data": f"{pro["count"]} x {pro["title"]}","class": "ins-col-6 ins-strong-m ins-grey-color"},
-                          {"_data": str(stotal),"_view":"currency","_currency_symbol":" EGP", "class": "ins-col-6  ins-grey-d-color ins-strong-l ins-flex-end"}]
+                          {"_data": str(stotal),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-grey-d-color ins-strong-l ins-flex-end"}]
 
             summary+=[
                 {"class": "ins-space-s"},
                 {"class": "ins-line ins-col-12"},
                 {"class": "ins-space-s"},
                 {"_data": "Total", "_data-ar":"المجموع ","_trans":"true","class": "ins-col-6 ins-strong-m ins-grey-color"},
-                {"_data": str(total),"_view":"currency","_currency_symbol":" EGP", "class": "ins-col-6  ins-grey-d-color ins-strong-l ins-flex-end"},
+                {"_data": str(total),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-grey-d-color ins-strong-l ins-flex-end"},
                 {"class": "ins-space-2xl"},
                 {"_data": "ADD TO CART <i class = 'lni lni-arrow-right ins-white-color'></i>","_data-ar":"أضف إلى السلة","_trans":"true", "class": "ins-col-12 ins-button-s ins-flex-center  ins-white-color ins-strong-m ins-gold-d -add-cart-btn ins-title-14","style": "    height: 32px;    border: 1px solid var(--primary-d);"},
                 {"end": "true"},

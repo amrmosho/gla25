@@ -8,10 +8,13 @@ class ELUI(ins_parent):
     def session_name(sel):
         return "glaproducts"
     
+ 
+
+
+
+        
     
-    
-    
-    def page_title(self, title="", bc=[{}], right_ui=[]):
+    def page_title(self, title="",title_ar = "", bc=[{}], right_ui=[]):
         uidata = [
             {"start": "true", "class": "ins-col-12 ins-white ins-border ins-border-top"},
             {"start": "true", "class": "gla-container ins-flex ins-padding-2xl"},
@@ -21,13 +24,13 @@ class ELUI(ins_parent):
         ]
         for b in bc:
             if "href" in b:
-                uidata.append({"_type": "a", "href": b["href"], "_data": b["_data"],
+                uidata.append({"_type": "a", "href": b["href"], "_data": b["_data"],"_data-ar": b.get("_data-ar",""),"_trans":"true",
                               "class": " ins-title-12	ins-grey-d-color ins-strong-m"})
             else:
-                uidata.append({"_data":  b["_data"],
+                uidata.append({"_data":  b["_data"],"_data-ar": b.get("_data-ar",""),"_trans":"true",
                                "class": " ins-title-12  ins-text-upper	ins-grey-color ins-strong-m"})
         uidata.append({"end": "true"})
-        uidata.append({"_data": title,
+        uidata.append({"_data": title,"_data-ar":title_ar,"_trans":"true",
                        "class": "ins-col-grow ins-title ins-strong-m ins-text-upper ins-grey-d-color"})
         if len(right_ui) > 0:
             uidata += right_ui
@@ -35,7 +38,6 @@ class ELUI(ins_parent):
         uidata.append({"end": "true"})
         return self.ins._ui._render(uidata)
     
-
     def process_product_data(self,p, data, sedata):
         prefix = str(data["id"])
         full_title = data["title"]
@@ -136,15 +138,27 @@ class ELUI(ins_parent):
         return th_main_image
    
     def small_pro_block(self, data, string=False):
+        if data.get("new_price"):
+            total = float(data.get("new_price",0)) * float(data.get("count",0))
+        else:
+         total = float(data.get("price",0)) * float(data.get("count",0))
+        title = self.ins._db._get_row("gla_product", "title,kit_lang", f"id='{data['id']}'",update_lang=True)
+        full_title = title["title"]
+        if data.get("subtype"):
+            subtype_title = self.ins._db._get_row("gla_product_types", "title,kit_lang", f"alias='{data['subtype']}'",update_lang=True)
+            full_title = f"{title['title']} ({subtype_title['title']})"
 
+      
+      
+      
         uidata = [
             {"start": "true", "class": "ins-col-12 ins-flex -item-card"},
             {"src": f"{data["th_main_image"]}", "loading":"lazy","_type": "img", "class": "ins-radius-m", "style": "    width: 97px;"}, 
             {"start": "true", "class": "ins-col-8 ins-flex"}, {"start": "true", "class": "ins-col-12 ins-flex  ins-gap-o"},
-            {"_data": f"{data["full_title"]}", "class": "ins-col-12 ins-title-s	 ins-strong-l ins-grey-d-color", "style": "    !important;"},
+            {"_data": f"{data.get("count",0)} x {full_title}", "class": "ins-col-12 ins-title-s	 ins-strong-l ins-grey-d-color", "style": "    !important;"},
             {"_data": data.get("des", ""), "class": "ins-grey-color ins-col-12 ins-title-14", "style": "line-height: 20px; "},
             {"end": "true"},
-            {"_data": str(data["price"]),"_view":"currency","_currency_symbol":" EGP", "class": "ins-col-12 ins-strong-l ins-primary-d-color ins-title-20"},
+            {"_data": str(total),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه","data-weight":data["weight"],"data-count":data["count"],"data-price":data["price"],"class": "-pro-price ins-col-12 ins-strong-l ins-primary-d-color ins-title-20"},
             {"end": "true"},
             {"_data": f"<i  class='lni lni-trash-3 _a_red'></i>", "class": "ins-flex-center ins-col-1 -remove-item-cart-btn", "data-pid": data["prefix"]},
             {"end": "true"}
@@ -169,10 +183,12 @@ class ELUI(ins_parent):
              purl +=f"/do/type/types={tys}"
          if stys:
              purl +=f"&subtypes={stys}"
-         full_title = data["title"]
+         title = self.ins._db._get_row("gla_product", "title,kit_lang", f"id='{data['id']}'",update_lang=True)
+         full_title = title["title"]
          if stys:
-             subtype_title = self.ins._db._get_row("gla_product_types", "title", f"alias='{data['subtype']}'")["title"]
-             full_title = f"{data["title"]} ({subtype_title})"
+             subtype_title = self.ins._db._get_row("gla_product_types", "title,kit_lang", f"alias='{data['subtype']}'",update_lang=True)
+
+             full_title = f"{title["title"]} ({subtype_title["title"]})"
          button_title = "SHOP NOW <i class=' lni ins-icon lni-arrow-right'></i>"
          if self.ins._langs._this_get()["name"] == "ar" :
           button_title = "تسوق الأن <i class=' lni ins-icon lni-arrow-left'></i>"
@@ -188,7 +204,7 @@ class ELUI(ins_parent):
                     {"end": "true"},
                     {"class": "ins-space-s"},
                     {"_data": f"{full_title}", "class": "ins-col-12 ins-title-20	 ins-strong-m   ins-grey-color", "style": "line-height:24px"},
-                    {"_data": f"{data["price"]}","_view":"currency","_currency_symbol":" EGP", "class": "ins-col-12  ins-strong-m  ins-primary-d-color", "style": "line-height:24px"},
+                    {"_data": f"{data["price"]}","_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-12  ins-strong-m  ins-primary-d-color", "style": "line-height:24px"},
                     {"end": "true"}
                 ]
          return r
@@ -196,7 +212,12 @@ class ELUI(ins_parent):
 
 
     def cart_pro_block(self,data,string=False):
-        
+        title = self.ins._db._get_row("gla_product", "title,kit_lang", f"id='{data['id']}'",update_lang=True)
+        full_title = title["title"]
+        if data.get("subtype"):
+            subtype_title = self.ins._db._get_row("gla_product_types", "title,kit_lang", f"alias='{data['subtype']}'",update_lang=True)
+            full_title = f"{title['title']} ({subtype_title['title']})"
+
         item_total_amount = float(data["count"]) * float(data["price"])
         uidata = [
             {"start": "true", "class": "ins-col-12 ins-flex -item-card ins-border ins-radius-l ins-gap-o","style":"overflow: hidden;"},
@@ -207,8 +228,8 @@ class ELUI(ins_parent):
             {"_data": "Item summary","_data-ar": "ملخص السعر","_trans":"true","class": "ins-col-11 ins-title-s ins-strong-l ins-grey-d-color"},
             {"_data": f"<i  class='lni lni-trash-3 _a_red'></i>","class": "ins-flex-center ins-col-1 -remove-item-side-cart-btn", "data-pid": data["prefix"]},
 
-            {"_data": f"{data.get("count", "")} x {data["full_title"]}", "class": "ins-col-7 ins-strong-m ins-grey-color ins-title-14"},
-            {"_data":  f"{item_total_amount}","_view":"currency","_currency_symbol":" EGP", "class": "ins-col-5 ins-strong-m ins-grey-d-color ins-flex-end ins-title-14"},
+            {"_data": f"{data.get("count", "")} x {full_title}", "class": "ins-col-7 ins-strong-m ins-grey-color ins-title-14"},
+            {"_data":  f"{item_total_amount}","_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-5 ins-strong-m ins-grey-d-color ins-flex-end ins-title-14"},
             {"end": "true"},
             {"end": "true"}
         ]
@@ -218,11 +239,18 @@ class ELUI(ins_parent):
     
 
     def counter_pro_block(self,  data, string=False):
+        title = self.ins._db._get_row("gla_product", "title,kit_lang", f"id='{data['id']}'",update_lang=True)
+        full_title = title["title"]
+        if data.get("subtype"):
+            subtype_title = self.ins._db._get_row("gla_product_types", "title,kit_lang", f"alias='{data['subtype']}'",update_lang=True)
+            full_title = f"{title['title']} ({subtype_title['title']})"
+        
+
         uidata = [
             {"start": "true", "class": "ins-col-12 ins-flex -item-card ins-card"},
               {"src": f"{data["th_main_image"]}", "loading":"lazy","_type": "img", "class": "ins-radius-m", "style": "    width: 97px;"}, 
               {"start": "true", "class": "ins-col-6 ins-flex"},
-                {"start": "true", "class": "ins-col-12 ins-flex  ins-gap-o"}, {"_data": f"{data["full_title"]}", "class": "ins-col-12 ins-title-20	 ins-strong-l ins-grey-d-color", "style": "    !important;"}, {"_data": data.get("des", ""), "class": "ins-grey-color ins-col-12 ins-title-14", "style": "line-height: 20px; "}, {"end": "true"}, {"_data": str(data["price"]),"_view":"currency","_currency_symbol":" EGP", "class": "ins-col-12 ins-strong-l ins-primary-d-color  ins-title-20"}, {"end": "true"},
+                {"start": "true", "class": "ins-col-12 ins-flex  ins-gap-o"}, {"_data": f"{full_title}", "class": "ins-col-12 ins-title-20	 ins-strong-l ins-grey-d-color", "style": "    !important;"}, {"_data": data.get("des", ""), "class": "ins-grey-color ins-col-12 ins-title-14", "style": "line-height: 20px; "}, {"end": "true"}, {"_data": str(data["price"]),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-12 ins-strong-l ins-primary-d-color  ins-title-20"}, {"end": "true"},
             {"start": "true", "class": "ins-flex ins-col-3 -counter-cont ins-gap-o"},
             {"_data": "-", "class": "ins-button-s ins-flex-center ins-col-4 ins-gold-bg ins-font-2xl -minus-btn",
                 "data-pid": data["prefix"]},
@@ -260,9 +288,9 @@ class ELUI(ins_parent):
              "class": " ins-col-4  ins-title-xs  ins-text-center ins-grey-color ins-strong-m"},
             {"_data": str(data["quantity"]),
              "class": " ins-col-4  ins-grey-d-color   ins-text-center ins-title-xs ins-strong-l"},
-            {"_data": str(data["price"]),"_view":"currency","_currency_symbol":" EGP",
+            {"_data": str(data["price"]),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",
              "class": " ins-col-4  ins-grey-d-color  ins-text-center ins-title-xs ins-strong-l"},
-            {"_data": str(data["price"] * data["quantity"]),"_view":"currency","_currency_symbol":" EGP",
+            {"_data": str(data["price"] * data["quantity"]),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",
              "class": " ins-col-4  ins-grey-d-color  ins-text-center ins-title-xs ins-strong-l"},
             {"end": "true"},
             {"end": "true"},
@@ -277,37 +305,53 @@ class ELUI(ins_parent):
         return f"{n}EGP"
     
     
-    def _bank_ui(self,string=False):
-          p = "/ins_web/ins_uploads/"
-          bank_details = [
-            {"Bank Name": "CIB", "Account Number": "100022388147","name":"cib", "Swift Code": "CIBEEGCX097", "IBAN number": "EG590010009700000100022388147", "Bank Branch": "El Mokattam", "Company Name": "EL GALLA GOLD", "logo": "cib_logo.png"},
-            {"Bank Name": "National Bank Of Egypt", "Account Number": "1033071123260201011","name":"national", "Swift Code": "NBEGEGCX103", "IBAN number": "EG940003010330711232602010110", "Bank Branch": "Al Hamzawy", "Company Name": "EL GALLA GOLD", "logo": "nbe_logo.png"},
-            {"Bank Name": "Banque Misr", "Account Number": "1070199000006941","name":"misr", "Swift Code": "BMISEGCXXX", "IBAN number": "EG920002010701070199000006941", "Bank Branch": "Cairo Branch", "Company Name": "EL GALLA GOLD", "logo": "banque_misr_logo.png"},
-            {"Bank Name": "Bank Of Alexandria", "Account Number": "103026301001","name":"alex", "Swift Code": "ALEXEGCX003", "IBAN number": "EG21000510030000010302630100", "Bank Branch": "Sherif Branch", "Company Name": "EL GALLA GOLD", "logo": "alex_bank_logo.png"},
-            {"Bank Name": "Arab African International Bank", "Account Number": "11066655","name":"african", "Swift Code": "ARAIEGCXAZH", "IBAN number": "EG85005700200110666551001020", "Bank Branch": "Cairo Branch", "Company Name": "EL GALLA GOLD", "logo": "aaib_logo.png"},
-            {"Bank Name": "Abu Dhabi Islamic Bank (ADIB)", "Account Number": "100000545327", "name":"islamic","Swift Code": "ABDIEGCAXX", "IBAN number": "EG97003001280000010000054532", "Bank Branch": "Al Darasa", "Company Name": "EL GALLA GOLD", "logo": "adib_logo.png"},
-            {"Bank Name": "Emirates NBD", "Account Number": "1019342954301", "name":"nbd","Swift Code": "EBILEGCXXXX", "IBAN number": "EG10001400540000101934295430", "Bank Branch": "Al Azhar", "Company Name": "EL GALLA GOLD", "logo": "enbd_logo.png"}
-          ]
-          uidata = [{"start": "true", "class": "ins-col-12 ins-flex ins-gap-m"},
-                    {"_data":" Note: If you use InstaPay, please transfer the amount to our bank account at <a class='-african-bank-button ins-strong-m'>Arab African International Bank</a>","class":"ins-col-12 ins-title-xs ins-grey-color ins-text-none"}
-                    ]
-          
-          for bank in bank_details:
-            uidata.append({"start": "true", "class": f"ins-col-12 -bank-card-{bank["name"]} ins-card ins-padding-s ins-margin-xs"})
+    def _bank_ui(self):
+        p = "/ins_web/ins_uploads/"
+        bank_details = [
+            {"Bank Name": "CIB","Bank Name Ar": "البنك التجاري الدولي (CIB)", "Account Number": "100022388147", "name": "cib", "Swift Code": "CIBEEGCX097", "IBAN number": "EG590010009700000100022388147", "Bank Branch": "El Mokattam", "Company Name": "EL GALLA GOLD",  "Bank Branch Ar": "المقطم", "Company Name Ar": "الجلا جولد", "logo": "cib_logo.png"},
+            {"Bank Name": "National Bank Of Egypt", "Bank Name Ar": "البنك الأهلى المصري","Account Number": "1033071123260201011", "name": "national", "Swift Code": "NBEGEGCX103", "IBAN number": "EG940003010330711232602010110", "Bank Branch": "Al Hamzawy", "Company Name": "EL GALLA GOLD", "logo": "nbe_logo.png",  "Bank Branch Ar": "الحمزاوي", "Company Name Ar": "الجلا جولد"},
+            {"Bank Name": "Banque Misr","Bank Name Ar": "بنك مصر", "Account Number": "1070199000006941", "name": "misr", "Swift Code": "BMISEGCXXX", "IBAN number": "EG920002010701070199000006941", "Bank Branch": "Cairo Branch", "Company Name": "EL GALLA GOLD", "logo": "banque_misr_logo.png",  "Bank Branch Ar": "القاهرة", "Company Name Ar": "الجلا جولد"},
+            {"Bank Name": "Bank Of Alexandria","Bank Name Ar": "بنك الأسكندرية",  "Account Number": "103026301001", "name": "alex", "Swift Code": "ALEXEGCX003", "IBAN number": "EG21000510030000010302630100", "Bank Branch": "Sherif Branch", "Company Name": "EL GALLA GOLD", "logo": "alex_bank_logo.png",  "Bank Branch Ar": "شارع شريف", "Company Name Ar": "الجلا جولد"},
+            {"Bank Name": "Arab African International Bank", "Bank Name Ar": "البنك العربى الافريقى الدولى","Account Number": "11066655", "name": "african", "Swift Code": "ARAIEGCXAZH", "IBAN number": "EG85005700200110666551001020", "Bank Branch": "Cairo Branch", "Company Name": "EL GALLA GOLD", "logo": "aaib_logo.png",  "Bank Branch Ar": "القاهرة", "Company Name Ar": "الجلا جولد"},
+            {"Bank Name": "Abu Dhabi Islamic Bank (ADIB)","Bank Name Ar": "مصرف أبوظبي الإسلامي", "Account Number": "100000545327", "name": "islamic", "Swift Code": "ABDIEGCAXX", "IBAN number": "EG97003001280000010000054532", "Bank Branch": "Al Darasa", "Company Name": "EL GALLA GOLD", "logo": "adib_logo.png",  "Bank Branch Ar": "الدراسة", "Company Name Ar": "الجلا جولد"},
+            {"Bank Name": "Emirates NBD", "Bank Name Ar": "بنك الإمارات دبي الوطني", "Account Number": "1019342954301", "name": "nbd", "Swift Code": "EBILEGCXXXX", "IBAN number": "EG10001400540000101934295430", "Bank Branch": "Al Azhar", "Company Name": "EL GALLA GOLD", "logo": "enbd_logo.png",  "Bank Branch Ar": "الأزهر", "Company Name Ar": "الجلا جولد"}
+        ]
+        note = "Note: If you use InstaPay, please transfer the amount to our bank account at <a class='-african-bank-button ins-strong-m'>Arab African International Bank</a>"
+        if self.ins._langs._this_get()["name"] == "ar":
+            note =  "ملاحظة: إذا كنت تستخدم انستاباي ، يرجى تحويل المبلغ إلى حسابنا المصرفي في <a class='-african-bank-button ins-strong-m'>البنك العربي الأفريقي الدولي</a>"
+
+
+        uidata = [
+            {"start": "true", "class": "ins-col-12 ins-flex ins-gap-m ins-card ins-padding-l"},
+            {"_data": note,"class": "ins-col-12 ins-title-xs ins-grey-color ins-text-none"}
+        ]
+
+
+
+        for bank in bank_details:
+            anumber = f"Account Number: {bank['Account Number']} <i data-number='{bank['Account Number']}' class='-copy-number lni lni-file-multiple'></i>"
+            scode = f"Swift Code: {bank['Swift Code']} <i data-number='{bank['Swift Code']}' class='-copy-number lni lni-file-multiple'></i>"
+            inumber = f"IBAN number: {bank['IBAN number']} <i data-number='{bank['IBAN number']}' class='-copy-number lni lni-file-multiple'></i>"
+
+            if self.ins._langs._this_get()["name"] == "ar":
+                anumber = f"رقم الحساب: {bank['Account Number']} <i data-number='{bank['Account Number']}' class='-copy-number lni lni-file-multiple'></i>"
+                scode = f"رمز السويفت: {bank['Swift Code']} <i data-number='{bank['Swift Code']}' class='-copy-number lni lni-file-multiple'></i>"
+                inumber = f"رقم الآيبان: {bank['IBAN number']} <i data-number='{bank['IBAN number']}' class='-copy-number lni lni-file-multiple'></i>"
+
+
+            uidata.append({"start": "true", "class": f"ins-col-4 -bank-card-{bank['name']} -bank-info-card ins-padding-s ins-margin-xs"})
             uidata.append({"start": "true", "class": "ins-col-12 ins-flex ins-align-center"})
-            uidata.append({"_type": "img", "style":"width: 30px;","src": f"{p}images/bank/{bank['logo']}","loading":"lazy", "class": "ins-logo-xs"})
-            uidata.append({"_data": f"{bank['Bank Name']}", "class": "ins-col-10 ins-title-xs ins-strong-m ins-grey-d-color"})
+            uidata.append({"_type": "img", "style": "width: 30px;", "src": f"{p}images/bank/{bank['logo']}", "loading": "lazy", "class": "ins-logo-xs"})
+            uidata.append({"_data": f"{bank['Bank Name']}", "_data-ar": f"{bank['Bank Name Ar']}", "_trans":"true","class": "ins-col-10 ins-title-xs ins-strong-m ins-grey-d-color"})
             uidata.append({"end": "true"})
-            uidata.append({"_data": f"Account Number: {bank['Account Number']}", "class": "ins-col-12 ins-title-xxs ins-grey-d-color"})
-            uidata.append({"_data": f"Swift Code: {bank['Swift Code']}", "class": "ins-col-12 ins-title-xxs ins-grey-d-color"})
-            uidata.append({"_data": f"IBAN number: {bank['IBAN number']}", "class": "ins-col-12 ins-title-xxs ins-grey-d-color"})
-            uidata.append({"_data": f"Bank Branch: {bank['Bank Branch']}", "class": "ins-col-12 ins-title-xxs ins-grey-d-color"})
-            uidata.append({"_data": f"Company Name: {bank['Company Name']}", "class": "ins-col-12 ins-title-xxs ins-grey-d-color"})
+            uidata.append({"_data": anumber, "class": "ins-col-12 ins-title-xxs ins-grey-d-color"})
+            uidata.append({"_data":scode,"class": "ins-col-12 ins-title-xxs ins-grey-d-color"})
+            uidata.append({"_data": inumber, "class": "ins-col-12 ins-title-xxs ins-grey-d-color"})
+            uidata.append({"_data": f"Bank Branch: {bank['Bank Branch']}", "_data-ar": f"فرع البنك: {bank['Bank Branch Ar']}",  "_trans":"true","class": "ins-col-12 ins-title-xxs ins-grey-d-color"})
+            uidata.append({"_data": f"Company Name: {bank['Company Name']}", "_data-ar": f"اسم الشركة: {bank['Company Name Ar']}", "_trans":"true", "class": "ins-col-12 ins-title-xxs ins-grey-d-color"})
             uidata.append({"end": "true"})
-          uidata.append({"end": "true"})
-          if string:
-             return uidata
-          return self.ins._ui._render(uidata)
+        uidata.append({"end": "true"})
+        return uidata
    
    
    

@@ -108,8 +108,11 @@ class Ui(ins_parent):
             rv = self.ins._date._format(data)
         elif ops["_view"] == "currency":
             if "_currency_symbol" in ops:
+                currency_symbol= ops["_currency_symbol"]
+                if self.ins._langs._this_get()["name"] == "ar":
+                    currency_symbol = ops["_currency_symbol_ar"]
                 n = self.ins._data._format_currency(float(data), symbol=False)
-                rv = f"{n}{ops["_currency_symbol"]}"
+                rv = f"{n}{currency_symbol}"
             else:
                 rv = self.ins._data._format_currency(float(data))
         elif ops["_view"] == "image":

@@ -18,10 +18,10 @@ class AppUsersProfile(App):
         
         return [
             {"start": "true", "class": "ins-col-12 ins-flex-end ins-padding-2xl "},
-            {"_type": "input", "required": "true", "value": user["first_name"], "title": "First Name", "placeholder": "Enter First Name", "type": "text", "name": "first_name", "class": "-signup-first-name-inpt", "pclass": "ins-col-12"},
-            {"_type": "input", "required": "true", "value": user["last_name"], "title": "Last Name", "placeholder": "Enter Last Name", "type": "text", "name": "last_name", "class": "-signup-last-name-inpt", "pclass": "ins-col-12"},
+            {"_type": "input", "required": "true", "value": user["first_name"], "title": "First Name","title-ar":"الاسم الأول","_trans":"true", "placeholder": "Enter First Name", "type": "text", "name": "first_name", "class": "-signup-first-name-inpt", "pclass": "ins-col-12"},
+            {"_type": "input", "required": "true", "value": user["last_name"], "title": "Last Name","title-ar":"اسم العائلة","_trans":"true", "placeholder": "Enter Last Name", "type": "text", "name": "last_name", "class": "-signup-last-name-inpt", "pclass": "ins-col-12"},
             {"class": "ins-line ins-col-12"},
-            {"_data": "Update", "class": "ins-button-m ins-gold-d ins-col-2 ins-flex-center -update-name-btn"},
+            {"_data": "Update","_data-ar":" تحديث","_trans":"true", "class": "ins-button-m ins-gold-d ins-col-2 ins-flex-center -update-name-btn"},
             {"end": "true"}
 
         ]
@@ -29,37 +29,52 @@ class AppUsersProfile(App):
     def change_password(self, data):
         return [
             {"start": "true", "class": "ins-col-12 ins-flex-end ins-padding-2xl "},
-            {"_type": "input", "required": "true", "title": "Password", "_end": '<i class="-show-password lni lni-eye"></i>', "placeholder": "Enter Password", "type": "password", "name": "password", "class": "-update-password-inpt", "pclass": "ins-col-12"},
-            {"_type": "input", "required": "true", "title": "Confirm Password", "_end": '<i class="-show-confirm-password lni lni-eye"></i>', "placeholder": "Confirm Password", "type": "password", "name": "confirm_password", "class": "-update-confirm-password-inpt", "pclass": "ins-col-12"},
+            {"_type": "input", "required": "true", "title": "Old Password","title-ar":" كلمة المرور القديمة","_trans":"true", "_end": '<i class="-show-old-password lni lni-eye"></i>', "placeholder": "Enter Old Password", "placeholder": " كلمة المرور القديمة", "type": "password", "name": "old_password", "class": "-update-old-password-inpt", "pclass": "ins-col-12"},
+            {"_type": "input", "required": "true", "title": "Password","title-ar":" كلمة المرور","_trans":"true", "_end": '<i class="-show-password lni lni-eye"></i>', "placeholder": "Enter Password", "type": "password", "placeholder": " كلمة المرور ",  "name": "password", "class": "-update-password-inpt", "pclass": "ins-col-12"},
+            {"_type": "input", "required": "true", "title": "Confirm Password","title-ar":"تأكيد كلمة المرور","_trans":"true", "_end": '<i class="-show-confirm-password lni lni-eye"></i>', "placeholder": "Confirm Password",  "placeholder-ar": "تأكيد كلمة المرور","type": "password", "name": "confirm_password", "class": "-update-confirm-password-inpt", "pclass": "ins-col-12"},
             {"class": "ins-line ins-col-12"},
-            {"_data": "Update", "class": "ins-button-m ins-gold-d ins-col-2 ins-flex-center -update-password-btn"},
+            {"_data": "Update","_data-ar":" تحديث","_trans":"true", "class": "ins-button-m ins-gold-d ins-col-2 ins-flex-center -update-password-btn"},
             {"end": "true"}
 
         ]
 
     def change_email(self, data):
-        return [
-            {"start": "true", "class": "ins-col-12 ins-flex ins-padding-2xl "},
-            {"_type": "input", "value": data.get("email", ""), "title": "Email", "placeholder": "Enter Email", "type": "email", "name": "email", "class": "-update-email-inpt", "pclass": "ins-col-9"},
-            {"_data": "Verification Code", "class": "ins-button-m ins-strong-m   ins-gold-bg  ins-col-3 -send-email-veri-btn ins-flex-center", "style": " margin-top: 35px;"},
-            {"_type": "input", "title": "Verification Code", "placeholder": "Enter Verification Code", "type": "text", "name": "verification", "class": "-update-verification-inpt", "pclass": "ins-col-12"},
-            {"class": "ins-line ins-col-12"},
-            
-            {"start": "true", "class": "ins-col-12 ins-flex-end "},
-            {"_data": "Verify", "class": "ins-button-m ins-gold-d ins-col-2 ins-flex-center -update-email-btn"},
-            {"end": "true"},
-            {"end": "true"}
+        u = self.user._check()
+        udata = self.ins._db._get_row("kit_user","email,email_status",f"id='{u["id"]}'")
+        uidata = [            {"start": "true", "class": "ins-col-12 ins-flex ins-padding-2xl "},
+            {"_type": "input", "value": data.get("email", ""), "title": "Email","title-ar":"بريد إلكتروني","_trans":"true", "placeholder": "Enter Email","placeholder-ar": "ادخل البريد الالكتروني", "type": "email", "name": "email", "class": "-update-email-inpt", "pclass": "ins-col-8"},
+            {"start": "true", "class": " -verified-area ins-col-4"},
+            ]
+        
+        if udata["email_status"] != "verified":
+         uidata.append({"_data": "Send Verification Code","_data-ar":"ارسال رمز التحقق","_trans":"true", "class": "ins-button-m ins-strong-m   ins-gold-bg  ins-col-12 -send-email-veri-btn ins-flex-center", "style": " margin-top: 35px;"})
+        else:
+         uidata.append({"_data": "Verified Email <i class='lni lni-check ins-font-l'></i>","_data-ar":"تم التحقق  <i class='lni lni-check ins-font-l'></i> ","_trans":"true", "class": " ins-strong-m   ins-col-12 ins-flex-center ins-border ins-radius-m", "style": " margin-top: 35px;min-height:40px"})
 
        
-        ]
+        uidata+= [   
+                        {"end": "true"},
+
+                        {"_type": "input", "title": "Verification Code","title-ar":"رمز التحقق","_trans":"true","placeholder-ar":"أدخل رمز التحقق", "placeholder": "Enter Verification Code", "type": "text", "name": "verification", "class": "-update-verification-inpt", "pclass": "ins-col-12"},
+
+             {"class": "ins-line ins-col-12"},
+            
+            {"start": "true", "class": "ins-col-12 ins-flex-end "},
+            {"_data": "Verify","_data-ar":" تحقق","_trans":"true", "class": "ins-button-m ins-gold-d ins-col-2 ins-flex-center -update-email-btn"},
+            {"end": "true"},
+            {"end": "true"}]
+        
+        return uidata
+
+       
 
     def out(self, ins):
         g = self.ins._server._get()
 
         menus = [
-            {"name": "user_setting", "title": "User Settings", "icon": "lni-user-4"},
-            {"name": "change_password", "title": "Change Password", "icon": "lni-locked-1"},
-            {"name": "change_email", "title": "Change Email", "icon": "lni-envelope-1"}
+            {"name": "user_setting", "title": "User Settings","title-ar":"إعدادات المستخدم", "icon": "lni-user-4"},
+            {"name": "change_password", "title": "Change Password","title-ar":" تغيير كلمة المرور", "icon": "lni-locked-1"},
+            {"name": "change_email", "title": "Change Email","title-ar":" تغيير البريد الإلكتروني","icon": "lni-envelope-1"}
         ]
 
         usmenu = [{"start": "true", "class": "ins-col-12 ins-flex ins-padding-xl"}]
@@ -70,16 +85,20 @@ class AppUsersProfile(App):
 
             usmenu.extend([
                 {"start": "true", "class": f" ins-col-12 ins-primary-w ins-flex ins-border ins-radius-l ins-padding-m"},
-                {"_type": "a", "href": f"{m['name']}", "_data": f'<i class="lni ins-font-l {bclass} {m['icon']}"></i>  {m['title']}', "class": f"{bclass} {aclass} ins-title-xs ins-col-12"},
+                {"_type": "a", "href": f"{m['name']}","_trans":"true","_data-ar":f'<i class="lni ins-font-l {bclass} {m['icon']}"></i>  {m['title-ar']}', "_data": f'<i class="lni ins-font-l {bclass} {m['icon']}"></i>  {m['title']}', "class": f"{bclass} {aclass} ins-title-xs ins-col-12"},
                 {"end": "true"}
             ])
 
         usmenu.append({"end": "true"})
 
+        border = "ins-border-right"
+        if self.ins._langs._this_get()["name"] == "ar":
+                    border = "ins-border-left"
+
         uidata = [
             {"class": "ins-space-l"},
             {"start": "true", "class": "gla-container ins-flex-center ins-padding-2xl  ins-card ins-flex-valign-start"},
-            {"start": "true", "class": "ins-col-4 ins-flex ins-text-upper ins-border-right"},
+            {"start": "true", "class": f"ins-col-4 ins-flex ins-text-upper {border}"},
         ]
 
         uidata += usmenu

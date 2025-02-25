@@ -1007,7 +1007,6 @@ ul.ins-list-h,
 }
 
 .ins_lightbox_data {
-    background: var(--wrapper-bg);
     position: absolute;
     top: 60px;
     bottom: 0;
