@@ -202,6 +202,16 @@ ins(".-show-confirm-password")._on("click", (o) => {
     }
 }, true);
 
+ins(".-show-old-password")._on("click", (o) => {
+    if (o._hasClass("ins-active")) {
+        o._removeClass("ins-active")
+        ins(".-update-old-password-inpt")._setAttribute("type", "password")
+    } else {
+        ins(".-update-old-password-inpt")._setAttribute("type", "")
+        o._addClass("ins-active")
+    }
+}, true);
+
 
 
 ins(".-update-name-btn")._on("click", (o) => {
@@ -224,13 +234,22 @@ ins(".-update-name-btn")._on("click", (o) => {
 ins(".-update-password-btn")._on("click", (o) => {
     var password = ins(".-update-password-inpt")._getValue();
     var confirmPassword = ins(".-update-confirm-password-inpt")._getValue();
+    var oldPassword = ins(".-update-old-password-inpt")._getValue();
+
+
     if (password !== confirmPassword) {
         ins("Passwords do not match")._ui._notification({ "class": "ins-danger" });
+    } else if (oldPassword == "") {
+        ins("Please enter old password")._ui._notification({ "class": "ins-danger" });
+
     } else {
-        ins("_update_password")._ajax._app({ "password": password }, (d) => {
+        ins("_update_password")._ajax._app({ "password": password, "old_password": oldPassword }, (d) => {
             var jdata = JSON.parse(d)
             if (jdata["status"] == "1") {
                 ins(jdata["msg"])._ui._notification()
+                ins(".-update-password-inpt")._setValue("")
+                ins(".-update-confirm-password-inpt")._setValue("")
+                ins(".-update-old-password-inpt")._setValue("")
             } else {
                 ins(jdata["msg"])._ui._notification({ "class": "ins-danger" })
 
@@ -239,6 +258,15 @@ ins(".-update-password-btn")._on("click", (o) => {
     }
 }, true);
 
+
+
+
+ins(".-update-email-inpt")._on("keyup", (o) => {
+    ins("_check_email")._ajax._app({ "email": o._getValue() }, (d) => {
+        ins(".-verified-area")._setHTML(d)
+
+    })
+}, true);
 
 ins(".-send-email-veri-btn")._on("click", (o) => {
     var email = ins(".-update-email-inpt")._getValue()
@@ -257,11 +285,12 @@ ins(".-update-email-btn")._on("click", (o) => {
         ins("Please enter a verification code")._ui._notification({ "class": "ins-danger" })
     } else {
         ins("_update_email")._ajax._app({ "otp": otp }, (d) => {
-            console.log(d)
             var jdata = JSON.parse(d)
-            console.log(jdata)
             if (jdata["status"] == "1") {
                 ins(jdata["msg"])._ui._notification()
+                ins(".-verified-area")._setHTML(jdata["ui"])
+                ins(".-update-verification-inpt")._setValue("")
+
             } else {
                 ins(jdata["msg"])._ui._notification({ "class": "ins-danger" })
             }

@@ -96,7 +96,7 @@ ins(".-add-cart-btn")._on("click", (o) => {
     ins("_cart_lightbox_ui")._ajax._app(ops, (data) => {
         ins()._ui._addLightbox({
             "mode": "right_panel",
-            title: "<i class='lni ins-icon lni-cart  '></i> Cart",
+            title: "<i class='lni ins-icon lni-cart  '></i> " + ops["lbtitle"],
             data: data,
             data_style: "position: relative;top: 0;",
             style: "width:650px;    "
@@ -148,38 +148,7 @@ ins(".-type-btn")._on("click", function(o) {
 
     _submitfilter()
 
-
-    /*else {
-        ins(".-subtype-btn")._removeClass("ins-active")
-        ins(".-type-btn")._removeClass("ins-active")
-        o._addClass("ins-active");
-        var ops = o._getData()
-        ins("_show_subtypes")._ajax._app(ops, (d) => {
-            ins(".-subtypes-area")._setHTML(d)
-        })
-    }*/
 });
-/*
-ins(".-subtype-btn")._on("click", function(o) {
-
-    if (o._hasClass("ins-active")) {
-        ins(".-subtype-btn")._removeClass("ins-active")
-        ins(".-type-btn")._removeClass("ins-active")
-        _submitfilter()
-    } else {
-        ins(".-subtype-btn")._removeClass("ins-active")
-        o._addClass("ins-active");
-        _submitfilter()
-    }
-});
-*/
-
-
-
-
-
-
-
 
 
 
@@ -193,7 +162,10 @@ ins(".-type-inner-btn")._on("click", function(o) {
         var ops = o._getData()
         ins("_show_subtypes_inner")._ajax._app(ops, (d) => {
             ins(".-subtypes-area")._setHTML(d)
+            _submitfilterInner()
+
         })
+
     }
 });
 
@@ -256,6 +228,8 @@ function _submitfilterInner() {
 
 
 ins(".-category-checkbox")._on("change", function(o) {
+    ins(".-weight-select")._setValue("")
+    ins(".-type-btn")._removeClass("ins-active")
     if (o._get(0).checked) {
         ins(".-category-checkbox")._each(function(item) {
             item._get(0).checked = false;
@@ -328,9 +302,9 @@ function _remove_filter(name, type = "") {
     }
 
 
-
     _submitfilter()
 }
+
 
 
 
@@ -352,6 +326,9 @@ ins(".-product-filter-input")._on("change", (o) => {
 })
 
 
+ins(".-order-select")._on("change", (o) => {
+    _submitfilter()
+})
 
 
 function _submitfilter() {
@@ -422,14 +399,15 @@ function _submitfilter() {
         sql += spr + priceRange;
         spr = "&";
     }
-
-    if (sql != "") {
-
+    var order = ins(".-order-select")._getValue()
+    if (sql != "" || order != "") {
         stype = "search"
     } else {
         stype = "reset"
     }
-    ins("_filter_redirect")._ajax._app({ "sql": sql, "type": stype }, function(data) {
+
+
+    ins("_filter_redirect")._ajax._app({ "sql": sql, "type": stype, order: order }, function(data) {
         window.location = data;
     });
 }

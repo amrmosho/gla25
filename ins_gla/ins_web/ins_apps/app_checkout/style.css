@@ -9,13 +9,11 @@
 
 .-minus-btn {
     height: 46px;
-    border-radius: 4px 0 0 4px !important;
     color: var(--grey-d)
 }
 
 .-plus-btn {
     height: 46px;
-    border-radius: 0 4px 4px 0 !important;
     color: var(--grey-d)
 }
 
@@ -88,4 +86,19 @@
     border-width: 1px 1px 0 1px !important;
     border-style: solid !important;
     border-color: var(--primary-d) !important;
+}
+
+.-bank-info-card {
+    border: 1px solid var(--grey-bg);
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 8px 16px -8px;
+    scale: 1;
+    transition: 0.3s;
+}
+
+.-bank-info-card.ins-active {
+    border: 1px solid var(--primary-d);
+    background: var(--gold-bg);
+    scale: 1.05;
 }

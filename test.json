@@ -1,14 +1,1 @@
-{
-    "standard": {
-        "id": 16,
-        "title": "Standard",
-        "des": "Standard",
-        "data": {
-            "standard": {
-                "id": 8,
-                "title": "Standard",
-                "des": "Standard"
-            }
-        }
-    }
-}
+http: //127.0.0.1:5000/checkout/order/?id=267399674&pending=false&amount_cents=422000&success=true&is_auth=false&is_capture=false&is_standalone_payment=true&is_voided=false&is_refunded=false&is_3d_secure=true&integration_id=4919279&profile_id=1016337&has_parent_transaction=false&order=299595628&created_at=2025-02-23T15%3A32%3A10.316005&currency=EGP&merchant_commission=0&discount_details=%5B%5D&is_void=false&is_refund=false&error_occured=false&refunded_amount_cents=0&captured_amount=0&updated_at=2025-02-23T15%3A35%3A46.549205&is_settled=false&bill_balanced=false&is_bill=false&owner=1894898&merchant_order_id=411&data.message=Approved&source_data.type=card&source_data.pan=1111&source_data.sub_type=Visa&acq_response_code=00&txn_response_code=APPROVED&hmac=5875d322715a81de18acc7318b39955ca72f1d37e7bbfd7b56108539a35051903f838c87c3dffecba8a8ae546ffe3fde06cd3a2ac8f494a38c24cff3f278d686

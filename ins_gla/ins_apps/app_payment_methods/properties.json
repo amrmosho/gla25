@@ -1,0 +1,107 @@
+{
+    "table": "gla_payment_methods",
+    "form_data": [{
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card ins-padding-m"
+        },
+        {
+            "name": "title",
+            "title": "Title",
+            "title-ar": "الاسم",
+            "_trans": "true",
+            "_type": "input",
+            "_lang": "true",
+            "_table": "gla_payment_methods",
+            "type": "text",
+            "required": "true",
+            "pclass": "ins-col-12"
+        },
+        {
+            "name": "des",
+            "title": "Desciption",
+            "title-ar": "الوصف",
+            "_trans": "true",
+            "_type": "input",
+            "_lang": "true",
+            "_table": "gla_payment_methods",
+            "type": "text",
+            "required": "true",
+            "pclass": "ins-col-12"
+        },
+        {
+            "end": "True"
+        }, {
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card ins-padding-m"
+        },
+        {
+            "name": "charges_type",
+            "title": "charges Type",
+            "title-ar": "نوع الرسوم الاضافية",
+            "_trans": "true",
+            "_type": "select",
+            "fl_data": {
+                "": "-",
+                "fixed": "EGP",
+                "percent": "%"
+            },
+            "pclass": "ins-col-6"
+        }, {
+            "name": "charges",
+            "title": "charges",
+            "title-ar": "رسوم اضافية",
+            "_trans": "true",
+            "_type": "input",
+            "type": "text",
+            "pclass": "ins-col-6"
+        },
+
+
+        {
+            "name": "paymob_id",
+            "title": "Paymob Payment integration ID",
+            "title-ar": "رقم تعريف وسيلة الدفع لدى باي موب",
+            "_trans": "true",
+            "_type": "input",
+            "type": "text",
+            "pclass": "ins-col-6"
+        }, {
+            "name": "logo",
+            "title": "Payment Logo",
+            "title-ar": "لوجو وسيلة الدفع",
+            "_trans": "true",
+            "_type": "input",
+            "_dir": "images/payment",
+            "_exts": "image/png",
+            "type": "upload",
+            "pclass": "ins-col-6"
+        },
+        {
+            "end": "True"
+        }
+    ],
+    "list_data": [
+
+        {
+            "name": "title",
+            "tittle-ar": "العنوان",
+            "_trans": "true",
+            "title": "Title",
+            "view": "text",
+            "class": "ins-col-grow"
+        }
+
+    ],
+    "list_filter": [{
+        "name": "title",
+        "title": "Search Title",
+        "title-ar": "البحث بواسطة العنوان",
+        "_trans": "true",
+        "_type": "input",
+        "type": "text",
+        "_info": "Search in <b>Title</b> by <b>@(value)</b>",
+        "_info-ar": "ابحث في <b>العنوان</b> بواسطة <b>@(value)</b>",
+        "main": "true",
+        "pclass": "ins-col-12"
+    }]
+}
