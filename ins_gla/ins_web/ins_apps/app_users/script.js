@@ -297,3 +297,35 @@ ins(".-update-email-btn")._on("click", (o) => {
         });
     }
 }, true);
+
+
+
+
+
+/*
+
+var ondone = function(ds) {
+    if (ds["mode"] != null && ds["mode"] == "multi") {
+        t.m_actions(ds);
+    } else {
+        t.actions(ds)
+    }
+};
+
+
+var options = {
+    o: t.options.o,
+    onend: ondone,
+    dir: 
+};
+
+
+this.options.o._on("click", (o) => {
+    if (t.options.o._getData("mode") != null) {
+        options.mode = t.options.o._getData("mode");
+    }
+    options._p = "." + o._getData("p");
+    ins("ins_plg_py_upload")._plgin(options,
+        function(plg) {}
+    );
+})*/
