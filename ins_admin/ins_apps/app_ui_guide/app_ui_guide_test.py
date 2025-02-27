@@ -1,61 +1,23 @@
 from ins_kit._engine._bp import App
 
+from openai import OpenAI
+import json
+
 
 class AppUiGuideTest(App):
     def __init__(self, app) -> None:
         self.app: App = app
         super().__init__(app.ins)
 
-    def _input(self, ):
+    
 
-        uidata = [
-            {"start": "true", "class": "ins-col-6 ins-card  ins-flex "},
-           {'_type': 'input', "value":"test/6e28baed72984230aa5a420c9d803ca8__th.png", 'type': 'upload', 'title': 'Upload image', 'name': '_unname', 'placeholder': '_add placeholder hear', 'pclass': 'ins-col-12 ', 'required': 'true', '_dir': 'test', '_exts': 'image/*'},
+    def _input(self):
 
-
-
-           {'_type': 'input', 'type': 'upload', "_mode":"multi" ,'title': 'Upload image', 'name': '_unname', 'placeholder': '_add placeholder hear', 'pclass': 'ins-col-12 ', 'required': 'true', '_dir': 'test', '_exts': 'image/png'}
-
-,
-
-            {"end": "true"},
-           
-           
-           
-            {"start": "true", "class": "ins-col-6 ins-card  ins-flex "},
-            {"_type": "input","type": "auto_select",  "title": "_Title",
-             "name": "_unname", "pclass": "ins-col-12 ",  "fl_data": {
-                 
-                 
-                 "0": 'sssss', "2": 'sasdasdss', "3": '888', "9": '8989',
-                                  "01": 'sssss', "21": 'sasdasdss', "31": '888', "91": '8989'
-
-                 
-                 
-                 
-                 }
-            
-               
-             
-             },
-            
-            
-            
-            {"end": "true"},
-
-
-        ]
-
-
-
-
-        d= self.ins._data_collect._render({ "fl_type":"areas" ,"fl_table":"kit_menu","fl_start":"-1,-----"})
-        
-        tt= d["fl_data"]
-
-        return self.ins._ui._render(uidata)
+        user_message = "make a component  'employees' type 'component' and  make it item in menu and no data contains:  name (text), position (text), and hire_date (date)."
+        response_data = self.ins._ai.get(user_message)
+        return response_data
 
     def out(self):
-
+      
         r = self._input()
         return r

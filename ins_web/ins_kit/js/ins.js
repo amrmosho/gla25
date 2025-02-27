@@ -2494,13 +2494,12 @@ INS.prototype._getPlgin = function(Options, onReady) {
                     onReady(plgins[plg]);
                 }
 
-                console.log(plgins)
                 return plgins[plg];
             });
         } else {
-            /* plgins[plg]["options"] = Options;
-             onReady(plgins[plg]);
-             return plgins[plg];*/
+            plgins[plg]["options"] = Options;
+            onReady(plgins[plg]);
+            return plgins[plg];
         }
     } catch (err) {}
 };

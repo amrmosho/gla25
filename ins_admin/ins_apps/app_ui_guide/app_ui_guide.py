@@ -27,7 +27,8 @@ class AppUiGuide(App):
         test = {"_type": "a", "href": self.__url(
             "test"), "_data": "<i class='lni lni-select-cursor-1 ins-icon'> </i> test", "class": "ins-title-s ins-strong-l  ins-padding-m ins-radius-xl"}
 
-        s = []
+        s = [] 
+        r =""
         if "mode" in g and g["mode"] == "inputs":
             
             s = [{"_type": "a", "href": "#_input", "_data": "<i class='lni lni-select-cursor-1 ins-icon'> </i> Input", "class": "ins-title-s ins-strong-l  ins-padding-m ins-radius-m"},
