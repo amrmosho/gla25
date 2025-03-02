@@ -48,7 +48,7 @@ class AppHome(App):
     def menu_data(self):
         ui = []
 
-        m = "71"
+        m = "112"
         data = self.ins._db._get_data(
             "menu_item_table", "*", f"fk_menu_id='{m}'  and fk_menu_item_id=0 order by kit_order")
 

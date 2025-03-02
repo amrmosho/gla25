@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8"> {{ temp.header|safe }}
+    <link rel="stylesheet" href="{{ temp._weburl|safe }}css/ui.css" />
     <link rel="stylesheet" href="{{ temp._weburl|safe }}css/style.css" />
     <link rel="stylesheet" href="{{ temp._weburl|safe }}css/style-{{user.settings.lang}}.css" />
 
@@ -12,7 +13,7 @@
 
 </head>
 
-<body class=" {{page['class']|safe }}    ins-wallpaper">
+<body class=" {{page['class']|safe }} ins-gla-style   ins-wallpaper">
     <div class="ta-body ins-gap-o ins-flex-start">
         <div class="t-side-are">
             <div class="t-nav ins-bar-left  ins-flex ">

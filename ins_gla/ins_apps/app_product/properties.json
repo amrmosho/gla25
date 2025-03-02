@@ -117,7 +117,7 @@
 
         {
             "_type": "textarea",
-            "pclass": "ins-col-12",
+            "pclass": "ins-col-12 ins-hidden",
             "name": "types_data",
             "class": "-subtypes-textarea",
             "title": "Data"
