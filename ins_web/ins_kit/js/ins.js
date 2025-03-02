@@ -1531,6 +1531,7 @@ Ajax.prototype._app = function(options, callback) {
     var g = ins()._map._data();
 
 
+
     s = JSON.parse(s);
     if (options["_p"] != null) {
         s["_p"] = options["_p"];
@@ -1544,7 +1545,12 @@ Ajax.prototype._app = function(options, callback) {
     var url = "/ins_ajax/" + s["_a"] + "/" + s["_p"] + "/" + this.o + "/do/_area/" + g["_a"] + "/_alias/" + g["_g"]["alias"] + "/"
     delete options["_a"];
     delete options["_p"];
+
     delete options["_m"];
+
+
+
+
     ins(this.o)._insAjax(function(ajax) {
         ajax._send(url, options, callback);
     })
@@ -1679,6 +1685,9 @@ INS.prototype._plg = function(ops = {}, ondone = (cls) => any) {
 INS.prototype._insAjax = function(callback = (cls) => any) {
     var o = this.o;
     /** @var {ins_plg_ajax} cls  */
+
+
+
     ins("ins_plg_ajax")._getPlgin({ o: this.o }, function(cls) {
         callback(cls);
     });
@@ -2498,9 +2507,9 @@ INS.prototype._getPlgin = function(Options, onReady) {
                 return plgins[plg];
             });
         } else {
-            /* plgins[plg]["options"] = Options;
-             onReady(plgins[plg]);
-             return plgins[plg];*/
+            plgins[plg]["options"] = Options;
+            onReady(plgins[plg]);
+            return plgins[plg];
         }
     } catch (err) {}
 };

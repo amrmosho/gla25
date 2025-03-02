@@ -361,7 +361,7 @@ function _submitfilter() {
     });
     var types = "";
     if (t != "") {
-        types = "types=" + t;
+        types = "types_data=" + t;
     }
 
     var weight = "";
@@ -405,6 +405,8 @@ function _submitfilter() {
     } else {
         stype = "reset"
     }
+
+    console.log(sql)
 
 
     ins("_filter_redirect")._ajax._app({ "sql": sql, "type": stype, order: order }, function(data) {

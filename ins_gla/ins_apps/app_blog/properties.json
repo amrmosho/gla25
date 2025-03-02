@@ -9,10 +9,10 @@
             "title": "Title",
             "title-ar": "العنوان",
             "_trans": "true",
-            "lang":"true",
+            "lang": "true",
             "_type": "input",
             "_lang": "true",
-            "_table":"gla_blog",
+            "_table": "gla_blog",
             "type": "text",
             "required": "true",
             "pclass": "ins-col-8"
@@ -73,7 +73,7 @@
             "_type": "textarea",
             "type": "textarea",
             "_lang": "true",
-            "_table":"gla_blog",
+            "_table": "gla_blog",
             "required": "true",
             "pclass": "ins-col-12"
         },

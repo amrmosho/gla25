@@ -30,13 +30,13 @@
         "ins_admin": {
             "url": "ins_admin",
             "name": "ins_admin",
-            "title": "the admin",
+            "title": "Admin",
             "logo": "adm_logo.png"
         },
         "ins_gla": {
             "url": "ins_gla",
             "name": "ins_gla",
-            "title": "Galla",
+            "title": "Galla Admin",
             "logo": "adm_logo.png"
         }
     },

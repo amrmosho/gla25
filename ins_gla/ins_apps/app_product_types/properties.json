@@ -21,9 +21,33 @@
             "fl_type": "db",
             "fl_table": "gla_product_types",
             "title": "Parent Type",
+            "title-ar": "النوع الرئيسي",
+            "_trans": "true",
             "name": "fk_parent_id",
-            "pclass": "ins-col-6"
+            "pclass": "ins-col-3"
         },
+        {
+            "_type": "list",
+            "fl_type": "db",
+            "fl_table": "gla_product_category",
+            "title": "Product Category",
+            "name": "fk_product_category_id",
+            "pclass": "ins-col-3"
+        },
+        {
+            "name": "kit_order",
+            "title": "Order",
+            "title-ar": "ترتيب",
+            "_type": "input",
+            "_lang": "true",
+            "type": "number",
+            "_trans": "true",
+            "required": "true",
+            "pclass": "ins-col-grow"
+        },
+
+
+
         {
             "name": "des",
             "title": "Description",

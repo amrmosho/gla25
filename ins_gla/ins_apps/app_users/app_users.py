@@ -19,8 +19,28 @@ class AppUsers(App):
         return "glaaddress"
 
 
+
+
+
     def u(self, mode):
         return self.ins._server._url({"mode": mode},["id","lang"])
+
+
+
+    def _upload_image(self):
+        g = self.ins._server._req()
+        if "id" in g:
+            self.ins._db._update("gla_order", {"document": g["path"]}, f"id='{g['oid']}'")
+        return "1"
+    
+
+    def _remove_image(self):
+        g = self.ins._server._req()
+        if "id" in g:
+            self.ins._db._update("gla_order", {"document": ""}, f"id='{g['oid']}'")
+        return "1"
+
+
 
     def header(self, g):
         hc = ""

@@ -12,6 +12,9 @@ class AppUsersOrders(App):
     def u(self, mode):
         return self.ins._server._url({"mode": mode},)
 
+
+
+
     def order(self):
         g = self.ins._server._get()
         sedata = self.ins._db._jget(
@@ -91,7 +94,31 @@ class AppUsersOrders(App):
             {"end": "true"},
 
             {"start": "true", "class": "ins-col-4 ins-flex "},
-                 {"end": "true"},
+                        
+            {"data-oid":data["id"],"class":"-order-id-area"}]
+            
+            
+            
+        if data["payment_method"] == "8":
+            if data["document"]:
+             uidata.append( {
+               '_type': 'input',"nojs":"true", 'type': 'upload', 'title': 'Payment Receipt','title-ar': ' ايصال الدفع', "_trans":"true",'name': '_unname',"class":"-upload-image",
+               'placeholder': '_add placeholder hear',
+               'pclass': 'ins-col-12 ',
+               "value":data["document"],
+               'required': 'true'})
+            else:
+             uidata.append( {
+               '_type': 'input',"nojs":"true", 'type': 'upload', 'title': 'Payment Receipt','title-ar': ' ايصال الدفع', "_trans":"true",'name': '_unname',"class":"-upload-image",
+               'placeholder': '_add placeholder hear',
+               'pclass': 'ins-col-12 ',
+               'required': 'true'})
+
+
+
+
+                 
+        uidata+=[ {"end": "true"},
 
 
             {"end": "true"},

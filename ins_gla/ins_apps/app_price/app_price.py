@@ -51,9 +51,9 @@ class AppPrice(App):
                   {"_data": "", "class": "ins-bg-6", "style": "width: 1px;padding: 2px; min-width: 2px;    background: #4fa8b5 !important;"},
                   {"_data": f"<b>{str(d["new_main_bprce"])}</b>",
                    "class": "", "style": "width:120px"},
-                  {"_data": f"<b>{str(d["gram_price_bay"])}</b>",
+                  {"_data": f"<b>{str(d["gram_price_buy"])}</b>",
                    "class": "", "style": "width:120px"},
-                  {"_data": f"<b class='insaction ' data-insaction='ins_tooltip' data-tip='{d["new_bay_price_tip"]}'  class=''>{str(d["new_bay_price_f"])}</b>",
+                  {"_data": f"<b class='insaction ' data-insaction='ins_tooltip' data-tip='{d["new_buy_price_tip"]}'  class=''>{str(d["new_buy_price_f"])}</b>",
                    "class": " ins-primary", "style": "width:120px;    cursor: alias;"},
                   {"_data": f"<b>{str(d["new_main_prce"])}</b>",
                    "class": "", "style": "width:120px"},
@@ -91,10 +91,11 @@ class AppPrice(App):
         
             
             sql = {"sell": g["sell"], 
-                       "bay": g["buy"] ,
+                       "buy": g["buy"] ,
                        
                        "sell_24": price_24, 
-                       "bay_24": bprice_24
+                       "buy_24": bprice_24,
+                       "kit_created": self.ins._date._date_time()
                        
                        
                        
@@ -103,11 +104,10 @@ class AppPrice(App):
             
             
             
-            self.ins._db._update("gla_price", sql ,"1=1")
+            self.ins._db._insert("gla_price", sql)
 
         for d in data:
       
-            del d["images"]
             del d["th_main"]
             del d["kit_created"]
             del d["kit_modified"]
@@ -119,7 +119,7 @@ class AppPrice(App):
             del d["fk_product_category_id"]
             d["---"] = "--------------------------------------------"
             d["new_sell_price_tip"] ="<div>"
-            d["new_bay_price_tip"] ="<div>"
+            d["new_buy_price_tip"] ="<div>"
 
             sptl ="<br/><hr/>"
 
@@ -129,8 +129,8 @@ class AppPrice(App):
                 bprice = bprice_24
 
 
-                d["new_bay_price_tip"] +="<b> kart : 24  </b>"
-                d["new_bay_price_tip"] +=f'{sptl} <b> Main Price </b> <br/> (price * 999.9) / 875 {spt} ({obprice} * 999.9) / 875 =  <b class="ins-info-color"> {bprice} </b>'
+                d["new_buy_price_tip"] +="<b> kart : 24  </b>"
+                d["new_buy_price_tip"] +=f'{sptl} <b> Main Price </b> <br/> (price * 999.9) / 875 {spt} ({obprice} * 999.9) / 875 =  <b class="ins-info-color"> {bprice} </b>'
 
 
                 d["new_sell_price_tip"] +="<b> kart : 24  </b>"
@@ -145,8 +145,8 @@ class AppPrice(App):
                 d["new_sell_price_tip"] +=f'{sptl} <b> Main Price </b> <br/>  {oprice}'
                 
                 
-                d["new_bay_price_tip"] +="<b> kart : 21  </b> "
-                d["new_bay_price_tip"] +=f'{sptl} <b> Main Price </b> <br/>  {bprice}'
+                d["new_buy_price_tip"] +="<b> kart : 21  </b> "
+                d["new_buy_price_tip"] +=f'{sptl} <b> Main Price </b> <br/>  {bprice}'
 
                 
                 
@@ -197,46 +197,46 @@ class AppPrice(App):
             
             # buy  pric
             if d["cashback_gram"] == 1:
-                gram_price_bay = bprice + float(d["cashback"])
-                d["gram_price_bay"] = round(gram_price_bay)
+                gram_price_buy = bprice + float(d["cashback"])
+                d["gram_price_buy"] = round(gram_price_buy)
 
-                d["new_bay_price_tip"] +=f'{sptl} <b> Gram Price </b> <br/> (price + cashback) {spt}  {bprice} + {d["cashback"]} =  <b class="ins-info-color"> {d["gram_price_bay"]} </b>'
+                d["new_buy_price_tip"] +=f'{sptl} <b> Gram Price </b> <br/> (price + cashback) {spt}  {bprice} + {d["cashback"]} =  <b class="ins-info-color"> {d["gram_price_buy"]} </b>'
             else:
-                gram_price_bay = bprice
-                d["gram_price_bay"] = round(gram_price_bay)
-                d["new_bay_price_tip"] +=f'{sptl} <b> Gram Price </b> <br/>  =  <b class="ins-info-color"> {d["gram_price_bay"]} </b>'
+                gram_price_buy = bprice
+                d["gram_price_buy"] = round(gram_price_buy)
+                d["new_buy_price_tip"] +=f'{sptl} <b> Gram Price </b> <br/>  =  <b class="ins-info-color"> {d["gram_price_buy"]} </b>'
  
                 
                 
-            new_bay_price = gram_price_bay * float(d["weight"])
+            new_buy_price = gram_price_buy * float(d["weight"])
 
 
             
             
             if d["cashback_gram"] != 1:
-                new_bay_price += float(d["cashback"])
-                d["new_bay_price_tip"] +=f'{sptl} <b> New Bay Price </b> <br/> (price * weight) + cashback {spt}  {gram_price_bay} * {d["weight"]} + {d["cashback"]} =  <b class="ins-info-color"> {new_bay_price} </b>'
+                new_buy_price += float(d["cashback"])
+                d["new_buy_price_tip"] +=f'{sptl} <b> New buy Price </b> <br/> (price * weight) + cashback {spt}  {gram_price_buy} * {d["weight"]} + {d["cashback"]} =  <b class="ins-info-color"> {new_buy_price} </b>'
 
             else:
-                d["new_bay_price_tip"] +=f'{sptl} <b> New Bay Price </b> <br/> (price * weight) {spt}  {gram_price_bay} * {d["weight"]} =  <b class="ins-info-color"> {new_bay_price} </b>'
+                d["new_buy_price_tip"] +=f'{sptl} <b> New buy Price </b> <br/> (price * weight) {spt}  {gram_price_buy} * {d["weight"]} =  <b class="ins-info-color"> {new_buy_price} </b>'
 
-            d["new_bay_price"] = new_bay_price
-            new_bay_price = self.myround(new_bay_price)
-            d["new_bay_price_f"] = new_bay_price
+            d["new_buy_price"] = new_buy_price
+            new_buy_price = self.myround(new_buy_price)
+            d["new_buy_price_f"] = new_buy_price
 
-            d["new_bay_price_tip"] +=f'{sptl} <b> Price After Round </b> <br/> 5 * round(price/5) {spt}  5 * round({d["new_bay_price"]}/5)   =  <b class="ins-info-color"> {new_bay_price} </b>'
+            d["new_buy_price_tip"] +=f'{sptl} <b> Price After Round </b> <br/> 5 * round(price/5) {spt}  5 * round({d["new_buy_price"]}/5)   =  <b class="ins-info-color"> {new_buy_price} </b>'
 
             
             
             
-            d["new_bay_price_tip"] +="<div>"
+            d["new_buy_price_tip"] +="<div>"
 
             
             
             r = ""
             if st == "update":
                 sql = {"price": d["new_sell_price_f"],
-                       "buy_price": d["new_bay_price_f"]}
+                       "buy_price": d["new_buy_price_f"]}
                 self.ins._db._update("gla_product", sql, f"id='{d["id"]}'")
                 
                 

@@ -77,13 +77,47 @@ class AppOrder(App):
 
     def _order_ui(self):   
       rq = self.ins._server._post()
-      order_items = self.ins._db._ ("gla_order_item", "*", f"fk_order_id='{rq['tid']}'")
+
+      odata = self.ins._db._get_row("gla_order", "*", f"id='{rq['tid']}'")
+      status_style = "background: #41b983; color: white;" 
+      
+      if odata["payment_status"] == "pending":
+        status_style = "ins-warning"
+      elif odata["payment_status"] == "confirmed":
+        status_style = "ins-primary"
+      elif odata["payment_status"] == "failed":
+        status_style = "ins-danger"
+      elif odata["payment_status"] == "success":
+        status_style = "ins-success"
+      
+      
+      ostatus_style = "ins-warning"
+      if odata["order_status"] == "confirmed":
+        ostatus_style = "ins-primary"
+      elif odata["order_status"] == "delivered":
+        ostatus_style = "ins-success"
+
+
+
+
+        status_style = "background:#41b983; color: white;"
+      uidata = [{"sart": "true", "class": "ins-col-12 ins-flex"},
+                {"_data":f"Order #{str(odata["id"])}","class":"ins-col-12 ins-title-l ins-strong "},
+                {"_data":f"Order Date: {str(odata['kit_created'])}","class":"ins-col-12 ins-title-s"},
+                {"_data":f"Order Status: {str(odata['order_status'])}","class":"ins-col-12 ins-title-s"},
+                {"_data": f"Order Status: {odata["order_status"]}",  "style" :ostatus_style ,"class" : " ins-col-8 ins-text-center ins-title-s ins-strong  ins-tag"},
+                {"_data": f"Payment Status: {odata["payment_status"]}",  "style" :status_style ,"class" : " ins-col-8 ins-text-center ins-title-s ins-strong  ins-tag"}
+                ]
+
+
+
+      order_items = self.ins._db._get_data("gla_order_item", "*", f"fk_order_id='{rq['tid']}'")
 
       
       uidata = [{"start": "true", "class": "ins-col-12 ins-flex"}]
 
       for item in order_items:
-        uidata.append({"_data": f"{item['price']} ", "class": "ins-title-l ins-col-11"})
+        uidata.append({"_data": f"{str(item['price'])} ", "class": "ins-title-l ins-col-11"})
         uidata.append({"start": "true", "class": "ins-col-12 ins-flex"})
         uidata.append({"class": "ins-space-m"})
 

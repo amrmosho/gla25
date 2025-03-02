@@ -28,5 +28,6 @@ app.register_blueprint(ins_gla_bp, url_prefix=f"/ins_gla")
 app.register_blueprint(ajax_bp, url_prefix=f"/ins_ajax")
 
 
+
 if __name__ == '__main__':
     app.run(debug=True)

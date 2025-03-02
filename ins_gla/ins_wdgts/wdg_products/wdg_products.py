@@ -9,9 +9,9 @@ class WdgProducts(Widget):
 
     def out(self):
 
-        data = self.ins._db._get_data("gla_product","*","fk_product_category_id = 1 limit 0,4" ,True) 
-        data_b= self.ins._db._get_data("gla_product","*","fk_product_category_id = 2 limit 0,4",True)
-        data_c= self.ins._db._get_data("gla_product","*","fk_product_category_id = 3 limit 0,4 ",True)
+        data = self.ins._db._get_data("gla_product","*","fk_product_category_id = 1 and display_home = 1 order by price asc limit 0,4" ,True) 
+        data_b= self.ins._db._get_data("gla_product","*","fk_product_category_id = 2 and display_home = 1 order by price asc limit 0,4",True)
+        data_c= self.ins._db._get_data("gla_product","*","fk_product_category_id = 3 and display_home = 1 order by price asc limit 0,4 ",True)
 
         self.widget._include("wpros.js")
         uidata = [
@@ -46,7 +46,7 @@ class WdgProducts(Widget):
         for d in data_b:
             uidata+= ELUI(self.ins).shop_pro_block(d,f"/product/product/{d['id']}",st="width:316px;")
            
-        uidata.append({"_type":"a","href":"product/do/filter/fk_product_category_id=2&types=royal","_data": "View MORE <i class=' lni ins-icon lni-arrow-right'></i>",
+        uidata.append({"_type":"a","href":"product/do/filter/fk_product_category_id=2&types_data=royal","_data": "View MORE <i class=' lni ins-icon lni-arrow-right'></i>",
                   "_data-ar":"عرض المزيد","_trans":"true",    "style": "width:185px", "class": "ins-button  ins-text-upper ins-gold-d"},)
         uidata.append({"end": "true"})
         

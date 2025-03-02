@@ -67,7 +67,7 @@ class AppProducts(App):
         o = self.ins._server._get("order")
         parsed_data = parse_qs(g)
         filter_data = {key: value[0] for key, value in parsed_data.items()}
-        tys = filter_data.get("types", "")
+        tys = filter_data.get("types_data", "")
 
 
         sql_parts = []
@@ -132,6 +132,8 @@ class AppProducts(App):
          rpdata = self.ins._db._get_data("gla_product", "*", f"1=1 {order} limit   {offset}, {items_per_page}",update_lang=True)
         ndata = []
 
+
+        
         if tys:
          for r in rpdata:
                 types_data = json.loads(r["types_data"])
@@ -144,6 +146,12 @@ class AppProducts(App):
          if ndata:
             rpdata = ndata
 
+        rstyle = "rotate:180deg"
+        lstyle = ""
+        if self.ins._langs._this_get()["name"] == "ar":
+            rstyle = ""
+            lstyle = "rotate:180deg"
+
 
        
        
@@ -154,13 +162,13 @@ class AppProducts(App):
             uidata.append({"class": "ins-space-xl"})
             uidata.append({"start": "true", "class": "ins-flex ins-col-12 ins-pagination-area ins-padding-l","style":"background:white;"})
             uidata.append({"start": "true", "class": "ins-flex-start"})
-            uidata.append({"_type": "button", "class": "ins-pagination-btn", "data-page": "prev","_data": "<i class='lni lni-chevron-left'></i>"})
+            uidata.append({"_type": "button", "class": "ins-pagination-btn", "data-page": "prev","_data": f"<i class='lni lni-chevron-left' style='{lstyle}'></i>"})
             start_page = max(1, current_page - 2)
             end_page = min(num_pages, current_page + 2)
             for page in range(start_page, end_page + 1):
                 active_class = "active" if page == current_page else ""
                 uidata.append({"_type": "button", "class": f"ins-pagination-btn {active_class}", "data-page": page, "_data": str(page)})
-            uidata.append({"_type": "button", "class": "ins-pagination-btn", "data-page": "next", "data-tpages":num_pages,"_data": "<i class='lni lni-chevron-left' style='rotate:180deg'></i>"})
+            uidata.append({"_type": "button", "class": "ins-pagination-btn", "data-page": "next", "data-tpages":num_pages,"_data": f"<i class='lni lni-chevron-left' style='{rstyle}'></i>"})
             uidata.append({"end": "true"})
             uidata.append({"class": "ins-col-grow"})
             uidata.append({"start": "true", "class": "ins-flex-end"})
@@ -238,7 +246,7 @@ class AppProducts(App):
                         name = "تصنيف"
                     d = self.ins._db._get_row("gla_product_category","title,kit_lang",f"id='{v}'",update_lang=True)
                     v = d["title"]
-                elif k == "types":
+                elif k == "types_data":
                     name = "Type"
                     d = self.ins._db._get_row("gla_product_types","title,kit_lang",f"alias='{v}'",update_lang=True)
                     v = d["title"]
@@ -351,13 +359,13 @@ class AppProducts(App):
         if types:
             uidata.append({"_data": "Type","_data-ar": "نوع","_trans": "true", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "})
 
-            tys = filter_data.get("types", "").split(',')
+            tys = filter_data.get("types_data", "").split(',')
             for t in types:
                 active = ""
                 if t["alias"] in tys:
                     active = "ins-active"
                 
-                uidata.append({"_data": t["title"], "name":"type","data-name": t["alias"],"data-tid": t["id"],"class": f"ins-button-s  -type-btn ins-flex-center ins-strong-m  ins-col-4  -product-filter-input {active}"})
+                uidata.append({"_data": t["title"], "name":"types_data","data-name": t["alias"],"data-tid": t["id"],"class": f"ins-button-s  -type-btn ins-flex-center ins-strong-m  ins-col-4  -product-filter-input {active}"})
           
             uidata.append({"class": "ins-space-m"})
 
