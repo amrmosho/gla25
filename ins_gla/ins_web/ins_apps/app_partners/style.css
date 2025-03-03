@@ -16,3 +16,8 @@
     transform: scale(1.05);
     cursor: pointer;
 }
+
+.ins-form-input {
+    background: white;
+    border-radius: 4px;
+}

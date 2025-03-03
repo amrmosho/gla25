@@ -68,7 +68,7 @@ class AppHome(App):
                     {"_type": "li", "class": "ins-padding-xl ins-border ins-flex ins-col-12 ins-card", "start": True},
                     {"_type": "i", "class": " ins-title-xs",
                      "class": d["icon"]},
-                    {"class": "ins-title-m ins-strong",
+                    {"class": "ins-title-s ins-strong",
                      "_data": d["title"]},
                     {"_type": "li",  "end": True},
 
@@ -85,7 +85,7 @@ class AppHome(App):
                             {"_type": "li", "class": "ins-col-2 ", "start": True},
                             {"_type": "a", "class": "ins-col-12  ins-flex-center ins-border ins-radius-m ins-padding-m ins-flex-center",  "href": url, "_data": [
                                 {"_type": "i", "class": " ins-font-xl "+ s["icon"]},
-                                {"_type": "span", "class": "ins-col-12 ins-text-center ",
+                                {"_type": "span", "class": "ins-col-12 ins-text-center ins-title-14",
                                  "_data": s["title"]}
 
                             ]},

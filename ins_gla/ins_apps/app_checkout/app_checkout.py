@@ -647,7 +647,10 @@ class AppCheckout(App):
       else:
          for k, s in sedata.items():
             newdata[k] = s
-            newdata[k]["new_price"] = newdata[k]["old_price"]
+            if newdata[k].get("old_price"):
+             newdata[k]["new_price"] = newdata[k]["old_price"]
+            else:
+             newdata[k]["new_price"] = s["price"]
             newdata[k]["charges"] = 0
          self.ins._server._set_session(self.session_name, newdata)
 
@@ -676,64 +679,69 @@ class AppCheckout(App):
 
 
     def _placed_step(self):
-          url = request.url
-          parsed_url = urlparse(url)
-          query_params = parse_qs(parsed_url.query)
+           url = request.url
+           parsed_url = urlparse(url)
+           query_params = parse_qs(parsed_url.query)
 
-          merchant_order_id = query_params.get("merchant_order_id", [None])[0]
-          if merchant_order_id:
+           merchant_order_id = query_params.get("merchant_order_id", [None])[0]
+           if merchant_order_id:
             order_data = self.ins._db._get_row("gla_order","*",f"id='{merchant_order_id}'")
 
-          text = "You will be directed to orders page in <span class='-countdown ins-strong-m'>10</span> seconds"
-          if self.ins._langs._this_get()["name"] == "ar":
-                   text = "سوف يتم اعادة توجيهك لصفحة الطلبات في <span class='-countdown ins-strong-m'>10</span> ثوان"
-          uidata = [
-                {"start":"true","class":"ins-col-12 gla-container ins-flex-center ins-padding-2xl"},
-                {"data-url":url,"class":"-url-area"},
-                {"start":"true","class":"ins-col-8 ins-card ins-flex"},
-                  {"class":" lni lni-check-circle-1 ins-font-4xl"},
-                   {"start":"true","class":"ins-col-grow","style":"    padding: 0px;line-height: 15px;"},
-                  {"_data":"Your order has been placed","_data-ar":"لقد تم اتمام طلبك","_trans":"true","class":"ins-title-s ins-strong-m ins-grey-d-color ins-col-12"},
-                  {"_data":text,"class":"ins-title-14 ins-grey-color ins-col-12" ,"style":"    text-transform: lowercase;"},
-                  {"end":"true"},
-                  {"end":"true"}
+           if order_data and order_data["payment_status"] != "failed":
+              self.ins._server._del_session(self.session_name)
+              self.ins._server._del_session(self.session_address_name)
+              self.ins._server._del_session(self.session_payment_name)
+
+           text = "You will be directed to orders page in <span class='-countdown ins-strong-m'>10</span> seconds"
+           if self.ins._langs._this_get()["name"] == "ar":
+                  text = "سوف يتم اعادة توجيهك لصفحة الطلبات في <span class='-countdown ins-strong-m'>10</span> ثوان"
+           uidata = [
+               {"start":"true","class":"ins-col-12 gla-container ins-flex-center ins-padding-2xl"},
+               {"data-url":url,"class":"-url-area"},
+               {"start":"true","class":"ins-col-8 ins-card ins-flex"},
+                 {"class":" lni lni-check-circle-1 ins-font-4xl"},
+                  {"start":"true","class":"ins-col-grow","style":"    padding: 0px;line-height: 15px;"},
+                 {"_data":"Your order has been placed","_data-ar":"لقد تم اتمام طلبك","_trans":"true","class":"ins-title-s ins-strong-m ins-grey-d-color ins-col-12"},
+                 {"_data":text,"class":"ins-title-14 ins-grey-color ins-col-12" ,"style":"    text-transform: lowercase;"},
+                 {"end":"true"},
+                 {"end":"true"}
                ]
-          if order_data:
+           if order_data:
              if order_data["payment_status"] == "failed":
-                text = "You will be redirected to the payment page to try again in <span class='-countdown ins-strong-m'>10</span> seconds"
-                if self.ins._langs._this_get()["name"] == "ar":
-                   text = " سيتم إعادة توجيهك إلى صفحة الدفع للمحاولة مرة أخرى في <span class='-countdown ins-strong-m'>10</span> ثوان"
-                uidata = [
-                {"start":"true","class":"ins-col-12 gla-container ins-flex-center ins-padding-2xl"},                {"data-url":url,"class":"-url-area"},
-
-                {"start":"true","class":"ins-col-8 ins-card ins-flex"},
-                  {"class":" lni lni-xmark-circle ins-font-4xl ins-danger-color"},
-                   {"start":"true","class":"ins-col-grow","style":"    padding: 0px;line-height: 15px;"},
-                  {"_data":"There was an issue with the payment process.","_data-ar":"حدثت مشكلة أثناء عملية الدفع.","_trans":"true","class":"ins-title-s ins-strong-m ins-grey-d-color ins-col-12"},
-                  {"_data":text,"class":"ins-title-14 ins-grey-color ins-col-12" ,"style":"    text-transform: lowercase;"},
-                  {"end":"true"},
-                  {"end":"true"}
-                  ]
-                   
+               text = "You will be redirected to the payment page to try again in <span class='-countdown ins-strong-m'>10</span> seconds"
+               if self.ins._langs._this_get()["name"] == "ar":
+                  text = " سيتم إعادة توجيهك إلى صفحة الدفع للمحاولة مرة أخرى في <span class='-countdown ins-strong-m'>10</span> ثوان"
+               uidata = [
+               {"start":"true","class":"ins-col-12 gla-container ins-flex-center ins-padding-2xl"},    
+               {"data-url":url,"class":"-url-area"},
+               {"start":"true","class":"ins-col-8 ins-card ins-flex"},
+               {"class":" lni lni-xmark-circle ins-font-4xl ins-danger-color"},
+               {"start":"true","class":"ins-col-grow","style":"    padding: 0px;line-height: 15px;"},
+               {"_data":"There was an issue with the payment process.","_data-ar":"حدثت مشكلة أثناء عملية الدفع.","_trans":"true","class":"ins-title-s ins-strong-m ins-grey-d-color ins-col-12"},
+               {"_data":text,"class":"ins-title-14 ins-grey-color ins-col-12" ,"style":"    text-transform: lowercase;"},
+               {"end":"true"},
+               {"end":"true"}
+                 ]
+                  
              if str(order_data["payment_method"]) == "8":
-              text = "You will find our bank accounts below."
+              text = f"Please transfer the amount of {order_data["total"]} EGP to one of the following bank accounts"
               if self.ins._langs._this_get()["name"] == "ar":
-                   text = "ستجد حساباتنا البنكية أدناه."
+                  text = f"برجاء تحويل مبلغ {order_data["total"]} جينه الطلب لأحد الحسابات البنكية التالية"
               uidata = [
-                {"start":"true","class":"ins-col-12 gla-container ins-flex-center ins-padding-2xl"},                {"data-url":url,"class":"-url-area"},
-
-                {"start":"true","class":"ins-col-8 ins-card ins-flex"},
-                  {"class":" lni lni-check-circle-1 ins-font-4xl"},
-                   {"start":"true","class":"ins-col-grow","style":"    padding: 0px;line-height: 15px;"},
-                  {"_data":"Your order has been placed","_data-ar":"لقد تم اتمام طلبك","_trans":"true","class":"ins-title-s ins-strong-m ins-grey-d-color ins-col-12"},
-                  {"_data":text,"class":"ins-title-14 ins-grey-color ins-col-12" ,"style":"    text-transform: lowercase;"},
-                  {"end":"true"},
-                  {"end":"true"},
-                  {"class":"ins-space-l"}
+               {"start":"true","class":"ins-col-12 gla-container ins-flex-center ins-padding-2xl"},              
+               {"data-url":url,"class":"-url-area"},
+               {"start":"true","class":"ins-col-8 ins-card ins-flex"},
+               {"class":" lni lni-check-circle-1 ins-font-4xl"},
+               {"start":"true","class":"ins-col-grow","style":"    padding: 0px;line-height: 15px;"},
+               {"_data":"Your order has been placed","_data-ar":"لقد تم اتمام طلبك","_trans":"true","class":"ins-title-s ins-strong-m ins-grey-d-color ins-col-12"},
+               {"_data":text,"class":"ins-title-14 ins-grey-color ins-col-12" ,"style":"    text-transform: lowercase;"},
+               {"end":"true"},
+               {"end":"true"},
+               {"class":"ins-space-l"}
                ]
               uidata += ELUI(self.ins)._bank_ui()
-          return uidata
-    
+           return uidata
+       
 
 
 
@@ -800,7 +808,6 @@ class AppCheckout(App):
             "delivery_type":address["type"],
             "payment_method":payment["type"],
             "total":total,
-            "document":"1",
             "kit_modified":self.ins._date._date_time(),
             "payment_status":"pending",
             "order_status":"pending"
@@ -814,6 +821,12 @@ class AppCheckout(App):
             payment_url = paymob.create_pay_wdgt(paytotal, oid, ddata["paymob_id"] )
 
          for k,v in sedata.items():
+            kart = self.ins._db._get_row("gla_product","kart",f"id='{v["id"]}'")["kart"]
+            gmprice = self.ins._db._get_row("gla_price","sell_24",f"1=1 order by id desc")["sell_24"]
+
+            if kart == "21":
+               gmprice = self.ins._db._get_row("gla_price","sell",f"1=1 order by id desc")["sell"]
+
             order_item = {
                "fk_order_id":oid,
                "fk_product_id":v["id"],
@@ -822,7 +835,7 @@ class AppCheckout(App):
                "subtype":v["subtype"],
                "price":v["price"],
                "charges":v["charges"],
-               "kit_modified":self.ins._date._date_time()
+               "gram_price":gmprice
 
             }
             self.ins._db._insert("gla_order_item",order_item)

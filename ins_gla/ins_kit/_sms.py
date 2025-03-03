@@ -1,12 +1,7 @@
 import requests
 
 class SMS:
-    def __init__(self):
-        self.base_url = "https://api.epusheg.com/api/v2/send_bulk"
-        self.username = "elgallagold@epushagency.com"
-        self.password = "nh/tm8esg9u"
-        self.api_key = "PWhm-xpx8-D)RH-sE*P"
-        self.sender = "ELGALLAGOLD"
+  
 
     def send_sms(self, message, phone_numbers):
         """
@@ -18,21 +13,27 @@ class SMS:
         Returns:
             dict: API response JSON or error message.
         """
+
+        base_url = "https://api.epusheg.com/api/v2/send_bulk"
+        username = "elgallagold@epushagency.com"
+        password = "nh/tm8esg9u"
+        api_key = "PWhm-xpx8-D)RH-sE*P"
+        sender = "ELGALLAGOLD"
         if not phone_numbers or not message:
             return {"error": "Message and phone numbers are required."}
 
         numbers = ",".join(phone_numbers)
         payload = {
-            "username": self.username,
-            "password": self.password,
-            "api_key": self.api_key,
+            "username": username,
+            "password": password,
+            "api_key": api_key,
             "message": message,
-            "from": self.sender,
+            "from": sender,
             "to": numbers,
         }
 
         # Generate the URL with parameters
-        url = f"{self.base_url}?{requests.compat.urlencode(payload)}"  
+        url = f"{base_url}?{requests.compat.urlencode(payload)}"  
         print(f"Request URL: {url}")  # Print the URL
 
         headers = {

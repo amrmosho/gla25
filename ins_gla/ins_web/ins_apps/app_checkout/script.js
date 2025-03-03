@@ -338,6 +338,7 @@ ins(function() {
     g = ins()._map._get();
     if (g["mode"] == "order") {
         ins("_check_order_status")._ajax._app({ url: ins(".-url-area")._getData("url") }, (d) => {
+            console.log(d)
             if (d != "1") {
                 let count = 10
                 const countdown = setInterval(() => {

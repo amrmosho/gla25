@@ -1,3 +1,4 @@
+from ins_gla.ins_kit._elui import ELUI
 from ins_kit._engine._bp import App
 
 
@@ -10,35 +11,35 @@ class AppOrder(App):
 
 
     def _status(ins, options, data):
-     status_style = "background: #41b983; color: white;" 
+     sclass = "" 
 
      if data["order_status"] == "pending":
-        status_style = "background: #FFC106; color: white;"
+        sclass = "ins-warning"
      elif data["order_status"] == "confirmed":
-        status_style = "background:#41b983; color: white;"
+        sclass = "ins-secondary"
 
-     uiadta = [{"_data": data["order_status"],  "style" :status_style ,"class" : " ins-col-8 ins-text-center ins-title-s ins-strong  ins-tag",}]
+     uiadta = [{"_data": data["order_status"],  "class" : f" {sclass}  ins-col-8 ins-text-center ins-title-14 ins-strong-m  ins-tag",}]
      return ins._ui._render(uiadta)
 
     def _payment_status(ins, options, data):
-     status_style = "background: #41b983; color: white;" 
+     sclass = "" 
 
      if data["payment_status"] == "pending":
-        status_style = "background: #FFC106; color: white;"
+        sclass = "ins-warning"
      elif data["payment_status"] == "confirmed":
-        status_style = "background:#41b983; color: white;"
+        sclass = "ins-secondary"
 
-     uiadta = [{"_data": data["payment_status"],  "style" :status_style ,"class" : " ins-col-8 ins-text-center ins-title-s ins-strong  ins-tag",}]
+     uiadta = [{"_data": data["payment_status"], "class" : f"{sclass} ins-col-8 ins-text-center ins-title-14 ins-strong-m  ins-tag",}]
      return ins._ui._render(uiadta)
     
     def _total(ins, options, data):
-     status_style = "border:solid 2px #12437D"
 
-     uiadta = [{"_data": str(data["total"])+" EGP",  "style" :status_style ,"class" : " ins-card ins-flex-space-between ins-col-9 ins-flex ins-padding-l ins-padding-h ins-text-center",}]
+     uiadta = [{"_data": str(data["total"])+" EGP",  "class" : " ins-primary-d ins-strong-l ins-flex-center ins-card ins-flex-space-between ins-col-9 ins-flex ins-padding-l ins-padding-h ins-text-center",}]
      return ins._ui._render(uiadta)
     def _deatils(ins, options, data):
+     ptitle = ins._db._get_row("gla_payment_methods","title,kit_lang",f"id='{data["payment_method"]}'",update_lang=True)
 
-     uiadta = [{"_data": str(data["delivery_type"])+ " - "+str(data["payment_method"]),  "class" : "  ins-flex-space-between ins-col-9 ins-flex ins-padding-l ins-padding-h ins-text-center",}]
+     uiadta = [{"_data": ptitle["title"],  "class" : "  ins-flex-space-between ins-col-9 ins-flex ins-padding-l ins-padding-h ins-text-center",}]
      return ins._ui._render(uiadta)
     def _id(ins, options, data):
      uiadta = [{"_data": "#"+ str(data["id"]), "data-tid":data["id"], "class" : "  ins-flex-space-between ins-col-9 ins-flex ins-padding-l ins-padding-h ins-text-center -order-btn",}]
@@ -51,13 +52,16 @@ class AppOrder(App):
 
     def _change_status_ui(self):   
       rq = self.ins._server._post()
+      current_status = self.ins._db._get_row("gla_order", "order_status", f"id='{rq['tid']}'")["order_status"]
       
       uidata = [
-        {"_data":"<span class='lni lni-xmark'></span>","class":"ins-text-right ins-view-close  ins-title-20"},
-        {"start":"true","class":"ins-col-12 ins-padding-m ins-flex"},
-        {"_data":"Change status","class":"ins-col-9" },
+         {"start":"true","class":"ins-col-12 ins-flex "},
+        {"_data":"Change Order Status","class":"ins-col-11 ins-strong-m ins-title-s "},{"class":"ins-col-1 ins-text-right lni lni-xmark _a_red ins-view-close  ins-font-xl"},
+        {"start":"true","class":"ins-col-12 ins-padding-m ins-flex-center"},
+        {"_type":"select","_value":"pending","value":current_status,"placeholder":"Order Status","fl_data":{"pending":"Pending","confirmed":"Confirmed","canceled":"Canceled"},"pclass":"ins-col-12","name":"status"},
         {"class":"ins-button ins-primary -save-status","_data":"Update Status","data-tid":rq["tid"]},
-        {"_type":"select","_value":"pending","_data":"pending,confirmed","pclass":"ins-col-12","name":"status"},
+
+        {"end":"true"},
         {"end":"true"}
 
         
@@ -74,56 +78,161 @@ class AppOrder(App):
       return "1"
 
 
+    def get_status_color(self, status):
+        if status == "pending":
+            return "warning"
+        elif status == "confirmed":
+            return "secondary"
+        elif status == "canceled":
+            return "danger"
+        elif status == "delivered":
+            return "success"
+        return "default"
+
+    def get_payment_status_color(self, status):
+        if status == "success":
+            return "success"
+        elif status == "failed":
+            return "danger"
+        elif status == "pending":
+            return "warning"
+        return "default"
+
 
     def _order_ui(self):   
       rq = self.ins._server._post()
+      sedata = self.ins._db._jget( "gla_order_item", "*", f"fk_order_id='{rq['tid']}'")
+      sedata._jwith("gla_product product", "th_main",rfk="fk_product_id", join="left join")
+      sedata = sedata._jrun()
+      data = self.ins._db._get_row("gla_order", "*", f"id='{rq['tid']}'")
+      address = ""
+      if data["delivery_type"] == "delivery":
+          user_address = self.ins._db._get_row(
+              "gla_user_address", "*", f"id='{data['fk_address_id']}'", update_lang=True)
+          address = f"{user_address['address']}, {user_address['city']}, {user_address['state']}"
+      else:
+          store_address = self.ins._db._get_row(
+              "gla_address", "address,kit_lang", f"id='{data['fk_address_id']}'", update_lang=True)
+          address = f"{store_address['address']}"
 
-      odata = self.ins._db._get_row("gla_order", "*", f"id='{rq['tid']}'")
-      status_style = "background: #41b983; color: white;" 
-      
-      if odata["payment_status"] == "pending":
-        status_style = "ins-warning"
-      elif odata["payment_status"] == "confirmed":
-        status_style = "ins-primary"
-      elif odata["payment_status"] == "failed":
-        status_style = "ins-danger"
-      elif odata["payment_status"] == "success":
-        status_style = "ins-success"
-      
-      
-      ostatus_style = "ins-warning"
-      if odata["order_status"] == "confirmed":
-        ostatus_style = "ins-primary"
-      elif odata["order_status"] == "delivered":
-        ostatus_style = "ins-success"
+      payments = self.ins._db._get_row(
+          "gla_payment_methods", "title,kit_lang", f"id='{data['payment_method']}'", update_lang=True)
+      uidata = []
+      tcount = 0
+      if (data["order_status"] == "pending"):
+          status = "Pending"
+          status_ar = "قيد الانتظار "
+      elif (data["order_status"] == "confirmed"):
+          status = "Confirmed"
+          status_ar = "مقبول"
+
+      elif (data["order_status"] == "canceled"):
+          status = "Canceled"
+          status_ar = "ملغي"
+
+      elif (data["order_status"] == "delivered"):
+          status = "Delivered"
+          status_ar = "تم التوصيل"
+
+      if data['payment_status'] == "success":
+          pstatus = "Success"
+          pstatus_ar = "عملية ناجحة"
+      elif data['payment_status'] == "failed":
+          pstatus = "Failed"
+          pstatus_ar = "عملية فاشلة"
+      elif data['payment_status'] == "pending":
+          pstatus = "Pending"
+          pstatus_ar = "قيد الانتظار "
+
+      uidata = [
+         {"start":"true","class":"ins-col-12 ins-flex "}, 
+          {"_data": f"Order ID({rq['tid']} /2025)", "_data-ar": "تفاصيل الطلب",
+              "_trans": "true", "class": "ins-col-11 ins-strong-m ins-title-s"},
+              {"class":"ins-col-1 _a_red lni lni-xmark ins-view-close ins-font-xl"},
+          {"start": "true", "class": "ins-col-12 ins-flex ins-card"},
+
+          {"start": "true", "class": "ins-col-6 ins-flex "},
+
+
+          {"_data": "user address", "_data-ar": "عنوان المستخدم",
+              "_trans": "true", "class": "ins-col-12 ins-grey-d-color "},
+          {"_data": address, "class": "ins-col-12 ins-strong-l ins-grey-d-color"},
+          {"_data": "order status", "_data-ar": "حالة الطلب",
+              "_trans": "true", "class": "ins-col-12 ins-grey-d-color"},
+          {"_data": status, "_data-ar": status_ar, "_trans": "true",
+              "class": f"ins-col-12 ins-{self.get_status_color(data["order_status"])}-color ins-title-xs ins-strong-l"},
+          {"end": "true"},
+
+          {"start": "true", "class": "ins-col-3 ins-flex "},
+
+
+          {"_data": "payment status", "_data-ar": "حالة الدفع",
+              "_trans": "true", "class": "ins-col-12 ins-grey-d-color"},
+          {"_data": pstatus, "_data-ar": pstatus_ar, "_trans": "true",
+              "class": f"ins-col-12 ins-{self.get_payment_status_color(data['payment_status'])}-color ins-title-xs ins-strong-l"},
+          {"_data": "payment method", "_data-ar": "طريقة الدفع",
+              "_trans": "true", "class": "ins-col-12 ins-grey-d-color"},
+          {"_data": payments["title"],
+              "class": "ins-col-12 ins-grey-d-color ins-title-xs ins-strong-l"},
+          {"end": "true"},
+
+          {"start": "true", "class": "ins-col-3 ins-flex "},
+                      
+          {"data-oid":data["id"],"class":"-order-id-area"}]
+          
+          
+          
+      if data["payment_method"] == "8":
+           uidata.append(
+              {"_data":"payment receipt","_data-ar":"إيصال الدفع","class":"ins-col-12 ins-grey-d-color"})
+           uidata.append(
+              {
+             '_view': 'image',
+             "_data":data["document"],
+             "class":"ins-col-12"})
 
 
 
-
-        status_style = "background:#41b983; color: white;"
-      uidata = [{"sart": "true", "class": "ins-col-12 ins-flex"},
-                {"_data":f"Order #{str(odata["id"])}","class":"ins-col-12 ins-title-l ins-strong "},
-                {"_data":f"Order Date: {str(odata['kit_created'])}","class":"ins-col-12 ins-title-s"},
-                {"_data":f"Order Status: {str(odata['order_status'])}","class":"ins-col-12 ins-title-s"},
-                {"_data": f"Order Status: {odata["order_status"]}",  "style" :ostatus_style ,"class" : " ins-col-8 ins-text-center ins-title-s ins-strong  ins-tag"},
-                {"_data": f"Payment Status: {odata["payment_status"]}",  "style" :status_style ,"class" : " ins-col-8 ins-text-center ins-title-s ins-strong  ins-tag"}
-                ]
+               
+      uidata+=[ {"end": "true"},
 
 
+          {"end": "true"},
+          {"_data": "Products", "_data-ar": "المنتجات", "_trans": "true",
+              "class": "ins-col-12 ins-strong-m ins-title-s"},
 
-      order_items = self.ins._db._get_data("gla_order_item", "*", f"fk_order_id='{rq['tid']}'")
+      ]
+      for v in sedata:
+          tcount += v["quantity"]
+          uidata += ELUI(self.ins).counter_user_order_block(v)
+      footer = [
+          {"start": "true", "class": "ins-col-12 ins-flex--space-between -item-card ins-card "},
+          {"class": "ins-radius-m", "style": "width: 97px;"},
+          {"start": "true", "class": "ins-col-grow ins-flex"},
+          {"_data": "count", "_data-ar": "العدد", "_trans": "true",
+              "class": "ins-col-4 ins-title-xs ins-text-center ins-grey-color"},
+          {"class": "ins-col-4"},
 
-      
-      uidata = [{"start": "true", "class": "ins-col-12 ins-flex"}]
+          {"_data": "total", "_data-ar": "الإجمالي", "_trans": "true",
+              "class": "ins-col-4 ins-title-xs ins-text-center ins-grey-color"},
 
-      for item in order_items:
-        uidata.append({"_data": f"{str(item['price'])} ", "class": "ins-title-l ins-col-11"})
-        uidata.append({"start": "true", "class": "ins-col-12 ins-flex"})
-        uidata.append({"class": "ins-space-m"})
+          {"_data": str(
+              tcount), "class": "ins-col-4 ins-grey-d-color ins-text-center ins-title-xs"},
+          {"class": "ins-col-4"},
 
-      uidata.append({"end": "true"})
-
+          {"_data": str(data["total"]), "_view": "currency", "_currency_symbol": " EGP",
+           "_currency_symbol_ar": " جنيه", "class": "ins-col-4 ins-grey-d-color ins-text-center ins-title-xs"},
+          {"end": "true"},
+          {"end": "true"},
+          {"end": "true"}
+          
+      ]
+      uidata += footer
       return self.ins._ui._render(uidata)
+  
+
+
+
         
     def out(self):
         self.app._include("script.js")

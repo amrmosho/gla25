@@ -16,8 +16,34 @@ class AppPartners(App):
                         "class": " ins-title-12	ins-grey-color ins-strong-m"})
         path.append({"end": "true"})
         uidata += path
-        uidata.append({"_data": "Our Partners","_data-ar":"شركاؤنا","_trans":"true",
-                      "class": "ins-col-7 ins-title ins-strong-m ins-text-upper ins-grey-d-color"})
+        uidata.append({"_data": "Our Partners","_data-ar":"شركاؤنا","_trans":"true","class": "ins-col-grow ins-title ins-strong-m ins-text-upper ins-grey-d-color"})
+        uidata.append({"start":"true","class":"ins-col-grow ins-flex-end"})
+
+        city_area = [
+                {"start":"true","class":" ins-flex-end"},
+                {"_data":"Area",  "_data-ar":"المنطقة","_trans":"true","class":"ins-strong-m ins-grey-d-color ins-title-14"},
+                {"_type":"select","name":"city","fl_data":{
+                    "all":"All",
+                    "cairo":"Cairo",
+                    "october":"    - 6 October",
+                    "maadi":"    - Maadi",
+                    "alexandria":"Alexandria"
+                },"fl_data-ar":{
+                     "all":"الكل",
+                    "cairo":"القاهرة",
+                    "october":" - 6 أكتوبر",
+                    "maadi":" - المعادي",
+                    "alexandria":"الأسكندرية"
+                },"_trans":"true","pclass":"ins-col-grow","class":"-area-select"},
+                {"end":"true"}
+            ]
+
+
+        uidata+=city_area  
+
+
+
+        uidata.append({"end": "true"})
         uidata.append({"end": "true"})
         return uidata
     
@@ -36,7 +62,7 @@ class AppPartners(App):
         for d in data:
             blog = [
 
-                {"start": "true", "class": "ins-flex   pro-partner-block ins-card"},
+                {"start": "true", "class": f"ins-flex _{d.get("city")} _{d.get("state")}  pro-partner-block ins-card"},
                 {"src": p + d["image"],"loading":"lazy", "_type": "img","class":"ins-radius-l"},
                 {"_data": d["title"], "class": "ins-col-12 ins-title-m   ins-grey-color ins-strong-m"},
                 {"_data": d["content"], "class": "ins-col-12 ins-title-s   ins-grey-color"},
@@ -49,5 +75,6 @@ class AppPartners(App):
         uidata.append({"end": "true"})
         return self.ins._ui._render(uidata)
     def out(self):
+           self.app._include("script.js")
            self.app._include("style.css")
            return self._ui()

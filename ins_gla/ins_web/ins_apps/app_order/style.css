@@ -1,3 +1,10 @@
-.ins-close {
+.ins-close,
+._actions,
+.ins-no-print {
     display: none;
+}
+
+.lni,
+.-order-btn {
+    cursor: pointer;
 }
