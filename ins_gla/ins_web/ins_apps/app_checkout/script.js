@@ -70,6 +70,8 @@ function price_check(o) {
         if (data == "1") {
             window.location = ops["url"]
 
+        } else if (data == "2") {
+            window.location = "/login"
         } else {
             ins()._ui._addLightbox({
                 "mode": "",

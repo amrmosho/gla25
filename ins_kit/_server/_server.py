@@ -152,8 +152,6 @@ class Server(ins_parent):
         if "mode" in _set and "mode" not in remove:
             url += f"{_set['mode']}/"
 
-        """if "filter" in _set and "filter" not in remove:
-            url += f"{_set['filter']}/"""
 
         if "page" in _set and "page" not in remove:
             url += f"{_set['page']}/"

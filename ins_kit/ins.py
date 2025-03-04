@@ -21,6 +21,10 @@ from ins_kit._users.users import Users
 from ins_kit._connect._email import Email
 from ins_kit._connect._sms import SMS
 
+from ins_kit._connect._sms import SMS
+
+
+
 class InsKit():
     def __init__(self) -> None:
         self._map = Map(self)
@@ -46,6 +50,9 @@ class InsKit():
         
         self._email = Email (self)
         self._sms = SMS (self)
+
+        self._sms = SMS (self)
+
 
     def test(self):
         return f"this is {__name__}"

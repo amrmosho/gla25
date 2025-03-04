@@ -95,6 +95,12 @@ class AppCheckout(App):
            ]
            
            return self.ins._ui._render(uidata)
+        
+        r=  self.user._check()
+        if not r:
+         self.ins._server._set_session("redirect", "/checkout/delivery")
+         return "2"
+
         return "1"
                 
 
@@ -754,15 +760,6 @@ class AppCheckout(App):
         uidata.append({"start":"true","class":"ins-col-12 ins-flex-valign-start ins-gap-o gla-container","style":"position: relative;"})
         if "mode" in rq:
             if  rq["mode"] == "delivery":
-              r=  self.user._check()
-              if not r:
-               self.ins._server._set_session("redirect", "/checkout/delivery")
-               return """
-               <script>
-                   window.location.href = "/login/";
-               </script>
-               """
-              else:
                uidata+= AppDelivery(self.app).out()
             elif rq["mode"] == "cart":
               uidata+= AppCart(self.app).out()
