@@ -29,9 +29,9 @@ class Gusers(ins_parent):
               self.ins._db._insert("gla_login_temp",data)
             
             if method == "1":
-                response = self.ins._sms.send_sms(f"Hello from Elgalla Gold! This is OTP code {otp}", [mobile])
+                response = self.ins._sms.send_sms("otp_sms_id",otp, [mobile])
             else:
-                response = self.ins._sms.send_sms2(f"Hello from Elgalla Gold! This is OTP code {otp}", [mobile])
+                response = self.ins._sms.send_sms2("otp_sms_id",otp, [mobile])
 
             return "1"
         else:
@@ -87,17 +87,23 @@ class Gusers(ins_parent):
         
         self.ins._db._insert("kit_user", new_user_data)
         return "1"
-    
-    
     def _login(self, rq):
         rq["password"] = self.ins._data.hash_password(rq["password"])
         login_field = "email" if "@" in rq["email_mobile"] else "mobile"
-        sql = f"{login_field} ='{rq['email_mobile']}' AND password ='{rq['password']}'"
+        if login_field == "email":
+            sql = f"{login_field} ='{rq['email_mobile']}' AND password ='{rq['password']}' AND email_status='verified'"
+        else:
+            sql = f"{login_field} ='{rq['email_mobile']}' AND password ='{rq['password']}'"
         data = self.ins._db._get_row("kit_user", "*", sql)
 
         if data:
-            self.ins._server._set_session(self.n, data)
-            return self._check()
+            group_data = self.ins._db._get_row("kit_user_group", "*", f"id = '{data["groups"]}' and tar_area = 'home'")
+            
+            if group_data:
+                self.ins._server._set_session(self.n, data)
+                return self._check()
+            else:
+               return False
         else:
             return False
 
