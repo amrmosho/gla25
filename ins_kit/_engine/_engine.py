@@ -90,7 +90,7 @@ class Engine(ins_parent):
         """*---------- load widgets  data*"""
         view_in = self.ins._db._where_from_group(menus["alias"], "view_in")
         self.__widgets = self.ins._db._get_data("wdgts_table", where=f"tar_area='{
-                                                self.ins._this._area["name"]}' and  ((view_all = 1) or {view_in} )  order by `kit_order`  ")
+                                                self.ins._this._area.get("name","home")}' and  ((view_all = 1) or {view_in} )  order by `kit_order`  ")
         self.ins._db._close()
         if menus:
             self.ins._this._menu = menus

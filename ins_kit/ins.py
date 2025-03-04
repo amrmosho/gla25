@@ -18,6 +18,8 @@ from ins_kit._server ._server import Server
 from ins_kit._apps._apps import Apps
 
 from ins_kit._users.users import Users
+from ins_kit._connect._email import Email
+from ins_kit._connect._sms import SMS
 
 class InsKit():
     def __init__(self) -> None:
@@ -40,6 +42,10 @@ class InsKit():
         self._users = Users (self)
         self._console = Console (self)
         self._ai = AI (self)
+        
+        
+        self._email = Email (self)
+        self._sms = SMS (self)
 
     def test(self):
         return f"this is {__name__}"

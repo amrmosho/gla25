@@ -25,34 +25,16 @@ class AI(ins_parent):
 
     @property
     def db_info(self):
-        schema_info = {
-
-            "kit_user": [
-                "id",
-                "title",
-                "email",
-                "user_name"
-            ],
-
-
-            "gla_order": [
-                "id",
-                "fk_user_id",
-                "total",
-                "order_status",
-                "kit_created"
-            ],
-            "gla_order_item": [
-                "id",
-                "fk_order_id",
-                "price",
-                "quantity",
-                "fk_product_id"
-            ]
-        }
+        
+        
+        tables= ["kit_user" ,"gla_order" ,"gla_order_item"]
         
         
         
+        schema_info = {}
+        for t in tables :
+            tdata= self.ins._db._get_table_fields( t)
+            schema_info[t] =tdata
         return schema_info
 
     def generate_sql(self, user_message, schema_info=None):
@@ -98,12 +80,12 @@ class AI(ins_parent):
 
         sql_query = re.search(r"```sql\n(.*?)\n```", content, re.DOTALL)
         
-      
-        
-        
         if sql_query:
            #  sql_query.group(1).strip()
             return  self.ins._db._get_query(sql_query.group(1).strip())
+
+
+
 
     @property
     def key(self):

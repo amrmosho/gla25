@@ -11,14 +11,25 @@ ins(".-order-btn")._on("click", function(o) {
 }, true)
 
 ins(".-change-status")._on("click", function(o) {
-    ins("_change_status_ui")._ajax._app(o._getData(), (data) => {
-        ins()._ui._addLightbox({
-            "mode": "right_panel",
-            data: data,
-            data_style: "position: relative;top: 0;",
-            style: "width:650px;"
-        });
-    })
+
+
+
+    ins("_change_status_ui")._ajax._app(
+        o._getData(), (data) => {
+            ins()._ui._addLightbox({
+                "mode": "right_panel",
+                data: data,
+                data_style: "position: relative;top: 0;",
+                style: "width:650px;"
+            });
+        }, {}
+
+
+
+    )
+
+
+
 
 }, true)
 ins(".ins-view-close")._on("click", function(o) {
