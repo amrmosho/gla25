@@ -1,0 +1,92 @@
+{
+    "list_data": [
+
+        {
+            "name": "title",
+            "title": "my title",
+            "title-ar": "العنوان",
+            "_trans": "true",
+            "class": "ins-col-grow"
+        }
+    ],
+    "form_data": [{
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card"
+        },
+        {
+            "name": "title",
+            "title": "title",
+            "title-ar": "العنوان",
+            "_trans": "true",
+            "_type": "input",
+            "type": "text",
+            "required": "true",
+            "pclass": "ins-col-12"
+        },
+        {
+            "name": "email",
+            "title": "email",
+            "title-ar": "البريد الالكتروني",
+            "_trans": "true",
+            "_type": "input",
+            "type": "text",
+            "required": "true",
+            "pclass": "ins-col-6"
+        },
+        {
+            "name": "password",
+            "title": "password",
+            "title-ar": "كلمة المرور",
+            "_trans": "true",
+            "_type": "input",
+            "type": "password",
+            "pclass": "ins-col-6"
+        },
+        {
+            "end": "True"
+        },
+        {
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card"
+        },
+        {
+            "name": "image",
+            "title": "image",
+            "title-ar": "الصورة",
+            "_trans": "true",
+            "_type": "input",
+            "_dir": "users",
+            "_exts": "image/png",
+            "type": "upload",
+            "required": "true",
+            "pclass": "ins-col-6"
+        },
+        {
+            "name": "groups",
+            "title": "groups",
+            "title-ar": "المجموعات",
+
+            "_type": "select",
+            "multiple": "true",
+            "fl_type": "db",
+            "fl_table": "kit_user_group",
+            "required": "true",
+            "pclass": "ins-col-6"
+        },
+        {
+            "end": "True"
+        }
+    ],
+    "table": "kit_user",
+    "list_filter": [{
+        "name": "title",
+        "title": "title",
+        "title-ar": "العنوان",
+        "_trans": "true",
+        "_type": "input",
+        "_info": " search in <b>Title</b> by <b>@(value)</b> ",
+        "type": "text",
+        "main": "true",
+        "pclass": "ins-col-12"
+    }]
+}
