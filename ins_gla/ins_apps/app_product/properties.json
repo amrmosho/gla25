@@ -30,7 +30,7 @@
         },
         {
             "name": "kart",
-            "title": "caliber",
+            "title": "Karat",
             "title-ar": "عيار",
             "_type": "input",
             "type": "text",
@@ -88,29 +88,43 @@
             "_trans": "true",
             "_type": "input",
             "_dir": "images",
-
-
-
             "_exts": "image/png",
             "type": "upload",
             "required": "true",
             "pclass": "ins-col-6"
         },
         {
-            "name": "images",
-            "title": "images",
-            "title-ar": "الصور",
-            "_trans": "true",
-            "_type": "input",
-            "_dir": "images",
-            "_exts": "image/png",
-            "type": "upload",
-            "required": "true",
-            "pclass": "ins-col-12"
+            "end": "True"
         },
+        {
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card ins-padding-m"
+        },
+        { "_data": "Product details", "_data-ar": "تفاصيل المنتج", "class": "ins-col-12 ins-title-m" },
+        {
+            "start": "True",
+            "class": "ins-col-12 ins-padding-l ins-flex-center ins-card ins-padding-l"
+        },
+
+        {
+            "class": "-subtypes-area ins-col-12 "
+        },
+        { "class": "ins-col-3 -add-new-item ins-button ins-primary", "_data": "Add new item" },
+
         {
             "end": "True"
         },
+
+        {
+            "_type": "textarea",
+            "pclass": "ins-col-12 ins-hidden",
+            "name": "types_data",
+            "class": "-subtypes-textarea",
+            "title": "Data"
+        }, {
+            "end": "True"
+        },
+
         {
             "start": "True",
             "class": "ins-col-12 ins-flex ins-card ins-padding-m"

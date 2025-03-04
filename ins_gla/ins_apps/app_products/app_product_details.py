@@ -64,13 +64,13 @@ class AppProductDetails(App):
         if not stys:
          if data["fk_product_category_id"] == 2:
              stys = "george"
-         elif data["fk_product_category_id"] == 1:
+         else:
              stys = "standard"
 
         if not tys:
          if data["fk_product_category_id"] == 2:
              tys = "royal"
-         elif data["fk_product_category_id"] == 1:
+         else:
              tys = "standard"
 
 
@@ -96,12 +96,13 @@ class AppProductDetails(App):
 
     ## Images Container
         image = {data["th_main"],data["th_overlay"]}
-        if data["images"] != None:
-            image = json.loads(data["images"])
-            if stys in image :
-                image = image[stys]
-            else:
-               image = image["george"]
+        if data["types_data"] != None:
+            types_data = json.loads(data["types_data"])
+            if tys in types_data:
+                if stys in types_data[tys]["data"]:
+                    rimages = types_data[tys]["data"][stys]["images"]
+                    image = rimages.split(",")
+          
 
         uidata.append({"start": "true", "class": "ins-flex-valign-start ins-col-6  -side-mimg-cont "})
         uidata.append({"start": "true", "class": "ins-flex-center ins-col-2 "})
@@ -166,7 +167,7 @@ class AppProductDetails(App):
 
         ## Buy Card
         uidata.append({"start": "true", "class": "ins-flex ins-col-12 ins-card ins-primary-bg  -open-panel","style":"border-radius: 0 0 8px 8px !important;position: relative;top: -8px;height: 65px;overflow: hidden;    border-top: 1px solid var(--primary-l)"})
-        uidata.append({"_data": "We buy at","_data-ar":"نحن نشتري في","_trans":"true", "class": "ins-col-11  ins-grey-d-color ins-title-20	 ins-strong-l"})
+        uidata.append({"_data": "We buy at","_data-ar":"سعر الشراء","_trans":"true", "class": "ins-col-11  ins-grey-d-color ins-title-20	 ins-strong-l"})
         uidata.append({"_data":"<span class=' lni lni-chevron-up'></span>","class": "ins-col-1  ins-grey-color ins-font-xl ins-strong-l -buy-div"})
         uidata.append({"start": "true", "class": "ins-flex ins-col-12"})
         uidata.append({"_data": "Gold Amount","_data-ar":"كمية الذهب","_trans":"true", "class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
@@ -193,8 +194,8 @@ class AppProductDetails(App):
                 tdata = self.ins._db._get_row("gla_product_types","title,kit_lang",f"alias='{t_key}'",update_lang=True)
 
                 if tys == t_key:
-                        active = "ins-active"
-                        subtypes = t_value["data"]
+                    active = "ins-active"
+                    subtypes = t_value["data"]
 
 
 
@@ -235,8 +236,8 @@ class AppProductDetails(App):
         uidata.append({"end": "true"})
         ## Terms area
         uidata.append({"_data": "<img src='"+p+"style/truck.svg ' style='position: relative;top: 4px;'></img> Free shipping for orders above EGP200k","_data-ar":"شحن مجاني للطلبات التي تزيد عن 200 ألف جنيه مصري","_trans":"true", "class": "ins-col-12 ins-grey-color ins-title-14"})
-        uidata.append({"_data": "<img src='"+p+"style/gift.svg' style='position: relative;top: 4px;'></img> Include gift wrapping?", "_data-ar":"تشمل تغليف الهدايا؟","_trans":"true","class": "ins-col-11 ins-grey-color ins-title-14"})
-        uidata.append({"_type": "input",  "type": "checkbox","value":"0", "class": "ins-form-bool-f"})
+        uidata.append({"_data": "<img src='"+p+"style/gift.svg' style='position: relative;top: 4px;'></img> Include gift Card?", "_data-ar":"تشمل كارت هدايا؟","_trans":"true","class": "ins-col-11 ins-grey-color ins-title-14"})
+        uidata.append({"_type": "input",  "type": "checkbox","value":"0", "class": "ins-form-bool-f -gift-checkbox"})
         uidata.append({"class": "ins-space-s"})
 
         ## Product Description

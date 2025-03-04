@@ -2,14 +2,6 @@
     height: auto !important;
 }
 
-.-open-panel>div>span.lni {
-    rotate: 90deg;
-}
-
-.-open-panel.ins-active>div>span.lni {
-    rotate: 0deg;
-}
-
 .count-inpt {
     border-radius: 0px !important;
     text-align: center;
@@ -152,21 +144,6 @@
 
 .-price-to-input:focus {
     border-left: 1px solid var(--primary) !important;
-}
-
-.-price-from-input {
-    border-radius: 4px 0 0 4px !important;
-    background: white;
-}
-
-.-filter-price-btn {
-    color: var(--primary);
-    height: 43px;
-    border-radius: 0 4px 4px 0 !important;
-    background: var(--gold-bg);
-    width: 60px;
-    border: 1px solid var(--primary);
-    font-size: 20px;
 }
 
 .-weight-select,

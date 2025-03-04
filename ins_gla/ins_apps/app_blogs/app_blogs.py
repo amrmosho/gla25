@@ -15,20 +15,6 @@ class AppBlogs(App):
 
 
         uidata = [
-            
-            
-              {'_type': 'input',"nojs":"true", 'type': 'upload', 'title': 'Upload image', 'name': '_unname',"class":"-upload-image",
-               'placeholder': '_add placeholder hear',
-                                       'pclass': 'ins-col-12 ',
-                                       
-                                       
-                                       "value":"usss/42cc0b03c1d9420fa2aa13a8ba2bbc0c__th.png",
-                                       
-                                       
-                                       'required': 'true', '_dir': 'test', '_exts': 'image/png'},
-     
-            
-            
             {"start": "true", "class": "ins-flex ins-col-12 gla-container ins-padding-2xl"}]
         home_url = self.ins._server._url({}, ["mode", "id", "alias"])
 
@@ -42,11 +28,11 @@ class AppBlogs(App):
         if "mode" in rq and rq["mode"] == "blog":
             blogs_url = self.ins._server._url({}, ["mode", "id"])
             title = self.ins._db._get_row(
-                "gla_blog", "title", f"id={rq["id"]}")["title"]
-            path.append({"_data": "Media & News", "_type": "a", "href": blogs_url,
+                "gla_blog", "title,kit_lang", f"id={rq["id"]}",update_lang=True)
+            path.append({"_data": "Media & News","_data-ar":"أحدث الأخبار","_trans":"true", "_type": "a", "href": blogs_url,
                         "class": " ins-title-12	ins-grey-d-color ins-strong-m"})
             path.append(
-                {"_data": " / "+title, "class": " ins-title-12	ins-grey-color ins-strong-m"})
+                {"_data": " / "+title["title"], "class": " ins-title-12	ins-grey-color ins-strong-m"})
 
         else:
             path.append({"_data": "Media & News","_data-ar":"أحدث الأخبار","_trans":"true",
@@ -85,7 +71,6 @@ class AppBlogs(App):
                 {"start": "true", "class": "ins-flex   pro-blog-block ", "style": st},
                 { "_type": "a","src": p + d["image"],"loading":"lazy", "_type": "img","href": turl, "target": "_blank",},
                 {"_data": d["title"], "_type": "a", "href": burl,"class": "ins-col-12 ins-title-m   ins-grey-color"},
-                {"_data": "See More", "_type": "a", "href": turl,"target": "_blank",},
 
                 {"end": "true"}
 
@@ -98,7 +83,7 @@ class AppBlogs(App):
         return self.ins._ui._render(uidata)
 
     def blog_ui(self, rq):
-        bdata = self.ins._db._get_row("gla_blog", "*", f"id={rq["id"]} ")
+        bdata = self.ins._db._get_row("gla_blog", "*", f"id={rq["id"]} ",update_lang=True)
         p = "/ins_web/ins_uploads/"
 
         uidata = [{"start": "true", "class": "ins-flex ",
@@ -120,10 +105,15 @@ class AppBlogs(App):
             {"_data": bdata["title"], "class": "ins-col-12 ins-grey-d-color ins-title-l",
                 "style": "    line-height: 45px;"},
             {"_data": bdata["content"], "class": "ins-col-12 "},
-            {"end": "true"}
-        ]
-        uidata += content
 
+        ]
+
+        uidata += content
+        if "link" in bdata and bdata["link"]:
+            uidata.append(
+                            {"_data": "Read More","_data-ar": "معرفة المزيد","_trans": "true", "_type": "a", "target":"_blank","href": bdata["link"], "class": "ins-col-12 ins-flex-end ins-gold-d-color ins-title-s"},
+)
+        uidata.append({"end": "true"})
         return self.ins._ui._render(uidata)
 
     def out(self):

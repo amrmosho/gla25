@@ -297,3 +297,60 @@ ins(".-update-email-btn")._on("click", (o) => {
         });
     }
 }, true);
+
+
+function actions(ds) {
+    if (ds["p"] != "") {
+        var imgs = "<div data-p='" + ds[0].path + "' class='-img-cont ins-flex-center'><div class='lni lni-xmark  ins-rounded ins-danger    ins-button-text -img-remove'></div>" +
+            "<a target='_blank'  href='" + ds[0].fullpath + "' class='lni lni-link-2-angular-right ins-rounded ins-dark   ins-button-text -img-link'></a>  <img src='" + ds[0].fullpath + "' /></div>";
+        ins(ds["p"])._find(".ins-form-upload-imgs")._setHTML(imgs)
+    }
+}
+
+function reval(p) {
+    var sp = "";
+    var paths = "";
+    ins("." + p + " .-img-remove ")._each((i) => {
+        paths += sp + i._getData("p");
+        sp = ",";
+    })
+    ins("." + p)._find("input")._setValue(paths)
+}
+
+
+ins(".ins-form-upload-cont .-img-remove ")._on("click", (o) => {
+    var p = o._parents(".ins-form-upload-imgs-cont")._getData("id");
+    o._parent()._remove()
+    reval(p)
+    data = {}
+    data.oid = ins(".-order-id-area")._getData("oid")
+
+    ins("_remove_image")._ajax._app(data, (d) => {
+        ins("Receipt removed successfully")._ui._notification()
+    })
+}, true);
+
+
+
+var ondone = function(ds) {
+    actions(ds)
+    data = {}
+    data.oid = ins(".-order-id-area")._getData("oid")
+    data.path = ds[0].path
+    ins("_upload_image")._ajax._app(data, (d) => {
+        ins("Receipt uploaded successfully")._ui._notification()
+    })
+};
+
+var options = {
+    o: ins(".-upload-image"),
+    onend: ondone,
+    dir: "receipts"
+}
+ins(".-upload-image")._on("click", (o) => {
+    options._p = "." + o._getData("p");
+    ins("ins_plg_py_upload")._plgin(options,
+        function(plg) {}
+    );
+
+}, true)

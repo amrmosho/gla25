@@ -81,7 +81,13 @@ ins(".-go-to-page-btn")._on("click", (o) => {
     }
 }, true);
 
-
+ins(".-gift-checkbox")._on("click", (o) => {
+    if (o._checked()) {
+        ins(".-add-cart-btn")._setAttribute("data-gift", "1")
+    } else {
+        ins(".-add-cart-btn")._setAttribute("data-gift", "0")
+    }
+}, true)
 
 function get_page(page) {
     ins(".ins-pagination-btn")._removeClass("active");
@@ -361,7 +367,7 @@ function _submitfilter() {
     });
     var types = "";
     if (t != "") {
-        types = "types=" + t;
+        types = "types_data=" + t;
     }
 
     var weight = "";
@@ -405,6 +411,8 @@ function _submitfilter() {
     } else {
         stype = "reset"
     }
+
+    console.log(sql)
 
 
     ins("_filter_redirect")._ajax._app({ "sql": sql, "type": stype, order: order }, function(data) {

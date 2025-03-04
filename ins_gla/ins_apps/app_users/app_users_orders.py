@@ -12,6 +12,9 @@ class AppUsersOrders(App):
     def u(self, mode):
         return self.ins._server._url({"mode": mode},)
 
+
+
+
     def order(self):
         g = self.ins._server._get()
         sedata = self.ins._db._jget(
@@ -91,7 +94,31 @@ class AppUsersOrders(App):
             {"end": "true"},
 
             {"start": "true", "class": "ins-col-4 ins-flex "},
-                 {"end": "true"},
+                        
+            {"data-oid":data["id"],"class":"-order-id-area"}]
+            
+            
+            
+        if data["payment_method"] == "8":
+            if data["document"]:
+             uidata.append( {
+               '_type': 'input',"nojs":"true", 'type': 'upload', 'title': 'Payment Receipt','title-ar': ' ايصال الدفع', "_trans":"true",'name': '_unname',"class":"-upload-image",
+               'placeholder': '_add placeholder hear',
+               'pclass': 'ins-col-12 ',
+               "value":data["document"],
+               'required': 'true'})
+            else:
+             uidata.append( {
+               '_type': 'input',"nojs":"true", 'type': 'upload', 'title': 'Payment Receipt','title-ar': ' ايصال الدفع', "_trans":"true",'name': '_unname',"class":"-upload-image",
+               'placeholder': '_add placeholder hear',
+               'pclass': 'ins-col-12 ',
+               'required': 'true'})
+
+
+
+
+                 
+        uidata+=[ {"end": "true"},
 
 
             {"end": "true"},
@@ -102,11 +129,31 @@ class AppUsersOrders(App):
         for v in sedata:
             tcount += v["quantity"]
             uidata += ELUI(self.ins).counter_user_order_block(v)
+
+        if data.get("shipping"):
+            shipping = [
+            {"start": "true", "class": "ins-col-12 ins-flex--space-between -item-card ins-card"},
+            {"class": "ins-radius-m", "style": "width: 97px;"},
+            {"start": "true", "class": "ins-col-grow ins-flex"},
+            {"_data": "Shipping Fees", "_data-ar": "الكمية", "_trans": "true",
+                "class": "ins-col-4 ins-title-xs ins-text-center ins-grey-color"},
+            {"class": "ins-col-4"},
+
+
+            {"_data": str(data["shipping"]), "_view": "currency", "_currency_symbol": " EGP",
+             "_currency_symbol_ar": " جنيه", "class": "ins-col-4 ins-grey-d-color ins-text-center ins-title-xs"},
+            {"end": "true"},
+            {"end": "true"}
+        ]
+            uidata += shipping
+
+                 
+
         footer = [
             {"start": "true", "class": "ins-col-12 ins-flex--space-between -item-card ins-card"},
             {"class": "ins-radius-m", "style": "width: 97px;"},
             {"start": "true", "class": "ins-col-grow ins-flex"},
-            {"_data": "count", "_data-ar": "العدد", "_trans": "true",
+            {"_data": "count", "_data-ar": "الكمية", "_trans": "true",
                 "class": "ins-col-4 ins-title-xs ins-text-center ins-grey-color"},
             {"class": "ins-col-4"},
 

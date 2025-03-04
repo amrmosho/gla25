@@ -48,46 +48,49 @@ class Data(ins_parent):
            
          return self.ins._json._decode(data["content"]) 
 
-    def _format_currency(self,number, locale_str='en_US' , symbol =True):
+
+
+
+
+    def _format_currency(self, number, locale_str='en_US', symbol=True):
         """
-        
-        
-        
         Formats a number as currency using the specified locale.
 
         Args:
             number: The number to format.
-            locale_str: The locale string to use (e.g., 'en_US', 'de_DE', 'fr_CA' ,ar_EG). 
+            locale_str: The locale string to use (e.g., 'en_US', 'de_DE', 'fr_CA', 'ar_EG').
                         If empty, it uses the system's default locale.
+            symbol: Whether to include the currency symbol.
 
         Returns:
             A string representing the formatted currency, or None if there's an error.
         """
-
         try:
-            if locale_str:
-                locale.setlocale(locale.LC_ALL, locale_str)  # Set the locale
+            available_locales = locale.locale_alias.keys()
+            if locale_str.replace('-', '_').lower() not in available_locales:
+                print(f"⚠️ Warning: Locale '{locale_str}' not available. Using 'en_US.utf8' instead.")
+                locale_str = 'en_US.utf8'
             else:
-                locale.setlocale(locale.LC_ALL, '') #sets to default locale
-                
+                locale_str += '.utf8' if not locale_str.endswith('.utf8') else ''
+            locale.setlocale(locale.LC_ALL, locale_str)
+
             if symbol:
-                return locale.currency(number, grouping=True)  # Format with grouping
+                return locale.currency(number, grouping=True)
             else:
-                
-                formatted = locale.format_string("%d", number, grouping=True) #for integers
+                formatted = locale.format_string("%d", number, grouping=True)
                 try:
-                    formatted = locale.format_string("%10.2f", number, grouping=True) #for floats
+                    formatted = locale.format_string("%10.2f", number, grouping=True)
                 except ValueError:
-                    pass #if the number is integer, then the previous line will raise ValueError, so we pass it
+                    pass 
                 return formatted
 
         except locale.Error as e:
-            print(f"Locale error: {e}")  # Handle locale errors
+            print(f"❌ Locale error: {e}")
             return None
         except TypeError as e:
-            print(f"Type error: {e}")  # Handle type errors
+            print(f"⚠️ Type error: {e}")
             return None
-        except Exception as e: #catch any other error
-            print(f"An error occurred: {e}")
+        except Exception as e:
+            print(f"⚠️ Unexpected error: {e}")
             return None
 

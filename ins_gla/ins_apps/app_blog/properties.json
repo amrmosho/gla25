@@ -9,23 +9,40 @@
             "title": "Title",
             "title-ar": "العنوان",
             "_trans": "true",
-            "lang":"true",
+            "lang": "true",
             "_type": "input",
             "_lang": "true",
-            "_table":"gla_blog",
+            "_table": "gla_blog",
             "type": "text",
             "required": "true",
-            "pclass": "ins-col-8"
+            "pclass": "ins-col-3"
         },
         {
             "name": "fk_blog_category_id",
             "title": "Blog Category",
             "_type": "select",
-            "type": "text",
             "fl_type": "db",
             "fl_table": "gla_blog_category",
             "required": "true",
-            "pclass": "ins-col-4"
+            "pclass": "ins-col-3"
+        },
+        {
+            "name": "city",
+            "title": "City",
+            "_type": "select",
+            "fl_data": { "-": "-", "cairo": "Cairo", "alexandria": "Alexandria" },
+            "fl_type": "option",
+            "required": "true",
+            "pclass": "ins-col-3"
+        },
+        {
+            "name": "state",
+            "title": "State",
+            "_type": "select",
+            "fl_type": "option",
+            "fl_data": { "-": "-", "october": "6 October", "maadi": "Maadi" },
+            "required": "true",
+            "pclass": "ins-col-3"
         },
         {
             "end": "True"
@@ -73,7 +90,7 @@
             "_type": "textarea",
             "type": "textarea",
             "_lang": "true",
-            "_table":"gla_blog",
+            "_table": "gla_blog",
             "required": "true",
             "pclass": "ins-col-12"
         },

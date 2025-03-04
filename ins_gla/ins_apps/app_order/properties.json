@@ -129,7 +129,7 @@
             "_view": "select",
             "view": "text",
             "fl_table": "kit_user",
-            "class": "ins-col-1 ins-col-grow"
+            "class": "ins-col-grow"
         },
 
         {
@@ -139,7 +139,7 @@
             "_trans": "true",
             "view": "text",
             "_type": "method",
-            "class": "ins-col-2"
+            "class": "ins-col-1"
         },
 
         {
@@ -167,7 +167,7 @@
             "_trans": "true",
             "view": "text",
             "_type": "method",
-            "class": "ins-col-2"
+            "class": "ins-col-3"
         },
         {
             "_data": "ins_gla.ins_apps.app_order._change_status",

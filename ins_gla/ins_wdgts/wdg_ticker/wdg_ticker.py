@@ -1,4 +1,5 @@
 
+import datetime
 from ins_kit._engine._bp import Widget
 
 
@@ -8,45 +9,39 @@ class WdgTicker(Widget):
         super().__init__(widget.ins)
 
     def _ui(self):
-         coin = self.ins._db._get_row("gla_product","price,buy_price,stamp,vat,cashback","id='2'")
-         bar = self.ins._db._get_row("gla_product","price,buy_price,stamp,vat,cashback","id='12'")
-         
-         
-         coin_price = float(coin["price"]) -  float(coin["stamp"]) -  float(coin["vat"])
-         coin_buy = float(coin["buy_price"]) -  float(coin["cashback"]) 
-        
-         coin_price = self.ins._data._format_currency(float(coin_price), symbol=False)
-         coin_buy = self.ins._data._format_currency(float(coin_buy), symbol=False)
+         price = self.ins._db._get_row("gla_price","*","1=1 order by id desc")
+         coin_sell = price["sell"]
+         coin_buy = price["buy"]
 
-         bar_price = float(bar["price"]) -  float(bar["stamp"]) -  float(bar["vat"])
-         bar_buy = float(bar["buy_price"]) -  float(bar["cashback"]) 
+         bar_sell = price["sell_24"]
+         bar_buy = price["buy_24"]
 
-         bar_price = self.ins._data._format_currency(float(bar_price), symbol=False)
-         bar_buy = self.ins._data._format_currency(float(bar_buy), symbol=False)
-
-            
+         date = self.ins._date._format(price["kit_created"], "%I:%M %p, %A, %d %B %Y")  
+         date_text = "Last Updated: " + date
 
 
+         if self.ins._langs._this_get()["name"] == "ar":
+            days_ar = {
+                "Sunday": "الأحد", "Monday": "الإثنين", "Tuesday": "الثلاثاء",
+                "Wednesday": "الأربعاء", "Thursday": "الخميس", "Friday": "الجمعة", "Saturday": "السبت"
+            }
 
+            months_ar = {
+                "January": "يناير", "February": "فبراير", "March": "مارس", "April": "أبريل",
+                "May": "مايو", "June": "يونيو", "July": "يوليو", "August": "أغسطس",
+                "September": "سبتمبر", "October": "أكتوبر", "November": "نوفمبر", "December": "ديسمبر"
+            }
 
-         def calculate_charge(self,data):
-            chargs = 0
-            if data["gram"] == 1:
-                chargs = (float(data["stamp"]) + float(data["vat"]) ) * float(data["weight"])
-            else:
-                chargs = (float(data["weight"])  * float(data["vat"])  ) + float(data["stamp"]) 
-            return chargs
+            date = date.replace("AM", "ص").replace("PM", "م")
+            for en, ar in days_ar.items():
+                date = date.replace(en, ar)
+            for en, ar in months_ar.items():
+                date = date.replace(en, ar)
 
-
-         def calculate_chashback(self,data):
-            chashback = 0
-            if data["cashback_gram"] == 1:
-                chashback = float(data["cashback"]) * float(data["weight"])
-            else:
-                chashback = data["cashback"]
-            return chashback
-
-
+            arabic_digits = str.maketrans("0123456789", "٠١٢٣٤٥٦٧٨٩")
+            date = date.translate(arabic_digits)
+            date_text = "آخر تحديث: " + date
+                
 
         
          uidata = [
@@ -55,17 +50,19 @@ class WdgTicker(Widget):
 
               {"start":"true","class":"ins-flex-center  ins-gap-20 "},
              
-              {"_data":"Updated At: 12:30 PM, Monday, 17 February 2025  ","_data-ar":"اخر تحديث: 12:30 مساءً, الأثنين, 17 فبراير 2025","_trans":"true"},
-              {"_data":f"Buy -    {coin_price} EGP","_data-ar":f"شراء - {coin_price} جم","_trans":"true"},
-                            {"_data":"(21K)","_data-ar":"(21عيار) ","_trans":"true","class":"ins-primary-d","style":"max-height: 24px;line-height: 21px;padding: 2px;"},
+              {"_data":date_text},
+                            {"_data":f"Sell -    {coin_sell} EGP","_data-ar":f"بيع - {coin_sell} جنيه","_trans":"true"},
 
-              {"_data":f"Sell -    {coin_buy} EGP","_data-ar":f"بيع - {coin_buy} جم","_trans":"true"},
+                            {"_data":"(21K)","_data-ar":"(21عيار) ","_trans":"true","class":"ins-primary-d","style":"max-height: 24px;line-height: 21px;padding: 2px;"},
+              {"_data":f"Buy -    {coin_buy} EGP","_data-ar":f"شراء - {coin_buy} جنيه","_trans":"true"},
+
 
 {"_data":"|"},
-                          {"_data":f"Buy -    {bar_price} EGP","_data-ar":f"شراء - {bar_price} جم","_trans":"true"},
+              {"_data":f"Sell -    {bar_sell} EGP","_data-ar":f"بيع - {bar_sell} جنيه","_trans":"true"},
+
                {"_data":"(24K)","_data-ar":"(24عيار) ","_trans":"true","class":"ins-primary-d","style":"max-height: 24px;line-height: 21px;padding: 2px;"},
-             
-              {"_data":f"Sell -    {bar_buy} EGP","_data-ar":f"بيع - {bar_buy} جم","_trans":"true"},
+                                       {"_data":f"Buy -    {bar_buy} EGP","_data-ar":f"شراء - {bar_buy} جنيه","_trans":"true"},
+
 
             
             
