@@ -9,7 +9,7 @@ class AppLogin(App):
 
     def _resend_otp(self):
           rq = self.ins._server._post()
-          self.user._create_otp(rq["mobile"])
+          self.user._create_otp(rq["mobile"],"2")
 
           return "1"
 

@@ -179,7 +179,9 @@ class AppProducts(App):
             uidata.append({"end": "true"})
             uidata.append({"end": "true"})
         else:
-         uidata=[{"_data": "No data to show", "class": "ins-col-12 ins-card ins-text-center"}]
+         uidata=[{"_data": "No matching results found",  
+"_data-ar": "لا توجد نتائج مطابقة"  
+,"_trans": "true", "class": "ins-col-12 ins-card ins-text-center"}]
         if string:
             return uidata
         else:

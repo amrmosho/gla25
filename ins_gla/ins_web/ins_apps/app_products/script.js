@@ -81,7 +81,13 @@ ins(".-go-to-page-btn")._on("click", (o) => {
     }
 }, true);
 
-
+ins(".-gift-checkbox")._on("click", (o) => {
+    if (o._checked()) {
+        ins(".-add-cart-btn")._setAttribute("data-gift", "1")
+    } else {
+        ins(".-add-cart-btn")._setAttribute("data-gift", "0")
+    }
+}, true)
 
 function get_page(page) {
     ins(".ins-pagination-btn")._removeClass("active");

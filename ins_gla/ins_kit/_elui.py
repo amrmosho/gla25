@@ -61,7 +61,8 @@ class ELUI(ins_parent):
             "price": data["price"],
             "des": data.get("des", ""),
             "th_main": data["th_main"],
-            "count": p["count"]
+            "count": p["count"],
+            "gift_card": p.get("gift","0")
         }
 
         sedata[prefix] = adddata
@@ -209,8 +210,7 @@ class ELUI(ins_parent):
         r = [
             {"start": "true", "class": "ins-flex gla-pro-block", "style": st},
             {"start": "true", "class": "gla-img-cont", "style": ""},
-            {"_data": "Bestseller", "class": "ins-tag ins-primary-d ins-strong-m ins-text-upper ins-title-10",
-             "style": "position: absolute; top: 8px; left: 8px; border-radius: 2px !important; z-index:111"},
+            #{"_data": "Bestseller", "class": "ins-tag ins-primary-d ins-strong-m ins-text-upper ins-title-10","style": "position: absolute; top: 8px; left: 8px; border-radius: 2px !important; z-index:111"},
             {"src": p + th_main_image, "loading": "lazy", "_type": "img", "class": "gla-pro-img"},
             {"src": p + th_overlay_image, "loading": "lazy", "_type": "img", "class": "gla-pro-himg"},
             {"_type": "a", "href": purl, "_data": button_title, "class": "ins-button gla-pro-hbutton ins-strong-m ins-gold-bg",
@@ -283,31 +283,31 @@ class ELUI(ins_parent):
             return self.ins._ui._render(uidata)
         return uidata
     
-
     def counter_user_order_block(self,  data, string=False):
+        title = self.ins._db._get_row("gla_product", "title,kit_lang", f"id='{data['fk_product_id']}'",update_lang=True)
+        full_title = title["title"]
+        if data.get("subtype"):
+            subtype_title = self.ins._db._get_row("gla_product_types", "title,kit_lang", f"alias='{data['subtype']}'",update_lang=True)
+            full_title = f"{title['title']} ({subtype_title['title']})"
+
+        if data.get("gift_card"):
+            full_title = f" <i class='lni lni-box-gift-1 ins-font-l'></i> {full_title}"
+
         p = "/ins_web/ins_uploads/"
-        image = f"{p}{data["product_th_main"]}"
+        image = f"{p}{data['product_th_main']}"
         uidata = [
             {"start": "true", "class": "ins-col-12 ins-flex -item-card ins-card"},
             {"src": image,"loading":"lazy", "_type": "img", "class": "ins-radius-m", "style": "    width: 97px;"},
             {"start": "true", "class": "ins-col-grow ins-flex"},
             {"start": "true", "class": "ins-col-12 ins-flex  ins-gap-o"},
-            {"_data": data.get(
-                "title", ""), "class": "ins-col-12 ins-title-20	 ins-strong-l ins-grey-d-color", "style": "    !important;"},
-            {"_data": data.get(
-                "des", ""), "class": "ins-grey-color ins-col-12 ins-title-14", "style": "line-height: 20px; "},
-            {"_data": f' Count  ',
-                "class": " ins-col-4  ins-title-xs  ins-text-center ins-grey-color ins-strong-m"},
-            {"_data": f' Price  ',
-                "class": " ins-col-4  ins-title-xs  ins-text-center ins-grey-color ins-strong-m"},
-            {"_data": f' Total  ',
-             "class": " ins-col-4  ins-title-xs  ins-text-center ins-grey-color ins-strong-m"},
-            {"_data": str(data["quantity"]),
-             "class": " ins-col-4  ins-grey-d-color   ins-text-center ins-title-xs ins-strong-l"},
-            {"_data": str(data["price"]),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",
-             "class": " ins-col-4  ins-grey-d-color  ins-text-center ins-title-xs ins-strong-l"},
-            {"_data": str(data["price"] * data["quantity"]),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",
-             "class": " ins-col-4  ins-grey-d-color  ins-text-center ins-title-xs ins-strong-l"},
+            {"_data": "Product", "_data-ar": "المنتج", "_trans": "true", "class": " ins-col-3  ins-title-xs  ins-text-center ins-grey-color ins-strong-m"},
+            {"_data": "Count", "_data-ar": "الكمية", "_trans": "true", "class": " ins-col-3  ins-title-xs  ins-text-center ins-grey-color ins-strong-m"},
+            {"_data": "Price", "_data-ar": "السعر", "_trans": "true", "class": " ins-col-3  ins-title-xs  ins-text-center ins-grey-color ins-strong-m"},
+            {"_data": "Total", "_data-ar": "الإجمالي", "_trans": "true", "class": " ins-col-3  ins-title-xs  ins-text-center ins-grey-color ins-strong-m"},
+            {"_data": full_title, "class": " ins-col-3  ins-grey-d-color   ins-text-center ins-title-xs ins-strong-l"},
+            {"_data": str(data["quantity"]), "class": " ins-col-3  ins-grey-d-color   ins-text-center ins-title-xs ins-strong-l"},
+            {"_data": str(data["price"]), "_view": "currency", "_currency_symbol": " EGP", "_currency_symbol_ar": " جنيه", "class": " ins-col-3  ins-grey-d-color  ins-text-center ins-title-xs ins-strong-l"},
+            {"_data": str(data["price"] * data["quantity"]), "_view": "currency", "_currency_symbol": " EGP", "_currency_symbol_ar": " جنيه", "class": " ins-col-3  ins-grey-d-color  ins-text-center ins-title-xs ins-strong-l"},
             {"end": "true"},
             {"end": "true"},
             {"end": "true"},

@@ -167,7 +167,7 @@ class AppProductDetails(App):
 
         ## Buy Card
         uidata.append({"start": "true", "class": "ins-flex ins-col-12 ins-card ins-primary-bg  -open-panel","style":"border-radius: 0 0 8px 8px !important;position: relative;top: -8px;height: 65px;overflow: hidden;    border-top: 1px solid var(--primary-l)"})
-        uidata.append({"_data": "We buy at","_data-ar":"نحن نشتري في","_trans":"true", "class": "ins-col-11  ins-grey-d-color ins-title-20	 ins-strong-l"})
+        uidata.append({"_data": "We buy at","_data-ar":"سعر الشراء","_trans":"true", "class": "ins-col-11  ins-grey-d-color ins-title-20	 ins-strong-l"})
         uidata.append({"_data":"<span class=' lni lni-chevron-up'></span>","class": "ins-col-1  ins-grey-color ins-font-xl ins-strong-l -buy-div"})
         uidata.append({"start": "true", "class": "ins-flex ins-col-12"})
         uidata.append({"_data": "Gold Amount","_data-ar":"كمية الذهب","_trans":"true", "class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
@@ -237,7 +237,7 @@ class AppProductDetails(App):
         ## Terms area
         uidata.append({"_data": "<img src='"+p+"style/truck.svg ' style='position: relative;top: 4px;'></img> Free shipping for orders above EGP200k","_data-ar":"شحن مجاني للطلبات التي تزيد عن 200 ألف جنيه مصري","_trans":"true", "class": "ins-col-12 ins-grey-color ins-title-14"})
         uidata.append({"_data": "<img src='"+p+"style/gift.svg' style='position: relative;top: 4px;'></img> Include gift Card?", "_data-ar":"تشمل كارت هدايا؟","_trans":"true","class": "ins-col-11 ins-grey-color ins-title-14"})
-        uidata.append({"_type": "input",  "type": "checkbox","value":"0", "class": "ins-form-bool-f"})
+        uidata.append({"_type": "input",  "type": "checkbox","value":"0", "class": "ins-form-bool-f -gift-checkbox"})
         uidata.append({"class": "ins-space-s"})
 
         ## Product Description

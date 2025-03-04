@@ -801,6 +801,13 @@ class AppCheckout(App):
          total =0 
          for k,v in sedata.items():
             total+= (float(v["price"]) * float(v["count"]))
+
+         if total > 200000:
+            total = total
+            shipping =0
+         else:
+            shipping = 200
+            total = total + 200
         
          order = {
             "fk_user_id":sdata["id"],
@@ -810,7 +817,8 @@ class AppCheckout(App):
             "total":total,
             "kit_modified":self.ins._date._date_time(),
             "payment_status":"pending",
-            "order_status":"pending"
+            "order_status":"pending",
+            "shipping":shipping
          }
          oid = self.ins._db._insert("gla_order",order)
          payment_url = ""
@@ -835,7 +843,8 @@ class AppCheckout(App):
                "subtype":v["subtype"],
                "price":v["price"],
                "charges":v["charges"],
-               "gram_price":gmprice
+               "gram_price":gmprice,
+              "gift_card": v["gift_card"]
 
             }
             self.ins._db._insert("gla_order_item",order_item)

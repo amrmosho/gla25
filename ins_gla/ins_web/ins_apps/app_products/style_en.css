@@ -5,3 +5,26 @@
 .-plus-btn {
     border-radius: 0 4px 4px 0 !important;
 }
+
+.-filter-price-btn {
+    color: var(--primary);
+    height: 43px;
+    border-radius: 0 4px 4px 0 !important;
+    background: var(--gold-bg);
+    width: 60px;
+    border: 1px solid var(--primary);
+    font-size: 20px;
+}
+
+.-price-from-input {
+    border-radius: 4px 0 0 4px !important;
+    background: white;
+}
+
+.-open-panel>div>span.lni {
+    rotate: 90deg;
+}
+
+.-open-panel.ins-active>div>span.lni {
+    rotate: 0deg;
+}

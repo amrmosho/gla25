@@ -205,6 +205,26 @@ class AppOrder(App):
       for v in sedata:
           tcount += v["quantity"]
           uidata += ELUI(self.ins).counter_user_order_block(v)
+
+
+      
+      if data.get("shipping"):
+            shipping = [
+            {"start": "true", "class": "ins-col-12 ins-flex--space-between -item-card ins-card"},
+            {"class": "ins-radius-m", "style": "width: 97px;"},
+            {"start": "true", "class": "ins-col-grow ins-flex"},
+            {"_data": "Shipping Fees", "_data-ar": "الكمية", "_trans": "true",
+                "class": "ins-col-4 ins-title-xs ins-text-center ins-grey-color"},
+            {"class": "ins-col-4"},
+
+
+            {"_data": str(data["shipping"]), "_view": "currency", "_currency_symbol": " EGP",
+             "_currency_symbol_ar": " جنيه", "class": "ins-col-4 ins-grey-d-color ins-text-center ins-title-xs"},
+            {"end": "true"},
+            {"end": "true"}
+        ]
+            uidata += shipping
+
       footer = [
           {"start": "true", "class": "ins-col-12 ins-flex--space-between -item-card ins-card "},
           {"class": "ins-radius-m", "style": "width: 97px;"},
