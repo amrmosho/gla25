@@ -1,7 +1,8 @@
+from ins_kit.ins_parent import ins_parent
 import uuid
 import requests
 
-class SMS:
+class SMS(ins_parent):
     
     def send_sms(self, message, phone_numbers):
         url = "https://app.community-ads.com/SendSMSService/SMSSender.asmx/SendSMS"

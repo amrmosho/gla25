@@ -18,6 +18,10 @@ from ins_kit._apps._apps import Apps
 
 from ins_kit._users.users import Users
 
+from ins_kit._connect._sms import SMS
+
+
+
 class InsKit():
     def __init__(self) -> None:
         self._map = Map(self)
@@ -38,6 +42,9 @@ class InsKit():
         self._date = DateTime (self)
         self._users = Users (self)
         self._console = Console (self)
+
+        self._sms = SMS (self)
+
 
     def test(self):
         return f"this is {__name__}"

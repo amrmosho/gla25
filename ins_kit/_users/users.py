@@ -131,9 +131,23 @@ class Users(ins_parent):
 
             udata = self.ins._db._get_row(
                 "kit_user", "*", f"email='{data["email"]}' and password ='{passsword}' ")
+            
+            
+            
 
             if udata != False:
-                self._session_set(udata)
-                r = True
+                
+                
+                area = self.ins._this._area["name"]
+                
+                
+                group = self.ins._db._get_row(
+                "kit_user_group", "*", f"id='{udata["groups"]}' and tar_area ='{area}' ")
+                
+                if group != False:
+
+                    
+                    self._session_set(udata)
+                    r = True
 
         return r

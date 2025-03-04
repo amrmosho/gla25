@@ -287,6 +287,9 @@ function _remove_filter(name, type = "") {
         ins(".-category-checkbox")._each(function(item) {
             item._get(0).checked = false;
         });
+        ins(".-type-btn.ins-active")._each(function(item) {
+            item._removeClass("ins-active")
+        });
     }
     if (name == "types" || type == "all") {
         ins(".-type-btn.ins-active")._each(function(item) {

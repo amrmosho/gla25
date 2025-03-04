@@ -1,6 +1,5 @@
 from datetime import datetime, timedelta
 from random import randint, random
-from ins_gla.ins_kit._sms import SMS
 from ins_kit.ins_parent import ins_parent
 
 
@@ -29,11 +28,10 @@ class Gusers(ins_parent):
             else:
               self.ins._db._insert("gla_login_temp",data)
             
-            sms = SMS()
             if method == "1":
-                response = sms.send_sms(f"Hello from Elgalla Gold! This is OTP code {otp}", [mobile])
+                response = self.ins._sms.send_sms(f"Hello from Elgalla Gold! This is OTP code {otp}", [mobile])
             else:
-                response = sms.send_sms2(f"Hello from Elgalla Gold! This is OTP code {otp}", [mobile])
+                response = self.ins._sms.send_sms2(f"Hello from Elgalla Gold! This is OTP code {otp}", [mobile])
 
             return "1"
         else:
