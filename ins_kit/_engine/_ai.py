@@ -1,4 +1,5 @@
 import json
+import re
 from openai import OpenAI
 from ins_kit.ins_parent import ins_parent
 
@@ -21,6 +22,88 @@ class AI(ins_parent):
         else:
             r = self._get_deep(user_prompt)
         return r
+
+    @property
+    def db_info(self):
+        schema_info = {
+
+            "kit_user": [
+                "id",
+                "title",
+                "email",
+                "user_name"
+            ],
+
+
+            "gla_order": [
+                "id",
+                "fk_user_id",
+                "total",
+                "order_status",
+                "kit_created"
+            ],
+            "gla_order_item": [
+                "id",
+                "fk_order_id",
+                "price",
+                "quantity",
+                "fk_product_id"
+            ]
+        }
+        
+        
+        
+        return schema_info
+
+    def generate_sql(self, user_message, schema_info=None):
+        # Show me the total sales per customer in California after 2022
+
+        schema_info = self.db_info
+
+        schema_context = "\nDatabase Schema:\n"
+        for table, columns in schema_info.items():
+            schema_context += f"- {table} ({', '.join(columns)})\n"
+
+        prompt = f"""Convert this natural language query to SQL using the following schema:
+
+            {schema_context}
+
+            User Message: {user_message}
+
+            Follow these rules:
+            1. Return only SQL code
+            2. Use standard SQL syntax
+            3. Use uppercase for SQL keywords
+            4. Format with appropriate line breaks
+            5. Make reasonable assumptions about table names and structure
+            6. If unsure about field names, use common conventions
+            7. Do not include explanations or markdown formatting
+
+            SQL Query:"""
+
+        client = OpenAI(api_key=self.dkey, base_url="https://api.deepseek.com")
+
+        messages = [{"role": "system", "content": "You are a SQL expert. Convert natural language to optimized SQL queries."},
+
+                    {"role": "user", "content": prompt}]
+
+        response = client.chat.completions.create(
+            model="deepseek-chat",
+            messages=messages
+
+
+        )
+
+        content = response.choices[0].message.content
+
+        sql_query = re.search(r"```sql\n(.*?)\n```", content, re.DOTALL)
+        
+      
+        
+        
+        if sql_query:
+           #  sql_query.group(1).strip()
+            return  self.ins._db._get_query(sql_query.group(1).strip())
 
     @property
     def key(self):
@@ -89,9 +172,7 @@ class AI(ins_parent):
         response = client.chat.completions.create(
             model="deepseek-chat",
             messages=messages,
-            response_format={
-                'type': 'json_object'
-            }
+
         )
 
         data = response.choices[0].message.content

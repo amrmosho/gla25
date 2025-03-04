@@ -49,15 +49,20 @@ class AppAi(App):
         
         sql += f'ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci; ALTER TABLE `{table_name}`  <br/>  ADD PRIMARY KEY (`id`); ALTER TABLE `{table_name}`  <br/> MODIFY `id` int(11) NOT NULL AUTO_INCREMENT; COMMIT;'
         return sql
+    
+    
+    
+
+    
+    
     def _get(self):
         rq = self.ins._server._post()
-        response_data = self.ins._ai._get(rq["v"])
-        
+        response_data = self.ins._ai.generate_sql(rq["v"])
+         
         
         """
             if response_data["type"]=="table":
                 response_data["output"] =self._sql(response_data)
-                
             elif response_data["type"]=="component":
                 response_data["output"] =self._component(response_data)
         """
