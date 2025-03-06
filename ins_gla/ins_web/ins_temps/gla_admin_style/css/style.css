@@ -433,3 +433,7 @@ body {
 .ins-active {
     color: var(--primary) !important;
 }
+
+.ta-body>img {
+    width: 300px;
+}

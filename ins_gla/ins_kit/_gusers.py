@@ -73,11 +73,13 @@ class Gusers(ins_parent):
         
         
         rq["password"] = self.ins._data.hash_password(rq["password"])
+        groups = self.ins._db._get_row("kit_user_group","id,tar_area","tar_area='home'")
         new_user_data = {
             "mobile": rq["mobile"],
             "password": rq["password"],
             "first_name": rq["first_name"],
-            "last_name": rq["last_name"]
+            "last_name": rq["last_name"],
+            "groups":groups["id"]
         }
         new_user_data["user_name"] = rq["first_name"] + " " +  rq["last_name"]
         new_user_data["title"] = rq["first_name"] + " " +  rq["last_name"]
