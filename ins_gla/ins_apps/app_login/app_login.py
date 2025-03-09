@@ -16,6 +16,15 @@ class AppLogin(App):
 
 
     def _email_password_ui(self,string=False):
+        forgot_password = "<a href='/login/forgot_password' >Forgot Password?</a>"
+        signup = "Don't have an account? <a href='/login/signup' >Signup now</a>"
+
+        if self.ins._langs._this_get()["name"] == "ar":
+            forgot_password = "<a href='/login/forgot_password' >هل نسيت كلمة المرور؟</a>"
+            signup = "ليس لديك حساب؟ <a href='/login/signup' >انشاء حساب</a>"
+
+        
+
         uidata = [
             {"start": "true", "class": "ins-col-12 ins-flex-center ins-padding-2xl ins-text-center -login-area"},
             {"start": "true", "class": "ins-col-5 ins-flex ins-card -email-form ins-text-start"},
@@ -23,10 +32,10 @@ class AppLogin(App):
             {"_type": "input", "required":"true","title": "Email or Mobile Number","title-ar":"البريد الإلكتروني أو رقم الهاتف المحمول", "placeholder": "Enter Email or Mobile Number","placeholder-ar":"أدخل البريد الإلكتروني أو رقم الهاتف المحمول","_trans":"true", "type": "text", "name": "email_mobile", "class": "-login-email-mobile-inpt", "pclass": "ins-col-12"},
             {"_type": "input", "required":"true", "title": "Password","title-ar":"كلمة المرور", "placeholder": "Enter Password", "placeholder-ar":"أدخل كلمة المرور","type": "password","_trans":"true", "name": "password", "class": "-login-password-inpt", "pclass": "ins-col-12"},
             {"class": "ins-line ins-col-12"},
-            {"_data": "<a href='forgot_password' >Forgot Password?</a>", "class": "ins-link ins-col-9 ins-title-14"},
+            {"_data": forgot_password, "class": "ins-link ins-col-9 ins-title-14"},
             {"_data": "Login",  "_data-ar": "تسجيل الدخول","_trans":"true","class": "ins-button-m ins-gold-d ins-col-3 -login-btn"},
             {"class": "ins-col-12 ins-flex-center ins-padding-top-m"},
-            {"_data": "Don't have an account? <a href='signup' >Signup now</a>", "class": " ins-col-12"},
+            {"_data": signup, "class": " ins-col-12"},
             {"end": "true"},
             {"end": "true"}
         ]
@@ -42,7 +51,7 @@ class AppLogin(App):
             {"_type": "input", "required":"true","title": "Mobile Number", "placeholder": "Enter Mobile Number", "title-ar":"رقم الهاتف المحمول", "placeholder": "Enter Mobile Number","placeholder-ar":"أدخل رقم الهاتف المحمول ", "_trans":"true","type": "text", "name": "mobile", "class": "-signup-mobile-inpt", "pclass": "ins-col-12"},
             {"class": "ins-line ins-col-12"},
             {"start": "true", "class": "ins-col-12 ins-flex "},
-            {"_type":"a","href":"/login/","_data": "<i class='lni lni-arrow-left'></i> Back", "_data-ar":"خلف","_trans":"true","class": "ins-button-m ins-flex-center ins-col-3 ins-grey-d-color"},
+            {"_type":"a","href":"/login/","_data": "<i class='lni lni-arrow-left'></i> Back", "_data-ar":"رجوع","_trans":"true","class": "ins-button-m ins-flex-center ins-col-3 ins-grey-d-color"},
             {"class": " ins-col-6"},
             {"_data": "Next <i class='lni lni-arrow-right'></i>",  "_data-ar":"التالي","_trans":"true","class": "ins-button-m ins-gold-d ins-col-3 -signup-step-1-btn"},
             {"end": "true"},
@@ -68,7 +77,7 @@ class AppLogin(App):
                 {"class": "ins-line ins-col-12"},
                 {"start": "true", "class": "ins-col-12 ins-flex-end"},
                 {"start": "true", "class": "ins-col-12 ins-flex "},
-                {"_data": "<i class='lni lni-arrow-left'></i> Back","_data-ar":"خلف","_trans":"true", "class": "ins-button-m ins-flex-center ins-col-3 ins-grey-d-color -signup-back-1-btn"},
+                {"_data": "<i class='lni lni-arrow-left'></i> Back","_data-ar":"رجوع","_trans":"true", "class": "ins-button-m ins-flex-center ins-col-3 ins-grey-d-color -signup-back-1-btn"},
                 {"class": " ins-col-6"},
                 {"_data": "Verify <i class='lni lni-check ins-font-l'></i>", "_data-ar":"تحقق","_trans":"true","class": "ins-button-m ins-gold-d ins-col-3 ins-flex-center -signup-step-2-btn"},
                 {"end": "true"},
@@ -115,7 +124,7 @@ class AppLogin(App):
             {"_type": "input", "required":"true","title": "Mobile Number","title-ar":"رقم الهاتف المحمول", "placeholder": "Enter Mobile Number","placeholder-ar":"أدخل رقم الهاتف المحمول ", "_trans":"true","type": "text", "name": "mobile", "class": "-forgot-mobile-inpt", "pclass": "ins-col-12"},
             {"class": "ins-line ins-col-12"},
             {"start": "true", "class": "ins-col-12 ins-flex "},
-            {"_type":"a","href":"/login/","_data": "<i class='lni lni-arrow-left'></i> Back","_data-ar":"خلف","_trans":"true", "class": "ins-button-m ins-flex-center ins-col-3 ins-grey-d-color"},
+            {"_type":"a","href":"/login/","_data": "<i class='lni lni-arrow-left'></i> Back","_data-ar":"رجوع","_trans":"true", "class": "ins-button-m ins-flex-center ins-col-3 ins-grey-d-color"},
             {"class": " ins-col-6"},
             {"_data": "Next <i class='lni lni-arrow-right ins-font-l'></i>","_data-ar":"التالي","_trans":"true", "class": "ins-button-m ins-flex-center ins-gold-d ins-col-3 -forgot-step-1-btn"},
             {"end": "true"},

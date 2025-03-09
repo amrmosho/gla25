@@ -179,11 +179,21 @@ class ELUI(ins_parent):
 
     def shop_pro_block(self,data,purl,st = "width:316px;",stys="",tys =""):
 
+        if not stys and not tys and (data["fk_product_category_id"] == 1 or data["fk_product_category_id"] == 3 ) :
+            tys = "standard"
+            stys = "standard"
+            data["subtype"] = "standard"
+        elif not stys and not tys and data["fk_product_category_id"] == 2 :
+            tys = "royal"
+            stys = "george"
+            data["subtype"] = "george"
+
+
         p = "/ins_web/ins_uploads/"
         types_data = json.loads(data["types_data"]) if data.get("types_data") else {}
 
-        th_main_image = data.get("th_main", "")
-        th_overlay_image = data.get("th_overlay", "")
+        th_main_image = ""
+        th_overlay_image = ""
 
         if tys in types_data and stys in types_data[tys].get("data", {}):
             stys_data = types_data[tys]["data"][stys]

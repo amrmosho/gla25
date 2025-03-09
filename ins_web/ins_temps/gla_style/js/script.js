@@ -56,3 +56,10 @@ ins(".-cal-update-nput")._on("keyup", (o, e) => {
         _submit();
     }
 }, true)
+
+
+ins(".-logout-btn")._on("click", (o) => {
+    ins("_logout")._ajax._app({ "_p": "app_content" }, (d) => {
+        window.location = "/"
+    })
+}, true)

@@ -65,6 +65,7 @@ class Data(ins_parent):
         Returns:
             A string representing the formatted currency, or None if there's an error.
         """
+        
         try:
             available_locales = locale.locale_alias.keys()
             if locale_str.replace('-', '_').lower() not in available_locales:

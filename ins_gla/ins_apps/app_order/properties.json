@@ -6,8 +6,9 @@
         },
         {
             "name": "fk_user_id",
-            "title": "Client",
-            "title-ar": "عميل",
+            "title": "Customer",
+            "title-ar": "اسم العميل",
+            "_trans": "true",
             "_type": "select",
             "fl_type": "db",
             "_view": "select",
@@ -73,7 +74,7 @@
         },
         {
             "name": "order_status",
-            "title": "Client",
+            "title": "Customer",
             "title-ar": "عميل",
             "_type": "select",
             "fl_type": "db",
@@ -113,8 +114,8 @@
     ],
     "list_data": [{
             "_data": "ins_gla.ins_apps.app_order._id",
-            "title-ar": "العنوان",
-            "title": "id",
+            "title-ar": "رقم الطلب",
+            "title": "ID",
             "_trans": "true",
             "view": "text",
             "_type": "method",
@@ -123,7 +124,9 @@
 
         {
             "name": "fk_user_id",
-            "title": "Client",
+            "title": "Customer",
+            "title-ar": "اسم العميل",
+            "_trans": "true",
             "_type": "select",
             "fl_type": "db",
             "_view": "select",
@@ -134,7 +137,7 @@
 
         {
             "_data": "ins_gla.ins_apps.app_order._deatils",
-            "title-ar": "العنوان",
+            "title-ar": "طريقة الدفع",
             "title": "Deatils",
             "_trans": "true",
             "view": "text",
@@ -144,7 +147,7 @@
 
         {
             "_data": "ins_gla.ins_apps.app_order._payment_status",
-            "title-ar": "العنوان",
+            "title-ar": "حالة الدفع",
             "title": "payment status",
             "_trans": "true",
             "view": "text",
@@ -153,7 +156,7 @@
         },
         {
             "_data": "ins_gla.ins_apps.app_order._status",
-            "title-ar": "العنوان",
+            "title-ar": "حالة الطلب",
             "title": "order status",
             "_trans": "true",
             "view": "text",
@@ -162,7 +165,7 @@
         },
         {
             "_data": "ins_gla.ins_apps.app_order._total",
-            "title-ar": "العنوان",
+            "title-ar": "اجمالي",
             "title": "total",
             "_trans": "true",
             "view": "text",
@@ -171,7 +174,7 @@
         },
         {
             "_data": "ins_gla.ins_apps.app_order._change_status",
-            "title-ar": "العنوان",
+            "title-ar": "تغيير حالة الطلب",
             "title": "ch.status",
             "_trans": "true",
             "view": "text",

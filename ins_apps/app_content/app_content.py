@@ -9,6 +9,13 @@ class AppContent(App):
     def test(self):
         return self.ins._server._req()  
 
+
+
+    def _logout(self):
+      self.ins._server._del_session("gla_login")
+      return "1"
+
+
     def out(self):
         if "id" not in self.app._options:
             return " No content selected "

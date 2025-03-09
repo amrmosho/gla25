@@ -34,7 +34,8 @@ class AppOrder(App):
     
     def _total(ins, options, data):
 
-     uiadta = [{"_data": str(data["total"])+" EGP",  "class" : " ins-primary-d ins-strong-l ins-flex-center ins-card ins-flex-space-between ins-col-9 ins-flex ins-padding-l ins-padding-h ins-text-center",}]
+     uiadta = [{"_data": str(data["total"]), "_view": "currency", "_currency_symbol": " EGP",
+             "_currency_symbol_ar": " جنيه", "class" : " ins-primary-d ins-strong-l ins-flex-center ins-card ins-flex-space-between ins-col-9 ins-flex ins-padding-l ins-padding-h ins-text-center",}]
      return ins._ui._render(uiadta)
     def _deatils(ins, options, data):
      ptitle = ins._db._get_row("gla_payment_methods","title,kit_lang",f"id='{data["payment_method"]}'",update_lang=True)
@@ -105,6 +106,9 @@ class AppOrder(App):
       sedata._jwith("gla_product product", "th_main",rfk="fk_product_id", join="left join")
       sedata = sedata._jrun()
       data = self.ins._db._get_row("gla_order", "*", f"id='{rq['tid']}'")
+      user = self.ins._db._get_row("kit_user", "title", f"id='{data['fk_user_id']}'")["title"]
+
+
       address = ""
       if data["delivery_type"] == "delivery":
           user_address = self.ins._db._get_row(
@@ -146,17 +150,24 @@ class AppOrder(App):
 
       uidata = [
          {"start":"true","class":"ins-col-12 ins-flex "}, 
-          {"_data": f"Order ID({rq['tid']} /2025)", "_data-ar": "تفاصيل الطلب",
+          {"_data": f"Order ID({rq['tid']} /2025)", "_data-ar": f"طلب رقم ({rq['tid']} /2025) ",
               "_trans": "true", "class": "ins-col-11 ins-strong-m ins-title-s"},
               {"class":"ins-col-1 _a_red lni lni-xmark ins-view-close ins-font-xl"},
           {"start": "true", "class": "ins-col-12 ins-flex ins-card"},
 
           {"start": "true", "class": "ins-col-6 ins-flex "},
 
+     {"_data": "Customer name", "_data-ar": "اسم العميل",
+              "_trans": "true", "class": "ins-col-12 ins-grey-d-color "},
+          {"_data": user, "class": "ins-col-12 ins-strong-l ins-grey-d-color"},
 
-          {"_data": "user address", "_data-ar": "عنوان المستخدم",
+
+          {"_data": "Customer address", "_data-ar": "عنوان العميل",
               "_trans": "true", "class": "ins-col-12 ins-grey-d-color "},
           {"_data": address, "class": "ins-col-12 ins-strong-l ins-grey-d-color"},
+
+
+     
           {"_data": "order status", "_data-ar": "حالة الطلب",
               "_trans": "true", "class": "ins-col-12 ins-grey-d-color"},
           {"_data": status, "_data-ar": status_ar, "_trans": "true",
@@ -182,7 +193,7 @@ class AppOrder(App):
           
           
           
-      if data["payment_method"] == "8":
+      if data["payment_method"] == "8" and data["document"]:
            uidata.append(
               {"_data":"payment receipt","_data-ar":"إيصال الدفع","class":"ins-col-12 ins-grey-d-color"})
            uidata.append(

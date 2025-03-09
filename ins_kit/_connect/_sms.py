@@ -1,3 +1,4 @@
+import json
 from ins_kit.ins_parent import ins_parent
 import uuid
 import requests
@@ -7,7 +8,21 @@ from ins_kit.ins_parent import ins_parent
 
 class SMS(ins_parent):
     
-    def send_sms(self, message, phone_numbers):
+
+    def get_content(self,name,lang):
+
+        temp_data = self.ins._data._get_options("4")["content"]
+        sms_id = json.loads(temp_data)[name]
+        data = self.ins._db._get_row("kit_sms_template","*",f"id='{sms_id}'",update_lang=True)
+        message = self.ins._langs._update(data["content"],lang)
+
+        return message
+
+        
+
+    def send_sms(self, temp,otp, phone_numbers):
+        message = self.get_content(temp,{"otp":f"{otp}"})
+
         url = "https://app.community-ads.com/SendSMSService/SMSSender.asmx/SendSMS"
         payload = {
             "UserName": "ElgallaAPI",
@@ -30,8 +45,9 @@ class SMS(ins_parent):
         except requests.exceptions.RequestException as e:
             return {"error": str(e)}
 
-    def send_sms2(self, message, phone_numbers):
-     
+    def send_sms2(self, temp,otp, phone_numbers):
+        message = self.get_content(temp,{"otp":f"{otp}"})
+
         if not phone_numbers or not message:
             return {"error": "Message and phone numbers are required."}
 
