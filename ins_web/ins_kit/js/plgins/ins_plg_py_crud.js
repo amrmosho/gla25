@@ -22,8 +22,56 @@ export class ins_plg_py_crud {
             ins(".app-crud-list-status-bar .-status-bar-select-info")._setHTML(" ")
         }
     }
+
+
+    _update_id() {
+
+        ins()._ui._addLoader()
+
+        var u = ins()._map._url({ "insrender": "app", "id": ins(".-crud-list-ai-close-btn")._getData("id"), "mode": "curd_list_ai" })
+
+        var v = ins(".app-crud-list-ai-txt")._getValue()
+        ins()._ajax._send(u, { "v": v }, (data) => {
+
+
+
+            ins(".app-crud-list-ai-body")._setHTML("<div class='ins-col-12 ins-card'>" + v + "</div>" + "<pre>" + data + "</pre>");
+            ins(".app-crud-list-ai-txt")._setValue("")
+            ins()._ui._removeLoader()
+
+        })
+    }
     _search() {
         var t = this;
+
+        ins(".app-crud-list-ai-btn")._on("click", (o) => {
+
+            ins(".-crud-list-ai-panel")._addClass("ins-opened");
+
+        }, true)
+        ins(".app-crud-list-ai-send-btn")._on("click", (o) => {
+            t._update_id()
+
+
+        }, true)
+
+
+        ins(".app-crud-list-ai-txt")
+
+        ._on("keydown", function(o, e) {
+            if (e.keyCode == 13) {
+                t._update_id()
+
+            }
+        }, true)
+
+
+
+        ins(".-crud-list-ai-close-btn")._on("click", (o) => {
+            ins(".-crud-list-ai-panel")._removeClass("ins-opened");
+        }, true)
+
+
         ins(".app-crud-list-search-btn")._on("click", (o) => {
             ins(".-crud-list-filter-panel")._addClass("ins-opened");
         }, true)
@@ -95,7 +143,6 @@ export class ins_plg_py_crud {
         })
         ins(".app-crud-list-copy")._on("click", (o) => {
             var u = ins()._map._url({ "insrender": "app", "id": o._getData("id"), "mode": "curd_list_copy" })
-            console.log(u);
             ins()._ajax._send(u, {}, (data) => {
                 ins(".app-crud-body")._setHTML(data);
                 ins(o._getData("cm"))._ui._notification()

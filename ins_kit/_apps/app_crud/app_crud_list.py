@@ -266,6 +266,12 @@ class APPCRUDList(appCrudParent):
 
                 {"style": "width:35px", "_data": [
                  {"_type": "a", "href": reload_url, "class": "lni ins-icon  lni-refresh-circle-1-clockwise ins-padding-s"}], "class": "ins-button     "},
+             
+             
+             
+               {"style": "width:35px", "_data": [
+                 {"class": " ins-icons-ai  app-crud-list-ai-btn   ins-padding-s"}], "class": "ins-button   ins-flex-center   "},
+        
                 {"style": "width:65px", "_type": "a", "href": add_url, "_data": [
                     {"class": "lni ins-icon lni-plus ins-primary-color ins-padding-s"},
                     {"_data": " ADD ",
@@ -283,8 +289,61 @@ class APPCRUDList(appCrudParent):
             {"class": "ins-col-12 app-crud-body ins-padding-xl insaction ",  "data-cname": self.ops._table, "data-plgin": "ins_plg_py_crud",
                 "data-insaction": "plgin", "_data": self._body()},
             {"class": "ins-col-12", "_data": self._filter_ui()},
+            
+            
+            {"class": "ins-col-12", "_data": self._filter_ai()}
+
+            
         ]
         return self.ins._ui._render(ui)
+    
+    
+    def _filter_ai(self):
+
+
+
+
+        inp = [
+               
+               
+            
+             {"start": "true", "class": "ins-flex-center ins-padding-l ins-col-12"},
+             
+            { "class": "ins-flex ins-col-12 app-crud-list-ai-body" ,"style":'    height: calc(100vh - 260px);  overflow: auto;'},
+
+            
+            {"start": "true", "class": "ins-flex-end  ins-bg ins-border ins-radius-xl ins-col-12"},
+            {"_type": "input", "type": "textarea","style":"height:100px",
+                "pclass": "ins-col-12", "placeholder":"Message Insya", "class": "ins-input-none  app-crud-list-ai-txt"},
+            {"class": "ins-col-1 lni lni-upload-circle-1 app-crud-list-ai-send-btn ins-button-icon  ins-primary"},
+            {"class": "ap-ai-data ins-col-12 ins-bg-2"},
+            {"end": "true"},
+            {"end": "true"}
+        ]
+
+
+        ui = [
+            {"start": "true", "class": " ins-fixpanel-end -crud-list-ai-panel ",
+                "style": "width:80%"},
+            {"class": " ins-header ins-flex-space-between", "_data": [
+                {"class": "ins-title-m",
+                    "_data":  '<i class=" ins-icon  lni lni-magnifier"></i>'+self.ins._langs._get("chat with insya", "crud") },
+                {"class": "-crud-list-ai-close-btn ins-button-text-danger  lni  lni-xmark"}, ]},
+            {"start": "true", "class": " ins-col-12 ins-filter-body ",
+             
+                "style": "background: var(--ins-color-4);border-radius: 5px;margin-top: 10px;"},
+
+
+        ]
+        
+
+        ui +=inp
+
+        ui.append({"end": "true"})
+
+        return self.ins._ui._render(ui)
+    
+    
 
     def _filter_ui(self):
 
@@ -542,8 +601,13 @@ class APPCRUDList(appCrudParent):
             return self._body()
 
         actions = APPCRUDActions(self)
+        
+       
+        
         if self.ins._server._get("mode") == "curd_list_delete":
             return actions._delete(update)
+        if self.ins._server._get("mode") == "curd_list_ai":
+            return actions._ai(self.ops)
         if self.ins._server._get("mode") == "curd_list_copy":
             return actions._copy(update)
         if self.ins._server._get("mode") == "curd_list_body":

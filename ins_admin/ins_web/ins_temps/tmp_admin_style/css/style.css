@@ -24,10 +24,6 @@ body {
     cursor: pointer;
 }
 
-.ins-table-data {
-    min-height: calc(100vh - 204px);
-}
-
 .ins-menu-item span,
 .ins-table-data .ins-thead .ins-td,
 .t-page-title {
@@ -167,10 +163,6 @@ body {
     border-radius: 6px;
 }
 
-.-header-searh-group {
-    padding-right: 160px !important;
-}
-
 .ins-table-data .ins-tr:hover .ins-td {
     background-color: var(--ins-color-2);
 }
@@ -262,11 +254,7 @@ body {
 .tmp-user_menu {
     padding: 10px;
     border-radius: 25px !important;
-    top: 14px;
-    position: absolute;
-    right: 28px;
     font-weight: normal;
-    top: 28px;
 }
 
 .tmp-header-data .tmp-user_menu {

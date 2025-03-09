@@ -44,6 +44,9 @@ class PlgSelect(Ui):
         ops = self.ins._data_collect._render(d)
         for k, v in ops["fl_data"].items():
             self.__data.append({"value": k, "_data": v})
+        del ops["fl_data"]
+        if "fl_start" in ops:
+            del ops["fl_start"]
 
     def trans(self, ops):
         self.__update_data(ops)

@@ -27,7 +27,8 @@ class AppUiGuide(App):
         test = {"_type": "a", "href": self.__url(
             "test"), "_data": "<i class='lni lni-select-cursor-1 ins-icon'> </i> test", "class": "ins-title-s ins-strong-l  ins-padding-m ins-radius-xl"}
 
-        s = []
+        s = [] 
+        r =""
         if "mode" in g and g["mode"] == "inputs":
             
             s = [{"_type": "a", "href": "#_input", "_data": "<i class='lni lni-select-cursor-1 ins-icon'> </i> Input", "class": "ins-title-s ins-strong-l  ins-padding-m ins-radius-m"},
@@ -43,8 +44,29 @@ class AppUiGuide(App):
             test["class"] += " ins-active "
 
         elif "mode" in g and g["mode"] == "icons":
+            
+           
+            s = [{"_type": "a", "href": self.__url(
+                "insya_icons"), "_data": "<i class='lni lni-select-cursor-1 ins-icon'> </i> Insya", "class": "ins-title-s ins-strong-l  ins-padding-m ins-radius-m"},
+                {"_type": "a", "href": self.__url(
+                    "icons"), "_data": "<i class='lni lni-select-cursor-1 ins-icon'> </i> Line", "class": "ins-title-s ins-strong-l  ins-padding-m ins-radius-m"},
+                   ]
             r = AppUiGuideIcons(self.app).out()
             icons["class"] += " ins-active "
+            
+            
+        elif "mode" in g and g["mode"] == "insya_icons":
+            
+           
+            s = [{"_type": "a", "href": self.__url(
+                "insya_icons"), "_data": "<i class='lni lni-select-cursor-1 ins-icon'> </i> Insya", "class": "ins-title-s ins-strong-l  ins-padding-m ins-radius-m"},
+                {"_type": "a", "href": self.__url(
+                    "icons"), "_data": "<i class='lni lni-select-cursor-1 ins-icon'> </i> Line", "class": "ins-title-s ins-strong-l  ins-padding-m ins-radius-m"},
+                   ]
+            r = AppUiGuideIcons(self.app).insya()
+            icons["class"] += " ins-active "
+            
+            
 
         elif "mode" in g and g["mode"] == "style":
             r = AppUiGuideIcons(self.app).out()

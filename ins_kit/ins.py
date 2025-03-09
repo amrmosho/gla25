@@ -5,6 +5,7 @@ from ins_kit._data._data_collect import DataCollect
 
 from ins_kit._data._langs import Languages 
 from ins_kit._data._date_time import DateTime 
+from ins_kit._engine._ai import AI
 
 from ins_kit._engine._bp import Temp,Ajax
 from ins_kit._engine._engine import Engine
@@ -17,6 +18,8 @@ from ins_kit._server ._server import Server
 from ins_kit._apps._apps import Apps
 
 from ins_kit._users.users import Users
+from ins_kit._connect._email import Email
+from ins_kit._connect._sms import SMS
 
 from ins_kit._connect._sms import SMS
 
@@ -42,6 +45,11 @@ class InsKit():
         self._date = DateTime (self)
         self._users = Users (self)
         self._console = Console (self)
+        self._ai = AI (self)
+        
+        
+        self._email = Email (self)
+        self._sms = SMS (self)
 
         self._sms = SMS (self)
 

@@ -1664,3 +1664,19 @@ ul.ins-list-h,
 .-img-drop-hover * {
     pointer-events: none;
 }
+
+.ins-anim-spin {
+    animation-name: spin;
+    animation-duration: 4000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

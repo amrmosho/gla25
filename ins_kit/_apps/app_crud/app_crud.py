@@ -19,6 +19,7 @@ class AppCrudOps:
         self._list_filter = []
         self._form_data = []
         self._user_settings = {}
+        self._ai = {}
 
         self._form_befor_insert: function = None
         self._form_after_insert: function = None
@@ -87,7 +88,7 @@ class APPCRUD(ins_parent):
                    
                     
                     
-            jdata_names =["list_data" ,"form_data","list_filter"]
+            jdata_names =["list_data" ,"form_data","list_filter","ai"]
             for p in properties:
                 if p in actclt:
                     if p  in jdata_names:
@@ -105,7 +106,7 @@ class APPCRUD(ins_parent):
                 
                 
             ls = ["list_data", "table", "list_filter", "form_data",
-                  "crud_setting", "url", "url", "pros_name"]
+                  "crud_setting", "url", "url", "pros_name", "ai"]
             
             for l in ls:
                 if l in properties:

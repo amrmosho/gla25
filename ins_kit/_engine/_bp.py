@@ -46,6 +46,7 @@ class Temp(ins_parent):
         css = ["ins_root",
                "ins_elements",
                "ins_dark_style",  "ins_light_style",
+               "ins-icons",
                "ins_colors", "ins_layout", "ins_content",
                "ins_forms", "ins_ui",
 

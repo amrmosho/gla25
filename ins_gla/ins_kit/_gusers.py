@@ -13,6 +13,8 @@ class Gusers(ins_parent):
         return "gla_login"
     
     def _create_otp(self, mobile = "",method = "1"):
+        
+        
         otp = randint(1000, 9999)
         if mobile:
             current_time = datetime.now()

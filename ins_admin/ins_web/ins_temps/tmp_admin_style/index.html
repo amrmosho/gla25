@@ -94,71 +94,73 @@
                     <div style="line-height: 40px;margin-bottom: 0;     min-width: 120px;" class="t-page-title  "> {{ temp._page_title|safe }}
                     </div>
 
+                    <div class="ins-col-grow ins-flex">
 
-                    {{ temp._page_des|safe }}
-
-
-                    <div class="  ins-radius-s  ins-font-m ins-padding-s  tmp-user_menu ins-flex ins-primary ">
-
-                        <i class="lni lni-user-4"></i> {{ user["title"]|safe }}
-                        <div start="True" class="ins-menu ins-end ">
-                            <div style="transform: rotate(90deg);" class="lni ins-icon ins-header  lni-menu-meatballs-1 ins-padding-s"></div>
-                            <ul class="ins-flex-center" start="True">
-
-                                <div style="height: 35px;width: 35px;line-height: 35px;" class="  ins-rounded ins-text-center  ins-font-m  ins-flex ins-primary ">
-                                    {{user["avatar"]}}
-                                </div>
-
-                                <li style="    font-size: 15px;" class=" ins-title-m  ins-col-12 ins-text-center">{{user["title"]}}</li>
-
-                                <li class="ins-line ins-col-12"></li>
-                                <li class="   ins-col-12"><i class="lni ins-icon  lni-user-4"></i>PRofile</li>
-                                <li class="ins-line ins-col-12"></li>
-
-
-                                <li class="ins-col-12  ins-strong"><i class="lni ins-icon   lni-gear-1"></i>Settings</li>
-
-                                <ul style="display: flex  !important" class="ins-flex ins-padding-l  ins-col-12">
-                                    <li class="   ins-col-12"><i class="lni ins-icon   lni-highlighter-1"></i>style</li>
-                                    <li style="display: flex !important" class="ins-flex-end ins-col-12">
-                                        {% if user["settings"]["style"] =="light" %}
-                                        <span data-v="dark" data-n="style" class="ins-col-5 -tp-usupdate    ins-border ins-text-center">Dark </span>
-                                        <span data-v="light" data-n="style" class="ins-col-5 ins-border ins-active -tp-usupdate  ins-text-center">Light </span> {% else %}
-                                        <span data-v="dark" data-n="style" class="ins-col-5 -tp-usupdate   ins-active ins-border ins-text-center">Dark </span>
-                                        <span data-v="light" data-n="style" class="ins-col-5 ins-border -tp-usupdate    ins-text-center">Light </span> {% endif %}
-                                    </li>
-                                </ul>
-
-
-
-
-
-                                <ul style="display: flex  !important" class="ins-flex ins-padding-l ins-padding-h ins-col-12">
-                                    <li class="   ins-col-12"><i class="lni ins-icon   lni-globe-1"></i>languages</li>
-                                    <li style="display: flex !important" class="ins-flex-end ins-col-12">
-                                        {% if user["settings"]["lang"] =="en" %}
-                                        <span data-v="end" data-n="lang" class="ins-col-5 ins-border ins-active -tp-usupdateins-text-center">English </span>
-
-                                        <span data-v="ar" data-n="lang" class="ins-col-5 -tp-usupdate  ins-border ins-text-center">عربي  </span> {% else %}
-                                        <span data-v="en" data-n="lang" class="ins-col-5 ins-border -tp-usupdate ins-text-center">English </span>
-                                        <span data-v="ar" data-n="lang" class="ins-col-5 -tp-style-dark ins-active ins-border ins-text-center">عربي </span> {% endif %}
-                                    </li>
-                                </ul>
-
-
-
-                                <li class="ins-line ins-col-12"></li>
-
-
-                                <li class="ins-danger-color  -tp-logout-btn ins-col-12"><i class="lni ins-icon  lni-exit"></i>Logout</li>
-
-                            </ul>
+                        <div class="ins-col-grow">
+                            {{ temp._page_des|safe }}
                         </div>
 
+                        <div class="  ins-radius-s  ins-font-m ins-padding-s   tmp-user_menu ins-flex ins-primary ">
+
+                            <i class="lni lni-user-4"></i> {{ user["title"]|safe }}
+                            <div start="True" class="ins-menu ins-end ">
+                                <div style="transform: rotate(90deg);" class="lni ins-icon ins-header  lni-menu-meatballs-1 ins-padding-s"></div>
+                                <ul class="ins-flex-center" start="True">
+
+                                    <div style="height: 35px;width: 35px;line-height: 35px;" class="  ins-rounded ins-text-center  ins-font-m  ins-flex ins-primary ">
+                                        {{user["avatar"]}}
+                                    </div>
+
+                                    <li style="    font-size: 15px;" class=" ins-title-m  ins-col-12 ins-text-center">{{user["title"]}}</li>
+
+                                    <li class="ins-line ins-col-12"></li>
+                                    <li class="   ins-col-12"><i class="lni ins-icon  lni-user-4"></i>PRofile</li>
+                                    <li class="ins-line ins-col-12"></li>
 
 
+                                    <li class="ins-col-12  ins-strong"><i class="lni ins-icon   lni-gear-1"></i>Settings</li>
+
+                                    <ul style="display: flex  !important" class="ins-flex ins-padding-l  ins-col-12">
+                                        <li class="   ins-col-12"><i class="lni ins-icon   lni-highlighter-1"></i>style</li>
+                                        <li style="display: flex !important" class="ins-flex-end ins-col-12">
+                                            {% if user["settings"]["style"] =="light" %}
+                                            <span data-v="dark" data-n="style" class="ins-col-5 -tp-usupdate    ins-border ins-text-center">Dark </span>
+                                            <span data-v="light" data-n="style" class="ins-col-5 ins-border ins-active -tp-usupdate  ins-text-center">Light </span> {% else %}
+                                            <span data-v="dark" data-n="style" class="ins-col-5 -tp-usupdate   ins-active ins-border ins-text-center">Dark </span>
+                                            <span data-v="light" data-n="style" class="ins-col-5 ins-border -tp-usupdate    ins-text-center">Light </span> {% endif %}
+                                        </li>
+                                    </ul>
+
+
+
+
+
+                                    <ul style="display: flex  !important" class="ins-flex ins-padding-l ins-padding-h ins-col-12">
+                                        <li class="   ins-col-12"><i class="lni ins-icon   lni-globe-1"></i>languages</li>
+                                        <li style="display: flex !important" class="ins-flex-end ins-col-12">
+                                            {% if user["settings"]["lang"] =="en" %}
+                                            <span data-v="end" data-n="lang" class="ins-col-5 ins-border ins-active -tp-usupdateins-text-center">English </span>
+
+                                            <span data-v="ar" data-n="lang" class="ins-col-5 -tp-usupdate  ins-border ins-text-center">عربي  </span> {% else %}
+                                            <span data-v="en" data-n="lang" class="ins-col-5 ins-border -tp-usupdate ins-text-center">English </span>
+                                            <span data-v="ar" data-n="lang" class="ins-col-5 -tp-style-dark ins-active ins-border ins-text-center">عربي </span> {% endif %}
+                                        </li>
+                                    </ul>
+
+
+
+                                    <li class="ins-line ins-col-12"></li>
+
+
+                                    <li class="ins-danger-color  -tp-logout-btn ins-col-12"><i class="lni ins-icon  lni-exit"></i>Logout</li>
+
+                                </ul>
+                            </div>
+
+
+
+                        </div>
                     </div>
-
 
 
                 </div>
