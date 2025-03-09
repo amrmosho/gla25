@@ -39,13 +39,13 @@ class WdgBlog(Widget):
                 {"start": "true", "class": "ins-flex pro-blog-cont -ba"})
             for d in data:
                 uidata += [
-                    {"start": "true", "class": "ins-flex pro-blog-block",
+                    {"_type":"a","start": "true", "class": "ins-flex pro-blog-block",
                         "style": "width:100%; margin-bottom: 32px;"},
                     {"src": p + d.get("image", "style/n1.svg"),
                      "loading": "lazy", "_type": "img"},
                     {"_data": d.get("title", "Untitled"),
                      "class": "ins-col-12 ins-title-s ins-grey-color"},
-                    {"end": "true"}
+                    {"_type":"a","end": "true"}
                 ]
             uidata.append({"end": "true"})
 

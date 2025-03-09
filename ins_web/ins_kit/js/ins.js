@@ -991,7 +991,7 @@ UI.prototype._addLoader = function(type) {
         mclass = " ins-full ";
     }
     if (ins(type)._isEmpty()) type = "";
-    var i = this._create("i", "", { class: "fas fa-circle-notch fa-spin" });
+    var i = this._create("i", "", { class: " lni-spinner-2-sacle ins-anim-spin lni" });
     var node = this._create(
         "span",
         "", { class: "ins-loader  ins-panel-overlay   ins-opened  " + type + mclass },

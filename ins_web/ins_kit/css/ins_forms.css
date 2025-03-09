@@ -370,9 +370,8 @@ select option:checked {
     min-width: 80px;
 }
 
-.ins_button_icon,
 .ins-button-icon {
-    font-size: 12px;
+    font-size: 26px;
     text-align: center;
     width: 38px;
     cursor: pointer;

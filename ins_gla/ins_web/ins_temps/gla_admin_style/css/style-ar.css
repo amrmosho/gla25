@@ -3,11 +3,6 @@
     left: 28px;
 }
 
-.-header-searh-group {
-    padding-left: 160px;
-    padding-right: 0px;
-}
-
 .open-item>.sub-menu {
     left: auto;
     right: 90px;

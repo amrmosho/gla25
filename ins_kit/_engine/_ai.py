@@ -23,24 +23,19 @@ class AI(ins_parent):
             r = self._get_deep(user_prompt)
         return r
 
-    @property
-    def db_info(self):
-        
-        
-        tables= ["kit_user" ,"gla_order" ,"gla_order_item"]
-        
-        
-        
+    def db_info(self,tables):
+        #tables= ["kit_user" ,"gla_order" ,"gla_order_item" ,"kit_menu_item"]
+
         schema_info = {}
         for t in tables :
             tdata= self.ins._db._get_table_fields( t)
             schema_info[t] =tdata
         return schema_info
 
-    def generate_sql(self, user_message, schema_info=None):
+    def generate_sql(self, user_message, tables=[]):
         # Show me the total sales per customer in California after 2022
 
-        schema_info = self.db_info
+        schema_info = self.db_info(tables)
 
         schema_context = "\nDatabase Schema:\n"
         for table, columns in schema_info.items():
@@ -81,8 +76,7 @@ class AI(ins_parent):
         sql_query = re.search(r"```sql\n(.*?)\n```", content, re.DOTALL)
         
         if sql_query:
-           #  sql_query.group(1).strip()
-            return  self.ins._db._get_query(sql_query.group(1).strip())
+            return   self.ins._db._get_query(sql_query.group(1).strip())
 
 
 

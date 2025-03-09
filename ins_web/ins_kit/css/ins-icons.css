@@ -1,0 +1,55 @@
+.ins-icons {
+    font-size: 25px;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    display: flex;
+}
+
+.ins-icons::before {
+    content: '';
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+    background-color: #333;
+    font-size: inherit;
+    -webkit-mask: url(/ins_web/ins_images/icons/ai.svg) no-repeat 50% 50%;
+    mask: url(/ins_web/ins_images/icons/ai.svg) no-repeat 50% 50%;
+    -webkit-mask-size: cover;
+    mask-size: cover;
+}
+
+.ins-icons-ai::before {
+    -webkit-mask-image: url(/ins_web/ins_images/icons/ai.svg);
+    mask-image: url(/ins_web/ins_images/icons/ai.svg);
+}
+
+.ins-icons-search::before {
+    -webkit-mask-image: url(/ins_web/ins_images/icons/search.svg);
+    mask-image: url(/ins_web/ins_images/icons/search.svg);
+}
+
+.ins-icons-arrow-up::before {
+    -webkit-mask-image: url(/ins_web/ins_images/icons/arrow-upward.svg);
+    mask-image: url(/ins_web/ins_images/icons/arrow-upward.svg);
+}
+
+.ins-icons-arrow-down::before {
+    -webkit-mask-image: url(/ins_web/ins_images/icons/arrow-downward.svg);
+    mask-image: url(/ins_web/ins_images/icons/arrow-downward.svg);
+}
+
+.ins-icons-arrow-right::before {
+    -webkit-mask-image: url(/ins_web/ins_images/icons/arrow-right.svg);
+    mask-image: url(/ins_web/ins_images/icons/arrow-right.svg);
+}
+
+.ins-icons-arrow-left::before {
+    -webkit-mask-image: url(/ins_web/ins_images/icons/arrow-left.svg);
+    mask-image: url(/ins_web/ins_images/icons/arrow-left.svg);
+}
+
+.ins-icons-500::before {
+    -webkit-mask-image: url(/ins_web/ins_images/icons/500px.svg);
+    mask-image: url(/ins_web/ins_images/icons/500px.svg);
+}

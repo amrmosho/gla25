@@ -1,4 +1,7 @@
 {
+
+
+    "ai": { "tables": ["kit_menu", "kit_menu_item"] },
     "options": [{
         "_type": "input",
         "title": "content",
