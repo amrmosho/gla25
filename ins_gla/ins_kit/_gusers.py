@@ -91,6 +91,9 @@ class Gusers(ins_parent):
         
         self.ins._db._insert("kit_user", new_user_data)
         return "1"
+    
+    
+    
     def _login(self, rq):
         rq["password"] = self.ins._data.hash_password(rq["password"])
         login_field = "email" if "@" in rq["email_mobile"] else "mobile"
