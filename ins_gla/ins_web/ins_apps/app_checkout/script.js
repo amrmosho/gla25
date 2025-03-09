@@ -299,22 +299,23 @@ ins(".-submit-order-btn")._on("click", (o) => {
     var ops = o._getData()
     ins("price_check")._ajax._app({}, (data) => {
         if (data == "1") {
-            ins()._ui._addLoader()
+            //ins()._ui._addLoader()
             ins("Redirecting to payment...")._ui._notification()
             ins("_submit_order")._ajax._app({}, (d) => {
                 jdata = JSON.parse(d)
-                if (jdata["status"] == "-1") {
-                    ins("You have to select payment method")._ui._notification()
-                    ins()._ui._removeLoader()
-                } else if (jdata["status"] == "1") {
-                    window.location = "/checkout/order/?merchant_order_id=" + jdata["oid"]
-                    ins()._ui._removeLoader()
-                } else {
-                    setTimeout(() => {
-                        window.location = jdata["url"]
+                console.log(jdata)
+                    /*if (jdata["status"] == "-1") {
+                        ins("You have to select payment method")._ui._notification()
                         ins()._ui._removeLoader()
-                    }, 3000);
-                }
+                    } else if (jdata["status"] == "1") {
+                        window.location = "/checkout/order/?merchant_order_id=" + jdata["oid"]
+                        ins()._ui._removeLoader()
+                    } else {
+                        setTimeout(() => {
+                            window.location = jdata["url"]
+                            ins()._ui._removeLoader()
+                        }, 3000);
+                    }*/
 
             })
 

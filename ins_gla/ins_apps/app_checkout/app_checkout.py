@@ -848,11 +848,10 @@ class AppCheckout(App):
          if payment_url:
             r["status"] = "2"
             r["url"] = payment_url
-            return r
          else:
             r["status"] = "1"
             r["oid"] = oid
-            return r
+         return r
     
  
 
