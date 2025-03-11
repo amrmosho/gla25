@@ -11,8 +11,9 @@ class PlgApp(Ui):
         g = self.ins._server._get()
         
         
+        l = self.ins._langs._this_get().get("name","en")
         data = {"_p": ops["type"], "_s": g["alias"],
-                "_a": ops["src_area"], "_ta": ops["tar_area"], "_g": g, "_h": self.ins._server._path}
+                "_a": ops["src_area"], "_ta": ops["tar_area"], "_g": g, "_l": l, "_h": self.ins._server._path}
         data["_s"] = g["alias"]
         
         return json.dumps(data)
@@ -20,11 +21,11 @@ class PlgApp(Ui):
     def __ui(self, ops):
 
         con: list = []
-      
+
 
         """*---------- load widgets  data*"""
 
-        p = {"class": f"ins-app ddddddd _{ops["type"]} ", "start": True}
+        p = {"class": f"ins-app  _{ops['type']} ", "start": True}
 
         if "style" in ops:
             p["style"] = ops["style"]
@@ -36,7 +37,7 @@ class PlgApp(Ui):
         else:
             p["class"] += " ins-col-12 "
 
-            p["data-data"] = self.__data(ops)
+        p["data-data"] = self.__data(ops)
 
 
 
@@ -44,6 +45,7 @@ class PlgApp(Ui):
         con.append({"class": "ins-app-body", "_data": ops["out"]})
         """*---------- load widgets  data*"""
         con.append({"end": True})
+
 
         return self._render(con)
 
