@@ -270,7 +270,7 @@ class APPCRUDList(appCrudParent):
              
              
                {"style": "width:35px", "_data": [
-                 {"class": " ins-icons-ai  app-crud-list-ai-btn   ins-padding-s"}], "class": "ins-button   ins-flex-center   "},
+                 {"class": " ins-icons-ai ins-icons  app-crud-list-ai-btn   ins-padding-s"}], "class": "ins-button   ins-flex-center   "},
         
                 {"style": "width:65px", "_type": "a", "href": add_url, "_data": [
                     {"class": "lni ins-icon lni-plus ins-primary-color ins-padding-s"},

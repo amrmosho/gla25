@@ -6,7 +6,7 @@ class PlgTable(Ui):
     def _ui(self):
         ui_data = []
 
-        ui_data.append({"class": f"ins-table-data " +self.ops["class"], "start": True})
+        ui_data.append({"class": f"ins-table-data " +self.ops['class'], "start": True})
         ui_data.append(
             {"class": f"   ins-tr ins-flex-space-between    ins-thead  ", "start": True})
         for h in self.ops["header"]:

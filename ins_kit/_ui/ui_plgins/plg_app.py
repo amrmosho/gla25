@@ -24,7 +24,7 @@ class PlgApp(Ui):
 
         """*---------- load widgets  data*"""
 
-        p = {"class": f"ins-app ddddddd _{ops["type"]} ", "start": True}
+        p = {"class": f"ins-app ddddddd _{ops['type']} ", "start": True}
 
         if "style" in ops:
             p["style"] = ops["style"]
