@@ -161,7 +161,7 @@ class PlgInput(Ui):
                 "value", ""), "clean": "true",  "class": " -auto-list-input-inp  ins-hidden"},
 
 
-            {"class": f"{ops["name"]}_auto_list -auto-list-label-inp ins-border ins-form-input ins-flex", "start": True},
+            {"class": f"{ops['name']}_auto_list -auto-list-label-inp ins-border ins-form-input ins-flex", "start": True},
 
             {"_type": "input",  "class": "ins-col-grow -auto-list-value-inp ins-input-none",
                 "style": 'width:auto', "clean": "true"},

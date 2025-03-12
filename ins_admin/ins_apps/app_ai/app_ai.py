@@ -57,8 +57,8 @@ class AppAi(App):
     
     def _get(self):
         rq = self.ins._server._post()
-        response_data = self.ins._ai.generate_sql(rq["v"])
-         
+        response_data = self.ins._ai._get(rq["v"])
+        
         
         """
             if response_data["type"]=="table":
