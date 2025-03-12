@@ -36,21 +36,28 @@ export class ins_plg_messages {
         var msg = this.options["msg"];
         var msgclass = this.options["class"];
         var un = ins()._data._get_unique_id();
-        if (ins(msg)._isEmpty()) {
-            msg = "  <i class='lni  ins-icon  lni-checkmark'></i> " + ins()._data._get("operation_done_msg");
-        }
-        var node = ins()._ui._create(
-            "div",
-            msg, { class: "ins_message   ins-message  " + un + " " + msgclass }
-        );
-        var d = ins(".ins-message-area")._append(node);
-        ins()._data._settimer(this.time, function() {
-            d._addClass("ins-remove");
-        });
-        ins()._data._settimer(6000, function() {
-            d._remove();
-        });
-        return node;
+
+        ins("operation_done_msg")._data._trans((w) => {
+
+
+
+            if (ins(msg)._isEmpty()) {
+                msg = "  <i class='lni  ins-icon  lni-checkmark'></i> " + w;
+            }
+            var node = ins()._ui._create(
+                "div",
+                msg, { class: "ins_message   ins-message  " + un + " " + msgclass }
+            );
+            var d = ins(".ins-message-area")._append(node);
+            ins()._data._settimer(this.time, function() {
+                d._addClass("ins-remove");
+            });
+            ins()._data._settimer(6000, function() {
+                d._remove();
+            });
+            return node;
+
+        })
     }
     _alert() {
         if (this.options["title"] == null) {

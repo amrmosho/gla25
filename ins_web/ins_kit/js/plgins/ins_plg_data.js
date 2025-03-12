@@ -334,6 +334,33 @@ export class ins_plg_data {
             });
         if (done != null) { done(options); }
     };
+
+
+    _trans(w, ondone) {
+
+
+        var d = ins()._map._data()
+        fetch('/ins_web/ins_langs/' + d["_l"] + '/gen.json', {
+                method: 'GET'
+            })
+            .then(function(response) { return response.json(); })
+            .then(function(json) {
+
+                if (json[w] != null) {
+                    ondone(json[w])
+
+                } else {
+                    ondone(w)
+
+                }
+
+            });
+
+
+        return w
+    }
+
+
     _app_settings_get = function(name = "") {
         var app = this.options.o;
         var app = ins()._data._get_page_data()._myname;

@@ -1376,6 +1376,21 @@ Data.prototype._fromSubmit = function(done) {
         return data._fromSubmit(done);
     });
 };
+Data.prototype._trans = function(done) {
+
+    var w = this.o
+    ins(w)._insData(function(data) {
+
+        data._trans(w, (d) => {
+            if (done != null) {
+                done(d);
+            }
+
+        });
+
+
+    });
+};
 Data.prototype._submit = function(done, onerror) {
         var data = ins(this.o)._data._get_inputs();
         if (!data.error) {
