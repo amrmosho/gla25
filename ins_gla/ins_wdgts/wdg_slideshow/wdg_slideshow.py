@@ -37,27 +37,32 @@ class WdgSlideshow(Widget):
 
 
             {"img": "/ins_web/ins_uploads/style/bar.png",
+             "img_ar": "/ins_web/ins_uploads/style/bar_ar.png",
 
                     "img": "/ins_web/ins_uploads/style/bar.png",
        "des": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">EL GALLA GOLDS <br>ONE-OUNCE GOLD BAR</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">A Lifetime of VALUE</div><div class="ins-space"></div><a href="/product/do/filter/fk_product_category_id=1"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">Shop now <i class=" lni ins-icon lni-arrow-right"></i></div></a>',
 
-"des_ar": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">الجلا جولد<br> سبيكة ذهبية أونصة واحدة</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">قيمة مدى الحياة</div><div class="ins-space"></div><a href="/product/do/filter/fk_product_category_id=1"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">تسوق الآن <i class=" lni ins-icon lni-arrow-right"></i></div></a>',
+"des_ar": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper"> سبيكة ذهب<br>  اونصة مصنوعة بإتقان من الجلا جولد</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">قيمة مدى الحياة</div><div class="ins-space"></div><a href="/product/do/filter/fk_product_category_id=1"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">تسوق الآن <i class=" lni ins-icon lni-arrow-left"></i></div></a>',
 
                     "th": "/ins_web/ins_uploads/style/bar2.png"},
-            {"img": "/ins_web/ins_uploads/style/sh1.svg",
+            {
 
                     "img": "/ins_web/ins_uploads/style/geroge.png",
-         "des": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">EL GALLA GOLDS <br> GOLDEN BABY BOTTLES</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">The perfect gift to celebrate a newborn arrival</div><div class="ins-space"></div><a href="/product/do/filter/fk_product_category_id=2&types_data=royal"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">Shop now <i class=" lni ins-icon lni-arrow-right"></i></div></a>',
+                    "img_ar": "/ins_web/ins_uploads/style/george_ar.png",
+  
 
-"des_ar": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">عملة جورج الذهبية<br> ذات الخمسة أرطال</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">رمز خالد - للثروة والتراث</div><div class="ins-space"></div><a href="/product/do/filter/fk_product_category_id=2&types_data=royal"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">تسوق الآن <i class=" lni ins-icon lni-arrow-right"></i></div></a>',
-
-                    "th": "/ins_web/ins_uploads/style/geroge2.png"},
-            {"img": "/ins_web/ins_uploads/style/baby.png",
-
-                    "img": "/ins_web/ins_uploads/style/baby.png",
            "des": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">FIVE-POUND <br> GEORGE GOLD COIN</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">A Timeless Symbol of - WEALTH AND HERITAGE</div><div class="ins-space"></div><a href="/product/do/filter/fk_product_category_id=3"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">Shop now <i class=" lni ins-icon lni-arrow-right"></i></div></a>',
 
-"des_ar": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">الجلا جولد<br> زجاجات الطفل الذهبية</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">الهدية المثالية للاحتفال بوصول المولود الجديد</div><div class="ins-space"></div><a href="/product/do/filter/fk_product_category_id=3"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">تسوق الآن <i class=" lni ins-icon lni-arrow-right"></i></div></a>',
+"des_ar": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper"><br>خمسة جنية ذهب (جورج)</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">رمز خالد - للثروة والتراث</div><div class="ins-space"></div><a href="/product/do/filter/fk_product_category_id=3"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">تسوق الآن <i class=" lni ins-icon lni-arrow-left"></i></div></a>',
+
+                    "th": "/ins_web/ins_uploads/style/geroge2.png"},
+            {
+
+                    "img": "/ins_web/ins_uploads/style/baby.png",
+                                        "img_ar": "/ins_web/ins_uploads/style/baby_ar.png",
+       "des": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper">EL GALLA GOLDS <br> GOLDEN BABY BOTTLES</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">The perfect gift to celebrate a newborn arrival</div><div class="ins-space"></div><a href="/product/do/filter/fk_product_category_id=2&types_data=royal"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">Shop now <i class=" lni ins-icon lni-arrow-right"></i></div></a>',
+
+"des_ar": '<div style="line-height:62px" class="ins-title-3xl -a ins-strong-m ins-white-color  ins-text-upper"> ببرونة ذهب<br>  بتصميم فريد من الجلا جولد</div><div class="ins-space-s "></div><div class="  ins-white-color   -b" style="font-size:20px">الهدية المثالية للاحتفال بوصول المولود الجديد</div><div class="ins-space"></div><a href="/product/do/filter/fk_product_category_id=2&types_data=royal"><div style="width:250px" class="ins-button-l   -c ins-text-upper  ins-gold-d">تسوق الآن <i class=" lni ins-icon lni-arrow-left"></i></div></a>',
 
 
                     "th": "/ins_web/ins_uploads/style/baby2.png"},
@@ -71,11 +76,14 @@ class WdgSlideshow(Widget):
         itm = 0
         for d in data:
             itm += 1
+            img = d["img"]
+            if self.ins._langs._this_get()["name"] == "ar":
+                img = d["img_ar"]
 
             item = [
                 {"start": "true", "class": f"wi-slideshow-slide {a} _{itm}"},
                 {"_type": "img", "class": "wi-slideshow-image","loading":"lazy",
-                    "src": d["img"]},
+                    "src": img},
                 
                 {"_data": d["des"], "_data-ar":d.get("des_ar",""),"_trans":"true","class": "gla-data  wi-slideshow-data",
                     "style": "position: absolute;left: 70px; bottom: 70px; width:100%;"},

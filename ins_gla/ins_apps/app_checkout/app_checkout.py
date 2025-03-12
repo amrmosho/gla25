@@ -1,3 +1,4 @@
+import json
 from urllib.parse import parse_qs, urlparse
 
 from flask import request
@@ -43,7 +44,7 @@ class AppCheckout(App):
      sedata = self.ins._server._get_session(self.session_name)
      ndata = {}
      for k,v in sedata.items():
-       data = self.ins._db._get_row("gla_product","*",f"id='{v["id"]}'",update_lang=True)
+       data = self.ins._db._get_row("gla_product","*",f"id='{v['id']}'",update_lang=True)
        ndata[k] = v
        ndata[k]["price"] = data["price"]
      self.ins._server._set_session(self.session_name,ndata)
@@ -63,14 +64,53 @@ class AppCheckout(App):
         change = [{"start":"true","class":"ins-col-12 ins-flex"}]   
         if sedata:
          for k,v in sedata.items():
-             data = self.ins._db._get_row("gla_product","*",f"id='{v["id"]}'",update_lang=True)
-             if str(v["price"]) != str(data["price"]):
+            data = self.ins._db._get_row("gla_product","*",f"id='{v['id']}'",update_lang=True)
+
+              
+            tys = ""
+            stys = ""
+
+            if data["fk_product_category_id"] == 1 or data["fk_product_category_id"] == 3 :
+                tys = "standard"
+                stys = "standard"
+            elif  data["fk_product_category_id"] == 2 :
+                tys = "royal"
+                stys = "george"
+
+
+            p = "/ins_web/ins_uploads/"
+            types_data = json.loads(data["types_data"]) if data.get("types_data") else {}
+
+            th_main_image = ""
+        
+            if tys in types_data and stys in types_data[tys].get("data", {}):
+                stys_data = types_data[tys]["data"][stys]
+                rimages = stys_data.get("images", "").strip()
+                if rimages:
+                    image = rimages.split(",")
+                    th_main_image = image[0] if image else th_main_image
+
+           
+           
+            image = f"{p}{th_main_image}"
+
+
+
+
+
+
+
+
+
+
+
+            if str(v["price"]) != str(data["price"]):
                 checked = True
                 change += [
                      {"start": "true", "class": "ins-col-12 ins-flex -item-card"},
-                     {"src": f"{p}{data["th_main"]}", "loading":"lazy","_type": "img", "class": "ins-radius-m", "style": "    width: 97px;"}, 
+                     {"src": image, "loading":"lazy","_type": "img", "class": "ins-radius-m", "style": "    width: 97px;"}, 
                      {"start": "true", "class": "ins-col-8 ins-flex"}, {"start": "true", "class": "ins-col-12 ins-flex  ins-gap-o"},
-                     {"_data": f"{data["title"]}", "class": "ins-col-12 ins-title-s	 ins-strong-l ins-grey-d-color", "style": "    !important;"},
+                     {"_data": f"{data['title']}", "class": "ins-col-12 ins-title-s	 ins-strong-l ins-grey-d-color", "style": "    !important;"},
                      {"_data": data.get("des", ""), "class": "ins-grey-color ins-col-12 ins-title-14", "style": "line-height: 20px; "},
                      {"end": "true"},
                      {"_data": str(data["price"]),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه","class": "-pro-price ins-col-12 ins-strong-l ins-primary-d-color ins-title-20"},
@@ -96,11 +136,12 @@ class AppCheckout(App):
            
            return self.ins._ui._render(uidata)
         
+
         r=  self.user._check()
         if not r:
          self.ins._server._set_session("redirect", "/checkout/delivery")
          return "2"
-
+        
         return "1"
                 
 
@@ -113,6 +154,12 @@ class AppCheckout(App):
         r = {}
         r["status"] = "2"
         r["ui"] = self.ins._ui._render(self._cart_step_summary())
+        count = 0
+        if ndata:
+                for _, s in ndata.items():
+                    count += int(s["count"])
+        r["count"] = str(count)
+
         if not ndata:
             uidata=[
               {"start":"true","class":"ins-col-12  ins-flex-center","style":"position: relative;top: 20px;"},
@@ -122,7 +169,50 @@ class AppCheckout(App):
            
             r["status"] = "1"
             r["ui"] = self.ins._ui._render(uidata)
+         
         return r
+    
+
+
+
+
+
+    def _remove_item_cart_small(self):
+        data = self.ins._server._post()
+        sedata=self.ins._server._get_session(self.session_name)
+        sedata.pop(data["pid"]) 
+        self.ins._server._set_session(self.session_name,sedata)
+        ndata=self.ins._server._get_session(self.session_name)
+        r = {}
+        r["status"] = "2"
+        r["ui"] = self.ins._ui._render(self.fees_info())
+        count = 0
+        if ndata:
+                for _, s in ndata.items():
+                    count += int(s["count"])
+        r["count"] = str(count)
+
+        if not ndata:
+            uidata=[
+              {"start":"true","class":"ins-col-12  ins-flex-center","style":"position: relative;top: 20px;"},
+              {"_data":"There is no items in cart yet","_data-ar":"لا يوجد أي عناصر في سلة التسوق بعد","_trans":"true","class":"ins-col-8 ins-card ins-padding-2xl ins-text-center"},
+              {"end":"true"}
+              ]           
+           
+            r["status"] = "1"
+            r["ui"] = self.ins._ui._render(uidata)
+         
+        return r
+    
+
+
+
+
+
+
+
+
+    
     def _mobile_no_ui(self):
         uidata=[
            {"start":"true","class":"ins-col-12 ins-flex-center ins-padding-2xl ins-text-center -login-area"},
@@ -224,10 +314,7 @@ class AppCheckout(App):
          active = ""
          if "mode" in rq and rq["mode"] == s["mode"]:
             active = "ins-gold-bg"
-         if s["mode"] !="payment":
-          uidata.append({"_type":"a","data-url":s["url"],"_data": text, "class": f"ins-button-s -step-button ins-flex-center -{s["mode"]}-btn -cart-next-btn {active}","data-lbtitle":lbtitle})
-         else:
-          uidata.append({"_type":"a","data-url":s["url"],"_data": text, "class": f"ins-button-s -step-button ins-flex-center -{s["mode"]}-btn {active}","data-lbtitle":lbtitle})
+         uidata.append({"_type":"a","_data": text, "class": f"ins-button-s -step-button ins-flex-center {active}","data-lbtitle":lbtitle})
 
          sp="lni lni-chevron-left"
         uidata.append({"end":"true"})
@@ -237,12 +324,12 @@ class AppCheckout(App):
        saddress = self.ins._server._get_session(self.session_address_name)
        if type(saddress) == dict and "id" in saddress and "type" in saddress:
           if saddress["type"] == "store":
-             store = self.ins._db._get_row("gla_address","*",f"id='{saddress["id"]}'")
+             store = self.ins._db._get_row("gla_address","*",f"id='{saddress['id']}'")
              if store:
                return "1"
              else:
                 return "-1"
-          address = self.ins._db._get_row("gla_user_address","*",f"id='{saddress["id"]}'")
+          address = self.ins._db._get_row("gla_user_address","*",f"id='{saddress['id']}'")
           if address:
             return "1"
           else:
@@ -259,7 +346,7 @@ class AppCheckout(App):
    
     def _addresses_area_ui(self,string=True):
         rsdata=  self.user._check()
-        addesses = self.ins._db._get_data("gla_user_address","*",f"fk_user_id = '{rsdata["id"]}' order by kit_created ASC",update_lang=True)
+        addesses = self.ins._db._get_data("gla_user_address","*",f"fk_user_id = '{rsdata['id']}' order by kit_created ASC",update_lang=True)
         uidata=[{"start":"true","class":"ins-col-12 ins-flex  -addresses-area"}]
         uidata.append({"_data":"Saved Address","_data-ar":"العناوين المحفوظة ","_trans":"true","class":"ins-col-9 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"})
         uidata.append({"_data": "Add Address","_data-ar":" إضافة عنوان","_trans":"true","class": "ins-button-s -add-address ins-text-center ins-strong-m ins-col-3 ins-gold-bg  ins-text-upper"})
@@ -273,7 +360,7 @@ class AppCheckout(App):
               if str(a["id"]) == str(asession["id"]) and asession["type"] == "delivery":
                  img = "style/radio_checked.svg"
               uidata.append({"start":"true","class":"ins-col-12 ins-card ins-flex-valign-center ins-padding-s -address-cont","style":"    line-height: 20px;"})
-              uidata.append({"_data":"<img data-aid = "+f"{a["id"]}"+" class='-address-btn' data-type='delivery' src='"+p + img+"'></img>","class":"ins-flex ins-col-1"})
+              uidata.append({"_data":"<img data-aid = "+f"{a['id']}"+" class='-address-btn' data-type='delivery' src='"+p + img+"'></img>","class":"ins-flex ins-col-1"})
               uidata.append({"start":"true","class":"ins-col-9 ins-flex"})
               uidata.append({"_data": a["title"],"class":" ins-title-s ins-strong-m ins-grey-d-color ins-col-12","style":"line-height: 24px;"})
               uidata.append({"_data": a["address"],"class":"ins-grey-color ins-col-12 ins-title-12","style":"line-height: 16px;"})
@@ -308,11 +395,11 @@ class AppCheckout(App):
            if str(a["id"]) == str(asession["id"])  and asession["type"] == "store":
               img = "style/radio_checked.svg"
            uidata.append({"start":"true","class":"ins-col-12 ins-card ins-flex-valign-center ins-padding-s -address-cont","style":"    line-height: 20px;"})
-           uidata.append({"_data":"<img data-aid = "+f"{a["id"]}"+" class='-address-btn' data-type='store' src='"+p + img+"'></img>","class":"ins-flex ins-col-1"})
+           uidata.append({"_data":"<img data-aid = "+f"{a['id']}"+" class='-address-btn' data-type='store' src='"+p + img+"'></img>","class":"ins-flex ins-col-1"})
            uidata.append({"start":"true","class":"ins-col-11 ins-flex"})
            uidata.append({"_data": a["title"],"class":" ins-title-s ins-strong-m ins-grey-d-color ins-col-12","style":"line-height: 24px;"})
            uidata.append({"_data": a["address"],"class":"ins-grey-color ins-col-12 ins-title-12","style":"line-height: 16px;"})
-           uidata.append({"_data": f"Phone: {a["phone"]} | WhatsApp: {a["whatsapp"]} | Email:  {a["email"]}" ,"_data-ar": f"هاتف: {a["phone"]} | واتساب: {a["whatsapp"]} | بريد الكتروني:  {a["email"]}" ,"_trans":"true","class":"ins-grey-d-color ins-col-12   ins-title-14"})
+           uidata.append({"_data": f"Phone: {a['phone']} | WhatsApp: {a['whatsapp']} | Email:  {a['email']}" ,"_data-ar": f"هاتف: {a['phone']} | واتساب: {a['whatsapp']} | بريد الكتروني:  {a['email']}" ,"_trans":"true","class":"ins-grey-d-color ins-col-12   ins-title-14"})
            uidata.append({"end":"true"})
            uidata.append({"end":"true"})
         uidata.append({"end":"true"})
@@ -339,8 +426,11 @@ class AppCheckout(App):
    
     def _remove_address(self):
       data = self.ins._server._post()
-      self.ins._db._update("gla_user_address",{"kit_deleted":"1"},f"id='{data["aid"]}'")
+      self.ins._db._update('gla_user_address',{'kit_deleted':'1'},f"id='{data['aid']}'")
       return "1"
+    
+
+
     def _add_address(self):
        sdata = self.user._check()
        data = self.ins._server._post()
@@ -358,7 +448,7 @@ class AppCheckout(App):
        data = self.ins._server._post()
        data["fk_user_id"] = sdata["id"]
        data["title"] = data["first_name"] + " " +data["last_name"] 
-       self.ins._db._update("gla_user_address",data,f"id='{data["address_id"]}'")
+       self.ins._db._update("gla_user_address",data,f"id='{data['address_id']}'")
        adta = {
           "type":"delivery","id":data["address_id"]
        }
@@ -367,7 +457,7 @@ class AppCheckout(App):
     
     def _update_address_ui(self):
         rq = self.ins._server._post()
-        address = self.ins._db._get_row("gla_user_address","*",f"id='{rq["aid"]}'")
+        address = self.ins._db._get_row("gla_user_address","*",f"id='{rq['aid']}'")
         uidata = [{"start":"true","class":"ins-flex ins-col-12 "}]
         uidata.append({"start":"true","class":"ins-flex ins-col-12 -update-address-area"})
         uidata.append({"_data": "Edit Address","_data-ar":"تعديل العنوان","_trans":"true","class":"ins-col-12 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"})
@@ -420,7 +510,7 @@ class AppCheckout(App):
          subtotal+= float(v["price"]) * float(v["count"])
         total = subtotal 
         uidata = []
-        uidata.append({"start": "true", "class": "ins-flex ins-col-12  ins-padding-m","style":"border-radius:8px !important;border: 1px solid var(--grey-l);"})
+        uidata.append({"start": "true", "class": "ins-flex ins-col-12 -fees-info ins-padding-m","style":"border-radius:8px !important;border: 1px solid var(--grey-l);"})
         uidata.append({"_data": "Your details","_data-ar":"تفاصيلك","_trans":"true", "class": "ins-col-12  ins-grey-d-color ins-title-s	 ins-strong-l "})
         uidata.append({"class":"ins-space-s"})
         uidata.append({"_data": "Subtotal","_data-ar":"المجموع الفرعي","_trans":"true", "class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
@@ -444,6 +534,35 @@ class AppCheckout(App):
         return uidata
   
   
+    def fees_info(self):
+        sedata=self.ins._server._get_session(self.session_name)
+        subtotal = 0
+        for k,v in sedata.items():
+            subtotal+= float(v["price"]) * float(v["count"])
+
+        uidata = []
+        uidata.append({"_data": "Your details","_data-ar":"تفاصيلك","_trans":"true", "class": "ins-col-12 ins-title-s ins-grey-d-color ins-strong-l "})
+        uidata.append({"class":"ins-space-s"})
+        uidata.append({"_data": "Subtotal", "_data-ar":"المجموع الفرعي","_trans":"true","class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
+        uidata.append({"_data": str(subtotal),"data-value" : subtotal,"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end -subtotal-text"})
+
+        total = subtotal  
+
+        uidata.append({"_data": "Shipping", "_data-ar":" شحن","_trans":"true", "class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
+        if total > 200000:
+          uidata.append({"_data": "Free","_data-ar": "مجاني","_trans":"true","data-value" : 0, "class": "ins-col-6  ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end  -shipping-text"})
+        else:
+          uidata.append({"_data": "200","data-value" : 200,"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",  "class": "ins-col-6  ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end -shipping-text"})
+          total +=200
+        uidata.append({ "class": "ins-line ins-col-12"})
+        uidata.append({"_data": "Total", "_data-ar":" المجموع","_trans":"true", "class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
+        uidata.append({"_data":  str(total),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end -total-text"})
+   
+    
+        return uidata
+
+
+
   
     def items_area(self,string= False):
         ## Items Area
@@ -462,7 +581,7 @@ class AppCheckout(App):
         uidata.append({"_data": "Voucher", "_data-ar":" قسيمة","_trans":"true","class": "ins-col-12  ins-grey-d-color ins-strong-m  "})
         uidata.append({"_type": "input","type":"text","placeholder":"code","placeholder-ar":" رمز","_trans":"true","name":"voucher","pclass":"ins-col-12","style":"    background: white;border-radius:4px;"})
         uidata.append({"class":"ins-space-xl"})
-        uidata.append({"start": "true", "class": "ins-flex ins-col-12  ins-padding-m","style":"border-radius:8px !important;border: 1px solid var(--grey-l);"})
+        uidata.append({"start": "true", "class": "ins-flex ins-col-12 -fees-info ins-padding-m","style":"border-radius:8px !important;border: 1px solid var(--grey-l);"})
         uidata.append({"_data": "Your details","_data-ar":"تفاصيلك","_trans":"true", "class": "ins-col-12 ins-title-s ins-grey-d-color ins-strong-l "})
         uidata.append({"class":"ins-space-s"})
         uidata.append({"_data": "Subtotal", "_data-ar":"المجموع الفرعي","_trans":"true","class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
@@ -508,19 +627,19 @@ class AppCheckout(App):
                 {"class":"ins-space-s"},
                 {"_data": store.get("title",""),"class": "ins-col-12  ins-title-20	  ins-grey-d-color ins-strong-l"},
                 {"_data": store.get("address",""), "class": "ins-col-12 ins-grey-color"},
-                {"_data": f"Phone: {store["phone"]} | WhatsApp: {store["whatsapp"]} | Email:  {store["email"]}" ,"_data-ar": f"هاتف: {store["phone"]} | واتساب: {store["whatsapp"]} | بريد الكتروني:  {store["email"]}" ,"_trans":"true","class":"ins-col-12 ins-grey-d-color ins-strong-m ins-title-14"},
+                {"_data": f"Phone: {store['phone']} | WhatsApp: {store['whatsapp']} | Email:  {store['email']}" ,"_data-ar": f"هاتف: {store['phone']} | واتساب: {store['whatsapp']} | بريد الكتروني:  {store['email']}" ,"_trans":"true","class":"ins-col-12 ins-grey-d-color ins-strong-m ins-title-14"},
                 {"end": "true"},
                 {"class":"ins-space-xl"}
                 ]
             else:
-               address = self.ins._db._get_row("gla_user_address","*",f"id='{asession["id"]}'")
+               address = self.ins._db._get_row("gla_user_address","*",f"id='{asession['id']}'")
                ainfo = [
                {"_data": "Shipping Address","_data-ar":"عنوان الشحن","_trans":"true", "class": "ins-col-8 ins-title-s ins-grey-d-color ins-strong-l "},
                {"_data": "Edit Address","_data-ar":"تعديل العنوان","_trans":"true","data-aid" : str(address["id"]),"class": "-update-address ins-col-4 ins-flex-end ins-gold-d-color ins-strong-m ins-text-upper ins-button-text"},
                {"class":"ins-space-s"},
                {"_data": address.get("title",""), "class": "ins-col-12  ins-title-20	  ins-grey-d-color ins-strong-l"},
                {"_data": address.get("address",""), "class": "ins-col-12 ins-grey-color"},
-               {"_data": f"Mobile: {address.get("phone","")} | Email: {address.get("email","")}", "class": "ins-col-12 ins-grey-d-color ins-strong-m ins-title-14"},
+               {"_data": f"Mobile: {address.get('phone','')} | Email: {address.get('email','')}", "class": "ins-col-12 ins-grey-d-color ins-strong-m ins-title-14"},
                {"end": "true"},
                {"class":"ins-space-xl"}
                ]
@@ -559,7 +678,7 @@ class AppCheckout(App):
         uidata.append({"_data": "Voucher", "_data-ar":" قسيمة","_trans":"true","class": "ins-col-12  ins-grey-d-color ins-strong-m  "})
         uidata.append({"_type": "input","type":"text","placeholder":"code","placeholder-ar":" رمز","_trans":"true","name":"voucher","pclass":"ins-col-12","style":"    background: white;border-radius:4px;"})
         uidata.append({"class":"ins-space-xl"})
-        uidata.append({"start": "true", "class": "ins-flex ins-col-12  ins-padding-m","style":"border-radius:8px !important;border: 1px solid var(--grey-l);"})
+        uidata.append({"start": "true", "class": "ins-flex ins-col-12 -fees-info ins-padding-m","style":"border-radius:8px !important;border: 1px solid var(--grey-l);"})
         uidata.append({"_data": "Your details","_data-ar":"تفاصيلك","_trans":"true", "class": "ins-col-12 ins-title-s ins-grey-d-color ins-strong-l "})
         uidata.append({"class":"ins-space-s"})
         uidata.append({"_data": "Subtotal", "_data-ar":"المجموع الفرعي","_trans":"true","class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
@@ -596,19 +715,19 @@ class AppCheckout(App):
              {"class":"ins-space-s"},
              {"_data": store.get("title",""),"class": "ins-col-12  ins-title-20	  ins-grey-d-color ins-strong-l"},
              {"_data": store.get("address",""), "class": "ins-col-12 ins-grey-color"},
-             {"_data": f"Phone: {store["phone"]} | WhatsApp: {store["whatsapp"]} | Email:  {store["email"]}" ,"_data-ar": f"هاتف: {store["phone"]} | واتساب: {store["whatsapp"]} | بريد الكتروني:  {store["email"]}" ,"_trans":"true","class":"ins-col-12 ins-grey-d-color ins-strong-m ins-title-14"},
+             {"_data": f"Phone: {store['phone']} | WhatsApp: {store['whatsapp']} | Email:  {store['email']}" ,"_data-ar": f"هاتف: {store['phone']} | واتساب: {store['whatsapp']} | بريد الكتروني:  {store['email']}" ,"_trans":"true","class":"ins-col-12 ins-grey-d-color ins-strong-m ins-title-14"},
              {"end": "true"},
              {"class":"ins-space-xl"}
              ]
         else:
-            address = self.ins._db._get_row("gla_user_address","*",f"id='{asession["id"]}'")
+            address = self.ins._db._get_row("gla_user_address","*",f"id='{asession['id']}'")
             ainfo = [
             {"_data": "Shipping Address","_data-ar":"عنوان الشحن","_trans":"true", "class": "ins-col-8 ins-title-s ins-grey-d-color ins-strong-l "},
             {"_data": "Edit Address","_data-ar":"تعديل العنوان","_trans":"true","data-aid" : str(address["id"]),"class": "-update-address ins-col-4 ins-flex-end ins-gold-d-color ins-strong-m ins-text-upper ins-button-text"},
             {"class":"ins-space-s"},
             {"_data": address.get("title",""), "class": "ins-col-12  ins-title-20	  ins-grey-d-color ins-strong-l"},
             {"_data": address.get("address",""), "class": "ins-col-12 ins-grey-color"},
-            {"_data": f"Mobile: {address.get("phone","")} | Email: {address.get("email","")}", "class": "ins-col-12 ins-grey-d-color ins-strong-m ins-title-14"},
+            {"_data": f"Mobile: {address.get('phone','')} | Email: {address.get('email','')}", "class": "ins-col-12 ins-grey-d-color ins-strong-m ins-title-14"},
             {"end": "true"},
             {"class":"ins-space-xl"}
             ]
@@ -672,14 +791,15 @@ class AppCheckout(App):
        merchant_order_id = query_params.get("merchant_order_id", [None])[0]
        if merchant_order_id:
          order_data = self.ins._db._get_row("gla_order","*",f"id='{merchant_order_id}'")
-       
-       
-       if order_data["payment_status"] == "failed":
-          return "/checkout/payment/"
-       elif str(order_data["payment_method"]) == "8":
-          return "1"
+         if order_data["payment_status"] == "failed":
+             return "/checkout/payment/"
+         elif str(order_data["payment_method"]) == "8":
+             return "1"
+         else:
+               return "/puser/order/"
        else:
-            return "/puser/order/"
+           return "1"
+
 
             
 
@@ -730,9 +850,9 @@ class AppCheckout(App):
                  ]
                   
              if str(order_data["payment_method"]) == "8":
-              text = f"Please transfer the amount of {order_data["total"]} EGP to one of the following bank accounts"
+              text = f"Please transfer the amount of ({order_data['total']}) EGP to one of the following bank accounts"
               if self.ins._langs._this_get()["name"] == "ar":
-                  text = f"برجاء تحويل مبلغ {order_data["total"]} جينه الطلب لأحد الحسابات البنكية التالية"
+               text = f"برجاء تحويل مبلغ الطلب ({order_data['total']}) جنيه لأحد الحسابات البنكية التالية"
               uidata = [
                {"start":"true","class":"ins-col-12 gla-container ins-flex-center ins-padding-2xl"},              
                {"data-url":url,"class":"-url-area"},
@@ -785,7 +905,7 @@ class AppCheckout(App):
 
        return str(chargs)
 
-    
+   
     def _submit_order(self):
          sdata = self.user._check()
          sedata=self.ins._server._get_session(self.session_name)
@@ -797,14 +917,17 @@ class AppCheckout(App):
             return r
          total =0 
          for k,v in sedata.items():
-            total+= (float(v["price"]) * float(v["count"]))
+            if v.get("new_price"):
+               total+= (float(v["new_price"]) * float(v["count"]))
+            else:
+               total+= (float(v["price"]) * float(v["count"]))
+         
+         shipping =0
 
-         if total > 200000:
-            total = total
-            shipping =0
-         else:
+         if total < 200000:
             shipping = 200
-            total = total + 200
+         
+         total = total + shipping
         
          order = {
             "fk_user_id":sdata["id"],
@@ -813,20 +936,25 @@ class AppCheckout(App):
             "payment_method":payment["type"],
             "total":total,
             "kit_modified":self.ins._date._date_time(),
+            "kit_created":self.ins._date._date_time(),
             "payment_status":"pending",
             "order_status":"pending",
             "shipping":shipping
          }
          oid = self.ins._db._insert("gla_order",order)
-         payment_url = ""
-         ddata = self.ins._db._get_row("gla_payment_methods","*",f"id='{payment["type"]}'")
+         ddata = self.ins._db._get_row("gla_payment_methods","*",f"id='{payment['type']}'")
          if ddata["paymob_id"]:
             paymob = PaymobAPI()
             paytotal = total * 100
-            payment_url = paymob.create_pay_wdgt(paytotal, oid, ddata["paymob_id"] )
+            r["url"] = paymob.create_pay_wdgt(paytotal, oid, ddata["paymob_id"] )
+            r["status"] = "2"
+         else:
+            r["status"] = "1"
+            r["oid"] = oid
+
 
          for k,v in sedata.items():
-            kart = self.ins._db._get_row("gla_product","kart",f"id='{v["id"]}'")["kart"]
+            kart = self.ins._db._get_row("gla_product","kart",f"id='{v['id']}'")["kart"]
             gmprice = self.ins._db._get_row("gla_price","sell_24",f"1=1 order by id desc")["sell_24"]
 
             if kart == "21":
@@ -841,16 +969,11 @@ class AppCheckout(App):
                "price":v["price"],
                "charges":v["charges"],
                "gram_price":gmprice,
-              "gift_card": v["gift_card"]
-
+               "gift_card": v["gift_card"],
+               "kit_modified":self.ins._date._date_time(),
+               "kit_created":self.ins._date._date_time(),
             }
             self.ins._db._insert("gla_order_item",order_item)
-         if payment_url:
-            r["status"] = "2"
-            r["url"] = payment_url
-         else:
-            r["status"] = "1"
-            r["oid"] = oid
          return r
     
  

@@ -169,7 +169,7 @@
         },
         {
             "name": "stamp",
-            "title": "Manufacturing + stamp",
+            "title": "Manufacturing",
             "title-ar": "دمغة",
             "_type": "input",
             "type": "number",
@@ -188,7 +188,7 @@
         },
         {
             "name": "vat",
-            "title": "Vat",
+            "title": "Vat + stamp",
             "title-ar": "الضريبة",
             "_type": "input",
             "type": "number",

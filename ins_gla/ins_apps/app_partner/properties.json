@@ -15,17 +15,50 @@
             "_table": "gla_blog",
             "type": "text",
             "required": "true",
-            "pclass": "ins-col-6"
+            "pclass": "ins-col-4"
         },
         {
             "name": "fk_blog_category_id",
             "title": "Blog Category",
+            "_type": "input",
+            "type": "number",
+            "value": "18",
+            "pclass": "ins-hidden"
+        },
+        {
+            "name": "city",
+            "title": "City",
             "_type": "select",
-            "fl_type": "db",
-            "fl_table": "gla_blog_category",
-            "fl_where": "`id` <> '18'",
+            "fl_data": {
+                "-": "-",
+                "cairo": "Cairo",
+                "alexandria": "Alexandria",
+                "suez": "Suez",
+                "port_said": "Port Said"
+            },
+            "fl_type": "option",
             "required": "true",
-            "pclass": "ins-col-6"
+            "pclass": "ins-col-4"
+        },
+        {
+            "name": "state",
+            "title": "State",
+            "_type": "select",
+            "fl_type": "option",
+            "fl_data": {
+                "-": "-",
+                "heliopolis": "Heliopolis",
+                "nasr_city": "Nasr City",
+                "gisr_suez": "Gisr El Suez",
+                "new_cairo": "New Cairo",
+                "rehab": "Al Rehab",
+                "mohandeseen": "Mohandeseen",
+                "tagamoa": "Tagamoa",
+                "october": "6 October",
+                "maadi": "Maadi"
+            },
+            "required": "true",
+            "pclass": "ins-col-4"
         },
         {
             "end": "True"
@@ -44,16 +77,7 @@
             "_exts": "image/png",
             "type": "upload",
             "required": "true",
-            "pclass": "ins-col-6"
-        },
-        {
-            "name": "link",
-            "title": "Link",
-            "title-ar": "ربط",
-            "_trans": "true",
-            "_type": "input",
-            "type": "text",
-            "pclass": "ins-col-6"
+            "pclass": "ins-col-12"
         },
         {
             "name": "content",

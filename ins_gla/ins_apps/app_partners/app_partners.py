@@ -11,7 +11,7 @@ class AppPartners(App):
         g = self.ins._server._get()
 
         if "mode" in g:
-         partner = self.ins._db._get_row("gla_blog", "title,kit_lang", f"id = '{g["mode"]}'",update_lang=True)
+         partner = self.ins._db._get_row("gla_blog", "title,kit_lang", f"id = '{g['mode']}'",update_lang=True)
 
          path = [
                 {"start": "true", "class": "ins-col-12 ins-flex ins-text-upper"},
@@ -45,23 +45,48 @@ class AppPartners(App):
         uidata.append({"start":"true","class":"ins-col-grow ins-flex-end"})
         if add_filter:
             city_area = [
-                    {"start":"true","class":" ins-flex-end"},
-                    {"_data":"Area",  "_data-ar":"المنطقة","_trans":"true","class":"ins-strong-m ins-grey-d-color ins-title-14"},
-                    {"_type":"select","name":"city","fl_data":{
-                        "all":"All",
-                        "cairo":"Cairo",
-                        "october":"    - 6 October",
-                        "maadi":"    - Maadi",
-                        "alexandria":"Alexandria"
-                    },"fl_data-ar":{
-                         "all":"الكل",
-                        "cairo":"القاهرة",
-                        "october":" - 6 أكتوبر",
-                        "maadi":" - المعادي",
-                        "alexandria":"الأسكندرية"
-                    },"_trans":"true","pclass":"ins-col-grow","class":"-area-select"},
-                    {"end":"true"}
-                ]
+    {"start": "true", "class": "ins-flex-end"},
+    {"_data": "Area", "_data-ar": "المنطقة", "_trans": "true", "class": "ins-strong-m ins-grey-d-color ins-title-14"},
+    {
+        "_type": "select",
+        "name": "city",
+        "fl_data": {
+            "all": "All",
+            "cairo": "Cairo",
+            "heliopolis": "    - Heliopolis",
+            "nasr_city": "    - Nasr City",
+            "new_cairo": "    - New Cairo",
+            "rehab": "    - Al Rehab",
+            "mohandeseen": "    - Mohandeseen",
+            "tagamoa": "    - Tagamoa",
+            "october": "    - 6 October",
+            "maadi": "    - Maadi",
+            "alexandria": "Alexandria",
+            "suez": "Suez",
+            "port_said": "Port Said"
+        },
+        "fl_data-ar": {
+            "all": "الكل",
+            "cairo": "القاهرة",
+            "heliopolis": "    - مصر الجديدة",
+            "nasr_city": "    - مدينة نصر",
+            "new_cairo": "    - القاهرة الجديدة",
+            "rehab": "    - الرحاب",
+            "mohandeseen": "    - المهندسين",
+            "tagamoa": "    - التجمع",
+            "october": " - 6 أكتوبر",
+            "maadi": " - المعادي",
+            "alexandria": "الإسكندرية",
+            "suez": "السويس",
+            "port_said": "بور سعيد"
+        },
+        "_trans": "true",
+        "pclass": "ins-col-grow",
+        "class": "-area-select"
+    },
+    {"end": "true"}
+]
+
 
 
             uidata+=city_area  
@@ -85,13 +110,15 @@ class AppPartners(App):
             {"start": "true", "class": "ins-col-12 gla-container ins-padding-2xl ins-flex ins-gap-l"})
         p = "/ins_web/ins_uploads/"
         for d in data:
+            url = self.ins._server._url({ "mode": str(d["id"])})
+
             blog = [
 
-                {"start": "true", "class": f"ins-flex _{d.get("city")} _{d.get("state")}  pro-partner-block ins-card"},
+                {"_type":"a","href":url,"start": "true", "class": f"ins-flex _{d.get('city')} _{d.get('state')}  pro-partner-block ins-card"},
                 {"src": p + d["image"],"loading":"lazy", "_type": "img","class":"ins-radius-l"},
-                {"_type":"a","href":f"/partner/{str(d["id"])}","_data": d["title"], "class": "ins-col-12 ins-title-m   ins-grey-color ins-strong-m"},
-                {"_data": d["content"], "class": "ins-col-12 ins-title-s   ins-grey-color"},
-                {"end": "true"}
+                {"_data": d["title"], "class": "ins-col-12 ins-title-s   ins-grey-color ins-strong-m"},
+                {"_data": d["content"][:55] + '...' if len(d["content"]) > 55 else d["content"], "class": "ins-col-12 ins-title-s ins-grey-color"},  
+                {"_type":"a","end": "true"}
 
             ]
 

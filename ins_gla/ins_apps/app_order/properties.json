@@ -146,18 +146,19 @@
         },
 
         {
-            "_data": "ins_gla.ins_apps.app_order._payment_status",
-            "title-ar": "حالة الدفع",
-            "title": "payment status",
+            "_data": "ins_gla.ins_apps.app_order._status",
+            "title-ar": "حالة الطلب",
+            "title": "order status",
             "_trans": "true",
             "view": "text",
             "_type": "method",
             "class": "ins-col-2"
         },
+
         {
-            "_data": "ins_gla.ins_apps.app_order._status",
-            "title-ar": "حالة الطلب",
-            "title": "order status",
+            "_data": "ins_gla.ins_apps.app_order._payment_status",
+            "title-ar": "حالة الدفع",
+            "title": "payment status",
             "_trans": "true",
             "view": "text",
             "_type": "method",

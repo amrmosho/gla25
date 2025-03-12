@@ -1,3 +1,4 @@
+import json
 from ins_gla.ins_kit._elui import ELUI
 from ins_kit._engine._bp import App
 import uuid
@@ -89,6 +90,11 @@ class AppCal(App):
 
     def ui_header(self ,total):
 
+        arrow = "lni lni-arrow-right"
+        if self.ins._langs._this_get()["name"] == "ar":
+                    arrow = "lni lni-arrow-left"
+
+
 
         uidata = [
             {"start": "true", "class": "ins-white"},
@@ -100,8 +106,7 @@ class AppCal(App):
                     "style": "height: 24px;line-height: 24px;"},
                 {"_type": "input", "value":total, "placeholder": "Enter your amount","placeholder-ar":"أدخل المبلغ الخاص بك","_trans":"true",
                     "type": "text", "class": " -cal-update-nput ins-input-none"},
-                {"_data": "<i class='lni ins-white-color lni-arrow-right'></i>",
-                    "class": "ins-button-s  -cal-update-btn ins-gold-d"},
+                {"_data": f"<i class=' ins-white-color {arrow}'></i>","class": "ins-button-s  -cal-update-btn ins-gold-d"},
                 {"end": "true"},
                 {"end": "true"},
                 {"end": "true"}
@@ -123,7 +128,11 @@ class AppCal(App):
         ndata=self.ins._server._get_session(self.session_name)
         r = {}
         r["status"] = "2"
-
+        count = 0
+        if ndata:
+                for _, s in ndata.items():
+                    count += int(s["count"])
+        r["count"] = str(count)
         if not ndata:
             uidata=[{"_data":"There is no items in cart","_data-ar":"لا يوجد أي عناصر في سلة التسوق","_trans":"true","class":"ins-col-12 ins-card ins-secondary ins-text-upper ins-text-center ins-title-12"}]
             r["status"] = "1"
@@ -159,19 +168,44 @@ class AppCal(App):
             uidata += body
             for k, pro in product.items():
                 uniq = str(uuid.uuid4())[:8]
+                tys = ""
+                stys = ""
+
+                if pro["fk_product_category_id"] == 1 :
+                    tys = "standard"
+                    stys = "standard"
+                elif  pro["fk_product_category_id"] == 2 :
+                    tys = "royal"
+                    stys = "george"
+
+
+                p = "/ins_web/ins_uploads/"
+                types_data = json.loads(pro["types_data"]) if pro.get("types_data") else {}
+
+                th_main_image = ""
+            
+                if tys in types_data and stys in types_data[tys].get("data", {}):
+                    stys_data = types_data[tys]["data"][stys]
+                    rimages = stys_data.get("images", "").strip()
+                    if rimages:
+                        image = rimages.split(",")
+                        th_main_image = image[0] if image else th_main_image
+                
+                img = f"{p}{th_main_image}"
+
                 products = [
                     {"start": "true", "class":"ins-col-grow"},
 
                     {"start": "true", "style": "width:210px"},
                     {"start": "true", "class": " product-img-cont ", "style": ""},
-                    {"src": p + pro["th_main"], "loading":"lazy","_type": "img"},
+                    {"src": img, "loading":"lazy","_type": "img"},
                     {"end": "true"},
                     {"class": "ins-space-xl"},
                     {"_data": pro["title"], "class": "ins-strong-m ins-grey-color ins-text-upper",
                         "style": "    line-height: 20px;"},
                     {"_data": str(pro["price"]),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",  "class": "ins-strong-m ins-primary-d-color ins-title-14"},
                     {"class": "ins-space-s"},
-                    {"_data": f"Qty: {pro["count"]}","_data-ar": f"الكمية: {pro["count"]}","_trans":"true",
+                    {"_data": f"Qty: {pro['count']}","_data-ar": f"الكمية: {pro['count']}","_trans":"true",
                         "class": "ins-strong-l ins-grey-color "},
                     {"end": "true"},
                     {"end": "true"}
@@ -197,9 +231,12 @@ class AppCal(App):
             for k, pro in product.items():
                 stotal = float(pro["count"]) * float(pro["price"])
                 total +=stotal
-                summary+=[{"_data": f"{pro["count"]} x {pro["title"]}","class": "ins-col-6 ins-strong-m ins-grey-color"},
+                summary+=[{"_data": f"{pro['count']} x {pro['title']}","class": "ins-col-6 ins-strong-m ins-grey-color"},
                           {"_data": str(stotal),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-grey-d-color ins-strong-l ins-flex-end"}]
 
+            lbtitle = "Cart"
+            if self.ins._langs._this_get()["name"] == "ar":
+             lbtitle = "السلة"
             summary+=[
                 {"class": "ins-space-s"},
                 {"class": "ins-line ins-col-12"},
@@ -207,7 +244,7 @@ class AppCal(App):
                 {"_data": "Total", "_data-ar":"المجموع ","_trans":"true","class": "ins-col-6 ins-strong-m ins-grey-color"},
                 {"_data": str(total),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-grey-d-color ins-strong-l ins-flex-end"},
                 {"class": "ins-space-2xl"},
-                {"_data": "ADD TO CART <i class = 'lni lni-arrow-right ins-white-color'></i>","_data-ar":"أضف إلى السلة","_trans":"true", "class": "ins-col-12 ins-button-s ins-flex-center  ins-white-color ins-strong-m ins-gold-d -add-cart-btn ins-title-14","style": "    height: 32px;    border: 1px solid var(--primary-d);"},
+                {"_data": "ADD TO CART <i class = 'lni lni-arrow-right ins-white-color'></i>","_data-ar":"أضف إلى السلة","data-lbtitle":lbtitle,"_trans":"true", "class": "ins-col-12 ins-button-s ins-flex-center  ins-white-color ins-strong-m ins-gold-d -add-cart-btn ins-title-14","style": "    height: 32px;    border: 1px solid var(--primary-d);"},
                 {"end": "true"},
                 {"end": "true"},
                 {"end": "true"},
@@ -239,7 +276,7 @@ class AppCal(App):
             {"start": "true", "class": "ins-col-12 ins-flex-end  gla-container"},
              {"_data": "Filter by",  "_data-ar":"تصفية حسب","_trans":"true","class": "ins-strong-m ins-grey-d-color ins-title-14"}]
         fdata = [
-            {"name":"mix","title":"Mix","title_ar":"مزج","url":f"{self.ins._server._url({},"id")}"},
+            {"name":"mix","title":"Mix","title_ar":"مزج","url":f"{self.ins._server._url({},'id')}"},
             {"name":"bars","title":"24 Karat (Gold Bars)","title_ar":"سبائك الذهب عيار 24","url":"bars"},
             {"name":"coins","title":"21 Karat (Gold Coins)","title_ar":"21 قيراط (عملات ذهبية)","url":"coins"}
                    ]
@@ -264,7 +301,7 @@ class AppCal(App):
 
         for product in plan_data:
             if product:
-                title =   f"{self.ins._langs._get("option" ,"gla")} {i}"
+                title =   f"{self.ins._langs._get('option' ,'gla')} {i}"
 
                 uidata += self.plan_ui(product, title)
                 i += 1
@@ -337,7 +374,9 @@ class AppCal(App):
         uidata.append({"_data": "Gold calculator", "_data-ar":"حاسبة الذهب","_trans":"true","class": "ins-title-xl ins-grey-d-color ins-strong-m ins-col-12 ins-text-upper","style":"    line-height: 40px;"})
         uidata.append({"_data": "See how much gold you can own!","_data-ar":" شاهد كم من الذهب يمكنك أن تملكه!","_trans":"true", "class": "ins-title-20 ins-grey-color ins-col-12 "})
         uidata.append({"class": "ins-space-l"})
-
+        text = "CALCULATOR "
+        if self.ins._langs._this_get()["name"] == "ar":
+                    text = "أحسب <i class='lni ins-white-color lni-arrow-left'></i>"
         uidata += [
                 {"start": "true", "class": "  ins-flex  ins-border ins-radius-m ins-padding-m ","style":"width: 720px;background-color: white;"},
                 {"_data": "EGP", "_data-ar": "جنيه","_trans":"true", "class": "ins-border-end ins-padding-m ins-padding-h ins-title-20 ins-grey-color",
@@ -346,8 +385,7 @@ class AppCal(App):
                     
                     "Enter your amount","placeholder-ar":"أدخل المبلغ الخاص بك","_trans":"true",
                     "type": "text", "class": " -cal-update-nput ins-input-none","pclass":"ins-col-grow"},
-                {"_data": "CALCULATOR <i class='lni ins-white-color lni-arrow-right'></i>","_data-ar":"احسب ","_trans":"true",
-                    "class": "ins-button-s  -cal-update-btn ins-gold-d ins-flex-center","style":"height: 46px;"},
+                {"_data": text,"class": "ins-button-s  -cal-update-btn ins-gold-d ins-flex-center","style":"height: 46px;"},
                 {"end": "true"}
             ]
         

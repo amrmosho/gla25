@@ -35,11 +35,11 @@ class AppDelivery(App):
            if str(a["id"]) == str(asession["id"])  and asession["type"] == "store":
               img = "style/radio_checked.svg"
            uidata.append({"start":"true","class":"ins-col-12 ins-card ins-flex-valign-center ins-padding-s -address-cont","style":"    line-height: 20px;"})
-           uidata.append({"_data":"<img data-aid = "+f"{a["id"]}"+" class='-address-btn' data-type='store' src='"+p + img+"'></img>","class":"ins-flex ins-col-1"})
+           uidata.append({"_data":"<img data-aid = "+f"{a['id']}"+" class='-address-btn' data-type='store' src='"+p + img+"'></img>","class":"ins-flex ins-col-1"})
            uidata.append({"start":"true","class":"ins-col-11 ins-flex"})
            uidata.append({"_data": a["title"],"class":" ins-title-s ins-strong-m ins-grey-d-color ins-col-12","style":"line-height: 24px;"})
            uidata.append({"_data": a["address"],"class":"ins-grey-color ins-col-12 ins-title-12","style":"line-height: 16px;"})
-           uidata.append({"_data": f"Phone: {a["phone"]} | WhatsApp: {a["whatsapp"]} | Email:  {a["email"]}" ,"_data-ar": f"هاتف: {a["phone"]} | واتساب: {a["whatsapp"]} | بريد الكتروني:  {a["email"]}" ,"_trans":"true","class":"ins-grey-d-color ins-col-12   ins-title-14"})
+           uidata.append({"_data": f"Phone: {a['phone']} | WhatsApp: {a['whatsapp']} | Email:  {a['email']}" ,"_data-ar": f"هاتف: {a['phone']} | واتساب: {a['whatsapp']} | بريد الكتروني:  {a['email']}" ,"_trans":"true","class":"ins-grey-d-color ins-col-12   ins-title-14"})
            uidata.append({"end":"true"})
            uidata.append({"end":"true"})
         uidata.append({"end":"true"})
@@ -51,7 +51,7 @@ class AppDelivery(App):
     
     def _addresses_area_ui(self,string=True):
         rsdata=  self.user._check()
-        addesses = self.ins._db._get_data("gla_user_address","*",f"fk_user_id = '{rsdata["id"]}' order by kit_created ASC",update_lang=True)
+        addesses = self.ins._db._get_data("gla_user_address","*",f"fk_user_id = '{rsdata['id']}' order by kit_created ASC",update_lang=True)
         uidata=[{"start":"true","class":"ins-col-12 ins-flex  -addresses-area"}]
         uidata.append({"_data":"Saved Address","_data-ar":"العناوين المحفوظة ","_trans":"true","class":"ins-col-9 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"})
         uidata.append({"_data": "Add Address","_data-ar":" إضافة عنوان","_trans":"true","class": "ins-button-s -add-address ins-text-center ins-strong-m ins-col-3 ins-gold-bg  ins-text-upper"})
@@ -65,7 +65,7 @@ class AppDelivery(App):
               if str(a["id"]) == str(asession["id"]) and asession["type"] == "delivery":
                  img = "style/radio_checked.svg"
               uidata.append({"start":"true","class":"ins-col-12 ins-card ins-flex-valign-center ins-padding-s -address-cont","style":"    line-height: 20px;"})
-              uidata.append({"_data":"<img data-aid = "+f"{a["id"]}"+" class='-address-btn' data-type='delivery' src='"+p + img+"'></img>","class":"ins-flex ins-col-1"})
+              uidata.append({"_data":"<img data-aid = "+f"{a['id']}"+" class='-address-btn' data-type='delivery' src='"+p + img+"'></img>","class":"ins-flex ins-col-1"})
               uidata.append({"start":"true","class":"ins-col-9 ins-flex"})
               uidata.append({"_data": a["title"],"class":" ins-title-s ins-strong-m ins-grey-d-color ins-col-12","style":"line-height: 24px;"})
               uidata.append({"_data": a["address"],"class":"ins-grey-color ins-col-12 ins-title-12","style":"line-height: 16px;"})
@@ -104,7 +104,7 @@ class AppDelivery(App):
         uidata.append({"_data": "Voucher", "_data-ar":" قسيمة","_trans":"true","class": "ins-col-12  ins-grey-d-color ins-strong-m  "})
         uidata.append({"_type": "input","type":"text","placeholder":"code","placeholder-ar":" رمز","_trans":"true","name":"voucher","pclass":"ins-col-12","style":"    background: white;border-radius:4px;"})
         uidata.append({"class":"ins-space-xl"})
-        uidata.append({"start": "true", "class": "ins-flex ins-col-12  ins-padding-m","style":"border-radius:8px !important;border: 1px solid var(--grey-l);"})
+        uidata.append({"start": "true", "class": "ins-flex ins-col-12 -fees-info ins-padding-m","style":"border-radius:8px !important;border: 1px solid var(--grey-l);"})
         uidata.append({"_data": "Your details","_data-ar":"تفاصيلك","_trans":"true", "class": "ins-col-12 ins-title-s ins-grey-d-color ins-strong-l "})
         uidata.append({"class":"ins-space-s"})
         uidata.append({"_data": "Subtotal", "_data-ar":"المجموع الفرعي","_trans":"true","class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})

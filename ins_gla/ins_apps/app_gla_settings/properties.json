@@ -1,0 +1,119 @@
+{
+    "table": "gla_settings",
+    "form_data": [{
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card ins-padding-m"
+        },
+        {
+            "name": "otp_id",
+            "title": "OTP Template ID",
+            "title-ar": "كود قالب رمز التحقق",
+            "_trans": "true",
+            "_type": "input",
+            "type": "number",
+            "pclass": "ins-col-6"
+        },
+        {
+            "name": "email_id",
+            "title": "Email Template ID",
+            "title-ar": "كود قالب البريد الالكتروني",
+            "_trans": "true",
+            "_type": "input",
+            "type": "number",
+            "pclass": "ins-col-6"
+        }, {
+            "end": "True"
+        },
+
+
+        {
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card ins-padding-m"
+        },
+        { "_data": "Accept Orders Area", "_data-ar": "قبول الطلبات", "class": "ins-col-12 ins-title-m" },
+
+
+        {
+            "name": "accept_order",
+            "_end": "Accept order",
+            "_type": "input",
+            "type": "bool",
+            "value": "1",
+            "pclass": "ins-col-4 "
+        },
+        {
+            "_type": "textarea",
+            "pclass": "ins-col-4 ",
+            "name": "order_msg",
+            "title": "Order Message",
+            "class": "order_msg"
+        },
+        {
+            "_type": "textarea",
+            "pclass": "ins-col-4",
+            "name": "order_msg_ar",
+            "title": "Order Message AR",
+            "class": "order_msg_ar"
+        },
+        {
+            "end": "True"
+        },
+        {
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card ins-padding-m"
+        },
+        { "_data": "Store Times", "_data-ar": "تفاصيل المنتج", "class": "ins-col-12 ins-title-m" },
+        {
+            "start": "True",
+            "class": "ins-col-12 ins-padding-l ins-flex-center ins-card ins-padding-l"
+        },
+
+        {
+            "class": "-times-area ins-col-12 "
+        },
+        { "class": "ins-col-3 -add-new-time ins-button ins-primary", "_data": "Add new time" },
+
+        {
+            "end": "True"
+        },
+
+        {
+            "_type": "textarea",
+            "pclass": "ins-col-12 ins-hidden",
+            "name": "times",
+            "class": "-times-textarea",
+            "title": "Data"
+        }, {
+            "end": "True"
+        }
+    ],
+    "list_data": [{
+            "name": "title",
+            "title": "Title",
+            "title-ar": "العنوان",
+            "_trans": "true",
+            "view": "text",
+            "class": "ins-col-grow"
+        }, {
+            "name": "des",
+            "title": "Description",
+            "_type": "textarea",
+            "view": "text",
+            "class": "ins-col-6"
+        }
+
+
+    ],
+    "list_filter": [{
+        "name": "title",
+        "title": "Title",
+        "title-ar": "العنوان",
+        "_trans": "true",
+        "_type": "input",
+        "type": "text",
+        "main": "true",
+        "_info": "Search in <b>Title</b> by <b>@(value)</b>",
+        "_info-ar": "ابحث في <b>العنوان</b> بواسطة <b>@(value)</b>",
+        "pclass": "ins-col-12"
+    }]
+}

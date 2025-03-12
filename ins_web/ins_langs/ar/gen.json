@@ -1,0 +1,22 @@
+{
+
+    "operation_done_msg": "تم العمليه بنجاح  ",
+    "operation_error_msg": "حدث مشلكله اثناء العمليه ",
+    "enter_valid_number": "برجاء ادخال رقم صحيح",
+    "store_unavailable": "المتجر غير متاح حاليًا. حاول لاحقًا",
+    "invalid_login_data": "بيانات تسجيل الدخول غير صالحة",
+    "invalid_mobile_number_or_password": "رقم الهاتف المحمول أو كلمة المرور غير صالحة",
+    "login_successful": "تم تسجيل الدخول بنجاح",
+    "password_rest_successfully": "تمت إعادة تعيين كلمة المرور بنجاح",
+    "otp_cannot_be_empty": "لا يمكن ان يكون رمز التحقق فارغا",
+    "this_mobile_doesn't_have_an_account": "هذا الرقم غير مسجل لدينا",
+    "invalid_otp": "رمز التحقق غير صحيح",
+    "otp_code_has_been_expired": "انتهت صلاحية رمز التحقق",
+    "please_enter_mobile_number": "برجاء ادخال رقم الهاتف المحمول",
+    "passwords_do_not_match": "كلمات المرور غير متطابقة",
+    "signup_completed_successfully": "تم التسجيل بنجاح",
+    "otp_sent_successfully": "تم ارسال رمز التحقق بنجاح",
+    "mobile_number_already_exists": "رقم الهاتف المحمول موجود بالفعل",
+    "remove_item_confirm": "هل انت متأكد من حذف هذا المنتج من السلة؟",
+    "item_removed": "تم حذف المنتج من السلة"
+}

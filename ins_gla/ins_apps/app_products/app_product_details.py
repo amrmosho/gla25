@@ -49,7 +49,7 @@ class AppProductDetails(App):
 
     
     def _ui(self,rq):
-        data = self.ins._db._get_row("gla_product", "*", f"id={rq["id"]}")
+        data = self.ins._db._get_row("gla_product", "*", f"id={rq['id']}")
         filter_data = {}
         stys = ""
         tys = ""
@@ -130,8 +130,8 @@ class AppProductDetails(App):
 
         
         ## Tags
-        uidata.append({"_data": "Bestseller","_data-ar":"الأكثر مبيعًا","_trans":"true", "class": "ins-tag ins-primary-d ins-strong-m  ins-text-upper ins-title-10","style":"border-radius: 2px !important;"})
-        uidata.append({"_data": "In Stock","_data-ar":"متوفر","_trans":"true", "class": "ins-tag ins-secondary  ins-strong-m  ins-text-upper ins-title-10","style":"border-radius: 2px !important;"})
+        ## uidata.append({"_data": "Bestseller","_data-ar":"الأكثر مبيعًا","_trans":"true", "class": "ins-tag ins-primary-d ins-strong-m  ins-text-upper ins-title-10","style":"border-radius: 2px !important;"})
+        ## uidata.append({"_data": "In Stock","_data-ar":"متوفر","_trans":"true", "class": "ins-tag ins-secondary  ins-strong-m  ins-text-upper ins-title-10","style":"border-radius: 2px !important;"})
         uidata.append({"class": "ins-space-xs"})
 
 
@@ -254,7 +254,7 @@ class AppProductDetails(App):
         uidata.append({"start": "true", "class": "ins-flex ins-col-12"})
         uidata.append({"_data": "Related Products","_data-ar":"المنتجات ذات الصلة","_trans":"true", "class": "ins-col-12 ins-grey-d-color ins-strong-m ins-text-upper","style":"font-size:36px"})
         uidata.append({"class": "ins-space-l"})
-        rpdata = self.ins._db._get_data("gla_product","*", f"   fk_product_category_id={data["fk_product_category_id"]} and id <>{data["id"]} limit 0,4 ",update_lang=True)
+        rpdata = self.ins._db._get_data("gla_product","*", f"   fk_product_category_id={data['fk_product_category_id']} and id <>{data['id']} limit 0,4 ",update_lang=True)
         uidata.append({"start": "true", "class": "ins-flex-space-between ins-col-12"})
         for d in rpdata:
             uidata+= ELUI(self.ins).shop_pro_block(d,self.ins._server._url({"id":d["id"]},["filter","type"]))

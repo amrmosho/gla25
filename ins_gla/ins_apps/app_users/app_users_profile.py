@@ -8,8 +8,7 @@ class AppUsersProfile(App):
         self.user = Gusers(app.ins)
         super().__init__(app.ins)
 
-    def u(self, mode):
-        return self.ins._server._url({"mode": mode})
+
 
 
 
@@ -18,8 +17,8 @@ class AppUsersProfile(App):
         
         return [
             {"start": "true", "class": "ins-col-12 ins-flex-end ins-padding-2xl "},
-            {"_type": "input", "required": "true", "value": user["first_name"], "title": "First Name","title-ar":"الاسم الأول","_trans":"true", "placeholder": "Enter First Name", "type": "text", "name": "first_name", "class": "-signup-first-name-inpt", "pclass": "ins-col-12"},
-            {"_type": "input", "required": "true", "value": user["last_name"], "title": "Last Name","title-ar":"اسم العائلة","_trans":"true", "placeholder": "Enter Last Name", "type": "text", "name": "last_name", "class": "-signup-last-name-inpt", "pclass": "ins-col-12"},
+            {"_type": "input", "required": "true", "value": user["first_name"], "title": "First Name","title-ar":"الاسم الأول","_trans":"true", "placeholder": "Enter First Name", "placeholder-ar": "أدخل الاسم الأول", "type": "text", "name": "first_name", "class": "-signup-first-name-inpt", "pclass": "ins-col-12"},
+            {"_type": "input", "required": "true", "value": user["last_name"], "title": "Last Name","title-ar":"اسم العائلة","_trans":"true", "placeholder": "Enter Last Name", "placeholder-ar": "أدخل اسم العائلة", "type": "text", "name": "last_name", "class": "-signup-last-name-inpt", "pclass": "ins-col-12"},
             {"class": "ins-line ins-col-12"},
             {"_data": "Update","_data-ar":" تحديث","_trans":"true", "class": "ins-button-m ins-gold-d ins-col-2 ins-flex-center -update-name-btn"},
             {"end": "true"}
@@ -29,8 +28,8 @@ class AppUsersProfile(App):
     def change_password(self, data):
         return [
             {"start": "true", "class": "ins-col-12 ins-flex-end ins-padding-2xl "},
-            {"_type": "input", "required": "true", "title": "Old Password","title-ar":" كلمة المرور القديمة","_trans":"true", "_end": '<i class="-show-old-password lni lni-eye"></i>', "placeholder": "Enter Old Password", "placeholder": " كلمة المرور القديمة", "type": "password", "name": "old_password", "class": "-update-old-password-inpt", "pclass": "ins-col-12"},
-            {"_type": "input", "required": "true", "title": "Password","title-ar":" كلمة المرور","_trans":"true", "_end": '<i class="-show-password lni lni-eye"></i>', "placeholder": "Enter Password", "type": "password", "placeholder": " كلمة المرور ",  "name": "password", "class": "-update-password-inpt", "pclass": "ins-col-12"},
+            {"_type": "input", "required": "true", "title": "Old Password","title-ar":" كلمة المرور القديمة","_trans":"true", "_end": '<i class="-show-old-password lni lni-eye"></i>', "placeholder": "Enter Old Password", "placeholder-ar": " كلمة المرور القديمة", "type": "password", "name": "old_password", "class": "-update-old-password-inpt", "pclass": "ins-col-12"},
+            {"_type": "input", "required": "true", "title": "Password","title-ar":" كلمة المرور","_trans":"true", "_end": '<i class="-show-password lni lni-eye"></i>', "placeholder": "Enter Password", "type": "password", "placeholder-ar": " كلمة المرور ",  "name": "password", "class": "-update-password-inpt", "pclass": "ins-col-12"},
             {"_type": "input", "required": "true", "title": "Confirm Password","title-ar":"تأكيد كلمة المرور","_trans":"true", "_end": '<i class="-show-confirm-password lni lni-eye"></i>', "placeholder": "Confirm Password",  "placeholder-ar": "تأكيد كلمة المرور","type": "password", "name": "confirm_password", "class": "-update-confirm-password-inpt", "pclass": "ins-col-12"},
             {"class": "ins-line ins-col-12"},
             {"_data": "Update","_data-ar":" تحديث","_trans":"true", "class": "ins-button-m ins-gold-d ins-col-2 ins-flex-center -update-password-btn"},
@@ -40,7 +39,7 @@ class AppUsersProfile(App):
 
     def change_email(self, data):
         u = self.user._check()
-        udata = self.ins._db._get_row("kit_user","email,email_status",f"id='{u["id"]}'")
+        udata = self.ins._db._get_row("kit_user","email,email_status",f"id='{u['id']}'")
         uidata = [            {"start": "true", "class": "ins-col-12 ins-flex ins-padding-2xl "},
             {"_type": "input", "value": data.get("email", ""), "title": "Email","title-ar":"بريد إلكتروني","_trans":"true", "placeholder": "Enter Email","placeholder-ar": "ادخل البريد الالكتروني", "type": "email", "name": "email", "class": "-update-email-inpt", "pclass": "ins-col-8"},
             {"start": "true", "class": " -verified-area ins-col-4"},
@@ -82,10 +81,13 @@ class AppUsersProfile(App):
         for m in menus:
             bclass = "ins-gold-d-color" if g.get("id") == m["name"] else ""
             aclass = "ins-strong-l" if g.get("id") == m["name"] else ""
-
+            url = self.ins._server._url({'alias':'puser','mode':'profile','id':m['name']})
+            text = f"<i class='lni ins-font-l {bclass} {m['icon']}'></i>  {m['title']}"
+            if self.ins._langs._this_get()["name"] == "ar":
+                text =f"<i class='lni ins-font-l {bclass} {m['icon']}'></i>  {m['title-ar']}"
             usmenu.extend([
                 {"start": "true", "class": f" ins-col-12 ins-primary-w ins-flex ins-border ins-radius-l ins-padding-m"},
-                {"_type": "a", "href": f"{m['name']}","_trans":"true","_data-ar":f'<i class="lni ins-font-l {bclass} {m['icon']}"></i>  {m['title-ar']}', "_data": f'<i class="lni ins-font-l {bclass} {m['icon']}"></i>  {m['title']}', "class": f"{bclass} {aclass} ins-title-xs ins-col-12"},
+                {"_type": "a", "href":url , "_data":text , "class": f"{bclass} {aclass} ins-title-xs ins-col-12"},
                 {"end": "true"}
             ])
 
@@ -108,7 +110,7 @@ class AppUsersProfile(App):
         ]
 
         u = self.user._check()
-        user = self.ins._db._get_row("kit_user","*",f"id='{u["id"]}'")
+        user = self.ins._db._get_row("kit_user","*",f"id='{u['id']}'")
 
 
         if g.get("id") == "user_setting":

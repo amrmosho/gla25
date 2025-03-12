@@ -271,7 +271,10 @@ ins(".-update-email-inpt")._on("keyup", (o) => {
 ins(".-send-email-veri-btn")._on("click", (o) => {
     var email = ins(".-update-email-inpt")._getValue()
     if (email == "") {
-        ins("Please enter a valid email")._ui._notification({ "class": "ins-danger" })
+        ins("enter_valid_number")._data._trans((text) => {
+            ins(text)._ui._notification({ "class": "ins-danger" });
+
+        })
     } else {
         ins("_send_email_otp")._ajax._app({ "email": email }, (d) => {
             ins("An OTP sent to your email address " + email)._ui._notification()

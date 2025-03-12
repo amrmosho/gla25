@@ -1,3 +1,4 @@
+import json
 from ins_gla.ins_kit._elui import ELUI
 from ins_kit._engine._bp import App
 
@@ -7,29 +8,28 @@ class AppOrder(App):
         self.app: App = app
         super().__init__(app.ins)
 
-      
+    def get_order_status(self,status,type="5"):
+        data = self.ins._data._get_options(type)["content"]
+        ops = json.loads(data)
+        return ops[status]
+
+
 
 
     def _status(ins, options, data):
-     sclass = "" 
-
-     if data["order_status"] == "pending":
-        sclass = "ins-warning"
-     elif data["order_status"] == "confirmed":
-        sclass = "ins-secondary"
-
-     uiadta = [{"_data": data["order_status"],  "class" : f" {sclass}  ins-col-8 ins-text-center ins-title-14 ins-strong-m  ins-tag",}]
+     content = ins._data._get_options("5")["content"]
+     ops = json.loads(content)
+     status = ops[str(data["order_status"])]
+     uiadta = [{"_data": status["text"], "_data-ar": status["text_ar"],"_trans":"true", "class" : f" {status['class']} ins-col-8 ins-text-center ins-title-14 ins-strong-m  ins-tag",}]
      return ins._ui._render(uiadta)
 
     def _payment_status(ins, options, data):
-     sclass = "" 
+     content = ins._data._get_options("6")["content"]
+     ops = json.loads(content)
+     status = ops[str(data["payment_status"])]
 
-     if data["payment_status"] == "pending":
-        sclass = "ins-warning"
-     elif data["payment_status"] == "confirmed":
-        sclass = "ins-secondary"
 
-     uiadta = [{"_data": data["payment_status"], "class" : f"{sclass} ins-col-8 ins-text-center ins-title-14 ins-strong-m  ins-tag",}]
+     uiadta = [{"_data": status["text"], "_data-ar": status["text_ar"],"_trans":"true", "class" : f"{status['class']} ins-col-8 ins-text-center ins-title-14 ins-strong-m  ins-tag",}]
      return ins._ui._render(uiadta)
     
     def _total(ins, options, data):
@@ -38,7 +38,7 @@ class AppOrder(App):
              "_currency_symbol_ar": " جنيه", "class" : " ins-primary-d ins-strong-l ins-flex-center ins-card ins-flex-space-between ins-col-9 ins-flex ins-padding-l ins-padding-h ins-text-center",}]
      return ins._ui._render(uiadta)
     def _deatils(ins, options, data):
-     ptitle = ins._db._get_row("gla_payment_methods","title,kit_lang",f"id='{data["payment_method"]}'",update_lang=True)
+     ptitle = ins._db._get_row("gla_payment_methods","title,kit_lang",f"id='{data['payment_method']}'",update_lang=True)
 
      uiadta = [{"_data": ptitle["title"],  "class" : "  ins-flex-space-between ins-col-9 ins-flex ins-padding-l ins-padding-h ins-text-center",}]
      return ins._ui._render(uiadta)
@@ -53,14 +53,40 @@ class AppOrder(App):
 
     def _change_status_ui(self):   
       rq = self.ins._server._post()
-      current_status = self.ins._db._get_row("gla_order", "order_status", f"id='{rq['tid']}'")["order_status"]
+      data = self.ins._db._get_row("gla_order", "order_status,payment_status", f"id='{rq['tid']}'")
+      o_status =  self.ins._data._get_options("5")["content"]
+      o_status = json.loads(o_status)
+      order_status = {}
+      for ko,vo in o_status.items():
+         order_status[ko] = vo["text"]
+
+      if self.ins._langs._this_get()["name"] == "ar":
+       for ko,vo in o_status.items():
+         order_status[ko] = vo["text_ar"]
+
+
+      p_status =  self.ins._data._get_options("6")["content"]
+      p_status = json.loads(p_status)
+      payment_status = {}
+      for kp,vp in p_status.items():
+         payment_status[kp] = vp["text"]
+
+      if self.ins._langs._this_get()["name"] == "ar":
+       for kp,vp in p_status.items():
+         payment_status[kp] = vp["text_ar"]
+     
+
+
+
       
       uidata = [
          {"start":"true","class":"ins-col-12 ins-flex "},
-        {"_data":"Change Order Status","class":"ins-col-11 ins-strong-m ins-title-s "},{"class":"ins-col-1 ins-text-right lni lni-xmark _a_red ins-view-close  ins-font-xl"},
+        {"_data":"Change Order Status","_data-ar":"تغيير حالة الطلب","_trans":"true","class":"ins-col-11 ins-strong-m ins-title-s "},
+        {"class":"ins-col-1 ins-text-right lni lni-xmark _a_red ins-view-close  ins-font-xl"},
         {"start":"true","class":"ins-col-12 ins-padding-m ins-flex-center"},
-        {"_type":"select","_value":"pending","value":current_status,"placeholder":"Order Status","fl_data":{"pending":"Pending","confirmed":"Confirmed","canceled":"Canceled"},"pclass":"ins-col-12","name":"status"},
-        {"class":"ins-button ins-primary -save-status","_data":"Update Status","data-tid":rq["tid"]},
+        {"_type":"select","value":data["order_status"],"title":"Order Status","title-ar":"حالة الطلب","_trans":"true","fl_data":order_status,"pclass":"ins-col-12","name":"status"},
+        {"_type":"select","value":data["payment_status"],"title":"Payment Status","title-ar":"حالة الدفع","_trans":"true","fl_data":payment_status,"pclass":"ins-col-12","name":"payment_status"},
+        {"class":"ins-button ins-primary -save-status","_data":"Update Status","_data-ar":"تحديث","_trans":"true","data-tid":rq["tid"]},
 
         {"end":"true"},
         {"end":"true"}
@@ -73,9 +99,8 @@ class AppOrder(App):
     
     def _update_statue(self):   
       rq = self.ins._server._post()
-      new_status = rq["value"]
-      update_data = {"order_status": new_status} 
-      self.ins._db._update("gla_order", update_data, f"id='{rq["oid"]}'")
+      update_data = {"order_status": rq["value"],"payment_status":rq["payment"]} 
+      self.ins._db._update("gla_order", update_data, f"id='{rq['oid']}'")
       return "1"
 
 
@@ -102,8 +127,8 @@ class AppOrder(App):
 
     def _order_ui(self):   
       rq = self.ins._server._post()
-      sedata = self.ins._db._jget( "gla_order_item", "*", f"fk_order_id='{rq['tid']}'")
-      sedata._jwith("gla_product product", "th_main",rfk="fk_product_id", join="left join")
+      sedata = self.ins._db._jget("gla_order_item", "*", f"fk_order_id='{rq['tid']}'")
+      sedata._jwith("gla_product product", "th_main,types_data,fk_product_category_id",rfk="fk_product_id", join="left join")
       sedata = sedata._jrun()
       data = self.ins._db._get_row("gla_order", "*", f"id='{rq['tid']}'")
       user = self.ins._db._get_row("kit_user", "title", f"id='{data['fk_user_id']}'")["title"]
@@ -111,42 +136,19 @@ class AppOrder(App):
 
       address = ""
       if data["delivery_type"] == "delivery":
-          user_address = self.ins._db._get_row(
-              "gla_user_address", "*", f"id='{data['fk_address_id']}'", update_lang=True)
+          user_address = self.ins._db._get_row("gla_user_address", "*", f"id='{data['fk_address_id']}'", update_lang=True)
           address = f"{user_address['address']}, {user_address['city']}, {user_address['state']}"
       else:
-          store_address = self.ins._db._get_row(
-              "gla_address", "address,kit_lang", f"id='{data['fk_address_id']}'", update_lang=True)
+          store_address = self.ins._db._get_row("gla_address", "address,kit_lang", f"id='{data['fk_address_id']}'", update_lang=True)
           address = f"{store_address['address']}"
 
-      payments = self.ins._db._get_row(
-          "gla_payment_methods", "title,kit_lang", f"id='{data['payment_method']}'", update_lang=True)
+      payments = self.ins._db._get_row("gla_payment_methods", "title,kit_lang", f"id='{data['payment_method']}'", update_lang=True)
       uidata = []
       tcount = 0
-      if (data["order_status"] == "pending"):
-          status = "Pending"
-          status_ar = "قيد الانتظار "
-      elif (data["order_status"] == "confirmed"):
-          status = "Confirmed"
-          status_ar = "مقبول"
+      
+      order_status = self.get_order_status(data["order_status"])
+      payment_status = self.get_order_status(data["payment_status"],"6")
 
-      elif (data["order_status"] == "canceled"):
-          status = "Canceled"
-          status_ar = "ملغي"
-
-      elif (data["order_status"] == "delivered"):
-          status = "Delivered"
-          status_ar = "تم التوصيل"
-
-      if data['payment_status'] == "success":
-          pstatus = "Success"
-          pstatus_ar = "عملية ناجحة"
-      elif data['payment_status'] == "failed":
-          pstatus = "Failed"
-          pstatus_ar = "عملية فاشلة"
-      elif data['payment_status'] == "pending":
-          pstatus = "Pending"
-          pstatus_ar = "قيد الانتظار "
 
       uidata = [
          {"start":"true","class":"ins-col-12 ins-flex "}, 
@@ -170,8 +172,7 @@ class AppOrder(App):
      
           {"_data": "order status", "_data-ar": "حالة الطلب",
               "_trans": "true", "class": "ins-col-12 ins-grey-d-color"},
-          {"_data": status, "_data-ar": status_ar, "_trans": "true",
-              "class": f"ins-col-12 ins-{self.get_status_color(data["order_status"])}-color ins-title-xs ins-strong-l"},
+          {"_data": order_status["text"], "_data-ar": order_status["text_ar"], "_trans": "true","class": f"ins-col-12 {order_status['class']}-color ins-title-xs ins-strong-l"},
           {"end": "true"},
 
           {"start": "true", "class": "ins-col-3 ins-flex "},
@@ -179,8 +180,7 @@ class AppOrder(App):
 
           {"_data": "payment status", "_data-ar": "حالة الدفع",
               "_trans": "true", "class": "ins-col-12 ins-grey-d-color"},
-          {"_data": pstatus, "_data-ar": pstatus_ar, "_trans": "true",
-              "class": f"ins-col-12 ins-{self.get_payment_status_color(data['payment_status'])}-color ins-title-xs ins-strong-l"},
+          {"_data": payment_status["text"], "_data-ar": payment_status["text_ar"], "_trans": "true","class": f"ins-col-12 {payment_status['class']}-color ins-title-xs ins-strong-l"},
           {"_data": "payment method", "_data-ar": "طريقة الدفع",
               "_trans": "true", "class": "ins-col-12 ins-grey-d-color"},
           {"_data": payments["title"],

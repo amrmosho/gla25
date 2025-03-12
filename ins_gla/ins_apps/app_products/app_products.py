@@ -47,6 +47,13 @@ class AppProducts(App):
         ndata=self.ins._server._get_session(self.session_name)
         r = {}
         r["status"] = "2"
+
+        count = 0
+        if ndata:
+                for _, s in ndata.items():
+                    count += int(s["count"])
+        r["count"] = str(count)
+
         if not ndata:
             uidata=[{"_data":"There is no items in cart","class":"ins-col-12 ins-card ins-secondary ins-text-upper ins-text-center ins-title-12"}]
             r["status"] = "1"
@@ -61,7 +68,7 @@ class AppProducts(App):
 
 
     def generate_product_html(self,string = False):
-        items_per_page = 12
+        items_per_page = 24
         f = self.ins._server._get("page")
         g = self.ins._server._get("filter")
         o = self.ins._server._get("order")
@@ -217,17 +224,15 @@ class AppProducts(App):
                 {"start":"true","class":" ins-flex-end"},
                 {"_data":"Order by",  "_data-ar":"ترتيب حسب","_trans":"true","class":"ins-strong-m ins-grey-d-color ins-title-14"},
                 {"_type":"select","name":"order","fl_data":{
-                    "low":"Lowest to highest",
-                    "high":"highest to Lowest",
+                    "low":"Lowest to Highest",
+                    "high":"Highest to Lowest",
                     "old":"Oldest to Newest",
-                    "new":"Newest to oldest",
-                    "trend":"Trending"
+                    "new":"Newest to Oldest"
                 },"fl_data-ar":{
                     "low":"من الارخص للأغلى",
                     "high":"من الأغلى للأرخص",
                     "old":"من الأقدم للأجدد",
-                    "new":"من الأجدد للأقدم",
-                    "trend":"الأكثر تداولاً"
+                    "new":"من الأجدد للأقدم"
                 },"_trans":"true","value":vorder,"pclass":"ins-col-grow","class":"-order-select"},
                 {"end":"true"}
             ]
@@ -293,7 +298,7 @@ class AppProducts(App):
         
         rq = self.ins._server._post()
         
-        pdata = self.ins._db._get_row("gla_product","types_data",f"id='{rq["pid"]}'")["types_data"]
+        pdata = self.ins._db._get_row("gla_product","types_data",f"id='{rq['pid']}'")["types_data"]
 
         types_data = json.loads(pdata)
 
@@ -335,7 +340,7 @@ class AppProducts(App):
             max_price = price_range[1]
         w = "fk_parent_id='0' "
         if filter_data.get("fk_product_category_id"):
-          w+= f" and fk_product_category_id like '%{filter_data.get("fk_product_category_id")}%'"
+          w+= f" and fk_product_category_id like '%{filter_data.get('fk_product_category_id')}%'"
          
         types = self.ins._db._get_data("gla_product_types","*",f"{w} order by kit_order desc ",update_lang=True)
 

@@ -1,6 +1,6 @@
 from ins_kit._engine._bp import App
 
-from openai import OpenAI
+#from openai import OpenAI
 import json
 
 
