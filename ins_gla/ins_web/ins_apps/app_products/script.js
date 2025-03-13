@@ -128,6 +128,15 @@ ins(".-filter-menu")._on("click", (o) => {
 }, true);
 
 
+
+ins(".-close-filter")._on("click", (o) => {
+    ins(".-filter-area")._removeClass("menu-open")
+
+}, true);
+
+
+
+
 ins(".-continue-shopping-btn")._on("click", (o) => {
     ins(".ins-panel-overlay.ins-opened")._remove()
     ins()._ui._removeLightbox();

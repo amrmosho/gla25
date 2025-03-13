@@ -225,7 +225,7 @@ class AppProducts(App):
         uidata.append({"start":"true","class":"ins-col-grow ins-flex-end ins-m-flex-start -filter-results-area"})
 
         order_area = [
-                {"start":"true","class":"ins-flex-end ins-m-col-6 ins-m-flex-start"},
+                {"start":"true","class":"ins-flex-end ins-m-col-5 ins-m-flex-start"},
                 {"_data":"Order by",  "_data-ar":"ترتيب حسب","_trans":"true","class":"ins-strong-m ins-grey-d-color ins-title-14 ins-m-col-grow"},
                 {"_type":"select","name":"order","fl_data":{
                     "low":"Lowest to Highest",
@@ -355,6 +355,9 @@ class AppProducts(App):
        
         ## Filter Area
         uidata.append({"start": "true", "class": "ins-flex ins-col-3  -filter-area ins-grey-d-color ins-padding-2xl full-height ins-sticky-top","style":"background:white;"})
+        uidata.append({"_data": "Filter","_data-ar": "تصفية","_trans": "true", "class": "ins-m-col-11 ins-grey-d-color ins-font-xl not-for-web "})
+        uidata.append({"class": " not-for-web ins-m-col-1 lni lni-xmark -close-filter ins-font-3xl _a_red"})
+
         uidata.append({"_type": "input", "name":"title","value":filter_data.get("title",""),"data-name":"title","type": "text", "placeholder":"Product name Search..","placeholder-ar": "انتقل إلى الصفحة","_trans": "true","class":" -product-filter-input -title-input",  "pclass": "ins-col-12 ins-hidden","style":"    background: white;border-radius:4px;"})
         uidata.append({"start": "true", "class": "ins-flex ins-col-12  ins-gap-o"})
         uidata.append({"_data": "Category","_data-ar": "تصنيف","_trans": "true", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "})

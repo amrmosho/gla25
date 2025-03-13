@@ -161,6 +161,8 @@
         display: none;
     }
     .-filter-area.menu-open {
+        position: fixed;
+        left: 0;
         display: block !important;
     }
     .ins-filter-card,
