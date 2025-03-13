@@ -88,12 +88,12 @@ class AppUiGuide(App):
         header = [{"start": "true", "class": "ins-flex ins-col-grow"},
                   {"start": "true", "class": "ins-flex ins-col-12  "},icons, style, inputs, test]
 
-        header.append({"class": "ins-col-"})
 
         header.append(
             {"start": "true", "class": "ins-flex ins-radius-xl  ins-border ins-col-grow "})
 
         header += s
+        header.append({"end": "true"})
         header.append({"end": "true"})
         header.append({"end": "true"})
         self.ins._tmp._set_page_des(self.ins._ui._render(header))
