@@ -151,3 +151,26 @@
     background: white;
     border-radius: 4px;
 }
+
+@media screen and (max-width: 1000px) {
+    .-product-filter-input {
+        height: 50px;
+        font-size: 20px !important;
+    }
+    .-filter-area {
+        display: none;
+    }
+    .-filter-area.menu-open {
+        display: block !important;
+    }
+    .ins-filter-card,
+    .-remove-filter-all-btn {
+        font-size: 24px;
+    }
+    .-header-area {
+        height: auto !important;
+    }
+    .-filter-results-area {
+        padding: 24px 0px !important;
+    }
+}

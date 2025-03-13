@@ -222,7 +222,7 @@ class AppProducts(App):
         vorder = "low"
         if order_data:
             vorder =  order_data
-        uidata.append({"start":"true","class":"ins-col-grow ins-flex-end ins-m-flex-start -filter-results-area not-for-phone"})
+        uidata.append({"start":"true","class":"ins-col-grow ins-flex-end ins-m-flex-start -filter-results-area"})
 
         order_area = [
                 {"start":"true","class":"ins-flex-end ins-m-col-6 ins-m-flex-start"},
@@ -241,12 +241,13 @@ class AppProducts(App):
                 {"end":"true"}
             ]
 
+
         uidata+=order_area 
 
 
         if filter_data:
             filter_area = [
-                {"start":"true","class":" ins-flex-end"},
+                {"start":"true","class":" ins-flex-end ins-m-flex-start"},
                 {"_data":"Filter by",  "_data-ar":"تصفية حسب","_trans":"true","class":"ins-strong-m ins-grey-d-color ins-title-14"}
             ]
             for k,v in filter_data.items():
@@ -286,8 +287,6 @@ class AppProducts(App):
 
       
         uidata.append({"end":"true"})
-
-
         uidata.append({"end":"true"})
         uidata.append({"end":"true"})
         return uidata
@@ -337,8 +336,6 @@ class AppProducts(App):
         parsed_data = parse_qs(g)
         filter_data = {key: value[0] for key, value in parsed_data.items()}
         categories = self.ins._db._get_data("gla_product_category", "title,id,kit_lang","1=1",update_lang=True)
-        order_data = self.ins._server._get("order")
-
         min_price = ""
         max_price = ""
         if "price_range" in filter_data and filter_data["price_range"]:
@@ -351,83 +348,11 @@ class AppProducts(App):
          
         types = self.ins._db._get_data("gla_product_types","*",f"{w} order by kit_order desc ",update_lang=True)
 
-        uidata = [{"start":"true","class":"ins-flex ","style":"background:white;height:124px;position: relative;    border-bottom: 1px solid var(--grey-l); "}]
+        uidata = [{"start":"true","class":"ins-flex -header-area","style":"background:white;height:124px;position: relative;    border-bottom: 1px solid var(--grey-l); "}]
         uidata+=self.header_ui()
         uidata.append({"end":"true"})
         uidata.append({"start": "true", "class": "ins-flex-valign-start gla-container ins-col-12 ins-padding-2xl ins-padding-h -pro-cont"})
-
-
-        vorder = "low"
-        if order_data:
-            vorder =  order_data
-        uidata.append({"start":"true","class":" ins-m-flex ins-m-col-12 -filter-results-area not-for-web ins-m-padding-xl"})
-
-        order_area = [
-                {"start":"true","class":" ins-m-col-6 ins-m-flex"},
-                {"_data":"Order by",  "_data-ar":"ترتيب حسب","_trans":"true","class":"ins-strong-m ins-grey-d-color ins-title-14 ins-m-col-grow"},
-                {"_type":"select","name":"order","fl_data":{
-                    "low":"Lowest to Highest",
-                    "high":"Highest to Lowest",
-                    "old":"Oldest to Newest",
-                    "new":"Newest to Oldest"
-                },"fl_data-ar":{
-                    "low":"من الارخص للأغلى",
-                    "high":"من الأغلى للأرخص",
-                    "old":"من الأقدم للأجدد",
-                    "new":"من الأجدد للأقدم"
-                },"_trans":"true","value":vorder,"pclass":" ins-m-col-6","class":"-order-select"},
-                {"end":"true"}
-            ]
-
-        uidata+=order_area 
-
-
-        if filter_data:
-            filter_area = [
-                {"start":"true","class":" ins-m-col-6 ins-m-flex"},
-                {"_data":"Filter by",  "_data-ar":"تصفية حسب","_trans":"true","class":"ins-strong-m ins-grey-d-color ins-title-14"}
-            ]
-            for k,v in filter_data.items():
-                if k == "fk_product_category_id":
-                    name = "Category"
-                    if self.ins._langs._this_get()["name"] == "ar" :
-                        name = "تصنيف"
-                    d = self.ins._db._get_row("gla_product_category","title,kit_lang",f"id='{v}'",update_lang=True)
-                    v = d["title"]
-                elif k == "types_data":
-                    name = "Type"
-                    d = self.ins._db._get_row("gla_product_types","title,kit_lang",f"alias='{v}'",update_lang=True)
-                    v = d["title"]
-                    if self.ins._langs._this_get()["name"] == "ar" :
-                        name = "النوع"
-                elif k == "title":
-                    name = "Title"
-                    if self.ins._langs._this_get()["name"] == "ar" :
-                        name = "اسم المنتج"
-                elif k == "weight":
-                    name = "Weight"
-                    if self.ins._langs._this_get()["name"] == "ar" :
-                        name = "الوزن"
-
-                elif k == "price_range":
-                    name = "Price range"
-                    v = v.replace("-", ":" )
-                    if self.ins._langs._this_get()["name"] == "ar" :
-                        name = "السعر"
-                filter_area.append({"_data":f"{name}: {v} <i data-name={k} class='lni lni-xmark -remove-filter-btn'></i>","class":"ins-filter-card"})
-            filter_area.append({"_data":"Clear All","_data-ar":"حذف الكل","_trans":"true","class":"ins-danger-color ins-button-text -remove-filter-all-btn ins-title-12"})
-            filter_area.append({"end":"true"})
-        
-        
-            uidata+=filter_area 
-        
-
-      
-        uidata.append({"end":"true"})
-
-
-
-
+       
         ## Filter Area
         uidata.append({"start": "true", "class": "ins-flex ins-col-3  -filter-area ins-grey-d-color ins-padding-2xl full-height ins-sticky-top","style":"background:white;"})
         uidata.append({"_type": "input", "name":"title","value":filter_data.get("title",""),"data-name":"title","type": "text", "placeholder":"Product name Search..","placeholder-ar": "انتقل إلى الصفحة","_trans": "true","class":" -product-filter-input -title-input",  "pclass": "ins-col-12 ins-hidden","style":"    background: white;border-radius:4px;"})
@@ -481,7 +406,7 @@ class AppProducts(App):
         uidata.append({"start": "true", "class": "ins-col-12 ins-flex ins-gap-o"})
         uidata.append({"_type": "input", "name":"from","value":min_price,"data-name":"from","type": "text", "placeholder":"from","placeholder-ar": "من","_trans": "true","class":" -price-from-filter-input -price-from-input",  "pclass": "ins-col-5 ins-m-col-5 "})
         uidata.append({"_type": "input", "name":"to","value":max_price,"data-name":"to","type": "text", "placeholder":"to","placeholder-ar": "إلى","_trans": "true","class":" -price-to-filter-input -price-to-input",  "pclass": "ins-col-5  ins-m-col-5 "})
-        uidata.append({"_data":"<i class='lni lni-search-1'></i>","class":"  ins-gold-d-color ins-flex-center -filter-price-btn ins-m-col-2"})
+        uidata.append({"_data":"<i class='lni lni-search-1'></i>","class":" ins-gold-d-color ins-flex-center -filter-price-btn"})
         uidata.append({"end": "true"})
 
         uidata.append({"class": "ins-line ins-col-12"})

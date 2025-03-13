@@ -1299,7 +1299,7 @@
     mask-image: url(/ins_web/ins_images/icons/hand-taking-dollar.svg);
 }
 
-.ins-icons-hand-taking-leaf-1::before {
+.ins-icons-hand-taking-leaf::before {
     -webkit-mask-image: url(/ins_web/ins_images/icons/hand-taking-leaf-1.svg);
     mask-image: url(/ins_web/ins_images/icons/hand-taking-leaf-1.svg);
 }
@@ -1314,12 +1314,12 @@
     mask-image: url(/ins_web/ins_images/icons/hashnode.svg);
 }
 
-.ins-icons-hat-chef-3::before {
+.ins-icons-hat-chef::before {
     -webkit-mask-image: url(/ins_web/ins_images/icons/hat-chef-3.svg);
     mask-image: url(/ins_web/ins_images/icons/hat-chef-3.svg);
 }
 
-.ins-icons-headphone-1::before {
+.ins-icons-headphone::before {
     -webkit-mask-image: url(/ins_web/ins_images/icons/headphone-1.svg);
     mask-image: url(/ins_web/ins_images/icons/headphone-1.svg);
 }
@@ -1329,7 +1329,7 @@
     mask-image: url(/ins_web/ins_images/icons/heart.svg);
 }
 
-.ins-icons-helicopter-2::before {
+.ins-icons-helicopter::before {
     -webkit-mask-image: url(/ins_web/ins_images/icons/helicopter-2.svg);
     mask-image: url(/ins_web/ins_images/icons/helicopter-2.svg);
 }
