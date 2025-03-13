@@ -3,6 +3,8 @@ ins(".-signup-step-1-btn")._on("click", (o) => {
         ins("Please enter mobile number")._ui._notification({ "class": "ins-danger" });
 
     } else {
+        ins()._ui._addLoader()
+
         ins(".-signup-form")._data._submit(function(data) {
 
             ins("_signup_ui_step2")._ajax._app(data, (d) => {
@@ -12,7 +14,10 @@ ins(".-signup-step-1-btn")._on("click", (o) => {
                     ins(".-signup-area")._setHTML(d);
                     resend_otp();
                 }
+                ins()._ui._removeLoader()
+
             });
+
 
         });
     }
@@ -60,6 +65,7 @@ ins(".-signup-step-3-btn")._on("click", (o) => {
 
 
 ins(".-forgot-step-1-btn")._on("click", (o) => {
+    ins()._ui._addLoader()
     if (ins(".-forgot-mobile-inpt")._getValue() == "") {
         ins("Please enter mobile number")._ui._notification({ "class": "ins-danger" });
     } else {
@@ -71,6 +77,7 @@ ins(".-forgot-step-1-btn")._on("click", (o) => {
                     ins(".-signup-area")._setHTML(d);
                     resend_otp();
                 }
+                ins()._ui._removeLoader()
             });
 
         });

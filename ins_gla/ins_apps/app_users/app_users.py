@@ -84,8 +84,8 @@ class AppUsers(App):
         data = {
             "first_name":rq["fname"],
             "last_name":rq["lname"],
-            "title":f"{rq["fname"]} {rq["lname"]}",
-            "user_name":f"{rq["fname"]} {rq["lname"]}"
+            "title":f"{rq['fname']} {rq['lname']}",
+            "user_name":f"{rq['fname']} {rq['lname']}"
         }
         r = {}
                 
@@ -93,7 +93,7 @@ class AppUsers(App):
         r["msg"] = "There is an error while updating user data"
 
         if udata:
-            self.ins._db._update("kit_user",data,f"id='{udata["id"]}'")
+            self.ins._db._update("kit_user",data,f"id='{udata['id']}'")
             r["status"] = "1"
             r["msg"] = "User data updated successfully"
             return r
@@ -108,7 +108,7 @@ class AppUsers(App):
 
 
         u = self.user._check()
-        udata = self.ins._db._get_row("kit_user","id,password",f"id='{u["id"]}'")
+        udata = self.ins._db._get_row("kit_user","id,password",f"id='{u['id']}'")
         old_password = self.ins._data.hash_password(rq["old_password"])
         r = {}
 
@@ -132,7 +132,7 @@ class AppUsers(App):
         r["msg"] = "There is an error while updating password"
 
         if udata:
-            self.ins._db._update("kit_user",data,f"id='{udata["id"]}'")
+            self.ins._db._update("kit_user",data,f"id='{udata['id']}'")
             r["status"] = "1"
             r["msg"] = "Password updated successfully"
             return r
@@ -143,7 +143,7 @@ class AppUsers(App):
         udata = self.user._check()
         otp = self.user._create_otp()
         if otp:
-            self.ins._db._update("kit_user",{"otp":otp},f"id='{udata["id"]}'")
+            self.ins._db._update("kit_user",{"otp":otp},f"id='{udata['id']}'")
             self.ins._server._set_session("temp_mail",{"email":rq["email"]})
         return "1"
     
@@ -153,7 +153,7 @@ class AppUsers(App):
     def _check_email(self):
      rq = self.ins._server._req()
      u = self.user._check()
-     udata = self.ins._db._get_row("kit_user","email_status,email",f"id='{u["id"]}'")
+     udata = self.ins._db._get_row("kit_user","email_status,email",f"id='{u['id']}'")
 
      if rq["email"] != udata["email"] or udata["email_status"] != "verified":
          return self.ins._ui._render( [{"_data": "Send Verification Code","_data-ar":"ارسال رمز التحقق","_trans":"true", "class": "ins-button-m ins-strong-m  -verified-area  ins-gold-bg  ins-col-12 -send-email-veri-btn ins-flex-center", "style": " margin-top: 35px;"}])
@@ -166,7 +166,7 @@ class AppUsers(App):
     def _update_email(self):
         rq = self.ins._server._req()
         udata = self.user._check()
-        data = self.ins._db._get_row("kit_user","*",f"id='{udata["id"]}'")
+        data = self.ins._db._get_row("kit_user","*",f"id='{udata['id']}'")
         r = {}
         if data["otp"]:
              if data["otp"] == rq["otp"]:
@@ -175,7 +175,7 @@ class AppUsers(App):
                     "email_status":"verified",
                     "otp":""
                 }
-                self.ins._db._update("kit_user",update_data,f"id='{udata["id"]}'")
+                self.ins._db._update("kit_user",update_data,f"id='{udata['id']}'")
                 self.ins._server._del_session("temp_mail")
                 r["status"] = "1"
                 r["msg"] = "Your email has been successfully verified."
@@ -266,7 +266,7 @@ class AppUsers(App):
     def _addresses_area_ui(self,string=True):
         rsdata=  self.user._check()
         
-        addesses = self.ins._db._get_data("gla_user_address","*",f"fk_user_id = '{rsdata["id"]}' order by kit_created ASC")
+        addesses = self.ins._db._get_data("gla_user_address","*",f"fk_user_id = '{rsdata['id']}' order by kit_created ASC")
 
         uidata=[{"_data":"My Address","_data-ar":"إضافة عنوان","_trans":"true","class":"ins-col-9 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"}]
         uidata.append({"_data": "Add Address","_data-ar":"إضافة عنوان","_trans":"true", "class": "ins-button-s -add-address ins-text-center ins-strong-m ins-col-3 ins-gold-bg  ins-text-upper"})
@@ -281,7 +281,7 @@ class AppUsers(App):
                uidata.append({"start":"true","class":"ins-col-10 ins-flex"})
                uidata.append({"_data": a["title"],"class":" ins-title-s ins-strong-m ins-grey-d-color ins-col-12","style":"line-height: 24px;"})
                uidata.append({"_data": a["address"],"class":"ins-grey-color ins-col-12 ins-title-12","style":"line-height: 16px;"})
-               uidata.append({"_data": "Mobile: "+a["phone"] + " | Email: "+ a["email"],"class":"ins-grey-d-color ins-col-12  ins-title-14"})
+               uidata.append({"_data": "Mobile: "+a["phone"] + " | Email: "+ a["email"],"_data-ar": "الهاتف: "+a["phone"] + " | البريد الالكتروني: "+ a["email"],"_trans":"true","class":"ins-grey-d-color ins-col-12  ins-title-14"})
                uidata.append({"end":"true"})
                uidata.append({"start":"true","class":"ins-col-2 ins-flex-end"})
                uidata.append({"_data":"<i class='-update-address  _a lni lni-pencil-1' data-aid = "+ str(a["id"])+" ></i>","class":"ins-text-center"})
@@ -305,7 +305,7 @@ class AppUsers(App):
   
     def _remove_address(self):
       data = self.ins._server._post()
-      self.ins._db._update("gla_user_address",{"kit_deleted":"1"},f"id='{data["aid"]}'")
+      self.ins._db._update("gla_user_address",{"kit_deleted":"1"},f"id='{data['aid']}'")
 
       return "1"
 
@@ -327,7 +327,7 @@ class AppUsers(App):
        data = self.ins._server._post()
        data["fk_user_id"] = sdata["id"]
        data["title"] = data["first_name"] + " " +data["last_name"] 
-       self.ins._db._update("gla_user_address",data,f"id='{data["address_id"]}'")
+       self.ins._db._update("gla_user_address",data,f"id='{data['address_id']}'")
        adta = {
           "type":"delivery","id":data["address_id"]
        }
@@ -336,7 +336,7 @@ class AppUsers(App):
     
     def _update_address_ui(self):
         rq = self.ins._server._post()
-        address = self.ins._db._get_row("gla_user_address","*",f"id='{rq["aid"]}'")
+        address = self.ins._db._get_row("gla_user_address","*",f"id='{rq['aid']}'")
         uidata = [{"start":"true","class":"ins-flex ins-col-12 "}]
         uidata.append({"start":"true","class":"ins-flex ins-col-12 -update-address-area"})
         uidata.append({"_data":"Update Address","_data-ar":"تعديل العنوان","_trans":"true","class":"ins-col-12 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"})

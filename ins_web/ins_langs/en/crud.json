@@ -1,0 +1,36 @@
+{
+    "_new": "New",
+
+
+    "filter": "Filter",
+
+    "save": "Save",
+    "update": "Update",
+    "delete": "Delete",
+    "edit": "Edit",
+    "export": "Export",
+    "export_all": " Export All Pages",
+    "duplicate": "Duplicate",
+
+
+    "add_back_list": "Save and Back ",
+
+    "new_item_title": "Create New Item",
+    "upload": "Upload",
+
+    "back": "Back",
+    "reset": "Reset",
+    "del_item_confirm_msg": "Are You sure you won't delete this item?",
+    "del_item_msg": "One item has been delete.",
+    "del_items_confirm_msg": "Are You sure you wont delete thses items?",
+    "del_items_msg": "Items have been deleted successfully",
+    "copy_items_msg": "Items have been copied successfully",
+
+    "copy_item_msg": "Item have been copied successfully"
+
+
+
+
+
+
+}

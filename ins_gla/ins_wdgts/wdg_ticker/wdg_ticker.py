@@ -15,8 +15,7 @@ class WdgTicker(Widget):
 
          bar_sell = price["sell_24"]
          bar_buy = price["buy_24"]
-
-         date = self.ins._date._format(price["kit_created"], "%I:%M %p, %A, %d %B %Y")  
+         date = self.ins._date._format(price["kit_created"] + datetime.timedelta(hours=2), "%I:%M %p, %A, %d %B %Y") 
          date_text = "Last Updated: " + date
 
 

@@ -36,7 +36,7 @@ class AppPayment(App):
         uidata.append({"_data": "Voucher", "_data-ar":" قسيمة","_trans":"true","class": "ins-col-12  ins-grey-d-color ins-strong-m  "})
         uidata.append({"_type": "input","type":"text","placeholder":"code","placeholder-ar":" رمز","_trans":"true","name":"voucher","pclass":"ins-col-12","style":"    background: white;border-radius:4px;"})
         uidata.append({"class":"ins-space-xl"})
-        uidata.append({"start": "true", "class": "ins-flex ins-col-12  ins-padding-m","style":"border-radius:8px !important;border: 1px solid var(--grey-l);"})
+        uidata.append({"start": "true", "class": "ins-flex ins-col-12 -fees-info ins-padding-m","style":"border-radius:8px !important;border: 1px solid var(--grey-l);"})
         uidata.append({"_data": "Your details","_data-ar":"تفاصيلك","_trans":"true", "class": "ins-col-12 ins-title-s ins-grey-d-color ins-strong-l "})
         uidata.append({"class":"ins-space-s"})
         uidata.append({"_data": "Subtotal", "_data-ar":"المجموع الفرعي","_trans":"true","class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
@@ -74,19 +74,19 @@ class AppPayment(App):
             {"class":"ins-space-s"},
             {"_data": store.get("title",""),"class": "ins-col-12  ins-title-20	  ins-grey-d-color ins-strong-l"},
             {"_data": store.get("address",""), "class": "ins-col-12 ins-grey-color"},
-            {"_data": f"Phone: {store["phone"]} | WhatsApp: {store["whatsapp"]} | Email:  {store["email"]}" ,"_data-ar": f"هاتف: {store["phone"]} | واتساب: {store["whatsapp"]} | بريد الكتروني:  {store["email"]}" ,"_trans":"true","class":"ins-col-12 ins-grey-d-color ins-strong-m ins-title-14"},
+            {"_data": f"Phone: {store['phone']} | WhatsApp: {store['whatsapp']} | Email:  {store['email']}" ,"_data-ar": f"هاتف: {store['phone']} | واتساب: {store['whatsapp']} | بريد الكتروني:  {store['email']}" ,"_trans":"true","class":"ins-col-12 ins-grey-d-color ins-strong-m ins-title-14"},
             {"end": "true"},
             {"class":"ins-space-xl"}
             ]
         else:
-           address = self.ins._db._get_row("gla_user_address","*",f"id='{asession["id"]}'")
+           address = self.ins._db._get_row("gla_user_address","*",f"id='{asession['id']}'")
            ainfo = [
            {"_data": "Shipping Address","_data-ar":"عنوان الشحن","_trans":"true", "class": "ins-col-8 ins-title-s ins-grey-d-color ins-strong-l "},
            {"_data": "Edit Address","_data-ar":"تعديل العنوان","_trans":"true","data-aid" : str(address["id"]),"class": "-update-address ins-col-4 ins-flex-end ins-gold-d-color ins-strong-m ins-text-upper ins-button-text"},
            {"class":"ins-space-s"},
            {"_data": address.get("title",""), "class": "ins-col-12  ins-title-20	  ins-grey-d-color ins-strong-l"},
            {"_data": address.get("address",""), "class": "ins-col-12 ins-grey-color"},
-           {"_data": f"Mobile: {address.get("phone","")} | Email: {address.get("email","")}", "class": "ins-col-12 ins-grey-d-color ins-strong-m ins-title-14"},
+           {"_data": f"Mobile: {address.get('phone','')} | Email: {address.get('email','')}", "class": "ins-col-12 ins-grey-d-color ins-strong-m ins-title-14"},
            {"end": "true"},
            {"class":"ins-space-xl"}
            ]
@@ -106,13 +106,9 @@ class AppPayment(App):
         pdata = self.ins._server._get_session(self.session_payment_name)
         sclass = "ins-hidden"
         if pdata and pdata["type"] !="":
-          ddata = self.ins._db._get_row("gla_payment_methods","*",f"id='{pdata["type"]}'")
+          ddata = self.ins._db._get_row("gla_payment_methods","*",f"id='{pdata['type']}'")
           if ddata["charges"] !="":
             sclass = ""
-
-
-
-
 
        
         uidata=[{"start":"true","class":"ins-col-7 ins-flex ins-padding-2xl"}]
@@ -140,20 +136,18 @@ class AppPayment(App):
                 if str(pdata["type"]) == str(payment["id"]):
                    img = "style/radio_checked_b.svg"
                    pclass = "ins-active"
-            elif i == 1:
-               img = "style/radio_checked_b.svg"
-               pclass = "ins-active"
+
 
             pcard = [
                      {"start":"true","class":"ins-col-12 ins-flex ins-gap-o"},
-                     {"start":"true","data-name":payment["id"],"class":f"{pclass} ins-col-12 ins-flex-center -payment-type-btn {payment.get("class","")}"},
+                     {"start":"true","data-name":payment["id"],"class":f"{pclass} ins-col-12 ins-flex-center -payment-type-btn {payment.get('class','')}"},
                      {"_type":"img","src":f"{p}{img}","loading":"lazy","class":"-payment-type-btn-img"},
                      {"_data": payment["title"],"class":"ins-strong-m ins-grey-m-color payment-title"},
                ]
             if payment["charges_type"] !="" and payment["charges"] !="":
                pcard = [
                      {"start":"true","class":"ins-col-12 ins-flex ins-gap-o"},
-                     {"start":"true","data-charges_type":payment["charges_type"],"data-charges":payment["charges"],"data-name":payment["id"],"class":f"{pclass} ins-col-12 ins-flex-center -payment-type-btn {payment.get("class","")}"},
+                     {"start":"true","data-charges_type":payment["charges_type"],"data-charges":payment["charges"],"data-name":payment["id"],"class":f"{pclass} ins-col-12 ins-flex-center -payment-type-btn {payment.get('class','')}"},
                      {"_type":"img","src":f"{p}{img}","loading":"lazy","class":"-payment-type-btn-img"},
                      {"_data": payment["title"],"class":"ins-strong-m ins-grey-m-color payment-title"},
                ]
@@ -163,7 +157,7 @@ class AppPayment(App):
                pcard.append({"_type":"img","src":f"{p}{payment['logo']}","loading":"lazy","class":"ins-flex-end","style":"max-width:40px"})
             
             pcard.append({"end":"true"})
-            pcard.append({"_data":payment["des"],"class":f"ins-col-12 ins-title-xs ins-grey-color ins-text-none -payment-subtype-area -payment-subtype-area-{payment["id"]} {pclass}"})
+            pcard.append({"_data":payment["des"],"class":f"ins-col-12 ins-title-xs ins-grey-color ins-text-none -payment-subtype-area -payment-subtype-area-{payment['id']} {pclass}"})
             pcard.append({"end":"true"})
             uidata+=pcard
         uidata.append({"end":"true"})

@@ -51,7 +51,7 @@ class AppLogin(App):
             {"_type": "input", "required":"true","title": "Mobile Number", "placeholder": "Enter Mobile Number", "title-ar":"رقم الهاتف المحمول", "placeholder": "Enter Mobile Number","placeholder-ar":"أدخل رقم الهاتف المحمول ", "_trans":"true","type": "text", "name": "mobile", "class": "-signup-mobile-inpt", "pclass": "ins-col-12"},
             {"class": "ins-line ins-col-12"},
             {"start": "true", "class": "ins-col-12 ins-flex "},
-            {"_type":"a","href":"/login/","_data": "<i class='lni lni-arrow-left'></i> Back", "_data-ar":"رجوع","_trans":"true","class": "ins-button-m ins-flex-center ins-col-3 ins-grey-d-color"},
+            {"_type":"a","href":"/login/","_data": "<i class='lni lni-arrow-left'></i> Back", "_data-ar":"خلف","_trans":"true","class": "ins-button-m ins-flex-center ins-col-3 ins-grey-d-color"},
             {"class": " ins-col-6"},
             {"_data": "Next <i class='lni lni-arrow-right'></i>",  "_data-ar":"التالي","_trans":"true","class": "ins-button-m ins-gold-d ins-col-3 -signup-step-1-btn"},
             {"end": "true"},
@@ -61,25 +61,35 @@ class AppLogin(App):
         return self.ins._ui._render(uidata)
     
     def _signup_ui_step2(self):
+        if self.ins._langs._this_get()["name"] == "ar":
+             otp = f" إعادة إرسال كود التحقق في   <span class='-otp-resend-counter ins-strong-m'>10</span> "
+             verfiy =  "تحقق <i class='lni lni-check ins-font-l'></i> "
+             back =  "<i class='lni lni-arrow-right'></i> خلف"
+
+        if self.ins._langs._this_get()["name"] == "en":
+             otp = f" Resend OTP in <span class='-otp-resend-counter ins-strong-m'>10</span> "
+             verfiy =  "Verify <i class='lni lni-check ins-font-l'></i> "
+             back =  "<i class='lni lni-arrow-left'></i> Back"
         rq = self.ins._server._post()
         if self.user._mobile_exists(rq["mobile"]) == "-1":
             return "-1"
         
         if self.user._create_otp(rq["mobile"]):
+           
             uidata = [
                 {"start": "true", "class": "ins-col-12 ins-flex-center ins-padding-2xl ins-text-center "},
                 {"start": "true", "class": "ins-col-5 ins-flex-center ins-card -signup-form ins-text-start"},
                 {"_data": "Login", "_data-ar": "تسجيل الدخول","_trans":"true","class": "ins-title-m ins-strong-m ins-grey-d-color ins-text-upper ins-col-12"},
-                {"_type": "input", "title": "OTP", "placeholder": "----", "type": "text", "name": "otp", "class": "ins-title-l -login-otp-inpt ins-form-input ins-text-center", "pclass": "ins-col-6", "style": "letter-spacing: 25px; height: 60px;"},
+                {"_type": "input", "title": "OTP", "title-ar": "كود التحقق", "_trans":"true","placeholder": "----", "type": "text", "name": "otp", "class": "ins-title-l -login-otp-inpt ins-form-input ins-text-center", "pclass": "ins-col-6", "style": "letter-spacing: 25px; height: 60px;"},
                 {"_type": "input", "type": "text", "name": "mobile", "value": rq["mobile"], "class": "-login-mobile-inpt", "pclass": "ins-col-12 ins-hidden"},
-                {"_data": "Resend OTP in <span class='-otp-resend-counter ins-strong-m'>10</span>", "class": "ins-grey-color ins-title-14 ins-col-12 ins-text-start -resend-count-otp"},
-                {"_data": "Resend OTP", "class": "ins-grey-d-color ins-strong-m ins-title-14 ins-col-12 ins-text-start -resend-otp-btn ins-hidden", "style": "cursor:pointer;"},
+                {"_data": otp,"_trans":"true", "class": "ins-grey-color ins-title-14 ins-col-12 ins-text-start -resend-count-otp"},
+                {"_data": "Resend OTP","_data-ar":"إعادة إرسال كود التحقق","_trans":"true", "class": "ins-grey-d-color ins-strong-m ins-title-14 ins-col-12 ins-text-start -resend-otp-btn ins-hidden", "style": "cursor:pointer;"},
                 {"class": "ins-line ins-col-12"},
                 {"start": "true", "class": "ins-col-12 ins-flex-end"},
                 {"start": "true", "class": "ins-col-12 ins-flex "},
-                {"_data": "<i class='lni lni-arrow-left'></i> Back","_data-ar":"رجوع","_trans":"true", "class": "ins-button-m ins-flex-center ins-col-3 ins-grey-d-color -signup-back-1-btn"},
+                {"_data": back,"_trans":"true", "class": "ins-button-m ins-flex-center ins-col-3 ins-grey-d-color -signup-back-1-btn"},
                 {"class": " ins-col-6"},
-                {"_data": "Verify <i class='lni lni-check ins-font-l'></i>", "_data-ar":"تحقق","_trans":"true","class": "ins-button-m ins-gold-d ins-col-3 ins-flex-center -signup-step-2-btn"},
+                {"_data": verfiy,"_trans":"true","class": "ins-button-m ins-gold-d ins-col-3 ins-flex-center -signup-step-2-btn"},
                 {"end": "true"},
                 {"end": "true"},
                 {"end": "true"},
@@ -99,12 +109,12 @@ class AppLogin(App):
             {"start": "true", "class": "ins-col-12 ins-flex-center ins-padding-2xl ins-text-center "},
             {"start": "true", "class": "ins-col-5 ins-flex-end ins-card -signup-form ins-text-start -signup-step-3-form"},
             {"_data": "Sign Up","_data-ar":"قم بالتسجيل","_trans":"true", "class": "ins-title-m ins-strong-m ins-grey-d-color ins-text-upper ins-col-12"},
-            {"_type": "input","required":"true", "title": "First Name", "placeholder": "Enter First Name", "type": "text", "name": "first_name", "class": "-signup-first-name-inpt", "pclass": "ins-col-12"},
-            {"_type": "input","required":"true", "title": "Last Name", "placeholder": "Enter Last Name", "type": "text", "name": "last_name", "class": "-signup-last-name-inpt", "pclass": "ins-col-12"},
-            {"_type": "input","required":"true", "title": "Password","_end":'<i class="-show-password lni lni-eye"></i>', "placeholder": "Enter Password", "type": "password", "name": "password", "class": "-signup-password-inpt", "pclass": "ins-col-12"},
-            {"_type": "input", "required":"true","title": "Confirm Password","_end":'<i class="-show-confirm-password lni lni-eye"></i>', "placeholder": "Confirm Password", "type": "password", "name": "confirm_password", "class": "-signup-confirm-password-inpt", "pclass": "ins-col-12"},
-            {"_type": "input", "title": "Mobile", "readonly":"true","value": rq["mobile"], "type": "text", "name": "mobile", "class": "-signup-mobile-inpt", "pclass": "ins-col-12"},
-            {"_type": "input", "title": "Email (Optional)", "placeholder": "Enter Email", "type": "email", "name": "email", "class": "-signup-email-inpt", "pclass": "ins-col-12"},
+            {"_type": "input","required":"true", "title": "First Name","title-ar":"الاسم الأول ","_trans":"true", "placeholder": "Enter First Name","placeholder-ar": "أدخل الاسم الأول","type": "text", "name": "first_name", "class": "-signup-first-name-inpt", "pclass": "ins-col-12"},
+            {"_type": "input","required":"true", "title": "Last Name", "title-ar":"اسم العائلة ","_trans":"true","placeholder": "Enter Last Name", "placeholder-ar": "أدخل الاسم الأخير","type": "text", "name": "last_name", "class": "-signup-last-name-inpt", "pclass": "ins-col-12"},
+            {"_type": "input","required":"true", "title": "Password","title-ar":"كلمة المرور ","_trans":"true","_end":'<i class="-show-password lni lni-eye"></i>', "placeholder": "Enter Password","placeholder-ar": "أدخل كلمة المرور", "type": "password", "name": "password", "class": "-signup-password-inpt", "pclass": "ins-col-12"},
+            {"_type": "input", "required":"true","title": "Confirm Password","title-ar":"تأكيد كلمة المرور ","_trans":"true","_end":'<i class="-show-confirm-password lni lni-eye"></i>', "placeholder": "Confirm Password","placeholder-ar": "تأكيد كلمة المرور", "type": "password", "name": "confirm_password", "class": "-signup-confirm-password-inpt", "pclass": "ins-col-12"},
+            {"_type": "input", "title": "Mobile","title-ar":"رقم هاتف ","_trans":"true", "readonly":"true","value": rq["mobile"], "type": "text", "name": "mobile", "class": "-signup-mobile-inpt", "pclass": "ins-col-12"},
+            {"_type": "input", "title": "Email (Optional)","title-ar":"البريد الإلكتروني (اختياري) ","_trans":"true", "placeholder": "Enter Email","placeholder-ar": "أدخل البريد الإلكتروني", "type": "email", "name": "email", "class": "-signup-email-inpt", "pclass": "ins-col-12"},
             {"class": "ins-line ins-col-12"},
             {"_data": "Sign Up","_data-ar":"قم بالتسجيل","_trans":"true", "class": "ins-button-m ins-gold-d ins-col-3 -signup-step-3-btn"},
             {"end": "true"},
@@ -124,7 +134,7 @@ class AppLogin(App):
             {"_type": "input", "required":"true","title": "Mobile Number","title-ar":"رقم الهاتف المحمول", "placeholder": "Enter Mobile Number","placeholder-ar":"أدخل رقم الهاتف المحمول ", "_trans":"true","type": "text", "name": "mobile", "class": "-forgot-mobile-inpt", "pclass": "ins-col-12"},
             {"class": "ins-line ins-col-12"},
             {"start": "true", "class": "ins-col-12 ins-flex "},
-            {"_type":"a","href":"/login/","_data": "<i class='lni lni-arrow-left'></i> Back","_data-ar":"رجوع","_trans":"true", "class": "ins-button-m ins-flex-center ins-col-3 ins-grey-d-color"},
+            {"_type":"a","href":"/login/","_data": "<i class='lni lni-arrow-left'></i> Back","_data-ar":"خلف","_trans":"true", "class": "ins-button-m ins-flex-center ins-col-3 ins-grey-d-color"},
             {"class": " ins-col-6"},
             {"_data": "Next <i class='lni lni-arrow-right ins-font-l'></i>","_data-ar":"التالي","_trans":"true", "class": "ins-button-m ins-flex-center ins-gold-d ins-col-3 -forgot-step-1-btn"},
             {"end": "true"},
@@ -134,8 +144,18 @@ class AppLogin(App):
         return self.ins._ui._render(uidata)
     
 
-        
+
     def _forgot_ui_step2(self):
+        if self.ins._langs._this_get()["name"] == "ar":
+             otp = f" إعادة إرسال كود التحقق في   <span class='-otp-resend-counter ins-strong-m'>10</span> "
+             verfiy =  "تحقق <i class='lni lni-check ins-font-l'></i> "
+             back =  "<i class='lni lni-arrow-right'></i> خلف"
+
+        if self.ins._langs._this_get()["name"] == "en":
+             otp = f" Resend OTP in <span class='-otp-resend-counter ins-strong-m'>10</span> "
+             verfiy =  "Verify <i class='lni lni-check ins-font-l'></i> "
+             back =  "<i class='lni lni-arrow-left'></i> Back"
+
         rq = self.ins._server._post()
         if self.user._mobile_exists(rq["mobile"]) == "1":
             return "-1"
@@ -145,15 +165,15 @@ class AppLogin(App):
                 {"start": "true", "class": "ins-col-12 ins-flex-center ins-padding-2xl ins-text-center "},
                 {"start": "true", "class": "ins-col-5 ins-flex-center ins-card -forgot-form ins-text-start"},
                 {"_data": "Forgot Password","_data-ar": "هل نسيت كلمة السر؟","_trans":"true", "class": "ins-title-m ins-strong-m ins-grey-d-color ins-text-upper ins-col-12"},
-                {"_type": "input", "title": "OTP", "placeholder": "----", "type": "text", "name": "otp", "class": "ins-title-l -forgot-otp-inpt ins-form-input ins-text-center", "pclass": "ins-col-6", "style": "letter-spacing: 25px; height: 60px;"},
+                {"_type": "input", "title": "OTP", "title-ar": "كود التحقق", "_trans":"true", "placeholder": "----", "type": "text", "name": "otp", "class": "ins-title-l -forgot-otp-inpt ins-form-input ins-text-center", "pclass": "ins-col-6", "style": "letter-spacing: 25px; height: 60px;"},
                 {"_type": "input", "type": "text", "name": "mobile", "value": rq["mobile"], "class": "-forgot-mobile-inpt", "pclass": "ins-col-12 ins-hidden"},
-                {"_data": "Resend OTP in <span class='-otp-resend-counter ins-strong-m'>10</span>", "class": "ins-grey-color ins-title-14 ins-col-12 ins-text-start -resend-count-otp"},
-                {"_data": "Resend OTP", "class": "ins-grey-d-color ins-strong-m ins-title-14 ins-col-12 ins-text-start -resend-otp-btn -forgot-otp ins-hidden", "style": "cursor:pointer;"},
+                {"_data": otp,"_trans":"true", "class": "ins-grey-color ins-title-14 ins-col-12 ins-text-start -resend-count-otp"},
+                {"_data": "Resend OTP","_data-ar":"إعادة إرسال كود التحقق ","_trans":"true", "class": "ins-grey-d-color ins-strong-m ins-title-14 ins-col-12 ins-text-start -resend-otp-btn -forgot-otp ins-hidden", "style": "cursor:pointer;"},
                 {"class": "ins-line ins-col-12"},
                 {"start": "true", "class": "ins-col-12 ins-flex "},
-                {"_type":"a","href":"/login/","_data": "<i class='lni lni-arrow-left'></i> Back", "class": "ins-button-m ins-flex-center ins-col-3 ins-grey-d-color"},
+                {"_type":"a","href":"/login/","_data": back,"_trans":"true", "class": "ins-button-m ins-flex-center ins-col-3 ins-grey-d-color"},
                 {"class": " ins-col-6"},
-                {"_data": "Verify <i class='lni lni-check ins-font-l'></i> ", "class": "ins-button-m  ins-flex-center ins-gold-d ins-col-3 -forgot-step-2-btn"},
+                {"_data": verfiy,"_trans":"true", "class": "ins-button-m  ins-flex-center ins-gold-d ins-col-3 -forgot-step-2-btn"},
                 {"end": "true"},
                 {"end": "true"},
                 {"end": "true"}
@@ -173,11 +193,11 @@ class AppLogin(App):
             {"start": "true", "class": "ins-col-12 ins-flex-center ins-padding-2xl ins-text-center "},
             {"start": "true", "class": "ins-col-5 ins-flex-end ins-card -forgot-form ins-text-start -signup-step-3-form"},
             {"_data": "Forgot Password","_data-ar": "هل نسيت كلمة السر؟","_trans":"true", "class": "ins-title-m ins-strong-m ins-grey-d-color ins-text-upper ins-col-12"},
-            {"_type": "input","required":"true", "title": "Password","_end":'<i class="-show-password lni lni-eye"></i>', "placeholder": "Enter Password", "type": "password", "name": "password", "class": "-signup-password-inpt", "pclass": "ins-col-12"},
-            {"_type": "input", "required":"true","title": "Confirm Password","_end":'<i class="-show-confirm-password lni lni-eye"></i>', "placeholder": "Confirm Password", "type": "password", "name": "confirm_password", "class": "-signup-confirm-password-inpt", "pclass": "ins-col-12"},
+            {"_type": "input","required":"true", "title": "Password","title-ar":"كلمة المرور","_trans":"true","_end":'<i class="-show-password lni lni-eye"></i>', "placeholder": "Enter Password", "placeholder-ar":"أدخل كلمة المرور","type": "password", "name": "password", "class": "-signup-password-inpt", "pclass": "ins-col-12"},
+            {"_type": "input", "required":"true","title": "Confirm Password","title-ar":" تأكيد كلمة المرور","_trans":"true","_end":'<i class="-show-confirm-password lni lni-eye"></i>', "placeholder": "Confirm Password", "placeholder-ar":"تأكيد كلمة المرور", "type": "password", "name": "confirm_password", "class": "-signup-confirm-password-inpt", "pclass": "ins-col-12"},
             {"_type": "input", "title": "Mobile", "readonly":"true","value": rq["mobile"], "type": "text", "name": "mobile", "class": "-forgot-mobile-inpt", "pclass": "ins-col-12 ins-hidden"},
             {"class": "ins-line ins-col-12"},
-            {"_data": "Reset Password", "class": "ins-button-m ins-gold-d ins-col-4 -forgot-step-3-btn"},
+            {"_data": "Reset Password", "_data-ar": "إعادة كلمة المرور","_trans":"true","class": "ins-button-m ins-gold-d ins-col-4 -forgot-step-3-btn"},
             {"end": "true"},
             {"end": "true"}
         ]
@@ -240,7 +260,7 @@ class AppLogin(App):
         else:
               uidata = [
                         {"start": "true", "class": "-signup-area ins-col-12 ins-flex-center gla-container ins-padding-2xl"},
-                        {"_data": "You are already loged in", "class": "ins-col-8 ins-card ins-text-center"},
+                        {"_data": "You are already logged in","_data-ar": "أنت مسجل الدخول بالفعل","_trans": "true", "class": "ins-col-8 ins-card ins-text-center"},
                         {"end": "true"}
                     ]
         return self.ins._ui._render(uidata)

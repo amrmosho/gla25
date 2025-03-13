@@ -14,14 +14,22 @@ ins(".-add-cart-btn")._on("click", (o) => {
     });
     pdata = JSON.stringify(pdata)
 
+
     ins("_cart_lightbox_ui")._ajax._app({ "data": pdata }, (data) => {
-        ins()._ui._addLightbox({
-            "mode": "right_panel",
-            title: "<i class='lni ins-icon lni-cart  '></i> Cart",
-            data: data,
-            data_style: "position: relative;top: 0;",
-            style: "width:650px;    "
-        });
+        var jdata = JSON.parse(data)
+        if (jdata["status"] == "0") {
+            ins()._ui._addLightbox({
+                "mode": "right_panel",
+                title: "<i class='lni ins-icon lni-cart  '></i> " + o._getData("lbtitle"),
+                data: jdata["ui"],
+                data_style: "position: relative;top: 0;",
+                style: "width:650px;    "
+            });
+        } else {
+            ins(jdata["msg"])._ui._notification({ class: "ins-danger" })
+
+        }
+
     })
 
 })
@@ -41,6 +49,14 @@ ins(".-remove-item-side-cart-btn")._on("click", (o) => {
             p._remove()
 
             ins("Item removed!")._ui._notification()
+            setTimeout(() => {
+                if (jdata["count"] > 0) {
+                    ins(".-cart-counter")._setHTML(jdata["count"])
+                } else {
+                    ins(".-cart-counter")._addClass("ins-hidden")
+
+                }
+            }, 100)
         })
     }
 }, true)

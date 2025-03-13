@@ -6,6 +6,16 @@ class AppHome(App):
         self.app: App = app
         super().__init__(app.ins)
 
+
+    def _cart_count(self):
+        sedata = self.ins._server._get_session("glaproducts")
+        count = 0
+        if sedata:
+            for _, s in sedata.items():
+                count += int(s["count"])
+
+        return str(count)
+
     def user_data(self):
         udata = self.ins._users._session_get()
         img = '<i class="lni lni-user-4"></i>'
@@ -60,7 +70,7 @@ class AppHome(App):
 
 
                 subdata = self.ins._db._get_data(
-                    "menu_item_table", "*", f"   fk_menu_item_id={d["id"]} order by kit_order")
+                    "menu_item_table", "*", f"   fk_menu_item_id={d['id']} order by kit_order")
 
                 row = [
                     {"_type": "ul", "class": " ins-flex-center ins-col-12 ins-card", "start": True},

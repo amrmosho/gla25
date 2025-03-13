@@ -1,46 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-.ins-agla-style {
-    --input-bg: #f9f8f7;
-    --primary: hwb(38 49% 31%);
-    --primary-h: 38 !important;
-    --primary-s: 49% !important;
-    --primary-s: 31% !important;
-    --primary-d: #9E865B;
-    --primary-m: #C5B69D;
-    --wrapper-bg: #ECE7DE;
-    --primary-l: #D8CFBD;
-    --primary-bg: #ECE7DE;
-    --primary-shadow-from: #ECE7DE !important;
-    --primary-w: #F5F3EE;
-    /*****/
-    --secondary: #02285B;
-    --secondary-d: #001025;
-    --secondary-m: #35537C;
-    --secondary-l: #677E9D;
-    --secondary-bg: #9AA9BD;
-    --secondary-w: #CDD4DE;
-    /*****/
-    --grey: #645971;
-    --grey-d: #2C1942;
-    --grey-m: #ACA4B7;
-    --grey-l: #E0DDE4;
-    --grey-bg: #F5F4F6;
-    /*****/
-    --gold: #DAB566;
-    --gold-d: #D1A340;
-    --gold-m: #E3C88D;
-    --gold-l: #EDDAB2;
-    --gold-bg: #F6EDD9;
-    /*****/
-    --mud: #B9B2A0;
-    --mud-d: #A79F88;
-    --mud-m: #CAC5B8;
-    --mud-l: #DCD8CF;
-    --mud-bg: #EDECE7;
-    --font: "gotham";
-    --text: #495057;
-}
-
 body {
     font-family: "Montserrat", sans-serif;
 }
@@ -108,7 +66,9 @@ body {
     cursor: pointer;
 }
 
-.ins-table-data {}
+.ins-table-data {
+    min-height: calc(100vh - 204px);
+}
 
 .ins-menu-item span,
 .ins-table-data .ins-thead .ins-td,
@@ -247,6 +207,10 @@ body {
 
 .ins-table-data .ins-tr:hover {
     border-radius: 6px;
+}
+
+.-header-searh-group {
+    padding-right: 160px !important;
 }
 
 .ins-table-data .ins-tr:hover .ins-td {

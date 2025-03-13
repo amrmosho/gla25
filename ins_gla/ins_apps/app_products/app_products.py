@@ -47,6 +47,13 @@ class AppProducts(App):
         ndata=self.ins._server._get_session(self.session_name)
         r = {}
         r["status"] = "2"
+
+        count = 0
+        if ndata:
+                for _, s in ndata.items():
+                    count += int(s["count"])
+        r["count"] = str(count)
+
         if not ndata:
             uidata=[{"_data":"There is no items in cart","class":"ins-col-12 ins-card ins-secondary ins-text-upper ins-text-center ins-title-12"}]
             r["status"] = "1"
@@ -61,7 +68,7 @@ class AppProducts(App):
 
 
     def generate_product_html(self,string = False):
-        items_per_page = 12
+        items_per_page = 24
         f = self.ins._server._get("page")
         g = self.ins._server._get("filter")
         o = self.ins._server._get("order")
@@ -170,10 +177,10 @@ class AppProducts(App):
                 uidata.append({"_type": "button", "class": f"ins-pagination-btn {active_class}", "data-page": page, "_data": str(page)})
             uidata.append({"_type": "button", "class": "ins-pagination-btn", "data-page": "next", "data-tpages":num_pages,"_data": f"<i class='lni lni-chevron-left' style='{rstyle}'></i>"})
             uidata.append({"end": "true"})
-            uidata.append({"class": "ins-col-grow"})
+            uidata.append({"class": "ins-col-grow ins-m-col-3"})
             uidata.append({"start": "true", "class": "ins-flex-end"})
-            uidata.append({"_data": "Go to page","_data-ar": "انتقل إلى الصفحة", "_trans":"true","class": "ins-title-12 ins-grey-m-color"})
-            uidata.append({"_type": "input","type":"text","class":"-page-input ins-radius-s ins-white ins-text-center","pclass":"ins-col-2"})
+            uidata.append({"_data": "Go to page","_data-ar": "انتقل إلى الصفحة", "_trans":"true","class": "ins-title-12 ins-grey-m-color ins-m-col-3"})
+            uidata.append({"_type": "input","type":"text","class":"-page-input ins-radius-s ins-white ins-text-center","pclass":"ins-col-2 ins-m-col-2"})
             uidata.append({"_data": "Go <i class='lni lni-chevron-left' style='rotate:180deg'></i>","_data-ar":"انتقل","_trans":"true", "data-tpages":num_pages,"class": "ins-title-14 -go-to-page-btn ins-grey-color ins-button-text"})
             uidata.append({"end": "true"})
             uidata.append({"end": "true"})
@@ -207,28 +214,30 @@ class AppProducts(App):
         uidata+=path
 
         uidata.append({"start":"true","class":"ins-col-12 ins-flex"})
-        uidata.append({"_data":"Products","_data-ar": "منتجات","_trans": "true","class":"ins-col-3 ins-title ins-strong-m ins-text-upper ins-grey-d-color"})
+        uidata.append({"_data":"Products","_data-ar": "منتجات","_trans": "true","class":"ins-col-grow ins-m-col-3 ins-title ins-strong-m ins-text-upper ins-grey-d-color"})
+        uidata.append({"class":"ins-font-xl ins-m-col-1  not-for-web lni lni-funnel-1 -filter-menu"})
+        
+        
+        
         vorder = "low"
         if order_data:
             vorder =  order_data
-        uidata.append({"start":"true","class":"ins-col-grow ins-flex-end"})
+        uidata.append({"start":"true","class":"ins-col-grow ins-flex-end ins-m-flex-start -filter-results-area"})
 
         order_area = [
-                {"start":"true","class":" ins-flex-end"},
-                {"_data":"Order by",  "_data-ar":"ترتيب حسب","_trans":"true","class":"ins-strong-m ins-grey-d-color ins-title-14"},
+                {"start":"true","class":"ins-flex-end ins-m-col-6 ins-m-flex-start"},
+                {"_data":"Order by",  "_data-ar":"ترتيب حسب","_trans":"true","class":"ins-strong-m ins-grey-d-color ins-title-14 ins-m-col-grow"},
                 {"_type":"select","name":"order","fl_data":{
-                    "low":"Lowest to highest",
-                    "high":"highest to Lowest",
+                    "low":"Lowest to Highest",
+                    "high":"Highest to Lowest",
                     "old":"Oldest to Newest",
-                    "new":"Newest to oldest",
-                    "trend":"Trending"
+                    "new":"Newest to Oldest"
                 },"fl_data-ar":{
                     "low":"من الارخص للأغلى",
                     "high":"من الأغلى للأرخص",
                     "old":"من الأقدم للأجدد",
-                    "new":"من الأجدد للأقدم",
-                    "trend":"الأكثر تداولاً"
-                },"_trans":"true","value":vorder,"pclass":"ins-col-grow","class":"-order-select"},
+                    "new":"من الأجدد للأقدم"
+                },"_trans":"true","value":vorder,"pclass":"ins-col-grow ins-m-col-6","class":"-order-select"},
                 {"end":"true"}
             ]
 
@@ -238,7 +247,7 @@ class AppProducts(App):
 
         if filter_data:
             filter_area = [
-                {"start":"true","class":" ins-flex-end"},
+                {"start":"true","class":" ins-flex-end ins-m-flex-start"},
                 {"_data":"Filter by",  "_data-ar":"تصفية حسب","_trans":"true","class":"ins-strong-m ins-grey-d-color ins-title-14"}
             ]
             for k,v in filter_data.items():
@@ -293,7 +302,7 @@ class AppProducts(App):
         
         rq = self.ins._server._post()
         
-        pdata = self.ins._db._get_row("gla_product","types_data",f"id='{rq["pid"]}'")["types_data"]
+        pdata = self.ins._db._get_row("gla_product","types_data",f"id='{rq['pid']}'")["types_data"]
 
         types_data = json.loads(pdata)
 
@@ -335,30 +344,32 @@ class AppProducts(App):
             max_price = price_range[1]
         w = "fk_parent_id='0' "
         if filter_data.get("fk_product_category_id"):
-          w+= f" and fk_product_category_id like '%{filter_data.get("fk_product_category_id")}%'"
+          w+= f" and fk_product_category_id like '%{filter_data.get('fk_product_category_id')}%'"
          
         types = self.ins._db._get_data("gla_product_types","*",f"{w} order by kit_order desc ",update_lang=True)
 
-        uidata = [{"start":"true","class":"ins-flex ","style":"background:white;height:124px;position: relative;    border-bottom: 1px solid var(--grey-l); "}]
+        uidata = [{"start":"true","class":"ins-flex -header-area","style":"background:white;height:124px;position: relative;    border-bottom: 1px solid var(--grey-l); "}]
         uidata+=self.header_ui()
         uidata.append({"end":"true"})
-        uidata.append({"start": "true", "class": "ins-flex-valign-start gla-container ins-col-12 ins-padding-2xl ins-padding-h"})
+        uidata.append({"start": "true", "class": "ins-flex-valign-start gla-container ins-col-12 ins-padding-2xl ins-padding-h -pro-cont"})
        
         ## Filter Area
-        uidata.append({"start": "true", "class": "ins-flex ins-col-3 -filter-area ins-grey-d-color ins-padding-2xl full-height ins-sticky-top","style":"background:white;"})
+        uidata.append({"start": "true", "class": "ins-flex ins-col-3  -filter-area ins-grey-d-color ins-padding-2xl full-height ins-sticky-top","style":"background:white;"})
         uidata.append({"_type": "input", "name":"title","value":filter_data.get("title",""),"data-name":"title","type": "text", "placeholder":"Product name Search..","placeholder-ar": "انتقل إلى الصفحة","_trans": "true","class":" -product-filter-input -title-input",  "pclass": "ins-col-12 ins-hidden","style":"    background: white;border-radius:4px;"})
         uidata.append({"start": "true", "class": "ins-flex ins-col-12  ins-gap-o"})
         uidata.append({"_data": "Category","_data-ar": "تصنيف","_trans": "true", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "})
         category_ids = filter_data.get("fk_product_category_id", "").split(',')
         for c in categories:
             if str(c["id"]) in category_ids:
-                uidata.append({"_type": "input", "name":"type", "checked": "checked", "data-value":c["id"],"data-name":"fk_product_category_id","type": "checkbox", "value": "1", "_end": c["title"],"class":" -product-filter-input  -category-checkbox", "pclass": "ins-col-12  -product-list-chkbox","style":"    width: 20px;","pstyle":"    height: 35px;"})
+                uidata.append({"_type": "input", "name":"type", "checked": "checked", "data-value":c["id"],"data-name":"fk_product_category_id","type": "checkbox", "value": "1", "_end": c["title"],"class":" -product-filter-input  -category-checkbox", "pclass": "ins-col-12 ins-m-col-4  -product-list-chkbox","style":"    width: 20px;","pstyle":"    height: 35px;"})
             else:
-                uidata.append({"_type": "input", "name":"type", "data-value":c["id"],"data-name":"fk_product_category_id","type": "checkbox", "value": "0", "_end": c["title"],"class":" -product-filter-input  -category-checkbox", "pclass": "ins-col-12  -product-list-chkbox","style":"    width: 20px;","pstyle":"    height: 35px;"})
+                uidata.append({"_type": "input", "name":"type", "data-value":c["id"],"data-name":"fk_product_category_id","type": "checkbox", "value": "0", "_end": c["title"],"class":" -product-filter-input  -category-checkbox", "pclass": "ins-col-12  ins-m-col-4  -product-list-chkbox","style":"    width: 20px;","pstyle":"    height: 35px;"})
         
         uidata.append({"end":"true"})
         uidata.append({"class": "ins-space-m"})
         if types:
+            uidata.append({"start": "true", "class": "ins-flex ins-col-12 ins-m-co-12 "})
+
             uidata.append({"_data": "Type","_data-ar": "نوع","_trans": "true", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "})
 
             tys = filter_data.get("types_data", "").split(',')
@@ -367,8 +378,9 @@ class AppProducts(App):
                 if t["alias"] in tys:
                     active = "ins-active"
                 
-                uidata.append({"_data": t["title"], "name":"types_data","data-name": t["alias"],"data-tid": t["id"],"class": f"ins-button-s  -type-btn ins-flex-center ins-strong-m  ins-col-4  -product-filter-input {active}"})
-          
+                uidata.append({"_data": t["title"], "name":"types_data","data-name": t["alias"],"data-tid": t["id"],"class": f"ins-button-s  -type-btn ins-flex-center ins-strong-m  ins-col-4   ins-m-col-4 -product-filter-input {active}"})
+            uidata.append({"end":"true"})
+
             uidata.append({"class": "ins-space-m"})
 
        
@@ -392,8 +404,8 @@ class AppProducts(App):
         uidata.append({"_data": "Price ","_data-ar": "السعر","_trans": "true", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "})
       
         uidata.append({"start": "true", "class": "ins-col-12 ins-flex ins-gap-o"})
-        uidata.append({"_type": "input", "name":"from","value":min_price,"data-name":"from","type": "text", "placeholder":"from","placeholder-ar": "من","_trans": "true","class":" -price-from-filter-input -price-from-input",  "pclass": "ins-col-5 "})
-        uidata.append({"_type": "input", "name":"to","value":max_price,"data-name":"to","type": "text", "placeholder":"to","placeholder-ar": "إلى","_trans": "true","class":" -price-to-filter-input -price-to-input",  "pclass": "ins-col-5 "})
+        uidata.append({"_type": "input", "name":"from","value":min_price,"data-name":"from","type": "text", "placeholder":"from","placeholder-ar": "من","_trans": "true","class":" -price-from-filter-input -price-from-input",  "pclass": "ins-col-5 ins-m-col-5 "})
+        uidata.append({"_type": "input", "name":"to","value":max_price,"data-name":"to","type": "text", "placeholder":"to","placeholder-ar": "إلى","_trans": "true","class":" -price-to-filter-input -price-to-input",  "pclass": "ins-col-5  ins-m-col-5 "})
         uidata.append({"_data":"<i class='lni lni-search-1'></i>","class":" ins-gold-d-color ins-flex-center -filter-price-btn"})
         uidata.append({"end": "true"})
 
@@ -401,9 +413,9 @@ class AppProducts(App):
 
         uidata.append({"end": "true"})
         ## Products Area
-        uidata.append({"start": "true", "class": "ins-col-9 ins-padding-m ins-flex"})
+        uidata.append({"start": "true", "class": "ins-col-9 ins-padding-m ins-flex -products-cont"})
         # Add the product HTML
-        uidata.append({"start": "true", "class": "ins-flex-valign-start -products-area   ins-col-12 ins-padding-l ins-gap-20"})
+        uidata.append({"start": "true", "class": "ins-flex-valign-start -products-area   ins-col-12 ins-padding-l ins-gap-20 ins-m-flex-center"})
         uidata += self.generate_product_html(True)
         uidata.append({"end": "true"})
         return self.ins._ui._render( uidata)

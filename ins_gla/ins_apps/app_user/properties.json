@@ -79,12 +79,12 @@
     ],
     "table": "kit_user",
     "list_filter": [{
-        "name": "email",
-            "title": "email",
-            "title-ar": "البريد الالكتروني",
+        "name": "title",
+        "title": "title",
+        "title-ar": "العنوان",
         "_trans": "true",
         "_type": "input",
-        "_info": " search in <b>email</b> by <b>@(value)</b> ",
+        "_info": " search in <b>Title</b> by <b>@(value)</b> ",
         "type": "text",
         "main": "true",
         "pclass": "ins-col-12"

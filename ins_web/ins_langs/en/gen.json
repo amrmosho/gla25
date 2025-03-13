@@ -1,0 +1,22 @@
+{
+
+    "operation_done_msg": "operation done successfully ",
+    "operation_error_msg": "operation Error ",
+    "enter_valid_number": "Please enter a valid number",
+    "store_unavailable": "Store unavailable. Try again later",
+    "invalid_login_data": "Invalid login data",
+    "invalid_mobile_number_or_password": "Invalid mobile number or password",
+    "login_successful": "Login successful",
+    "password_rest_successfully": "Password reset successfully",
+    "otp_cannot_be_empty": "OTP cannot be empty",
+    "this_mobile_doesn't_have_an_account": "This mobile doesn't have an account",
+    "invalid_otp": "Invalid OTP",
+    "otp_code_has_been_expired": "OTP code has been expired",
+    "please_enter_mobile_number": "Please enter mobile number",
+    "passwords_do_not_match": "Passwords do not match",
+    "signup_completed_successfully": "Signup completed successfully",
+    "otp_sent_successfully": "OTP sent successfully",
+    "mobile_number_already_exists": "Mobile number already exists",
+    "remove_item_confirm": "Are you sure tou want to remove this item from cart?",
+    "item_removed": "Item Removed from Cart"
+}

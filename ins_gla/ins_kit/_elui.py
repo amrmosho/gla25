@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 import json
 from ins_kit.ins_parent import ins_parent
 class ELUI(ins_parent):
@@ -8,11 +9,11 @@ class ELUI(ins_parent):
     def session_name(sel):
         return "glaproducts"
     
- 
 
 
-
-        
+    def get_order_status(self,status,type="5"):
+        data = self.ins._data._get_options(type)["content"]
+        return json.loads(data[status])
     
     def page_title(self, title="",title_ar = "", bc=[{}], right_ui=[]):
         uidata = [
@@ -86,44 +87,121 @@ class ELUI(ins_parent):
         uidata.append({"end": True})
         return uidata
 
- 
+    def format_time(self,time_str):
+        hour, minute = map(int, time_str.split(":"))
+        period = "AM" if hour < 12 else "PM"
+        if self.ins._langs._this_get()["name"] == "ar":
+         period = "صباحًا" if hour < 12 else "مساءً"
+        hour = hour if 1 <= hour <= 12 else hour - 12 if hour > 12 else 12  # تحويل 24 ساعة إلى 12 ساعة
+        return f"{hour}:{minute:02d} {period}"
+
+
+
+    def order_check(self):
+
+
+        ops = self.ins._db._get_row("gla_settings","*","id='1'")
+
+
+        r = {"status": "0"}
+
+        if ops["accept_order"] == 0:
+            r["msg"] = "Store unavailable. Try again later"
+            if ops["order_msg"] != "":
+                r["msg"] = ops["order_msg"]
+
+            if self.ins._langs._this_get()["name"] == "ar":
+                r["msg"] = "المتجر غير متاح حاليًا. حاول لاحقًا"
+                if ops["order_msg_ar"] != "":
+                    r["msg"] = ops["order_msg_ar"]
+
+            r["status"] = "2"
+            return r
+
+        #current_time = (datetime.now() + timedelta(hours=2)).time().replace(microsecond=0)
+        current_time = (datetime.now()).time().replace(microsecond=0)
+
+        available_periods = []
+
+        is_open = False
+        times = json.loads(ops["times"])
+        if times:
+            for t in times:
+                opening_time = datetime.strptime(t.get("from"), "%H:%M").time()
+                closing_time = datetime.strptime(t.get("to"), "%H:%M").time()
+
+                if opening_time <= current_time <= closing_time:
+                    is_open = True 
+                    break
+
+                otime = self.format_time(t.get('from', '09:00'))
+                ctime = self.format_time(t.get('to', '23:00'))
+                available_periods.append(f"from {otime} to {ctime}")
+
+            if not is_open:
+                r["status"] = "1"
+                msg = "The store is currently closed. Business hours: " + " and ".join(available_periods)
+
+                if self.ins._langs._this_get()["name"] == "ar":
+                    msg = "المتجر مغلق حاليًا. ساعات العمل: " + " و ".join(available_periods)
+
+                r["msg"] = msg
+
+        return r
+
+
+
+   
+
+
+
  
  
     def _cart_lightbox_ui(self, single_product=False):
-  
-        sedata = self.ins._server._get_session(self.session_name)
-        if type(sedata) != dict:
-            sedata = {}
-        if single_product:
-            p = self.ins._server._post()
-            pro = self.ins._db._jget("gla_product", "*", f"gla_product.id={p['pid']}")
-            pro._jwith("gla_product_category category", "title,id", rfk="fk_product_category_id", join="left join")
-            ddata = pro._jrun()
-            for data in ddata:
-                data["subtype"] = ""
-                data["type"] = ""
-                if p["subtype"]:
-                    data["subtype"] = p["subtype"]
-                    data["type"] = p["type"]
-                
-                self.process_product_data(p, data, sedata)
-            uidata = self.prepare_ui_data(sedata)
 
-        else: 
-            data = self.ins._server._post()["data"]
-            products = json.loads(data)
+        order_check = self.order_check()     
+        if order_check["status"] !="0":
+            return order_check
+        
 
-            for k, p in products.items():
-                pro = self.ins._db._jget("gla_product", "*", f"gla_product.id={p['product_id']}")
+
+        else:    
+            r = {}
+
+            r["status"] = "0"
+            sedata = self.ins._server._get_session(self.session_name)
+            if type(sedata) != dict:
+                sedata = {}
+            if single_product:
+                p = self.ins._server._post()
+                pro = self.ins._db._jget("gla_product", "*", f"gla_product.id={p['pid']}")
                 pro._jwith("gla_product_category category", "title,id", rfk="fk_product_category_id", join="left join")
                 ddata = pro._jrun()
                 for data in ddata:
-                    data["type"] = "standard" if data["category_id"] == 1 else "royal" if data["category_id"] == 2 else ""
-                    data["subtype"] = "standard" if data["category_id"] == 1 else "george" if data["category_id"] == 2 else ""
+                    data["subtype"] = ""
+                    data["type"] = ""
+                    if p["subtype"]:
+                        data["subtype"] = p["subtype"]
+                        data["type"] = p["type"]
+                    
                     self.process_product_data(p, data, sedata)
-            uidata = self.prepare_ui_data(sedata)
+                uidata = self.prepare_ui_data(sedata)
 
-        return self.ins._ui._render(uidata)
+            else: 
+                data = self.ins._server._post()["data"]
+                products = json.loads(data)
+
+                for k, p in products.items():
+                    pro = self.ins._db._jget("gla_product", "*", f"gla_product.id={p['product_id']}")
+                    pro._jwith("gla_product_category category", "title,id", rfk="fk_product_category_id", join="left join")
+                    ddata = pro._jrun()
+                    for data in ddata:
+                        data["type"] = "standard" if data["category_id"] == 1 else "royal" if data["category_id"] == 2 else ""
+                        data["subtype"] = "standard" if data["category_id"] == 1 else "george" if data["category_id"] == 2 else ""
+                        self.process_product_data(p, data, sedata)
+                uidata = self.prepare_ui_data(sedata)
+            r["ui"] = self.ins._ui._render(uidata)
+            return r
 
 
 
@@ -162,14 +240,14 @@ class ELUI(ins_parent):
       
         uidata = [
             {"start": "true", "class": "ins-col-12 ins-flex -item-card"},
-            {"src": f"{data["th_main_image"]}", "loading":"lazy","_type": "img", "class": "ins-radius-m", "style": "    width: 97px;"}, 
+            {"src": f"{data['th_main_image']}", "loading":"lazy","_type": "img", "class": "ins-radius-m", "style": "    width: 97px;"}, 
             {"start": "true", "class": "ins-col-8 ins-flex"}, {"start": "true", "class": "ins-col-12 ins-flex  ins-gap-o"},
-            {"_data": f"{data.get("count",0)} x {full_title}", "class": "ins-col-12 ins-title-s	 ins-strong-l ins-grey-d-color", "style": "    !important;"},
+            {"_data": f"{data.get('count',0)} x {full_title}", "class": "ins-col-12 ins-title-s	 ins-strong-l ins-grey-d-color", "style": "    !important;"},
             {"_data": data.get("des", ""), "class": "ins-grey-color ins-col-12 ins-title-14", "style": "line-height: 20px; "},
             {"end": "true"},
             {"_data": str(total),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه","data-weight":data["weight"],"data-count":data["count"],"data-price":data["price"],"class": "-pro-price ins-col-12 ins-strong-l ins-primary-d-color ins-title-20"},
             {"end": "true"},
-            {"_data": f"<i  class='lni lni-trash-3 _a_red'></i>", "class": "ins-flex-center ins-col-1 -remove-item-cart-btn", "data-pid": data["prefix"]},
+            {"_data": f"<i  class='lni lni-trash-3 _a_red'></i>", "class": "ins-flex-center ins-col-1 -remove-item-cart-small-btn", "data-pid": data["prefix"]},
             {"end": "true"}
         ]
 
@@ -248,13 +326,13 @@ class ELUI(ins_parent):
         uidata = [
             {"start": "true", "class": "ins-col-12 ins-flex -item-card ins-border ins-radius-l ins-gap-o","style":"overflow: hidden;"},
             {"start": "true", "class": "ins-col-4 ins-flex-center","style": "height:100px;"},
-            {"src": f"{data["th_main_image"]}","loading":"lazy", "_type": "img","class": "ins-radius-m", "style": "    height: 100%;"},
+            {"src": f"{data['th_main_image']}","loading":"lazy", "_type": "img","class": "ins-radius-m", "style": "    height: 100%;"},
             {"end": "true"},
             {"start": "true", "class": "ins-col-8  ins-flex-grow ins-primary-w ins-padding-l","style": "border-radius: 0px 8px 8px 0px;    border-left: 1px solid var(--primary-l);"},
             {"_data": "Item summary","_data-ar": "ملخص السعر","_trans":"true","class": "ins-col-11 ins-title-s ins-strong-l ins-grey-d-color"},
             {"_data": f"<i  class='lni lni-trash-3 _a_red'></i>","class": "ins-flex-center ins-col-1 -remove-item-side-cart-btn", "data-pid": data["prefix"]},
 
-            {"_data": f"{data.get("count", "")} x {full_title}", "class": "ins-col-7 ins-strong-m ins-grey-color ins-title-14"},
+            {"_data": f"{data.get('count', '')} x {full_title}", "class": "ins-col-7 ins-strong-m ins-grey-color ins-title-14"},
             {"_data":  f"{item_total_amount}","_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-5 ins-strong-m ins-grey-d-color ins-flex-end ins-title-14"},
             {"end": "true"},
             {"end": "true"}
@@ -271,10 +349,10 @@ class ELUI(ins_parent):
             subtype_title = self.ins._db._get_row("gla_product_types", "title,kit_lang", f"alias='{data['subtype']}'",update_lang=True)
             full_title = f"{title['title']} ({subtype_title['title']})"
         
-
+       
         uidata = [
             {"start": "true", "class": "ins-col-12 ins-flex -item-card ins-card"},
-              {"src": f"{data["th_main_image"]}", "loading":"lazy","_type": "img", "class": "ins-radius-m", "style": "    width: 97px;"}, 
+              {"src": f"{data['th_main_image']}", "loading":"lazy","_type": "img", "class": "ins-radius-m", "style": "    width: 97px;"}, 
               {"start": "true", "class": "ins-col-6 ins-flex"},
                 {"start": "true", "class": "ins-col-12 ins-flex  ins-gap-o"}, {"_data": f"{full_title}", "class": "ins-col-12 ins-title-20	 ins-strong-l ins-grey-d-color", "style": "    !important;"}, {"_data": data.get("des", ""), "class": "ins-grey-color ins-col-12 ins-title-14", "style": "line-height: 20px; "}, {"end": "true"}, {"_data": str(data["price"]),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-12 ins-strong-l ins-primary-d-color  ins-title-20"}, {"end": "true"},
             {"start": "true", "class": "ins-flex ins-col-3 -counter-cont ins-gap-o"},
@@ -294,37 +372,63 @@ class ELUI(ins_parent):
         return uidata
     
     def counter_user_order_block(self,  data, string=False):
-        title = self.ins._db._get_row("gla_product", "title,kit_lang", f"id='{data['fk_product_id']}'",update_lang=True)
-        full_title = title["title"]
-        if data.get("subtype"):
-            subtype_title = self.ins._db._get_row("gla_product_types", "title,kit_lang", f"alias='{data['subtype']}'",update_lang=True)
-            full_title = f"{title['title']} ({subtype_title['title']})"
 
-        if data.get("gift_card"):
-            full_title = f" <i class='lni lni-box-gift-1 ins-font-l'></i> {full_title}"
+            title = self.ins._db._get_row("gla_product", "title,kit_lang", f"id='{data['fk_product_id']}'",update_lang=True)
+            full_title = title["title"]
+            if data.get("subtype"):
+                subtype_title = self.ins._db._get_row("gla_product_types", "title,kit_lang", f"alias='{data['subtype']}'",update_lang=True)
+                full_title = f"{title['title']} ({subtype_title['title']})"
 
-        p = "/ins_web/ins_uploads/"
-        image = f"{p}{data['product_th_main']}"
-        uidata = [
-            {"start": "true", "class": "ins-col-12 ins-flex -item-card ins-card"},
-            {"src": image,"loading":"lazy", "_type": "img", "class": "ins-radius-m", "style": "    width: 97px;"},
-            {"start": "true", "class": "ins-col-grow ins-flex"},
-            {"start": "true", "class": "ins-col-12 ins-flex  ins-gap-o"},
-            {"_data": "Product", "_data-ar": "المنتج", "_trans": "true", "class": " ins-col-3  ins-title-xs  ins-text-center ins-grey-color ins-strong-m"},
-            {"_data": "Count", "_data-ar": "الكمية", "_trans": "true", "class": " ins-col-3  ins-title-xs  ins-text-center ins-grey-color ins-strong-m"},
-            {"_data": "Price", "_data-ar": "السعر", "_trans": "true", "class": " ins-col-3  ins-title-xs  ins-text-center ins-grey-color ins-strong-m"},
-            {"_data": "Total", "_data-ar": "الإجمالي", "_trans": "true", "class": " ins-col-3  ins-title-xs  ins-text-center ins-grey-color ins-strong-m"},
-            {"_data": full_title, "class": " ins-col-3  ins-grey-d-color   ins-text-center ins-title-xs ins-strong-l"},
-            {"_data": str(data["quantity"]), "class": " ins-col-3  ins-grey-d-color   ins-text-center ins-title-xs ins-strong-l"},
-            {"_data": str(data["price"]), "_view": "currency", "_currency_symbol": " EGP", "_currency_symbol_ar": " جنيه", "class": " ins-col-3  ins-grey-d-color  ins-text-center ins-title-xs ins-strong-l"},
-            {"_data": str(data["price"] * data["quantity"]), "_view": "currency", "_currency_symbol": " EGP", "_currency_symbol_ar": " جنيه", "class": " ins-col-3  ins-grey-d-color  ins-text-center ins-title-xs ins-strong-l"},
-            {"end": "true"},
-            {"end": "true"},
-            {"end": "true"},
-        ]
-        if string:
-            return self.ins._ui._render(uidata)
-        return uidata
+            if data.get("gift_card"):
+                full_title = f" <i class='lni lni-box-gift-1 ins-font-l'></i> {full_title}"
+
+            tys = ""
+            stys = ""
+
+            if data["product_fk_product_category_id"] == 1 or data["product_fk_product_category_id"] == 3 :
+                tys = "standard"
+                stys = "standard"
+            elif  data["product_fk_product_category_id"] == 2 :
+                tys = "royal"
+                stys = "george"
+
+
+            p = "/ins_web/ins_uploads/"
+            types_data = json.loads(data["product_types_data"]) if data.get("product_types_data") else {}
+
+            th_main_image = ""
+        
+            if tys in types_data and stys in types_data[tys].get("data", {}):
+                stys_data = types_data[tys]["data"][stys]
+                rimages = stys_data.get("images", "").strip()
+                if rimages:
+                    image = rimages.split(",")
+                    th_main_image = image[0] if image else th_main_image
+
+           
+           
+            image = f"{p}{th_main_image}"
+            uidata = [
+                {"start": "true", "class": "ins-col-12 ins-flex -item-card ins-card"},
+                {"src": image,"loading":"lazy", "_type": "img", "class": "ins-radius-m", "style": "    width: 97px;"},
+                {"start": "true", "class": "ins-col-grow ins-flex"},
+                {"start": "true", "class": "ins-col-12 ins-flex  ins-gap-o"},
+                {"_data": "Product", "_data-ar": "المنتج", "_trans": "true", "class": " ins-col-3  ins-title-xs  ins-text-center ins-grey-color ins-strong-m"},
+                {"_data": "Count", "_data-ar": "الكمية", "_trans": "true", "class": " ins-col-3  ins-title-xs  ins-text-center ins-grey-color ins-strong-m"},
+                {"_data": "Price", "_data-ar": "السعر", "_trans": "true", "class": " ins-col-3  ins-title-xs  ins-text-center ins-grey-color ins-strong-m"},
+                {"_data": "Total", "_data-ar": "الإجمالي", "_trans": "true", "class": " ins-col-3  ins-title-xs  ins-text-center ins-grey-color ins-strong-m"},
+                {"_data": full_title, "class": " ins-col-3 ins-grey-d-color ins-text-center ins-title-xs"},
+                {"_data": str(data["quantity"]), "class": " ins-col-3 ins-grey-d-color ins-text-center ins-title-xs"},
+                {"_data": str(data["price"]), "_view": "currency", "_currency_symbol": " EGP", "_currency_symbol_ar": " جنيه", "class": " ins-col-3 ins-grey-d-color ins-text-center ins-title-xs"},
+                {"_data": str(data["price"] * data["quantity"]), "_view": "currency", "_currency_symbol": " EGP", "_currency_symbol_ar": " جنيه", "class": "ins-col-3 ins-grey-d-color ins-text-center ins-title-xs"},
+                {"end": "true"},
+                {"end": "true"},
+                {"end": "true"},
+            ]
+            if string:
+                return self.ins._ui._render(uidata)
+            return uidata
+    
 
     def to_currency (self,  amount1):
         n= self.ins._data._format_currency(amount1,symbol=False) 
@@ -340,7 +444,8 @@ class ELUI(ins_parent):
             {"Bank Name": "Bank Of Alexandria","Bank Name Ar": "بنك الأسكندرية",  "Account Number": "103026301001", "name": "alex", "Swift Code": "ALEXEGCX003", "IBAN number": "EG21000510030000010302630100", "Bank Branch": "Sherif Branch", "Company Name": "EL GALLA GOLD", "logo": "alex_bank_logo.png",  "Bank Branch Ar": "شارع شريف", "Company Name Ar": "الجلا جولد"},
             {"Bank Name": "Arab African International Bank", "Bank Name Ar": "البنك العربى الافريقى الدولى","Account Number": "11066655", "name": "african", "Swift Code": "ARAIEGCXAZH", "IBAN number": "EG85005700200110666551001020", "Bank Branch": "Cairo Branch", "Company Name": "EL GALLA GOLD", "logo": "aaib_logo.png",  "Bank Branch Ar": "القاهرة", "Company Name Ar": "الجلا جولد"},
             {"Bank Name": "Abu Dhabi Islamic Bank (ADIB)","Bank Name Ar": "مصرف أبوظبي الإسلامي", "Account Number": "100000545327", "name": "islamic", "Swift Code": "ABDIEGCAXX", "IBAN number": "EG97003001280000010000054532", "Bank Branch": "Al Darasa", "Company Name": "EL GALLA GOLD", "logo": "adib_logo.png",  "Bank Branch Ar": "الدراسة", "Company Name Ar": "الجلا جولد"},
-            {"Bank Name": "Emirates NBD", "Bank Name Ar": "بنك الإمارات دبي الوطني", "Account Number": "1019342954301", "name": "nbd", "Swift Code": "EBILEGCXXXX", "IBAN number": "EG10001400540000101934295430", "Bank Branch": "Al Azhar", "Company Name": "EL GALLA GOLD", "logo": "enbd_logo.png",  "Bank Branch Ar": "الأزهر", "Company Name Ar": "الجلا جولد"}
+            {"Bank Name": "Emirates NBD", "Bank Name Ar": "بنك الإمارات دبي الوطني", "Account Number": "1019342954301", "name": "nbd", "Swift Code": "EBILEGCXXXX", "IBAN number": "EG10001400540000101934295430", "Bank Branch": "Al Azhar", "Company Name": "EL GALLA GOLD", "logo": "enbd_logo.png",  "Bank Branch Ar": "الأزهر", "Company Name Ar": "الجلا جولد"},
+            {"Bank Name": "Attijariwafa Bank","Bank Name Ar": "التجاري وفا بنك","Account Number": "00010009727","name": "attijariwafa","Swift Code": "BCBIEGCXXXX","IBAN number": "EG780034001400000000010009727","Bank Branch": "Opera Branch","Company Name": "EL GALLA GOLD","logo": "attijariwafa_logo.png","Bank Branch Ar": "الأوبرا","Company Name Ar": "الجلا جولد"}
         ]
         note = "Note: If you use InstaPay, please transfer the amount to our bank account at <a class='-african-bank-button ins-strong-m'>Arab African International Bank</a>"
         if self.ins._langs._this_get()["name"] == "ar":

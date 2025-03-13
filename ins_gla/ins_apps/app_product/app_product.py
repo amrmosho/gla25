@@ -9,8 +9,34 @@ class AppProduct(App):
         super().__init__(app.ins)
 
     def _image(ins , options , data):
+        tys = ""
+        stys = ""
+
+        if data["fk_product_category_id"] == 1 or data["fk_product_category_id"] == 3 :
+            tys = "standard"
+            stys = "standard"
+        elif  data["fk_product_category_id"] == 2 :
+            tys = "royal"
+            stys = "george"
+
+
+        p = "/ins_web/ins_uploads/"
+        types_data = json.loads(data["types_data"]) if data.get("types_data") else {}
+
+        th_main_image = ""
+    
+        if tys in types_data and stys in types_data[tys].get("data", {}):
+            stys_data = types_data[tys]["data"][stys]
+            rimages = stys_data.get("images", "").strip()
+            if rimages:
+                image = rimages.split(",")
+                th_main_image = image[0] if image else th_main_image
+
+       
+       
+        image = f"{th_main_image}"
         uiadta = [
-            {"_data":data["th_main"],"class":"ins-col-12 ins-size-m", "_view": "image","style": "max-width:100px"}
+            {"_data":image,"class":"ins-col-12 ins-size-m", "_view": "image","style": "max-width:100px"}
             
         ]
         return ins._ui._render(uiadta)

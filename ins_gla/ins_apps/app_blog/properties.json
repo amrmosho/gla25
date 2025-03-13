@@ -15,7 +15,7 @@
             "_table": "gla_blog",
             "type": "text",
             "required": "true",
-            "pclass": "ins-col-3"
+            "pclass": "ins-col-6"
         },
         {
             "name": "fk_blog_category_id",
@@ -23,26 +23,9 @@
             "_type": "select",
             "fl_type": "db",
             "fl_table": "gla_blog_category",
+            "fl_where": "`id` <> '18'",
             "required": "true",
-            "pclass": "ins-col-3"
-        },
-        {
-            "name": "city",
-            "title": "City",
-            "_type": "select",
-            "fl_data": { "-": "-", "cairo": "Cairo", "alexandria": "Alexandria" },
-            "fl_type": "option",
-            "required": "true",
-            "pclass": "ins-col-3"
-        },
-        {
-            "name": "state",
-            "title": "State",
-            "_type": "select",
-            "fl_type": "option",
-            "fl_data": { "-": "-", "october": "6 October", "maadi": "Maadi" },
-            "required": "true",
-            "pclass": "ins-col-3"
+            "pclass": "ins-col-6"
         },
         {
             "end": "True"
@@ -64,25 +47,13 @@
             "pclass": "ins-col-6"
         },
         {
-            "name": "thumbnail",
-            "title": "thumbnail",
-            "title-ar": "الصورة المصغرة",
-            "_trans": "true",
-            "_type": "input",
-            "_dir": "images",
-            "_exts": "image/png",
-            "type": "upload",
-            "required": "true",
-            "pclass": "ins-col-6"
-        },
-        {
             "name": "link",
             "title": "Link",
             "title-ar": "ربط",
             "_trans": "true",
             "_type": "input",
             "type": "text",
-            "pclass": "ins-col-12"
+            "pclass": "ins-col-6"
         },
         {
             "name": "content",

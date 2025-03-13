@@ -34,12 +34,37 @@ ins(".-remove-address-btn")._on("click", (o) => {
     var p = o._parents(".-address-cont");
     if (confirm("Are you sure you want to remove this address?")) {
         ins("_remove_address")._ajax._app(o._getData(), (data) => {
+            console.log(data)
             ins("Address removed!")._ui._notification()
             p._remove()
         })
     }
 }, true)
 
+ins(".-remove-item-cart-small-btn")._on("click", (o) => {
+    var ops = o._getData()
+    var p = o._parent(".-item-card");
+    if (confirm("Are you sure tou want to remove this item from cart?")) {
+        ins("_remove_item_cart_small")._ajax._app(ops, (data) => {
+            var jdata = JSON.parse(data)
+            if (jdata["status"] == "1") {
+                ins("._app_checkout")._setHTML(jdata["ui"])
+            }
+            p._remove()
+            ins(".-fees-info")._setHTML(jdata["ui"])
+
+            ins("Item removed!")._ui._notification()
+            setTimeout(() => {
+                if (jdata["count"] > 0) {
+                    ins(".-cart-counter")._setHTML(jdata["count"])
+                } else {
+                    ins(".-cart-counter")._addClass("ins-hidden")
+
+                }
+            }, 100)
+        })
+    }
+}, true)
 
 
 ins(".-update-cart-price-btn")._on("click", (o) => {
@@ -67,16 +92,18 @@ function price_check(o) {
     var ops = o._getData();
 
     ins("price_check")._ajax._app(ops, (data) => {
-        if (data == "1") {
+        var jdata = JSON.parse(data)
+        if (jdata["status"] == "1") {
             window.location = ops["url"]
-
-        } else if (data == "2") {
+        } else if (jdata["status"] == "2") {
             window.location = "/login"
+        } else if (jdata["status"] == "-1") {
+            ins(jdata["msg"])._ui._notification({ "class": "ins-danger" })
         } else {
             ins()._ui._addLightbox({
                 "mode": "",
                 title: "<span class='ins-title-20  '>" + ops["lbtitle"] + "</span> ",
-                data: data,
+                data: jdata["ui"],
                 data_style: "position: relative;top: 0;",
                 style: "width:600px;    "
             });
@@ -224,6 +251,14 @@ ins(".-remove-item-cart-btn")._on("click", (o) => {
             ins(".-cart-summary-area")._setHTML(jdata["ui"])
 
             ins("Item removed!")._ui._notification()
+            setTimeout(() => {
+                if (jdata["count"] > 0) {
+                    ins(".-cart-counter")._setHTML(jdata["count"])
+                } else {
+                    ins(".-cart-counter")._addClass("ins-hidden")
+
+                }
+            }, 100)
         })
     }
 }, true)
@@ -286,6 +321,15 @@ ins(".-african-bank-button")._on("click", function() {
     }
 });
 
+ins(".-add-address-btn")._on("click", (o) => {
+    ins(".-add-address-area")._data._submit(function(data) {
+        ins("_add_address")._ajax._app(data, (d) => {
+            ins(".-addresses-area")._setHTML(d);
+            ins("Address added successfully")._ui._notification()
+        })
+    })
+}, true)
+
 
 ins(".-copy-number")._on("click", (o) => {
     var number = o._getData("number");
@@ -297,39 +341,50 @@ ins(".-copy-number")._on("click", (o) => {
 }, true);
 ins(".-submit-order-btn")._on("click", (o) => {
     var ops = o._getData()
-    ins("price_check")._ajax._app({}, (data) => {
-        if (data == "1") {
-            ins()._ui._addLoader()
-            ins("Redirecting to payment...")._ui._notification()
-            ins("_submit_order")._ajax._app({}, (d) => {
-                jdata = JSON.parse(d)
-                if (jdata["status"] == "-1") {
-                    ins("You have to select payment method")._ui._notification()
-                    ins()._ui._removeLoader()
-                } else if (jdata["status"] == "1") {
-                    window.location = "/checkout/order/?merchant_order_id=" + jdata["oid"]
-                    ins()._ui._removeLoader()
-                } else {
-                    setTimeout(() => {
-                        window.location = jdata["url"]
-                        ins()._ui._removeLoader()
-                    }, 3000);
-                }
-
-            })
-
-        } else {
-            ins()._ui._addLightbox({
-                "mode": "",
-                title: "<span class='ins-title-20  '>" + ops["lbtitle"] + "</span> ",
-                data: data,
-                data_style: "position: relative;top: 0;",
-                style: "width:600px;    "
-            });
+    var place = false
+    ins(".-payment-type-btn")._each(function(item) {
+        if (item._hasClass("ins-active")) {
+            place = true;
         }
+    });
 
-    })
+    if (place) {
+        ins("price_check")._ajax._app({}, (data) => {
+            if (data == "1") {
+                ins()._ui._addLoader()
+                ins("Redirecting to payment...")._ui._notification()
+                ins("_submit_order")._ajax._app({}, (d) => {
+                    jdata = JSON.parse(d)
+                    if (jdata["status"] == "-1") {
+                        ins("You have to select payment method")._ui._notification()
+                        ins()._ui._removeLoader()
+                    } else if (jdata["status"] == "1") {
+                        window.location = "/checkout/order/?merchant_order_id=" + jdata["oid"]
+                        ins()._ui._removeLoader()
+                    } else {
+                        setTimeout(() => {
+                            window.location = jdata["url"]
+                            ins()._ui._removeLoader()
+                        }, 3000);
+                    }
 
+                })
+
+            } else {
+                ins()._ui._addLightbox({
+                    "mode": "",
+                    title: "<span class='ins-title-20  '>" + ops["lbtitle"] + "</span> ",
+                    data: data,
+                    data_style: "position: relative;top: 0;",
+                    style: "width:600px;    "
+                });
+            }
+
+        })
+    } else {
+
+        ins("Please select a payment method")._ui._notification({ class: "ins-danger" })
+    }
 
 }, true)
 ins(".-continue-shopping-btn")._on("click", (o) => {
@@ -340,7 +395,6 @@ ins(function() {
     g = ins()._map._get();
     if (g["mode"] == "order") {
         ins("_check_order_status")._ajax._app({ url: ins(".-url-area")._getData("url") }, (d) => {
-            console.log(d)
             if (d != "1") {
                 let count = 10
                 const countdown = setInterval(() => {

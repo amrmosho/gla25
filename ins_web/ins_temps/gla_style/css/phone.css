@@ -11,6 +11,14 @@ html {
     min-width: 45%;
 }
 
+.not-for-phone {
+    display: none !important;
+}
+
+.not-for-web {
+    display: block !important;
+}
+
 .gla-pro-cont {
     width: 100%;
     flex-wrap: nowrap;

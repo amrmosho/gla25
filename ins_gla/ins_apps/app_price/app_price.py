@@ -22,12 +22,10 @@ class AppPrice(App):
                   {"_data": "", "class": "ins-danger", "style": "width: 1px;padding: 2px; min-width: 2px;  background: #4fa8b5 !important"},
                   {"_data": "buy price", "class": "", "style": "width:120px"},
                   {"_data": "Gram", "class": "", "style": "width:120px"},
-                  {"_data": "price", "class": "ins-primary-color",
-                      "style": "width:120px"},
+                  {"_data": "price", "class": "ins-primary-color","style": "width:120px"},
                   {"_data": "sell price", "class": "", "style": "width:120px"},
                   {"_data": "Gram ", "class": "", "style": "width:120px"},
-                  {"_data": "price", "class": " ins-primary-color",
-                      "style": "width:120px"},
+                  {"_data": "price", "class": " ins-primary-color", "style": "width:120px"},
                   ]
         body = []
         for d in data:
@@ -41,39 +39,28 @@ class AppPrice(App):
                   {"_data": d["title"], "class": "ins-col-grow", "style": ""},
                   {"_data": str(d["price"]), "class": "ins-col-1"},
                   {"_data": str(d["price"]), "class": "ins-col-1"},
-                  {"_data":  str(d["weight"]), "class": "",
-                   "style": "width:50px"},
-                  {"_data": str(d["stamp"])+"/"+grm,
-                   "class": "", "style": "width:150px"},
+                  {"_data":  str(d["weight"]), "class": "", "style": "width:50px"},
+                  {"_data": str(d["stamp"])+"/"+grm,"class": "", "style": "width:150px"},
                   {"_data": str(d["vat"]), "class": "", "style": "width:50px"},
-                  {"_data": str(d["cashback"])+"/"+cgrm,
-                   "class": "", "style": "width:150px"},
+                  {"_data": str(d["cashback"])+"/"+cgrm,"class": "", "style": "width:150px"},
                   {"_data": "", "class": "ins-bg-6", "style": "width: 1px;padding: 2px; min-width: 2px;    background: #4fa8b5 !important;"},
-                  {"_data": f"<b>{str(d["new_main_bprce"])}</b>",
-                   "class": "", "style": "width:120px"},
-                  {"_data": f"<b>{str(d["gram_price_buy"])}</b>",
-                   "class": "", "style": "width:120px"},
-                  {"_data": f"<b class='insaction ' data-insaction='ins_tooltip' data-tip='{d["new_buy_price_tip"]}'  class=''>{str(d["new_buy_price_f"])}</b>",
-                   "class": " ins-primary", "style": "width:120px;    cursor: alias;"},
-                  {"_data": f"<b>{str(d["new_main_prce"])}</b>",
-                   "class": "", "style": "width:120px"},
-                  {"_data": f"<b>{str(d["gram_price_sell"])}</b>",
-                   "class": "", "style": "width:120px"},
-                  {"_data": f"<b class='insaction ' data-insaction='ins_tooltip' data-tip='{d["new_sell_price_tip"]}'>{str(d["new_sell_price_f"])}</b>",
-                   "class": "ins-primary", "style": "width:120px;    cursor: alias;"},
+                  {"_data": f"<b>{str(d['new_main_bprce'])}</b>","class": "", "style": "width:120px"},
+                  {"_data": f"<b>{str(d['gram_price_buy'])}</b>","class": "", "style": "width:120px"},
+                  {"_data": f"<b class='insaction ' data-insaction='ins_tooltip' data-tip='{d['new_buy_price_tip']}'  class=''>{str(d['new_buy_price_f'])}</b>","class": " ins-primary", "style": "width:120px;    cursor: alias;"},
+                  {"_data": f"<b>{str(d['new_main_prce'])}</b>","class": "", "style": "width:120px"},
+                  {"_data": f"<b>{str(d['gram_price_sell'])}</b>","class": "", "style": "width:120px"},
+                  {"_data": f"<b class='insaction ' data-insaction='ins_tooltip' data-tip='{d['new_sell_price_tip']}'>{str(d['new_sell_price_f'])}</b>","class": "ins-primary", "style": "width:120px;    cursor: alias;"},
                   ]
             body.append(rw)
         uidata = [
             {"start": "true", "class": "ins-col-12 ins-flex-center ins-padding-xl "},
             {"start": "true", "class": "ins-col-12 ins-card ins-flex ins-gap-20"},
-            {"_data": "<i class='lni-bar-chart-4 lni ins-icon '></i>  Update price report",
-                "class": "ins-col-grow ins-title-m ins-flex"},
+            {"_data": "<i class='lni-bar-chart-4 lni ins-icon '></i>  Update price report","class": "ins-col-grow ins-title-m ins-flex"},
             {"_data": "", "class": "lni lni-refresh-circle-1-clockwise   lni-printer ins-font-xl "},
             {"_data": "", "class": "lni ins-icon  lni-printer ins-font-xl "},
             {"_data": "", "class": "lni ins-icon   ins-font-xl lni-download-1"},
             {"": "", "class": "ins-line ins-col-12"},
-            {"_type": "table",
-             "class": " ins-col-12 ins-table ins-table-regular ins-pading-xl ", "data": body, "header": header},
+            {"_type": "table","class": " ins-col-12 ins-table ins-table-regular ins-pading-xl ", "data": body, "header": header},
             {"end": "true"},
             {"end": "true"}
         ]
@@ -92,13 +79,11 @@ class AppPrice(App):
             
             sql = {"sell": g["sell"], 
                        "buy": g["buy"] ,
-                       
                        "sell_24": price_24, 
                        "buy_24": bprice_24,
-                       "kit_created": self.ins._date._date_time()
-                       
-                       
-                       
+                       "kit_modified":self.ins._date._date_time(),
+                       "kit_created":self.ins._date._date_time(),
+
                        }
             
             
@@ -237,7 +222,7 @@ class AppPrice(App):
             if st == "update":
                 sql = {"price": d["new_sell_price_f"],
                        "buy_price": d["new_buy_price_f"]}
-                self.ins._db._update("gla_product", sql, f"id='{d["id"]}'")
+                self.ins._db._update("gla_product", sql, f"id='{d['id']}'")
                 
                 
                 uidata = [

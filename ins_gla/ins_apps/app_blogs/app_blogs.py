@@ -28,7 +28,7 @@ class AppBlogs(App):
         if "mode" in rq and rq["mode"] == "blog":
             blogs_url = self.ins._server._url({}, ["mode", "id"])
             title = self.ins._db._get_row(
-                "gla_blog", "title,kit_lang", f"id={rq["id"]}",update_lang=True)
+                "gla_blog", "title,kit_lang", f"id={rq['id']}",update_lang=True)
             path.append({"_data": "Media & News","_data-ar":"أحدث الأخبار","_trans":"true", "_type": "a", "href": blogs_url,
                         "class": " ins-title-12	ins-grey-d-color ins-strong-m"})
             path.append(
@@ -68,11 +68,11 @@ class AppBlogs(App):
             turl = d["link"]
             blog = [
 
-                {"start": "true", "class": "ins-flex   pro-blog-block ", "style": st},
+                {"_type": "a", "href": burl,"start": "true", "class": "ins-flex   pro-blog-block ", "style": st},
                 { "_type": "a","src": p + d["image"],"loading":"lazy", "_type": "img","href": turl, "target": "_blank",},
-                {"_data": d["title"], "_type": "a", "href": burl,"class": "ins-col-12 ins-title-m   ins-grey-color"},
+                {"_data": d["title"], "class": "ins-col-12 ins-title-m   ins-grey-color"},
 
-                {"end": "true"}
+                {"_type": "a", "end": "true"}
 
             ]
 
@@ -83,7 +83,7 @@ class AppBlogs(App):
         return self.ins._ui._render(uidata)
 
     def blog_ui(self, rq):
-        bdata = self.ins._db._get_row("gla_blog", "*", f"id={rq["id"]} ",update_lang=True)
+        bdata = self.ins._db._get_row("gla_blog", "*", f"id={rq['id']} ",update_lang=True)
         p = "/ins_web/ins_uploads/"
 
         uidata = [{"start": "true", "class": "ins-flex ",
