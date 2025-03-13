@@ -11,6 +11,27 @@ html {
     min-width: 45%;
 }
 
+.not-for-phone {
+    display: none !important;
+}
+
+.not-for-web {
+    display: block !important;
+}
+
+.-product-filter-input {
+    height: 50px;
+    font-size: 20px !important;
+}
+
+.-filter-area {
+    display: none;
+}
+
+.-filter-area.menu-open {
+    display: block !important;
+}
+
 .gla-pro-cont {
     width: 100%;
     flex-wrap: nowrap;

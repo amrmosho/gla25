@@ -95,6 +95,16 @@
     display: flex !important;
 }
 
+.ins-m-flex-start {
+    justify-content: flex-start !important;
+    align-items: flex-start !important;
+}
+
+.ins-m-flex-end {
+    justify-content: end;
+    align-content: flex-end;
+}
+
 .ins-m-flex-center {
     display: flex !important;
     justify-content: center;

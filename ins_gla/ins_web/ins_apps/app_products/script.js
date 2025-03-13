@@ -119,6 +119,15 @@ ins(".-add-cart-btn")._on("click", (o) => {
 })
 
 
+ins(".-filter-menu")._on("click", (o) => {
+    if (ins(".-filter-area")._hasClass("menu-open")) {
+        ins(".-filter-area")._removeClass("menu-open")
+    } else {
+        ins(".-filter-area")._addClass("menu-open")
+    }
+}, true);
+
+
 ins(".-continue-shopping-btn")._on("click", (o) => {
     ins(".ins-panel-overlay.ins-opened")._remove()
     ins()._ui._removeLightbox();

@@ -59,6 +59,14 @@ class AppCheckout(App):
        
     
     def price_check(self):
+        ava_check = ELUI(self.ins).order_check()
+        back ={}
+        back["status"] = "1"
+
+        if ava_check["status"] != "0":
+           back["status"] = "-1"
+           back["msg"] = ava_check["msg"]
+           return  back
         sedata = self.ins._server._get_session(self.session_name)
         checked = False
         change = [{"start":"true","class":"ins-col-12 ins-flex"}]   
@@ -97,13 +105,6 @@ class AppCheckout(App):
 
 
 
-
-
-
-
-
-
-
             if str(v["price"]) != str(data["price"]):
                 checked = True
                 change += [
@@ -134,15 +135,16 @@ class AppCheckout(App):
 
            ]
            
-           return self.ins._ui._render(uidata)
-        
+           back["ui"] =  self.ins._ui._render(uidata)
+           return back
+
 
         r=  self.user._check()
         if not r:
          self.ins._server._set_session("redirect", "/checkout/delivery")
-         return "2"
-        
-        return "1"
+         back["status"] = "2"
+         
+        return back
                 
 
     def _remove_item_cart(self):

@@ -92,16 +92,18 @@ function price_check(o) {
     var ops = o._getData();
 
     ins("price_check")._ajax._app(ops, (data) => {
-        if (data == "1") {
+        var jdata = JSON.parse(data)
+        if (jdata["status"] == "1") {
             window.location = ops["url"]
-
-        } else if (data == "2") {
+        } else if (jdata["status"] == "2") {
             window.location = "/login"
+        } else if (jdata["status"] == "-1") {
+            ins(jdata["msg"])._ui._notification({ "class": "ins-danger" })
         } else {
             ins()._ui._addLightbox({
                 "mode": "",
                 title: "<span class='ins-title-20  '>" + ops["lbtitle"] + "</span> ",
-                data: data,
+                data: jdata["ui"],
                 data_style: "position: relative;top: 0;",
                 style: "width:600px;    "
             });

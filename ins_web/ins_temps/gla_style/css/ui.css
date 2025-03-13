@@ -61,6 +61,10 @@ a:hover,
     --text: #495057;
 }
 
+.not-for-web {
+    display: none;
+}
+
 
 /***primary**/
 

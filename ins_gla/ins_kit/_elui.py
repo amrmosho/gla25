@@ -125,29 +125,27 @@ class ELUI(ins_parent):
 
         is_open = False
         times = json.loads(ops["times"])
+        if times:
+            for t in times:
+                opening_time = datetime.strptime(t.get("from"), "%H:%M").time()
+                closing_time = datetime.strptime(t.get("to"), "%H:%M").time()
 
-        for t in times:
-            opening_time = datetime.strptime(t.get("from"), "%H:%M").time()
-            closing_time = datetime.strptime(t.get("to"), "%H:%M").time()
+                if opening_time <= current_time <= closing_time:
+                    is_open = True 
+                    break
 
-            if opening_time <= current_time <= closing_time:
-                is_open = True  # المتجر مفتوح، نخرج فورًا
-                break
+                otime = self.format_time(t.get('from', '09:00'))
+                ctime = self.format_time(t.get('to', '23:00'))
+                available_periods.append(f"from {otime} to {ctime}")
 
-            # تخزين الفترات لعرضها في رسالة الخطأ
-            otime = self.format_time(t.get('from', '09:00'))
-            ctime = self.format_time(t.get('to', '23:00'))
-            available_periods.append(f"from {otime} to {ctime}")
+            if not is_open:
+                r["status"] = "1"
+                msg = "The store is currently closed. Business hours: " + " and ".join(available_periods)
 
-        # لو المتجر مغلق، نظهر رسالة الفترات
-        if not is_open:
-            r["status"] = "1"
-            msg = "The store is currently closed. Business hours: " + " and ".join(available_periods)
+                if self.ins._langs._this_get()["name"] == "ar":
+                    msg = "المتجر مغلق حاليًا. ساعات العمل: " + " و ".join(available_periods)
 
-            if self.ins._langs._this_get()["name"] == "ar":
-                msg = "المتجر مغلق حاليًا. ساعات العمل: " + " و ".join(available_periods)
-
-            r["msg"] = msg
+                r["msg"] = msg
 
         return r
 
