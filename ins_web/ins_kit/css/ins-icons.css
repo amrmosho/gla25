@@ -784,6 +784,81 @@
     mask-image: url(/ins_web/ins_images/icons/css3.svg);
 }
 
+.ins-icons-coinbase::before {
+    -webkit-mask-image: url(/ins_web/ins_images/icons/coinbase.svg);
+    mask-image: url(/ins_web/ins_images/icons/coinbase.svg);
+}
+
+.ins-icons-colour-palette-3::before {
+    -webkit-mask-image: url(/ins_web/ins_images/icons/colour-palette-3.svg);
+    mask-image: url(/ins_web/ins_images/icons/colour-palette-3.svg);
+}
+
+.ins-icons-comment-1-share::before {
+    -webkit-mask-image: url(/ins_web/ins_images/icons/comment-1-share.svg);
+    mask-image: url(/ins_web/ins_images/icons/comment-1-share.svg);
+}
+
+.ins-icons-comment-1-text::before {
+    -webkit-mask-image: url(/ins_web/ins_images/icons/comment-1-text.svg);
+    mask-image: url(/ins_web/ins_images/icons/comment-1-text.svg);
+}
+
+.ins-icons-comment-1::before {
+    -webkit-mask-image: url(/ins_web/ins_images/icons/comment-1.svg);
+    mask-image: url(/ins_web/ins_images/icons/comment-1.svg);
+}
+
+.ins-icons-compass-drafting-2::before {
+    -webkit-mask-image: url(/ins_web/ins_images/icons/compass-drafting-2.svg);
+    mask-image: url(/ins_web/ins_images/icons/compass-drafting-2.svg);
+}
+
+.ins-icons-connectdevelop::before {
+    -webkit-mask-image: url(/ins_web/ins_images/icons/connectdevelop.svg);
+    mask-image: url(/ins_web/ins_images/icons/connectdevelop.svg);
+}
+
+.ins-icons-copilot::before {
+    -webkit-mask-image: url(/ins_web/ins_images/icons/copilot.svg);
+    mask-image: url(/ins_web/ins_images/icons/copilot.svg);
+}
+
+.ins-icons-coral::before {
+    -webkit-mask-image: url(/ins_web/ins_images/icons/coral.svg);
+    mask-image: url(/ins_web/ins_images/icons/coral.svg);
+}
+
+.ins-icons-cpanel::before {
+    -webkit-mask-image: url(/ins_web/ins_images/icons/cpanel.svg);
+    mask-image: url(/ins_web/ins_images/icons/cpanel.svg);
+}
+
+.ins-icons-crane-4::before {
+    -webkit-mask-image: url(/ins_web/ins_images/icons/crane-4.svg);
+    mask-image: url(/ins_web/ins_images/icons/crane-4.svg);
+}
+
+.ins-icons-creative-commons::before {
+    -webkit-mask-image: url(/ins_web/ins_images/icons/creative-commons.svg);
+    mask-image: url(/ins_web/ins_images/icons/creative-commons.svg);
+}
+
+.ins-icons-credit-card-multiple::before {
+    -webkit-mask-image: url(/ins_web/ins_images/icons/credit-card-multiple.svg);
+    mask-image: url(/ins_web/ins_images/icons/credit-card-multiple.svg);
+}
+
+.ins-icons-crop-2::before {
+    -webkit-mask-image: url(/ins_web/ins_images/icons/crop-2.svg);
+    mask-image: url(/ins_web/ins_images/icons/crop-2.svg);
+}
+
+.ins-icons-crown-3::before {
+    -webkit-mask-image: url(/ins_web/ins_images/icons/crown-3.svg);
+    mask-image: url(/ins_web/ins_images/icons/crown-3.svg);
+}
+
 .ins-icons-dashboard-square-1::before {
     -webkit-mask-image: url(/ins_web/ins_images/icons/dashboard-square-1.svg);
     mask-image: url(/ins_web/ins_images/icons/dashboard-square-1.svg);
