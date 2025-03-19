@@ -16,7 +16,7 @@ html {
 }
 
 .not-for-web {
-    display: block !important;
+    display: flex !important;
 }
 
 .gla-pro-cont {
@@ -126,34 +126,43 @@ body {
     line-height: 32px;
 }
 
-.ins-title-xs,
+.ins-title-12 {
+    font-size: 24px;
+    font-family: "gotham";
+}
+
 .ins-title-14 {
-    font-size: 20px;
+    font-size: 24px !important;
+    font-family: "gotham";
+}
+
+.ins-title-xs {
+    font-size: 28px;
     font-family: "gotham";
 }
 
 .ins-title-s {
-    font-size: 22px;
+    font-size: 32px;
     font-family: "gotham";
 }
 
 .ins-title-m,
 .ins-title-20 {
-    font-size: 32px;
+    font-size: 36px;
     font-family: "gotham";
 }
 
 .ins-title-l {
-    font-size: 36px;
+    font-size: 42px;
 }
 
 .ins-title-xl {
-    font-size: 44px;
+    font-size: 48px;
     font-family: "gotham_m";
 }
 
 .ins-title-2xl {
-    font-size: 48px;
+    font-size: 52px;
     font-family: "gotham_l";
 }
 
@@ -184,4 +193,9 @@ header .gla-logo {
     left: 50%;
     transform: translateX(-50%);
     top: 14px;
+}
+
+.-user-menu {
+    width: 330px;
+    line-height: 60px;
 }

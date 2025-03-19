@@ -16,6 +16,7 @@ class WdgContent(Widget):
             pass
             ##return " No content selected "
         self.widget._include("script.js")
+        self.widget._include("style.css")
         ui = [
             {"_data":   data["content"], "class": "ins-col-12  ins-flex ap-wdgt-body "},
         ]

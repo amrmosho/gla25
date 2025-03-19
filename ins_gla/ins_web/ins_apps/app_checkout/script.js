@@ -1,7 +1,8 @@
 ins(".-address-btn")._on("click", (o) => {
-    ins(".-address-btn")._setAttribute("src", "/ins_web/ins_uploads/style/radio.svg")
+    var f = o._find(".-address-radio-btn");
+    ins(".-address-radio-btn")._setAttribute("src", "/ins_web/ins_uploads/style/radio.svg")
     ins("_select_address")._ajax._app(o._getData(), (data) => {})
-    o._setAttribute("src", "/ins_web/ins_uploads/style/radio_checked.svg")
+    f._setAttribute("src", "/ins_web/ins_uploads/style/radio_checked.svg")
 }, true)
 
 
@@ -264,12 +265,12 @@ ins(".-remove-item-cart-btn")._on("click", (o) => {
 }, true)
 
 function update_address_btn(o) {
-    var f = o._find(".-address-radio-btn");
+    var f = o._find(".-address-type-radio-btn");
     ins(".-delivery-type-btn")._addClass("inactive")
     ins(".-delivery-type-btn")._removeClass("ins-gold-bg")
     o._removeClass("inactive")
     o._addClass("ins-gold-bg")
-    ins(".-address-radio-btn")._setAttribute("src", "/ins_web/ins_uploads/style/radio.svg")
+    ins(".-address-type-radio-btn")._setAttribute("src", "/ins_web/ins_uploads/style/radio.svg")
     f._setAttribute("src", "/ins_web/ins_uploads/style/radio_checked.svg")
 }
 ins(".-delivery-type-btn")._on("click", (o) => {
@@ -339,6 +340,9 @@ ins(".-copy-number")._on("click", (o) => {
         ins("Failed to copy number")._ui._notification({ "class": "ins-danger" });
     });
 }, true);
+
+
+
 ins(".-submit-order-btn")._on("click", (o) => {
     var ops = o._getData()
     var place = false
@@ -350,13 +354,19 @@ ins(".-submit-order-btn")._on("click", (o) => {
 
     if (place) {
         ins("price_check")._ajax._app({}, (data) => {
-            if (data == "1") {
+            var ddata = JSON.parse(data)
+
+            if (ddata["status"] == "1") {
                 ins()._ui._addLoader()
-                ins("Redirecting to payment...")._ui._notification()
+                ins("redirecting_to_payment")._data._trans((text) => {
+                    ins(text)._ui._notification();
+                })
                 ins("_submit_order")._ajax._app({}, (d) => {
                     jdata = JSON.parse(d)
                     if (jdata["status"] == "-1") {
-                        ins("You have to select payment method")._ui._notification()
+                        ins("you_have_to_select_payment_method")._data._trans((text) => {
+                            ins(text)._ui._notification();
+                        })
                         ins()._ui._removeLoader()
                     } else if (jdata["status"] == "1") {
                         window.location = "/checkout/order/?merchant_order_id=" + jdata["oid"]
@@ -369,7 +379,6 @@ ins(".-submit-order-btn")._on("click", (o) => {
                     }
 
                 })
-
             } else {
                 ins()._ui._addLightbox({
                     "mode": "",
@@ -383,10 +392,16 @@ ins(".-submit-order-btn")._on("click", (o) => {
         })
     } else {
 
-        ins("Please select a payment method")._ui._notification({ class: "ins-danger" })
+
+        ins("please_select_payment_method")._data._trans((text) => {
+            ins(text)._ui._notification({ class: "ins-danger" });
+        })
     }
 
 }, true)
+
+
+
 ins(".-continue-shopping-btn")._on("click", (o) => {
     ins(".ins-panel-overlay.ins-opened")._remove()
     ins()._ui._removeLightbox();
@@ -406,7 +421,7 @@ ins(function() {
                     }
                     if (count == 0) {
                         clearInterval(countdown)
-                        window.location = d
+                            //window.location = d
                     }
                 }, 1000)
             }

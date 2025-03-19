@@ -68,36 +68,22 @@
     animation-fill-mode: forwards;
 }
 
-
-/*
-.gla-alogo-primary-l {
-    position: relative;
+@media screen and (max-width: 1000px) {
+    .gla-ltabs {
+        font-size: 32px !important;
+        line-height: 60px;
+    }
+    .-about-title-area {
+        height: auto !important;
+    }
+    .-legacy-content {
+        font-size: 32px !important;
+        line-height: 34px !important;
+    }
+    .-about-button {
+        width: 250px;
+        height: 80px !important;
+        line-height: 80px !important;
+        font-size: 28px;
+    }
 }
-
-.gla-ltabs-item.active .gla-alogo-primary-l>div {
-    position: absolute;
-}
-
-.gla-ltabs-item .gla-alogo-primary-l .ins-flex-start {
-    left: 0px;
-    position: absolute;
-}
-
-.gla-ltabs-item .gla-alogo-primary-l .ins-flex-end {
-    left: 0px;
-    position: absolute;
-}
-
-.gla-ltabs-item.active .gla-alogo-primary-l .ins-flex-start {
-    animation-name: start;
-    animation-duration: 1s;
-    opacity: 1;
-    animation-fill-mode: forwards;
-}
-
-.gla-ltabs-item.active .gla-alogo-primary-l .ins-flex-end {
-    animation-name: end;
-    animation-duration: 1s;
-    opacity: 1;
-    animation-fill-mode: forwards;
-}*/

@@ -16,7 +16,8 @@ class AppUsersOrders(App):
     def get_order_status(self,status,type="5"):
         data = self.ins._data._get_options(type)["content"]
         ops = json.loads(data)
-        return ops[status]
+        sdata = ops[str(status)]
+        return sdata
 
 
     def order(self):
@@ -53,26 +54,19 @@ class AppUsersOrders(App):
             {"start": "true", "class": "ins-col-4 ins-flex "},
 
 
-            {"_data": "user address", "_data-ar": "عنوان المستخدم",
-                "_trans": "true", "class": "ins-col-12 ins-grey-d-color"},
-            {"_data": address, "class": "ins-col-12"},
-            {"_data": "order status", "_data-ar": "حالة الطلب",
-                "_trans": "true", "class": "ins-col-12 ins-grey-d-color"},
-            {"_data": status["text"], "_data-ar": status["text_ar"], "_trans": "true",
-                "class": f"ins-col-12 {status['class']}-color ins-title-xs ins-strong-l"},
+            {"_data": "User address", "_data-ar": "عنوان المستخدم","_trans": "true", "class": "ins-col-12 ins-m-col-4 ins-grey-d-color"},
+            {"_data": address, "class": "ins-col-12 ins-m-col-8 "},
+            {"_data": "Order status", "_data-ar": "حالة الطلب","_trans": "true", "class": "ins-col-12 ins-grey-d-color ins-m-col-4 "},
+            {"_data": status["text"], "_data-ar": status["text_ar"], "_trans": "true","class": f"ins-col-12 {status['class']}-color ins-title-xs ins-strong-l ins-m-col-8 "},
             {"end": "true"},
 
             {"start": "true", "class": "ins-col-4 ins-flex "},
 
 
-            {"_data": "payment status", "_data-ar": "حالة الدفع",
-                "_trans": "true", "class": "ins-col-12 ins-grey-d-color"},
-            {"_data": pstatus["text"], "_data-ar": pstatus["text_ar"], "_trans": "true",
-                "class": f"ins-col-12 {pstatus['class']}-color ins-title-xs ins-strong-l"},
-            {"_data": "payment method", "_data-ar": "طريقة الدفع",
-                "_trans": "true", "class": "ins-col-12 ins-grey-d-color"},
-            {"_data": payments["title"],
-                "class": "ins-col-12 ins-grey-d-color ins-title-xs ins-strong-l"},
+            {"_data": "Payment status", "_data-ar": "حالة الدفع", "_trans": "true", "class": "ins-col-12 ins-grey-d-color ins-m-col-4 "},
+            {"_data": pstatus["text"], "_data-ar": pstatus["text_ar"], "_trans": "true","class": f"ins-col-12 {pstatus['class']}-color ins-title-xs ins-strong-l ins-m-col-8 "},
+            {"_data": "Payment method", "_data-ar": "طريقة الدفع","_trans": "true", "class": "ins-col-12 ins-grey-d-color ins-m-col-4 "},
+            {"_data": payments["title"],"class": "ins-col-12 ins-grey-d-color ins-title-xs ins-strong-l ins-m-col-8 "},
             {"end": "true"},
 
             {"start": "true", "class": "ins-col-4 ins-flex "},
@@ -122,15 +116,15 @@ class AppUsersOrders(App):
         if data.get("shipping"):
             shipping = [
             {"start": "true", "class": "ins-col-12 ins-flex-space-between -item-card ins-card"},
-            {"class": "ins-radius-m lni lni-truck-delivery-1 ins-font-3xl ins-text-center", "style": "width: 97px;"},
-            {"start": "true", "class": "ins-col-grow ins-flex"},
+            {"class": "ins-radius-m lni lni-truck-delivery-1 ins-font-3xl ins-text-center ins-m-col-2", "style": "width: 97px;"},
+            {"start": "true", "class": "ins-col-grow ins-flex  ins-m-col-10"},
           
          
             {"start": "true", "class": "ins-col-grow ins-flex"},
-            {"_data": "Shipping Fees", "_data-ar": "مصاريف الشحن", "_trans": "true","class": "ins-col-3 ins-title-xs ins-text-center ins-grey-color"},
-            {"class": "ins-col-6"},
+            {"_data": "Shipping Fees", "_data-ar": "مصاريف الشحن", "_trans": "true","class": "ins-col-3 ins-m-col-4 ins-title-xs ins-text-center ins-grey-color"},
+            {"class": "ins-col-6 not-for-phone"},
             {"_data": str(data["shipping"]), "_view": "currency", "_currency_symbol": " EGP",
-             "_currency_symbol_ar": " جنيه", "class": "ins-col-3 ins-grey-d-color ins-text-center ins-title-xs"},
+             "_currency_symbol_ar": " جنيه", "class": "ins-col-3 ins-m-col-8 ins-grey-d-color ins-text-center ins-title-xs"},
             {"end": "true"},
            
            
@@ -144,24 +138,37 @@ class AppUsersOrders(App):
                  
 
         footer = [
-            {"start": "true", "class": "ins-col-12 ins-flex--space-between -item-card ins-card"},
+            {"start": "true", "class": "ins-col-12 ins-flex-space-between -item-card ins-card not-for-phone"},
             {"class": "ins-radius-m", "style": "width: 97px;"},
             {"start": "true", "class": "ins-col-grow ins-flex"},
-            {"_data": "count", "_data-ar": "الكمية", "_trans": "true",
-                "class": "ins-col-3 ins-title-xs ins-text-center ins-grey-color"},
+            {"_data": "Total QTY", "_data-ar": "الكمية", "_trans": "true","class": "ins-col-3 ins-title-xs ins-text-center ins-grey-color"},
             {"class": "ins-col-6"},
 
-            {"_data": "total", "_data-ar": "الإجمالي", "_trans": "true",
-                "class": "ins-col-3 ins-title-xs ins-text-center ins-grey-color"},
+            {"_data": "total", "_data-ar": "الإجمالي", "_trans": "true","class": "ins-col-3 ins-title-xs ins-text-center ins-grey-color"},
 
-            {"_data": str(
-                tcount), "class": "ins-col-3 ins-grey-d-color ins-text-center ins-title-xs"},
+            {"_data": str(tcount), "class": "ins-col-3  ins-grey-d-color ins-text-center ins-title-xs"},
             {"class": "ins-col-6"},
 
-            {"_data": str(data["total"]), "_view": "currency", "_currency_symbol": " EGP",
-             "_currency_symbol_ar": " جنيه", "class": "ins-col-3 ins-grey-d-color ins-text-center ins-title-xs"},
+            {"_data": str(data["total"]), "_view": "currency", "_currency_symbol": " EGP","_currency_symbol_ar": " جنيه", "class": "ins-col-3  ins-grey-d-color ins-text-center ins-title-xs"},
+            {"end": "true"},
+            {"end": "true"},
+
+
+
+            {"start": "true", "class": "ins-col-12 ins-flex-space-between -item-card ins-card not-for-web"},
+            {"class": "ins-radius-m", "style": "width: 97px;"},
+            {"start": "true", "class": "ins-col-grow ins-flex"},
+            {"_data": "Total QTY", "_data-ar": "الكمية", "_trans": "true","class": "ins-m-col-6 ins-title-xs ins-text-center ins-grey-color"},
+            {"_data": str(tcount), "class": "ins-m-col-6 ins-grey-d-color ins-text-center ins-title-xs"},
+
+            {"_data": "total", "_data-ar": "الإجمالي", "_trans": "true","class": "ins-m-col-6 ins-title-xs ins-text-center ins-grey-color"},
+
+
+            {"_data": str(data["total"]), "_view": "currency", "_currency_symbol": " EGP","_currency_symbol_ar": " جنيه", "class": "ins-m-col-6  ins-grey-d-color ins-text-center ins-title-xs"},
             {"end": "true"},
             {"end": "true"}
+
+
         ]
         uidata += footer
         return self.ins._ui._render(uidata)
@@ -185,39 +192,39 @@ class AppUsersOrders(App):
             if i == 1:
                 style = "border: 2px solid var(--gold) !important;"
             order = [{"start": "true", "class": " ins-flex-space-between  ins-card  ins-col-12 ins-border   ins-flex   ins-padding-l", "style": style},
-                     {"_data": f"Order ID({v['id']} /2025) ","_data-ar": f"طلب رقم ({v['id']} /2025) ","_trans": "true","class": " ins-col-9 ins-primary-d-color ins-title-s	 ins-strong-l "}
+                     {"_data": f"Order ID(#{v['id']} /2025) ","_data-ar": f"طلب رقم ({v['id']} /2025) ","_trans": "true","class": " ins-col-9  ins-m-col-7 ins-primary-d-color ins-title-s	 ins-strong-l "}
                      ]
             if i == 1:
                 order += [{"_data": f'  New ', "_data-ar": "جديد", "_trans": "true",
-                           "class": "ins-tag ins-gold  ins-strong-m  ins-text-upper ins-radius-m  ins-text-upper ins-text-center"}]
+                           "class": "ins-tag ins-gold  ins-strong-m  ins-text-upper ins-radius-m ins-m-col-1  ins-text-upper ins-text-center"}]
 
             arrow = "lni-arrow-right"
             if self.ins._langs._this_get()["name"] == "ar":
                 arrow = "lni-arrow-left"
             order += [{"_data": status["text"], "_data-ar": status["text_ar"], "_trans": "true",
-                       "class": f"{status['class']} ins-col-2 ins-radius-m  ins-text-upper ins-avatar-s ins-gold-d "},
+                       "class": f"{status['class']} ins-tag ins-col-2 ins-radius-m  ins-m-col-3 ins-text-upper ins-avatar-s ins-gold-d "},
                       {"class": "ins-line ins-col-12"},
                       {"start": "true", "class": "ins-flex ins-col-10"}]
                     
             if v["kit_created"]:
-                order.append({"_data": f' Date  ', "_data-ar": f' التاريخ ', "_trans": "true","class": " ins-col-4    ins-grey-color "})
+                order.append({"_data": f' Date  ', "_data-ar": f' التاريخ ', "_trans": "true","class": " ins-col-4   ins-m-col-4    ins-grey-color "})
             else:
                 order.append({"class": " ins-col-4"})
                     
                     
-            order +=[{"_data": f' Items Count ', "_data-ar": f' العدد ',"_trans": "true", "class": " ins-col-4    ins-grey-color"},
-                    {"_data": f' Orders Total ', "_data-ar": f' اجمالي ', "_trans": "true","class": " ins-col-4 ins-grey-color "}]
+            order +=[{"_data": f' Items QTY ', "_data-ar": f' العدد ',"_trans": "true", "class": " ins-col-4   ins-m-col-4    ins-grey-color"},
+                    {"_data": f' Orders Total ', "_data-ar": f' اجمالي ', "_trans": "true","class": " ins-col-4   ins-m-col-4  ins-grey-color "}]
             
             if v["kit_created"]:
-              order.append({"_data": f'{v["kit_created"]}', "_view": "date","class": " ins-col-4  ins-grey-d-color ins-title-xs ins-strong-l ", "style": "    margin-top: -22px;"})
+              order.append({"_data": f'{v["kit_created"]}', "_view": "date","class": " ins-col-4   ins-m-col-4  ins-grey-d-color ins-title-xs ins-strong-l ", "style": "    margin-top: -22px;"})
             else:
                 order.append({"class": " ins-col-4"})
             order +=  [{"_data": f'{icount}',
-                       "class": " ins-col-4  ins-grey-d-color ins-title-xs ins-strong-l", "style": "    margin-top: -22px;"},
+                       "class": " ins-col-4   ins-m-col-4  ins-grey-d-color ins-title-xs ins-strong-l", "style": "    margin-top: -22px;"},
                       {"_data": f'{v["total"]}', "_view": "currency", "_currency_symbol": " EGP", "_currency_symbol_ar": " جنيه",
-                       "class": " ins-col-4  ins-grey-d-color ins-title-xs ins-strong-l", "style": "    margin-top: -22px;"},
+                       "class": " ins-col-4   ins-m-col-4  ins-grey-d-color ins-title-xs ins-strong-l", "style": "    margin-top: -22px;"},
                       {"end": "true"},
-                      {"class": " ins-col-1"},
+                      {"class": " ins-col-1  ins-m-col-1"},
                       {"_type": "a", "href": f"/puser/order/{v['id']}", "class": "ins-button-cricle ins-grey-d",
                        "_data": f'<i class=" lni ins-icon ins-white-color {arrow}"></i>'},
                       {"end": "true"}]

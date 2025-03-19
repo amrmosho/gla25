@@ -1,0 +1,21 @@
+.-about-des {
+    font-size: 20px;
+}
+
+@media screen and (max-width: 1000px) {
+    .-about-title-area {
+        height: auto !important;
+    }
+    .-about-des {
+        font-size: 14px !important;
+    }
+    .-about-content {
+        margin-top: 75px;
+    }
+    .gla-alogo-primary-l {
+        background-image: none !important
+    }
+    .-first-cont {
+        margin-top: 50px;
+    }
+}

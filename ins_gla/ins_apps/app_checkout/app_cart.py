@@ -21,17 +21,17 @@ class AppCart(App):
         uidata.append({"start": "true", "class": "ins-flex ins-col-12  ins-padding-m","style":"border-radius:8px !important;border: 1px solid var(--grey-l);"})
         uidata.append({"_data": "Your details","_data-ar":"تفاصيلك","_trans":"true", "class": "ins-col-12  ins-grey-d-color ins-title-s	 ins-strong-l "})
         uidata.append({"class":"ins-space-s"})
-        uidata.append({"_data": "Subtotal","_data-ar":"المجموع الفرعي","_trans":"true", "class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
-        uidata.append({"_data": str(subtotal),"data-value" : subtotal,"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end  -subtotal-text"})
-        uidata.append({"_data": "Shipping","_data-ar":"شحن","_trans":"true", "class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
+        uidata.append({"_data": "Subtotal","_data-ar":"المجموع الفرعي","_trans":"true", "class": "ins-col-6 ins-m-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
+        uidata.append({"_data": str(subtotal),"data-value" : subtotal,"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-m-col-6 ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end  -subtotal-text"})
+        uidata.append({"_data": "Shipping","_data-ar":"شحن","_trans":"true", "class": "ins-col-6  ins-m-col-6 ins-title-xs  ins-grey-color ins-strong-m"})
         if total > 200000:
-          uidata.append({"_data": "Free","_data-ar": "مجاني","_trans":"true","data-value" : 0, "class": "ins-col-6  ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end  -shipping-text"})
+          uidata.append({"_data": "Free","_data-ar": "مجاني","_trans":"true","data-value" : 0, "class": "ins-col-6  ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end  ins-m-col-6 -shipping-text"})
         else:
-          uidata.append({"_data": "200","data-value" : 200,"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",  "class": "ins-col-6  ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end  -shipping-text"})
+          uidata.append({"_data": "200","data-value" : 200,"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",  "class": "ins-col-6  ins-m-col-6 ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end  -shipping-text"})
           total +=200
         uidata.append({ "class": "ins-line ins-col-12"})
-        uidata.append({"_data": "Total","_data-ar":"المجموع","_trans":"true", "class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
-        uidata.append({"_data":str(total), "_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه","class": "ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end  -total-text"})
+        uidata.append({"_data": "Total","_data-ar":"المجموع","_trans":"true", "class": "ins-col-6  ins-m-col-6 ins-title-xs  ins-grey-color ins-strong-m"})
+        uidata.append({"_data":str(total), "_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه","class": "ins-col-6  ins-m-col-6 ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end  -total-text"})
         uidata.append({"end": "true"})
         uidata.append({"class":"ins-space-xl"})
         lbtitle = "Change in price"

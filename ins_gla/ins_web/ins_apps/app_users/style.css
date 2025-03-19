@@ -1,7 +1,56 @@
-._a,
-._a_red {
-    cursor: pointer;
-    font-size: 25px;
-    color: var(--grey-m);
-    height: 25px;
-}
+    ._a,
+    ._a_red {
+        cursor: pointer;
+        font-size: 25px;
+        color: var(--grey-m);
+        height: 25px;
+    }
+    
+    @media screen and (max-width: 1000px) {
+        .-user-page-btn {
+            height: 50px !important;
+            line-height: 50px !important;
+            font-size: 14px !important;
+        }
+        .-user-pages-icon {
+            font-size: 38px !important;
+        }
+        .ins-form-input {
+            height: 80px !important;
+            line-height: 80px !important;
+            font-size: 32px !important;
+        }
+        .ins-form-label {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        .-update-name-btn,
+        .-update-password-btn,
+        .-update-email-btn,
+        .-send-email-veri-btn,
+        .-add-address-btn,
+        .-back-address-btn,
+        .-update-address-btn {
+            min-height: 80px;
+            line-height: 80px !important;
+            font-size: 28px;
+        }
+        .-send-email-veri-btn {
+            margin-top: 60px !important;
+        }
+        .-add-address {
+            height: 50px;
+            line-height: 50px !important;
+            font-size: 24px;
+        }
+        .lni-trash-3._a_red,
+        .lni-pencil-1 {
+            font-size: 40px;
+        }
+        .-address-info {
+            line-height: 42px;
+        }
+        .ins-form-upload-imgs-cont {
+            height: auto !important;
+        }
+    }

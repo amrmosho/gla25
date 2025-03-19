@@ -152,6 +152,11 @@
     border-radius: 4px;
 }
 
+.icon-text-area {
+    position: relative;
+    top: 4px;
+}
+
 @media screen and (max-width: 1000px) {
     .-product-filter-input {
         height: 50px;
@@ -174,5 +179,92 @@
     }
     .-filter-results-area {
         padding: 24px 0px !important;
+    }
+    .-small-imgs-cont {
+        position: absolute;
+        top: 513px;
+    }
+    .-side-mimg-cont {
+        height: 620px !important;
+    }
+    .-main-img {
+        max-width: 450px !important;
+    }
+    .-type-inner-btn,
+    .-subtype-inner-btn,
+    .-type-btn {
+        height: 65px;
+        font-size: 24px !important;
+        line-height: 65px !important;
+    }
+    .-add-cart-btn,
+    .-plus-btn,
+    .count-inpt,
+    .-minus-btn {
+        min-height: 80px;
+    }
+    .icon-text-area {
+        position: relative;
+        top: 14px;
+        width: 50px;
+    }
+    .-gift-checkbox {
+        width: 60px !important;
+        top: 5px;
+    }
+    .-cart-img-cont {
+        height: 200px !important;
+    }
+    .ins-fixpanel.ins-opened {
+        width: 100% !important;
+    }
+    .lni-trash-3._a_red {
+        font-size: 40px;
+    }
+    .item-summary-area {
+        line-height: 65px;
+    }
+    .-continue-shopping-btn,
+    .-to-cart-btn {
+        min-height: 80px;
+        font-size: 28px;
+        line-height: 80px !important;
+    }
+    .ins-close {
+        font-size: 52px !important;
+    }
+    .ins-form-input:not(.-order-select) {
+        height: 80px !important;
+        line-height: 80px !important;
+        font-size: 28px !important;
+    }
+    .-category-checkbox {
+        width: 40px !important;
+    }
+    .ins-text.ins-form-end {
+        font-size: 28px !important;
+    }
+    .-category-area,
+    .-type-area,
+    .-weight-select,
+    .-weight-select {
+        margin-bottom: 40px;
+    }
+    .-filter-price-btn {
+        height: 80px !important;
+    }
+    .-filter-area.menu-open {
+        display: flex !important;
+    }
+    .ins-pagination-btn,
+    .-filter-price-btn>.lni-search-1 {
+        font-size: 40px;
+    }
+    .ins-pagination-btn {
+        width: 50px !important;
+        height: 50px !important;
+    }
+    .-pro-pages-buttons {
+        height: 50px;
     }
 }

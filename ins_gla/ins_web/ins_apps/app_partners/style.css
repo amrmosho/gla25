@@ -21,3 +21,12 @@
     background: white;
     border-radius: 4px;
 }
+
+@media screen and (max-width: 1000px) {
+    .-filter-area {
+        height: 60px;
+    }
+    .-partner-ineer-img {
+        max-width: 100% !important;
+    }
+}

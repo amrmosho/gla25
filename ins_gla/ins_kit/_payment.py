@@ -2,98 +2,46 @@ import requests
 
 class PaymobAPI:
     def __init__(self):
-        self.api_key = "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2TVRBeE5qTXpOeXdpYm1GdFpTSTZJbWx1YVhScFlXd2lmUS5kWmYzaFltS2tOVmpna3k2Wk1fcTFjLXd2QzJBNzBNQ3dFVllrMmRRWjh6VDgyWlBZMFdNYmljMV9QeVpZUnowNTYwTnNwOG5mSkt4Vk9XT2NlV2Nydw=="
-        self.base_url = "https://accept.paymobsolutions.com/api"
-    
-    def authenticate(self):
-        url = f"{self.base_url}/auth/tokens"
-        payload = {"api_key": self.api_key}
-        try:
-            response = requests.post(url, json=payload)
-            response.raise_for_status()
-            return response.json().get("token")
-        except requests.RequestException as e:
-            print("Authentication failed:", e)
-            return None
+        self.secret_key = "egy_sk_live_7bf4ebb7f763eb5e5e91bb1fb87a3a1f4d847a775daf5f8b85c14b9586c15b0a"
+        self.public_key = "egy_pk_live_FtH56SgwzujAvK2ciDUcXZCF9SY73Gt6"
+        self.base_url = "https://accept.paymob.com"
 
-    def create_order(self, auth_token, amount, order_id):
-        url = f"{self.base_url}/ecommerce/orders"
-        headers = {"Authorization": f"Bearer {auth_token}"}
+    def create_intention(self, amount, payment_methods, order_id):
+                
+
+        billing_data = {
+            "apartment": "12",
+            "first_name": "Ali",
+            "last_name": "Mohamed",
+            "street": "Main Street",
+            "building": "10",
+            "phone_number": "01234567890",
+            "city": "Cairo",
+            "country": "EG",
+            "email": "ali@example.com",
+            "floor": "3",
+            "state": "Cairo"
+        }
+
+        url = f"{self.base_url}/v1/intention/"
+        headers = {"Authorization": f"Token {self.secret_key}"}
         payload = {
-            "merchant_order_id": order_id,
-            "amount_cents": amount,
+            "amount": amount,
             "currency": "EGP",
-            "delivery_needed": False,
-            "billing_data": {
-                "first_name": "ala", 
-                "last_name": "zain",
-                "email": "ali@gmail.com",
-                "phone_number": "+92345xxxxxxxx",
-                "address": "1234 Street",
-                "city": "dumy",
-                "state": "dumy",
-                "country": "EG",
-                "postal_code": "12345"
+            "payment_methods": [int(payment_methods)],
+            "billing_data": billing_data,
+            "extras": {
+                "merchant_order_id": order_id
             }
         }
 
         try:
             response = requests.post(url, json=payload, headers=headers)
             response.raise_for_status()
-            return response.json().get("id")
+            client_secret= response.json().get("client_secret")
+            return f"{self.base_url}/unifiedcheckout/?publicKey={self.public_key}&clientSecret={client_secret}"
+
         except requests.RequestException as e:
-            print("Order creation failed:", e)
+            print("Failed to create intention:", e)
             return None
 
-    def get_payment_token(self, auth_token, payment_id, amount, integration_id):
-        url = f"{self.base_url}/acceptance/payment_keys"
-        headers = {"Authorization": f"Bearer {auth_token}"}
-        payload = {
-            "order_id": payment_id,
-            "amount_cents": amount,
-            "currency": "EGP",
-            "integration_id": integration_id,
-            "billing_data": {
-                "apartment": "dumy",
-                "first_name": "ala",
-                "last_name": "zain",
-                "street": "dumy",
-                "building": "dumy",
-                "phone_number": "+92345xxxxxxxx",
-                "city": "dumy",
-                "country": "dumy",
-                "email": "ali@gmail.com",
-                "floor": "dumy",
-                "state": "dumy"
-              }
-        }
-        try:
-            response = requests.post(url, json=payload, headers=headers)
-            response.raise_for_status()
-            return response.json().get("token")
-        except requests.RequestException as e:
-            print("Failed to get payment token:", e)
-            return None
-
-
-
-    def create_pay_wdgt(self, amount, order_id, integration_id):
-        auth_token = self.authenticate()
-        if auth_token:
-            payment_id = self.create_order(auth_token, amount, order_id)
-            if payment_id:
-                payment_token = self.get_payment_token(auth_token, payment_id, amount, integration_id)
-                if payment_token:
-                    iframe_id = 892221
-                    return f"https://accept.paymob.com/api/acceptance/iframes/{iframe_id}?payment_token={payment_token}"
-    
-    
-    def create_kiosk_payment_url(self, amount, order_id, integration_id):
-        auth_token = self.authenticate()
-        if auth_token:
-            payment_id = self.create_order(auth_token, amount, order_id)
-            if payment_id:
-                payment_token = self.get_payment_token(auth_token, payment_id, amount, integration_id)
-                if payment_token:
-                    return f"Your payment code is: {payment_token}. Please use this code at a Masary or AMAN POS machine."
-        return None

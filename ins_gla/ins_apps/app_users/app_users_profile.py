@@ -41,8 +41,8 @@ class AppUsersProfile(App):
         u = self.user._check()
         udata = self.ins._db._get_row("kit_user","email,email_status",f"id='{u['id']}'")
         uidata = [            {"start": "true", "class": "ins-col-12 ins-flex ins-padding-2xl "},
-            {"_type": "input", "value": data.get("email", ""), "title": "Email","title-ar":"بريد إلكتروني","_trans":"true", "placeholder": "Enter Email","placeholder-ar": "ادخل البريد الالكتروني", "type": "email", "name": "email", "class": "-update-email-inpt", "pclass": "ins-col-8"},
-            {"start": "true", "class": " -verified-area ins-col-4"},
+            {"_type": "input", "value": data.get("email", ""), "title": "Email","title-ar":"بريد إلكتروني","_trans":"true", "placeholder": "Enter Email","placeholder-ar": "ادخل البريد الالكتروني", "type": "email", "name": "email", "class": "-update-email-inpt", "pclass": "ins-col-8 ins-m-col-6"},
+            {"start": "true", "class": " -verified-area ins-col-4  ins-m-col-6"},
             ]
         
         if udata["email_status"] != "verified":

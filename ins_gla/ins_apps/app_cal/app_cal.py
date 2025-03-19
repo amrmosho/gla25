@@ -100,13 +100,13 @@ class AppCal(App):
             {"start": "true", "class": "ins-white"},
                 {"start": "true", "class": " ins-flex-center gla-container ins-padding-xl "},
                 {"_data": "Gold calculator", "_data-ar":"حاسبة الذهب","_trans":"true","style": "position: absolute;left: 20px;",
-                    "class": "ins-title-l ins-padding-xl ins-strong-m ins-text-upper"},
-                {"start": "true", "class": "  ins-flex  ins-border ins-padding-m ins-radius-m"},
-                {"_data": "EGP",  "_data-ar": "جنيه","_trans":"true","class": "ins-border-end ins-padding-m ins-padding-h",
+                    "class": "ins-title-l ins-m-col-12 ins-padding-xl -cal-header-title ins-strong-m ins-text-upper"},
+                {"start": "true", "class": "  ins-flex ins-m-col-8 -calc-inner-input  ins-border ins-padding-m ins-radius-m ins-m-flex-center"},
+                {"_data": "EGP",  "_data-ar": "جنيه","_trans":"true","class": "ins-m-col-2 ins-border-end ins-padding-m ins-padding-h",
                     "style": "height: 24px;line-height: 24px;"},
                 {"_type": "input", "value":total, "placeholder": "Enter your amount","placeholder-ar":"أدخل المبلغ الخاص بك","_trans":"true",
-                    "type": "text", "class": " -cal-update-nput ins-input-none"},
-                {"_data": f"<i class=' ins-white-color {arrow}'></i>","class": "ins-button-s  -cal-update-btn ins-gold-d"},
+                    "type": "text", "class": " -cal-update-nput ins-input-none ins-m-col-10"},
+                {"_data": f"<i class=' ins-white-color {arrow}'></i>","class": "ins-button-s  -cal-update-btn -cal-inner-update-btn ins-gold-d ins-m-col-2"},
                 {"end": "true"},
                 {"end": "true"},
                 {"end": "true"}
@@ -162,7 +162,7 @@ class AppCal(App):
                 {"class": "ins-line ins-col-12"},
                 {"start": "true", "class": " ins-radius-l ins-border ins-col-12 ins-flex -plan-body",
                     "style": "overflow: hidden;"},
-                {"start": "true", "class": "  ins-col-grow ins-padding-xl ins-flex"},
+                {"start": "true", "class": "  ins-col-grow ins-padding-xl ins-flex -cal-pros-area"},
 
             ]
             uidata += body
@@ -194,21 +194,32 @@ class AppCal(App):
                 img = f"{p}{th_main_image}"
 
                 products = [
-                    {"start": "true", "class":"ins-col-grow"},
+                    {"start": "true", "class":"ins-col-grow ins-m-col-12"},
 
-                    {"start": "true", "style": "width:210px"},
-                    {"start": "true", "class": " product-img-cont ", "style": ""},
+                    {"start": "true", "class":"-cal-pro-cont ins-m-flex ins-m-gap-10","style": "width:210px"},
+                    {"start": "true", "class": " product-img-cont ins-m-col-2"},
                     {"src": img, "loading":"lazy","_type": "img"},
                     {"end": "true"},
-                    {"class": "ins-space-xl"},
-                    {"_data": pro["title"], "class": "ins-strong-m ins-grey-color ins-text-upper",
+                    {"class": "ins-space-xl not-for-phone"},
+                  
+                                      {"start": "true", "class": "ins-col-12 ins-m-col-10 ins-m-flex-start -cal-pro-title-area"},
+
+                    {"_data": pro["title"], "class": "ins-strong-m ins-grey-color ins-text-upper ins-m-col-12  -cal-pro-title",
                         "style": "    line-height: 20px;"},
-                    {"_data": str(pro["price"]),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",  "class": "ins-strong-m ins-primary-d-color ins-title-14"},
-                    {"class": "ins-space-s"},
+                    {"_data": str(pro["price"]),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",  "class": " ins-m-col-12 ins-strong-m -cal-pro-price  ins-primary-d-color ins-title-14"},
+                    {"class": "ins-space-s not-for-phone"},
                     {"_data": f"Qty: {pro['count']}","_data-ar": f"الكمية: {pro['count']}","_trans":"true",
-                        "class": "ins-strong-l ins-grey-color "},
+                        "class": "ins-strong-l ins-grey-color -cal-pro-count  ins-m-col-12"},
+                                       {"end": "true"},
+
+                   
+                   
                     {"end": "true"},
-                    {"end": "true"}
+                    {"end": "true"},
+
+                    {"class": "ins-space-l not-for-web"},
+                    {"class": "ins-line ins-m-col-12 not-for-web"},
+                    {"class": "ins-space-l not-for-web"},
                 ]
                 inputs = [
                     {"start": "true", "class": " product-data-area ins-hidden","data-mname":uniq},
@@ -223,16 +234,16 @@ class AppCal(App):
            
             summary = [
                 {"end": "true"},
-                {"start": "true", "class": "ins-primary-w ins-padding-l ins-flex ins-gap-o","style": "width:400px"},
-                {"_data": "Item summary","_data-ar":"ملخص العنصر","_trans":"true","class": "ins-col-12 ins-title-xs ins-grey-d-color ins-strong-l"},
+                {"start": "true", "class": "ins-primary-w ins-padding-l ins-flex ins-gap-o -cal-summary-area","style": "width:400px"},
+                {"_data": "Item summary","_data-ar":"ملخص العنصر","_trans":"true","class": "ins-col-12 ins-m-col-12 ins-title-xs ins-grey-d-color ins-strong-l"},
                 {"class": "ins-space-xl"}
                 ]
             total = 0
             for k, pro in product.items():
                 stotal = float(pro["count"]) * float(pro["price"])
                 total +=stotal
-                summary+=[{"_data": f"{pro['count']} x {pro['title']}","class": "ins-col-6 ins-strong-m ins-grey-color"},
-                          {"_data": str(stotal),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-grey-d-color ins-strong-l ins-flex-end"}]
+                summary+=[{"_data": f"{pro['count']} x {pro['title']}","class": "ins-col-6 ins-strong-m ins-grey-color ins-m-col-6 "},
+                          {"_data": str(stotal),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-m-col-6 ins-grey-d-color ins-strong-l ins-flex-end"}]
 
             lbtitle = "Cart"
             if self.ins._langs._this_get()["name"] == "ar":
@@ -241,8 +252,8 @@ class AppCal(App):
                 {"class": "ins-space-s"},
                 {"class": "ins-line ins-col-12"},
                 {"class": "ins-space-s"},
-                {"_data": "Total", "_data-ar":"المجموع ","_trans":"true","class": "ins-col-6 ins-strong-m ins-grey-color"},
-                {"_data": str(total),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-grey-d-color ins-strong-l ins-flex-end"},
+                {"_data": "Total", "_data-ar":"المجموع ","_trans":"true","class": "ins-col-6 ins-strong-m ins-grey-color ins-m-col-6"},
+                {"_data": str(total),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-m-col-6 ins-grey-d-color ins-strong-l ins-flex-end"},
                 {"class": "ins-space-2xl"},
                 {"_data": "ADD TO CART <i class = 'lni lni-arrow-right ins-white-color'></i>","_data-ar":"أضف إلى السلة","data-lbtitle":lbtitle,"_trans":"true", "class": "ins-col-12 ins-button-s ins-flex-center  ins-white-color ins-strong-m ins-gold-d -add-cart-btn ins-title-14","style": "    height: 32px;    border: 1px solid var(--primary-d);"},
                 {"end": "true"},
@@ -273,7 +284,7 @@ class AppCal(App):
        
        
         uidata=[  {"class":"ins-space-2xl"},
-            {"start": "true", "class": "ins-col-12 ins-flex-end  gla-container"},
+            {"start": "true", "class": "ins-col-12 ins-flex-end  gla-container ins-m-col-12 ins-m-flex-center ins-m-padding-xl"},
              {"_data": "Filter by",  "_data-ar":"تصفية حسب","_trans":"true","class": "ins-strong-m ins-grey-d-color ins-title-14"}]
         fdata = [
             {"name":"mix","title":"Mix","title_ar":"مزج","url":f"{self.ins._server._url({},'id')}"},
@@ -298,14 +309,16 @@ class AppCal(App):
             (sproduct),
             (tproduct)
         ]
+        uidata.append( {"start": "true","class":"ins-flex ins-col-12 ins-options-area ins-m-padding-xl"})
 
         for product in plan_data:
             if product:
                 title =   f"{self.ins._langs._get('option' ,'gla')} {i}"
-
                 uidata += self.plan_ui(product, title)
+
                 i += 1
 
+        uidata.append( {"end": "true"})
 
         uidata.append({"class": "ins-space-4xl"})
 
@@ -327,10 +340,10 @@ class AppCal(App):
         
         return [
             {"start": "true", "class": "ins-col-12 ins-flex", "style": "z-index: 1;"},
-            {"_type": "img","loading":"lazy", "src": img},
-            {"start": "true", "class": "ins-col-10"},
+            {"_type": "img","class":"ins-m-col-2 -home-page-icons","loading":"lazy", "src": img},
+            {"start": "true", "class": "ins-col-10 ins-m-col-10"},
             {"_trans":"true","_data": title,"_data-ar": title_ar, "class": "ins-title-xs ins-grey-d-color ins-strong-l", "style": "line-height: 24px;"},
-            {"_trans":"true","_data": des, "_data-ar": des_ar, "class": "ins-title-14 ins-grey-color", "style": "line-height: 20px;"},
+            {"_trans":"true","_data": des, "_data-ar": des_ar, "class": "ins-title-14 ins-grey-color -home-des", "style": "line-height: 20px;"},
             {"end": "true"},
             {"end": "true"},
             {"class": "ins-space-2xl"}
@@ -339,11 +352,29 @@ class AppCal(App):
 
     def home_ui(self):
         p = "/ins_web/ins_uploads/style/"
-        uidata = [{"start":"true", "class":"ins-col-12 ins-flex ins-padding-l gla-container"}]
+        uidata = [{"start":"true", "class":"ins-col-12 ins-flex ins-padding-l gla-container -home-body"}]
        
+        uidata.append({"start":"true", "class":" ins-col-grow ins-flex-center ins-text-center not-for-web","style":"margin-top:50px"})
+        uidata.append({"start":"true", "class":"ins-flex -cal-input-area ins-m-col-12 ins-m-flex-center","style":"max-width: 720px;"})
+        uidata.append({"_data": "Gold calculator", "_data-ar":"حاسبة الذهب","_trans":"true","class": "ins-title-xl ins-grey-d-color ins-strong-m ins-col-12  ins-m-col-12 ins-text-upper","style":"    line-height: 40px;"})
+        uidata.append({"_data": "See how much gold you can own!","_data-ar":" شاهد كم من الذهب يمكنك أن تملكه!","_trans":"true", "class": "ins-title-20 ins-grey-color ins-col-12 "})
+        uidata.append({"class": "ins-space-l"})
+        text = "CALCULATOR "
+        if self.ins._langs._this_get()["name"] == "ar":
+                    text = "أحسب <i class='lni ins-white-color lni-arrow-left'></i>"
+        uidata += [
+                {"start": "true", "class": "  ins-flex  ins-border ins-radius-m ins-padding-m ins-m-col-12 -calc-home-input","style":"width: 720px;background-color: white;"},
+                {"_data": "EGP", "_data-ar": "جنيه","_trans":"true", "class": "ins-border-end ins-padding-m ins-padding-h ins-title-20 ins-grey-color ins-m-col-2","style": "height: 24px;line-height: 24px;"},
+                {"_type": "input",  "placeholder": "Enter your amount","placeholder-ar":"أدخل المبلغ الخاص بك","_trans":"true","type": "text", "class": " -cal-update-nput ins-input-none","pclass":"ins-col-grow ins-m-col-7"},
+                {"_data": text,"class": "ins-button-s  -cal-update-btn  -cal-home-update-btn ins-gold-d ins-flex-center","style":"height: 46px;"},
+                {"end": "true"}
+            ]
+        uidata.append({"end": "true"})
+        uidata.append({"end": "true"})
+
        
-        uidata.append({"start":"true", "class":"ins-flex ins-radius-xxl ins-padding-xl","style":"width:535px;background-color: white;"})
-        uidata.append({"_data":"Start your saving plan today and see the value of your money in gold!","_data-ar": "ابدأ خطة الادخار الخاصة بك اليوم وشاهد قيمة أموالك بالذهب!","_trans": "true", "class": "ins-col-12 ins-title-20 ins-text-upper ins-grey-d-color ins-strong-m"})
+        uidata.append({"start":"true", "class":"ins-flex ins-radius-xxl ins-padding-xl ins-m-col-12 -home-cont","style":"width:535px;background-color: white;"})
+        uidata.append({"_data":"Start your saving plan today and see the value of your money in gold!","_data-ar": "ابدأ خطة الادخار الخاصة بك اليوم وشاهد قيمة أموالك بالذهب!","_trans": "true", "class": "ins-col-12 ins-m-text-center -cal-home-title ins-title-20 ins-text-upper ins-grey-d-color ins-strong-m"})
         uidata.append({"class":"ins-space-xs"})  
         uidata.append({"class":"ins-line ins-col-12"})  
         uidata.append({"class":"ins-space-xs"})  
@@ -368,30 +399,30 @@ class AppCal(App):
 
         uidata.append({"end": "true"})
 
-        uidata.append({"start":"true", "class":" ins-col-grow ins-flex-center ins-text-center"})
 
-        uidata.append({"start":"true", "class":"ins-flex","style":"max-width: 720px;"})
-        uidata.append({"_data": "Gold calculator", "_data-ar":"حاسبة الذهب","_trans":"true","class": "ins-title-xl ins-grey-d-color ins-strong-m ins-col-12 ins-text-upper","style":"    line-height: 40px;"})
+
+
+        uidata.append({"start":"true", "class":" ins-col-grow ins-flex-center ins-text-center not-for-phone"})
+        uidata.append({"start":"true", "class":"ins-flex -cal-input-area ins-m-col-12 ins-m-flex-center","style":"max-width: 720px;"})
+        uidata.append({"_data": "Gold calculator", "_data-ar":"حاسبة الذهب","_trans":"true","class": "ins-title-xl ins-grey-d-color ins-strong-m ins-col-12  ins-m-col-12 ins-text-upper","style":"    line-height: 40px;"})
         uidata.append({"_data": "See how much gold you can own!","_data-ar":" شاهد كم من الذهب يمكنك أن تملكه!","_trans":"true", "class": "ins-title-20 ins-grey-color ins-col-12 "})
         uidata.append({"class": "ins-space-l"})
         text = "CALCULATOR "
         if self.ins._langs._this_get()["name"] == "ar":
                     text = "أحسب <i class='lni ins-white-color lni-arrow-left'></i>"
         uidata += [
-                {"start": "true", "class": "  ins-flex  ins-border ins-radius-m ins-padding-m ","style":"width: 720px;background-color: white;"},
-                {"_data": "EGP", "_data-ar": "جنيه","_trans":"true", "class": "ins-border-end ins-padding-m ins-padding-h ins-title-20 ins-grey-color",
-                    "style": "height: 24px;line-height: 24px;"},
-                {"_type": "input",  "placeholder": 
-                    
-                    "Enter your amount","placeholder-ar":"أدخل المبلغ الخاص بك","_trans":"true",
-                    "type": "text", "class": " -cal-update-nput ins-input-none","pclass":"ins-col-grow"},
-                {"_data": text,"class": "ins-button-s  -cal-update-btn ins-gold-d ins-flex-center","style":"height: 46px;"},
+                {"start": "true", "class": "  ins-flex  ins-border ins-radius-m ins-padding-m ins-m-col-12 -calc-home-input","style":"width: 720px;background-color: white;"},
+                {"_data": "EGP", "_data-ar": "جنيه","_trans":"true", "class": "ins-border-end ins-padding-m ins-padding-h ins-title-20 ins-grey-color ins-m-col-2","style": "height: 24px;line-height: 24px;"},
+                {"_type": "input",  "placeholder": "Enter your amount","placeholder-ar":"أدخل المبلغ الخاص بك","_trans":"true","type": "text", "class": " -cal-update-nput ins-input-none","pclass":"ins-col-grow ins-m-col-7"},
+                {"_data": text,"class": "ins-button-s  -cal-update-btn  -cal-home-update-btn ins-gold-d ins-flex-center","style":"height: 46px;"},
                 {"end": "true"}
             ]
-        
+        uidata.append({"end": "true"})
+        uidata.append({"end": "true"})
 
-        uidata.append({"end": "true"})
-        uidata.append({"end": "true"})
+
+
+
      
 
         uidata.append({"end": "true"})
