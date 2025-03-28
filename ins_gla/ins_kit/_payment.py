@@ -9,8 +9,8 @@ class PaymobAPI:
 
 
         if int(payment_methods) == 4919279:
-            secret_key = "egy_sk_test_5a93d6fb865967ceea7705fdae62f34bf240171262ff455cffab6991a7221421"
-            public_key = "egy_pk_test_9KbvBvmKLK3TYadt3K6GvRu70wPacA54"
+            secret_key = "xxx"
+            public_key = "xxxx"
 
                 
 
