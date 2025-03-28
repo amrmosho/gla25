@@ -262,6 +262,7 @@ class ELUI(ins_parent):
 
 
     def small_pro_block(self, data, string=False):
+        mode = self.ins._server._get("mode")
         if data.get("new_price"):
             total = float(data.get("new_price",0)) * float(data.get("count",0))
         else:
@@ -294,7 +295,7 @@ class ELUI(ins_parent):
 
             
             
-            {"_data": f"<i  class='lni lni-trash-3 _a_red'></i>", "class": "ins-flex-center ins-col-1 -remove-item-cart-small-btn ins-m-col-1", "data-pid": data["prefix"]},
+            {"_data": f"<i  class='lni lni-trash-3 _a_red'></i>", "class": "ins-flex-center ins-col-1 -remove-item-cart-small-btn ins-m-col-1", "data-mode":mode,"data-pid": data["prefix"]},
             {"end": "true"}
         ]
 
@@ -344,16 +345,13 @@ class ELUI(ins_parent):
 
         r = [
             {"start": "true", "class": "ins-flex gla-pro-block", "style": st},
-            {"start": "true", "class": "gla-img-cont", "style": ""},
-            #{"_data": "Bestseller", "class": "ins-tag ins-primary-d ins-strong-m ins-text-upper ins-title-10","style": "position: absolute; top: 8px; left: 8px; border-radius: 2px !important; z-index:111"},
+            {"_type":"a","href": purl,"start": "true", "class": "gla-img-cont", "style": ""},
             {"src": p + th_main_image, "loading": "lazy", "_type": "img", "class": "gla-pro-img"},
             {"src": p + th_overlay_image, "loading": "lazy", "_type": "img", "class": "gla-pro-himg"},
-            {"_type": "a", "href": purl, "_data": button_title, "class": "ins-button gla-pro-hbutton ins-strong-m ins-gold-bg",
-             "data-pid": f"{data['id']}"},
-            {"end": "true"},
+            {"_type":"a","end": "true"},
             {"class": "ins-space-s"},
-            {"_data": full_title, "class": "ins-col-12 ins-title-20 ins-strong-m ins-grey-color", "style": "line-height:24px"},
-            {"_data": f"{data['price']}", "_view": "currency", "_currency_symbol": " EGP", "_currency_symbol_ar": " جنيه",
+            {"_type":"a","href": purl,"_data": full_title, "class": "ins-col-12 ins-title-20 ins-strong-m ins-grey-color", "style": "line-height:24px"},
+            {"_type":"a","href": purl,"_data": f"{data['price']}", "_view": "currency", "_currency_symbol": " EGP", "_currency_symbol_ar": " جنيه",
              "class": "ins-col-12 ins-strong-m ins-primary-d-color", "style": "line-height:24px"},
             {"end": "true"}
         ]

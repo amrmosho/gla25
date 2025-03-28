@@ -3,3 +3,17 @@
 .-forgot-form {
     max-width: 650px !important;
 }
+
+@media screen and (max-width: 1000px) {
+    .ins-button-m,
+    .ins-form-input {
+        height: 80px !important;
+        line-height: 80px !important;
+        font-size: 28px !important;
+    }
+    .ins-form-label {
+        font-size: 28px !important;
+        line-height: 28px;
+        height: 28px;
+    }
+}

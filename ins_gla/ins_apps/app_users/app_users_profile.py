@@ -45,10 +45,16 @@ class AppUsersProfile(App):
             {"start": "true", "class": " -verified-area ins-col-4  ins-m-col-6"},
             ]
         
+        ui_msg = "Verified Email <i class='lni lni-check ins-font-l'></i>"
+        if self.ins._langs._this_get()["name"] == "ar":
+                    ui_msg = "تم التحقق  <i class='lni lni-check ins-font-l'></i> "
+
+
+
         if udata["email_status"] != "verified":
          uidata.append({"_data": "Send Verification Code","_data-ar":"ارسال رمز التحقق","_trans":"true", "class": "ins-button-m ins-strong-m   ins-gold-bg  ins-col-12 -send-email-veri-btn ins-flex-center", "style": " margin-top: 35px;"})
         else:
-         uidata.append({"_data": "Verified Email <i class='lni lni-check ins-font-l'></i>","_data-ar":"تم التحقق  <i class='lni lni-check ins-font-l'></i> ","_trans":"true", "class": " ins-strong-m   ins-col-12 ins-flex-center ins-border ins-radius-m", "style": " margin-top: 35px;min-height:40px"})
+         uidata.append({"_data": ui_msg,"_trans":"true", "class": " ins-strong-m   ins-col-12 ins-flex-center ins-border ins-radius-m", "style": " margin-top: 35px;min-height:40px"})
 
        
         uidata+= [   

@@ -1,8 +1,66 @@
 {
-    "options": [{
-        "_type": "input",
-        "title": "content",
-        "name": "id"
+    "table": "kit_email_template",
 
-    }]
+    "form_data": [{
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card ins-padding-m"
+        },
+        {
+            "name": "title",
+            "title": "Title",
+            "title-ar": "العنوان",
+            "_trans": "true",
+            "_type": "input",
+            "type": "text",
+            "required": "true",
+            "pclass": "ins-col-4"
+        },
+
+        {
+            "name": "subject",
+            "_type": "input",
+            "type": "text",
+            "_trans": "true",
+            "comment-ar": "موضوع الرسالة الذي سوف يظهر للمستلم",
+            "title": "subject",
+            "title-ar": "الموضوع",
+            "required": "true",
+            "trans": "false",
+            "pclass": "ins-col-4"
+        },
+
+
+        {
+            "name": "sender_email",
+            "_type": "input",
+            "type": "text",
+            "_trans": "true",
+            "title": "send email",
+            "comment-ar": "البريد الالكتروني الذي سوف يتم الارسال منه والذي سوف يظهر للمستلم ",
+            "title-ar": "البريد الالكتروني للمرسل",
+            "required": "true",
+            "pclass": "ins-col-4"
+        },
+
+        {
+            "name": "content",
+            "title": "Content",
+            "title-ar": "المحتوى",
+            "_trans": "true",
+            "_type": "textarea",
+            "required": "true",
+            "pclass": "ins-col-12"
+        }
+
+    ],
+
+
+    "list_data": [{
+            "name": "title",
+            "class": "ins-col-grow",
+            "title": "Title",
+            "title-ar": "العنوان"
+        }
+
+    ]
 }

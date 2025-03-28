@@ -49,7 +49,6 @@ class InsKit():
         
         
         self._email = Email (self)
-        self._sms = SMS (self)
 
         self._sms = SMS (self)
 

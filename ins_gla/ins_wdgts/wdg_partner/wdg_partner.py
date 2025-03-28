@@ -19,7 +19,7 @@ class WdgPartner(Widget):
         ]
 
 
-        uidata.append({"start":"true","class":"ins-col-12 -part-area ins-m-col-12 ins-m-flex ins-col-10 ins-flex"})
+        uidata.append({"start":"true","class":"-part-area ins-m-col-12 ins-m-flex ins-flex"})
         for d in data:
                url = self.ins._server._url({"alias":"partner","mode":str(d["id"])})
 

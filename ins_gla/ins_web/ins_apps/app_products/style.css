@@ -164,6 +164,7 @@
     }
     .-filter-area {
         display: none;
+        z-index: 11111111;
     }
     .-filter-area.menu-open {
         position: fixed;
@@ -266,5 +267,8 @@
     }
     .-pro-pages-buttons {
         height: 50px;
+    }
+    .-remove-filter-btn {
+        font-size: 45px;
     }
 }

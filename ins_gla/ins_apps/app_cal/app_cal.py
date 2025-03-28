@@ -105,7 +105,7 @@ class AppCal(App):
                 {"_data": "EGP",  "_data-ar": "جنيه","_trans":"true","class": "ins-m-col-2 ins-border-end ins-padding-m ins-padding-h",
                     "style": "height: 24px;line-height: 24px;"},
                 {"_type": "input", "value":total, "placeholder": "Enter your amount","placeholder-ar":"أدخل المبلغ الخاص بك","_trans":"true",
-                    "type": "text", "class": " -cal-update-nput ins-input-none ins-m-col-10"},
+                    "type": "text","pclass":"ins-m-col-8", "class": " -cal-update-nput ins-input-none "},
                 {"_data": f"<i class=' ins-white-color {arrow}'></i>","class": "ins-button-s  -cal-update-btn -cal-inner-update-btn ins-gold-d ins-m-col-2"},
                 {"end": "true"},
                 {"end": "true"},
@@ -365,8 +365,8 @@ class AppCal(App):
         uidata += [
                 {"start": "true", "class": "  ins-flex  ins-border ins-radius-m ins-padding-m ins-m-col-12 -calc-home-input","style":"width: 720px;background-color: white;"},
                 {"_data": "EGP", "_data-ar": "جنيه","_trans":"true", "class": "ins-border-end ins-padding-m ins-padding-h ins-title-20 ins-grey-color ins-m-col-2","style": "height: 24px;line-height: 24px;"},
-                {"_type": "input",  "placeholder": "Enter your amount","placeholder-ar":"أدخل المبلغ الخاص بك","_trans":"true","type": "text", "class": " -cal-update-nput ins-input-none","pclass":"ins-col-grow ins-m-col-7"},
-                {"_data": text,"class": "ins-button-s  -cal-update-btn  -cal-home-update-btn ins-gold-d ins-flex-center","style":"height: 46px;"},
+                {"_type": "input",  "placeholder": "Enter your amount","placeholder-ar":"أدخل المبلغ الخاص بك","_trans":"true","type": "text", "class": " -cal-update-nput-phone ins-input-none","pclass":"ins-col-grow ins-m-col-7"},
+                {"_data": text,"class": "ins-button-s  -cal-update-btn-phone  -cal-home-update-btn ins-gold-d ins-flex-center","style":"height: 46px;"},
                 {"end": "true"}
             ]
         uidata.append({"end": "true"})

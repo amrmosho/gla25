@@ -52,7 +52,7 @@ ins(".-remove-item-cart-small-btn")._on("click", (o) => {
                 ins("._app_checkout")._setHTML(jdata["ui"])
             }
             p._remove()
-            ins(".-fees-info")._setHTML(jdata["ui"])
+            ins(".-items-area")._setHTML(jdata["ui"])
 
             ins("Item removed!")._ui._notification()
             setTimeout(() => {
@@ -379,6 +379,10 @@ ins(".-submit-order-btn")._on("click", (o) => {
                     }
 
                 })
+
+
+
+
             } else {
                 ins()._ui._addLightbox({
                     "mode": "",
@@ -421,7 +425,7 @@ ins(function() {
                     }
                     if (count == 0) {
                         clearInterval(countdown)
-                            //window.location = d
+                        window.location = d
                     }
                 }, 1000)
             }

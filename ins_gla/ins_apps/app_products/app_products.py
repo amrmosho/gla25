@@ -225,7 +225,7 @@ class AppProducts(App):
         uidata.append({"start":"true","class":"ins-col-grow ins-flex-end ins-m-flex-start -filter-results-area"})
 
         order_area = [
-                {"start":"true","class":"ins-flex-end ins-m-col-5 ins-m-flex-start"},
+                {"start":"true","class":"ins-flex-end ins-m-col-6 ins-m-flex-start"},
                 {"_data":"Order by",  "_data-ar":"ترتيب حسب","_trans":"true","class":"ins-strong-m ins-grey-d-color ins-title-14 ins-m-col-grow"},
                 {"_type":"select","name":"order","fl_data":{
                     "low":"Lowest to Highest",
@@ -237,7 +237,7 @@ class AppProducts(App):
                     "high":"من الأغلى للأرخص",
                     "old":"من الأقدم للأجدد",
                     "new":"من الأجدد للأقدم"
-                },"_trans":"true","value":vorder,"pclass":"ins-col-grow ins-m-col-6","class":"-order-select"},
+                },"_trans":"true","value":vorder,"pclass":"ins-col-grow ins-m-col-7","class":"-order-select"},
                 {"end":"true"}
             ]
 

@@ -199,3 +199,13 @@ header .gla-logo {
     width: 330px;
     line-height: 60px;
 }
+
+.ins-message-area {
+    height: 130px !important;
+}
+
+.ins-message {
+    width: 100% !important;
+    height: 100px !important;
+    align-content: center !important;
+}

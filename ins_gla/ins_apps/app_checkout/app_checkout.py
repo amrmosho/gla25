@@ -191,7 +191,10 @@ class AppCheckout(App):
         ndata=self.ins._server._get_session(self.session_name)
         r = {}
         r["status"] = "2"
-        r["ui"] = self.ins._ui._render(self.fees_info())
+        r["ui"] = self.delivery_items_area()
+        if "mode" in data and data["mode"] == "payment":
+         r["ui"] = self.payment_items_area()
+       
         count = 0
         if ndata:
                 for _, s in ndata.items():
@@ -318,11 +321,16 @@ class AppCheckout(App):
          uidata.append({"class": sp,"style":style})
 
          active = ""
+         col = "ins-m-col-4"
+         if i == 1:
+            col = "ins-m-col-3"
          if "mode" in rq and rq["mode"] == s["mode"]:
             active = "ins-gold-bg"
-         uidata.append({"_type":"a","_data": text, "class": f"ins-button-s -step-button ins-flex-center ins-m-col-3 {active}","data-lbtitle":lbtitle})
 
-         sp="lni lni-chevron-left"
+
+         uidata.append({"_data": text, "class": f"-step-button ins-flex-center {col} {active}","data-lbtitle":lbtitle})
+
+         sp="lni lni-chevron-left not-for-phone"
         uidata.append({"end":"true"})
         uidata.append({"end":"true"})
         return uidata
@@ -474,12 +482,11 @@ class AppCheckout(App):
         uidata.append({"_data": "Update Address","_data-ar":"تعديل العنوان","_trans":"true","class":"ins-col-12 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"})
         uidata.append({"_type": "input","value":address["first_name"],"type":"text","required":"true","placeholder":"First name*","placeholder-ar":"الاسم الأول*","_trans":"true","name":"first_name","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
         uidata.append({"_type": "input","value":address["last_name"],"type":"text","required":"true","placeholder":"Last name*","placeholder-ar":" اسم العائلة*","_trans":"true","name":"last_name","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","value":address["email"],"type":"text","required":"true","placeholder":"Email*","placeholder-ar":" بريد إلكتروني*","_trans":"true","name":"email","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","value":address["email"],"type":"text","placeholder":"Email","placeholder-ar":" بريد إلكتروني","_trans":"true","name":"email","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
         uidata.append({"_type": "input","value":address["phone"],"type":"text","required":"true","placeholder":"Phone*","placeholder-ar":" هاتف*","_trans":"true","name":"phone","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","value":address["state"],"type":"text","required":"true","placeholder":"State*","placeholder-ar":" ولاية*","_trans":"true","name":"state","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","value":address["city"],"type":"text","required":"true","placeholder":"City*","placeholder-ar":" مدينة*","_trans":"true","name":"city","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","value":address["address"],"type":"text","required":"true","placeholder":"Street address*","placeholder-ar":" عنوان الشارع*","_trans":"true","name":"address","pclass":"ins-col-12 ins-m-col-12","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","value":address["address_2"],"type":"text","placeholder":"Apartment, suits, etc (Optional)","placeholder-ar":"شقة، جناح، الخ (اختياري)*","_trans":"true","name":"address_2","pclass":"ins-col-12 ins-m-col-12","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "select","value":address["city"],"required":"true","fl_data":{"-":"","Cairo":"Cairo","Giza":"Giza"},"fl_data-ar":{"-":"","Cairo":"القاهرة","Giza":"الجيزة"},"_trans":"true","placeholder":"City*","placeholder-ar":" مدينة*","_trans":"true","name":"city","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","value":address["address"],"type":"text","required":"true","placeholder":"Street address*","placeholder-ar":" عنوان الشارع*","_trans":"true","name":"address","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","value":address["address_2"],"type":"text","placeholder":"Apartment, suits, etc (Optional)","placeholder-ar":"شقة، جناح، الخ (اختياري)","_trans":"true","name":"address_2","pclass":"ins-col-12 ins-m-col-12","style":"    background: white;border-radius:4px;"})
         uidata.append({"_type": "input","value":address["id"],"type":"text","placeholder":"ID","name":"address_id","pclass":"ins-hidden"})
         uidata.append({"end":"true"})
         uidata.append({"class":"ins-space-s"})
@@ -500,12 +507,11 @@ class AppCheckout(App):
         uidata.append({"_data":"Add new Address","_data-ar":"إضافة عنوان جديد","_trans":"true","class":"ins-col-12 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"})
         uidata.append({"_type": "input","type":"text","required":"true","placeholder":"First name*","placeholder-ar":"الاسم الأول*","_trans":"true","name":"first_name","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
         uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Last name*","placeholder-ar":" اسم العائلة*","_trans":"true","name":"last_name","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Email*","placeholder-ar":" بريد إلكتروني*","_trans":"true","name":"email","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","type":"text","placeholder":"Email","placeholder-ar":" بريد إلكتروني","_trans":"true","name":"email","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
         uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Phone*","placeholder-ar":" هاتف*","_trans":"true","name":"phone","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"State*","placeholder-ar":" ولاية*","_trans":"true","name":"state","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"City*","placeholder-ar":" مدينة*","_trans":"true","name":"city","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Street address*","placeholder-ar":" عنوان الشارع*","_trans":"true","name":"address","pclass":"ins-col-12 ins-m-col-12","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","type":"text","placeholder":"Apartment, suits, etc (Optional)","placeholder-ar":"شقة، جناح، الخ (اختياري)*","_trans":"true","name":"address_2","pclass":"ins-col-12 ins-m-col-12","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "select","required":"true","fl_data":{"-":"","Cairo":"Cairo","Giza":"Giza"},"fl_data-ar":{"-":"","Cairo":"القاهرة","Giza":"الجيزة"},"_trans":"true","placeholder":"City*","placeholder-ar":" مدينة*","_trans":"true","name":"city","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Street address*","placeholder-ar":" عنوان الشارع*","_trans":"true","name":"address","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","type":"text","placeholder":"Apartment, suits, etc (Optional)","placeholder-ar":"شقة، جناح، الخ (اختياري)","_trans":"true","name":"address_2","pclass":"ins-col-12 ins-m-col-12","style":"    background: white;border-radius:4px;"})
         uidata.append({"end":"true"})
         uidata.append({"class":"ins-space-s"})
         uidata.append({"_data": "Add Address <img src='"+p+"style/right_arrow.svg'></img>","_data-ar":"إضافة عنوان ","_trans":"true", "class": "ins-button-s ins-strong-m ins-flex-center ins-text-upper  -add-address-btn ins-gold-d ins-col-3 ins-m-col-6","style":"height: 46px;    border: 1px solid var(--primary-d);"})
@@ -527,7 +533,7 @@ class AppCheckout(App):
         uidata.append({"_data": "Subtotal","_data-ar":"المجموع الفرعي","_trans":"true", "class": "ins-col-6  ins-m-col-6 ins-title-xs  ins-grey-color ins-strong-m"})
         uidata.append({"_data": str(subtotal),"data-value" : subtotal,"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-m-col-6 ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end  -subtotal-text"})
         uidata.append({"_data": "Shipping","_data-ar":"شحن","_trans":"true", "class": "ins-col-6  ins-m-col-6 ins-title-xs  ins-grey-color ins-strong-m"})
-        if total > 200000:
+        if total > 20000:
           uidata.append({"_data": "Free","_data-ar": "مجاني","_trans":"true","data-value" : 0, "class": "ins-col-6  ins-m-col-6 ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end  -shipping-text"})
         else:
           uidata.append({"_data": "200","data-value" : 200,"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",  "class": "ins-col-6  ins-m-col-6 ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end  -shipping-text"})
@@ -540,8 +546,22 @@ class AppCheckout(App):
         lbtitle = "Change in price"
         if self.ins._langs._this_get()["name"] == "ar":
             lbtitle = "تغير في السعر"
-        uidata.append({"data-lbtitle":lbtitle,"_type":"a","data-url":"/checkout/delivery","_data": "Procced to address <img src='"+p+"style/right_arrow.svg'></img>","_data-ar":"انتقل إلى العنوان","_trans":"true","class": "ins-button-s ins-flex-center ins-title-xs ins-strong-m ins-flex-grow ins-gold-d  ins-text-upper -cart-next-btn","style":"    height: 46px;    border: 1px solid var(--primary-d);"})
+        if subtotal < 20000:
+             uidata.append({"_data": "Procced to address <img src='"+p+"style/right_arrow.svg'></img>","_data-ar":"انتقل إلى العنوان","_trans":"true","class": "ins-button-s ins-flex-center ins-title-xs ins-strong-m ins-flex-grow ins-grey-l  ins-text-upper","style":"    height: 46px;color:white;"})
+             remaining = 20000 - subtotal
+             n = self.ins._data._format_currency(float(remaining), symbol=False)
+             remaining = f"{n} EGP"
+      
+             msg = f"Add {remaining} to place your order"
+             if self.ins._langs._this_get()["name"] == "ar":
+                 remaining = f"{n} جنيه"
+                 msg = f"أضف {remaining} لإتمام طلبك"
+             uidata.append({"_data": msg,"class":"ins-col-12 ins-text-center"})
+        else:
+           uidata.append({"data-lbtitle":lbtitle,"_type":"a","data-url":"/checkout/delivery","_data": "Procced to address <img src='"+p+"style/right_arrow.svg'></img>","_data-ar":"انتقل إلى العنوان","_trans":"true","class": "ins-button-s ins-flex-center ins-title-xs ins-strong-m ins-flex-grow ins-gold-d  ins-text-upper -cart-next-btn","style":"    height: 46px;    border: 1px solid var(--primary-d);"})
         
+
+
         return uidata
   
   
@@ -560,7 +580,7 @@ class AppCheckout(App):
         total = subtotal  
 
         uidata.append({"_data": "Shipping", "_data-ar":" شحن","_trans":"true", "class": "ins-col-6  ins-m-col-6 ins-title-xs  ins-grey-color ins-strong-m"})
-        if total > 200000:
+        if total > 20000:
           uidata.append({"_data": "Free","_data-ar": "مجاني","_trans":"true","data-value" : 0, "class": "ins-col-6  ins-m-col-6 ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end  -shipping-text"})
         else:
           uidata.append({"_data": "200","data-value" : 200,"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",  "class": "ins-col-6  ins-m-col-6 ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end -shipping-text"})
@@ -572,100 +592,6 @@ class AppCheckout(App):
     
         return uidata
 
-
-
-  
-    def items_area(self,string= False):
-        ## Items Area
-        uidata = []
-        sedata=self.ins._server._get_session(self.session_name)
-        rq = self.ins._server._req()
-        subtotal = 0
-        chargs = 0
-        for k,v in sedata.items():
-            subtotal+= float(v["price"]) * float(v["count"])
-            uidata+= ELUI(self.ins).small_pro_block(v)
-            uidata.append({"class":"ins-space-m"})
-        uidata.append({"class":"ins-space-m"})
-        uidata.append({"class":"ins-line ins-col-12"})
-        uidata.append({"class":"ins-space-m"})
-        uidata.append({"_data": "Voucher", "_data-ar":" قسيمة","_trans":"true","class": "ins-col-12  ins-grey-d-color ins-strong-m not-for-phone "})
-        uidata.append({"_type": "input","type":"text","placeholder":"code","placeholder-ar":" رمز","_trans":"true","name":"voucher","pclass":"ins-col-12  not-for-phone","style":"    background: white;border-radius:4px;"})
-        uidata.append({"class":"ins-space-xl"})
-        uidata.append({"start": "true", "class": "ins-flex ins-col-12 -fees-info ins-padding-m","style":"border-radius:8px !important;border: 1px solid var(--grey-l);"})
-        uidata.append({"_data": "Your details","_data-ar":"تفاصيلك","_trans":"true", "class": "ins-col-12 ins-title-s ins-grey-d-color ins-strong-l "})
-        uidata.append({"class":"ins-space-s"})
-        uidata.append({"_data": "Subtotal", "_data-ar":"المجموع الفرعي","_trans":"true","class": "ins-col-6  ins-m-col-6 ins-title-xs  ins-grey-color ins-strong-m"})
-        uidata.append({"_data": str(subtotal),"data-value" : subtotal,"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-m-col-6 ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end -subtotal-text"})
-        pclass = "ins-hidden"
-
-        total = subtotal  
-        uidata.append({"start": "true", "class": f"-online-payment-fee  ins-col-12 ins-flex {pclass}"})
-        uidata.append({"_data": "Online payment fee","_data-ar": "رسوم الدفع عبر الإنترنت", "_trans":"true","class": "ins-col-6  ins-m-col-6 ins-title-xs  ins-grey-color ins-strong-m"})
-        uidata.append({"_data": str(chargs),"data-value" : chargs,"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-m-col-6 ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end -chargs-text"})
-        uidata.append({"end": "true"})
-        uidata.append({"_data": "Shipping", "_data-ar":" شحن","_trans":"true", "class": "ins-col-6  ins-m-col-6 ins-title-xs  ins-grey-color ins-strong-m"})
-        if total > 200000:
-          uidata.append({"_data": "Free","_data-ar": "مجاني","_trans":"true","data-value" : 0, "class": "ins-col-6  ins-m-col-6 ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end  -shipping-text"})
-        else:
-          uidata.append({"_data": "200","data-value" : 200,"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",  "class": "ins-col-6  ins-m-col-6 ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end -shipping-text"})
-          total +=200
-        uidata.append({ "class": "ins-line ins-col-12"})
-        uidata.append({"_data": "Total", "_data-ar":" المجموع","_trans":"true", "class": "ins-col-6  ins-m-col-6 ins-title-xs  ins-grey-color ins-strong-m"})
-        uidata.append({"_data":  str(total),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-m-col-6 ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end -total-text"})
-        uidata.append({"end": "true"})
-        uidata.append({"class":"ins-space-xl"})
-        lbtitle = "Change in price"
-        if self.ins._langs._this_get()["name"] == "ar":
-         lbtitle = "تغير في السعر"
-
-
-        if "mode" in rq and rq["mode"] == "delivery":
-         back_url = self.ins._server._url({"mode":"cart"},["id"])
-        else:
-         back_url = self.ins._server._url({"mode":"delivery"},["id"])
-        if "mode" in rq and rq["mode"] == "payment":
-            uidata.append({"start": "true", "class": "ins-flex ins-col-12  ins-padding-m -address-card","style":"border-radius:8px !important;border: 1px solid var(--grey-l);"})
-            asession = self.ins._server._get_session(self.session_address_name)
-            if type(asession) == dict and "type" in asession and  asession["type"] == "store":
-                
-                stores = self.ins._db._get_data("gla_address","*",update_lang=True)
-                for s in stores:
-                   if str(s["id"]) == str(asession["id"]):
-                      store = s
-                ainfo = [
-                {"_data": "Pickup Address","_data-ar": "عنوان الاستلام ", "_trans":"true","class": "ins-col-12 ins-title-s ins-grey-d-color ins-strong-l "},
-                {"class":"ins-space-s"},
-                {"_data": store.get("title",""),"class": "ins-col-12  ins-title-20	  ins-grey-d-color ins-strong-l"},
-                {"_data": store.get("address",""), "class": "ins-col-12 ins-grey-color"},
-                {"_data": f"Phone: {store['phone']} | WhatsApp: {store['whatsapp']} | Email:  {store['email']}" ,"_data-ar": f"هاتف: {store['phone']} | واتساب: {store['whatsapp']} | بريد الكتروني:  {store['email']}" ,"_trans":"true","class":"ins-col-12 ins-grey-d-color ins-strong-m ins-title-14 not-for-phone"},
-                {"end": "true"},
-                {"class":"ins-space-xl"}
-                ]
-            else:
-               address = self.ins._db._get_row("gla_user_address","*",f"id='{asession['id']}'")
-               ainfo = [
-               {"_data": "Shipping Address","_data-ar":"عنوان الشحن","_trans":"true", "class": "ins-col-8 ins-title-s ins-grey-d-color ins-strong-l  ins-m-col-6"},
-               {"_data": "Update Address","_data-ar":"تعديل العنوان","_trans":"true","data-aid" : str(address["id"]),"class": "-update-address ins-col-4 ins-m-col-6 ins-flex-end ins-gold-d-color ins-strong-m ins-text-upper ins-button-text"},
-               {"class":"ins-space-s"},
-               {"_data": address.get("title",""), "class": "ins-col-12  ins-title-20	  ins-grey-d-color ins-strong-l"},
-               {"_data": address.get("address",""), "class": "ins-col-12 ins-grey-color"},
-               {"_data": f"Mobile: {address.get('phone','')} | Email: {address.get('email','')}", "class": "ins-col-12 ins-grey-d-color ins-strong-m ins-title-14"},
-               {"end": "true"},
-               {"class":"ins-space-xl"}
-               ]
-            uidata+=ainfo
-            uidata.append({"data-lbtitle":lbtitle,"_data": "Place Order <img src='"+p+"style/right_arrow.svg'></img>","_data-ar": "اتمام الشراء ","_trans":"true","class": "ins-button-s ins-flex-center ins-title-xs ins-strong-m ins-flex-grow ins-gold-d  ins-text-upper -submit-order-btn","style":"    height: 46px;    border: 1px solid var(--primary-d);"})
-        else:
-          uidata.append({"data-lbtitle":lbtitle,"data-url":"/checkout/payment/","_data": "Procced to payment <img src='"+p+"style/right_arrow.svg'></img>", "_data-ar":" انتقل إلى الدفع","_trans":"true","class": "ins-button-s ins-flex-center ins-title-xs ins-strong-m ins-flex-grow ins-gold-d -payment-btn  ins-text-upper","style":"    height: 46px;    border: 1px solid var(--primary-d);"})
-        uidata.append({"href":back_url,"_type":"a","_data": " <img src='"+p+"style/left_arrow.svg'></img> Back", "_data-ar":"رجوع","_trans":"true","class": "ins-button-s ins-flex-center ins-strong-m ins-text-upper ins-gold-d-color   ins-col-12 ins-title-xs	-back-btn","style":"    height: 46px;"})
-        uidata.append({"_data": "Your info will be saved to a Shop account. By continuing, you agree to Shop’s <a>Terms of Service</a> and acknowledge the  <a>Privacy Policy</a>.", "_data-ar":"سيتم حفظ معلوماتك في حساب المتجر. من خلال الاستمرار، فإنك توافق على سياسة المتجر","_trans":"true","class": " ins-col-12 ins-grey-color ","style":"line-height:24px"})
-        
-        
-        if string:
-         return self.ins._ui._render( uidata)
-        else:
-         return uidata
 
 
     
@@ -702,7 +628,7 @@ class AppCheckout(App):
         uidata.append({"_data": str(chargs),"data-value" : chargs,"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-m-col-6 ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end -chargs-text"})
         uidata.append({"end": "true"})
         uidata.append({"_data": "Shipping", "_data-ar":" شحن","_trans":"true", "class": "ins-col-6  ins-m-col-6 ins-title-xs  ins-grey-color ins-strong-m"})
-        if total > 200000:
+        if total > 20000:
           uidata.append({"_data": "Free","_data-ar": "مجاني","_trans":"true","data-value" : 0, "class": "ins-col-6  ins-m-col-6 ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end  -shipping-text"})
         else:
           uidata.append({"_data": "200","data-value" : 200,"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",  "class": "ins-col-6  ins-m-col-6 ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end -shipping-text"})
@@ -734,7 +660,6 @@ class AppCheckout(App):
             address = self.ins._db._get_row("gla_user_address","*",f"id='{asession['id']}'")
             ainfo = [
             {"_data": "Shipping Address","_data-ar":"عنوان الشحن","_trans":"true", "class": "ins-col-6 ins-title-s ins-grey-d-color ins-strong-l ins-m-col-6"},
-            {"_data": "Update Address","_data-ar":"تعديل العنوان","_trans":"true","data-aid" : str(address["id"]),"class": "-update-address ins-col-6  ins-m-col-6 ins-flex-end ins-gold-d-color ins-strong-m ins-text-upper ins-button-text"},
             {"class":"ins-space-s"},
             {"_data": address.get("title",""), "class": "ins-col-12  ins-title-20	  ins-grey-d-color ins-strong-l"},
             {"_data": address.get("address",""), "class": "ins-col-12 ins-grey-color"},
@@ -749,7 +674,20 @@ class AppCheckout(App):
         if self.ins._langs._this_get()["name"] == "ar":
             lbtitle = "تغير في السعر"
 
-        uidata.append({"data-lbtitle":lbtitle,"_data": "Place Order <img src='"+p+"style/right_arrow.svg'></img>","_data-ar": "اتمام الشراء ","_trans":"true","class": "ins-button-s ins-flex-center ins-title-xs ins-strong-m ins-flex-grow ins-gold-d  ins-text-upper -submit-order-btn","style":"    height: 46px;    border: 1px solid var(--primary-d);"})
+        if subtotal < 20000:
+             uidata.append({"_data": "Place Order <img src='"+p+"style/right_arrow.svg'></img>","_data-ar":"اتمام الشراء","_trans":"true","class": "ins-button-s ins-flex-center ins-title-xs ins-strong-m ins-flex-grow ins-grey-l  ins-text-upper","style":"    height: 46px;color:white;"})
+             remaining = 20000 - subtotal
+             n = self.ins._data._format_currency(float(remaining), symbol=False)
+             remaining = f"{n} EGP"
+      
+             msg = f"Add {remaining} to place your order"
+             if self.ins._langs._this_get()["name"] == "ar":
+                 remaining = f"{n} جنيه"
+                 msg = f"أضف {remaining} لإتمام طلبك"
+             uidata.append({"_data": msg,"class":"ins-col-12  ins-text-center"})
+        else:
+           uidata.append({"data-lbtitle":lbtitle,"_data": "Place Order <img src='"+p+"style/right_arrow.svg'></img>","_data-ar": "اتمام الشراء ","_trans":"true","class": "ins-button-s ins-flex-center ins-title-xs ins-strong-m ins-flex-grow ins-gold-d  ins-text-upper -submit-order-btn","style":"    height: 46px;    border: 1px solid var(--primary-d);"})
+
         uidata.append({"href":"/checkout/delivery/","_type":"a","_data": " <img src='"+p+"style/left_arrow.svg'></img> Back", "_data-ar":"رجوع","_trans":"true","class": "ins-button-s ins-flex-center ins-strong-m ins-text-upper ins-gold-d-color   ins-col-12 ins-title-xs	-back-btn	","style":"    height: 46px;"})
         uidata.append({"_data": "Your info will be saved to a Shop account. By continuing, you agree to Shop’s <a>Terms of Service</a> and acknowledge the  <a>Privacy Policy</a>.", "_data-ar":"سيتم حفظ معلوماتك في حساب المتجر. من خلال الاستمرار، فإنك توافق على سياسة المتجر","_trans":"true","class": " ins-col-12 ins-grey-color ","style":"line-height:24px"})
         
@@ -757,7 +695,78 @@ class AppCheckout(App):
         return self.ins._ui._render( uidata)
 
    
+ 
+    def delivery_items_area(self):
+        ## Items Area
+        uidata = []
+        sedata=self.ins._server._get_session(self.session_name)
+        subtotal = 0
+        chargs = 0
+        for k,v in sedata.items():
+            if v.get("new_price"):
+             subtotal+= float(v["new_price"]) * float(v["count"])
+            else:
+             subtotal+= float(v["price"]) * float(v["count"])
 
+            uidata+= ELUI(self.ins).small_pro_block(v)
+            uidata.append({"class":"ins-space-m"})
+        uidata.append({"class":"ins-space-m"})
+        uidata.append({"class":"ins-line ins-col-12 not-for-phone"})
+        uidata.append({"class":"ins-space-m"})
+        uidata.append({"_data": "Voucher", "_data-ar":" قسيمة","_trans":"true","class": "ins-col-12  ins-grey-d-color ins-strong-m   not-for-phone"})
+        uidata.append({"_type": "input","type":"text","placeholder":"code","placeholder-ar":" رمز","_trans":"true","name":"voucher","pclass":"ins-col-12  not-for-phone" ,"style":"    background: white;border-radius:4px;"})
+        uidata.append({"class":"ins-space-xl"})
+        uidata.append({"start": "true", "class": "ins-flex ins-col-12 -fees-info ins-padding-m","style":"border-radius:8px !important;border: 1px solid var(--grey-l);"})
+        uidata.append({"_data": "Your details","_data-ar":"تفاصيلك","_trans":"true", "class": "ins-col-12 ins-title-s ins-grey-d-color ins-strong-l "})
+        uidata.append({"class":"ins-space-s"})
+        uidata.append({"_data": "Subtotal", "_data-ar":"المجموع الفرعي","_trans":"true","class": "ins-col-6  ins-m-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
+        uidata.append({"_data": str(subtotal),"data-value" : subtotal,"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-m-col-6 ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end -subtotal-text"})
+        pclass = "ins-hidden"
+
+        total = subtotal  
+        uidata.append({"start": "true", "class": f"-online-payment-fee  ins-col-12 ins-flex {pclass}"})
+        uidata.append({"_data": "Online payment fee","_data-ar": "رسوم الدفع عبر الإنترنت", "_trans":"true","class": "ins-col-6  ins-m-col-6 ins-title-xs  ins-grey-color ins-strong-m"})
+        uidata.append({"_data": str(chargs),"data-value" : chargs,"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-m-col-6 ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end -chargs-text"})
+        uidata.append({"end": "true"})
+        uidata.append({"_data": "Shipping", "_data-ar":" شحن","_trans":"true", "class": "ins-col-6  ins-m-col-6 ins-title-xs  ins-grey-color ins-strong-m"})
+        if total > 20000:
+          uidata.append({"_data": "Free","_data-ar": "مجاني","_trans":"true","data-value" : 0, "class": "ins-col-6  ins-m-col-6 ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end  -shipping-text"})
+        else:
+          uidata.append({"_data": "200","data-value" : 200,"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",  "class": "ins-col-6  ins-m-col-6 ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end -shipping-text"})
+          total +=200
+        uidata.append({ "class": "ins-line ins-col-12"})
+        uidata.append({"_data": "Total", "_data-ar":" المجموع","_trans":"true", "class": "ins-col-6  ins-m-col-6 ins-title-xs  ins-grey-color ins-strong-m"})
+        uidata.append({"_data":  str(total),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-m-col-6 ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end -total-text"})
+        uidata.append({"end": "true"})
+        uidata.append({"class":"ins-space-xl"})
+
+
+        lbtitle = "Change in price"
+
+        if self.ins._langs._this_get()["name"] == "ar":
+            lbtitle = "تغير في السعر"
+
+        if subtotal < 20000:
+             uidata.append({"_data": "Place Order <img src='"+p+"style/right_arrow.svg'></img>","_data-ar":"اتمام الشراء","_trans":"true","class": "ins-button-s ins-flex-center ins-title-xs ins-strong-m ins-flex-grow ins-grey-l  ins-text-upper","style":"    height: 46px;color:white;"})
+             remaining = 20000 - subtotal
+             n = self.ins._data._format_currency(float(remaining), symbol=False)
+             remaining = f"{n} EGP"
+      
+             msg = f"Add {remaining} to place your order"
+             if self.ins._langs._this_get()["name"] == "ar":
+                 remaining = f"{n} جنيه"
+                 msg = f"أضف {remaining} لإتمام طلبك"
+             uidata.append({"_data": msg,"class":"ins-col-12  ins-text-center"})
+        else:
+           uidata.append({"data-lbtitle":lbtitle,"_data": "Place Order <img src='"+p+"style/right_arrow.svg'></img>","_data-ar": "اتمام الشراء ","_trans":"true","class": "ins-button-s ins-flex-center ins-title-xs ins-strong-m ins-flex-grow ins-gold-d  ins-text-upper -submit-order-btn","style":"    height: 46px;    border: 1px solid var(--primary-d);"})
+
+        uidata.append({"href":"/checkout/delivery/","_type":"a","_data": " <img src='"+p+"style/left_arrow.svg'></img> Back", "_data-ar":"رجوع","_trans":"true","class": "ins-button-s ins-flex-center ins-strong-m ins-text-upper ins-gold-d-color   ins-col-12 ins-title-xs	-back-btn	","style":"    height: 46px;"})
+        uidata.append({"_data": "Your info will be saved to a Shop account. By continuing, you agree to Shop’s <a>Terms of Service</a> and acknowledge the  <a>Privacy Policy</a>.", "_data-ar":"سيتم حفظ معلوماتك في حساب المتجر. من خلال الاستمرار، فإنك توافق على سياسة المتجر","_trans":"true","class": " ins-col-12 ins-grey-color ","style":"line-height:24px"})
+        
+        
+        return self.ins._ui._render( uidata)
+
+   
     
     def _update_payment_data(self):
       rq = self.ins._server._post()
@@ -936,7 +945,7 @@ class AppCheckout(App):
          
          shipping =0
 
-         if total < 200000:
+         if total < 20000:
             shipping = 200
          
          total = total + shipping

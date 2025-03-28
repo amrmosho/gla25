@@ -49,7 +49,7 @@ class AppPayment(App):
         uidata.append({"_data": str(chargs),"data-value" : chargs,"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-m-col-6 ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end -chargs-text"})
         uidata.append({"end": "true"})
         uidata.append({"_data": "Shipping", "_data-ar":" شحن","_trans":"true", "class": "ins-col-6  ins-m-col-6 ins-title-xs  ins-grey-color ins-strong-m"})
-        if total > 200000:
+        if total > 20000:
           uidata.append({"_data": "Free","_data-ar": "مجاني","_trans":"true","data-value" : 0, "class": "ins-col-6  ins-m-col-6 ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end  -shipping-text"})
         else:
           uidata.append({"_data": "200","data-value" : 200,"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",  "class": "ins-col-6  ins-m-col-6 ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end -shipping-text"})
@@ -82,7 +82,6 @@ class AppPayment(App):
            address = self.ins._db._get_row("gla_user_address","*",f"id='{asession['id']}'")
            ainfo = [
            {"_data": "Shipping Address","_data-ar":"عنوان الشحن","_trans":"true", "class": "ins-col-6 ins-title-s ins-grey-d-color ins-strong-l ins-m-col-6"},
-           {"_data": "Update Address","_data-ar":"تعديل العنوان","_trans":"true","data-aid" : str(address["id"]),"class": "-update-address ins-col-6 ins-m-col-6 ins-flex-end ins-gold-d-color ins-strong-m ins-text-upper ins-button-text"},
            {"class":"ins-space-s"},
            {"_data": address.get("title",""), "class": "ins-col-12  ins-title-20	  ins-grey-d-color ins-strong-l"},
            {"_data": address.get("address",""), "class": "ins-col-12 ins-grey-color"},
@@ -92,7 +91,28 @@ class AppPayment(App):
            {"class":"ins-space-xl"}
            ]
         uidata+=ainfo
-        uidata.append({"_data": "Place Order <img src='"+p+"style/right_arrow.svg'></img>","_data-ar": "اتمام الشراء ","_trans":"true","class": "ins-button-s ins-flex-center ins-title-xs ins-strong-m ins-flex-grow ins-gold-d  ins-text-upper -submit-order-btn","style":"    height: 46px;    border: 1px solid var(--primary-d);"})
+        if subtotal < 20000:
+             uidata.append({"_data": "Place Order <img src='"+p+"style/right_arrow.svg'></img>","_data-ar":"اتمام الشراء","_trans":"true","class": "ins-button-s ins-flex-center ins-title-xs ins-strong-m ins-flex-grow ins-grey-l  ins-text-upper","style":"    height: 46px;color:white;"})
+             remaining = 20000 - subtotal
+             n = self.ins._data._format_currency(float(remaining), symbol=False)
+             remaining = f"{n} EGP"
+      
+             msg = f"Add {remaining} to place your order"
+             if self.ins._langs._this_get()["name"] == "ar":
+                 remaining = f"{n} جنيه"
+                 msg = f"أضف {remaining} لإتمام طلبك"
+             uidata.append({"_data": msg,"class":"ins-col-12  ins-text-center"})
+        else:
+           uidata.append({"_data": "Place Order <img src='"+p+"style/right_arrow.svg'></img>","_data-ar": "اتمام الشراء ","_trans":"true","class": "ins-button-s ins-flex-center ins-title-xs ins-strong-m ins-flex-grow ins-gold-d  ins-text-upper -submit-order-btn","style":"    height: 46px;    border: 1px solid var(--primary-d);"})
+       
+
+        
+        
+        
+        
+        
+        
+        
         uidata.append({"href":back_url,"_type":"a","_data": " <img src='"+p+"style/left_arrow.svg'></img> Back", "_data-ar":"رجوع","_trans":"true","class": "ins-button-s ins-flex-center ins-strong-m ins-text-upper ins-gold-d-color   ins-col-12 ins-title-xs	-back-btn","style":"    height: 46px;"})
         uidata.append({"_data": "Your info will be saved to a Shop account. By continuing, you agree to Shop’s <a>Terms of Service</a> and acknowledge the  <a>Privacy Policy</a>.", "_data-ar":"سيتم حفظ معلوماتك في حساب المتجر. من خلال الاستمرار، فإنك توافق على سياسة المتجر","_trans":"true","class": " ins-col-12 ins-grey-color ","style":"line-height:24px"})
         

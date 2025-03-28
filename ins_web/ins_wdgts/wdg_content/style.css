@@ -7,4 +7,10 @@
         height: 80px !important;
         font-size: 28px;
     }
+    .-cal-update-nput {
+        font-size: 32px !important;
+    }
+    .-quality-assurance-text {
+        font-size: 22px;
+    }
 }
