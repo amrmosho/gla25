@@ -3,8 +3,8 @@ import requests
 class PaymobAPI:
 
     def create_intention(self, amount, payment_methods, order_id):
-        secret_key = "egy_sk_live_7bf4ebb7f763eb5e5e91bb1fb87a3a1f4d847a775daf5f8b85c14b9586c15b0a"
-        public_key = "egy_pk_live_FtH56SgwzujAvK2ciDUcXZCF9SY73Gt6"
+        secret_key = "xxxx"
+        public_key = "xxx"
         base_url = "https://accept.paymob.com"
 
 

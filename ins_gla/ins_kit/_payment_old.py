@@ -2,7 +2,7 @@ import requests
 
 class PaymobAPIOld:
     def __init__(self):
-        self.api_key = "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2TVRBeE5qTXpOeXdpYm1GdFpTSTZJbWx1YVhScFlXd2lmUS5kWmYzaFltS2tOVmpna3k2Wk1fcTFjLXd2QzJBNzBNQ3dFVllrMmRRWjh6VDgyWlBZMFdNYmljMV9QeVpZUnowNTYwTnNwOG5mSkt4Vk9XT2NlV2Nydw=="
+        self.api_key = "xxx"
         self.base_url = "https://accept.paymobsolutions.com/api"
     
     def authenticate(self):

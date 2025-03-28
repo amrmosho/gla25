@@ -4,7 +4,7 @@ import requests
 class Email(ins_parent):
     def __init__(self, Ins) -> None:
         super().__init__(Ins)
-        self.api_key = "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"
+        self.api_key = "xxx"
         self.api_url = "https://api.brevo.com/v3/smtp/email"
         self.headers = {
             "accept": "application/json",
