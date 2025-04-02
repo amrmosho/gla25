@@ -1,17 +1,17 @@
-.ins-icons {
+[class*="ins-icons"] {
     font-size: 25px;
     justify-content: center;
     align-items: center;
     align-content: center;
-    display: flex;
+    --color: #333
 }
 
-.ins-icons::before {
+[class*="ins-icons"]::before {
     content: '';
     display: inline-block;
     height: 1em;
     width: 1em;
-    background-color: #333;
+    background-color: var(--color);
     font-size: inherit;
     -webkit-mask: url(/ins_web/ins_images/icons/ai.svg) no-repeat 50% 50%;
     mask: url(/ins_web/ins_images/icons/ai.svg) no-repeat 50% 50%;
@@ -874,7 +874,7 @@
     mask-image: url(/ins_web/ins_images/icons/double-quotes-end-1.svg);
 }
 
-.ins-icons-download-1::before {
+.ins-icons-download::before {
     -webkit-mask-image: url(/ins_web/ins_images/icons/download-1.svg);
     mask-image: url(/ins_web/ins_images/icons/download-1.svg);
 }

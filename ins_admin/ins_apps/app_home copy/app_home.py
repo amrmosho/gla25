@@ -121,7 +121,7 @@ class AppHome(App):
         ]
 
         return self.ins._ui._render(uidata)
- 
+
     def out(self):
 
         return self.ui()

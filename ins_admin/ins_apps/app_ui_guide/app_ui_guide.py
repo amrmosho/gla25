@@ -105,6 +105,6 @@ class AppUiGuide(App):
         
         
         
-        
+        self.app._include("script.js")
 
         return self.ins._ui._render(uidata)

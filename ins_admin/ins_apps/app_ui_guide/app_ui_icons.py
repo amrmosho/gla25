@@ -369,7 +369,7 @@ class AppUiGuideIcons(App):
         r+= self.icont("ins-icons-dollar-circle")
         r+= self.icont("ins-icons-dollar")
         r+= self.icont("ins-icons-double-quotes-end-1")
-        r+= self.icont("ins-icons-download-1")
+        r+= self.icont("ins-icons-download")
         r+= self.icont("ins-icons-download-circle-1")
         r+= self.icont("ins-icons-dribbble-symbol")
         r+= self.icont("ins-icons-dribbble")

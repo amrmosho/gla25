@@ -142,13 +142,21 @@ class DSAi(ins_parent):
             5. Make reasonable assumptions about table names and structure
             6. If unsure about field names, use common conventions
             7. Do not include explanations or markdown formatting
+            7. ignore chart 
             SQL Query:"""
             
-        rol ="You are a SQL expert. Convert natural language to optimized SQL queries."
-        content =self.msg(prompt ,rol)
-        sql_query = re.search(r"```sql\n(.*?)\n```", content, re.DOTALL)
+        rules ="You are a SQL expert. Convert natural language to optimized SQL queries."
+
+        sql_query =self.msg(prompt ,rules)
+
+        if "```" in sql_query:
+            sql_query = re.search(r"```sql\s*([\s\S]*?)\s*```", sql_query, re.IGNORECASE) #handles variations in whitespace and capitalization
+            sql =sql_query.group(1).strip()
+            return self.ins._db._get_query(sql)
+
+        
         if sql_query:
-            return self.ins._db._get_query(sql_query.group(1).strip())
+            return self.ins._db._get_query(sql_query)
 
     def generate_from_docs(self,  question: str) -> str:
         """

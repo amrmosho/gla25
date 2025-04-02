@@ -32,7 +32,7 @@ class Ui(ins_parent):
             attrs = self.ins._langs._render_tags(attrs)
           
            
-        plgs = ["wdgt", "input", "app", "table", "panel"]
+        plgs = ["wdgt", "input", "app", "table", "panel", "chart"]
         if "_type" in attrs:
             if "not_plgin" not in attrs or attrs["not_plgin"] != True:
                 if attrs["_type"] == "textarea":

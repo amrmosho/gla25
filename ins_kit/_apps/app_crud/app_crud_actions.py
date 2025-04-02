@@ -8,36 +8,74 @@ class APPCRUDActions(appCrudParent):
     def _ai(self, ops={}):
         rq = self.ins._server._post()
 
-        if "tables" in ops._ai :
-            
+        if "tables" in ops._ai:
+
             tables = ops._ai["tables"]
 
         else:
 
             tables = [ops._table]
         response_data = self.ins._ai.generate_sql(rq["v"], tables)
+
         if type(response_data) == list:
             header = []
             body = []
 
+            e = [
+                ['Task', 'Hours per Day'],
+                ['Work', 11],
+                ['Eat', 2],
+                ['Commute', 2],
+                ['Watch TV', 2],
+                ['Sleep', 7]
+            ]
+            d = []
+            rw = []
             for k, v in response_data[0].items():
                 header.append({"_data": str(k), "class": "ins-col-grow"})
+                rw.append(str(k))
+
+            d.append(rw)
 
             for a in response_data:
                 row = []
+                rw = []
                 for k, v in a.items():
                     row.append({"_data": str(v), "class": "ins-col-grow"})
-
+                    if not self.ins._data._is_number(v):
+                        v = str(v)
+                    rw.append(v)
                 body.append(row)
+                d.append(rw)
 
-            uidata = [
+            r = []
+
+            r += [{"start": "true", "class": "ins-flex ins-col-12"},
+                  {"start": "true", "class": "ins-flex ins-card  ins-col-12"}, {"_data": rq["v"], "class": "ins-flex ins-col-grow"}, {
+                      "_data": '<i class="ins-icons-download"></i>', "style": "width:50px"}, {"_data": '<i class="ins-icons-printer"></i>', "style": "width:50px"},
+                  {"end": "true"}
+                  ]
+
+
+            if len(a) >1:
+                r += [
+                    {"_type": "chart", "type": "ddd", "data": d, "style": "height:400px",
+                    "class": "ins-col-8  ins-flex  ins-padding-xl"},
+                    {"_type": "chart", "type": "pie", "data": d, "style": "height:400px",
+                    "class": "ins-col-4  ins-flex  ins-padding-xl"}
+                ]
+            
+            
+
+            r += [
                 {"_type": "table", "data": body, "header": header,
-                "class": " ins-col-12 ins-table ins-table-regular   ins-pading-xl "},
+                 "class": " ins-col-12 ins-table ins-table-regular   ins-pading-xl "},
             ]
-            return self.ins._ui._render(uidata)
+            r += [{"end": "true"}]
+
+            return self.ins._ui._render(r)
         else:
             return response_data
-            
 
     def _delete(self, _callback=None):
         id = self.ins._server._get("ids")
