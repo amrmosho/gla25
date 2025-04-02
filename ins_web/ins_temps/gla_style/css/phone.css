@@ -112,6 +112,10 @@ body {
     line-height: 36px;
 }
 
+.gla-pro-block .ins-title-20 {
+    line-height: 45px !important;
+}
+
 .ins-title,
 .ins-title-l,
 .ins-title-m,
@@ -122,12 +126,19 @@ body {
     line-height: 32px;
 }
 
+.ins-title-xs,
+.ins-title-14 {
+    font-size: 20px;
+    font-family: "gotham";
+}
+
 .ins-title-s {
     font-size: 22px;
     font-family: "gotham";
 }
 
-.ins-title-m {
+.ins-title-m,
+.ins-title-20 {
     font-size: 32px;
     font-family: "gotham";
 }
