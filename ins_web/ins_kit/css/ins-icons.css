@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     align-content: center;
-    --color: #333
+    --color: #333;
 }
 
 [class*="ins-icons"]::before {
@@ -17,6 +17,19 @@
     mask: url(/ins_web/ins_images/icons/ai.svg) no-repeat 50% 50%;
     -webkit-mask-size: cover;
     mask-size: cover;
+}
+
+[class*="ins-icons"].ins-button-icon {
+    font-size: 20px;
+    display: inline-block;
+    height: 25px;
+    line-height: 25px;
+}
+
+.ins-button-icon[class*="ins-icons"]::before {
+    line-height: 25px;
+    position: relative;
+    top: 3px
 }
 
 .ins-icons-arrow-downward::before {
@@ -609,7 +622,7 @@
     mask-image: url(/ins_web/ins_images/icons/cart-2.svg);
 }
 
-.ins-icons-cash-app::before {
+.ins-icons-cash::before {
     -webkit-mask-image: url(/ins_web/ins_images/icons/cash-app.svg);
     mask-image: url(/ins_web/ins_images/icons/cash-app.svg);
 }
@@ -2349,12 +2362,12 @@
     mask-image: url(/ins_web/ins_images/icons/share-1-circle.svg);
 }
 
-.ins-icons-share:before {
+.ins-icons-share-1:before {
     -webkit-mask-image: url(/ins_web/ins_images/icons/share-1.svg);
     mask-image: url(/ins_web/ins_images/icons/share-1.svg);
 }
 
-.ins-icons-share:before {
+.ins-icons-share-2:before {
     -webkit-mask-image: url(/ins_web/ins_images/icons/share-2.svg);
     mask-image: url(/ins_web/ins_images/icons/share-2.svg);
 }
@@ -2824,7 +2837,7 @@
     mask-image: url(/ins_web/ins_images/icons/user-4.svg);
 }
 
-.ins-icons-user-multiple:before {
+.ins-icons-users:before {
     -webkit-mask-image: url(/ins_web/ins_images/icons/user-multiple-4.svg);
     mask-image: url(/ins_web/ins_images/icons/user-multiple-4.svg);
 }
@@ -2999,12 +3012,14 @@
     mask-image: url(/ins_web/ins_images/icons/xbox.svg);
 }
 
-.ins-icons-xmark-circle::before {
+.ins-icons-xmark-circle::before,
+.ins-icons-x-circle::before {
     -webkit-mask-image: url(/ins_web/ins_images/icons/xmark-circle.svg);
     mask-image: url(/ins_web/ins_images/icons/xmark-circle.svg);
 }
 
-.ins-icons-xmark::before {
+.ins-icons-xmark::before,
+.ins-icons-x::before {
     -webkit-mask-image: url(/ins_web/ins_images/icons/xmark.svg);
     mask-image: url(/ins_web/ins_images/icons/xmark.svg);
 }

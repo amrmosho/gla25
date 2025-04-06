@@ -508,6 +508,7 @@ svg rect {
 .ins-active-danger-color .ins-active,
 .ins-active-danger-color .ins-active * {
     color: var(--danger) !important;
+    --color: var(--danger) !important;
 }
 
 .ins-danger-bachground {

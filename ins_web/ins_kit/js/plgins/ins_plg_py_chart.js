@@ -50,8 +50,19 @@ export class ins_plg_py_chart {
 
     }
     _out() {
+        var op = {};
 
-        this._chart({ legend: { position: "none" } }, this.options["type"]);
+
+
+        if (this.options["ops"] != "") {
+            op = this.options["ops"]
+
+            op = op.replace(/'/g, '"');
+
+
+            op = JSON.parse(op);
+        }
+        this._chart(op, this.options["type"]);
 
 
     }

@@ -90,19 +90,6 @@ class OpenAIChatbot:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 class DSAi(ins_parent):
     @property
     def dkey(self):

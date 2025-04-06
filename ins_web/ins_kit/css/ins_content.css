@@ -732,9 +732,8 @@ i.lni {
     box-shadow: var(--light-box-shadow);
     padding: 10px;
     border-radius: var(--ins-radius-s);
-    display: block;
     font-family: var(--font-alt);
-    font-size: 16px
+    font-size: 16px;
 }
 
 .ins-message-area {

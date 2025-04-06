@@ -12,6 +12,7 @@ class Map(ins_parent):
     UI_DATE_FORMAT = '%d/%m/%Y'
     UI_DATETIME_FORMAT = '%d/%m/%Y %I:%M %p'
     UI_TIME_FORMAT = '%I:%M %p'
+    UI_DATE_No_Year_FORMAT = '%d/%m'
 
 
 

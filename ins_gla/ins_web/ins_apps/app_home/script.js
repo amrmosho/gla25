@@ -33,3 +33,20 @@ ins(".-home-ai-send-btn")._on("click", o => {
         ins()._ui._update()
     })
 }, true)
+
+
+ins(".-sales-update-btn")._on("click", o => {
+
+    var f = ins(".-sales-inpt-from")._getValue();
+    var t = ins(".-sales-inpt-to")._getValue();
+    var a = ins(".-sales-inpt-action")._getValue();
+
+    if (f != "" && t != "") {
+        var url = ins()._map._url({ "f": f, "t": t, "a": a });
+        window.location = url
+    }
+
+
+
+
+}, true)
