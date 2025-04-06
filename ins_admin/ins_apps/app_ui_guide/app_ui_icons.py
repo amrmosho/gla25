@@ -7,14 +7,15 @@ class AppUiGuideIcons(App):
         super().__init__(app.ins)
 
     def icont(self ,c):
-            return f"<div class='ins-border ins-col-2 ins-card ins-flex-center '> <div style='width: 90px;height: 90px;' class='ins-col-12 ins-icons {c}'></div> <b class='ins-col-12 ins-text-center'>{c}</b> </div>"
+            return f"<div class='ins-border ins-col-2 ins-card ins-flex-center '> <div style='    font-size: 50px;width: 90px;height: 90px;' class='ins-col-12  {c}'></div> <b class='ins-col-12 ins-text-center'>{c}</b> </div>"
 
     def insya(self):
         r= "<div class='ins-flex ins-col-12 ins-card ins-padding-l'>"
         
         
        
-       
+        r+= self.icont("ins-icons-pos")
+
         r+= self.icont("ins-icons-500")
         r+= self.icont("ins-icons-adobe")
         r+= self.icont("ins-icons-adonis")
@@ -624,6 +625,9 @@ class AppUiGuideIcons(App):
         r+= self.icont("ins-icons-chevron-up")
         r+= self.icont("ins-icons-chrome")
         r+= self.icont("ins-icons-chromecast")
+        r+= self.icont("ins-icons-play")
+
+
 
 
         r+= "</div>"

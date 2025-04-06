@@ -6,13 +6,12 @@ class AppHome(App):
         self.app: App = app
         super().__init__(app.ins)
 
-
-
     def user_data(self):
         udata = self.ins._users._session_get()
         img = '<i class="lni lni-user-4"></i>'
 
-        uidata = [  
+        uidata = [
+
             {
                 "class": "ins-font-4xl  ins-text-center ins-card ins-rounded ins-secondary ", "style": "width:100px;height:100px;", "_data": img
             },
@@ -122,7 +121,7 @@ class AppHome(App):
         ]
 
         return self.ins._ui._render(uidata)
- 
+
     def out(self):
-        self.app._include("script.js")
+
         return self.ui()

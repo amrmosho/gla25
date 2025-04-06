@@ -16,7 +16,7 @@ class Data(ins_parent):
    
     @property 
     def _unid(s):
-       return  uuid.uuid4().hex
+       return  str(uuid.uuid4().hex)
 
         
     
@@ -24,7 +24,8 @@ class Data(ins_parent):
         salt_length= 16
         return secrets.token_urlsafe(salt_length)
 
-
+    def _is_number(self,x):
+        return isinstance(x, (int, float, complex)) and not isinstance(x, bool)
     def hash_password(self, password):
         
         # Implement your chosen hashing algorithm (e.g., bcrypt, Argon2)

@@ -35,10 +35,11 @@ export class ins_plg_py_crud {
 
 
 
-            ins(".app-crud-list-ai-body")._setHTML("<div class='ins-col-12 ins-card'>" + v + "</div>" + "<pre>" + data + "</pre>");
+            ins(".app-crud-list-ai-body")._setHTML(data);
             ins(".app-crud-list-ai-txt")._setValue("")
             ins()._ui._removeLoader()
 
+            ins()._ui._update()
         })
     }
     _search() {
