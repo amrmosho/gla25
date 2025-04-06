@@ -1,0 +1,8 @@
+@media screen and (max-width: 1000px) {
+    .-view-more-btn {
+        width: 250px;
+        height: 80px !important;
+        line-height: 80px !important;
+        font-size: 28px;
+    }
+}

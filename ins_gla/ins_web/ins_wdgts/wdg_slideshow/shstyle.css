@@ -198,3 +198,19 @@
 .wi-slideshow-th-item:hover {
     background-color: #fff;
 }
+
+@media screen and (max-width: 1000px) {
+    .-slideshow-button {
+        width: 250px;
+        height: 80px !important;
+        line-height: 80px !important;
+        font-size: 28px;
+    }
+    .-slideshow-title {
+        font-size: 42px !important;
+    }
+    .-slideshow-des {
+        font-size: 24px !important;
+        margin-bottom: 15px;
+    }
+}

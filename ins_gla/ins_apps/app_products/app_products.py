@@ -167,8 +167,8 @@ class AppProducts(App):
             for d in rpdata:
                 uidata+= ELUI(self.ins).shop_pro_block(d,f"/product/product/{d['id']}","width:300px;",d.get("subtype",""),tys)
             uidata.append({"class": "ins-space-xl"})
-            uidata.append({"start": "true", "class": "ins-flex ins-col-12 ins-pagination-area ins-padding-l","style":"background:white;"})
-            uidata.append({"start": "true", "class": "ins-flex-start"})
+            uidata.append({"start": "true", "class": "ins-flex ins-col-12  ins-m-flex-center ins-pagination-area ins-padding-l ins-m-col-12","style":"background:white;"})
+            uidata.append({"start": "true", "class": "ins-flex-start ins-m-col-12 ins-m-flex-center -pro-pages-buttons"})
             uidata.append({"_type": "button", "class": "ins-pagination-btn", "data-page": "prev","_data": f"<i class='lni lni-chevron-left' style='{lstyle}'></i>"})
             start_page = max(1, current_page - 2)
             end_page = min(num_pages, current_page + 2)
@@ -178,7 +178,7 @@ class AppProducts(App):
             uidata.append({"_type": "button", "class": "ins-pagination-btn", "data-page": "next", "data-tpages":num_pages,"_data": f"<i class='lni lni-chevron-left' style='{rstyle}'></i>"})
             uidata.append({"end": "true"})
             uidata.append({"class": "ins-col-grow ins-m-col-3"})
-            uidata.append({"start": "true", "class": "ins-flex-end"})
+            uidata.append({"start": "true", "class": "ins-flex-end not-for-phone"})
             uidata.append({"_data": "Go to page","_data-ar": "انتقل إلى الصفحة", "_trans":"true","class": "ins-title-12 ins-grey-m-color ins-m-col-3"})
             uidata.append({"_type": "input","type":"text","class":"-page-input ins-radius-s ins-white ins-text-center","pclass":"ins-col-2 ins-m-col-2"})
             uidata.append({"_data": "Go <i class='lni lni-chevron-left' style='rotate:180deg'></i>","_data-ar":"انتقل","_trans":"true", "data-tpages":num_pages,"class": "ins-title-14 -go-to-page-btn ins-grey-color ins-button-text"})
@@ -225,7 +225,7 @@ class AppProducts(App):
         uidata.append({"start":"true","class":"ins-col-grow ins-flex-end ins-m-flex-start -filter-results-area"})
 
         order_area = [
-                {"start":"true","class":"ins-flex-end ins-m-col-5 ins-m-flex-start"},
+                {"start":"true","class":"ins-flex-end ins-m-col-6 ins-m-flex-start"},
                 {"_data":"Order by",  "_data-ar":"ترتيب حسب","_trans":"true","class":"ins-strong-m ins-grey-d-color ins-title-14 ins-m-col-grow"},
                 {"_type":"select","name":"order","fl_data":{
                     "low":"Lowest to Highest",
@@ -237,7 +237,7 @@ class AppProducts(App):
                     "high":"من الأغلى للأرخص",
                     "old":"من الأقدم للأجدد",
                     "new":"من الأجدد للأقدم"
-                },"_trans":"true","value":vorder,"pclass":"ins-col-grow ins-m-col-6","class":"-order-select"},
+                },"_trans":"true","value":vorder,"pclass":"ins-col-grow ins-m-col-7","class":"-order-select"},
                 {"end":"true"}
             ]
 
@@ -322,7 +322,7 @@ class AppProducts(App):
                 if i == 1:
                     sclass = "ins-active"
 
-                uidata +=[{"_data": sdata["title"], "name":"type","data-name": v,"data-tid": s["id"],"class": f"ins-button-s  -subtype-inner-btn ins-flex-center ins-strong-m -product-filter-input {sclass}"}]
+                uidata +=[{"_data": sdata["title"], "name":"type","data-name": v,"data-tid": s["id"],"class": f"ins-button-s  -subtype-inner-btn  ins-m-col-3 ins-flex-center ins-strong-m -product-filter-input {sclass}"}]
             uidata.append({"end":"true"})
      
      
@@ -359,7 +359,7 @@ class AppProducts(App):
         uidata.append({"class": " not-for-web ins-m-col-1 lni lni-xmark -close-filter ins-font-3xl _a_red"})
 
         uidata.append({"_type": "input", "name":"title","value":filter_data.get("title",""),"data-name":"title","type": "text", "placeholder":"Product name Search..","placeholder-ar": "انتقل إلى الصفحة","_trans": "true","class":" -product-filter-input -title-input",  "pclass": "ins-col-12 ins-hidden","style":"    background: white;border-radius:4px;"})
-        uidata.append({"start": "true", "class": "ins-flex ins-col-12  ins-gap-o"})
+        uidata.append({"start": "true", "class": "ins-flex ins-col-12  ins-gap-o -category-area"})
         uidata.append({"_data": "Category","_data-ar": "تصنيف","_trans": "true", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "})
         category_ids = filter_data.get("fk_product_category_id", "").split(',')
         for c in categories:
@@ -371,7 +371,7 @@ class AppProducts(App):
         uidata.append({"end":"true"})
         uidata.append({"class": "ins-space-m"})
         if types:
-            uidata.append({"start": "true", "class": "ins-flex ins-col-12 ins-m-co-12 "})
+            uidata.append({"start": "true", "class": "ins-flex ins-col-12 ins-m-co-12  -type-area"})
 
             uidata.append({"_data": "Type","_data-ar": "نوع","_trans": "true", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "})
 
@@ -409,7 +409,7 @@ class AppProducts(App):
         uidata.append({"start": "true", "class": "ins-col-12 ins-flex ins-gap-o"})
         uidata.append({"_type": "input", "name":"from","value":min_price,"data-name":"from","type": "text", "placeholder":"from","placeholder-ar": "من","_trans": "true","class":" -price-from-filter-input -price-from-input",  "pclass": "ins-col-5 ins-m-col-5 "})
         uidata.append({"_type": "input", "name":"to","value":max_price,"data-name":"to","type": "text", "placeholder":"to","placeholder-ar": "إلى","_trans": "true","class":" -price-to-filter-input -price-to-input",  "pclass": "ins-col-5  ins-m-col-5 "})
-        uidata.append({"_data":"<i class='lni lni-search-1'></i>","class":" ins-gold-d-color ins-flex-center -filter-price-btn"})
+        uidata.append({"_data":"<i class='lni lni-search-1'></i>","class":"ins-m-col-2 ins-gold-d-color ins-flex-center -filter-price-btn"})
         uidata.append({"end": "true"})
 
         uidata.append({"class": "ins-line ins-col-12"})

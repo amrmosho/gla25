@@ -213,6 +213,7 @@ class AppLogin(App):
     
     def _login(self):
         rq = self.ins._server._post()
+        rq["password"] = self.ins._data.hash_password(rq["password"])
         chck = self.user._login(rq)
         session = self.ins._server._get_session("redirect")
         if chck:

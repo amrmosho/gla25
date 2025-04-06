@@ -105,7 +105,7 @@ class AppProductDetails(App):
           
 
         uidata.append({"start": "true", "class": "ins-flex-valign-start ins-col-6  -side-mimg-cont "})
-        uidata.append({"start": "true", "class": "ins-flex-center ins-col-2 "})
+        uidata.append({"start": "true", "class": "ins-flex-center ins-col-2  ins-m-col-12 ins-m-flex -small-imgs-cont"})
         p = "/ins_web/ins_uploads/"
         count = 0
         aimage = "" 
@@ -118,10 +118,10 @@ class AppProductDetails(App):
             uidata.append({"start": "true", "class":f"-side-img-cont ins-text-center ins-radius-l  {aclass}"})
             uidata.append({"src": p + i, "loading":"lazy","_type": "img","data-src":p + i,"class": f" ins-radius-m -side-img {aclass}", "style":"width:100%;"})  
             uidata.append({"end": "true"})
-            uidata.append({"class": "ins-space-xs"})
+            uidata.append({"class": "ins-space-xs not-for-phone"})
         uidata.append({"end": "true"})
         uidata.append({"src": p + aimage, "loading":"lazy","_type": "img",
-                 "class": " ins-radius-m ins-col-grow -main-img","style":"max-width:450px;"})
+                 "class": "  ins-radius-m ins-col-grow -main-img ins-m-col-5","style":"max-width:450px;"})
         uidata.append({"end": "true"})
 
         
@@ -153,13 +153,13 @@ class AppProductDetails(App):
         ## Sell Card
         uidata.append({"start": "true", "class": "ins-flex ins-col-12 ins-card ins-primary-w","style":"border-radius:8px 8px 0 0 !important;"})
         uidata.append({"_data": "Sell price","_data-ar":"سعر البيع","_trans":"true", "class": "ins-col-12  ins-grey-d-color ins-title-s	 ins-strong-l "})
-        uidata.append({"_data": "Gold Amount","_data-ar":"كمية الذهب","_trans":"true", "class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
-        uidata.append({"_data":  str(sprice_before),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",  "class": "ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end "})
-        uidata.append({"_data": "Making Charge + VAT","_data-ar":"رسوم التصنيع + ضريبة القيمة المضافة","_trans":"true", "class": "ins-col-6  ins-title-xs  ins-grey-color  ins-strong-m"})
-        uidata.append({"_data": str(scharges), "_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end"})
+        uidata.append({"_data": "Gold Amount","_data-ar":"كمية الذهب","_trans":"true", "class": "ins-col-6  ins-m-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
+        uidata.append({"_data":  str(sprice_before),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",  "class": "ins-col-6  ins-m-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end "})
+        uidata.append({"_data": "Making Charge + VAT","_data-ar":"رسوم التصنيع + ضريبة القيمة المضافة","_trans":"true", "class": "ins-col-6  ins-m-col-6  ins-title-xs  ins-grey-color  ins-strong-m"})
+        uidata.append({"_data": str(scharges), "_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-m-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end"})
         uidata.append({ "class": "ins-line ins-col-12"})
-        uidata.append({"_data": "Total","_data-ar":"المجموع","_trans":"true", "class": "ins-col-6  ins-title-xs  ins-grey-color  ins-strong-m"})
-        uidata.append({"_data":  str(data.get("price",10000)),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",  "class": "ins-col-6  ins-strong-l ins-flex-end ins-title-20	 ins-primary-d-color"})
+        uidata.append({"_data": "Total","_data-ar":"المجموع","_trans":"true", "class": "ins-col-6  ins-title-xs  ins-m-col-6  ins-grey-color  ins-strong-m"})
+        uidata.append({"_data":  str(data.get("price",10000)),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",  "class": "ins-col-6  ins-m-col-6  ins-strong-l ins-flex-end ins-title-20	 ins-primary-d-color"})
         vat = str(data["vat"])
         uidata.append({"_data": "Note: Vat amount is " + "<spam class='ins-grey-d-color'>  "+vat+" EGP</span>", "_data-ar":" ملحوظة: مبلغ ضريبة القيمة المضافة هو"+vat,"_trans":"true","class": "ins-col-8 ins-grey-color ins-strong-m ins-title-14"})
         uidata.append({"end": "true"})
@@ -167,16 +167,16 @@ class AppProductDetails(App):
 
         ## Buy Card
         uidata.append({"start": "true", "class": "ins-flex ins-col-12 ins-card ins-primary-bg  -open-panel","style":"border-radius: 0 0 8px 8px !important;position: relative;top: -8px;height: 65px;overflow: hidden;    border-top: 1px solid var(--primary-l)"})
-        uidata.append({"_data": "We buy at","_data-ar":"سعر الشراء","_trans":"true", "class": "ins-col-11  ins-grey-d-color ins-title-20	 ins-strong-l"})
-        uidata.append({"_data":"<span class=' lni lni-chevron-up'></span>","class": "ins-col-1  ins-grey-color ins-font-xl ins-strong-l -buy-div"})
+        uidata.append({"_data": "We buy at","_data-ar":"سعر الشراء","_trans":"true", "class": "ins-col-11  ins-m-col-11  ins-grey-d-color ins-title-20	 ins-strong-l"})
+        uidata.append({"_data":"<span class=' lni lni-chevron-up'></span>","class": "ins-col-1   ins-m-col-1 ins-grey-color ins-font-xl ins-strong-l -buy-div"})
         uidata.append({"start": "true", "class": "ins-flex ins-col-12"})
-        uidata.append({"_data": "Gold Amount","_data-ar":"كمية الذهب","_trans":"true", "class": "ins-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
-        uidata.append({"_data": str(bprice_before),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end"})
-        uidata.append({"_data": "Cash back","_data-ar":"استرداد النقود","_trans":"true", "class": "ins-col-6  ins-title-xs  ins-grey-color  ins-strong-m"})
-        uidata.append({"_data": str(cashback),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",  "class": "ins-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end"})
+        uidata.append({"_data": "Gold Amount","_data-ar":"كمية الذهب","_trans":"true", "class": "ins-col-6  ins-m-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
+        uidata.append({"_data": str(bprice_before),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-m-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end"})
+        uidata.append({"_data": "Cash back","_data-ar":"استرداد النقود","_trans":"true", "class": "ins-col-6  ins-title-xs  ins-m-col-6  ins-grey-color  ins-strong-m"})
+        uidata.append({"_data": str(cashback),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",  "class": "ins-col-6  ins-m-col-6  ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end"})
         uidata.append({ "class": "ins-line ins-col-12"})
-        uidata.append({"_data": "Total","_data-ar":"المجموع","_trans":"true", "class": "ins-col-6  ins-title-xs  ins-grey-color  ins-strong-m"})
-        uidata.append({"_data":  str(data.get("buy_price",9000)),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",  "class": "ins-col-6  ins-strong-l ins-flex-end ins-title-20	 ins-primary-d-color"})
+        uidata.append({"_data": "Total","_data-ar":"المجموع","_trans":"true", "class": "ins-col-6  ins-title-xs  ins-m-col-6  ins-grey-color  ins-strong-m"})
+        uidata.append({"_data":  str(data.get("buy_price",9000)),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",  "class": "ins-col-6  ins-m-col-6  ins-strong-l ins-flex-end ins-title-20	 ins-primary-d-color"})
         uidata.append({"end": "true"})
         uidata.append({"end": "true"})
 
@@ -219,10 +219,10 @@ class AppProductDetails(App):
 
         uidata.append({"start": "true", "class": "ins-flex ins-col-12 ins-gap-o"})  
         ## Counter area
-        counter= [{"start": "true", "class": "ins-flex ins-col-3 ins-gap-o"},
-            {"_data": "-", "class": "ins-button-s ins-flex-center ins-col-4 ins-gold-bg ins-font-2xl -minus-btn"},
-            {"_type": "input",  "name":"count_inpt","type": "text","value":"1", "pclass": "ins-col-4 ","class":"count-inpt ins-title-xs ins-strong-l"},
-            {"_data": "+", "class": "ins-button-s ins-flex-center  ins-col-4  ins-gold-bg ins-font-2xl  -plus-btn"},
+        counter= [{"start": "true", "class": "ins-flex ins-col-3 ins-gap-o ins-m-col-5"},
+            {"_data": "-", "class": "ins-button-s ins-flex-center ins-col-4 ins-gold-bg ins-font-2xl -minus-btn ins-m-col-4"},
+            {"_type": "input",  "name":"count_inpt","type": "text","value":"1", "pclass": "ins-col-4  ins-m-col-4","class":"count-inpt ins-title-xs ins-strong-l"},
+            {"_data": "+", "class": "ins-button-s ins-flex-center  ins-col-4  ins-gold-bg ins-font-2xl  -plus-btn ins-m-col-4"},
             {"end": "true"}
             ]
         uidata+=counter
@@ -235,15 +235,15 @@ class AppProductDetails(App):
         uidata.append({"_data": "<img src='"+p+"style/cart.svg'></img> ADD TO CART","_data-ar":"أضف إلى السلة","_trans":"true","data-lbtitle":lbtitle,"data-pid": str(data["id"]), "data-subtype":stys,"data-type":tys,"class": "ins-button-s ins-flex-center ins-title-xs ins-strong-m ins-flex-grow ins-gold-d -add-cart-btn","style":"    height: 46px;    border: 1px solid var(--primary-d);"})
         uidata.append({"end": "true"})
         ## Terms area
-        uidata.append({"_data": "<img src='"+p+"style/truck.svg ' style='position: relative;top: 4px;'></img> Free shipping for orders above EGP200k","_data-ar":"شحن مجاني للطلبات التي تزيد عن 200 ألف جنيه مصري","_trans":"true", "class": "ins-col-12 ins-grey-color ins-title-14"})
-        uidata.append({"_data": "<img src='"+p+"style/gift.svg' style='position: relative;top: 4px;'></img> Include gift Card?", "_data-ar":"تشمل كارت هدايا؟","_trans":"true","class": "ins-col-11 ins-grey-color ins-title-14"})
+        uidata.append({"_data": "<img class=' icon-text-area' src='"+p+"style/truck.svg '></img> Free shipping for orders above EGP200k","_data-ar":"شحن مجاني للطلبات التي تزيد عن 200 ألف جنيه مصري","_trans":"true", "class": "ins-col-12 ins-grey-color ins-title-14"})
+        uidata.append({"_data": "<img class=' icon-text-area'  src='"+p+"style/gift.svg'></img> Include gift Card?", "_data-ar":"تشمل كارت هدايا؟","_trans":"true","class": "ins-col-11 ins-grey-color ins-title-14 ins-m-col-11"})
         uidata.append({"_type": "input",  "type": "checkbox","value":"0", "class": "ins-form-bool-f -gift-checkbox"})
         uidata.append({"class": "ins-space-s"})
 
         ## Product Description
         uidata.append({"start": "true", "class": "ins-flex ins-col-12   -open-panel ins-active","style":"height: 30px;overflow: hidden;"})  
-        uidata.append({"_data": "Product Description","_data-ar":"وصف المنتج","_trans":"true", "class": "ins-col-11  ins-grey-d-color ins-title-xs ins-strong-m"})
-        uidata.append({"_data":"  <span class=' lni lni-chevron-up'></span>","class": "ins-col-1  ins-grey-color ins-font-xl ins-strong-l"})
+        uidata.append({"_data": "Product Description","_data-ar":"وصف المنتج","_trans":"true", "class": "ins-col-11  ins-grey-d-color ins-title-xs ins-strong-m ins-m-col-11"})
+        uidata.append({"_data":"  <span class=' lni lni-chevron-up'></span>","class": "ins-col-1 ins-m-col-1  ins-grey-color ins-font-xl ins-strong-l"})
         uidata.append({"_data": data["des"], "class": "ins-col-12  ins-grey-color ins-title-14"})
         uidata.append({"end": "true"})
 

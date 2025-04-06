@@ -62,7 +62,7 @@ a:hover,
 }
 
 .not-for-web {
-    display: none;
+    display: none !important;
 }
 
 

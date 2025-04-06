@@ -21,9 +21,9 @@ class WdgLegacy(Widget):
                 "class": "ins-title-xl ins-grey-d-color ins-strong-m", "style": "line-height:50px"},
             {"class": "ins-col-grow "},
             {"_type":"a","href":"/about_us","_data": "About US  <i class=' lni ins-icon lni-arrow-right'></i>","_data-ar":"معلومات عنا","_trans":"true",
-                "style": "width:250px", "class": "ins-button-l  ins-text-upper ins-gold-d"},
+                "style": "width:250px", "class": "ins-button-l -about-button ins-text-upper ins-gold-d"},
             {"class": "ins-space-l"},
-            {"start": "true", "class": "ins-flex-center ins-grey-color ",
+            {"start": "true", "class": "ins-flex-center ins-grey-color ins-m-col-12  -about-title-area ",
                 "style": "width:500px;height:406px"},
             {"_data": "The Beginning","_data-ar":"البداية" ,"_trans":"true",
                 "class": "ins-text-upper ins-title-m  ins-strong-m ins-col-12"},
@@ -34,7 +34,7 @@ class WdgLegacy(Widget):
             {"_data": "El Galla Gold was established in 1950, our family-owned business has been passed down through generations, each adding to our rich legacy with their unique knowledge and experience, carrying forward the vision that originally started with Hassan El Galla.",
                 "_data-ar":"تأسست شركة الجلا جولد عام 1950 تحت قيادة مؤسسها الحاج حسن الجلا،  وتم توارثها من جيل لجيل، وزي الذهب اتعرف الحاج حسن بصدقه والتزامه وكانت القيم والدروس التي اكتسبها في حياته مصدر إلهام في مسيرته لتحقيق الجودة و الوصول إلى رضاء العملاء و اللي بنعتبره القوة الدافعة وراء نجاحنا." ,"_trans":"true",
                 
-                "class": " ins-col-12 ", "style": "line-height:24px;font-size:20px"},
+                "class": " ins-col-12 -legacy-content", "style": "line-height:24px;font-size:20px"},
             {"end": "true"},
 
             # data
@@ -59,9 +59,9 @@ class WdgLegacy(Widget):
                 "class": "ins-title-xl ins-grey-d-color ins-strong-m", "style": "line-height:50px"},
             {"class": "ins-col-grow "},
             {"_type":"a","href":"/about_us","_data": "About US  <i class=' lni ins-icon lni-arrow-right'></i>","_data-ar":"معلومات عنا","_trans":"true",
-                "style": "width:250px", "class": "ins-button-l  ins-text-upper ins-gold-d"},
+                "style": "width:250px", "class": "ins-button-l  -about-button ins-text-upper ins-gold-d"},
             {"class": "ins-space-l"},
-            {"start": "true", "class": "ins-flex-center ins-grey-color ",
+            {"start": "true", "class": "ins-flex-center ins-grey-color ins-m-col-12  -about-title-area ",
                 "style": "width:500px;height:406px"},
             {"_data": "The Beginning","_data-ar":"البداية" ,"_trans":"true",
                 "class": "ins-text-upper ins-title-m  ins-strong-m ins-col-12"},
@@ -72,7 +72,7 @@ class WdgLegacy(Widget):
             {"_data": "The second generation, led by Ahmed Hassan El-Galla, expanded our operations and embraced modern business practices. He was a mentor and leader to many, and his tenure marked a significant growth phase as we expanded our product range and strengthened our market presence.",
                 
                 "_data-ar":"ومع تطور الشركة، ابتدي الجيل الثاني بقيادة الحاج أحمد حسن الجلا في توسيع عملياتنا واعتماد ممارسات تجارية حديثة وكان أول من بدأ تصنيع بيع العملات والسبائك الذهبية في السوق المصرية. مكنش مجرد قائد، بل كان أب روحي لناس كتير في صناعة و تجارة الذهب. كانت الفترة دي مرحلة نمو كبيرة، قمنا بتوسيع مجموعة منتجاتنا وتعزيز وجودنا في السوق." ,"_trans":"true",
-                "class": " ins-col-12  ", "style": "line-height:24px;font-size:20px"},
+                "class": " ins-col-12 -legacy-content ", "style": "line-height:24px;font-size:20px"},
             {"end": "true"},
 
             # data
@@ -100,9 +100,9 @@ class WdgLegacy(Widget):
                 "class": "ins-title-xl ins-grey-d-color ins-strong-m", "style": "line-height:50px"},
             {"class": "ins-col-grow "},
             {"_type":"a","href":"/about_us","_data": "About US  <i class=' lni ins-icon lni-arrow-right'></i>","_data-ar":"معلومات عنا","_trans":"true",
-                "style": "width:250px", "class": "ins-button-l  ins-text-upper ins-gold-d"},
+                "style": "width:250px", "class": "ins-button-l  -about-button ins-text-upper ins-gold-d"},
             {"class": "ins-space-l"},
-            {"start": "true", "class": "ins-flex-center ins-grey-color ",
+            {"start": "true", "class": "ins-flex-center ins-grey-color ins-m-col-12  -about-title-area ",
                 "style": "width:500px;height:406px"},
             {"_data": "The Beginning","_data-ar":"البداية" ,"_trans":"true",
                 "class": "ins-text-upper ins-title-m  ins-strong-m ins-col-12"},
@@ -112,7 +112,7 @@ class WdgLegacy(Widget):
             {"class": "ins-space-s"},
             {"_data": "Today, the third generation, under the leadership of our CEO Osama Ahmed Hassan El-Galla, continues to build upon the strong foundation laid by our predecessors. He introduced new ways of using technology to simplify buying and selling gold.",
                 "_data-ar":"النهاردة، الجيل الثالث بقيادة المهندس أسامة أحمد حسن الجلا يواصل البناء على الأسس القوية خلال عمر شركة الجلا جولد. وبدأ استخدام طرق جديدة زي التكنولوجيا لتسهيل عملية بيع وشراء الذهب " ,"_trans":"true",
-                "class": " ins-col-12  ", "style": "line-height:24px;font-size:20px"},
+                "class": " ins-col-12 -legacy-content ", "style": "line-height:24px;font-size:20px"},
             {"end": "true"},
 
             # data
@@ -137,9 +137,9 @@ class WdgLegacy(Widget):
                 "class": "ins-title-xl ins-grey-d-color ins-strong-m", "style": "line-height:50px"},
             {"class": "ins-col-grow "},
             {"_type":"a","href":"/about_us","_data": "About US  <i class=' lni ins-icon lni-arrow-right'></i>","_data-ar":"معلومات عنا","_trans":"true",
-                "style": "width:250px", "class": "ins-button-l  ins-text-upper ins-gold-d"},
+                "style": "width:250px", "class": "ins-button-l  -about-button ins-text-upper ins-gold-d"},
             {"class": "ins-space-l"},
-            {"start": "true", "class": "ins-flex-center ins-grey-color ",
+            {"start": "true", "class": "ins-flex-center ins-grey-color ins-m-col-12  -about-title-area ",
                 "style": "width:500px;height:406px"},
             {"_data": "The Beginning","_data-ar":"البداية" ,"_trans":"true",
                 "class": "ins-text-upper ins-title-m  ins-strong-m ins-col-12"},
@@ -149,7 +149,7 @@ class WdgLegacy(Widget):
             {"class": "ins-space-s"},
             {"_data": "As we look to the future, we remain committed to our heritage, morals, and passion. The name of El-Galla Gold will remain, as we have always promised, a symbol of trust.",
                 "_data-ar":"ننظر إلى المستقبل بنفس القيم والمبادئ اللي بدأنا بيها، هدفنا هو تقديم قطع من الذهب تحمل جزءًا من تاريخنا، إلى عملائنا. حتى تستمر الرحلة، ويبقى اسم الجلّا جولد، زي ما وعدناكم دائمًا، رمزًا للثقة." ,"_trans":"true",
-                "class": " ins-col-12  ", "style": "line-height:24px;font-size:20px"},
+                "class": " ins-col-12 -legacy-content ", "style": "line-height:24px;font-size:20px"},
             {"end": "true"},
 
             # data
@@ -194,13 +194,13 @@ class WdgLegacy(Widget):
             
             
             {"_data": "1950s","_data-ar":"١٩٥٠" ,"_trans":"true", "data-show":"_1", "style": "font-size:20px",
-             "class": "ins-col-3 gla-ltabs gla-active"},
+             "class": "ins-col-3 gla-ltabs gla-active ins-m-col-3"},
             {"_data": "1980s","_data-ar":"١٩٨٠" ,"_trans":"true","data-show":"_2",  "style": "font-size:20px",
-             "class": "ins-col-3 gla-ltabs", },
+             "class": "ins-col-3 gla-ltabs ins-m-col-3", },
             {"_data": "2020s","_data-ar":"٢٠٢٠" ,"_trans":"true", "data-show":"_3", "style": "font-size:20px",
-             "class": "ins-col-3  gla-ltabs", },
+             "class": "ins-col-3  gla-ltabs ins-m-col-3", },
             {"_data": "Present Day","_data-ar":"اليوم الحاضر" ,"_trans":"true", "data-show":"_4", "style": "font-size:20px",
-             "class": "ins-col-3  gla-ltabs"},
+             "class": "ins-col-3  gla-ltabs ins-m-col-3"},
 
 
 

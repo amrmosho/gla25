@@ -1,0 +1,14 @@
+@media screen and (max-width: 1000px) {
+    .-part-area {
+        margin-top: 20px;
+        width: 100%;
+        flex-wrap: nowrap;
+        overflow: auto;
+        scroll-snap-type: x mandatory;
+        padding: 20px 0 40px 0;
+    }
+    .-partner-card {
+        min-width: 27% !important;
+        height: 200px;
+    }
+}

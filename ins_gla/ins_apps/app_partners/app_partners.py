@@ -42,11 +42,11 @@ class AppPartners(App):
 
 
         uidata.append({"_data": "Our Partners","_data-ar":"شركاؤنا","_trans":"true","class": "ins-col-grow ins-title ins-strong-m ins-text-upper ins-grey-d-color"})
-        uidata.append({"start":"true","class":"ins-col-grow ins-flex-end"})
+        uidata.append({"start":"true","class":"ins-col-grow ins-flex-end ins-m-flex-start -filter-area"})
         if add_filter:
             city_area = [
-    {"start": "true", "class": "ins-flex-end"},
-    {"_data": "Area", "_data-ar": "المنطقة", "_trans": "true", "class": "ins-strong-m ins-grey-d-color ins-title-14"},
+    {"start": "true", "class": "ins-flex-end ins-m-col-6"},
+    {"_data": "Area", "_data-ar": "المنطقة", "_trans": "true", "class": "ins-strong-m ins-grey-d-color ins-m-col-2 ins-title-14"},
     {
         "_type": "select",
         "name": "city",
@@ -81,7 +81,7 @@ class AppPartners(App):
             "port_said": "بور سعيد"
         },
         "_trans": "true",
-        "pclass": "ins-col-grow",
+        "pclass": "ins-col-grow ins-m-col-10",
         "class": "-area-select"
     },
     {"end": "true"}
@@ -102,7 +102,7 @@ class AppPartners(App):
 
 
     def _ui(self):
-        uidata = [{"start": "true", "class": "ins-flex ","style": "background:white;height:124px;position: relative;    border-bottom: 1px solid var(--grey-l); "}]
+        uidata = [{"start": "true", "class": "ins-flex ","style": "background:white;height:124px;position: relative;    border-bottom: 1px solid var(--grey-l);height:auto; "}]
         uidata += self.header_ui(True)
         uidata.append({"end": "true"})
         data = self.ins._db._get_data("gla_blog", "*","fk_blog_category_id = '18'",update_lang=True)
@@ -114,7 +114,7 @@ class AppPartners(App):
 
             blog = [
 
-                {"_type":"a","href":url,"start": "true", "class": f"ins-flex _{d.get('city')} _{d.get('state')}  pro-partner-block ins-card"},
+                {"_type":"a","href":url,"start": "true", "class": f"ins-flex _{d.get('city')} _{d.get('state')}  pro-partner-block ins-card ins-m-col-12"},
                 {"src": p + d["image"],"loading":"lazy", "_type": "img","class":"ins-radius-l"},
                 {"_data": d["title"], "class": "ins-col-12 ins-title-s   ins-grey-color ins-strong-m"},
                 {"_data": d["content"][:55] + '...' if len(d["content"]) > 55 else d["content"], "class": "ins-col-12 ins-title-s ins-grey-color"},  
@@ -134,24 +134,24 @@ class AppPartners(App):
         p = "/ins_web/ins_uploads/"
 
         uidata = [{"start": "true", "class": "ins-flex ",
-                   "style": "background:white;height:124px;position: relative;    border-bottom: 1px solid var(--grey-l); "}]
+                   "style": "background:white;height:124px;position: relative;    border-bottom: 1px solid var(--grey-l);height:auto;"}]
         uidata += self.header_ui()
         uidata.append({"end": "true"})
         uidata.append(
             {"start": "true", "class": "ins-flex gla-container ins-padding-2xl ins-col-12 ins-gap-2xl"})
         img = [
-            {"start": "true", "class": "ins-flex ins-col-4"},
-            {"src": p + data["image"],"loading":"lazy", "_type": "img",
+            {"start": "true", "class": "ins-flex ins-col-4 ins-m-col-12"},
+            {"src": p + data["image"],"loading":"lazy", "class":"-partner-ineer-img","_type": "img",
                 "style": "max-width: 350px;"},
             {"end": "true"}
         ]
         uidata += img
 
         content = [
-            {"start": "true", "class": "ins-flex ins-col-7"},
-            {"_data": data["title"], "class": "ins-col-12 ins-grey-d-color ins-title-l",
+            {"start": "true", "class": "ins-flex ins-col-7 ins-m-col-12"},
+            {"_data": data["title"], "class": "ins-col-12 ins-grey-d-color ins-title-l ins-m-col-12",
                 "style": "    line-height: 45px;"},
-            {"_data": data["content"], "class": "ins-col-12 "},
+            {"_data": data["content"], "class": "ins-col-12  ins-m-col-12"},
 
         ]
 

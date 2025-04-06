@@ -8,7 +8,7 @@ class WdgBlog(Widget):
 
     def out(self):
         data_blog = self.ins._db._get_data("gla_blog", "*", update_lang=True)
-
+        self.widget._include("style.css")
         featured_blog = next(
             (d for d in data_blog if d.get("_order") == 1), None)
         remaining_blogs = [d for d in data_blog if d.get("_order") != 1][:4]
@@ -29,14 +29,14 @@ class WdgBlog(Widget):
             {"class": "ins-col-grow"},
             {"_type": "a", "href": "blogs", "_data": "EXPLORE MORE <i class='lni ins-icon lni-arrow-right'></i>",
                 "_data-ar": "اكتشف المزيد", "_trans": "true", "style": "width:250px",
-                "class": "ins-button-l ins-text-upper ins-gold-d"},
+                "class": "ins-button-l ins-text-upper ins-gold-d ins-m-col-6 -blog-button"},
             {"class": "ins-space-l"},
             {"start": "true", "class": "ins-flex-start pro-blog-parent", "style": gstyle},
         ]
 
         if data:
             uidata.append(
-                {"start": "true", "class": "ins-flex pro-blog-cont -ba"})
+                {"start": "true", "class": "ins-flex pro-blog-cont -ba ins-m-col-12"})
             for d in data:
                 url = self.ins._server._url({"alias":"blogs","mode":"blog","id":str(d["id"])})
 
@@ -54,7 +54,7 @@ class WdgBlog(Widget):
         if featured_blog:
             url = self.ins._server._url({"alias":"blogs","mode":"blog","id":str(featured_blog["id"])})
 
-            uidata.append({"start": "true", "class": "ins-flex pro-blog-cont -bb",
+            uidata.append({"start": "true", "class": "ins-flex pro-blog-cont -bb  ins-m-col-12",
                           "style": "height: 711px; position: relative; overflow: hidden;"})
             uidata += [
                 {"_type":"a","href":url,"start": "true", "class": "ins-flex pro-blog-block",
@@ -72,7 +72,7 @@ class WdgBlog(Widget):
 
         if data3:
             uidata.append(
-                {"start": "true", "class": "ins-flex pro-blog-cont -bc"})
+                {"start": "true", "class": "ins-flex pro-blog-cont -bc ins-m-col-12"})
             for d in data3:
                 url = self.ins._server._url({"alias":"blogs","mode":"blog","id":str(d["id"])})
 

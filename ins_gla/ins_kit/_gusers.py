@@ -1,5 +1,8 @@
 from datetime import datetime, timedelta
 from random import randint, random
+import uuid
+
+from itsdangerous import URLSafeTimedSerializer
 from ins_gla.ins_kit._sms import SMS
 from ins_kit.ins_parent import ins_parent
 
@@ -80,7 +83,6 @@ class Gusers(ins_parent):
         if not all(field in rq for field in required_fields):
             return "Missing required fields"
         
-        
         rq["password"] = self.ins._data.hash_password(rq["password"])
         new_user_data = {
             "mobile": rq["mobile"],
@@ -94,14 +96,22 @@ class Gusers(ins_parent):
         if 'email' in rq:
             new_user_data["email"] = rq["email"]
         
-        self.ins._db._insert("kit_user", new_user_data)
+        uid = self.ins._db._insert("kit_user", new_user_data)
+        if uid and "email" in rq:
+            link = self.generate_token(uid,rq["email"], rq["mobile"], rq["password"])
+            lang = {"link":link,"title":new_user_data["title"]}
+            self.ins._email.send_email(lang,rq["email"],1)
+
+            
         return "1"
     
     
     def _login(self, rq):
-        rq["password"] = self.ins._data.hash_password(rq["password"])
         login_field = "email" if "@" in rq["email_mobile"] else "mobile"
-        sql = f"{login_field} ='{rq['email_mobile']}' AND password ='{rq['password']}'"
+        if login_field == "email":
+            sql = f"{login_field} ='{rq['email_mobile']}' AND password ='{rq['password']}' AND email_status='verified'"
+        else:
+            sql = f"{login_field} ='{rq['email_mobile']}' AND password ='{rq['password']}'"
         data = self.ins._db._get_row("kit_user", "*", sql)
 
         if data:
@@ -142,5 +152,35 @@ class Gusers(ins_parent):
 
 
          
+    def generate_token(self,user_id,email, mobile, password):
+        secret_key = str(uuid.uuid4())
+        s = URLSafeTimedSerializer(secret_key)
+        token = s.dumps({"user_id": user_id, "email_mobile": mobile, "email": email, "password":password})
+        current_time = datetime.now()
+        expiry = current_time + timedelta(hours=5)
+        insert_data = {
+            "fk_user_id": user_id,
+            "token": token,
+            "secret_key": secret_key,
+            "expiry": expiry
+        }
+        self.ins._db._insert("gla_email_token",insert_data)
+        return f"http://127.0.0.1:5000/active/{token}"
+            
         
-        
+    def _check_token(self, token):
+        r = {}
+        r["status"] = "1"
+        token_data = self.ins._db._get_row("gla_email_token", "*", f"token='{token}'")
+        if token_data:
+            s = URLSafeTimedSerializer(token_data["secret_key"])
+            r["data"] = s.loads(token, max_age=60 * 60 * 5)
+            r["data"]["token_id"] = token_data["id"]
+            now = datetime.now()
+            expiry = token_data["expiry"]
+            if now > expiry or token_data["status"] == "expired":
+             r["status"] = "-2"
+        else:
+            r["status"] = "-1"
+            
+        return r

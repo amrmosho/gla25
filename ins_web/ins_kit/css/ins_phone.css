@@ -107,11 +107,11 @@
 
 .ins-m-flex-center {
     display: flex !important;
-    justify-content: center;
+    justify-content: center !important;
 }
 
 .ins-m-text-center {
-    text-align: center;
+    text-align: center !important;
 }
 
 .ins-files-browser-body-data {
@@ -236,4 +236,14 @@
 .ins-m-padding-v {
     padding-left: 0!important;
     padding-right: 0!important;
+}
+
+.ins-m-gap-10 {
+    --flex-gap: 10px !important;
+    column-gap: 10px !important;
+    row-gap: 10px !important;
+}
+
+.ins-m-col-grow {
+    flex-grow: 1 !important;
 }

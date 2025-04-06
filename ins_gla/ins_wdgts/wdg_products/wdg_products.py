@@ -14,6 +14,7 @@ class WdgProducts(Widget):
         data_c= self.ins._db._get_data("gla_product","*","fk_product_category_id = 3 and display_home = 1 order by price asc limit 0,4 ",True)
 
         self.widget._include("wpros.js")
+        self.widget._include("wpros.css")
         uidata = [
             {"start": "true", "class": "ins-flex-center  ins-padding-2xl gla-container "},
             {"class": "ins-space-l"},
@@ -23,9 +24,9 @@ class WdgProducts(Widget):
            
             {"class": "ins-space-l"},
             {"start": "true", "class": "ins-flex gla-tabs-header"},
-            {"_data": "Gold Bars","_data-ar":"سبائك الذهب","_trans":"true", "data-view":".cat_a", "class": " ins-strong-m wi-pros-tab-btn  gla-active "},
-            {"_data": "Gold Coins" ,"_data-ar":"عملات ذهبية","_trans":"true", "data-view":".cat_b","class":"wi-pros-tab-btn"},
-            {"_data": "Gifts","_data-ar":"الهدايا","_trans":"true", "data-view":".cat_c" ,"class":"wi-pros-tab-btn"},
+            {"_data": "Gold Bars","data-url":"/product/do/filter/fk_product_category_id=1","_data-ar":"سبائك الذهب","_trans":"true", "data-view":".cat_a", "class": " ins-strong-m wi-pros-tab-btn  gla-active "},
+            {"_data": "Gold Coins" ,"data-url":"/product/do/filter/fk_product_category_id=2&types_data=royal","_data-ar":"عملات ذهبية","_trans":"true", "data-view":".cat_b","class":"wi-pros-tab-btn"},
+            {"_data": "Gifts","data-url":"/product/do/filter/fk_product_category_id=3","_data-ar":"الهدايا","_trans":"true", "data-view":".cat_c" ,"class":"wi-pros-tab-btn"},
             {"end": "true"},           
             {"class": "ins-space-s"},
 
@@ -37,17 +38,12 @@ class WdgProducts(Widget):
         for d in data:
             uidata+= ELUI(self.ins).shop_pro_block(d,f"/product/product/{d['id']}",st="width:316px;")
            
-        uidata.append({"_type":"a","href":"/product/do/filter/fk_product_category_id=1","_data": "View MORE <i class=' lni ins-icon lni-arrow-right'></i>",
-                  "_data-ar":"عرض المزيد","_trans":"true",    "style": "width:185px", "class": "ins-button  ins-text-upper ins-gold-d"},)
         uidata.append({"end": "true"})
         
         uidata.append({"start": "true", "class": " cat_b ins-flex-center wi-pros-tab-cont gla-pro-cont"})
         
         for d in data_b:
             uidata+= ELUI(self.ins).shop_pro_block(d,f"/product/product/{d['id']}",st="width:316px;")
-           
-        uidata.append({"_type":"a","href":"/product/do/filter/fk_product_category_id=2&types_data=royal","_data": "View MORE <i class=' lni ins-icon lni-arrow-right'></i>",
-                  "_data-ar":"عرض المزيد","_trans":"true",    "style": "width:185px", "class": "ins-button  ins-text-upper ins-gold-d"},)
         uidata.append({"end": "true"})
         
         
@@ -56,10 +52,9 @@ class WdgProducts(Widget):
         for d in data_c:
             uidata+= ELUI(self.ins).shop_pro_block(d,f"/product/product/{d['id']}",st="width:316px;")
            
-        uidata.append({"_type":"a","href":"/product/do/filter/fk_product_category_id=3","_data": "View MORE <i class=' lni ins-icon lni-arrow-right'></i>",
-                  "_data-ar":"عرض المزيد","_trans":"true",    "style": "width:185px", "class": "ins-button  ins-text-upper ins-gold-d"},)
         uidata.append({"end": "true"})
 
+        uidata.append({"_type":"a","href":"/product/do/filter/fk_product_category_id=1","_data": "View MORE <i class=' lni ins-icon lni-arrow-right'></i>","_data-ar":"عرض المزيد","_trans":"true",    "style": "width:185px", "class": "ins-button -view-more-btn  ins-m-col-5 ins-text-upper ins-gold-d"},)
 
         
         uidata.append({"end": "true"})

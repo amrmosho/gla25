@@ -25,6 +25,7 @@ class AppContent(App):
             return " No content selected "
             
         self.app._include("script.js")
+        self.app._include("style.css")
         ui = [
 
             {"_data":   data["content"], "class": "ins-col-12  ins-flex ap-content-body "},

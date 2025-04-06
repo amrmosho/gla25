@@ -100,7 +100,7 @@ class PlgInput(Ui):
 
         ui = [
             {"start": "true", "data-id":id, "class": f"ins-col-12 {id} ins-form-input  ins-flex-end ins-form-upload-imgs-cont"},
-            {"start": "true", "class": "ins-col-grow ins-form-upload-imgs ins-flex-center"}
+            {"start": "true", "class": "ins-col-grow ins-form-upload-imgs ins-flex-center ins-m-col-11"}
         ]
         ui += row
 

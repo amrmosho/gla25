@@ -30,6 +30,7 @@
 .-step-button {
     border: 1px solid var(--grey-l);
     border-radius: 8px;
+    height: 32px;
     padding: 8px 12px 8px 12px;
 }
 
@@ -101,4 +102,114 @@
     border: 1px solid var(--primary-d);
     background: var(--gold-bg);
     scale: 1.05;
+}
+
+@media screen and (max-width: 1000px) {
+    .-steps-area {
+        height: 60px !important;
+    }
+    .-step-button {
+        height: 50px;
+        font-size: 24px;
+    }
+    .-item-card>img {
+        max-width: 220px;
+    }
+    .-pro-title-area {
+        line-height: 60px !important;
+    }
+    .-plus-btn,
+    .-minus-btn,
+    .lni-trash-3._a_red,
+    .lni-pencil-1 {
+        font-size: 40px;
+    }
+    .ins-form-input.count-inpt,
+    .-plus-btn,
+    .-minus-btn {
+        height: 60px !important;
+        line-height: 60px !important;
+    }
+    .ins-form-input,
+    .-cart-next-btn,
+    .-payment-btn,
+    .-back-btn {
+        height: 80px !important;
+        line-height: 80px !important;
+    }
+    .-delivery-type-btn {
+        font-size: 28px;
+        height: 75px;
+    }
+    .-address-radio-btn,
+    .-address-type-radio-btn,
+    .-address-btn,
+    .-payment-type-btn-img {
+        width: 42px;
+    }
+    .-add-address {
+        height: 50px;
+        line-height: 50px !important;
+        font-size: 24px;
+    }
+    .-remove-item-cart-small-btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+    .-item-card {
+        position: relative;
+    }
+    .-add-address-btn,
+    .-back-address-btn,
+    .-submit-order-btn,
+    .-update-address-btn {
+        min-height: 80px;
+        line-height: 80px !important;
+        font-size: 28px;
+    }
+    .-address-contact-area {
+        line-height: 30px;
+    }
+    .-store-title {
+        font-size: 34px !important;
+        line-height: 24px !important;
+    }
+    .-store-address {
+        font-size: 24px !important;
+    }
+    .-extra-fees-card {
+        text-align: center;
+        margin-top: 30px;
+    }
+    .-payment-type-btn {
+        height: 100px;
+    }
+    .payment-title,
+    .-success-msg,
+    .-fail-msg,
+    .-bank-msg {
+        line-height: 42px !important;
+    }
+    .-payment-img {
+        max-width: 72px !important;
+    }
+    .ins-logo-xs {
+        width: 60px !important;
+    }
+    .-bank-info,
+    .-bank-des {
+        font-size: 14px !important;
+    }
+    .-bank-note,
+    .-bank-title {
+        font-size: 18px !important;
+    }
+    .-fees-info,
+    .-address-card {
+        padding: 30px;
+    }
+    .-user-address {
+        line-height: 42px !important;
+    }
 }

@@ -39,3 +39,109 @@
 ._a_red {
     cursor: pointer;
 }
+
+@media screen and (max-width: 1000px) {
+    .-home-page-icons {
+        max-width: 100px;
+    }
+    .-cal-line {
+        height: 730px;
+        left: 2px;
+    }
+    .-home-des {
+        line-height: 50px !important;
+    }
+    .-home-cont {
+        padding: 30px;
+        margin-bottom: 50px;
+        margin-top: 50px;
+    }
+    .-cal-input-area {
+        max-width: 100% !important;
+    }
+    .-calc-home-input,
+    .-calc-inner-input {
+        height: 80px;
+    }
+    .-cal-update-nput {
+        font-size: 24px !important;
+    }
+    .-cal-home-update-btn,
+    .-cal-inner-update-btn {
+        height: 60px !important;
+        font-size: 24px;
+    }
+    .-cal-header-title {
+        position: relative !important;
+    }
+    .-cal-inner-update-btn {
+        line-height: 60px !important;
+    }
+    .-cal-inner-update-btn>i {
+        font-size: 40px !important;
+    }
+    .-type-btn,
+    .-type-btn.ins-active {
+        font-size: 28px;
+        height: auto;
+        padding: 12px;
+    }
+    .product-img-cont {
+        height: 200px;
+        width: 200px;
+    }
+    .product-img-cont img {
+        max-width: 150px;
+    }
+    .-cal-pro-cont {
+        width: 100% !important;
+    }
+    .-cal-pro-title {
+        font-size: 38px !important;
+        line-height: 36px !important;
+    }
+    .-cal-pro-price {
+        font-size: 28px !important;
+    }
+    .-cal-pro-count {
+        font-size: 28px !important;
+    }
+    .-cal-pro-title-area {
+        position: relative;
+        top: 29px;
+        line-height: 52px;
+    }
+    .-cal-summary-area {
+        width: 100% !important;
+    }
+    .-add-cart-btn {
+        min-height: 80px;
+    }
+    .-home-body {
+        padding: 30px !important;
+    }
+    .-cal-home-title {
+        line-height: 56px;
+    }
+    .ins-fixpanel.ins-opened {
+        width: 100% !important;
+    }
+    .-cart-img-cont {
+        height: 200px !important;
+    }
+    .lni-trash-3._a_red {
+        font-size: 40px;
+    }
+    .item-summary-area {
+        line-height: 65px;
+    }
+    .-continue-shopping-btn,
+    .-to-cart-btn {
+        min-height: 80px;
+        font-size: 28px;
+        line-height: 80px !important;
+    }
+    .ins-close {
+        font-size: 52px !important;
+    }
+}

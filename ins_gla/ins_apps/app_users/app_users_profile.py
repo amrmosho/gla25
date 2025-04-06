@@ -41,26 +41,28 @@ class AppUsersProfile(App):
         u = self.user._check()
         udata = self.ins._db._get_row("kit_user","email,email_status",f"id='{u['id']}'")
         uidata = [            {"start": "true", "class": "ins-col-12 ins-flex ins-padding-2xl "},
-            {"_type": "input", "value": data.get("email", ""), "title": "Email","title-ar":"بريد إلكتروني","_trans":"true", "placeholder": "Enter Email","placeholder-ar": "ادخل البريد الالكتروني", "type": "email", "name": "email", "class": "-update-email-inpt", "pclass": "ins-col-8"},
-            {"start": "true", "class": " -verified-area ins-col-4"},
+            {"_type": "input", "value": data.get("email", ""), "title": "Email","title-ar":"بريد إلكتروني","_trans":"true", "placeholder": "Enter Email","placeholder-ar": "ادخل البريد الالكتروني", "type": "email", "name": "email", "class": "-update-email-inpt", "pclass": "ins-col-8 ins-m-col-6"},
+            {"start": "true", "class": " -verified-area ins-col-4  ins-m-col-6"},
             ]
         
+        ui_msg = "Verified Email <i class='lni lni-check ins-font-l'></i>"
+        if self.ins._langs._this_get()["name"] == "ar":
+                    ui_msg = "تم التحقق  <i class='lni lni-check ins-font-l'></i> "
+
+
+
         if udata["email_status"] != "verified":
          uidata.append({"_data": "Send Verification Code","_data-ar":"ارسال رمز التحقق","_trans":"true", "class": "ins-button-m ins-strong-m   ins-gold-bg  ins-col-12 -send-email-veri-btn ins-flex-center", "style": " margin-top: 35px;"})
         else:
-         uidata.append({"_data": "Verified Email <i class='lni lni-check ins-font-l'></i>","_data-ar":"تم التحقق  <i class='lni lni-check ins-font-l'></i> ","_trans":"true", "class": " ins-strong-m   ins-col-12 ins-flex-center ins-border ins-radius-m", "style": " margin-top: 35px;min-height:40px"})
+         uidata.append({"_data": ui_msg,"_trans":"true", "class": " ins-strong-m   ins-col-12 ins-flex-center ins-border ins-radius-m", "style": " margin-top: 35px;min-height:40px"})
 
        
         uidata+= [   
                         {"end": "true"},
 
-                        {"_type": "input", "title": "Verification Code","title-ar":"رمز التحقق","_trans":"true","placeholder-ar":"أدخل رمز التحقق", "placeholder": "Enter Verification Code", "type": "text", "name": "verification", "class": "-update-verification-inpt", "pclass": "ins-col-12"},
 
              {"class": "ins-line ins-col-12"},
             
-            {"start": "true", "class": "ins-col-12 ins-flex-end "},
-            {"_data": "Verify","_data-ar":" تحقق","_trans":"true", "class": "ins-button-m ins-gold-d ins-col-2 ins-flex-center -update-email-btn"},
-            {"end": "true"},
             {"end": "true"}]
         
         return uidata

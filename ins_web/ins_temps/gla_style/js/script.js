@@ -43,9 +43,35 @@ function _submit() {
     } else {
         window.location = "/plan/" + v + "/";
     }
-
-
 }
+
+
+
+
+function _submit_phone() {
+    var v = ins(".-cal-update-nput-phone")._getValue();
+    if (v === "" || v === null || v === undefined || v == 0 || isNaN(v)) {
+        ins("Please enter a valid number")._ui._notification({ "class": "ins-danger" });
+    } else {
+        window.location = "/plan/" + v + "/";
+    }
+}
+
+
+
+
+
+ins(".-cal-update-btn-phone")._on("click", (o) => {
+    _submit_phone();
+}, true)
+
+ins(".-cal-update-nput-phone")._on("keyup", (o, e) => {
+    if (e.keyCode == 13) {
+        _submit_phone();
+    }
+}, true)
+
+
 
 ins(".-cal-update-btn")._on("click", (o) => {
     _submit();
@@ -56,6 +82,10 @@ ins(".-cal-update-nput")._on("keyup", (o, e) => {
         _submit();
     }
 }, true)
+
+
+
+
 
 
 ins(".-logout-btn")._on("click", (o) => {

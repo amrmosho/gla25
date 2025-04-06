@@ -55,18 +55,18 @@ class AppUsers(App):
             oc = " ins-gold-bg "
         else:
             hc = " ins-gold-bg "
-        ui = [{"start": "true", "class": "ins-col-7 ins-flex-end"},
-              {"_data": "<i class='lni ins-font-l lni-home-2'></i>Home","_data-ar":"الرئيسية","_trans":"true",
-                  "class": f"ins-button-s  ins-text-upper {hc}  ins-flex", "_type": "a", "href": self.u("")},
+        ui = [{"start": "true", "class": "ins-col-7 ins-flex-end ins-m-col-12 ins-m-flex-center -user-page-btns-area"},
+              {"_data": "<i class='lni ins-font-l lni-home-2 not-for-phone'></i>Home","_data-ar":"الرئيسية","_trans":"true",
+                  "class": f"ins-button-s  -user-page-btn ins-text-upper {hc}  ins-flex", "_type": "a", "href": self.u("")},
               {"_data": "|", "class": " "},
-              {"_data": "<i class='lni ins-font-l lni-user-4'></i>Profile Management","_data-ar":"إدارة الملف الشخصي","_trans":"true",
-                  "class": f"ins-button-s ins-text-upper {pc}  ins-flex", "_type": "a", "href": self.u("profile")+"/user_setting"},
+              {"_data": "<i class='lni ins-font-l lni-user-4 not-for-phone'></i>Profile Management","_data-ar":"إدارة الملف الشخصي","_trans":"true",
+                  "class": f"ins-button-s  -user-page-btn ins-text-upper {pc}  ins-flex", "_type": "a", "href": self.u("profile")+"/user_setting"},
               {"_data": "|", "class": " "},
-              {"_data": "<i class='lni ins-font-l lni-basket-shopping-3'></i>My Orders","_data-ar":"طلبياتي","_trans":"true",
-                  "class": f"ins-button-s  ins-text-upper {oc} ins-flex ", "_type": "a", "href": self.u("order")},
+              {"_data": "<i class='lni ins-font-l lni-basket-shopping-3 not-for-phone'></i>My Orders","_data-ar":"طلبياتي","_trans":"true",
+                  "class": f"ins-button-s  -user-page-btn ins-text-upper {oc} ins-flex ", "_type": "a", "href": self.u("order")},
               {"_data": "|", "class": "  "},
-              {"_data": "<i class='lni ins-font-l lni-buildings-1'></i>My Addresses","_data-ar":"عناويني","_trans":"true",
-                  "class": f"ins-button-s ins-text-upper   {sc} ins-flex ", "_type": "a", "href": self.u("addresses")},
+              {"_data": "<i class='lni ins-font-l lni-buildings-1 not-for-phone'></i>My Addresses","_data-ar":"عناويني","_trans":"true",
+                  "class": f"ins-button-s  -user-page-btn ins-text-upper   {sc} ins-flex ", "_type": "a", "href": self.u("addresses")},
               {"end": "true"}
               ]
         return ELUI(self.ins).page_title("My Profile","ملفي الشخصي", [{"_data": "My Profile / ", "href": "/puser","_data-ar":"ملفي الشخصي /","_trans":"true",}, {"_data": "Profile","_data-ar":"الملف الشخصي","_trans":"true",}], ui)
@@ -139,14 +139,14 @@ class AppUsers(App):
         return r
             
     def _send_email_otp(self):
-        rq = self.ins._server._req()
-        udata = self.user._check()
-        otp = self.user._create_otp()
-        if otp:
-            self.ins._db._update("kit_user",{"otp":otp},f"id='{udata['id']}'")
-            self.ins._server._set_session("temp_mail",{"email":rq["email"]})
-        return "1"
-    
+            rq = self.ins._server._req()
+            udata = self.user._check()
+            if udata:
+                self.ins._server._set_session("temp_mail",{"email":rq["email"]})
+                link = self.user.generate_token(udata["id"],rq["email"], udata["mobile"], udata["password"])
+                lang = {"link":link,"title":udata["title"]}
+                self.ins._email.send_email(lang,rq["email"],1)
+            return "1"
 
 
 
@@ -157,8 +157,10 @@ class AppUsers(App):
 
      if rq["email"] != udata["email"] or udata["email_status"] != "verified":
          return self.ins._ui._render( [{"_data": "Send Verification Code","_data-ar":"ارسال رمز التحقق","_trans":"true", "class": "ins-button-m ins-strong-m  -verified-area  ins-gold-bg  ins-col-12 -send-email-veri-btn ins-flex-center", "style": " margin-top: 35px;"}])
-
-     return  self.ins._ui._render( [{"_data": "Verified Email <i class='lni lni-check ins-font-l'></i>","_data-ar":"تم التحقق  <i class='lni lni-check ins-font-l'></i> ","_trans":"true", "class": " ins-strong-m   ins-col-12 -verified-area ins-flex-center ins-border ins-radius-m", "style": " margin-top: 35px;min-height:40px"}])
+     ui_msg = "Verified Email <i class='lni lni-check ins-font-l'></i>"
+     if self.ins._langs._this_get()["name"] == "ar":
+        ui_msg = "تم التحقق  <i class='lni lni-check ins-font-l'></i> "
+     return  self.ins._ui._render( [{"_data": ui_msg, "class": " ins-strong-m   ins-col-12 -verified-area ins-flex-center ins-border ins-radius-m", "style": " margin-top: 35px;min-height:40px"}])
 
      
 
@@ -179,7 +181,10 @@ class AppUsers(App):
                 self.ins._server._del_session("temp_mail")
                 r["status"] = "1"
                 r["msg"] = "Your email has been successfully verified."
-                r["ui"] = self.ins._ui._render( [{"_data": "Verified Email <i class='lni lni-check ins-font-l'></i>","_data-ar":"تم التحقق  <i class='lni lni-check ins-font-l'></i> ","_trans":"true", "class": " ins-strong-m   ins-col-12 -verified-area ins-flex-center ins-border ins-radius-m", "style": " margin-top: 35px;min-height:40px"}])
+                ui_msg = "Verified Email <i class='lni lni-check ins-font-l'></i>"
+                if self.ins._langs._this_get()["name"] == "ar":
+                    ui_msg = "تم التحقق  <i class='lni lni-check ins-font-l'></i> "
+                r["ui"] = self.ins._ui._render( [{"_data":ui_msg, "class": " ins-strong-m   ins-col-12 -verified-area ins-flex-center ins-border ins-radius-m", "style": " margin-top: 35px;min-height:40px"}])
                 if self.ins._langs._this_get()["name"] == "ar":
                  r["msg"] = "لقد تم التحقق بنجاح"
 
@@ -213,14 +218,14 @@ class AppUsers(App):
 
     def home(self, g):
         if self.ins._langs._this_get()["name"] == "ar":
-            title_profile = f'<i class="lni ins-font-l lni-user-4"></i>  إدارة الملف الشخصي '
-            title_order = f'<i class="lni ins-font-l lni-basket-shopping-3"></i>  طلبياتي '
-            title_adress = f'<i class="lni ins-font-l  lni-buildings-1"></i> عناويني '
+            title_profile = f'<i class="lni ins-font-l lni-user-4 ins-m-col-1 -user-pages-icon"></i>  إدارة الملف الشخصي '
+            title_order = f'<i class="lni ins-font-l lni-basket-shopping-3 ins-m-col-1 -user-pages-icon"></i>  طلبياتي '
+            title_adress = f'<i class="lni ins-font-l  lni-buildings-1 ins-m-col-1 -user-pages-icon"></i> عناويني '
 
         if self.ins._langs._this_get()["name"] == "en":
-             title_profile = f'<i class="lni ins-font-l lni-user-4"></i>  Profile Management '
-             title_order = f'<i class="lni ins-font-l lni-basket-shopping-3"></i>  My Orders '
-             title_adress = f'<i class="lni ins-font-l  lni-buildings-1"></i> My Addresses '
+             title_profile = f'<i class="lni ins-font-l lni-user-4 ins-m-col-1 -user-pages-icon"></i>  Profile Management '
+             title_order = f'<i class="lni ins-font-l lni-basket-shopping-3 ins-m-col-1 -user-pages-icon"></i>  My Orders '
+             title_adress = f'<i class="lni ins-font-l  lni-buildings-1 ins-m-col-1 -user-pages-icon"></i> My Addresses '
              
         usmenu = [
             
@@ -229,16 +234,19 @@ class AppUsers(App):
             {"start": "true", "class": "  ins-col-4 ins-primary-w  ins-white  ins-flex ins-border ins-radius-xl    ins-padding-l"},
             {"_type": "a", "href":"/puser/profile/user_setting", "_data": title_profile,
                 "class": " ins-title-s ins-col-12"},
+                {"class":" not-for-web","style":"    width: 24px;"},
             {"_data": f'Update your name, email, and password to keep your account secure.',"_data-ar":"قم بتحديث اسمك والبريد الإلكتروني وكلمة المرور للحفاظ على حسابك آمنًا.","_trans":"true",
-                "class": "ins-col-12 ins-padding-xl   ins-padding-h ins-font-s ", "style": "line-height: 20px;margin-top: -11px;margin-bottom: 11px;"},
+                "class": "ins-col-12 ins-padding-xl  ins-m-col-11  ins-padding-h ins-font-s ", "style": "line-height: 20px;margin-top: -11px;margin-bottom: 11px;"},
             {"end": "true"},
 
 
             {"start": "true", "class": "  ins-col-4    ins-primary-w ins-white ins-flex ins-border ins-radius-xl    ins-padding-l"},
             {"_type": "a", "href":"/puser/order", "_data": title_order,
                 "class": " ins-title-s ins-col-12"},
+                           {"class":" not-for-web","style":"    width: 24px;"},
+
             {"_data": f'Access detailed information about your current and past orders, including status and history.',"_data-ar":"احصل على معلومات مفصلة حول طلباتك الحالية والسابقة، بما في ذلك الحالة والتاريخ.","_trans":"true",
-                "class": "ins-col-12 ins-padding-xl   ins-padding-h ins-font-s ", "style": "line-height: 20px;margin-top: -11px;margin-bottom: 11px;"},
+                "class": "ins-col-12 ins-padding-xl  ins-m-col-11   ins-padding-h ins-font-s ", "style": "line-height: 20px;margin-top: -11px;margin-bottom: 11px;"},
             {"end": "true"},
 
 
@@ -246,8 +254,10 @@ class AppUsers(App):
             {"start": "true", "class": "  ins-col-4  ins-primary-w ins-white  ins-flex ins-border ins-radius-xl    ins-padding-l"},
             {"_type": "a","href":"/puser/addresses",  "_data": title_adress,
                 "class": " ins-title-s ins-col-12"},
+                            {"class":" not-for-web","style":"    width: 24px;"},
+
             {"_data": f'Add, edit, or remove saved addresses to simplify and speed up future purchases.',"_data-ar":"قم بإضافة أو تعديل أو إزالة العناوين المحفوظة لتبسيط وتسريع عمليات الشراء المستقبلية.","_trans":"true",
-                "class": "ins-col-12 ins-padding-xl   ins-padding-h ins-font-s ", "style": "line-height: 20px;margin-top: -11px;margin-bottom: 11px;"},
+                "class": "ins-col-12 ins-padding-xl  ins-m-col-11   ins-padding-h ins-font-s ", "style": "line-height: 20px;margin-top: -11px;margin-bottom: 11px;"},
             {"end": "true"},
             {"end": "true"}
         ]
@@ -268,8 +278,8 @@ class AppUsers(App):
         
         addesses = self.ins._db._get_data("gla_user_address","*",f"fk_user_id = '{rsdata['id']}' order by kit_created ASC")
 
-        uidata=[{"_data":"My Address","_data-ar":"إضافة عنوان","_trans":"true","class":"ins-col-9 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"}]
-        uidata.append({"_data": "Add Address","_data-ar":"إضافة عنوان","_trans":"true", "class": "ins-button-s -add-address ins-text-center ins-strong-m ins-col-3 ins-gold-bg  ins-text-upper"})
+        uidata=[{"_data":"My Address","_data-ar":"إضافة عنوان","_trans":"true","class":"ins-col-9 ins-m-col-6 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"}]
+        uidata.append({"_data": "Add Address","_data-ar":"إضافة عنوان","_trans":"true", "class": "ins-button-s  ins-m-col-6 -add-address ins-text-center ins-strong-m ins-col-3 ins-gold-bg  ins-text-upper"})
         asession = self.ins._server._get_session(self.session_address_name)
 
         if type(asession) != dict:
@@ -278,12 +288,12 @@ class AppUsers(App):
         if addesses:
             for a in addesses:
                uidata.append({"start":"true","class":"ins-col-12 ins-card ins-flex-valign-center ins-padding-s -address-cont","style":"    line-height: 20px;"})
-               uidata.append({"start":"true","class":"ins-col-10 ins-flex"})
+               uidata.append({"start":"true","class":"ins-col-10 ins-flex ins-m-col-10"})
                uidata.append({"_data": a["title"],"class":" ins-title-s ins-strong-m ins-grey-d-color ins-col-12","style":"line-height: 24px;"})
                uidata.append({"_data": a["address"],"class":"ins-grey-color ins-col-12 ins-title-12","style":"line-height: 16px;"})
-               uidata.append({"_data": "Mobile: "+a["phone"] + " | Email: "+ a["email"],"_data-ar": "الهاتف: "+a["phone"] + " | البريد الالكتروني: "+ a["email"],"_trans":"true","class":"ins-grey-d-color ins-col-12  ins-title-14"})
+               uidata.append({"_data": "Mobile: "+a["phone"] + " | Email: "+ a["email"],"_data-ar": "الهاتف: "+a["phone"] + " | البريد الالكتروني: "+ a["email"],"_trans":"true","class":"ins-grey-d-color ins-col-12  ins-title-14 -address-info"})
                uidata.append({"end":"true"})
-               uidata.append({"start":"true","class":"ins-col-2 ins-flex-end"})
+               uidata.append({"start":"true","class":"ins-col-2  ins-m-col-2 ins-flex-end"})
                uidata.append({"_data":"<i class='-update-address  _a lni lni-pencil-1' data-aid = "+ str(a["id"])+" ></i>","class":"ins-text-center"})
                uidata.append({"_data":"<i class='lni lni-trash-3 _a_red'></i>","data-aid":a["id"],"class":"ins-text-center -remove-address-btn"})
                uidata.append({"end":"true"})
@@ -340,21 +350,20 @@ class AppUsers(App):
         uidata = [{"start":"true","class":"ins-flex ins-col-12 "}]
         uidata.append({"start":"true","class":"ins-flex ins-col-12 -update-address-area"})
         uidata.append({"_data":"Update Address","_data-ar":"تعديل العنوان","_trans":"true","class":"ins-col-12 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"})
-        uidata.append({"_type": "input","value":address["first_name"],"type":"text","required":"true","placeholder":"First name*","placeholder-ar":"الاسم الأول*","_trans":"true","name":"first_name","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","value":address["last_name"],"type":"text","required":"true","placeholder":"Last name*","placeholder-ar":"اسم العائلة*","_trans":"true","name":"last_name","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","value":address["email"],"type":"text","required":"true","placeholder":"Email*","placeholder-ar":"بريد إلكتروني*","_trans":"true","name":"email","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","value":address["phone"],"type":"text","required":"true","placeholder":"Phone*","placeholder-ar":"هاتف*","_trans":"true","name":"phone","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","value":address["state"],"type":"text","required":"true","placeholder":"State*","placeholder-ar":"ولاية*","_trans":"true","name":"state","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","value":address["city"],"type":"text","required":"true","placeholder":"City*","placeholder-ar":"مدينة*","_trans":"true","name":"city","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","value":address["address"],"type":"text","required":"true","placeholder":"Street address*","placeholder-ar":"عنوان الشارع*","_trans":"true","name":"address","pclass":"ins-col-12","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","value":address["address_2"],"type":"text","placeholder":"Apartment, suits, etc (Optional)","placeholder-ar":"شقة، جناح، الخ (اختياري)","_trans":"true","name":"address_2","pclass":"ins-col-12","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","value":address["first_name"],"type":"text","required":"true","placeholder":"First name*","placeholder-ar":"الاسم الأول*","_trans":"true","name":"first_name","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","value":address["last_name"],"type":"text","required":"true","placeholder":"Last name*","placeholder-ar":"اسم العائلة*","_trans":"true","name":"last_name","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","value":address["email"],"type":"text","placeholder":"Email","placeholder-ar":"بريد إلكتروني","_trans":"true","name":"email","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","value":address["phone"],"type":"text","required":"true","placeholder":"Phone*","placeholder-ar":"هاتف*","_trans":"true","name":"phone","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "select","value":address["city"],"required":"true","fl_data":{"-":"","Cairo":"Cairo","Giza":"Giza"},"fl_data-ar":{"-":"","Cairo":"القاهرة","Giza":"الجيزة"},"_trans":"true","placeholder":"City*","placeholder-ar":" مدينة*","_trans":"true","name":"city","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","value":address["address"],"type":"text","required":"true","placeholder":"Street address*","placeholder-ar":"عنوان الشارع*","_trans":"true","name":"address","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","value":address["address_2"],"type":"text","placeholder":"Apartment, suits, etc (Optional)","placeholder-ar":"شقة، جناح، الخ (اختياري)","_trans":"true","name":"address_2","pclass":"ins-col-12 ins-m-col-12","style":"    background: white;border-radius:4px;"})
         uidata.append({"_type": "input","value":address["id"],"type":"text","placeholder":"ID","name":"address_id","pclass":"ins-hidden"})
         uidata.append({"end":"true"})
 
         uidata.append({"class":"ins-space-s"})
         uidata.append({"class":"ins-col-grow"})
-        uidata.append({"_data": "Update Address <img src='"+p+"style/right_arrow.svg'></img>","_data-ar":" تحديث العنوان","_trans":"true", "class": "ins-button-s ins-strong-m ins-flex-center ins-text-upper  -update-address-btn ins-gold-d ins-col-2","style":"height: 46px;    border: 1px solid var(--primary-d);"})
-        uidata.append({"_data": " Back","_data-ar":" رجوع","_trans":"true", "class": "ins-button-s ins-flex-center ins-strong-m ins-text-upper ins-gold-d-color   -back-address-btn  ins-col-2 ","style":"    height: 46px;"})
+        uidata.append({"_data": "Update Address <img src='"+p+"style/right_arrow.svg'></img>","_data-ar":" تحديث العنوان","_trans":"true", "class": "ins-button-s ins-strong-m ins-flex-center  ins-m-col-6 ins-text-upper  -update-address-btn ins-gold-d ins-col-2","style":"height: 46px;    border: 1px solid var(--primary-d);"})
+        uidata.append({"_data": " Back","_data-ar":" رجوع","_trans":"true", "class": "ins-button-s ins-flex-center ins-strong-m ins-text-upper ins-gold-d-color   -back-address-btn ins-m-col-6  ins-col-2 ","style":"    height: 46px;"})
         uidata.append({"end":"true"})
         return self.ins._ui._render(uidata)
 
@@ -363,20 +372,19 @@ class AppUsers(App):
         uidata = [{"start":"true","class":"ins-flex ins-col-12 "}]
         uidata.append({"start":"true","class":"ins-flex ins-col-12 -add-address-area"})
         uidata.append({"_data":"Add new Address","_data-ar":"إضافة عنوان جديد","_trans":"true","class":"ins-col-12 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"})
-        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"First name*","placeholder-ar":"الاسم الأول*","_trans":"true","name":"first_name","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Last name*","placeholder-ar":"اسم العائلة*","_trans":"true","name":"last_name","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Email*","placeholder-ar":"بريد إلكتروني*","_trans":"true","name":"email","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Phone*","placeholder-ar":"هاتف*","_trans":"true","name":"phone","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"State*","placeholder-ar":"ولاية*","_trans":"true","name":"state","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"City*","placeholder-ar":"مدينة*","_trans":"true","name":"city","pclass":"ins-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Street address*","placeholder-ar":"عنوان الشارع*","_trans":"true","name":"address","pclass":"ins-col-12","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","type":"text","placeholder":"Apartment, suits, etc (Optional)","placeholder-ar":"شقة، جناح، الخ (اختياري)","_trans":"true","name":"address_2","pclass":"ins-col-12","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"First name*","placeholder-ar":"الاسم الأول*","_trans":"true","name":"first_name","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Last name*","placeholder-ar":"اسم العائلة*","_trans":"true","name":"last_name","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","type":"text","placeholder":"Email","placeholder-ar":"بريد إلكتروني","_trans":"true","name":"email","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Phone*","placeholder-ar":"هاتف*","_trans":"true","name":"phone","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "select","required":"true","fl_data":{"-":"","Cairo":"Cairo","Giza":"Giza"},"fl_data-ar":{"-":"","Cairo":"القاهرة","Giza":"الجيزة"},"_trans":"true","placeholder":"City*","placeholder-ar":" مدينة*","_trans":"true","name":"city","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Street address*","placeholder-ar":"عنوان الشارع*","_trans":"true","name":"address","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","type":"text","placeholder":"Apartment, suits, etc (Optional)","placeholder-ar":"شقة، جناح، الخ (اختياري)","_trans":"true","name":"address_2","pclass":"ins-col-12 ins-m-col-12","style":"    background: white;border-radius:4px;"})
         uidata.append({"end":"true"})
 
         uidata.append({"class":"ins-space-s"})
         uidata.append({"class":"ins-col-grow"})
-        uidata.append({"_data": "Add Address <img src='"+p+"style/right_arrow.svg'></img>","_data-ar":"إضافة عنوان","_trans":"true", "class": "ins-button-s ins-strong-m ins-flex-center ins-text-upper  -add-address-btn ins-gold-d ins-col-2","style":"height: 46px;    border: 1px solid var(--primary-d);"})
-        uidata.append({"_data": " Back","_data-ar":"رجوع ","_trans":"true", "class": "ins-button-s ins-flex-center ins-strong-m ins-text-upper ins-gold-d-color   -back-address-btn  ins-col-2 ","style":"    height: 46px;"})
+        uidata.append({"_data": "Add Address <img src='"+p+"style/right_arrow.svg'></img>","_data-ar":"إضافة عنوان","_trans":"true", "class": "ins-button-s ins-strong-m ins-flex-center ins-text-upper ins-m-col-6  -add-address-btn ins-gold-d ins-col-2","style":"height: 46px;    border: 1px solid var(--primary-d);"})
+        uidata.append({"_data": " Back","_data-ar":"رجوع ","_trans":"true", "class": "ins-button-s ins-flex-center ins-strong-m ins-text-upper ins-gold-d-color   -back-address-btn ins-m-col-6  ins-col-2 ","style":"    height: 46px;"})
         uidata.append({"end":"true"})
         return self.ins._ui._render(uidata)
 

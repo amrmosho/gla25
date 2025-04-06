@@ -137,7 +137,7 @@ class AppOrder(App):
       address = ""
       if data["delivery_type"] == "delivery":
           user_address = self.ins._db._get_row("gla_user_address", "*", f"id='{data['fk_address_id']}'", update_lang=True)
-          address = f"{user_address['address']}, {user_address['city']}, {user_address['state']}"
+          address = f"{user_address['address']}, {user_address['city']}"
       else:
           store_address = self.ins._db._get_row("gla_address", "address,kit_lang", f"id='{data['fk_address_id']}'", update_lang=True)
           address = f"{store_address['address']}"

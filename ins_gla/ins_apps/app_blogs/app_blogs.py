@@ -55,12 +55,12 @@ class AppBlogs(App):
         data = self.ins._db._get_data("gla_blog", "*"," fk_blog_category_id <>'18'",update_lang=True)
         p = "/ins_web/ins_uploads/"
         uidata = [{"start": "true", "class": "ins-flex ",
-                   "style": "background:white;height:124px;position: relative;    border-bottom: 1px solid var(--grey-l); "}]
+                   "style": "background:white;height:124px;position: relative;    border-bottom: 1px solid var(--grey-l);height:auto; "}]
         uidata += self.header_ui()
         uidata.append({"end": "true"})
 
         uidata.append(
-            {"start": "true", "class": "ins-col-12 gla-container ins-padding-2xl ins-flex ins-gap-l"})
+            {"start": "true", "class": "ins-col-12 gla-container ins-padding-2xl ins-flex ins-gap-l ins-m-col-12"})
 
         for d in data:
             st = "width:316px;margin-bottom: 32px;"
@@ -68,7 +68,7 @@ class AppBlogs(App):
             turl = d["link"]
             blog = [
 
-                {"_type": "a", "href": burl,"start": "true", "class": "ins-flex   pro-blog-block ", "style": st},
+                {"_type": "a", "href": burl,"start": "true", "class": "ins-flex   pro-blog-block ins-m-col-12", "style": st},
                 { "_type": "a","src": p + d["image"],"loading":"lazy", "_type": "img","href": turl, "target": "_blank",},
                 {"_data": d["title"], "class": "ins-col-12 ins-title-m   ins-grey-color"},
 
@@ -87,7 +87,7 @@ class AppBlogs(App):
         p = "/ins_web/ins_uploads/"
 
         uidata = [{"start": "true", "class": "ins-flex ",
-                   "style": "background:white;height:124px;position: relative;    border-bottom: 1px solid var(--grey-l); "}]
+                   "style": "background:white;height:124px;position: relative;    border-bottom: 1px solid var(--grey-l);height:auto; "}]
         uidata += self.header_ui()
         uidata.append({"end": "true"})
         uidata.append(
@@ -118,6 +118,7 @@ class AppBlogs(App):
 
     def out(self):
         rq = self.ins._server._req()
+        self.app._include("style.css")
 
         if "mode" in rq and rq["mode"] == "blog":
             return self.blog_ui(rq)
