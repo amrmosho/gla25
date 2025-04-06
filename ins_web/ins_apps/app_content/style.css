@@ -18,4 +18,8 @@
     .-first-cont {
         margin-top: 50px;
     }
+    .-faq-area {
+        line-height: 70px;
+        font-size: 14px;
+    }
 }

@@ -277,30 +277,10 @@ ins(".-send-email-veri-btn")._on("click", (o) => {
         })
     } else {
         ins("_send_email_otp")._ajax._app({ "email": email }, (d) => {
-            ins("An OTP sent to your email address " + email)._ui._notification()
+            ins("An email with activation link sent to your email address " + email)._ui._notification()
         });
     }
 }, true);
-
-ins(".-update-email-btn")._on("click", (o) => {
-    var otp = ins(".-update-verification-inpt")._getValue()
-    if (otp == "") {
-        ins("Please enter a verification code")._ui._notification({ "class": "ins-danger" })
-    } else {
-        ins("_update_email")._ajax._app({ "otp": otp }, (d) => {
-            var jdata = JSON.parse(d)
-            if (jdata["status"] == "1") {
-                ins(jdata["msg"])._ui._notification()
-                ins(".-verified-area")._setHTML(jdata["ui"])
-                ins(".-update-verification-inpt")._setValue("")
-
-            } else {
-                ins(jdata["msg"])._ui._notification({ "class": "ins-danger" })
-            }
-        });
-    }
-}, true);
-
 
 function actions(ds) {
     if (ds["p"] != "") {

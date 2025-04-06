@@ -141,11 +141,10 @@ class AppUsers(App):
     def _send_email_otp(self):
             rq = self.ins._server._req()
             udata = self.user._check()
-            otp = self.user._create_otp()
-            if otp:
-                self.ins._db._update("kit_user",{"otp":otp},f"id='{udata['id']}'")
+            if udata:
                 self.ins._server._set_session("temp_mail",{"email":rq["email"]})
-                lang = {"otp":str(otp),"title":udata["title"]}
+                link = self.user.generate_token(udata["id"],rq["email"], udata["mobile"], udata["password"])
+                lang = {"link":link,"title":udata["title"]}
                 self.ins._email.send_email(lang,rq["email"],1)
             return "1"
 

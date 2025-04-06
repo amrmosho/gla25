@@ -996,6 +996,20 @@ class AppCheckout(App):
                "kit_created":self.ins._date._date_time(),
             }
             self.ins._db._insert("gla_order_item",order_item)
+         lang = {
+            "id":str(oid),
+            "title":sdata["title"],
+            "link":f"http://elgalla.insya.co/puser/order/{oid}",
+                 }
+         self.ins._sms.send_sms(lang,2,[sdata["mobile"]])
+
+         edata = self.ins._db._get_row("kit_user","email,email_status",f"id='{sdata['id']}'")
+
+         
+         if edata["email"] != "" and edata["email_status"] == "verified":
+            self.ins._email.send_email(lang,edata["email"],3)
+         
+         
          return r
     
  

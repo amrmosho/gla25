@@ -1,27 +1,22 @@
-import json
 from ins_kit.ins_parent import ins_parent
 import uuid
 import requests
-import os
-import shutil
-from ins_kit.ins_parent import ins_parent
 
 class SMS(ins_parent):
     
 
-    def get_content(self,name,lang):
-
-        temp_data = self.ins._data._get_options("4")["content"]
-        sms_id = json.loads(temp_data)[name]
-        data = self.ins._db._get_row("kit_sms_template","*",f"id='{sms_id}'",update_lang=True)
-        message = self.ins._langs._update(data["content"],lang)
-
-        return message
 
         
 
-    def send_sms(self, temp,otp, phone_numbers):
-        message = self.get_content(temp,{"otp":f"{otp}"})
+    def send_sms(self, lang,temp, phone_numbers):
+
+        if isinstance(temp, int):
+            data = self.ins._db._get_row("kit_sms_template","*",f"id='{temp}'",update_lang=True)
+            bmessage = data["content"]
+        else:
+            bmessage = temp
+
+        message = self.ins._langs._update(bmessage,lang)
 
         url = "https://app.community-ads.com/SendSMSService/SMSSender.asmx/SendSMS"
         payload = {
@@ -29,7 +24,7 @@ class SMS(ins_parent):
             "Password": "{[[9u+9CgA",
             "SMSText": message,
             "SMSLang": "e",
-            "SMSSender": "El Galla",
+            "SMSSender": "ELGALLAGOLD",
             "SMSReceiver": phone_numbers,
             "SMSID": str(uuid.uuid4()),
             "CampaignID": ""
@@ -45,9 +40,18 @@ class SMS(ins_parent):
         except requests.exceptions.RequestException as e:
             return {"error": str(e)}
 
-    def send_sms2(self, temp,otp, phone_numbers):
-        message = self.get_content(temp,{"otp":f"{otp}"})
 
+
+
+
+    def send_sms2(self, lang,temp, phone_numbers):
+        if isinstance(temp, int):
+            data = self.ins._db._get_row("kit_sms_template","*",f"id='{temp}'",update_lang=True)
+            bmessage = data["content"]
+        else:
+            bmessage = temp
+
+        message = self.ins._langs._update(bmessage,lang)
         if not phone_numbers or not message:
             return {"error": "Message and phone numbers are required."}
 

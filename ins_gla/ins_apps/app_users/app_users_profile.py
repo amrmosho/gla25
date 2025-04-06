@@ -60,13 +60,9 @@ class AppUsersProfile(App):
         uidata+= [   
                         {"end": "true"},
 
-                        {"_type": "input", "title": "Verification Code","title-ar":"رمز التحقق","_trans":"true","placeholder-ar":"أدخل رمز التحقق", "placeholder": "Enter Verification Code", "type": "text", "name": "verification", "class": "-update-verification-inpt", "pclass": "ins-col-12"},
 
              {"class": "ins-line ins-col-12"},
             
-            {"start": "true", "class": "ins-col-12 ins-flex-end "},
-            {"_data": "Verify","_data-ar":" تحقق","_trans":"true", "class": "ins-button-m ins-gold-d ins-col-2 ins-flex-center -update-email-btn"},
-            {"end": "true"},
             {"end": "true"}]
         
         return uidata
