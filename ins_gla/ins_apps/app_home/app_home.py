@@ -174,7 +174,7 @@ class AppHome(App):
         return self.ins._ui._render(uidata)
 
     def month(self):
-        sql = "SELECT   DATE_FORMAT(gla_order.kit_created, '%m-%d') AS order_date,    COUNT(gla_order.id) AS total_orders,      SUM(gla_order.total) AS total_spent  FROM       gla_order  WHERE       gla_order.kit_deleted = 0      AND gla_order.kit_disabled = 0  GROUP BY       DATE(gla_order.kit_created)  ORDER BY       order_date;"
+        sql = "SELECT   DATE_FORMAT(gla_order.kit_created, '%m-%d') AS order_date,    COUNT(gla_order.id) AS total_orders,      SUM(gla_order.total) AS total_spent  FROM       gla_order  WHERE  MONTH(gla_order.kit_created) = MONTH(CURRENT_DATE)  and     gla_order.kit_deleted = 0      AND gla_order.kit_disabled = 0  GROUP BY       DATE(gla_order.kit_created)  ORDER BY       order_date;"
         data = self.ins._db._get_query(sql)
         e = [
             ['Date', 'Total Spent', {"role": 'annotation'}],
