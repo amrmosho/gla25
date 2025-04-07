@@ -39,7 +39,7 @@
 
             "fl_type": "db",
             "fl_table": "kit_menu",
-            "fl_start": "0,--",
+            "fl_start": "0,---------------",
             "view": "text",
             "class": "ins-col-2"
         },

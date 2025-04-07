@@ -9,8 +9,10 @@ body {
     color: var(--text);
 }
 
-a {
+a,
+.ins-link {
     color: var(--link);
+    --color: var(--link);
     cursor: pointer;
     text-decoration: none;
 }

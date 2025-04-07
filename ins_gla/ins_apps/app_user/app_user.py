@@ -10,7 +10,7 @@ class AppUser(App):
 
         ops = self.ins._apps._crud_ops
 
-       
+   
        
         def func(data: dict):
             if "password" in data:

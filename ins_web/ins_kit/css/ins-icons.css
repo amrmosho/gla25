@@ -3078,3 +3078,18 @@
     -webkit-mask-image: url(/ins_web/ins_images/icons/zoom.svg);
     mask-image: url(/ins_web/ins_images/icons/zoom.svg);
 }
+
+.ins-icons-copy::before {
+    -webkit-mask-image: url(/ins_web/ins_images/icons/ins_icons_copy.svg);
+    mask-image: url(/ins_web/ins_images/icons/ins_icons_copy.svg);
+}
+
+.ins-icons-cut::before {
+    -webkit-mask-image: url(/ins_web/ins_images/icons/ins_icons_cut.svg);
+    mask-image: url(/ins_web/ins_images/icons/ins_icons_cut.svg);
+}
+
+.ins-icons-paste::before {
+    -webkit-mask-image: url(/ins_web/ins_images/icons/ins_icons_past.svg);
+    mask-image: url(/ins_web/ins_images/icons/ins_icons_paste.svg);
+}
