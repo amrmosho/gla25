@@ -8,6 +8,7 @@
 
 
 
+
     "options": [{
         "_type": "input",
         "title": "content",
@@ -81,6 +82,7 @@
     "list_filter": [{
         "name": "title",
         "title": "menu title *",
+        "operator": "equal",
         "_type": "input",
         "_info": " search in <b>Title</b> by <b>@(value)</b> ",
         "type": "text",

@@ -628,6 +628,9 @@ class AppUiGuideIcons(App):
         r+= self.icont("ins-icons-chrome")
         r+= self.icont("ins-icons-chromecast")
         r+= self.icont("ins-icons-play")
+        r+= self.icont("ins-icons-copy")
+        r+= self.icont("ins-icons-cut")
+        r+= self.icont("ins-icons-paste")
 
 
 

@@ -13,6 +13,8 @@ class AppCrudOps:
 
         self._url = ""
         self._pros_name = ""
+        self._list_query = ""
+        self._list_where = ""
 
         self._list_limit = 12
         self._list_data = []
@@ -80,34 +82,28 @@ class APPCRUD(ins_parent):
                 cl = self.ins._server._get("inscl")
                 if "crud" in ops._list_settings and cl in ops._list_settings["crud"]:
                     actclt = ops._list_settings["crud"].get(cl)
-            elif     "crud" in ops._list_settings:
-               for k,v in  ops._list_settings["crud"].items():
-                   if  "insact" in v and v["insact"] == "1":
+            elif "crud" in ops._list_settings:
+                for k, v in ops._list_settings["crud"].items():
+                    if "insact" in v and v["insact"] == "1":
                         actclt = ops._list_settings["crud"].get(k)
-                        self.ins._server._get_add( "inscl" ,k )
-                   
-                    
-                    
-            jdata_names =["list_data" ,"form_data","list_filter","ai"]
+                        self.ins._server._get_add("inscl", k)
+
+            jdata_names = ["list_data", "form_data", "list_filter", "ai"]
             for p in properties:
                 if p in actclt:
-                    if p  in jdata_names:
+                    if p in jdata_names:
                         properties[p] = self.ins._json._decode(actclt[p])
                     else:
                         properties[p] = actclt[p]
-
-
-
 
             if ops._user_settings != False and "pg_count" in ops._user_settings:
                 ops._list_limit = int(ops._user_settings["pg_count"])
             elif "list_limit" in properties:
                 ops._list_limit = int(properties["list_limit"])
-                
-                
+
             ls = ["list_data", "table", "list_filter", "form_data",
-                  "crud_setting", "url", "url", "pros_name", "ai"]
-            
+                  "crud_setting", "url", "url", "pros_name", "ai", "list_query", "list_where"]
+
             for l in ls:
                 if l in properties:
                     setattr(ops, f"_{l}", properties[l])

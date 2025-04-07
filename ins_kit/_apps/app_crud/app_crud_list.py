@@ -130,8 +130,23 @@ class APPCRUDList(appCrudParent):
         else:
             ord += " DESC "
 
-        sql = f"select {custom} from {
-            self.ops._table} where {f} order by {ord}"
+
+        if self.ops._list_where != "":
+            f+=" and " +self.ops._list_where
+    
+        
+       
+            
+            
+
+        if self.ops._list_query =="":
+            sql = f"select {custom} from {
+                self.ops._table} where {f} order by {ord}"
+        else:
+            sql =self.ins._langs._update(self.ops._list_query  ,{"where":f,"order":ord}) 
+            
+             
+        
 
         if no_limit == False:
             li = ((self.__page - 1) * self.ops._list_limit)
