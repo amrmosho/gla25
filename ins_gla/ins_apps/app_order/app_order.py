@@ -152,6 +152,7 @@ class AppOrder(App):
 
       uidata = [
          {"start":"true","class":"ins-col-12 ins-flex "}, 
+{"_type": "input", "type": "upload", "title": "Upload image", "name": "_unname", "placeholder": "_add placeholder hear", "pclass": "ins-col-12 ", "required": "true", "_dir": "test", "_exts": "image/png"},
           {"_data": f"Order ID({rq['tid']} /2025)", "_data-ar": f"طلب رقم ({rq['tid']} /2025) ",
               "_trans": "true", "class": "ins-col-11 ins-strong-m ins-title-s"},
               {"class":"ins-col-1 _a_red lni lni-xmark ins-view-close ins-font-xl"},
