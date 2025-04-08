@@ -29,5 +29,5 @@ app.register_blueprint(ajax_bp, url_prefix=f"/ins_ajax")
 
 
 if __name__ == '__main__':
-        app.run(debug=True)
+            app.run(debug=True)
  
