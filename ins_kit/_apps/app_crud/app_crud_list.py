@@ -585,7 +585,7 @@ class APPCRUDList(appCrudParent):
             hr["class"] = h["class"]
             header.append(hr)
       # add Actions Header Label
-        header.append({"_data": "actions", "class": "ins-col-1 ins-no-print"})
+        header.append({"_data": "actions", "class": "ins-col-1 ins-no-print _actions"})
         # add Selector all ui to Header
         header[0]["_data"] = f"<span class='ins-raw-selector-all ins-no-print' ></span>{
             header[0]["_data"]}"
@@ -636,27 +636,24 @@ class APPCRUDList(appCrudParent):
             return actions._copy(update)
         if self.ins._server._get("mode") == "curd_list_body":
             return self._body()
+        
+        
         if self.ins._server._get("mode") == "curd_export":
             f = self.__filter_to_query()
-            
-            
             exdata =self.__get_data(f) 
-            
             if self.ops._list_export != None:
                 exdata = self.ops._list_export(exdata)
-                
             return actions._export(exdata, self.ops._table)
-        
-        
-        
         if self.ins._server._get("mode") == "curd_exportall":
             f = self.__filter_to_query()
             
             exdata =self.__get_data(f, no_limit=True) 
             if self.ops._list_export_all!= None:
                 exdata = self.ops._list_export_all(exdata)
-                
-            
             return actions._export(exdata, self.ops._table)
+        
+
+
+
         l = self._list()
         return l
