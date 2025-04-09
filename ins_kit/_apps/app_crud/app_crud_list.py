@@ -160,7 +160,14 @@ class APPCRUDList(appCrudParent):
         return data
 
     def _actions(self, id):
-        edit_url = self.ins._server._url(_set={"mode": "edit", "id": id},remove= ["ids" ,"insrender"])
+        
+        
+        
+        edit_url = self.ins._server._url(_set={"mode": "edit", "id": id},remove= ["ids" ,"insrender","page"])
+        
+        
+        
+        
         more_menu = [
             {"start": True, "class": "ins-menu ins-end"},
             {"style": "transform: rotate(90deg);",
@@ -266,7 +273,7 @@ class APPCRUDList(appCrudParent):
                 _data[k] = t
 
             lss = {"_type": "select", "name": "lss", "value": _value, 
-               "class": "app-crud-list-name-slc", "_data": _data}
+               "class": "app-crud-list-name-slc", "fl_data": _data}
 
         header = [
             {"class": "ins-col-grow  ins-padding-m  ins-flex-center", "_data": [
@@ -444,6 +451,8 @@ class APPCRUDList(appCrudParent):
     def _pgs_bar(self):
         pcount = self.__list_count / self.ops._list_limit
         pcount = math.ceil(pcount)
+        
+        
         n = int(self.__page)+1
         e = int(pcount)
         next_url = self.ins._server._url({"page": str(n)})
@@ -461,7 +470,7 @@ class APPCRUDList(appCrudParent):
                 "data-url": start_url,
 
                 "class": "ins-text-center app-crud-list-page-slct  ins-form-input",
-                "value": str(self.__page), "_data": ps,        "style": "height: 10px;min-height: 30px; line-height: 30px !important;width:80px"
+                "value": str(self.__page), "fl_data": ps,        "style": "height: 10px;min-height: 30px; line-height: 30px !important;width:80px"
                 }
 
         nui = {"_type": "a",    "href": next_url, "class": "lni lni-chevron-left ins-text-center",
@@ -497,7 +506,7 @@ class APPCRUDList(appCrudParent):
             {"_data": " ", "style": "width:25px"},
             {"_type": "select", "class": "ins-text-center app-crud-list-page-count-slct   ins-form-input",
 
-             "value": str(self.ops._list_limit), "_data": {"6": "6", "12": "12", "24": "24", "50": "50", "70": "70", "100": "100", "120": "120"},
+             "value": str(self.ops._list_limit), "fl_data": {"6": "6", "12": "12", "24": "24", "50": "50", "70": "70", "100": "100", "120": "120"},
 
              "style": "height: 10px;min-height: 30px; line-height: 30px !important;width:80px"
 
@@ -629,9 +638,25 @@ class APPCRUDList(appCrudParent):
             return self._body()
         if self.ins._server._get("mode") == "curd_export":
             f = self.__filter_to_query()
-            return actions._export(self.__get_data(f), self.ops._table)
+            
+            
+            exdata =self.__get_data(f) 
+            
+            if self.ops._list_export != None:
+                exdata = self.ops._list_export(exdata)
+                
+            return actions._export(exdata, self.ops._table)
+        
+        
+        
         if self.ins._server._get("mode") == "curd_exportall":
             f = self.__filter_to_query()
-            return actions._export(self.__get_data(f, no_limit=True), self.ops._table)
+            
+            exdata =self.__get_data(f, no_limit=True) 
+            if self.ops._list_export_all!= None:
+                exdata = self.ops._list_export_all(exdata)
+                
+            
+            return actions._export(exdata, self.ops._table)
         l = self._list()
         return l

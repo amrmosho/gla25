@@ -209,10 +209,6 @@ body {
     border-radius: 6px;
 }
 
-.-header-searh-group {
-    padding-right: 160px !important;
-}
-
 .ins-table-data .ins-tr:hover .ins-td {
     background-color: var(--ins-color-2);
 }

@@ -68,5 +68,17 @@ class AppMcontent(App):
 
         ]
 
+
+        def ex(data):
+           
+            for r in data:
+               r["content"] ="xxxxxxx"
+               del r["kit_lang"]
+               
+            return data
+            
+
+
+        ops._list_export =ex
         r = self.ins._apps._crud(ops)
         return r
