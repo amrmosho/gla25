@@ -47,8 +47,12 @@
             "title": "Content",
             "title-ar": "المحتوى",
             "_trans": "true",
-            "_type": "textarea",
+            "_type": "input",
+            "_lang": "true",
+            "_table": "kit_email_template",
+            "type": "textarea",
             "required": "true",
+            "style": "height:300px",
             "pclass": "ins-col-12"
         }
 
