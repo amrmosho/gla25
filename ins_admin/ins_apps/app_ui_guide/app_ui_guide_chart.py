@@ -11,6 +11,9 @@ class AppUiGuideCharts(App):
 
     def org(self, colors):
 
+
+
+        
         uidata = []
 
         e = [

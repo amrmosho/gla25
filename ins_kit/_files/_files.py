@@ -1,5 +1,7 @@
 import os
 import shutil
+
+from flask import Response
 from ins_kit.ins_parent import ins_parent
 
 
@@ -34,6 +36,7 @@ class Files(ins_parent):
                 return self.ins._ui.tag(ui)
             else:
                 self._console(f"Error Included file: {file_path}")
+                return ""
 
         except Exception as e:
             self._console(f"Error Included file: {e}")
@@ -121,3 +124,22 @@ class Files(ins_parent):
 
     def _check_folder(self, file_path):
         os.makedirs(os.path.dirname(file_path), exist_ok=True)
+        
+    def _csv_export(self,data ,name ="export_file"):
+        csv_data = ""
+
+        sp = ""
+        for k in data[0]:
+            csv_data += sp + str(k)
+            sp = ","
+        csv_data += "\n"
+
+        for r in data:
+            sp = ""
+            for k in r:
+                csv_data += sp + str(r[k])
+                sp = ","
+            csv_data += "\n"
+
+        response = Response(csv_data, content_type="text/csv")
+        response.headers["Content-Disposition"] = f"attachment; filename={name}.csv"

@@ -16,13 +16,17 @@ class AppCrudOps:
         self._list_query = ""
         self._list_where = ""
 
+
         self._list_limit = 12
         self._list_data = []
         self._list_filter = []
         self._form_data = []
         self._user_settings = {}
         self._ai = {}
-
+        
+        
+        self._list_export : function = None
+        self._list_export_all : function = None
         self._form_befor_insert: function = None
         self._form_after_insert: function = None
         self._form_befor_update: function = None
