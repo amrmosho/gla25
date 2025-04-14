@@ -14,6 +14,7 @@ class AppCart(App):
     def _cart_step_summary(self):
         sedata=self.ins._server._get_session(self.session_name)
         subtotal = 0
+        shipping = self.ins._db._get_row("gla_settings","shipping_fees","id=1")["shipping_fees"]
         for k,v in sedata.items():
          subtotal+= float(v["price"]) * float(v["count"])
         total = subtotal 
@@ -24,11 +25,11 @@ class AppCart(App):
         uidata.append({"_data": "Subtotal","_data-ar":"المجموع الفرعي","_trans":"true", "class": "ins-col-6 ins-m-col-6  ins-title-xs  ins-grey-color ins-strong-m"})
         uidata.append({"_data": str(subtotal),"data-value" : subtotal,"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-m-col-6 ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end  -subtotal-text"})
         uidata.append({"_data": "Shipping","_data-ar":"شحن","_trans":"true", "class": "ins-col-6  ins-m-col-6 ins-title-xs  ins-grey-color ins-strong-m"})
-        if total > 20000:
+        if total > 200000:
           uidata.append({"_data": "Free","_data-ar": "مجاني","_trans":"true","data-value" : 0, "class": "ins-col-6  ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end  ins-m-col-6 -shipping-text"})
         else:
-          uidata.append({"_data": "200","data-value" : 200,"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",  "class": "ins-col-6  ins-m-col-6 ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end  -shipping-text"})
-          total +=200
+          uidata.append({"_data": str(shipping),"data-value" : int(shipping),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",  "class": "ins-col-6  ins-m-col-6 ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end  -shipping-text"})
+          total +=int(shipping)
         uidata.append({ "class": "ins-line ins-col-12"})
         uidata.append({"_data": "Total","_data-ar":"المجموع","_trans":"true", "class": "ins-col-6  ins-m-col-6 ins-title-xs  ins-grey-color ins-strong-m"})
         uidata.append({"_data":str(total), "_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه","class": "ins-col-6  ins-m-col-6 ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end  -total-text"})

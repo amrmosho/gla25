@@ -57,6 +57,7 @@ class APPCRUDActions(appCrudParent):
                   ]
 
 
+
             if len(a) >1:
                 r += [
                     {"_type": "chart", "type": "ddd", "data": d, "style": "height:400px",

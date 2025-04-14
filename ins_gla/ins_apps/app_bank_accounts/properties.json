@@ -1,0 +1,124 @@
+{
+    "table": "gla_bank_accounts",
+    "form_data": [{
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card ins-padding-m"
+        },
+        {
+            "name": "title",
+            "title": "Bank Name",
+            "title-ar": "اسم البنك",
+            "_trans": "true",
+            "lang": "true",
+            "_type": "input",
+            "_lang": "true",
+            "_table": "gla_bank_accounts",
+            "type": "text",
+            "required": "true",
+            "pclass": "ins-col-6"
+        }, {
+            "name": "account_number",
+            "title": "account number",
+            "title-ar": "رقم الحساب",
+            "_trans": "true",
+            "lang": "true",
+            "_type": "input",
+            "type": "text",
+            "required": "true",
+            "pclass": "ins-col-6"
+        }, {
+            "name": "swift",
+            "title": "swift",
+            "title-ar": "السويفت",
+            "_trans": "true",
+            "lang": "true",
+            "_type": "input",
+            "type": "text",
+            "required": "true",
+            "pclass": "ins-col-6"
+        }, {
+            "name": "iban",
+            "title": "iban",
+            "title-ar": "رقم الايبان",
+            "_trans": "true",
+            "lang": "true",
+            "_type": "input",
+            "type": "text",
+            "required": "true",
+            "pclass": "ins-col-6"
+        }, {
+            "name": "branch",
+            "title": "branch",
+            "title-ar": "الفرع",
+            "_trans": "true",
+            "lang": "true",
+            "_type": "input",
+            "type": "text",
+            "_lang": "true",
+            "_table": "gla_bank_accounts",
+            "required": "true",
+            "pclass": "ins-col-4"
+        }, {
+            "name": "company_name",
+            "title": "company name",
+            "title-ar": "اسم الشركة",
+            "_trans": "true",
+            "lang": "true",
+            "_type": "input",
+            "type": "text",
+            "_lang": "true",
+            "_table": "gla_bank_accounts",
+            "required": "true",
+            "pclass": "ins-col-4"
+        }, {
+            "name": "kit_order",
+            "title": "Order",
+            "title-ar": "الترتيب",
+            "_trans": "true",
+            "lang": "true",
+            "_type": "input",
+            "type": "text",
+            "pclass": "ins-col-4"
+        }, {
+            "name": "logo",
+            "title": "Bank logo",
+            "_type": "input",
+            "title-ar": "لوجو البنك",
+            "_trans": "true",
+            "_dir": "images/bank",
+            "_exts": "image/png",
+            "type": "upload",
+            "required": "true",
+            "pclass": "ins-col-12"
+        }, {
+            "end": "True"
+        }
+    ],
+    "list_data": [{
+        "_data": "ins_gla.ins_apps.app_bank_accounts._image",
+        "title-ar": "لوجو البنك",
+        "title": "Bank Logo",
+        "_trans": "true",
+        "_type": "method",
+        "class": "ins-col-2 ins-col-grow ins-flex-start"
+    }, {
+        "name": "title",
+        "title": "Bank Name",
+        "title-ar": "اسم البنك",
+        "_trans": "true",
+        "_view": "text",
+        "class": "ins-col-3"
+    }],
+    "list_filter": [{
+        "name": "title",
+        "title": "Search Title",
+        "title-ar": "البحث بواسطة العنوان",
+        "_trans": "true",
+        "_type": "input",
+        "type": "text",
+        "_info": "Search in <b>Title</b> by <b>@(value)</b>",
+        "_info-ar": "ابحث في <b>العنوان</b> بواسطة <b>@(value)</b>",
+        "main": "true",
+        "pclass": "ins-col-12"
+    }]
+}

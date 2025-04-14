@@ -76,6 +76,35 @@ class Temp(ins_parent):
         if data != None:
             self.header_end += data
 
+    
+    def _data_social_tags(self,data):
+        
+        s = f"""
+        <meta property="og:site_name" content="ELGALLA GOLD">
+        <meta property="og:url"                content="https://elgalla.insya.co/{data["url"]}" />
+        <meta property="og:type"               content="article" />
+        <meta property="og:title"              content="{data['title']}" />
+        <meta property="og:description"        content="{data['des']}" />
+        <meta property="og:image"              content="https://elgalla.insya.co/{data["img"]}" />   
+        
+        
+
+        <meta name="site_name" content="ELGALLA GOLD">
+        <meta name="url"                content="https://elgalla.insya.co/{data["url"]}" />
+        <meta name="type"               content="article" />
+        <meta name="description"        content="{data['des']}" />
+        <meta name="image"              content="https://elgalla.insya.co/{data["img"]}" />   
+        <meta name="keywords" content="GOLD , {data['title']}, ELGALLA ">
+
+        <link rel="canonical" href="https://elgalla.insya.co/{data["url"]}" />
+
+             
+             
+        """
+        self._add_to_header(s)
+   
+   
+
     def _update(self):
         pass
 

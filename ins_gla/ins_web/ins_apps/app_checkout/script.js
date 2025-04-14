@@ -11,7 +11,9 @@ ins(".-update-address-btn")._on("click", (o) => {
     ins(".-update-address-area")._data._submit(function(data) {
         ins("_update_address")._ajax._app(data, (d) => {
             ins(".-addresses-area")._setHTML(d);
-            ins("Address updated successfully")._ui._notification()
+            ins("address_updated_successfully")._data._trans((text) => {
+                ins(text)._ui._notification()
+            })
         })
     })
 }, true)
@@ -21,6 +23,8 @@ ins(".-update-address-btn")._on("click", (o) => {
 ins(".-add-address")._on("click", (o) => {
     ins("_add_address_ui")._ajax._app({}, (data) => {
         ins(".-addresses-area")._setHTML(data);
+        ins()._ui._update()
+
     })
 })
 
@@ -28,43 +32,57 @@ ins(".-add-address")._on("click", (o) => {
 ins(".-update-address")._on("click", (o) => {
     ins("_update_address_ui")._ajax._app(o._getData(), (data) => {
         ins(".-addresses-area")._setHTML(data);
+        ins()._ui._update()
+
     })
 })
 
 ins(".-remove-address-btn")._on("click", (o) => {
     var p = o._parents(".-address-cont");
-    if (confirm("Are you sure you want to remove this address?")) {
-        ins("_remove_address")._ajax._app(o._getData(), (data) => {
-            console.log(data)
-            ins("Address removed!")._ui._notification()
-            p._remove()
-        })
-    }
+    ins("remove_address_confirm")._data._trans((text) => {
+        if (confirm(text)) {
+            ins("_remove_address")._ajax._app(o._getData(), (data) => {
+                ins("address_removed")._data._trans((text) => {
+                    ins(text)._ui._notification()
+                })
+
+                p._remove()
+
+
+            })
+        }
+    })
 }, true)
 
 ins(".-remove-item-cart-small-btn")._on("click", (o) => {
     var ops = o._getData()
     var p = o._parent(".-item-card");
-    if (confirm("Are you sure tou want to remove this item from cart?")) {
-        ins("_remove_item_cart_small")._ajax._app(ops, (data) => {
-            var jdata = JSON.parse(data)
-            if (jdata["status"] == "1") {
-                ins("._app_checkout")._setHTML(jdata["ui"])
-            }
-            p._remove()
-            ins(".-items-area")._setHTML(jdata["ui"])
-
-            ins("Item removed!")._ui._notification()
-            setTimeout(() => {
-                if (jdata["count"] > 0) {
-                    ins(".-cart-counter")._setHTML(jdata["count"])
-                } else {
-                    ins(".-cart-counter")._addClass("ins-hidden")
-
+    ins("remove_item_confirm")._data._trans((text) => {
+        if (confirm(text)) {
+            ins("_remove_item_cart_small")._ajax._app(ops, (data) => {
+                var jdata = JSON.parse(data)
+                if (jdata["status"] == "1") {
+                    ins("._app_checkout")._setHTML(jdata["ui"])
                 }
-            }, 100)
-        })
-    }
+                p._remove()
+                ins(".-items-area")._setHTML(jdata["ui"])
+                ins("item_removed")._data._trans((text) => {
+                    ins(text)._ui._notification()
+                })
+                setTimeout(() => {
+                    if (jdata["count"] > 0) {
+                        ins(".-cart-counter")._setHTML(jdata["count"])
+                    } else {
+                        ins(".-cart-counter")._addClass("ins-hidden")
+
+                    }
+                }, 100)
+            })
+        }
+    })
+
+
+
 }, true)
 
 
@@ -115,7 +133,9 @@ function price_check(o) {
 ins(".-payment-btn")._on("click", (o) => {
     ins("_check_address")._ajax._app(o._getData(), (data) => {
         if (data == "-1") {
-            ins("Please select address")._ui._notification({ "class": "ins-danger" })
+            ins("please_select_address")._data._trans((text) => {
+                ins(text)._ui._notification({ "class": "ins-danger" })
+            })
         } else {
             price_check(o);
         }
@@ -163,17 +183,26 @@ ins(".-back-address-btn")._on("click", (o) => {
 function _login_m() {
     var mobile = ins(".-login-mobile-inpt")._getValue();
     if (mobile == "" || mobile == null) {
-        ins("Mobile number is required")._ui._notification({ "class": "ins-danger" })
+        ins("mobile_number_is_required")._data._trans((text) => {
+            ins(text)._ui._notification({ "class": "ins-danger" })
+        })
         return false;
     } else if (mobile.length < 10) {
-        ins("Invalid mobile number")._ui._notification({ "class": "ins-danger" })
+        ins("invalid_mobile_numberd")._data._trans((text) => {
+            ins(text)._ui._notification({ "class": "ins-danger" })
+        })
         return false;
     }
     ins("_login_mobile")._ajax._app({ "mobile": mobile }, (d) => {
         if (d == "-1") {
-            ins("Invalid mobile number")._ui._notification({ "class": "ins-danger" })
+            ins("invalid_mobile_numberd")._data._trans((text) => {
+                ins(text)._ui._notification({ "class": "ins-danger" })
+            })
         } else {
-            ins("OTP sent successfully")._ui._notification()
+            ins("otp_sent_successfully")._data._trans((text) => {
+                ins(text)._ui._notification()
+            })
+
             ins(".-login-area")._setHTML(d)
             resend_otp();
         }
@@ -202,7 +231,9 @@ ins(".-resend-otp-btn")._on("click", (o) => {
     ins(".-otp-resend-counter")._setHTML("10")
     ins(".-resend-count-otp")._removeClass("ins-hidden")
     ins(".-resend-otp-btn")._addClass("ins-hidden")
-    ins("OTP sent successfully")._ui._notification()
+    ins("otp_sent_successfully")._data._trans((text) => {
+        ins(text)._ui._notification()
+    })
     resend_otp();
 })
 
@@ -210,9 +241,14 @@ function _login_otp() {
     ins(".-otp-form")._data._submit(function(data) {
         ins("_login_otp")._ajax._app(data, (d) => {
             if (d == "-1") {
-                ins("Invalid OTP")._ui._notification({ "class": "ins-danger" })
+                ins("invalid_otp")._data._trans((text) => {
+                    ins(text)._ui._notification({ "class": "ins-danger" })
+                })
             } else {
-                ins("Login successfully")._ui._notification()
+                ins("login_successful")._data._trans((text) => {
+                    ins(text)._ui._notification()
+                })
+
                 ins(".-otp-form")._ui._addLoader()
                 setTimeout(() => {
                     window.location.reload()
@@ -242,26 +278,30 @@ ins(".-login-otp-inpt")._on("keyup", (o, e) => {
 ins(".-remove-item-cart-btn")._on("click", (o) => {
     var ops = o._getData()
     var p = o._parent(".-item-card");
-    if (confirm("Are you sure tou want to remove this item from cart?")) {
-        ins("_remove_item_cart")._ajax._app(ops, (data) => {
-            var jdata = JSON.parse(data)
-            if (jdata["status"] == "1") {
-                ins("._app_checkout")._setHTML(jdata["ui"])
-            }
-            p._remove()
-            ins(".-cart-summary-area")._setHTML(jdata["ui"])
-
-            ins("Item removed!")._ui._notification()
-            setTimeout(() => {
-                if (jdata["count"] > 0) {
-                    ins(".-cart-counter")._setHTML(jdata["count"])
-                } else {
-                    ins(".-cart-counter")._addClass("ins-hidden")
-
+    ins("remove_item_confirm")._data._trans((text) => {
+        if (confirm(text)) {
+            ins("_remove_item_cart")._ajax._app(ops, (data) => {
+                var jdata = JSON.parse(data)
+                if (jdata["status"] == "1") {
+                    ins("._app_checkout")._setHTML(jdata["ui"])
                 }
-            }, 100)
-        })
-    }
+                p._remove()
+                ins(".-cart-summary-area")._setHTML(jdata["ui"])
+                ins("item_removed")._data._trans((text) => {
+                    ins(text)._ui._notification()
+                })
+                setTimeout(() => {
+                    if (jdata["count"] > 0) {
+                        ins(".-cart-counter")._setHTML(jdata["count"])
+                    } else {
+                        ins(".-cart-counter")._addClass("ins-hidden")
+
+                    }
+                }, 100)
+            })
+        }
+    })
+
 }, true)
 
 function update_address_btn(o) {
@@ -308,25 +348,28 @@ ins(".-payment-type-btn")._on("click", (o) => {
 }, true);
 
 ins(".-african-bank-button")._on("click", function() {
-    let targetCard = ins(".-bank-card-african")._get(0);
+    let targetCard = ins(".-bank-card-5")._get(0);
     if (targetCard) {
         setTimeout(() => {
-            ins(".-bank-card-african")._addClass("ins-active");
+            ins(".-bank-card-5")._addClass("ins-active");
 
         }, 300);
         setTimeout(() => {
-            ins(".-bank-card-african")._removeClass("ins-active");
+            ins(".-bank-card-5")._removeClass("ins-active");
 
         }, 600);
         targetCard.scrollIntoView({ behavior: "smooth", block: "center" });
     }
 });
 
+
 ins(".-add-address-btn")._on("click", (o) => {
     ins(".-add-address-area")._data._submit(function(data) {
         ins("_add_address")._ajax._app(data, (d) => {
             ins(".-addresses-area")._setHTML(d);
-            ins("Address added successfully")._ui._notification()
+            ins("adress_added_successfully")._data._trans((text) => {
+                ins(text)._ui._notification()
+            })
         })
     })
 }, true)
@@ -335,9 +378,15 @@ ins(".-add-address-btn")._on("click", (o) => {
 ins(".-copy-number")._on("click", (o) => {
     var number = o._getData("number");
     navigator.clipboard.writeText(number).then(() => {
-        ins("Number copied to clipboard!")._ui._notification();
+        ins("number_copied_to_clipboard")._data._trans((text) => {
+            ins(text)._ui._notification()
+        })
+
     }).catch(err => {
-        ins("Failed to copy number")._ui._notification({ "class": "ins-danger" });
+
+        ins("faild_to_copy_number")._data._trans((text) => {
+            ins(text)._ui._notification({ "class": "ins-danger" })
+        })
     });
 }, true);
 
