@@ -867,5 +867,5 @@ class AppUiGuideCharts(App):
 
 
 
-       # r += self.geo(colors)
+       #     r = self.geo(colors)
         return r
