@@ -378,9 +378,14 @@ class AppCheckout(App):
               uidata.append({"start":"true","data-aid":a["id"],"data-type":"delivery","class":"ins-col-12 ins-card ins-flex-valign-center -address-btn ins-padding-s -address-cont","style":"    line-height: 20px;"})
               uidata.append({"_data":"<img class='-address-radio-btn' src='"+p + img+"'></img>","class":"ins-flex ins-col-1 ins-m-col-1 ins-m-flex-center"})
               uidata.append({"start":"true","class":"ins-col-9 ins-flex ins-m-col-9"})
-              uidata.append({"_data": a["title"],"class":" ins-title-s ins-strong-m ins-grey-d-color ins-col-12","style":"line-height: 24px;"})
-              uidata.append({"_data": a["address"],"class":"ins-grey-color ins-col-12 ins-title-12 -user-address","style":"line-height: 16px;"})
-              uidata.append({"_data": "Mobile: "+a["phone"] + " | Email: "+ a["email"],"class":"ins-grey-d-color ins-col-12  ins-title-14 -address-contact-area"})
+              if a["title"]:
+                  uidata.append({"_data": a.get("title",""),"class":" ins-title-s ins-strong-m ins-grey-d-color ins-col-12","style":"line-height: 24px;"})
+              if a["address"]:
+             
+                 uidata.append({"_data":a.get("address",""),"class":"ins-grey-color ins-col-12 ins-title-12 -user-address","style":"line-height: 16px;"})
+              if a["phone"]:
+
+                 uidata.append({"_data": "Mobile: "+a.get("phone","") ,"_data-ar": "الهاتف: "+a.get("phone","") ,"_trans":"true","class":"ins-grey-d-color ins-col-12  ins-title-14 -address-contact-area"})
               uidata.append({"end":"true"})
               uidata.append({"start":"true","class":"ins-col-2 ins-flex-end ins-m-col-2"})
               uidata.append({"_data":"<i  class='-update-address  _a lni lni-pencil-1' data-aid = "+ str(a["id"])+"></i>","class":"ins-text-center"})
@@ -478,15 +483,23 @@ class AppCheckout(App):
         rq = self.ins._server._post()
         address = self.ins._db._get_row("gla_user_address","*",f"id='{rq['aid']}'")
         uidata = [{"start":"true","class":"ins-flex ins-col-12 "}]
-        uidata.append({"start":"true","class":"ins-flex ins-col-12 -update-address-area"})
+        uidata.append({"start":"true","class":"ins-flex-space-between ins-col-12 -update-address-area"})
         uidata.append({"_data": "Update Address","_data-ar":"تعديل العنوان","_trans":"true","class":"ins-col-12 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"})
         uidata.append({"_type": "input","value":address["first_name"],"type":"text","required":"true","placeholder":"First name*","placeholder-ar":"الاسم الأول*","_trans":"true","name":"first_name","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
         uidata.append({"_type": "input","value":address["last_name"],"type":"text","required":"true","placeholder":"Last name*","placeholder-ar":" اسم العائلة*","_trans":"true","name":"last_name","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","value":address["email"],"type":"text","placeholder":"Email","placeholder-ar":" بريد إلكتروني","_trans":"true","name":"email","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","value":address["phone"],"type":"text","required":"true","placeholder":"Phone*","placeholder-ar":" هاتف*","_trans":"true","name":"phone","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "select","value":address["city"],"required":"true","fl_data":{"-":"","Cairo":"Cairo","Giza":"Giza"},"fl_data-ar":{"-":"","Cairo":"القاهرة","Giza":"الجيزة"},"_trans":"true","placeholder":"City*","placeholder-ar":" مدينة*","_trans":"true","name":"city","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","value":address["address"],"type":"text","required":"true","placeholder":"Street address*","placeholder-ar":" عنوان الشارع*","_trans":"true","name":"address","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","value":address["address_2"],"type":"text","placeholder":"Apartment, suits, etc (Optional)","placeholder-ar":"شقة، جناح، الخ (اختياري)","_trans":"true","name":"address_2","pclass":"ins-col-12 ins-m-col-12","style":"    background: white;border-radius:4px;"})
+       
+ 
+        if not address["phone"]:
+            address["phone"]  = ""
+        uidata.append({"_type": "input","value":address["phone"],"type":"text","placeholder":"Phone","placeholder-ar":"هاتف","_trans":"true","name":"phone","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
+       
+        uidata.append({"_type": "select","value":address["city"],"required":"true","fl_data":{"":"City","Cairo":"Cairo","Giza":"Giza"},"fl_data-ar":{"":"City","Cairo":"القاهرة","Giza":"الجيزة"},"_trans":"true","placeholder":"City*","placeholder-ar":" مدينة*","_trans":"true","name":"city","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","value":address["address"],"type":"text","required":"true","placeholder":"Address*","placeholder-ar":"العنوان*","_trans":"true","name":"address","pclass":"ins-col-12 ins-m-col-12","style":"    background: white;border-radius:4px;"})
+        if address["image"]:
+           uidata.append({"_type": "input", "value":address["image"],"type": "upload", "title": "National ID (Optional)","title-ar": "صورة البطاقة الشخصية (اختياري)", "_trans":"true","name": "image", "placeholder": "Upload National ID", "pclass": "ins-col-12 ", "_dir": "national_ids", "_exts": "image/png"})
+        else:
+           uidata.append({"_type": "input","type": "upload", "title": "National ID (Optional)","title-ar": "صورة البطاقة الشخصية (اختياري)", "_trans":"true","name": "image", "placeholder": "Upload National ID", "pclass": "ins-col-12 ", "_dir": "national_ids", "_exts": "image/png"})
+
         uidata.append({"_type": "input","value":address["id"],"type":"text","placeholder":"ID","name":"address_id","pclass":"ins-hidden"})
         uidata.append({"end":"true"})
         uidata.append({"class":"ins-space-s"})
@@ -503,18 +516,23 @@ class AppCheckout(App):
     
     def _add_address_ui(self):
         uidata = [{"start":"true","class":"ins-flex ins-col-12 "}]
-        uidata.append({"start":"true","class":"ins-flex ins-col-12 -add-address-area"})
+        uidata.append({"start":"true","class":"ins-flex-space-between ins-col-12 -add-address-area"})
         uidata.append({"_data":"Add new Address","_data-ar":"إضافة عنوان جديد","_trans":"true","class":"ins-col-12 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"})
         uidata.append({"_type": "input","type":"text","required":"true","placeholder":"First name*","placeholder-ar":"الاسم الأول*","_trans":"true","name":"first_name","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
         uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Last name*","placeholder-ar":" اسم العائلة*","_trans":"true","name":"last_name","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","type":"text","placeholder":"Email","placeholder-ar":" بريد إلكتروني","_trans":"true","name":"email","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Phone*","placeholder-ar":" هاتف*","_trans":"true","name":"phone","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "select","required":"true","fl_data":{"-":"","Cairo":"Cairo","Giza":"Giza"},"fl_data-ar":{"-":"","Cairo":"القاهرة","Giza":"الجيزة"},"_trans":"true","placeholder":"City*","placeholder-ar":" مدينة*","_trans":"true","name":"city","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Street address*","placeholder-ar":" عنوان الشارع*","_trans":"true","name":"address","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","type":"text","placeholder":"Apartment, suits, etc (Optional)","placeholder-ar":"شقة، جناح، الخ (اختياري)","_trans":"true","name":"address_2","pclass":"ins-col-12 ins-m-col-12","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","type":"text","placeholder":"Phone","placeholder-ar":" هاتف","_trans":"true","name":"phone","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "select","required":"true","fl_data":{"":"City","Cairo":"Cairo","Giza":"Giza"},"fl_data-ar":{"":"City","Cairo":"القاهرة","Giza":"الجيزة"},"_trans":"true","placeholder":"City*","placeholder-ar":" مدينة*","_trans":"true","name":"city","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Address*","placeholder-ar":"العنوان","_trans":"true","name":"address","pclass":"ins-col-12 ins-m-col-12","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input", "type": "upload", "title": "National ID (Optional)","title-ar": "صورة البطاقة الشخصية (اختياري)", "_trans":"true","name": "image", "placeholder": "Upload National ID", "pclass": "ins-col-12 ", "_dir": "national_ids", "_exts": "image/png"})
+
         uidata.append({"end":"true"})
         uidata.append({"class":"ins-space-s"})
-        uidata.append({"_data": "Add Address <img src='"+p+"style/right_arrow.svg'></img>","_data-ar":"إضافة عنوان ","_trans":"true", "class": "ins-button-s ins-strong-m ins-flex-center ins-text-upper  -add-address-btn ins-gold-d ins-col-3 ins-m-col-6","style":"height: 46px;    border: 1px solid var(--primary-d);"})
+        add = "Add Address <i class='lni lni-arrow-right'></i>"
+        if self.ins._langs._this_get()["name"] == "ar":
+          add = "إضافة عنوان <i class='lni lni-arrow-left'></i>"
+
+        
+        uidata.append({"_data": add, "class": "ins-button-s ins-strong-m ins-flex-center ins-text-upper  -add-address-btn ins-gold-d ins-col-3 ins-m-col-6","style":"height: 46px;    border: 1px solid var(--primary-d);"})
         uidata.append({"_data": " Back","_data-ar":"رجوع","_trans":"true", "class": "ins-button-s ins-flex-center ins-strong-m ins-text-upper ins-gold-d-color   -back-address-btn  ins-col-2 ins-m-col-6 ","style":"    height: 46px;"})
         uidata.append({"end":"true"})
         return self.ins._ui._render(uidata)
@@ -523,6 +541,8 @@ class AppCheckout(App):
     def _cart_step_summary(self):
         sedata=self.ins._server._get_session(self.session_name)
         subtotal = 0
+        shipping = self.ins._db._get_row("gla_settings","shipping_fees","id=1")["shipping_fees"]
+
         for k,v in sedata.items():
          subtotal+= float(v["price"]) * float(v["count"])
         total = subtotal 
@@ -533,11 +553,11 @@ class AppCheckout(App):
         uidata.append({"_data": "Subtotal","_data-ar":"المجموع الفرعي","_trans":"true", "class": "ins-col-6  ins-m-col-6 ins-title-xs  ins-grey-color ins-strong-m"})
         uidata.append({"_data": str(subtotal),"data-value" : subtotal,"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-m-col-6 ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end  -subtotal-text"})
         uidata.append({"_data": "Shipping","_data-ar":"شحن","_trans":"true", "class": "ins-col-6  ins-m-col-6 ins-title-xs  ins-grey-color ins-strong-m"})
-        if total > 20000:
+        if total > 200000:
           uidata.append({"_data": "Free","_data-ar": "مجاني","_trans":"true","data-value" : 0, "class": "ins-col-6  ins-m-col-6 ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end  -shipping-text"})
         else:
-          uidata.append({"_data": "200","data-value" : 200,"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",  "class": "ins-col-6  ins-m-col-6 ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end  -shipping-text"})
-          total +=200
+          uidata.append({"_data": str(shipping),"data-value" : int(shipping),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",  "class": "ins-col-6  ins-m-col-6 ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end  -shipping-text"})
+          total +=int(shipping)
         uidata.append({ "class": "ins-line ins-col-12"})
         uidata.append({"_data": "Total","_data-ar":"المجموع","_trans":"true", "class": "ins-col-6  ins-m-col-6 ins-title-xs  ins-grey-color ins-strong-m"})
         uidata.append({"_data":str(total), "_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه","class": "ins-col-6  ins-m-col-6 ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end  -total-text"})
@@ -568,6 +588,8 @@ class AppCheckout(App):
     def fees_info(self):
         sedata=self.ins._server._get_session(self.session_name)
         subtotal = 0
+        shipping = self.ins._db._get_row("gla_settings","shipping_fees","id=1")["shipping_fees"]
+
         for k,v in sedata.items():
             subtotal+= float(v["price"]) * float(v["count"])
 
@@ -580,11 +602,11 @@ class AppCheckout(App):
         total = subtotal  
 
         uidata.append({"_data": "Shipping", "_data-ar":" شحن","_trans":"true", "class": "ins-col-6  ins-m-col-6 ins-title-xs  ins-grey-color ins-strong-m"})
-        if total > 20000:
+        if total > 200000:
           uidata.append({"_data": "Free","_data-ar": "مجاني","_trans":"true","data-value" : 0, "class": "ins-col-6  ins-m-col-6 ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end  -shipping-text"})
         else:
-          uidata.append({"_data": "200","data-value" : 200,"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",  "class": "ins-col-6  ins-m-col-6 ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end -shipping-text"})
-          total +=200
+          uidata.append({"_data": str(shipping),"data-value" : int(shipping),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",  "class": "ins-col-6  ins-m-col-6 ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end -shipping-text"})
+          total +=int(shipping)
         uidata.append({ "class": "ins-line ins-col-12"})
         uidata.append({"_data": "Total", "_data-ar":" المجموع","_trans":"true", "class": "ins-col-6  ins-m-col-6 ins-title-xs  ins-grey-color ins-strong-m"})
         uidata.append({"_data":  str(total),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-m-col-6 ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end -total-text"})
@@ -599,6 +621,8 @@ class AppCheckout(App):
         ## Items Area
         uidata = []
         sedata=self.ins._server._get_session(self.session_name)
+        shipping = self.ins._db._get_row("gla_settings","shipping_fees","id=1")["shipping_fees"]
+
         subtotal = 0
         chargs = 0
         for k,v in sedata.items():
@@ -628,11 +652,11 @@ class AppCheckout(App):
         uidata.append({"_data": str(chargs),"data-value" : chargs,"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-m-col-6 ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end -chargs-text"})
         uidata.append({"end": "true"})
         uidata.append({"_data": "Shipping", "_data-ar":" شحن","_trans":"true", "class": "ins-col-6  ins-m-col-6 ins-title-xs  ins-grey-color ins-strong-m"})
-        if total > 20000:
+        if total > 200000:
           uidata.append({"_data": "Free","_data-ar": "مجاني","_trans":"true","data-value" : 0, "class": "ins-col-6  ins-m-col-6 ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end  -shipping-text"})
         else:
-          uidata.append({"_data": "200","data-value" : 200,"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",  "class": "ins-col-6  ins-m-col-6 ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end -shipping-text"})
-          total +=200
+          uidata.append({"_data": str(shipping),"data-value" : int(shipping),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",  "class": "ins-col-6  ins-m-col-6 ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end -shipping-text"})
+          total +=int(shipping)
         uidata.append({ "class": "ins-line ins-col-12"})
         uidata.append({"_data": "Total", "_data-ar":" المجموع","_trans":"true", "class": "ins-col-6  ins-m-col-6 ins-title-xs  ins-grey-color ins-strong-m"})
         uidata.append({"_data":  str(total),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-m-col-6 ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end -total-text"})
@@ -700,6 +724,7 @@ class AppCheckout(App):
         ## Items Area
         uidata = []
         sedata=self.ins._server._get_session(self.session_name)
+        shipping = self.ins._db._get_row("gla_settings","shipping_fees","id=1")["shipping_fees"]
         subtotal = 0
         chargs = 0
         for k,v in sedata.items():
@@ -729,11 +754,11 @@ class AppCheckout(App):
         uidata.append({"_data": str(chargs),"data-value" : chargs,"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-m-col-6 ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end -chargs-text"})
         uidata.append({"end": "true"})
         uidata.append({"_data": "Shipping", "_data-ar":" شحن","_trans":"true", "class": "ins-col-6  ins-m-col-6 ins-title-xs  ins-grey-color ins-strong-m"})
-        if total > 20000:
+        if total > 200000:
           uidata.append({"_data": "Free","_data-ar": "مجاني","_trans":"true","data-value" : 0, "class": "ins-col-6  ins-m-col-6 ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end  -shipping-text"})
         else:
-          uidata.append({"_data": "200","data-value" : 200,"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",  "class": "ins-col-6  ins-m-col-6 ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end -shipping-text"})
-          total +=200
+          uidata.append({"_data": str(shipping),"data-value" : int(shipping),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",  "class": "ins-col-6  ins-m-col-6 ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end -shipping-text"})
+          total +=int(shipping)
         uidata.append({ "class": "ins-line ins-col-12"})
         uidata.append({"_data": "Total", "_data-ar":" المجموع","_trans":"true", "class": "ins-col-6  ins-m-col-6 ins-title-xs  ins-grey-color ins-strong-m"})
         uidata.append({"_data":  str(total),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-m-col-6 ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end -total-text"})
@@ -869,11 +894,14 @@ class AppCheckout(App):
                {"end":"true"},
                {"end":"true"}
                  ]
+               
+             total = self.ins._data._format_currency(float(order_data['total']), symbol=False)
+            
                   
              if str(order_data["payment_method"]) == "8":
-              text = f"Please transfer the amount of ({order_data['total']}) EGP to one of the following bank accounts"
+              text = f"Please transfer the amount of ({total}) EGP to one of the following bank accounts"
               if self.ins._langs._this_get()["name"] == "ar":
-               text = f"برجاء تحويل مبلغ الطلب ({order_data['total']}) جنيه لأحد الحسابات البنكية التالية"
+               text = f"برجاء تحويل مبلغ الطلب ({total}) جنيه لأحد الحسابات البنكية التالية"
               uidata = [
                {"start":"true","class":"ins-col-12 gla-container ins-flex-center ins-padding-2xl"},              
                {"data-url":url,"class":"-url-area"},
@@ -881,7 +909,7 @@ class AppCheckout(App):
                {"class":" lni lni-check-circle-1 ins-font-4xl"},
                {"start":"true","class":"ins-col-grow ins-m-col-10  -bank-msg","style":"    padding: 0px;line-height: 15px;"},
                {"_data":"Your order has been placed","_data-ar":"لقد تم اتمام طلبك","_trans":"true","class":"ins-title-s   -bank-title ins-strong-m ins-grey-d-color ins-col-12"},
-               {"_data":text,"class":"ins-title-14 ins-grey-color ins-col-12   -bank-des" ,"style":"    text-transform: lowercase;"},
+               {"_data":text,"class":"ins-title-14 ins-grey-color ins-col-12   -bank-des" ,"style":"    text-transform: none;"},
                {"end":"true"},
                {"end":"true"},
                {"class":"ins-space-l"}
@@ -932,6 +960,8 @@ class AppCheckout(App):
          sedata=self.ins._server._get_session(self.session_name)
          address = self.ins._server._get_session(self.session_address_name)
          payment = self.ins._server._get_session(self.session_payment_name)
+         shipping_fees = self.ins._db._get_row("gla_settings","shipping_fees","id=1")["shipping_fees"]
+
          r = {}
          if not payment:
             r["status"] == "-1"
@@ -945,8 +975,8 @@ class AppCheckout(App):
          
          shipping =0
 
-         if total < 20000:
-            shipping = 200
+         if total < 200000:
+            shipping = int(shipping_fees)
          
          total = total + shipping
         
@@ -1009,12 +1039,18 @@ class AppCheckout(App):
          if edata["email"] != "" and edata["email_status"] == "verified":
             self.ins._email.send_email(lang,edata["email"],3)
          
-         
          return r
     
  
 
     def out(self):
+        
+
+          
+        url = self.ins._server._url()
+        self.ins._tmp._data_social_tags({"title":"Checkout","des":"Your gold picks are waiting! Review your cart and checkout securely with El Galla Gold – don’t miss out!","img":"ins_web/ins_uploads/images/seo/seo_logo.png","url":url})
+
+        
         self.app._include("style.css")
         self.app._include("script.js")
 

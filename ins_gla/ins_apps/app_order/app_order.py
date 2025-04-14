@@ -265,12 +265,69 @@ class AppOrder(App):
 
 
 
+
+    def export(self, data):
+        exdata = []
+        for d in data:
+            try:
+                customer_row = self.ins._db._get_row("kit_user", "title", f"id='{d['fk_user_id']}'")
+                customer = customer_row["title"] if customer_row else "Unknown"
+
+                if d["delivery_type"] == "store":
+                    addr_row = self.ins._db._get_row("gla_address", "address", f"id='{d['fk_address_id']}'")
+                else:
+                    addr_row = self.ins._db._get_row("gla_user_address", "address", f"id='{d['fk_address_id']}'")
+                address = f'"{addr_row["address"] if addr_row else "Unknown"}"'
+
+                pay_row = self.ins._db._get_row("gla_payment_methods", "title", f"id='{d['payment_method']}'")
+                pmethod = pay_row["title"] if pay_row else "Unknown"
+
+                odata = self.ins._db._jget("gla_order_item", "*", f"fk_order_id='{d['id']}'")
+                odata._jwith("gla_product product", "weight,kart", rfk="fk_product_id", join="left join")
+                odata = odata._jrun()
+
+                coins_amount = 0
+                bars_amount = 0
+                for o in odata:
+                    try:
+                        qty = float(o.get("quantity") or 0)
+                        weight = float(o.get("product_weight") or 0)
+                        if o.get("product_kart") == "24":
+                            bars_amount += qty * weight
+                        elif o.get("product_kart") == "21":
+                            coins_amount += qty * weight
+                    except Exception as oe:
+                        print(f"[Item Error] Order ID {d['id']} → {oe}")
+
+                exdata.append({
+                    "ID": d["id"],
+                    "Customer": customer,
+                    "Delivery Type": d["delivery_type"],
+                    "Address": address,
+                    "Payment Method": pmethod,
+                    "Order Status": d["order_status"],
+                    "Payment Status": d["payment_status"],
+                    "Total amount": d["total"],
+                    "Total 24K amount": int(bars_amount),
+                    "Total 21K amount": int(coins_amount)
+                })
+
+            except Exception as e:
+                print(f"[Order Error] Order ID {d.get('id')} → {e}")
+
+        return exdata
+
+       
+
         
     def out(self):
         self.app._include("script.js")
         self.app._include("style.css")
+        ops = self.ins._apps._crud_ops
+        ops._list_export = self.export
+        ops._list_export_all = self.export
 
-        r = self.ins._apps._crud(properties=self.app._properties)
+        r = self.ins._apps._crud(ops, properties=self.app._properties)
 
         return r
     

@@ -67,7 +67,8 @@ class AppUsers(App):
               {"_data": "|", "class": "  "},
               {"_data": "<i class='lni ins-font-l lni-buildings-1 not-for-phone'></i>My Addresses","_data-ar":"عناويني","_trans":"true",
                   "class": f"ins-button-s  -user-page-btn ins-text-upper   {sc} ins-flex ", "_type": "a", "href": self.u("addresses")},
-              {"end": "true"}
+              {"end": "true"},
+
               ]
         return ELUI(self.ins).page_title("My Profile","ملفي الشخصي", [{"_data": "My Profile / ", "href": "/puser","_data-ar":"ملفي الشخصي /","_trans":"true",}, {"_data": "Profile","_data-ar":"الملف الشخصي","_trans":"true",}], ui)
 
@@ -146,6 +147,7 @@ class AppUsers(App):
                 link = self.user.generate_token(udata["id"],rq["email"], udata["mobile"], udata["password"])
                 lang = {"link":link,"title":udata["title"]}
                 self.ins._email.send_email(lang,rq["email"],1)
+                
             return "1"
 
 
@@ -280,6 +282,7 @@ class AppUsers(App):
 
         uidata=[{"_data":"My Address","_data-ar":"إضافة عنوان","_trans":"true","class":"ins-col-9 ins-m-col-6 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"}]
         uidata.append({"_data": "Add Address","_data-ar":"إضافة عنوان","_trans":"true", "class": "ins-button-s  ins-m-col-6 -add-address ins-text-center ins-strong-m ins-col-3 ins-gold-bg  ins-text-upper"})
+        
         asession = self.ins._server._get_session(self.session_address_name)
 
         if type(asession) != dict:
@@ -289,9 +292,13 @@ class AppUsers(App):
             for a in addesses:
                uidata.append({"start":"true","class":"ins-col-12 ins-card ins-flex-valign-center ins-padding-s -address-cont","style":"    line-height: 20px;"})
                uidata.append({"start":"true","class":"ins-col-10 ins-flex ins-m-col-10"})
-               uidata.append({"_data": a["title"],"class":" ins-title-s ins-strong-m ins-grey-d-color ins-col-12","style":"line-height: 24px;"})
-               uidata.append({"_data": a["address"],"class":"ins-grey-color ins-col-12 ins-title-12","style":"line-height: 16px;"})
-               uidata.append({"_data": "Mobile: "+a["phone"] + " | Email: "+ a["email"],"_data-ar": "الهاتف: "+a["phone"] + " | البريد الالكتروني: "+ a["email"],"_trans":"true","class":"ins-grey-d-color ins-col-12  ins-title-14 -address-info"})
+               if a["title"]:
+                uidata.append({"_data": a["title"],"class":" ins-title-s ins-strong-m ins-grey-d-color ins-col-12","style":"line-height: 24px;"})
+               if a["address"]:
+
+                 uidata.append({"_data": a["address"],"class":"ins-grey-color ins-col-12 ins-title-12","style":"line-height: 16px;"})
+               if a["phone"]:
+                  uidata.append({"_data": "Mobile: "+a["phone"] ,"_data-ar": "الهاتف: "+a["phone"] ,"_trans":"true","class":"ins-grey-d-color ins-col-12  ins-title-14 -address-info"})
                uidata.append({"end":"true"})
                uidata.append({"start":"true","class":"ins-col-2  ins-m-col-2 ins-flex-end"})
                uidata.append({"_data":"<i class='-update-address  _a lni lni-pencil-1' data-aid = "+ str(a["id"])+" ></i>","class":"ins-text-center"})
@@ -348,21 +355,35 @@ class AppUsers(App):
         rq = self.ins._server._post()
         address = self.ins._db._get_row("gla_user_address","*",f"id='{rq['aid']}'")
         uidata = [{"start":"true","class":"ins-flex ins-col-12 "}]
-        uidata.append({"start":"true","class":"ins-flex ins-col-12 -update-address-area"})
-        uidata.append({"_data":"Update Address","_data-ar":"تعديل العنوان","_trans":"true","class":"ins-col-12 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"})
+        uidata.append({"start":"true","class":"ins-flex-space-between ins-col-12 -update-address-area"})
+        uidata.append({"_data": "Update Address","_data-ar":"تعديل العنوان","_trans":"true","class":"ins-col-12 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"})
         uidata.append({"_type": "input","value":address["first_name"],"type":"text","required":"true","placeholder":"First name*","placeholder-ar":"الاسم الأول*","_trans":"true","name":"first_name","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","value":address["last_name"],"type":"text","required":"true","placeholder":"Last name*","placeholder-ar":"اسم العائلة*","_trans":"true","name":"last_name","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","value":address["email"],"type":"text","placeholder":"Email","placeholder-ar":"بريد إلكتروني","_trans":"true","name":"email","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","value":address["phone"],"type":"text","required":"true","placeholder":"Phone*","placeholder-ar":"هاتف*","_trans":"true","name":"phone","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "select","value":address["city"],"required":"true","fl_data":{"-":"","Cairo":"Cairo","Giza":"Giza"},"fl_data-ar":{"-":"","Cairo":"القاهرة","Giza":"الجيزة"},"_trans":"true","placeholder":"City*","placeholder-ar":" مدينة*","_trans":"true","name":"city","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","value":address["address"],"type":"text","required":"true","placeholder":"Street address*","placeholder-ar":"عنوان الشارع*","_trans":"true","name":"address","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","value":address["address_2"],"type":"text","placeholder":"Apartment, suits, etc (Optional)","placeholder-ar":"شقة، جناح، الخ (اختياري)","_trans":"true","name":"address_2","pclass":"ins-col-12 ins-m-col-12","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","value":address["id"],"type":"text","placeholder":"ID","name":"address_id","pclass":"ins-hidden"})
-        uidata.append({"end":"true"})
+        uidata.append({"_type": "input","value":address["last_name"],"type":"text","required":"true","placeholder":"Last name*","placeholder-ar":" اسم العائلة*","_trans":"true","name":"last_name","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
+       
+        if not address["phone"]:
+            address["phone"]  = ""
 
+        uidata.append({"_type": "input","value":address["phone"],"type":"text","placeholder":"Phone","placeholder-ar":"هاتف","_trans":"true","name":"phone","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
+   
+   
+        uidata.append({"_type": "select","value":address["city"],"required":"true","fl_data":{"":"City","Cairo":"Cairo","Giza":"Giza"},"fl_data-ar":{"":"City","Cairo":"القاهرة","Giza":"الجيزة"},"_trans":"true","placeholder":"City*","placeholder-ar":" مدينة*","_trans":"true","name":"city","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","value":address["address"],"type":"text","required":"true","placeholder":"Address*","placeholder-ar":"العنوان*","_trans":"true","name":"address","pclass":"ins-col-12 ins-m-col-12","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","value":address["id"],"type":"text","placeholder":"ID","name":"address_id","pclass":"ins-hidden"})
+        if address["image"]:
+            uidata.append({"_type": "input","value":address["image"], "type": "upload", "title": "National ID (Optional)","title-ar": "صورة البطاقة الشخصية (اختياري)", "_trans":"true","name": "image", "placeholder": "Upload National ID", "pclass": "ins-col-12 ", "_dir": "national_ids", "_exts": "image/png"})
+        else:
+            uidata.append({"_type": "input", "type": "upload", "title": "National ID (Optional)","title-ar": "صورة البطاقة الشخصية (اختياري)", "_trans":"true","name": "image", "placeholder": "Upload National ID", "pclass": "ins-col-12 ", "_dir": "national_ids", "_exts": "image/png"})
+
+        uidata.append({"end":"true"})
         uidata.append({"class":"ins-space-s"})
         uidata.append({"class":"ins-col-grow"})
-        uidata.append({"_data": "Update Address <img src='"+p+"style/right_arrow.svg'></img>","_data-ar":" تحديث العنوان","_trans":"true", "class": "ins-button-s ins-strong-m ins-flex-center  ins-m-col-6 ins-text-upper  -update-address-btn ins-gold-d ins-col-2","style":"height: 46px;    border: 1px solid var(--primary-d);"})
+        update = "Update Address <i class='lni lni-arrow-right'></i>"
+        if self.ins._langs._this_get()["name"] == "ar":
+          update = "تعديل العنوان <i class='lni lni-arrow-left'></i>"
+
+        
+        
+        uidata.append({"_data": update, "class": "ins-button-s ins-strong-m ins-flex-center  ins-m-col-6 ins-text-upper  -update-address-btn ins-gold-d ins-col-2","style":"height: 46px;    border: 1px solid var(--primary-d);"})
         uidata.append({"_data": " Back","_data-ar":" رجوع","_trans":"true", "class": "ins-button-s ins-flex-center ins-strong-m ins-text-upper ins-gold-d-color   -back-address-btn ins-m-col-6  ins-col-2 ","style":"    height: 46px;"})
         uidata.append({"end":"true"})
         return self.ins._ui._render(uidata)
@@ -370,22 +391,30 @@ class AppUsers(App):
     def _add_address_ui(self):
 
         uidata = [{"start":"true","class":"ins-flex ins-col-12 "}]
-        uidata.append({"start":"true","class":"ins-flex ins-col-12 -add-address-area"})
+        uidata.append({"start":"true","class":"ins-flex-space-between ins-col-12 -add-address-area"})
         uidata.append({"_data":"Add new Address","_data-ar":"إضافة عنوان جديد","_trans":"true","class":"ins-col-12 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"})
-        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"First name*","placeholder-ar":"الاسم الأول*","_trans":"true","name":"first_name","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Last name*","placeholder-ar":"اسم العائلة*","_trans":"true","name":"last_name","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","type":"text","placeholder":"Email","placeholder-ar":"بريد إلكتروني","_trans":"true","name":"email","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Phone*","placeholder-ar":"هاتف*","_trans":"true","name":"phone","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "select","required":"true","fl_data":{"-":"","Cairo":"Cairo","Giza":"Giza"},"fl_data-ar":{"-":"","Cairo":"القاهرة","Giza":"الجيزة"},"_trans":"true","placeholder":"City*","placeholder-ar":" مدينة*","_trans":"true","name":"city","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Street address*","placeholder-ar":"عنوان الشارع*","_trans":"true","name":"address","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","type":"text","placeholder":"Apartment, suits, etc (Optional)","placeholder-ar":"شقة، جناح، الخ (اختياري)","_trans":"true","name":"address_2","pclass":"ins-col-12 ins-m-col-12","style":"    background: white;border-radius:4px;"})
-        uidata.append({"end":"true"})
+                     
 
+        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"First name*","placeholder-ar":"الاسم الأول*","_trans":"true","name":"first_name","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Last name*","placeholder-ar":" اسم العائلة*","_trans":"true","name":"last_name","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","type":"text","placeholder":"Phone","placeholder-ar":" هاتف","_trans":"true","name":"phone","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "select","required":"true","fl_data":{"":"City","Cairo":"Cairo","Giza":"Giza"},"fl_data-ar":{"":"City","Cairo":"القاهرة","Giza":"الجيزة"},"_trans":"true","placeholder":"City*","placeholder-ar":" مدينة*","_trans":"true","name":"city","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Address*","placeholder-ar":"العنوان*","_trans":"true","name":"address","pclass":"ins-col-12 ins-m-col-12","style":"    background: white;border-radius:4px;"})
+        uidata.append({"_type": "input", "type": "upload", "title": "National ID (Optional)","title-ar": "صورة البطاقة الشخصية (اختياري)", "_trans":"true","name": "image", "placeholder": "Upload National ID", "pclass": "ins-col-12 ", "_dir": "national_ids", "_exts": "image/png"})
+
+
+        uidata.append({"end":"true"})
         uidata.append({"class":"ins-space-s"})
         uidata.append({"class":"ins-col-grow"})
-        uidata.append({"_data": "Add Address <img src='"+p+"style/right_arrow.svg'></img>","_data-ar":"إضافة عنوان","_trans":"true", "class": "ins-button-s ins-strong-m ins-flex-center ins-text-upper ins-m-col-6  -add-address-btn ins-gold-d ins-col-2","style":"height: 46px;    border: 1px solid var(--primary-d);"})
-        uidata.append({"_data": " Back","_data-ar":"رجوع ","_trans":"true", "class": "ins-button-s ins-flex-center ins-strong-m ins-text-upper ins-gold-d-color   -back-address-btn ins-m-col-6  ins-col-2 ","style":"    height: 46px;"})
+
+        add = "Add Address <i class='lni lni-arrow-right'></i>"
+        if self.ins._langs._this_get()["name"] == "ar":
+          add = "إضافة عنوان <i class='lni lni-arrow-left'></i>"
+
+        uidata.append({"_data": add, "class": "ins-button-s ins-strong-m ins-flex-center ins-text-upper  -add-address-btn ins-gold-d ins-col-3 ins-m-col-6","style":"height: 46px;    border: 1px solid var(--primary-d);"})
+        uidata.append({"_data": " Back","_data-ar":"رجوع","_trans":"true", "class": "ins-button-s ins-flex-center ins-strong-m ins-text-upper ins-gold-d-color   -back-address-btn  ins-col-2 ins-m-col-6 ","style":"    height: 46px;"})
         uidata.append({"end":"true"})
+
         return self.ins._ui._render(uidata)
 
     
@@ -459,6 +488,12 @@ class AppUsers(App):
         return "1"
 
     def out(self):
+
+
+                  
+        url = self.ins._server._url()
+        self.ins._tmp._data_social_tags({"title":"My Profile","des":"Your gold journey starts here – manage your profile and preferences easily.","img":"ins_web/ins_uploads/images/seo/seo_logo.png","url":url})
+
         self.app._include("script.js")
         self.app._include("style.css")
        

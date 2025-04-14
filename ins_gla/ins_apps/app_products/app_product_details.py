@@ -102,11 +102,14 @@ class AppProductDetails(App):
                 if stys in types_data[tys]["data"]:
                     rimages = types_data[tys]["data"][stys]["images"]
                     image = rimages.split(",")
-          
+        p = self.ins._map.UPLOADS_FOLDER
+
+        url = self.ins._server._url()
+        self.ins._tmp._data_social_tags({"title":data["title"],"des":data["des"],"img":p+image[0],"url":url})
+        self.ins._tmp._set_page_title(data["title"])
 
         uidata.append({"start": "true", "class": "ins-flex-valign-start ins-col-6  -side-mimg-cont "})
         uidata.append({"start": "true", "class": "ins-flex-center ins-col-2  ins-m-col-12 ins-m-flex -small-imgs-cont"})
-        p = "/ins_web/ins_uploads/"
         count = 0
         aimage = "" 
         for i in image:
@@ -251,11 +254,11 @@ class AppProductDetails(App):
         uidata.append({"end": "true"})
         uidata.append({"class": "ins-space-4xl"})
         ## Related Products
-        uidata.append({"start": "true", "class": "ins-flex ins-col-12"})
+        uidata.append({"start": "true", "class": "ins-flex  ins-col-12"})
         uidata.append({"_data": "Related Products","_data-ar":"المنتجات ذات الصلة","_trans":"true", "class": "ins-col-12 ins-grey-d-color ins-strong-m ins-text-upper","style":"font-size:36px"})
         uidata.append({"class": "ins-space-l"})
         rpdata = self.ins._db._get_data("gla_product","*", f"   fk_product_category_id={data['fk_product_category_id']} and id <>{data['id']} limit 0,4 ",update_lang=True)
-        uidata.append({"start": "true", "class": "ins-flex-space-between ins-col-12"})
+        uidata.append({"start": "true", "class": "ins-flex-space-between ins-flex-valign-start ins-col-12"})
         for d in rpdata:
             uidata+= ELUI(self.ins).shop_pro_block(d,self.ins._server._url({"id":d["id"]},["filter","type"]))
 

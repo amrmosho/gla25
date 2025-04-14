@@ -4,7 +4,7 @@ import requests
 class Email(ins_parent):
     def __init__(self, Ins) -> None:
         super().__init__(Ins)
-        self.api_key = "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"
+        self.api_key = "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"
         self.api_url = "https://api.brevo.com/v3/smtp/email"
         self.headers = {
             "accept": "application/json",
@@ -32,7 +32,7 @@ class Email(ins_parent):
 
 
         data = {
-            "sender": {"email": sender_email},
+            "sender": {"email": sender_email,"name": "Elgalla Gold"},
             "to": [{"email": recipient_email}],
             "subject": subject,
             "htmlContent": message

@@ -7,6 +7,10 @@
     background: white;
 }
 
+select.city {
+    color: #7e7e7e;
+}
+
 .-minus-btn {
     height: 46px;
     color: var(--grey-d)
@@ -25,6 +29,11 @@
 
 .-delivery-type-btn {
     height: 48px
+}
+
+.ins-form-upload-imgs-cont {
+    background: white !important;
+    border-radius: 4px !important;
 }
 
 .-step-button {
@@ -131,6 +140,7 @@
         line-height: 60px !important;
     }
     .ins-form-input,
+    .ins-button-s.ins-grey-l,
     .-cart-next-btn,
     .-payment-btn,
     .-back-btn {
@@ -211,5 +221,8 @@
     }
     .-user-address {
         line-height: 42px !important;
+    }
+    .ins-form-upload-imgs-cont {
+        height: auto !important;
     }
 }

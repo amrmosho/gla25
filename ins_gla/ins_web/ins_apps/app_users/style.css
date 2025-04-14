@@ -6,6 +6,10 @@
         height: 25px;
     }
     
+    select.city {
+        color: #7e7e7e;
+    }
+    
     @media screen and (max-width: 1000px) {
         .-user-page-btn {
             height: 50px !important;

@@ -20,12 +20,39 @@ class AppUsersOrders(App):
         return sdata
 
 
+
     def order(self):
         g = self.ins._server._get()
+        udata = self.user._check()
+
+        sql = f"(((payment.paymob_id IS NULL OR payment.paymob_id = '') AND payment_status <> 'failed') OR ((payment.paymob_id IS NOT NULL AND payment.paymob_id <> '') AND payment_status <> 'failed' AND payment_status <> 'pending')) and gla_order.id = {g['id']}    order by id desc "
+        
+        odata = self.ins._db._jget("gla_order", "*", sql)
+        odata._jwith("gla_payment_methods payment", "paymob_id",rfk="payment_method")
+        odata = odata._jrun()
+
+        if odata:
+            data = odata[0]
+        else:
+            data = odata
+
+
+        uidata = []
+
+                
+
+
+        if not data or str(udata["id"]) != str(data["fk_user_id"]) :
+            uidata +=[{"start":"true","class":"ins-col-12 ins-flex ins-padding-m ins-flex-center"},
+                      {"_data":"There is no data to show","_data-ar":"لا يوجد بيانات لعرضها","_trans":"true","class":"ins-col-8 ins-text-center ins-card"},
+                      {"end":"true"}]
+            
+            return self.ins._ui._render(uidata)
+             
+ 
         sedata = self.ins._db._jget("gla_order_item", "*", f"fk_order_id='{g['id']}'")
         sedata._jwith("gla_product product", "th_main,types_data,fk_product_category_id",rfk="fk_product_id", join="left join")
         sedata = sedata._jrun()
-        data = self.ins._db._get_row("gla_order", "*", f"id='{g['id']}'")
         address = ""
         if data["delivery_type"] == "delivery":
             user_address = self.ins._db._get_row("gla_user_address", "*", f"id='{data['fk_address_id']}'", update_lang=True)
@@ -36,7 +63,6 @@ class AppUsersOrders(App):
 
         payments = self.ins._db._get_row("gla_payment_methods", "title,kit_lang", f"id='{data['payment_method']}'", update_lang=True)
 
-        uidata = []
         tcount = 0
 
         
@@ -176,8 +202,13 @@ class AppUsersOrders(App):
 
     def out(self, ins):
         udata = self.user._check()
-        odata = self.ins._db._get_data(
-            "gla_order", "*", f"fk_user_id='{udata['id']}' and payment_status <>'failed'  order by id desc ")
+        sql = f"(((payment.paymob_id IS NULL OR payment.paymob_id = '') AND payment_status <> 'failed') OR ((payment.paymob_id IS NOT NULL AND payment.paymob_id <> '') AND payment_status <> 'failed' AND payment_status <> 'pending')) and fk_user_id = {udata["id"]}    order by id desc "
+        
+        odata = self.ins._db._jget("gla_order", "*", sql)
+        odata._jwith("gla_payment_methods payment", "paymob_id",rfk="payment_method")
+        odata = odata._jrun()
+
+
         usmenu = [
             {"start": "true", "class": "  ins-col-12 ins-gap-20  ins-flex    ins-padding-2xl"}]
         i = 0

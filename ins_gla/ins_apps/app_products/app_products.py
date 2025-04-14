@@ -67,7 +67,7 @@ class AppProducts(App):
 
 
 
-    def generate_product_html(self,string = False):
+    def _products_ui(self,string = False):
         items_per_page = 24
         f = self.ins._server._get("page")
         g = self.ins._server._get("filter")
@@ -174,7 +174,7 @@ class AppProducts(App):
             end_page = min(num_pages, current_page + 2)
             for page in range(start_page, end_page + 1):
                 active_class = "active" if page == current_page else ""
-                uidata.append({"_type": "button", "class": f"ins-pagination-btn {active_class}", "data-page": page, "_data": str(page)})
+                uidata.append({"_type": "button", "class": f"ins-pagination-btn ins-m-flex-center {active_class}", "data-page": page, "_data": str(page)})
             uidata.append({"_type": "button", "class": "ins-pagination-btn", "data-page": "next", "data-tpages":num_pages,"_data": f"<i class='lni lni-chevron-left' style='{rstyle}'></i>"})
             uidata.append({"end": "true"})
             uidata.append({"class": "ins-col-grow ins-m-col-3"})
@@ -407,8 +407,8 @@ class AppProducts(App):
         uidata.append({"_data": "Price ","_data-ar": "السعر","_trans": "true", "class": "ins-col-12 ins-grey-d-color ins-strong-l  ins-title-xs  "})
       
         uidata.append({"start": "true", "class": "ins-col-12 ins-flex ins-gap-o"})
-        uidata.append({"_type": "input", "name":"from","value":min_price,"data-name":"from","type": "text", "placeholder":"from","placeholder-ar": "من","_trans": "true","class":" -price-from-filter-input -price-from-input",  "pclass": "ins-col-5 ins-m-col-5 "})
-        uidata.append({"_type": "input", "name":"to","value":max_price,"data-name":"to","type": "text", "placeholder":"to","placeholder-ar": "إلى","_trans": "true","class":" -price-to-filter-input -price-to-input",  "pclass": "ins-col-5  ins-m-col-5 "})
+        uidata.append({"_type": "input", "name":"from","value":min_price,"data-name":"from","type": "number", "placeholder":"from","placeholder-ar": "من","_trans": "true","class":" -price-from-filter-input -price-from-input",  "pclass": "ins-col-5 ins-m-col-5 "})
+        uidata.append({"_type": "input", "name":"to","value":max_price,"data-name":"to","type": "number", "placeholder":"to","placeholder-ar": "إلى","_trans": "true","class":" -price-to-filter-input -price-to-input",  "pclass": "ins-col-5  ins-m-col-5 "})
         uidata.append({"_data":"<i class='lni lni-search-1'></i>","class":"ins-m-col-2 ins-gold-d-color ins-flex-center -filter-price-btn"})
         uidata.append({"end": "true"})
 
@@ -419,10 +419,13 @@ class AppProducts(App):
         uidata.append({"start": "true", "class": "ins-col-9 ins-padding-m ins-flex -products-cont"})
         # Add the product HTML
         uidata.append({"start": "true", "class": "ins-flex-valign-start -products-area   ins-col-12 ins-padding-l ins-gap-20 ins-m-flex-center"})
-        uidata += self.generate_product_html(True)
+        uidata += self._products_ui(True)
         uidata.append({"end": "true"})
         return self.ins._ui._render( uidata)
     def out(self):
+
+
+
         self.app._include("style.css")
         self.app._include("script.js")
 
@@ -433,6 +436,9 @@ class AppProducts(App):
 
         rq = self.ins._server._req()
         if not "mode" in rq:
+         url = self.ins._server._url()
+         self.ins._tmp._data_social_tags({"title":"SHOP NOW","des":"Discover our wide collection of gold bars and coins at the best prices. Shop now with El Galla Gold – easy, secure, and reliable.","img":"ins_web/ins_uploads/images/seo/product_now.png","url":url})
+
          return self._list()
         else:
             app = AppProductDetails(self.app)

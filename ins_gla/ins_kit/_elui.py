@@ -485,16 +485,8 @@ class ELUI(ins_parent):
     
     def _bank_ui(self):
         p = "/ins_web/ins_uploads/"
-        bank_details = [
-            {"Bank Name": "CIB","Bank Name Ar": "البنك التجاري الدولي (CIB)", "Account Number": "100022388147", "name": "cib", "Swift Code": "CIBEEGCX097", "IBAN number": "EG590010009700000100022388147", "Bank Branch": "El Mokattam", "Company Name": "EL GALLA GOLD",  "Bank Branch Ar": "المقطم", "Company Name Ar": "الجلا جولد", "logo": "cib_logo.png"},
-            {"Bank Name": "National Bank Of Egypt", "Bank Name Ar": "البنك الأهلى المصري","Account Number": "1033071123260201011", "name": "national", "Swift Code": "NBEGEGCX103", "IBAN number": "EG940003010330711232602010110", "Bank Branch": "Al Hamzawy", "Company Name": "EL GALLA GOLD", "logo": "nbe_logo.png",  "Bank Branch Ar": "الحمزاوي", "Company Name Ar": "الجلا جولد"},
-            {"Bank Name": "Banque Misr","Bank Name Ar": "بنك مصر", "Account Number": "1070199000006941", "name": "misr", "Swift Code": "BMISEGCXXX", "IBAN number": "EG920002010701070199000006941", "Bank Branch": "Cairo Branch", "Company Name": "EL GALLA GOLD", "logo": "banque_misr_logo.png",  "Bank Branch Ar": "القاهرة", "Company Name Ar": "الجلا جولد"},
-            {"Bank Name": "Bank Of Alexandria","Bank Name Ar": "بنك الأسكندرية",  "Account Number": "103026301001", "name": "alex", "Swift Code": "ALEXEGCX003", "IBAN number": "EG21000510030000010302630100", "Bank Branch": "Sherif Branch", "Company Name": "EL GALLA GOLD", "logo": "alex_bank_logo.png",  "Bank Branch Ar": "شارع شريف", "Company Name Ar": "الجلا جولد"},
-            {"Bank Name": "Arab African International Bank", "Bank Name Ar": "البنك العربى الافريقى الدولى","Account Number": "11066655", "name": "african", "Swift Code": "ARAIEGCXAZH", "IBAN number": "EG85005700200110666551001020", "Bank Branch": "Cairo Branch", "Company Name": "EL GALLA GOLD", "logo": "aaib_logo.png",  "Bank Branch Ar": "القاهرة", "Company Name Ar": "الجلا جولد"},
-            {"Bank Name": "Abu Dhabi Islamic Bank (ADIB)","Bank Name Ar": "مصرف أبوظبي الإسلامي", "Account Number": "100000545327", "name": "islamic", "Swift Code": "ABDIEGCAXX", "IBAN number": "EG97003001280000010000054532", "Bank Branch": "Al Darasa", "Company Name": "EL GALLA GOLD", "logo": "adib_logo.png",  "Bank Branch Ar": "الدراسة", "Company Name Ar": "الجلا جولد"},
-            {"Bank Name": "Emirates NBD", "Bank Name Ar": "بنك الإمارات دبي الوطني", "Account Number": "1019342954301", "name": "nbd", "Swift Code": "EBILEGCXXXX", "IBAN number": "EG10001400540000101934295430", "Bank Branch": "Al Azhar", "Company Name": "EL GALLA GOLD", "logo": "enbd_logo.png",  "Bank Branch Ar": "الأزهر", "Company Name Ar": "الجلا جولد"},
-            {"Bank Name": "Attijariwafa Bank","Bank Name Ar": "التجاري وفا بنك","Account Number": "00010009727","name": "attijariwafa","Swift Code": "BCBIEGCXXXX","IBAN number": "EG780034001400000000010009727","Bank Branch": "Opera Branch","Company Name": "EL GALLA GOLD","logo": "attijariwafa_logo.png","Bank Branch Ar": "الأوبرا","Company Name Ar": "الجلا جولد"}
-        ]
+        bank_details = self.ins._db._get_data("gla_bank_accounts","*","1=1 order by kit_order asc ",update_lang=True)
+        
         note = "Note: If you use InstaPay, please transfer the amount to our bank account at <a class='-african-bank-button ins-strong-m'>Arab African International Bank</a>"
         if self.ins._langs._this_get()["name"] == "ar":
             note =  "ملاحظة: إذا كنت تستخدم انستاباي ، يرجى تحويل المبلغ إلى حسابنا المصرفي في <a class='-african-bank-button ins-strong-m'>البنك العربي الأفريقي الدولي</a>"
@@ -506,28 +498,29 @@ class ELUI(ins_parent):
         ]
 
 
-
         for bank in bank_details:
-            anumber = f"Account Number: {bank['Account Number']} <i data-number='{bank['Account Number']}' class='-copy-number lni lni-file-multiple'></i>"
-            scode = f"Swift Code: {bank['Swift Code']} <i data-number='{bank['Swift Code']}' class='-copy-number lni lni-file-multiple'></i>"
-            inumber = f"IBAN number: {bank['IBAN number']} <i data-number='{bank['IBAN number']}' class='-copy-number lni lni-file-multiple'></i>"
+            name = bank["title"].replace(" ", "_").lower()
+
+            anumber = f"Account Number: {bank['account_number']} <i data-number='{bank['account_number']}' class='-copy-number lni lni-file-multiple'></i>"
+            scode = f"Swift Code: {bank['swift']} <i data-number='{bank['swift']}' class='-copy-number lni lni-file-multiple'></i>"
+            inumber = f"IBAN number: {bank['iban']} <i data-number='{bank['iban']}' class='-copy-number lni lni-file-multiple'></i>"
 
             if self.ins._langs._this_get()["name"] == "ar":
-                anumber = f"رقم الحساب: {bank['Account Number']} <i data-number='{bank['Account Number']}' class='-copy-number lni lni-file-multiple'></i>"
-                scode = f"رمز السويفت: {bank['Swift Code']} <i data-number='{bank['Swift Code']}' class='-copy-number lni lni-file-multiple'></i>"
-                inumber = f"رقم الآيبان: {bank['IBAN number']} <i data-number='{bank['IBAN number']}' class='-copy-number lni lni-file-multiple'></i>"
+                anumber = f"رقم الحساب: {bank['account_number']} <i data-number='{bank['account_number']}' class='-copy-number lni lni-file-multiple'></i>"
+                scode = f"رمز السويفت: {bank['swift']} <i data-number='{bank['swift']}' class='-copy-number lni lni-file-multiple'></i>"
+                inumber = f"رقم الآيبان: {bank['iban']} <i data-number='{bank['iban']}' class='-copy-number lni lni-file-multiple'></i>"
 
 
-            uidata.append({"start": "true", "class": f"ins-col-4 -bank-card-{bank['name']} -bank-info-card ins-padding-s ins-margin-xs"})
+            uidata.append({"start": "true", "class": f"ins-col-4 -bank-card-{bank['id']} -bank-info-card ins-padding-s ins-margin-xs"})
             uidata.append({"start": "true", "class": "ins-col-12 ins-flex ins-align-center"})
-            uidata.append({"_type": "img", "style": "width: 30px;", "src": f"{p}images/bank/{bank['logo']}", "loading": "lazy", "class": "ins-logo-xs"})
-            uidata.append({"_data": f"{bank['Bank Name']}", "_data-ar": f"{bank['Bank Name Ar']}", "_trans":"true","class": "ins-col-10 ins-title-xs ins-strong-m ins-grey-d-color ins-m-col-10"})
+            uidata.append({"_type": "img", "style": "width: 30px;", "src": f"{p}{bank['logo']}", "loading": "lazy", "class": "ins-logo-xs"})
+            uidata.append({"_data": f"{bank['title']}", "_data-ar": f"{bank['title']}", "_trans":"true","class": "ins-col-10 ins-title-xs ins-strong-m ins-grey-d-color ins-m-col-10"})
             uidata.append({"end": "true"})
             uidata.append({"_data": anumber, "class": "ins-col-12 ins-title-xs ins-grey-d-color -bank-info"})
             uidata.append({"_data":scode,"class": "ins-col-12 ins-title-xs ins-grey-d-color -bank-info"})
             uidata.append({"_data": inumber, "class": "ins-col-12 ins-title-xs ins-grey-d-color -bank-info"})
-            uidata.append({"_data": f"Bank Branch: {bank['Bank Branch']}", "_data-ar": f"فرع البنك: {bank['Bank Branch Ar']}",  "_trans":"true","class": "ins-col-12 ins-title-xs  -bank-info ins-grey-d-color"})
-            uidata.append({"_data": f"Company Name: {bank['Company Name']}", "_data-ar": f"اسم الشركة: {bank['Company Name Ar']}", "_trans":"true", "class": "ins-col-12 ins-title-xs -bank-info ins-grey-d-color"})
+            uidata.append({"_data": f"Bank Branch: {bank['branch']}", "_data-ar": f"فرع البنك: {bank['branch']}",  "_trans":"true","class": "ins-col-12 ins-title-xs  -bank-info ins-grey-d-color"})
+            uidata.append({"_data": f"Company Name: {bank['company_name']}", "_data-ar": f"اسم الشركة: {bank['company_name']}", "_trans":"true", "class": "ins-col-12 ins-title-xs -bank-info ins-grey-d-color"})
             uidata.append({"end": "true"})
         uidata.append({"end": "true"})
         return uidata
