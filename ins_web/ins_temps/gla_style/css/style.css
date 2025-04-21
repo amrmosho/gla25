@@ -398,29 +398,6 @@ footer li {
     display: flex;
 }
 
-.-side-mimg-cont {
-    position: relative;
-}
-
-.-side-img-cont {
-    transition: 0.3s;
-}
-
-.-main-img {
-    max-height: 500px;
-    transition: 0.3s;
-    position: absolute;
-    top: 0;
-    right: 50%;
-    transform: translateX(50%);
-    opacity: 1;
-}
-
-.gla-ahide {
-    max-height: 400px;
-    opacity: 0;
-}
-
 .-cal-line {
     height: 475px;
     position: absolute;

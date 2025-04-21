@@ -249,7 +249,6 @@
 .ins-tag {
     padding-left: 0.75em;
     padding-right: 0.75em;
-    display: inline-block;
     line-height: 2.4em !important;
     height: 2.4em;
     font-size: 0.75rem;
