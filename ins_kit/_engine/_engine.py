@@ -123,6 +123,9 @@ class Engine(ins_parent):
         
         elif type=="ajx":
             container =self.ins._map.AJAX_FOLDER
+            
+        elif type=="plg":
+            container =self.ins._map.PLGINS_FOLDER            
         else:
             container =self.ins._map.APPS_FOLDER
         area_url = self._areas(area)["url"]

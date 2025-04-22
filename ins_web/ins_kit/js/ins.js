@@ -1542,10 +1542,10 @@ Ajax.prototype._ins_ajax = function(options, callback) {
     })
 };
 Ajax.prototype._app = function(options, callback) {
-    var s = ins(".ins-app")._getData("data")
     var g = ins()._map._data();
 
 
+    var s = ins(".ins-app")._getData("data")
 
     s = JSON.parse(s);
     if (options["_p"] != null) {
@@ -1574,11 +1574,71 @@ Ajax.prototype._wdgt = function(options, callback) {
     if (options["_a"] == "" || options["_a"] == null) {
         options["_a"] = "home";
     }
-    var url = "/ins_ajax/" + options["_a"] + "/" + options["_w"] + "/" + this.o + "/do/_t/wdgt"
+
+    var area = "";
+    var cont = "";
+    var name = "";
+    var o = this.o.split(".");
+
+    if (o.length > 2) {
+        area = o[0];
+        cont = o[1];
+        name = o[2];
+    } else if (o.length == 2) {
+        cont = o[0];
+        name = o[1];
+    } else {
+        name = this.o;
+        cont = options["_w"];
+        area = options["_a"];
+
+    }
+
+
+
+    var url = "/ins_ajax/" + area + "/" + cont + "/" + this.o + "/do/_t/wdgt"
     delete options["_a"];
     delete options["_w"];
     delete options["_m"];
     ins(this.o)._insAjax(function(ajax) {
+        ajax._send(url, options, callback);
+    })
+};
+
+Ajax.prototype._plgin = function(options, callback) {
+    if (options["_a"] == "" || options["_a"] == null) {
+        options["_a"] = "home";
+    }
+
+    var app = ins(".ins-app")._getData("data")
+
+    app = JSON.parse(app);
+    var o = this.o.split(".");
+
+
+    var area = "";
+    var cont = "";
+    var name = "";
+    if (o.length > 2) {
+        area = o[0];
+        cont = o[1];
+        name = o[2];
+    } else {
+        cont = o[0];
+        name = o[1];
+    }
+
+    if (area == "") {
+        area = "home";
+    }
+
+
+
+    var url = "/ins_ajax/" + area + "/" + cont + "/" + name + "/do/_t/plg"
+    delete options["_a"];
+    delete options["_w"];
+    delete options["_m"];
+    ins(app[1])._insAjax(function(ajax) {
         ajax._send(url, options, callback);
     })
 };

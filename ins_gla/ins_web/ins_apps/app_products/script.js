@@ -17,9 +17,43 @@ ins(".-plus-btn")._on("click", (o) => {
 
 
 
+
+
+
+ins(".-pro-d-tabs")._on("click", (o) => {
+    ins(".-pro-d-tabs")._removeClass("ins-primary")
+    o._addClass("ins-primary")
+    ins(".-pro-d-cont")._addClass("ins-hidden")
+    ins("." + o._getData('s'))._removeClass("ins-hidden")
+
+}, true)
+
+
+
+
+
+ins(".p-comments-btn")._on("click", (o) => {
+
+
+
+    ins(".p-comments-cont")._data._submit((data) => {
+
+        ins("plg_comments.ajax")._ajax._plgin(data, (data) => {
+
+            ins(".p-comments-data")._setHTML(data);
+        })
+
+    })
+
+
+})
+
 ins(".-pro-action")._on("click", (o) => {
 
+    ins("plg_comments.ajax")._ajax._plgin(o._getData(), (data) => {
 
+        console.log(data);
+    })
     ins("_pro_action")._ajax._app(o._getData(), (data) => {
 
         if (data.trim() == "1") {

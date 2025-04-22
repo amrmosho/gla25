@@ -1,55 +1,49 @@
 from urllib.parse import parse_qs
 from ins_gla.ins_kit._elui import ELUI
 from ins_kit._engine._bp import App
-import json
+from ins_plgs.plg_comments.plg_comments import PlgComments
 
 
 class AppProductDetails(App):
     def __init__(self, app) -> None:
         self.app: App = app
         super().__init__(app.ins)
+    @property
+    def _uid(self):
+        return "1"
         
-    def _pro_jaction(self ,type ="prolike"):
+
+    def _pro_jaction(self, type="prolike"):
         pid = str(self.ins._server._post("pid"))
-        
-        pros=self.ins._users._get_settings('pro',uid="1")
-        r= ""
-        
-        if type not in pros :
-            pl =[]
+
+        pros = self.ins._users._get_settings('pro', uid=self._uid)
+        r = ""
+
+        if type not in pros:
+            pl = []
         else:
-            pl =pros[type]
+            pl = pros[type]
             pl = list(set(pl))
-            
-            
+
         if pid in pl:
             pl.remove(pid)
-            r="0"
+            r = "0"
         else:
             pl.append(pid)
-            r="1"
+            r = "1"
 
-    
-        data ={type: pl}
-        self.ins._users._updat_settings('pro',data,uid="1")
+        data = {type: pl}
+        self.ins._users._updat_settings('pro', data, uid=self._uid)
         return r
-        
-        
-        
-        
-    def _pro_action(self):
-        
-        ps = self.ins._server._post()
-        if ps.get("a") =="like":
-           return self._pro_jaction()
-        
-        elif ps.get("a") =="wishlist":
-           return  self._pro_jaction("wishlist")
 
-        
-        
-        
-            
+    def _pro_action(self):
+
+        ps = self.ins._server._post()
+        if ps.get("a") == "like":
+            return self._pro_jaction()
+
+        elif ps.get("a") == "wishlist":
+            return self._pro_jaction("wishlist")
 
     def _show_subtypes(self, subtypes, stys="", string=False):
 
@@ -184,21 +178,23 @@ class AppProductDetails(App):
             {"end":  "true"},
 
             {"class": "ins-line ins-col-12"},
-            
-            
+
+
             {"start":  "true", "class": "ins-col-12 ins-flex-xenter"},
 
 
             {"start":  "true", "class": "ins-col-8"},
-            {"_data": "Reputation","class": "ins-col-12  ins-title-m  ins-grey-color "},
+            {"_data": "Reputation", "class": "ins-col-12  ins-title-m  ins-grey-color "},
 
-            {"_data": "Level: 3D Master","class": "ins-col-12  ins-font-m  ins-grey-color ins-strong-m"},
+            {"_data": "Level: 3D Master",
+                "class": "ins-col-12  ins-font-m  ins-grey-color ins-strong-m"},
             {"end":  "true"},
 
 
 
-            {"_data": str(u["points"]), "class": " ins-border  ins-text-center  ins-rounded  ins-title-m  ins-primary-w ins-grey-color " ,"style":"    height: 80px;width: 80px !important;line-height: 80px;"},
-             {"end":  "true"},
+            {"_data": str(u["points"]), "class": " ins-border  ins-text-center  ins-rounded  ins-title-m  ins-primary-w ins-grey-color ",
+             "style": "    height: 80px;width: 80px !important;line-height: 80px;"},
+            {"end":  "true"},
 
             {"_data": "Positive", "class": "ins-col-6   ins-font-m   ins-grey-color "},
             {"_data": "7", "class": "ins-col-6  ins-success-color ins-font-l  i "},
@@ -212,6 +208,14 @@ class AppProductDetails(App):
         ]
 
         return uidata
+
+    def reviews(self):
+        
+        return "reviewsreviewsreviewsreviews"
+
+    def comments(self ,data):
+        
+        return  PlgComments(self).out("_product" ,data["id"])
 
     def _ui(self, rq):
         data = self.ins._db._get_row("gla_product", "*", f"id={rq['id']}")
@@ -280,27 +284,26 @@ class AppProductDetails(App):
 
         uidata.append(
             {"_data": data["title"], "class": "ins-col-12 ins-title-l ins-grey-d-color  ins-text-upper "})
-        
-        
-        pros=self.ins._users._get_settings('pro',uid="1")
-        lc =""
-        wl=""
-        if str(data["id"]) in  pros["prolike"]:
-            lc =" ins-success "
 
-        if str(data["id"]) in  pros["wishlist"]:
-            wl =" ins-success "
+        pros = self.ins._users._get_settings('pro', uid="1")
+        lc = ""
+        wl = ""
+        if str(data["id"]) in pros["prolike"]:
+            lc = " ins-success "
+
+        if str(data["id"]) in pros["wishlist"]:
+            wl = " ins-success "
 
         # actions
         uidata += [
             {"class": "ins-space-m"},
             {"_data": "<i class='ins-icons-bookmark ins-font-m'></i>  Add to wishlist",
-                "class": f"ins-button  ins-button  ins-font-s -pro-action {wl}  ins-flex-center " ,"data-a":"wishlist" ,"data-pid":data["id"]},
+                "class": f"ins-button  ins-button  ins-font-s -pro-action {wl}  ins-flex-center ", "data-a": "wishlist", "data-pid": data["id"]},
             {"class": "ins-col-grow"},
             {"_data": "<i class='ins-icons-eye ins-font-m'></i> " + str(data["views"]),
                 "class": "ins-button ins-font-s  ins-flex-center "},
             {"_data": "<i class='ins-icons-heart ins-font-m'></i> 3",
-                "class": f"ins-button  ins-font-s  -pro-action ins-flex-center {lc}" ,"data-a":"like" ,"data-pid":data["id"]},
+                "class": f"ins-button  ins-font-s  -pro-action ins-flex-center {lc}", "data-a": "like", "data-pid": data["id"]},
             {"_data": "<i class='ins-icons-share-1 ins-font-m'></i> Share",
                 "class": "ins-button  ins-font-s ins-flex-center"},
             {"_data": "<i  style='--color:#fff' class='ins-icons-info  ins-font-l'></i> Report",
@@ -309,20 +312,52 @@ class AppProductDetails(App):
         ]
 
        # tabs
+       
+        com_count =self.ins._db._get_row("plg_comments" ,"count(id) as c" ,f"obj_id='{data["id"]}' and obj_type='_product'").get("c")
         uidata += [
             {"start": "true", "class": "ins-flex ins-card", "style": "width: 100%"},
             {"start": "true", "class": "ins-flex-center ins-bg-2",
                 "style": "width: 100%"},
-            {"_data": "details", "class": "ins-button  ins-col-3 ins-primary"},
-            {"_data": "Comments (1)", "class": "ins-button ins-col-3"},
-            {"_data": "Reviews (0)", "class": "ins-button  ins-col-3"},
+            
+            
+            
+            {"_data": "details", "class": "ins-button -pro-d-tabs  ins-col-3 ins-primary",
+                "data-s": "-details-cont"},
+            
+            
+            
+            {"_data": f"Comments ({com_count})", "class": "ins-button -pro-d-tabs  ins-col-3",
+             "data-s": "-comments-cont"},
+            
+            
+            
+            {"_data": "Reviews (0)", "class": "ins-button   -pro-d-tabs ins-col-3",
+             "data-s": "-reviews-cont"},
+
+
+
             {"end": "true"},
-            {"start": "true", "class": "ins-col-12"},
+
+
+
+
+            {"_data": self.comments(data),  "class": "ins-col-12 -comments-cont ins-hidden  ins-flex   -pro-d-cont"},
+
+            
+            {"start": "true", "class": "ins-col-12 -pro-d-cont  ins-hidden  -reviews-cont"},
+            {"_data": self.reviews() , "class": "ins-col-12 ins-flex "},
+
+            {"end": "true"},
+
+
+
+            {"start": "true", "class": "ins-col-12 -pro-d-cont -details-cont"},
             {"class": "ins-space-m"},
             {"_data": "Description", "class": " ins-title-m ins-strong-m "},
             {"class": "ins-space-m"},
             {"_data": data["des"], "class": "ins-col-12"},
-            {"class": "ins-space-m"},            {"class": "ins-space-m"},
+            {"class": "ins-space-m"},            
+            {"class": "ins-space-m"},
 
             {"_data": "Tags", "class": " ins-title-m ins-strong-m "},
 
@@ -405,18 +440,16 @@ class AppProductDetails(App):
         uidata.append({"class": "ins-space-s"})
 
         # Terms area
-        uidata.append({"_data": "<img class=' icon-text-area' src='"+p+"style/truck.svg '></img> non-overlapping Unwrapped UVs ",  "class": "ins-col-12 ins-grey-color ins-title-14"})
-        uidata.append({"_data": "<img class=' icon-text-area'  src='"+p+"style/gift.svg'></img> UV Mapped","class": "ins-col-12 ins-grey-color ins-title-14 ins-m-col-11"})
-        uidata.append({"_data": "<img class=' icon-text-area'  src='"+p+"style/gift.svg'></img> Polygonal Quads only Geometry","class": "ins-col-12 ins-grey-color ins-title-14 ins-m-col-11"})
+        uidata.append({"_data": "<img class=' icon-text-area' src='"+p +
+                      "style/truck.svg '></img> non-overlapping Unwrapped UVs ",  "class": "ins-col-12 ins-grey-color ins-title-14"})
+        uidata.append({"_data": "<img class=' icon-text-area'  src='"+p+"style/gift.svg'></img> UV Mapped",
+                      "class": "ins-col-12 ins-grey-color ins-title-14 ins-m-col-11"})
+        uidata.append({"_data": "<img class=' icon-text-area'  src='"+p+"style/gift.svg'></img> Polygonal Quads only Geometry",
+                      "class": "ins-col-12 ins-grey-color ins-title-14 ins-m-col-11"})
 
-       
-       
         uidata.append({"class": "ins-space-s"})
 
         # Product Description
-    
-
-  
 
         uidata.append({"end": "true"})
         uidata.append({"class": "ins-space-4xl"})

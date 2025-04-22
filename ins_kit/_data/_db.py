@@ -22,7 +22,7 @@ class Database(ins_parent):
 
         for op in ops:
             if op["info"] == "now":
-                r[op["target"]] = self.ins._date._now()
+                r[op["target"]] = self.ins._date._now(format= self.ins._map.DB_DATETIME_FORMAT)
 
         return r
 
@@ -133,7 +133,7 @@ class Database(ins_parent):
     def _jsql(self):
         sql = f"SELECT {self.j_cquery} From {
             self.j_tquery}  {self.j_query} {self.j_wquery} "
-        return self._get_query(sql)
+        return sql
 
     def _jrun(self):
         sql = f"SELECT {self.j_cquery} From {

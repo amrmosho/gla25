@@ -259,7 +259,10 @@ class Temp(ins_parent):
 
 
 """App Class---------------------------------------"""
+class Plgin(ins_parent):
 
+    def __init__(self, Ins) -> None:
+        super().__init__(Ins)
 
 class App(ins_parent):
     data = {}
