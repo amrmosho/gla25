@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="{{user.settings.lang}}">
+
+<head>
+    <meta charset="utf-8"> {{ temp.header|safe }}
+    <link rel="stylesheet" href="{{ temp._weburl|safe }}css/style.css" />
+    <link rel="stylesheet" href="{{ temp._weburl|safe }}css/style-{{user.settings.lang}}.css" />
+
+
+    <link rel="stylesheet" media="all" href="/ins_web/ins_kit/css/ins_print.css">
+    <link rel="stylesheet" href="{{ temp._weburl|safe }}css/print.css" />
+
+
+
+    <script type="text/javascript" src="{{ temp._weburl|safe }}js/script.js"></script>
+    <meta charset="utf-8"> {{ temp.header_end|safe }}
+    <title>ins admin python </title>
+</head>
+
+<body class=" {{page['class']|safe }}    ins-wallpaper">
+    <div class="ta-body ins-gap-o ins-flex-start">
+
+        <div class="t-main  ins-gap-o  ins-flex-grow">
+            <div class="ins-col-12 ins-flex ins-gap-o   ins-col-12  ins-padding-s ins-bar-top tmp-header ">
+                <div class="t-page-title ins-flex-grow ins-gap-o   ins-padding-xl ins-flex ins-padding-h">
+                    <div style="line-height: 40px;margin-bottom: 0;     min-width: 120px;" class="t-page-title  "> {{ temp._page_title|safe }}
+                    </div>
+                </div>
+            </div>
+            <div class="ins-flex ins-col-12 ins-padding-l tmp-app">{{ app|safe }}</div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>
