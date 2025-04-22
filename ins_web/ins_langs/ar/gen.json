@@ -17,6 +17,9 @@
     "signup_completed_successfully": "تم التسجيل بنجاح",
     "otp_sent_successfully": "تم ارسال رمز التحقق بنجاح",
     "mobile_number_already_exists": "رقم الهاتف المحمول موجود بالفعل",
+    "email_address_already_exists": "البريد الالكتروني موجود بالفعل",
     "remove_item_confirm": "هل انت متأكد من حذف هذا المنتج من السلة؟",
-    "item_removed": "تم حذف المنتج من السلة"
+    "item_removed": "تم حذف المنتج من السلة",
+    "password_long": "يجب أن تكون كلمة المرور مكونة من 8 أحرف على الأقل",
+    "invalid_login": "معلومات تسجيل الدخول غير صحيحة"
 }

@@ -46,8 +46,6 @@ function _submit() {
 }
 
 
-
-
 function _submit_phone() {
     var v = ins(".-cal-update-nput-phone")._getValue();
     if (v === "" || v === null || v === undefined || v == 0 || isNaN(v)) {
@@ -56,9 +54,6 @@ function _submit_phone() {
         window.location = "/plan/" + v + "/";
     }
 }
-
-
-
 
 
 ins(".-cal-update-btn-phone")._on("click", (o) => {

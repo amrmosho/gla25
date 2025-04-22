@@ -17,6 +17,9 @@
     "signup_completed_successfully": "Signup completed successfully",
     "otp_sent_successfully": "OTP sent successfully",
     "mobile_number_already_exists": "Mobile number already exists",
+    "email_address_already_exists": "Email address already exists",
     "remove_item_confirm": "Are you sure tou want to remove this item from cart?",
-    "item_removed": "Item Removed from Cart"
+    "item_removed": "Item Removed from Cart",
+    "password_long": "Password must be at least 8 characters long",
+    "invalid_login": "Invalid login data"
 }

@@ -10,10 +10,6 @@
         }
     ],
     "form_data": [{
-            "start": "True",
-            "class": "ins-col-12 ins-flex ins-card"
-        },
-        {
             "name": "title",
             "title": "title",
             "title-ar": "العنوان",

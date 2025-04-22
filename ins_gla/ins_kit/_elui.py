@@ -102,6 +102,8 @@ class ELUI(ins_parent):
 
         ops = self.ins._db._get_row("gla_settings","*","id='1'")
 
+    
+
 
         r = {"status": "0"}
 
@@ -117,9 +119,23 @@ class ELUI(ins_parent):
 
             r["status"] = "2"
             return r
+        
+        now = datetime.now()
+        weekday = now.weekday()
+
+        if weekday == 6:
+            r["msg"] = "We accept orders on working days, from Monday to Saturday."
+            if self.ins._langs._this_get()["name"] == "ar":
+              r["msg"] = "نستقبل الطلبات في أيام العمل من يوم الإثنين إلى يوم السبت."
+
+            r["status"] = "3"
+            return r
 
         #current_time = (datetime.now() + timedelta(hours=2)).time().replace(microsecond=0)
         current_time = (datetime.now()).time().replace(microsecond=0)
+
+
+
 
         available_periods = []
 

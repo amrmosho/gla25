@@ -82,8 +82,10 @@ class AppHome(App):
         data = self.ins._db._get_query(sql)[0]
         lsql = "SELECT COUNT(*) AS new_users_count from  kit_user WHERE  MONTH(kit_created)=(MONTH(now() ) - 1 ) ;"
         lsqldata = self.ins._db._get_query(lsql)[0]
-        per = round((data["new_users_count"] /
-                    lsqldata["new_users_count"]) * 100)
+        per  = 0
+        if data["new_users_count"] and lsqldata["new_users_count"]:
+         per = round((data["new_users_count"] /lsqldata["new_users_count"]) * 100)
+        
         uidata = [
             {
                 "start": "true",

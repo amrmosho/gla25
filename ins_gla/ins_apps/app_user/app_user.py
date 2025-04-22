@@ -9,34 +9,5 @@ class AppUser(App):
     def out(self):
 
         ops = self.ins._apps._crud_ops
-
-   
-       
-        def func(data: dict):
-            if "password" in data:
-                if data["password"] == "":
-                    del data["password"]
-                else :
-                    data["password"] = d = self.ins._data.hash_password(
-                        data["password"])
-            return data
-
-        ops._form_befor_insert = func
-        ops._form_befor_update = func
-        
-        
-        def ufunc(data: dict):
-            if "password" in data:
-                    del data["password"]
-            return data
-           
-
-        
-        ops._form_befor_update_data = ufunc
-        
-
-        data = self.ins._db._get_row("kit_user", "*", "groups = 4")
-
-
         r = self.ins._apps._crud(ops, properties=self.app._properties)
         return r
