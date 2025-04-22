@@ -38,6 +38,12 @@
             "name": "ins_gla",
             "title": "Galla Admin",
             "logo": "elogo_primary.png"
+        },
+        "ins_cg": {
+            "url": "ins_cg",
+            "name": "ins_cg",
+            "title": "CgStager",
+            "logo": "adm_logo.png"
         }
     },
     "jar": {

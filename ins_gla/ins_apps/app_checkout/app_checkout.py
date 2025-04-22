@@ -986,8 +986,6 @@ class AppCheckout(App):
             "delivery_type":address["type"],
             "payment_method":payment["type"],
             "total":total,
-            "kit_modified":self.ins._date._date_time(),
-            "kit_created":self.ins._date._date_time(),
             "payment_status":"pending",
             "order_status":"pending",
             "shipping":shipping

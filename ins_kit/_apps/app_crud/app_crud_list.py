@@ -195,8 +195,7 @@ class APPCRUDList(appCrudParent):
         reload_url = self.ins._server._url({}, clear=True)
         t_url = self.ins._server._url({"mode": "trash"}, clear=True)
 
-        ex_url = self.ins._server._url(
-            {"mode": "curd_export", "insrender": "app"})
+        ex_url = self.ins._server._url({"mode": "curd_export", "insrender": "app"})
 
         ex_all_url = self.ins._server._url(
             {"mode": "curd_exportall", "insrender": "app"})
@@ -204,42 +203,93 @@ class APPCRUDList(appCrudParent):
         p_url = self.ins._server._url({"insrender": "print"}, ["mode"])
         s_url = self.ins._server._url({"mode": "settings"}, clear=True)
 
-        more_menu = [
-            {"start": True, "class": "ins-menu ins-end"},
-            {"style": "transform: rotate(90deg);",
-             "class": "lni ins-icon ins-header  lni-menu-meatballs-1 ins-padding-s"},
-            {"_type": "ul", "start": True},
-            {
-                "data-cm": self.__w("del_items_confirm_msg"), "data-dm": self.__w("del_items_msg"),
-                "_type": "li", "class": "app-crud-list-mdelete",
-                "_data": f"<i class='lni ins-icon   lni-xmark'></i>{self.__w("delete")}"},
-            {
-                "data-cm": self.__w("copy_items_msg"),
-                "_type": "li", "class": "app-crud-list-mcopy",
-                "_data": f"<i class='lni ins-icon lni-clipboard'></i>{self.__w("duplicate")}"},
-            {"_type": "li", "class": "ins-separator ins-line"},
+        
+        more_menu = []
+        more_menu.append({"start": True, "class": "ins-menu ins-end"})
+        more_menu.append({"style": "transform: rotate(90deg);", "class": "lni ins-icon ins-header  lni-menu-meatballs-1 ins-padding-s"})
+        more_menu.append({"_type": "ul", "start": True})
+        more_menu.append({
+            "data-cm": self.__w("del_items_confirm_msg"),
+            "data-dm": self.__w("del_items_msg"),
+            "_type": "li",
+            "class": "app-crud-list-mdelete",
+            "_data": f"<i class='lni ins-icon   lni-xmark'></i>{self.__w('delete')}"
+        })
+        more_menu.append({
+            "data-cm": self.__w("copy_items_msg"),
+            "_type": "li",
+            "class": "app-crud-list-mcopy",
+            "_data": f"<i class='lni ins-icon lni-clipboard'></i>{self.__w('duplicate')}"
+        })
+        more_menu.append({"_type": "li", "class": "ins-separator ins-line"})
+        
+        g = self.ins._server._get()
+
+        if "alias" in g and g["alias"] == "order":
+             more_menu.append({
+                "_type": "a",
+                "target": "blank",
+                "href": ex_url,
+                "_data": f"<i class='lni ins-icon app-crud-list-mdelete lni-download-1'></i> Export orders"
+            }) 
+             
+             pr_url = self.ins._server._url({"mode": "curd_export","type":"products", "insrender": "app"})
+             more_menu.append({
+                "_type": "a",
+                "target": "blank",
+                "href": pr_url,
+                "_data": f"<i class='lni ins-icon app-crud-list-mdelete lni-download-1'></i> Export Products"
+            })
+             more_menu.append({
+                    "_type": "a",
+                    "target": "blank",
+                    "href": ex_all_url,
+                    "_data": f"<i class='lni ins-icon app-crud-list-mdelete lni-download-1'></i> Export all orders"
+                })
+             pr_all_url = self.ins._server._url({"mode": "curd_exportall","type":"products", "insrender": "app"})
+
+             more_menu.append({
+                    "_type": "a",
+                    "target": "blank",
+                    "href": pr_all_url,
+                    "_data": f"<i class='lni ins-icon app-crud-list-mdelete lni-download-1'></i>  Export all products"
+                })
+        
+        
+        else:
+            
+            more_menu.append({
+                "_type": "a",
+                "target": "blank",
+                "href": ex_url,
+                "_data": f"<i class='lni ins-icon app-crud-list-mdelete lni-download-1'></i> {self.__w('export')}"
+            })
 
 
+            more_menu.append({
+                "_type": "a",
+                "target": "blank",
+                "href": ex_all_url,
+                "_data": f"<i class='lni ins-icon app-crud-list-mdelete lni-download-1'></i> {self.__w('export_all')}"
+            })
+        more_menu.append({
+            "_type": "a",
+            "target": "blank",
+            "href": p_url,
+            "_data": f"<i class='lni ins-icon app-crud-list-printer lni-printer'></i> {self.__w('print')}"
+        })
+        more_menu.append({"_type": "li", "class": "ins-separator ins-line"})
+        more_menu.append({
+            "_type": "li",
+            "_data": f"<a href='{s_url}'><i class='lni ins-icon app-crud-list-settings lni-gears-3'></i> {self.__w('settings')} </a>"
+        })
+        more_menu.append({
+            "_type": "li",
+            "_data": f"<a href='{t_url}'><i class='lni ins-icon app-crud-list-mdelete lni-trash-3'></i> {self.__w('trash')} </a>"
+        })
+        more_menu.append({"_type": "ul", "end": True})
+        more_menu.append({"end": True})
 
-            {"_type": "a", "target": "blank", "href": ex_url,
-                "_data": f"<i class='lni ins-icon app-crud-list-mdelete lni-download-1'></i> {self.__w("export")}"},
-            {"_type": "a", "target": "blank", "href": ex_all_url,  "_data": f"<i class='lni ins-icon app-crud-list-mdelete lni-download-1'></i> {
-                self.__w("export_all")}"},
-            {"_type": "a", "target": "blank", "href": p_url,
-                "_data": f"<i class='lni ins-icon app-crud-list-printer lni-printer'></i> {self.__w("print")}"},
-
-
-            {"_type": "li", "class": "ins-separator ins-line"},
-            {"_type": "li",
-                "_data": f"<a href='{s_url}'><i class='lni ins-icon app-crud-list-settings lni-gears-3'></i> {self.__w("settings")} </a>"},
-
-
-            {"_type": "li",
-                "_data": f"<a href='{t_url}'><i class='lni ins-icon app-crud-list-mdelete lni-trash-3'></i> {self.__w("trash")} </a>"},
-
-            {"_type": "ul", "end": True},
-            {"end": True}
-        ]
 
         search = {"class": "ins-flex-grow"}
         main_fliter = {}

@@ -8,10 +8,6 @@ class WdgMenu(Widget):
         self.widget: Widget = widget
         super().__init__(widget.ins)
 
-    def test2(self):
-
-        return "test2"
-
     def out(self):
 
         ui = []

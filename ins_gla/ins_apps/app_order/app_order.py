@@ -1,3 +1,4 @@
+from datetime import datetime
 import json
 from ins_gla.ins_kit._elui import ELUI
 from ins_kit._engine._bp import App
@@ -272,6 +273,8 @@ class AppOrder(App):
             try:
                 customer_row = self.ins._db._get_row("kit_user", "title", f"id='{d['fk_user_id']}'")
                 customer = customer_row["title"] if customer_row else "Unknown"
+                dt = datetime.strptime(str(d["kit_created"]), "%Y-%m-%d %H:%M:%S")
+
 
                 if d["delivery_type"] == "store":
                     addr_row = self.ins._db._get_row("gla_address", "address", f"id='{d['fk_address_id']}'")
@@ -301,6 +304,8 @@ class AppOrder(App):
 
                 exdata.append({
                     "ID": d["id"],
+                    "Order Date":dt.date()    ,
+                    "Order Time":dt.time() ,
                     "Customer": customer,
                     "Delivery Type": d["delivery_type"],
                     "Address": address,
@@ -317,15 +322,45 @@ class AppOrder(App):
 
         return exdata
 
+    def export_products(self, data):
+        exdata = []
+        all_products = self.ins._db._get_data("gla_product", "id, title")
+        product_titles = [p["title"] for p in all_products]
+        for d in data:
+            odata = self.ins._db._jget("gla_order_item", "*", f"fk_order_id='{d['id']}'")
+            odata._jwith("gla_product product", "title", rfk="fk_product_id")
+            odata = odata._jrun()
+            item_map = {o["product_title"]: o["quantity"] for o in odata}
+
+            row = {"ID": d["id"],
+                    "Order Date": self.ins._date._format(d["kit_created"], format="date"),
+                    "Order Time": self.ins._date._format(d["kit_created"], format="time")
+
+                   }
+            for title in product_titles:
+                row[title] = item_map.get(title, 0)
+            
+            exdata.append(row)
+
+        return exdata
+
+       
        
 
         
     def out(self):
         self.app._include("script.js")
         self.app._include("style.css")
+
+        g= self.ins._server._get()
+
         ops = self.ins._apps._crud_ops
-        ops._list_export = self.export
-        ops._list_export_all = self.export
+        if "type" in g and g["type"] == "products":
+         ops._list_export = self.export_products
+         ops._list_export_all = self.export_products
+        else:
+         ops._list_export = self.export
+         ops._list_export_all = self.export
 
         r = self.ins._apps._crud(ops, properties=self.app._properties)
 
