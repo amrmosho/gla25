@@ -32,5 +32,5 @@ app.register_blueprint(ins_cg_bp, url_prefix=f"/ins_cg")
 
 
 if __name__ == '__main__':
-            app.run(debug=True)
+    app.run(debug=True)
  

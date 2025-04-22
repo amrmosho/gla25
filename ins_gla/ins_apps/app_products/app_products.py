@@ -29,6 +29,22 @@ class AppProducts(App):
 
         return url
     
+    
+    
+    
+    def _pro_action(self):
+            app = AppProductDetails(self.app)
+            return app._pro_action()
+    
+    
+    
+   
+    
+    
+    
+    
+    
+    
 
     def _filter_redirect_inner(self):
         rq = self.ins._server._post()

@@ -11,24 +11,33 @@ ins(".-minus-btn")._on("click", (o) => {
     }
 }, true)
 ins(".-plus-btn")._on("click", (o) => {
-        let val = parseInt(ins(".count-inpt")._getValue(), 10);
-        ins(".count-inpt")._setValue(val + 1);
-    }, true)
-    // Active main image
-ins(".-side-img")._on("click", (o) => {
-        var src = o._getData("src");
-        var p = o._parent(".-side-img-cont");
-        ins(".-side-img")._removeClass("ins-active");
-        ins(".-side-img-cont")._removeClass("ins-active");
-        o._addClass("ins-active");
-        p._addClass("ins-active");
-        ins(".-main-img")._addClass("gla-ahide");
-        setTimeout(() => {
-            ins(".-main-img")._setAttribute("src", src);
-            ins(".-main-img")._removeClass("gla-ahide");
-        }, 100);
-    }, true)
-    // Pagination
+    let val = parseInt(ins(".count-inpt")._getValue(), 10);
+    ins(".count-inpt")._setValue(val + 1);
+}, true)
+
+
+
+ins(".-pro-action")._on("click", (o) => {
+
+
+    ins("_pro_action")._ajax._app(o._getData(), (data) => {
+
+        if (data.trim() == "1") {
+
+            o._addClass("ins-success")
+
+        } else {
+
+            o._removeClass("ins-success")
+
+
+        }
+    })
+
+}, true)
+
+
+// Pagination
 ins(".ins-pagination-btn")._on("click", (o) => {
     var page = o._getData("page");
     var currentPage = parseInt(ins(".ins-pagination-btn.active")._getData("page"), 10);
@@ -375,6 +384,9 @@ function _remove_filter(name, type = "") {
 
     _submitfilter()
 }
+
+
+
 
 
 
