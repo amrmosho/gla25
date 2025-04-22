@@ -28,7 +28,7 @@ class AppBlogs(App):
         if "mode" in rq and rq["mode"] == "blog":
             blogs_url = self.ins._server._url({}, ["mode", "id"])
             title = self.ins._db._get_row(
-                "gla_blog", "title,kit_lang", f"id={rq['id']}",update_lang=True)
+                "cg_blog", "title,kit_lang", f"id={rq['id']}",update_lang=True)
             path.append({"_data": "Media & News","_data-ar":"أحدث الأخبار","_trans":"true", "_type": "a", "href": blogs_url,
                         "class": " ins-title-12	ins-grey-d-color ins-strong-m"})
             path.append(
@@ -52,7 +52,7 @@ class AppBlogs(App):
 
     def _ui(self):
 
-        data = self.ins._db._get_data("gla_blog", "*"," fk_blog_category_id <>'18'",update_lang=True)
+        data = self.ins._db._get_data("cg_blog", "*"," fk_blog_category_id <>'18'",update_lang=True)
         p = "/ins_web/ins_uploads/"
         uidata = [{"start": "true", "class": "ins-flex ",
                    "style": "background:white;height:124px;position: relative;    border-bottom: 1px solid var(--grey-l);height:auto; "}]
@@ -83,7 +83,7 @@ class AppBlogs(App):
         return self.ins._ui._render(uidata)
 
     def blog_ui(self, rq):
-        bdata = self.ins._db._get_row("gla_blog", "*", f"id={rq['id']} ",update_lang=True)
+        bdata = self.ins._db._get_row("cg_blog", "*", f"id={rq['id']} ",update_lang=True)
         p = "/ins_web/ins_uploads/"
 
         uidata = [{"start": "true", "class": "ins-flex ",

@@ -7,7 +7,7 @@ class WdgBlog(Widget):
         super().__init__(widget.ins)
 
     def out(self):
-        data_blog = self.ins._db._get_data("gla_blog", "*", update_lang=True)
+        data_blog = self.ins._db._get_data("cg_blog", "*", update_lang=True)
         self.widget._include("style.css")
         featured_blog = next(
             (d for d in data_blog if d.get("_order") == 1), None)

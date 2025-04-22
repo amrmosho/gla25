@@ -1,5 +1,5 @@
 {
-    "table": "gla_blog_category",
+    "table": "cg_blog_category",
     "form_data": [{
             "start": "True",
             "class": "ins-col-12 ins-flex ins-card ins-padding-m"
@@ -12,12 +12,23 @@
             "_type": "input",
             "type": "text",
             "required": "true",
-            "pclass": "ins-col-12"
+            "pclass": "ins-col-6"
+        },
+        {
+            "name": "alias",
+            "title": "Alias",
+            "title-ar": "اختصار",
+            "_trans": "true",
+            "_type": "input",
+            "type": "text",
+            "required": "true",
+            "pclass": "ins-col-6"
         },
         {
             "name": "des",
             "title": "Description",
-            "_type": "textarea",
+            "_type": "input",
+            "type": "textarea",
             "required": "true",
             "pclass": "ins-col-12"
         },

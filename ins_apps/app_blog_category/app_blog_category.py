@@ -13,6 +13,6 @@ class AppBlogCategory(App):
         ops = self.ins._apps._crud_ops
         
         
-        ops._table = "gla_blog_category"
+        ops._table = "cg_blog_category"
         r = self.ins._apps._crud(ops,properties=self.app._properties)
         return r

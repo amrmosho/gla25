@@ -1,5 +1,5 @@
 {
-    "table": "gla_blog",
+    "table": "cg_blog",
     "form_data": [{
             "start": "True",
             "class": "ins-col-12 ins-flex ins-card ins-padding-m"
@@ -12,20 +12,31 @@
             "lang": "true",
             "_type": "input",
             "_lang": "true",
-            "_table": "gla_blog",
+            "_table": "cg_blog",
             "type": "text",
             "required": "true",
-            "pclass": "ins-col-6"
+            "pclass": "ins-col-4"
+        }, {
+            "name": "alias",
+            "title": "Alias",
+            "title-ar": "اختصار",
+            "_trans": "true",
+            "_type": "input",
+            "_lang": "true",
+            "type": "text",
+            "required": "true",
+            "pclass": "ins-col-4"
         },
         {
             "name": "fk_blog_category_id",
             "title": "Blog Category",
             "_type": "select",
             "fl_type": "db",
-            "fl_table": "gla_blog_category",
+            "fl_start": ",-",
+            "fl_table": "cg_blog_category",
             "fl_where": "`id` <> '18'",
             "required": "true",
-            "pclass": "ins-col-6"
+            "pclass": "ins-col-4"
         },
         {
             "end": "True"
@@ -41,7 +52,7 @@
             "title-ar": "الصورة",
             "_trans": "true",
             "_dir": "images",
-            "_exts": "image/png",
+            "_exts": "image/png/jpg",
             "type": "upload",
             "required": "true",
             "pclass": "ins-col-6"
@@ -61,7 +72,7 @@
             "_type": "textarea",
             "type": "textarea",
             "_lang": "true",
-            "_table": "gla_blog",
+            "_table": "cg_blog",
             "required": "true",
             "pclass": "ins-col-12"
         },
