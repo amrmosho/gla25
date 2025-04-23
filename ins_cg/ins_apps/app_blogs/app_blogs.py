@@ -1,5 +1,6 @@
 import math
 from ins_cg.ins_apps.app_blogs.app_blogs_details import AppBlogsDetails
+from ins_cg.ins_kit._elui import ELUI
 from ins_kit._engine._bp import App
 
 
@@ -7,26 +8,6 @@ class AppBlogs(App):
     def __init__(self, app) -> None:
         self.app: App = app
         super().__init__(app.ins)
-
-    def header_ui(self):
-        self.app._include("script.js")
-        uidata = [
-            {"start": "true", "class": "ins-flex ins-col-12 gla-container ins-padding-2xl"}]
-        home_url = self.ins._server._url({}, ["mode", "id", "alias"])
-        path = [
-            {"start": "true", "class": "ins-col-12 ins-flex ins-text-upper"},
-            {"_type": "a", "href": home_url, "_data": "Home /","_data-ar":"الرئيسية /","_trans":"true",
-                "class": " ins-title-12	ins-grey-d-color ins-strong-m"},
-        ]
-        path.append({"_data": "Media & News","_data-ar":"أحدث الأخبار","_trans":"true",
-                        "class": " ins-title-12	ins-grey-color ins-strong-m"})
-        path.append({"end": "true"})
-        uidata += path
-        uidata.append({"_data": "Media / News","_data-ar":"أحدث الأخبار","_trans":"true",
-                      "class": "ins-col-7 ins-title ins-strong-m ins-text-upper ins-grey-d-color"})
-        uidata.append({"end": "true"})
-        return uidata
-
 
 
     def _blogs_area(self):
@@ -127,12 +108,9 @@ class AppBlogs(App):
         return uidata
 
 
-
-
-
     def _ui(self):
         uidata = [{"start": "true", "class": "ins-flex ","style": "background:white;height:124px;position: relative;    border-bottom: 1px solid var(--grey-l);height:auto; "}]
-        uidata += self.header_ui()
+        uidata += ELUI(self.ins).page_title("Media / News","أحدث الأخبار", [{"_data": "Media & News ", "href": "/blogs","_data-ar":"أحدث الأخبار /","_trans":"true"}],string=True)
         uidata.append({"end": "true"})
         uidata.append({"start": "true", "class": "ins-col-12 gla-container ins-padding-2xl ins-flex ins-gap-l ins-m-col-12 ins-flex-valign-start -blogs-area"})
         uidata +=self._blogs_area()
@@ -141,7 +119,6 @@ class AppBlogs(App):
 
     def out(self):
         rq = self.ins._server._req()
-
         self.app._include("style.css")
         self.app._include("script.js")
         if not "mode" in rq:

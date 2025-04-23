@@ -13,14 +13,7 @@ class AppMcontent(App):
                 "name": "title",
                 "title": "my title",
                 "view": "text", 
-                "class": "ins-col-9"
-            },            {
-                "name": "content",
-                "title": "my content",
-                "_view": "limit",
-                "limit_ops":"25",
-
-          "class": "ins-col-2"
+                "class": "ins-col-grow"
             }
         ]
         ops._form_data = [
