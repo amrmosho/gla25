@@ -50,12 +50,19 @@ class AppPayment(App):
         uidata.append({"_data": "Online payment fee","_data-ar": "رسوم الدفع عبر الإنترنت", "_trans":"true","class": "ins-col-6  ins-m-col-6 ins-title-xs  ins-grey-color ins-strong-m"})
         uidata.append({"_data": str(chargs),"data-value" : chargs,"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-m-col-6 ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end -chargs-text"})
         uidata.append({"end": "true"})
-        uidata.append({"_data": "Shipping", "_data-ar":" شحن","_trans":"true", "class": "ins-col-6  ins-m-col-6 ins-title-xs  ins-grey-color ins-strong-m"})
-        if total > 200000:
-          uidata.append({"_data": "Free","_data-ar": "مجاني","_trans":"true","data-value" : 0, "class": "ins-col-6  ins-m-col-6 ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end  -shipping-text"})
-        else:
-          uidata.append({"_data": str(shipping),"data-value" : int(shipping),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",  "class": "ins-col-6  ins-m-col-6 ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end -shipping-text"})
-          total +=int(shipping)
+        asession = self.ins._server._get_session(self.session_address_name)
+
+        if asession["type"] == "delivery":
+            uidata.append({"_data": "Shipping", "_data-ar":" شحن","_trans":"true", "class": "ins-col-6  ins-m-col-6 ins-title-xs  ins-grey-color ins-strong-m"})
+            if total > 200000:
+              uidata.append({"_data": "Free","_data-ar": "مجاني","_trans":"true","data-value" : 0, "class": "ins-col-6  ins-m-col-6 ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end  -shipping-text"})
+            else:
+              uidata.append({"_data": str(shipping),"data-value" : int(shipping),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه",  "class": "ins-col-6  ins-m-col-6 ins-gold-d-color ins-title-xs ins-strong-l ins-flex-end -shipping-text"})
+              total +=int(shipping)
+           
+           
+       
+       
         uidata.append({ "class": "ins-line ins-col-12"})
         uidata.append({"_data": "Total", "_data-ar":" المجموع","_trans":"true", "class": "ins-col-6  ins-m-col-6 ins-title-xs  ins-grey-color ins-strong-m"})
         uidata.append({"_data":  str(total),"_view":"currency","_currency_symbol":" EGP","_currency_symbol_ar":" جنيه", "class": "ins-col-6  ins-m-col-6 ins-grey-d-color ins-title-xs ins-strong-l ins-flex-end -total-text"})
@@ -64,7 +71,6 @@ class AppPayment(App):
 
         back_url = self.ins._server._url({"mode":"delivery"},["id"])
         uidata.append({"start": "true", "class": "ins-flex ins-col-12  ins-padding-m  -address-card","style":"border-radius:8px !important;border: 1px solid var(--grey-l);"})
-        asession = self.ins._server._get_session(self.session_address_name)
         if type(asession) == dict and "type" in asession and  asession["type"] == "store":
             
             stores = self.ins._db._get_data("gla_address","*",update_lang=True)

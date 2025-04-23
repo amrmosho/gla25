@@ -35,31 +35,33 @@ class ELUI(ins_parent):
         if string:
             return uidata
         return self.ins._ui._render(uidata)
-
-    def shop_pro_block(self,data):
-
-
+    def shop_pro_block(self, data):
         p = self.ins._map.UPLOADS_FOLDER
-        purl = self.ins._server._url({"alias":"shop","mode":"product","id":f"{data['id']}"})
+        purl = self.ins._server._url({"alias": "shop", "mode": "product", "id": f"{data['id']}"})
+
         r = [
-            {"_type":"a","start": "true", "class": "  ins-flex -pro-item-block  ins-col-3 "},
-         
-            {"start": "true", "class": "  ins-card  ins-col-12  "},
-            {"href": purl,"start": "true", "class": "gla-img-cont", "style": ""},
-            {"src": p + data.get("th_main"), "loading": "lazy", "_type": "img", "class": "gla-pro-img"},
+            {"_type": "a", "start": "true", "class": "ins-flex -pro-item-block ins-col-3"},
+            {"start": "true", "class": "ins-card ins-col-12 ins-flex"},
+            {"href": purl, "start": "true", "class": "gla-img-cont"},
+            {"src": p + (data.get("th_main") or "default.png"), "loading": "lazy", "_type": "img", "class": "gla-pro-img"},
             {"end": "true"},
             {"class": "ins-space-s"},
-            {"_data": data.get("title"), "class": " ins-padding-s ins-primary-color    ins-title-s ins-col-12  ", "style": "line-height:24px"},
-            {"start": "true", "class": "  ins-card  ins-col-12  "},
+            {"_data": data.get("title"), "class": "ins-padding-s ins-secondary-color ins-title-s ins-col-12", "style": "line-height:24px"},
+            {"start": "true", "class": "ins-col-4 ins-flex-center ins-card"},
+            {"class": "ins-icons-eye", "style": "position: relative; top: 3px;"},
+            {"_data": f"{data.get('views')}"},
             {"end": "true"},
-
-          
-          
-          
-            {"_data": f"{data.get('price')}", "_view": "currency", "class": "ins-col-12 ins-strong-m ins-primary-d-color", "style": "line-height:24px"},
+            {"start": "true", "class": "ins-col-4 ins-flex-center ins-card"},
+            {"class": "ins-icons-heart", "style": "position: relative; top: 3px;"},
+            {"_data": "15"},
             {"end": "true"},
-           
-            {"_type":"a","end": "true"}
+            {"start": "true", "class": "ins-col-4 ins-flex-center ins-card"},
+            {"class": "ins-icons-indent", "style": "position: relative; top: 3px;"},
+            {"end": "true"},
+            {"_data": 'by dika in Apple Products', "class": "ins-col-7 ins-title-xs ins-secondary-d-color", "style": "line-height:24px"},
+            {"_data": f"{data.get('price')}", "_view": "currency", "class": "ins-col-3 ins-strong-m ins-secondary-d-color", "style": "line-height:24px"},
+            {"end": "true"},
+            {"_type": "a", "end": "true"}
         ]
 
         return r

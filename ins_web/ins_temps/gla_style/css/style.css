@@ -150,21 +150,9 @@ footer li {
     max-height: 100%;
 }
 
-.gla-pro-himg,
-.gla-pro-img {
-    transition: 0.4s ease-in-out;
-    position: relative;
-    transform-style: preserve-3d;
-}
-
 .gla-pro-himg {
     opacity: 0;
     transform: rotateY(180deg);
-}
-
-.gla-pro-img {
-    transform: rotateY(0);
-    opacity: 1;
 }
 
 .gla-pro-hbutton {
