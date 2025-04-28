@@ -25,7 +25,7 @@ class PlgInput(Ui):
 
         v = ""
         id = "_" + self.ins._data._unid
-        if "value" in ops:
+        if "value" in ops and ops["value"] != None:
 
             v = self.ins._map.UPLOADS_FOLDER + ops.get("value", "")
 
@@ -34,7 +34,6 @@ class PlgInput(Ui):
 
         tar = {
             "_trans": "true",
-            "data-plgin": "ins_plg_py_form_image",
             "data-p": id,
             "clean": "true", "style": 'line-height: 40px;',
             "class": " lni lni-upload-1 ins-primary-color ins-form-upload-btn  ins-font-l  ins-form-upload-input"}
@@ -62,7 +61,8 @@ class PlgInput(Ui):
         vals = {}
         row = []
 
-        if ("value" in ops):
+              
+        if ("value" in ops and ops["value"] != None):
             if "_mode" in ops and ops["_mode"] == "multi":
                 vls = ops["value"].split(",")
 
@@ -85,23 +85,42 @@ class PlgInput(Ui):
                         row.append({"end": "true"})
 
             else:
+                
+                if "value" not in ops or ops["value"] == None:
+                    ops["value"]=""
+                
                 row = [
 
                     {"start": "true", "class": "-img-cont ins-flex-center"},
-                    {"data-p": ops["value"],   "class": "lni lni-xmark  ins-rounded ins-danger    ins-button-text -img-remove"},
+                    {"data-p": ops.get("value" ,""),   "class": "lni lni-xmark  ins-rounded ins-danger    ins-button-text -img-remove"},
                     {"_type": "a", "href": self.ins._map.UPLOADS_FOLDER +
-                        ops["value"], "target": "_black",   "class": "lni lni-link-2-angular-right ins-rounded ins-dark   ins-button-text -img-link"},
+                       ops.get("value" ,""), "target": "_black",   "class": "lni lni-link-2-angular-right ins-rounded ins-dark   ins-button-text -img-link"},
                     {"_type": "img",
-                        "src": self.ins._map.UPLOADS_FOLDER + ops["value"]},
+                        "src": self.ins._map.UPLOADS_FOLDER + ops.get("value" ,"")},
                     {"end": "true"}
 
 
                 ]
 
-        ui = [
-            {"start": "true", "data-id":id, "class": f"ins-col-12 {id} ins-form-input  ins-flex-end ins-form-upload-imgs-cont"},
+
+        imcont= {"start": "true", "data-id":id, "class": f"ins-col-12 {id} ins-form-input  ins-flex-end ins-form-upload-imgs-cont"}
+        
+        if "style" in ops:
+            imcont["style"] = ops["style"]
+            del ops["style"]
+        
+        
+        if "class" in ops:
+            imcont["class"] = ops["class"]
+            del ops["class"]        
+
+        ui = [imcont,
+            
             {"start": "true", "class": "ins-col-grow ins-form-upload-imgs ins-flex-center ins-m-col-11"}
         ]
+        
+
+        
         ui += row
 
         ui.append({"end": "true"})
@@ -117,7 +136,7 @@ class PlgInput(Ui):
             ops["name"] = "_" + self.ins._data._unid
 
         chk = {"_type": "input",  "type": "checkbox",
-               "value": ops["value"], "clean": "true", "class": "ins-form-bool-f"}
+               "value": ops.get("value"), "clean": "true", "class": "ins-form-bool-f"}
 
         if "value"not in ops:
             ops["value"] = "0"
@@ -226,9 +245,6 @@ class PlgInput(Ui):
             {"end": True},
             {"_type": "input", "name": f"{ops["name"]}",  "clean": "true",
                 "class": " ins-input  ins-hidden", "pclass": ""},
-
-
-
 
         ]
 

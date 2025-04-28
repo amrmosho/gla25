@@ -1,0 +1,217 @@
+{
+    "table": "gla_product",
+    "form_data": [{
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-padding-l  ins-gap-l"
+        },
+        {
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card ins-padding-m ins-border"
+        },
+        {
+            "name": "title",
+            "title": "Title",
+            "title-ar": "العنوان",
+            "_type": "input",
+            "type": "text",
+            "_trans": "true",
+            "_lang": "true",
+            "_table": "gla_product",
+            "required": "true",
+            "pclass": "ins-col-12"
+        },
+        {
+            "name": "des",
+            "title": "Description",
+            "_trans": "true",
+            "title-ar": " الوصف",
+            "_type": "input",
+            "type": "textarea",
+            "required": "true",
+            "style": "height:300px",
+            "pclass": "ins-col-12"
+        },
+        {
+            "name": "tags",
+            "title": "tags",
+            "title-ar": "tags",
+            "_type": "input",
+            "type": "tags",
+            "required": "true",
+            "pclass": "ins-col-12",
+            "placeholder": "_add placeholder hear",
+            "fl_data": "option_1,option_2,option_3,option_4,option_5,option_6"
+        },
+        {
+            "end": "True"
+        },
+        {
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card ins-padding-m ins-border"
+        },
+        {
+            "name": "price",
+            "title": "price",
+            "title-ar": "price",
+            "_type": "input",
+            "type": "number",
+            "pclass": "ins-col-6"
+        },
+        {
+            "name": "license",
+            "title": "license",
+            "_type": "select",
+            "type": "text",
+            "fl_start": "0,--",
+            "fl_data": {
+                "royalty_free": "Royalty Free",
+                "creative_commons": "Creative Commons",
+                "editorial": "Editorial",
+                "gpl": "GPL",
+                "mit": "MIT"
+            },
+            "required": "true",
+            "pclass": "ins-col-6"
+        },
+        {
+            "name": "fk_product_category_id",
+            "title": "Category",
+            "_type": "select",
+            "type": "text",
+            "fl_type": "db",
+            "fl_table": "gla_product_category",
+            "fl_start": "0,--",
+            "required": "true",
+            "pclass": "ins-col-6"
+        },
+        {
+            "name": "fk_user_id",
+            "title": "user ",
+            "_type": "select",
+            "type": "text",
+            "fl_type": "db",
+            "fl_start": "0,--",
+            "fl_table": "kit_user",
+            "required": "true",
+            "pclass": "ins-col-6"
+        },
+        {
+            "end": "True"
+        },
+        {
+            "start": "True",
+            "class": "ins-col-12 ins-flex ins-card ins-padding-m ins-border"
+        },
+        {
+            "_type": "input",
+            "name": "textures",
+            "checked": "checked",
+            "type": "bool",
+            "_end": "Textures",
+            "class": "",
+            "pclass": "ins-col-2  ins-flex-start  "
+        },
+        {
+            "_type": "input",
+            "name": "materials",
+            "type": "bool",
+            "_end": "Materials",
+            "class": "",
+            "pclass": "ins-col-2   "
+        },
+        {
+            "_type": "input",
+            "name": "pbr",
+            "type": "bool",
+            "_end": "PBR",
+            "class": "",
+            "pclass": "ins-col-2  "
+        },
+        {
+            "_type": "input",
+            "name": "animated",
+            "type": "bool",
+            "_end": "Animated",
+            "class": "",
+            "pclass": "ins-col-2 "
+        },
+        {
+            "_type": "input",
+            "name": "rigged",
+            "type": "bool",
+            "_end": "Rigged",
+            "class": "",
+            "pclass": "ins-col-2   "
+        },
+
+        {
+            "_type": "input",
+            "name": "type",
+            "checked": "checked",
+            "data-value": "1",
+            "type": "checkbox",
+            "_end": "Low-poly",
+            "class": "",
+            "pclass": "ins-col-2  ",
+            "style": "    width: 20px;"
+        },
+
+        {
+            "class": "ins-col-12 ins-padding-m ins-line"
+        },
+
+
+        {
+            "name": "geometry",
+            "title": "Geometry Type",
+            "_type": "select",
+            "fl_start": "0,--",
+            "fl_data": {
+                "unknown": "Unknown",
+                "polygonal": "Polygonal",
+                "polygonal_quads_only": "Polygonal Quads only",
+                "polygonal_tris_only": "Polygonal Tris only",
+                "polygonal_quads_tris": "Polygonal Quads/Tris",
+                "polygonal_ngons_used": "Polygonal Ngons used",
+                "Subdivision": "Subdivision",
+                "nurbs": "NURBS"
+            },
+            "required": "true",
+            "pclass": "ins-col-6"
+        },
+        {
+            "name": "unwrapped",
+            "title": "Unwrapped UVs",
+            "_type": "select",
+            "fl_start": "0,--",
+            "fl_data": {
+                "no": "No",
+                "yes_non-overlapping": "Yes, non-overlapping",
+                "yes_overlapping": "Yes, overlapping",
+                "mixed": "Mixed",
+                "unknown": "Unknown"
+            },
+            "required": "true",
+            "pclass": "ins-col-6"
+        }
+
+
+
+    ],
+    "list_data": [{
+        "name": "title",
+        "title-ar": "العنوان",
+        "title": "title",
+        "class": "ins-col-6"
+    }],
+    "list_filter": [{
+        "name": "title",
+        "title-ar": "العنوان",
+        "title": "Title",
+        "_type": "input",
+        "type": "text",
+        "_info": "Search in <b>Title</b> by <b>@(value)</b>",
+        "main": true,
+        "pclass": "ins-col-12 ins-col-grow"
+    }]
+}

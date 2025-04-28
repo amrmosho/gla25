@@ -142,6 +142,7 @@ export class ins_plg_py_upload {
     _upload(data, options) {
         var t = this;
         let xhttp = new XMLHttpRequest();
+        console.log(options)
         if (options["dir"] != null) {
             data.dir = options["dir"];
             data.append("dir", options["dir"]);
@@ -271,6 +272,7 @@ export class ins_plg_py_upload {
         };
     }
     _out() {
+        console.log(this.options);
         const callOnce = this._callActions();
         callOnce()
         this._panel(this.options.o)

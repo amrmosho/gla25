@@ -1,0 +1,34 @@
+{
+    "blend": {
+        "title": "Blender (.blend)",
+        "version": "true",
+        "native": "true",
+
+        "render": {
+            "cycles": "Cycles",
+            "default": "Default",
+            "Eevee ": "Eevee",
+            "indigo": "Indigo",
+            "thea": "Thea",
+            "vray": "V-Ray",
+            "render": "RenderMan"
+        },
+        "render_version": "true"
+    },
+    "fbx": {
+        "title": "FBx",
+        "version": "true"
+    },
+    "obj": {
+        "title": "Obj",
+        "version": "true"
+    },
+    "textures": {
+        "title": "Textures",
+        "version": "true"
+    },
+    "glb": {
+        "title": "GLB",
+        "version": "true"
+    }
+}

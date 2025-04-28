@@ -26,9 +26,9 @@ app.register_blueprint(ins_admin_bp, url_prefix=f"/ins_admin")
 
 app.register_blueprint(ins_gla_bp, url_prefix=f"/ins_gla")
 
-app.register_blueprint(ajax_bp, url_prefix=f"/ins_ajax")
-
 app.register_blueprint(ins_cg_bp, url_prefix=f"/ins_cg")
+
+app.register_blueprint(ajax_bp, url_prefix=f"/ins_ajax")
 
 
 if __name__ == '__main__':

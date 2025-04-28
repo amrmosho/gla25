@@ -23,7 +23,8 @@ class AppCrudOps:
         self._form_data = []
         self._user_settings = {}
         self._ai = {}
-        
+        self._form_actions = []
+
         
         self._list_export : function = None
         self._list_export_all : function = None
@@ -106,7 +107,7 @@ class APPCRUD(ins_parent):
                 ops._list_limit = int(properties["list_limit"])
 
             ls = ["list_data", "table", "list_filter", "form_data",
-                  "crud_setting", "url", "url", "pros_name", "ai", "list_query", "list_where"]
+                  "crud_setting", "url", "url", "pros_name", "ai", "list_query", "list_where" ,"form_actions"]
 
             for l in ls:
                 if l in properties:

@@ -13,6 +13,11 @@ class AjxUpload(App):
     ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
     def allowed_file(slelf, filename):
+        a= slelf.ins._server._post()
+      
+        if  "exts" in  slelf.ins._server._post():
+           slelf.ALLOWED_EXTENSIONS= slelf.ins._server._post("exts")
+           
         return '.' in filename and \
             filename.rsplit('.', 1)[1].lower() in slelf.ALLOWED_EXTENSIONS
 
@@ -43,7 +48,7 @@ class AjxUpload(App):
 
 
         if not self.allowed_file(file.filename):
-            return {"status": "-1", "msg": f"Failed to create directory: {e}"}
+            return {"status": "-1", "msg": f"file not allowed : {file}"}
 
         if file and self.allowed_file(file.filename):
 
@@ -71,7 +76,9 @@ class AjxUpload(App):
 
             if file.content_length > max_size:
                 return {"status": "-1", "msg": f"File exceeded maximum allowed size"}
-
+            
+            
+            out["oname"] = filename
             filename=f"{self.ins._data.unid}__{filename}"
             file.save(f"{cwd}{self.UPLOAD_FOLDER}{dir}{filename}")
             out["status"] = "1"

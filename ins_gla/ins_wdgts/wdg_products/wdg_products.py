@@ -9,9 +9,9 @@ class WdgProducts(Widget):
 
     def out(self):
 
-        data = self.ins._db._get_data("gla_product","*","fk_product_category_id = 1 and display_home = 1 order by price asc limit 0,4" ,True) 
-        data_b= self.ins._db._get_data("gla_product","*","fk_product_category_id = 2 and display_home = 1 order by price asc limit 0,4",True)
-        data_c= self.ins._db._get_data("gla_product","*","fk_product_category_id = 3 and display_home = 1 order by price asc limit 0,4 ",True)
+        data = self.ins._db._get_data("gla_product","*","fk_product_category_id = 1  order by price asc limit 0,4" ,True) 
+        data_b= self.ins._db._get_data("gla_product","*","fk_product_category_id = 2  order by price asc limit 0,4",True)
+        data_c= self.ins._db._get_data("gla_product","*","fk_product_category_id = 3 order by price asc limit 0,4 ",True)
 
         self.widget._include("wpros.js")
         self.widget._include("wpros.css")

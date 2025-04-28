@@ -86,61 +86,66 @@ class APPCRUDForm(appCrudParent):
         if self.get["mode"] == "edit":
             save_button_title = self.ins._langs._get("update")
         to = "left"
-        if  self.ins._langs._this_get()["direction"] == "rtl":
+        if self.ins._langs._this_get()["direction"] == "rtl":
             to = "right"
-        more_menu = [
-            {"start": True, "class": "ins-menu ins-end"},
-            {"style": "transform: rotate(90deg);",
-             "class": "lni ins-icon ins-header  lni-menu-meatballs-1 ins-padding-s"},
-            {"_type": "ul", "start": True},
-            {"_type": "li", "class": 'crud-form-reset',
-                "_data": "<i class='lni ins-icon lni-refresh-circle-1-clockwise '></i>" + self.ins._langs._get("reset")},
-            {"_type": "li", "class": "crud-form-submit-back",
-                "_data":  f"<i class='lni ins-icon  lni ins-icon  lni-arrow-{to}   '></i>" + self.ins._langs._get("add_back_list")},
-            {"_type": "ul", "end": True},
-            {"end": True}
-        ]
 
         back_url = self.ins._server._url({}, remove=["mode", "id"])
         save_button_title = self.ins._langs._get("save")
 
-        header = [
-            {"class": "ins-col-grow  ins-padding-m  ins-flex-center", "_data": [
-
-                {"start": True,  "class": "    ins-col-12 -header-searh-group  ins-group ins-flex  "},
-
-
-                {"_data": [{"class": "lni ins-icon lni-plus  ins-padding-s"},
-                           {"_data":  self.ins._langs._get("new_item_title"), "type": "span"}],
-                    "class": "ins-radius-xl  ins-strong-l  ins-gap-o ins-title-xs   ins-flex-grow"},
-
-
-
-                {"style": "width:75px", "_type": "a", "href": back_url, "_data": [
-                    {"class": f"lni ins-icon  lni-arrow-{to}  ins-padding-s"},
-                    {"_data": self.ins._langs._get("back"),
-                     "class": "ins-flex-grow ins-font-s  ins-strong-m"}
-                ], "class": "ins-button ins-gap-o ins-flex  "},
-                {"style": "width:4px ;    height: 18px;",
-                    "class": f"ins-border ins-border-left    "},
-
-                {"style": "width: 70px", "_type": "button",  "_data": [
-                    {"class": "lni ins-icon lni-plus ins-primary-color ins-padding-s"},
-                    {"_data": save_button_title,
-                     "class": "ins-flex-grow ins-font-s ins-strong-l   ins-primary-color ins-strong"}
-                ], "class": "ins-button  crud-form-submit ins-gap-o ins-flex  "},
-                {"style": "width:4px ;    height: 18px;",
-                    "class": f"ins-border ins-border-left    "},
-
-                {"style": "width:25px", "_data": more_menu,
-                 "class": "ins-button  "},
-
-
-
-
-
+        action_menu = [{"style": "width: 70px", "_type": "button",  "_data": [
+            {"class": "lni ins-icon lni-plus ins-primary-color ins-padding-s"},
+            {"_data": save_button_title,
+             "class": "ins-flex-grow ins-font-s ins-strong-l   ins-primary-color ins-strong"}
+        ], "class": "ins-button  crud-form-submit ins-gap-o ins-flex  "},
+            {"style": "width:4px ;    height: 18px;",
+                "class": f"ins-border ins-border-left    "},
+            {"style": "width:25px", "_data": [
+                {"start": True, "class": "ins-menu ins-end"},
+                {"style": "transform: rotate(90deg);",
+                 "class": "lni ins-icon ins-header  lni-menu-meatballs-1 ins-padding-s"},
+                {"_type": "ul", "start": True},
+                {"_type": "li", "class": 'crud-form-reset',
+                 "_data": "<i class='lni ins-icon lni-refresh-circle-1-clockwise '></i>" + self.ins._langs._get("reset")},
+                {"_type": "li", "class": "crud-form-submit-back",
+                 "_data":  f"<i class='lni ins-icon  lni ins-icon  lni-arrow-{to}   '></i>" + self.ins._langs._get("add_back_list")},
+                {"_type": "ul", "end": True},
                 {"end": True}
-            ]}]
+            ], "class": "ins-button  "}]
+        
+      
+            
+        if type(self.ops._form_actions) is list and len( self.ops._form_actions ) >0:
+                  action_menu =self.ops._form_actions
+
+        
+        header = [
+            {"start": "true", "class": "ins-col-grow  ins-padding-m  ins-flex-center"},
+
+
+
+
+            {"start": True,  "class": "    ins-col-12 -header-searh-group  ins-group ins-flex  "},
+
+
+            {"_data": [{"class": "lni ins-icon lni-plus  ins-padding-s"},
+                       {"_data":  self.ins._langs._get("new_item_title"), "type": "span"}],
+             "class": "ins-radius-xl  ins-strong-l  ins-gap-o ins-title-xs   ins-flex-grow"},
+
+
+
+            {"style": "width:75px", "_type": "a", "href": back_url, "_data": [
+                {"class": f"lni ins-icon  lni-arrow-{to}  ins-padding-s"},
+                {"_data": self.ins._langs._get("back"),
+                 "class": "ins-flex-grow ins-font-s  ins-strong-m"}
+            ], "class": "ins-button ins-gap-o ins-flex  "},
+            {"style": "width:4px ;    height: 18px;",
+             "class": f"ins-border ins-border-left    "},
+
+
+        ]
+        if self.ops._form_actions !=False :
+            header += action_menu
+        header += [{"end": True}, {"end": "true"}]
 
         self.ins._tmp._set_page_des(self.ins._ui._render(header))
 
@@ -185,5 +190,5 @@ class APPCRUDForm(appCrudParent):
         ps = self.ins._server._post()
         if "reaction" in ps and ps["reaction"] == "_tobak":
             back_url = self.ins._server._url({}, remove=["mode", "id"])
-            return  f"<div>loading....</div> <meta http-equiv='refresh' content='1; url={back_url}' />"
+            return f"<div>loading....</div> <meta http-equiv='refresh' content='1; url={back_url}' />"
         return self. __form()

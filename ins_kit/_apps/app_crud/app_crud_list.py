@@ -632,7 +632,7 @@ class APPCRUDList(appCrudParent):
             else:
                 hr["_data"] = h["title"]
 
-            hr["class"] = h["class"]
+            hr["class"] = h.get("class")
             header.append(hr)
       # add Actions Header Label
         header.append({"_data": "actions", "class": "ins-col-1 ins-no-print _actions"})
@@ -649,7 +649,7 @@ class APPCRUDList(appCrudParent):
                     data = d.get(h["name"] ,"")
 
                 hr["_data"] = self.__update_body_item(h, data)
-                hr["class"] = h["class"]
+                hr["class"] = h.get("class")
                 rd.append(hr)
             # add Actions  to  row
             rd.append(self._actions(d["id"]))

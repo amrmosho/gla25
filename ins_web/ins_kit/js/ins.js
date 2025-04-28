@@ -1661,6 +1661,7 @@ function INS(o) {
     this._map = new InsMap(o);
     this._db = new InsDB(o);
     this._load = function() {
+        console.log(this.o);
         if (window.addEventListener) {
             // W3C standard
             window.addEventListener("load", this.o, false); // NB **not** 'onload'

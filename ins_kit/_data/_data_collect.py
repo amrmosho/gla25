@@ -41,10 +41,18 @@ class DataCollect(ins_parent):
         d = {}
         d["-1"] = ""
 
+
+        if "fl_start" in ops:
+            st= ops["fl_start"].split(",")
+            d[str(st[0])] = str(st[1]) 
+
         for k, v in self.ins._this._settings["areas"].items():
             d[v["name"]] = v["title"]
         ops["fl_data"] = d
         return ops
+
+
+
 
     def __data(self, ops):
 
