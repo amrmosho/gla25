@@ -1,0 +1,55 @@
+.-pro-cats-item {
+    width: 175px;
+    height: 240px;
+    overflow: hidden;
+}
+
+.img-card {
+    transition: all 0.3s;
+    padding: 0;
+}
+
+.img-card img {
+    transition: all 1s;
+    opacity: 0.7;
+    width: 100%;
+    max-height: 240px;
+    filter: grayscale(1);
+}
+
+.img-card:hover img {
+    transition: all 0.3s;
+    opacity: 1;
+    filter: grayscale(0);
+    width: 110%;
+}
+
+.-pro-cats-row {
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: auto;
+    flex-basis: 0;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    flex-wrap: nowrap;
+    transition: left 0.25s ease-in-out;
+    left: 0px;
+}
+
+.-pro-all {
+    position: relative;
+    padding: 20px 40px;
+    overflow: auto;
+}
+
+.-pro-cont {
+    position: relative;
+    height: 270px;
+    width: 100%;
+    overflow: auto;
+}

@@ -11,7 +11,7 @@ class AppPartners(App):
         g = self.ins._server._get()
 
         if "mode" in g:
-         partner = self.ins._db._get_row("gla_blog", "title,kit_lang", f"id = '{g['mode']}'",update_lang=True)
+         partner = self.ins._db._get_row("cg_blog", "title,kit_lang", f"id = '{g['mode']}'",update_lang=True)
 
          path = [
                 {"start": "true", "class": "ins-col-12 ins-flex ins-text-upper"},
@@ -105,7 +105,7 @@ class AppPartners(App):
         uidata = [{"start": "true", "class": "ins-flex ","style": "background:white;height:124px;position: relative;    border-bottom: 1px solid var(--grey-l);height:auto; "}]
         uidata += self.header_ui(True)
         uidata.append({"end": "true"})
-        data = self.ins._db._get_data("gla_blog", "*","fk_blog_category_id = '18'",update_lang=True)
+        data = self.ins._db._get_data("cg_blog", "*","fk_blog_category_id = '18'",update_lang=True)
         uidata.append(
             {"start": "true", "class": "ins-col-12 gla-container ins-padding-2xl ins-flex ins-gap-l"})
         p = "/ins_web/ins_uploads/"
@@ -130,7 +130,7 @@ class AppPartners(App):
 
 
     def _partner_ui(self,pid):
-        data = self.ins._db._get_row("gla_blog", "*", f"id = '{pid}'")
+        data = self.ins._db._get_row("cg_blog", "*", f"id = '{pid}'")
         p = "/ins_web/ins_uploads/"
 
         uidata = [{"start": "true", "class": "ins-flex ",

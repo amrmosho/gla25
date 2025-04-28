@@ -9,7 +9,7 @@ class WdgPartner(Widget):
     def out(self):
         self.widget._include("style.css")
 
-        data = self.ins._db._get_data("gla_blog", "*","fk_blog_category_id='18' LIMIT 6", update_lang=True)
+        data = self.ins._db._get_data("cg_blog", "*","fk_blog_category_id='18' LIMIT 6", update_lang=True)
         p = "/ins_web/ins_uploads"
         uidata = [
             {"start":"true","class":"ins-col-12 "},

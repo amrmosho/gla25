@@ -138,24 +138,16 @@ footer li {
     border-radius: 4px;
     display: flex;
     width: 100%;
-    height: 316px;
+    height: 220px;
     overflow: hidden;
     position: relative;
     transition: 0.3s;
 }
 
 .gla-img-cont img {
-    max-width: 200px;
     background: url(imgs/loading.gif) 50% no-repeat;
     position: absolute;
-    max-height: 250px;
-}
-
-.gla-pro-himg,
-.gla-pro-img {
-    transition: 0.4s ease-in-out;
-    position: relative;
-    transform-style: preserve-3d;
+    max-height: 100%;
 }
 
 .gla-pro-himg {
@@ -163,27 +155,8 @@ footer li {
     transform: rotateY(180deg);
 }
 
-.gla-img-cont:hover .gla-pro-himg {
-    opacity: 1;
-    transform: rotateY(0);
-}
-
-.gla-img-cont:hover .gla-pro-img {
-    transform: rotateY(180deg);
-    opacity: 0;
-}
-
-.gla-pro-img {
-    transform: rotateY(0);
-    opacity: 1;
-}
-
 .gla-pro-hbutton {
     opacity: 0;
-}
-
-.gla-img-cont:hover .gla-pro-hbutton {
-    opacity: 1;
 }
 
 .-partners-title {

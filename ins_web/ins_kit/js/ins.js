@@ -110,7 +110,7 @@ InsMap.prototype._hurl = function(adds = {}, ...remove) {
         urldata[k] = adds[k];
     });
 
-    if (j["_a"] != null && j["_a"] !== "ins_gla" && j["_a"] !== "home") {
+    if (j["_a"] != null && j["_a"] !== "ins_gla" && j["_a"] !== "home" && j["_a"] !== "ins_cg") {
         url += "/" + j["_a"];
     }
 

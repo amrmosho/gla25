@@ -44,34 +44,35 @@ class WdgTicker(Widget):
 
         
          uidata = [
-              {"start":"true","class":"ins-secondary ins-sticky-top i ","style":"z-index: 1113"},
-
-
-              {"start":"true","class":"ins-flex-center  ins-gap-20 "},
+              {"start":"true","class":"ins-flex ins-secondary ins-sticky-top i ","style":"z-index: 1113"},
+              {"start":"true","class":"ins-flex  ins-gap-20 ins-col-12 ins-padding-xl"},
              
-              {"_data":date_text},
-                            {"_data":f"Sell -    {coin_sell} EGP","_data-ar":f"بيع - {coin_sell} جنيه","_trans":"true"},
+              {"start":"true","class":"ins-flex"},
+              {"class":"gla-logo gla-logo","style":"width: 120px; height:120px"},
+              {"end":"true"},
 
-                            {"_data":"(21K)","_data-ar":"(21عيار) ","_trans":"true","class":"ins-primary-d","style":"max-height: 24px;line-height: 21px;padding: 2px;"},
-              {"_data":f"Buy -    {coin_buy} EGP","_data-ar":f"شراء - {coin_buy} جنيه","_trans":"true"},
+              {"_data":"EL GALLA GOLD","class":"ins-col-6 ins-title-xl"},
 
+              {"start":"true","class":"ins-flex ins-col-4"},
 
-{"_data":"|"},
+              {"_data":date_text,"class":"ins-col-12 ins-flex"},
+              {"start":"true","class":"ins-flex  ins-col-12 "},
+              {"_data":f"Sell - {coin_sell} EGP","_data-ar":f"بيع - {coin_sell} جنيه","_trans":"true"},
+              {"_data":"(21K)","_data-ar":"(21عيار) ","_trans":"true","class":"ins-primary-d","style":"max-height: 24px;line-height: 21px;padding: 2px;"},
+              {"_data":f"Buy - {coin_buy} EGP","_data-ar":f"شراء - {coin_buy} جنيه","_trans":"true"},
+              {"end":"true"},
+
+              {"start":"true","class":"ins-flex  ins-col-12 "},
               {"_data":f"Sell -    {bar_sell} EGP","_data-ar":f"بيع - {bar_sell} جنيه","_trans":"true"},
-
-               {"_data":"(24K)","_data-ar":"(24عيار) ","_trans":"true","class":"ins-primary-d","style":"max-height: 24px;line-height: 21px;padding: 2px;"},
-                                       {"_data":f"Buy -    {bar_buy} EGP","_data-ar":f"شراء - {bar_buy} جنيه","_trans":"true"},
-
-
-            
-            
-              {"end":"true"},
-            
-            
-            
+              {"_data":"(24K)","_data-ar":"(24عيار) ","_trans":"true","class":"ins-primary-d","style":"max-height: 24px;line-height: 21px;padding: 2px;"},
+              {"_data":f"Buy -    {bar_buy} EGP","_data-ar":f"شراء - {bar_buy} جنيه","_trans":"true"},
               {"end":"true"},
 
+              {"end":"true"},
 
+             
+              {"end":"true"},
+              {"end":"true"},
               ]
          
          return self.ins._ui._render(uidata)
