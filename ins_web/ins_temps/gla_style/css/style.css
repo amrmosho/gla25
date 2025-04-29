@@ -133,7 +133,6 @@ footer li {
 .gla-img-cont {
     justify-content: center;
     align-items: center;
-    background-color: var(--white);
     align-content: center;
     border-radius: 4px;
     display: flex;

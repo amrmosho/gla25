@@ -30,8 +30,7 @@ class Ui(ins_parent):
 
         if "_trans" in attrs:
             attrs = self.ins._langs._render_tags(attrs)
-          
-           
+
         plgs = ["wdgt", "input", "app", "table", "panel", "chart"]
         if "_type" in attrs:
             if "not_plgin" not in attrs or attrs["not_plgin"] != True:
@@ -96,6 +95,24 @@ class Ui(ins_parent):
         elif ops["_view"] == "select":
             ops["value"] = str(data)
             rv = self.__get_plgin("plg_select", ops, "trans")
+
+        elif ops["_view"] == "db":
+            ops["value"] = str(data)
+            if "_field" in ops:
+                t = ops["_field"]
+
+            else:
+            
+                t = "title"
+            
+            r = self.ins._db._get_row(
+                ops["_table"], t, f"id='{ops["value"]}'")
+            if r:
+               rv = str(r[t])
+            else:
+                rv =str(data)
+
+
         elif ops["_view"] == "color":
             rv = f"<div style='color:{data}'>{data} </div>"
         elif ops["_view"] == "date":
@@ -108,7 +125,7 @@ class Ui(ins_parent):
             rv = self.ins._date._format(data)
         elif ops["_view"] == "currency":
             if "_currency_symbol" in ops:
-                currency_symbol= ops["_currency_symbol"]
+                currency_symbol = ops["_currency_symbol"]
                 if self.ins._langs._this_get()["name"] == "ar":
                     currency_symbol = ops["_currency_symbol_ar"]
                 n = self.ins._data._format_currency(float(data), symbol=False)
@@ -128,8 +145,6 @@ class Ui(ins_parent):
         if "_trans" in attrs:
             for a in attrs:
                 attrs = self.ins._langs._render_tags(attrs)
-           
-
 
         if "_type" in attrs:
             my_type = attrs["_type"]
@@ -164,7 +179,8 @@ class Ui(ins_parent):
             r = ""
             if "end" not in attrs or (attrs["end"] != True and attrs["end"] != "true" and attrs["end"] != "True"):
                 r += f"<{my_type}{attr_str}>"
-                r += my_data
+                if my_data != None:
+                    r += my_data
 
             if "start" not in attrs or (attrs["start"] != True and attrs["start"] != "true" and attrs["start"] != "True"):
                 r += f"</{my_type}>"

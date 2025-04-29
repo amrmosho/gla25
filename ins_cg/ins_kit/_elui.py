@@ -38,6 +38,9 @@ class ELUI(ins_parent):
     def shop_pro_block(self, data):
         p = self.ins._map.UPLOADS_FOLDER
         purl = self.ins._server._url({"alias": "shop", "mode": "product", "id": f"{data['id']}"})
+        
+        if data["views"] == None:
+            data["views"] ="0"
 
         r = [
             {"_type": "a", "start": "true", "class": "ins-flex -pro-item-block ins-col-3"},
@@ -46,10 +49,10 @@ class ELUI(ins_parent):
             {"src": p + (data.get("th_main") or "default.png"), "loading": "lazy", "_type": "img", "class": "gla-pro-img"},
             {"end": "true"},
             {"class": "ins-space-s"},
-            {"_data": data.get("title"), "class": "ins-padding-s ins-secondary-color ins-title-s ins-col-12", "style": "line-height:24px"},
+            {"_data": data.get("title"), "class": "ins-padding-s ins-secondary-color ins-title-s ins-col-12", "style": "line-height:24px;min-height: 75px;"},
             {"start": "true", "class": "ins-col-4 ins-flex-center ins-card"},
             {"class": "ins-icons-eye", "style": "position: relative; top: 3px;"},
-            {"_data": f"{data.get('views')}"},
+            {"_data": f"{data.get('views',"0")}"},
             {"end": "true"},
             {"start": "true", "class": "ins-col-4 ins-flex-center ins-card"},
             {"class": "ins-icons-heart", "style": "position: relative; top: 3px;"},

@@ -64,7 +64,7 @@
             "_trans": "true",
             "_type": "input",
             "_dir": "users",
-            "_exts": "image/png",
+            "_exts": "image/png,jpg",
             "type": "upload",
             "required": "true",
             "pclass": "ins-col-6"

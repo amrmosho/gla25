@@ -16,6 +16,14 @@
             "required": "true",
             "pclass": "ins-col-12"
         }, {
+            "name": "alias",
+            "title": "alias",
+            "title-ar": "الرابط",
+            "_type": "input",
+            "type": "text",
+            "required": "true",
+            "pclass": "ins-col-12"
+        }, {
             "name": "image",
             "title": "image",
             "_type": "input",
@@ -27,18 +35,55 @@
             "required": "true",
             "pclass": "ins-col-12"
         },
+
+        {
+            "name": "fk_category_id",
+            "title": "Category",
+            "_type": "select",
+            "type": "text",
+            "fl_type": "db",
+            "fl_table": "gla_product_category",
+            "fl_start": "0,--",
+            "required": "true",
+            "pclass": "ins-col-12",
+            "tree": "true"
+        },
+
+        {
+            "name": "des",
+            "title": "des",
+            "title-ar": "نبذه",
+            "_type": "input",
+            "_table": "gla_product_category",
+            "type": "textarea",
+            "pclass": "ins-col-12",
+            "class": ""
+        },
+
         {
             "end": "True"
         }
     ],
     "list_data": [{
-        "name": "title",
-        "title": "Title",
-        "title-ar": "العنوان",
-        "_trans": "true",
-        "view": "text",
-        "class": "ins-col-grow"
-    }],
+            "name": "title",
+            "title": "Title",
+            "title-ar": "العنوان",
+            "_trans": "true",
+            "view": "text",
+            "class": "ins-col-grow"
+        }, {
+            "name": "fk_category_id",
+            "title": "parent",
+            "_view": "db",
+            "_table": "gla_product_category",
+            "_field": "title",
+
+            "class": "ins-col-2"
+        }
+
+
+
+    ],
     "list_filter": [{
         "name": "title",
         "title": "Search Title",

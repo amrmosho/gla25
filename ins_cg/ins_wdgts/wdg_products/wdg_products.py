@@ -9,7 +9,7 @@ class WdgProducts(Widget):
 
     def out(self):
 
-        data = self.ins._db._get_data("gla_product","*"," 1 order by price asc limit 0,12" ,True) 
+        data = self.ins._db._get_data("gla_product","*"," 1  order by price asc limit 0,12" ,True) 
 
         self.widget._include("wpros.js")
         self.widget._include("wpros.css")
