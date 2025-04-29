@@ -48,7 +48,7 @@
     --input-color: var(--text);
     --widget-grey-light: var(--ins-color-4);
     --wrapper-bg: rgb(241, 243, 248);
-    --card-bg: rgb(255, 255, 255);
+    --card-bg: rgb(246 246 246);
     --input-bg: #f1f3f8;
     --active: #cff9ff;
 }

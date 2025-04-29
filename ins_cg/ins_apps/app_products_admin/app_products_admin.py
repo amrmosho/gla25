@@ -119,7 +119,7 @@ class AppProductsAdmin(App):
             "title-ar": "الصورة المصغرة",
             "_trans": "true",
             "_type": "input",
-            "_exts": "image/png",
+            "_exts": "image/png,image/jpg",
             "type": "upload",
             "required": "true",
             "_dir": f"prosi/_{self.ins._server._get("id")}",
@@ -135,7 +135,7 @@ class AppProductsAdmin(App):
             "style": "height:250px",
             "_dir": f"prosi/_{self.ins._server._get("id")}",
             "_mode": "multi",
-            "_exts": "image/png"
+            "_exts": "image/png,image/jpg"
         },
             {
             "class": "ins-col-12 ins-padding-m ins-line"

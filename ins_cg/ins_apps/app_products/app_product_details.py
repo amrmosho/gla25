@@ -14,6 +14,8 @@ class AppProductDetails(App):
         
 
     def _pro_jaction(self, type="prolike"):
+        
+        
         pid = str(self.ins._server._post("pid"))
 
         pros = self.ins._users._get_settings('pro', uid=self._uid)
