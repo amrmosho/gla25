@@ -140,6 +140,9 @@ class Server(ins_parent):
 
         if "area" in _set:
             area_url = _set["area"]
+      
+        elif "_area" in _set:
+            area_url = _set["_area"]      
         else:
             area_url = self.ins._this._area["url"]
 

@@ -35,7 +35,7 @@ class ELUI(ins_parent):
         if string:
             return uidata
         return self.ins._ui._render(uidata)
-    def shop_pro_block(self, data):
+    def shop_pro_block(self, data ,url =""):
         p = self.ins._map.UPLOADS_FOLDER
         purl = self.ins._server._url({"alias": "products", "mode": "product", "id": f"{data['id']}"},["page"])
         

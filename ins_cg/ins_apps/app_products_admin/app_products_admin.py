@@ -43,6 +43,7 @@ class AppProductsAdmin(App):
             ps["oname"] =ps.get("name") 
         type = {}
         th = {}
+        
         for k in exts:
             type[k] = exts[k]["title"]
             if ps["type"] == k:
