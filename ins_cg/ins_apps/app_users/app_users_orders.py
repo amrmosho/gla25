@@ -1,7 +1,7 @@
 import json
-from ins_gla.ins_kit._gusers import Gusers
+from ins_cg.ins_kit._gusers import Gusers
 from ins_kit._engine._bp import App
-from ins_gla.ins_kit._elui import ELUI
+from ins_cg.ins_kit._elui import ELUI
 
 
 class AppUsersOrders(App):
@@ -256,7 +256,7 @@ class AppUsersOrders(App):
                        "class": " ins-col-4   ins-m-col-4  ins-grey-d-color ins-title-xs ins-strong-l", "style": "    margin-top: -22px;"},
                       {"end": "true"},
                       {"class": " ins-col-1  ins-m-col-1"},
-                      {"_type": "a", "href": f"/puser/order/{v['id']}", "class": "ins-button-cricle ins-grey-d",
+                      {"_type": "a", "href": f"/user/order/{v['id']}", "class": "ins-button-cricle ins-grey-d",
                        "_data": f'<i class=" lni ins-icon ins-white-color {arrow}"></i>'},
                       {"end": "true"}]
 

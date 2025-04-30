@@ -1,10 +1,9 @@
-from random import randint
 from flask import redirect
-from ins_gla.ins_apps.app_users.app_users_orders import AppUsersOrders
-from ins_gla.ins_apps.app_users.app_users_profile import AppUsersProfile
-from ins_gla.ins_kit._gusers import Gusers
+from ins_cg.ins_apps.app_users.app_users_orders import AppUsersOrders
+from ins_cg.ins_apps.app_users.app_users_profile import AppUsersProfile
+from ins_cg.ins_kit._gusers import Gusers
 from ins_kit._engine._bp import App
-from ins_gla.ins_kit._elui import ELUI
+from ins_cg.ins_kit._elui import ELUI
 p = "/ins_web/ins_uploads/"
 
 
@@ -18,7 +17,10 @@ class AppUsers(App):
     def session_address_name(sel):
         return "glaaddress"
 
-
+    @property
+    def _uid(self):
+        return self.user._check()["id"]
+        
 
 
 
@@ -65,12 +67,12 @@ class AppUsers(App):
               {"_data": "<i class='lni ins-font-l lni-basket-shopping-3 not-for-phone'></i>My Orders","_data-ar":"طلبياتي","_trans":"true",
                   "class": f"ins-button-s  -user-page-btn ins-text-upper {oc} ins-flex ", "_type": "a", "href": self.u("order")},
               {"_data": "|", "class": "  "},
-              {"_data": "<i class='lni ins-font-l lni-buildings-1 not-for-phone'></i>My Addresses","_data-ar":"عناويني","_trans":"true",
+              {"_data": "<i class='lni ins-font-l lni-buildings-1 not-for-phone'></i>My wishlist","_data-ar":"قائمة الرغبات","_trans":"true",
                   "class": f"ins-button-s  -user-page-btn ins-text-upper   {sc} ins-flex ", "_type": "a", "href": self.u("addresses")},
               {"end": "true"},
 
               ]
-        return ELUI(self.ins).page_title("My Profile","ملفي الشخصي", [{"_data": "My Profile / ", "href": "/puser","_data-ar":"ملفي الشخصي /","_trans":"true",}, {"_data": "Profile","_data-ar":"الملف الشخصي","_trans":"true",}], ui)
+        return ELUI(self.ins).page_title("My Profile","ملفي الشخصي", [{"_data": "My Profile / ", "href": "/user","_data-ar":"ملفي الشخصي /","_trans":"true",}, {"_data": "Profile","_data-ar":"الملف الشخصي","_trans":"true",}], ui)
 
     def orders(self, g): 
         return AppUsersOrders(self.app).out(self.ins)
@@ -227,14 +229,14 @@ class AppUsers(App):
         if self.ins._langs._this_get()["name"] == "en":
              title_profile = f'<i class="lni ins-font-l lni-user-4 ins-m-col-1 -user-pages-icon"></i>  Profile Management '
              title_order = f'<i class="lni ins-font-l lni-basket-shopping-3 ins-m-col-1 -user-pages-icon"></i>  My Orders '
-             title_adress = f'<i class="lni ins-font-l  lni-buildings-1 ins-m-col-1 -user-pages-icon"></i> My Addresses '
+             title_adress = f'<i class="lni ins-font-l  lni-buildings-1 ins-m-col-1 -user-pages-icon"></i> My wishlist '
              
         usmenu = [
             
             {"start": "true", "class": "  ins-col-12  ins-flex   ins-padding-2xl"},
 
             {"start": "true", "class": "  ins-col-4 ins-primary-w  ins-white  ins-flex ins-border ins-radius-xl    ins-padding-l"},
-            {"_type": "a", "href":"/puser/profile/user_setting", "_data": title_profile,
+            {"_type": "a", "href":"/user/profile/user_setting", "_data": title_profile,
                 "class": " ins-title-s ins-col-12"},
                 {"class":" not-for-web","style":"    width: 24px;"},
             {"_data": f'Update your name, email, and password to keep your account secure.',"_data-ar":"قم بتحديث اسمك والبريد الإلكتروني وكلمة المرور للحفاظ على حسابك آمنًا.","_trans":"true",
@@ -243,7 +245,7 @@ class AppUsers(App):
 
 
             {"start": "true", "class": "  ins-col-4    ins-primary-w ins-white ins-flex ins-border ins-radius-xl    ins-padding-l"},
-            {"_type": "a", "href":"/puser/order", "_data": title_order,
+            {"_type": "a", "href":"/user/order", "_data": title_order,
                 "class": " ins-title-s ins-col-12"},
                            {"class":" not-for-web","style":"    width: 24px;"},
 
@@ -254,7 +256,7 @@ class AppUsers(App):
 
 
             {"start": "true", "class": "  ins-col-4  ins-primary-w ins-white  ins-flex ins-border ins-radius-xl    ins-padding-l"},
-            {"_type": "a","href":"/puser/addresses",  "_data": title_adress,
+            {"_type": "a","href":"/user/addresses",  "_data": title_adress,
                 "class": " ins-title-s ins-col-12"},
                             {"class":" not-for-web","style":"    width: 24px;"},
 
@@ -275,162 +277,29 @@ class AppUsers(App):
         uidata .append({"end": "true"})
         return self.ins._ui._render(uidata)
     
-    def _addresses_area_ui(self,string=True):
-        rsdata=  self.user._check()
-        
-        addesses = self.ins._db._get_data("gla_user_address","*",f"fk_user_id = '{rsdata['id']}' order by kit_created ASC")
-
-        uidata=[{"_data":"My Address","_data-ar":"إضافة عنوان","_trans":"true","class":"ins-col-9 ins-m-col-6 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"}]
-        uidata.append({"_data": "Add Address","_data-ar":"إضافة عنوان","_trans":"true", "class": "ins-button-s  ins-m-col-6 -add-address ins-text-center ins-strong-m ins-col-3 ins-gold-bg  ins-text-upper"})
-        
-        asession = self.ins._server._get_session(self.session_address_name)
-
-        if type(asession) != dict:
-           asession = {"type":"delivery","id":"-1"}
-
-        if addesses:
-            for a in addesses:
-               uidata.append({"start":"true","class":"ins-col-12 ins-card ins-flex-valign-center ins-padding-s -address-cont","style":"    line-height: 20px;"})
-               uidata.append({"start":"true","class":"ins-col-10 ins-flex ins-m-col-10"})
-               if a["title"]:
-                uidata.append({"_data": a["title"],"class":" ins-title-s ins-strong-m ins-grey-d-color ins-col-12","style":"line-height: 24px;"})
-               if a["address"]:
-
-                 uidata.append({"_data": a["address"],"class":"ins-grey-color ins-col-12 ins-title-12","style":"line-height: 16px;"})
-               if a["phone"]:
-                  uidata.append({"_data": "Mobile: "+a["phone"] ,"_data-ar": "الهاتف: "+a["phone"] ,"_trans":"true","class":"ins-grey-d-color ins-col-12  ins-title-14 -address-info"})
-               uidata.append({"end":"true"})
-               uidata.append({"start":"true","class":"ins-col-2  ins-m-col-2 ins-flex-end"})
-               uidata.append({"_data":"<i class='-update-address  _a lni lni-pencil-1' data-aid = "+ str(a["id"])+" ></i>","class":"ins-text-center"})
-               uidata.append({"_data":"<i class='lni lni-trash-3 _a_red'></i>","data-aid":a["id"],"class":"ins-text-center -remove-address-btn"})
-               uidata.append({"end":"true"})
-
-               uidata.append({"end":"true"})
-
-        else:
-           uidata.append({"start":"true","class":"ins-col-12 ins-padding-m ins-flex-center"})
-           uidata.append({"start":"true","class":"ins-col-8  ins-card ins-flex-center"})
-           uidata.append({"_data":"No saved addresses yet","_data-ar":"لا يوجد عناوين محفوظة","_trans":"true"})
-           uidata.append({"end":"true"})
-           uidata.append({"end":"true"})
-
-
-        if string == False:
-            return uidata
-        else:
-            return self.ins._ui._render( uidata)
-  
-    def _remove_address(self):
-      data = self.ins._server._post()
-      self.ins._db._update("gla_user_address",{"kit_deleted":"1"},f"id='{data['aid']}'")
-
-      return "1"
-
-    def _add_address(self):
-       sdata = self.user._check()
-       data = self.ins._server._post()
-       data["fk_user_id"] = sdata["id"]
-       data["title"] = data["first_name"] + " " +data["last_name"] 
-       data["kit_modified"] = self.ins._date._date_time()
-       aid = self.ins._db._insert("gla_user_address",data)
-       adta = {
-          "type":"delivery","id":aid
-       }
-       self.ins._server._set_session(self.session_address_name,adta)
-       return self._addresses_area_ui()
-    
-    def _update_address(self):
-       sdata = self.user._check()
-       data = self.ins._server._post()
-       data["fk_user_id"] = sdata["id"]
-       data["title"] = data["first_name"] + " " +data["last_name"] 
-       self.ins._db._update("gla_user_address",data,f"id='{data['address_id']}'")
-       adta = {
-          "type":"delivery","id":data["address_id"]
-       }
-       self.ins._server._set_session(self.session_address_name,adta)
-       return self._addresses_area_ui()
-    
-    def _update_address_ui(self):
-        rq = self.ins._server._post()
-        address = self.ins._db._get_row("gla_user_address","*",f"id='{rq['aid']}'")
-        uidata = [{"start":"true","class":"ins-flex ins-col-12 "}]
-        uidata.append({"start":"true","class":"ins-flex-space-between ins-col-12 -update-address-area"})
-        uidata.append({"_data": "Update Address","_data-ar":"تعديل العنوان","_trans":"true","class":"ins-col-12 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"})
-        uidata.append({"_type": "input","value":address["first_name"],"type":"text","required":"true","placeholder":"First name*","placeholder-ar":"الاسم الأول*","_trans":"true","name":"first_name","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","value":address["last_name"],"type":"text","required":"true","placeholder":"Last name*","placeholder-ar":" اسم العائلة*","_trans":"true","name":"last_name","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-       
-        if not address["phone"]:
-            address["phone"]  = ""
-
-        uidata.append({"_type": "input","value":address["phone"],"type":"text","placeholder":"Phone","placeholder-ar":"هاتف","_trans":"true","name":"phone","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-   
-   
-        uidata.append({"_type": "select","value":address["city"],"required":"true","fl_data":{"":"City","Cairo":"Cairo","Giza":"Giza"},"fl_data-ar":{"":"City","Cairo":"القاهرة","Giza":"الجيزة"},"_trans":"true","placeholder":"City*","placeholder-ar":" مدينة*","_trans":"true","name":"city","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","value":address["address"],"type":"text","required":"true","placeholder":"Address*","placeholder-ar":"العنوان*","_trans":"true","name":"address","pclass":"ins-col-12 ins-m-col-12","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","value":address["id"],"type":"text","placeholder":"ID","name":"address_id","pclass":"ins-hidden"})
-        if address["image"]:
-            uidata.append({"_type": "input","value":address["image"], "type": "upload", "title": "National ID (Optional)","title-ar": "صورة البطاقة الشخصية (اختياري)", "_trans":"true","name": "image", "placeholder": "Upload National ID", "pclass": "ins-col-12 ", "_dir": "national_ids", "_exts": "image/png"})
-        else:
-            uidata.append({"_type": "input", "type": "upload", "title": "National ID (Optional)","title-ar": "صورة البطاقة الشخصية (اختياري)", "_trans":"true","name": "image", "placeholder": "Upload National ID", "pclass": "ins-col-12 ", "_dir": "national_ids", "_exts": "image/png"})
-
+    def _wishlist_ui(self):
+        wishlist = self.ins._users._get_settings('pro', uid=self._uid)["wishlist"]
+        uidata=[{"_data":"My wishlist","_data-ar":"قائمة الرغبات","_trans":"ture","class":"ins-col-12 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"},
+                {"start":True,"class":"ins-col-12 ins-flex"}]
+        for w in wishlist:
+            pdata = self.ins._db._get_row("gla_product","*",f"id='{w}'")
+            if pdata:
+                uidata+= ELUI(self.ins).shop_pro_block(pdata)
         uidata.append({"end":"true"})
-        uidata.append({"class":"ins-space-s"})
-        uidata.append({"class":"ins-col-grow"})
-        update = "Update Address <i class='lni lni-arrow-right'></i>"
-        if self.ins._langs._this_get()["name"] == "ar":
-          update = "تعديل العنوان <i class='lni lni-arrow-left'></i>"
+        return uidata
 
-        
-        
-        uidata.append({"_data": update, "class": "ins-button-s ins-strong-m ins-flex-center  ins-m-col-6 ins-text-upper  -update-address-btn ins-gold-d ins-col-2","style":"height: 46px;    border: 1px solid var(--primary-d);"})
-        uidata.append({"_data": " Back","_data-ar":" رجوع","_trans":"true", "class": "ins-button-s ins-flex-center ins-strong-m ins-text-upper ins-gold-d-color   -back-address-btn ins-m-col-6  ins-col-2 ","style":"    height: 46px;"})
-        uidata.append({"end":"true"})
-        return self.ins._ui._render(uidata)
-
-    def _add_address_ui(self):
-
-        uidata = [{"start":"true","class":"ins-flex ins-col-12 "}]
-        uidata.append({"start":"true","class":"ins-flex-space-between ins-col-12 -add-address-area"})
-        uidata.append({"_data":"Add new Address","_data-ar":"إضافة عنوان جديد","_trans":"true","class":"ins-col-12 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"})
-                     
-
-        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"First name*","placeholder-ar":"الاسم الأول*","_trans":"true","name":"first_name","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Last name*","placeholder-ar":" اسم العائلة*","_trans":"true","name":"last_name","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","type":"text","placeholder":"Phone","placeholder-ar":" هاتف","_trans":"true","name":"phone","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "select","required":"true","fl_data":{"":"City","Cairo":"Cairo","Giza":"Giza"},"fl_data-ar":{"":"City","Cairo":"القاهرة","Giza":"الجيزة"},"_trans":"true","placeholder":"City*","placeholder-ar":" مدينة*","_trans":"true","name":"city","pclass":"ins-col-6 ins-m-col-6","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input","type":"text","required":"true","placeholder":"Address*","placeholder-ar":"العنوان*","_trans":"true","name":"address","pclass":"ins-col-12 ins-m-col-12","style":"    background: white;border-radius:4px;"})
-        uidata.append({"_type": "input", "type": "upload", "title": "National ID (Optional)","title-ar": "صورة البطاقة الشخصية (اختياري)", "_trans":"true","name": "image", "placeholder": "Upload National ID", "pclass": "ins-col-12 ", "_dir": "national_ids", "_exts": "image/png"})
-
-
-        uidata.append({"end":"true"})
-        uidata.append({"class":"ins-space-s"})
-        uidata.append({"class":"ins-col-grow"})
-
-        add = "Add Address <i class='lni lni-arrow-right'></i>"
-        if self.ins._langs._this_get()["name"] == "ar":
-          add = "إضافة عنوان <i class='lni lni-arrow-left'></i>"
-
-        uidata.append({"_data": add, "class": "ins-button-s ins-strong-m ins-flex-center ins-text-upper  -add-address-btn ins-gold-d ins-col-3 ins-m-col-6","style":"height: 46px;    border: 1px solid var(--primary-d);"})
-        uidata.append({"_data": " Back","_data-ar":"رجوع","_trans":"true", "class": "ins-button-s ins-flex-center ins-strong-m ins-text-upper ins-gold-d-color   -back-address-btn  ins-col-2 ins-m-col-6 ","style":"    height: 46px;"})
-        uidata.append({"end":"true"})
-
-        return self.ins._ui._render(uidata)
-
-    
 
     def addresses(self, g,udata):
 
 
-        uidata=[{"start":"true","class":"ins-col-12 ins-flex   gla-container"}]
-        uidata.append({"start":"true","class":"ins-flex ins-col-12 "})
-        uidata.append({"start":"true","class":"  ins-col-12 ins-gap-20  ins-flex -addresses-area   ins-padding-2xl"})
-        uidata+= self._addresses_area_ui(False)
-        uidata.append({"end":"true"})
-        uidata.append({"end":"true"})
-        uidata.append({"end":"true"})
-
-
+        uidata=[{"start":"true","class":"ins-col-12 ins-flex   gla-container"},
+                {"start":"true","class":"ins-flex ins-col-12 "},
+                {"start":"true","class":"  ins-col-12 ins-gap-20  ins-flex -addresses-area   ins-padding-2xl"},
+                {"_data":self._wishlist_ui()},
+                {"end":"true"},
+               {"end":"true"},
+               {"end":"true"}
+                ]
         return self.ins._ui._render(uidata)
 
     def _mobile_no_ui(self):
@@ -499,7 +368,7 @@ class AppUsers(App):
        
         udata = self.user._check()
         if not udata:
-            self.ins._server._set_session("redirect", "/puser/")
+            self.ins._server._set_session("redirect", "/user/")
             return """
             <script>
                 window.location.href = "/login/";

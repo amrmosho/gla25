@@ -481,7 +481,7 @@ a:hover,
 
 [class*="ins-button"]:hover {
     border: none;
-    background-color: var(--grey-l) !important;
+    /*background-color: var(--grey-l) !important;*/
     color: var(--grey-m)!important;
 }
 
