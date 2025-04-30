@@ -1,5 +1,6 @@
 import json
 from ins_cg.ins_apps.app_products.app_product_details import AppProductDetails
+from ins_cg.ins_apps.app_products.app_products_search import AppProductsSearch
 from ins_gla.ins_kit._elui import ELUI
 from ins_kit._engine._bp import App
 from urllib.parse import parse_qs

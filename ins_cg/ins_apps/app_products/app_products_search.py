@@ -1,8 +1,5 @@
-import json
-from ins_cg.ins_apps.app_products.app_product_details import AppProductDetails
 from ins_cg.ins_kit._elui import ELUI
 from ins_kit._engine._bp import App
-from urllib.parse import parse_qs
 import math
 
 
@@ -117,7 +114,7 @@ class AppProductsSearch(App):
     def _products_data(self):
 
         p = self.ins._server._post()
-        items_per_page = 24
+        items_per_page = 12
         page = int(p.get("page", "1"))
         o = p.get("order", "")
         fdata = ["pbr", "rigged" ,"print" ,"animated"]
@@ -151,7 +148,7 @@ class AppProductsSearch(App):
     def _products_ui(self):
         p = self.ins._server._post()
 
-        current_page = 1
+        current_page = int(p.get("page", "1"))
 
 
         rpdata = self._products_data()
@@ -161,28 +158,25 @@ class AppProductsSearch(App):
         if rpdata:
             uidata = []
             for d in rpdata:
-                uidata += ELUI(self.ins).shop_pro_block(d,
-                                                        f"/product/product/{d['id']}")
+                uidata += ELUI(self.ins).shop_pro_block(d,f"/product/product/{d['id']}")
 
             uidata += [
                 {"class": "ins-space-xl"},
-                {"start": "true", "data-page":p.get("page", "1") , "class": "ins-flex ins-col-12  ins-m-flex-center ins-pagination-area ins-padding-l ins-m-col-12",
+                {"start": "true", "data-page":current_page , "class": "ins-flex ins-col-12  ins-m-flex-center ins-pagination-area ins-padding-l ins-m-col-12",
                  "style": "background:white;"},
                 {"start": "true", "class": "ins-flex-start ins-m-col-12 ins-m-flex-center -pro-pages-buttons"},
-                {"_type": "button", "class": "ins-pagination-btn", "data-page": "prev",
-                 "_data": f"<i class='lni lni-chevron-left' ></i>"}
+                {"_type": "button", "class": "ins-pagination-btn-prev",
+                 "_data": f"<i class='lni lni-arrow-left' ></i>"}
             ]
-
 
             for page in range(start_page, end_page + 1):
                 active_class = "active" if page == current_page else ""
-                uidata += [{"_type": "button", "class": f"ins-pagination-btn ins-m-flex-center {active_class}",
-                            "data-page": page, "_data": str(page)}]
+                uidata += [{"_type": "button", "class": f"ins-pagination-btn ins-m-flex-center {active_class}","data-page": page, "_data": str(page)}]
+
 
             uidata += [
-
-                {"_type": "button", "class": "ins-pagination-btn","data-page": "next",
-                 "data-tpages": self.num_pages, "_data": f"<i class='lni lni-chevron-left'></i>"},
+                {"_type": "button", "class": "ins-pagination-btn-next",
+                 "data-tpages": self.num_pages, "_data": f"<i class='lni lni-arrow-right'></i>"},
                 {"end": "true"},
                 {"class": "ins-col-grow ins-m-col-3"},
                 {"start": "true", "class": "ins-flex-end not-for-phone"},

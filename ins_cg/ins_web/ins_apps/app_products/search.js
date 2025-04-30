@@ -4,11 +4,44 @@ function aj_search(get, data, ret) {
 }
 ins(".ins-form-bool-f")._on("change", o => {
     var page = ins(".ins-pagination-area")._getData("page");
-    search(page);
 }, "true");
 
 
+ins(".ins-pagination-btn-prev")._on("click", o => {
+    var page = ins(".ins-pagination-area")._getData("page");
+    if (page > 1) {
+        page = page - 1;
+        search(page);
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+}, true)
 
+
+ins(".ins-pagination-btn-next")._on("click", o => {
+    var tpages = o._getData("tpages");
+    var page = ins(".ins-pagination-area")._getData("page");
+    if (page < tpages) {
+        page = parseInt(page, 10) + 1;
+        search(page);
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+
+    }
+}, true)
+
+ins(".ins-pagination-btn")._on("click", o => {
+    var page = o._getData("page");
+    search(page);
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}, true)
 
 
 function search(page) {
