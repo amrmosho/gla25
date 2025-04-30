@@ -286,6 +286,10 @@
     vertical-align: top;
 }
 
+select.ins-form-input {
+    height: 50px;
+}
+
 .ins-form-input[type=checkbox],
 .ins-form-input[type=radio] {
     width: 25px;
