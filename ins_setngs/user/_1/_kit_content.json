@@ -15,5 +15,6 @@
             "insact": "1"
         }
     },
-    "list_name": "default"
+    "list_name": "default",
+    "pg_count": "24"
 }

@@ -14,7 +14,7 @@ class AppBlogs(App):
         p = self.ins._map.UPLOADS_FOLDER
         rq = self.ins._server._get()
         page = int(rq.get("page", 1))
-        filter = rq.get("category")
+        filter = rq.get("mode")
         sql = "1 "
 
         if filter:
@@ -121,7 +121,7 @@ class AppBlogs(App):
         rq = self.ins._server._req()
         self.app._include("style.css")
         self.app._include("script.js")
-        if not "mode" in rq:
+        if not "mode" in rq or rq["mode"] != "blog":
          return self._ui()
         else:
             app = AppBlogsDetails(self.app)

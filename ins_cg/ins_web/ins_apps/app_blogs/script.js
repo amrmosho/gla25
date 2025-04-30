@@ -4,10 +4,10 @@ ins(".-category-checkbox")._on("change", function(o) {
             item._get(0).checked = false;
         });
         o._get(0).checked = true;
-        url = ins()._map._hurl({ "category": o._getData("alias") }, "page")
+        url = ins()._map._hurl({ "mode": o._getData("alias") }, "page")
     } else {
         o._get(0).checked = false;
-        url = ins()._map._hurl({}, "category")
+        url = ins()._map._hurl({}, "mode")
     }
     window.location = url;
 }, true);
