@@ -1,6 +1,5 @@
-from ins_gla.ins_kit._gusers import Gusers
+from ins_cg.ins_kit._gusers import Gusers
 from ins_kit._engine._bp import App
-from ins_gla.ins_kit._elui import ELUI
 
 class AppUsersProfile(App):
     def __init__(self, app) -> None:
@@ -83,7 +82,7 @@ class AppUsersProfile(App):
         for m in menus:
             bclass = "ins-gold-d-color" if g.get("id") == m["name"] else ""
             aclass = "ins-strong-l" if g.get("id") == m["name"] else ""
-            url = self.ins._server._url({'alias':'puser','mode':'profile','id':m['name']})
+            url = self.ins._server._url({'alias':'user','mode':'profile','id':m['name']})
             text = f"<i class='lni ins-font-l {bclass} {m['icon']}'></i>  {m['title']}"
             if self.ins._langs._this_get()["name"] == "ar":
                 text =f"<i class='lni ins-font-l {bclass} {m['icon']}'></i>  {m['title-ar']}"

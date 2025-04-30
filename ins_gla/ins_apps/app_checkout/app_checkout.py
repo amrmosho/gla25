@@ -842,7 +842,7 @@ class AppCheckout(App):
          elif str(order_data["payment_method"]) == "8":
              return "1"
          else:
-               return "/puser/order/"
+               return "/user/order/"
        else:
            return "1"
 
@@ -1027,7 +1027,7 @@ class AppCheckout(App):
          lang = {
             "id":str(oid),
             "title":sdata["title"],
-            "link":f"http://elgalla.insya.co/puser/order/{oid}",
+            "link":f"http://elgalla.insya.co/user/order/{oid}",
                  }
          self.ins._sms.send_sms(lang,2,[sdata["mobile"]])
 
