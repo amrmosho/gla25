@@ -37,7 +37,7 @@ class ELUI(ins_parent):
         return self.ins._ui._render(uidata)
     def shop_pro_block(self, data ,url =""):
         p = self.ins._map.UPLOADS_FOLDER
-        purl = self.ins._server._url({"alias": "products", "mode": "product", "id": f"{data['id']}"},["page"])
+        purl = self.ins._server._url({"alias": "products", "mode": "item", "id": f"{data['id']}"},["page"])
         
         if data["views"] == None:
             data["views"] ="0"

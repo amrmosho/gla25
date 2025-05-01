@@ -1,7 +1,8 @@
 import json
 from ins_cg.ins_apps.app_products.app_product_details import AppProductDetails
 from ins_cg.ins_apps.app_products.app_products_search import AppProductsSearch
-from ins_gla.ins_kit._elui import ELUI
+
+from ins_cg.ins_kit._elui import ELUI
 from ins_kit._engine._bp import App
 from urllib.parse import parse_qs
 import math
@@ -179,7 +180,7 @@ class AppProducts(App):
         if rpdata:
             uidata = []
             for d in rpdata:
-                uidata+= ELUI(self.ins).shop_pro_block(d,f"/product/product/{d['id']}","width:300px;",d.get("subtype",""),tys)
+                uidata+= ELUI(self.ins).shop_pro_block(d,f"/products/item/{d['id']}","width:300px;",d.get("subtype",""),tys)
             uidata.append({"class": "ins-space-xl"})
             uidata.append({"start": "true", "class": "ins-flex ins-col-12  ins-m-flex-center ins-pagination-area ins-padding-l ins-m-col-12","style":"background:white;"})
             uidata.append({"start": "true", "class": "ins-flex-start ins-m-col-12 ins-m-flex-center -pro-pages-buttons"})
