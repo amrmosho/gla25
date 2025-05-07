@@ -1,5 +1,5 @@
 from ins_kit.ins_parent import ins_parent
-from flask import session, request
+from flask import redirect, session, request, url_for
 
 
 class Server(ins_parent):
@@ -29,6 +29,22 @@ class Server(ins_parent):
             Server.GET["mode"] = paths[(path_start+1)]
         if len(paths) > (path_start+2):
             Server.GET["id"] = paths[(path_start+2)]
+
+        if len(paths) > (path_start+3):
+            Server.GET["q1"] = paths[(path_start+3)]
+
+        if len(paths) > (path_start+4):
+            Server.GET["q2"] = paths[(path_start+4)]
+
+        if len(paths) > (path_start+5):
+            Server.GET["q3"] = paths[(path_start+5)]
+
+        if len(paths) > (path_start+5):
+            Server.GET["q4"] = paths[(path_start+6)]
+
+        if len(paths) > (path_start+5):
+            Server.GET["q5"] = paths[(path_start+7)]
+
         if "alias" not in Server.GET:
             Server.GET["alias"] = "home"
 
@@ -97,15 +113,12 @@ class Server(ins_parent):
     @property
     def _session(self):
         return session
-    
-    
+
     def _has_session(self, name: str = ""):
-    
+
         return (name in session)
-          
 
-
-    def _get_session(self, name: str = "",defult=False):
+    def _get_session(self, name: str = "", defult=False):
 
         if name == "":
             return session
@@ -115,21 +128,31 @@ class Server(ins_parent):
         else:
             return defult
 
-    def _set_session(self, name: str="", value ="",data={}):
+    def _set_session(self, name: str = "", value="", data={}):
 
-        if len(data) >0:
+        if len(data) > 0:
             for k in data:
-                   session[k] = data[k]
+                session[k] = data[k]
 
-        
         else:
 
             session[name] = value
 
-
     def _del_session(self, name):
         del session[name]
         return True
+    
+    def _redirect(self, to):
+        return  redirect(to)  
+
+    def _refresh(self):
+        d= request.url
+        return  redirect(d)  
+    
+    
+    def _get_url(self):
+       return  request.url   
+   
 
     def _url(self, _set={}, remove=[], clear=False) -> str:
         url = "/"
@@ -138,33 +161,37 @@ class Server(ins_parent):
             if k not in _set:
                 _set[k] = self._get(k)
 
+
         if "area" in _set:
             area_url = _set["area"]
-      
+
         elif "_area" in _set:
-            area_url = _set["_area"]      
+            area_url = _set["_area"]
         else:
             area_url = self.ins._this._area["url"]
 
         if area_url != "":
             url += f"{area_url}/"
 
-        if "alias" in _set and "alias" not in remove:
-            url += f"{_set['alias']}/"
+        ss = ["alias", "mode"]
 
-        if "mode" in _set and "mode" not in remove:
-            url += f"{_set['mode']}/"
-
-
-        if "page" in _set and "page" not in remove:
-            url += f"{_set['page']}/"
+        for s in ss:
+            if s in _set and s not in remove:
+                url += f"{_set[s]}/"
 
         if clear == True:
             return url
 
-        if "id" in _set and "id" not in remove:
-            url += f"{_set['id']}/"
-        ex = ["id", "mode", "alias", "area", "_t", "_area", "_alias","page"]
+        ms = ["id", "q1", "q2", "q3", "q4", "q5"]
+        for m in ms:
+            if m in _set and m not in remove:
+                url += f"{_set[m]}/"
+
+        ex = []
+        ex += ss
+        ex += ms
+        
+        ex += ["_t",  "_alias"]
 
         exurl = ""
         for k in _set.keys():

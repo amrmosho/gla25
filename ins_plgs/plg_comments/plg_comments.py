@@ -1,5 +1,4 @@
 from ins_kit._engine._bp import Plgin
-from ins_kit.ins_parent import ins_parent
 
 
 class PlgComments(Plgin):

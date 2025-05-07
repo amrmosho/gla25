@@ -9,7 +9,9 @@ class WdgProductsView(Widget):
 
     def out(self):
 
-        data = self.ins._db._get_data("gla_product","*","1 order by price asc limit 0,12" ,True) 
+        rpdatas = self.ins._db._jget( "gla_product", "*", f"1  order by price asc limit 0,12")
+        rpdatas._jwith("gla_product_category cat", "title,alias,id", "cat.id=Substring_Index(fk_product_category_id, ',', 1)", join="left join")
+        data= rpdatas._jrun()
 
         self.widget._include("wpros.js")
         self.widget._include("wpros.css")

@@ -10,8 +10,15 @@ class AppProductsSearch(App):
 
     def data(self):
         g = self.ins._server._get()
-        self._category = self.ins._db._get_row(
-            "gla_product_category", "*", f"alias='{g["id"]}'", update_lang=True)
+        self._category = {}
+        self.mode ="search"
+
+        if "mode" in g:
+            self.mode =g["mode"]
+            
+            if self.mode == "category":
+                self._category = self.ins._db._get_row(
+                    "gla_product_category", "*", f"alias='{g["id"]}'", update_lang=True)
 
     def order(self):
 
@@ -54,22 +61,22 @@ class AppProductsSearch(App):
 
         uidata = [
 
-            {"_type": "select", "fl_data": type,"name":"format",
+            {"_type": "select", "fl_data": type, "name": "format",
              "pclass": "ins-col-grow"},
             {"_type": "select", "name": "order",
                 "fl_data": {"-": "Price"}, "pclass": "ins-col-2"},
 
 
             {"_type": "input", "_end": "3D print", "type": "bool",
-                "pstyle": "width:150px" ,"name":"print"},
+                "pstyle": "width:150px", "name": "print"},
             {"_type": "input", "_end": "Animated", "type": "bool",
-                 "pstyle":  "width:150px" ,"name":"animated"},
-            {"_type": "input", "_end": "PBR", "type": "bool" ,"class":"fliter-pbr","name":"pbr",
-                 "pstyle":  "width:150px"},
+             "pstyle":  "width:150px", "name": "animated"},
+            {"_type": "input", "_end": "PBR", "type": "bool", "class": "fliter-pbr", "name": "pbr",
+             "pstyle":  "width:150px"},
             {"_type": "input", "_end": "Rigged", "type": "bool",
-                "pstyle":  "width:150px" ,"name":"rigged"},
+                "pstyle":  "width:150px", "name": "rigged"},
             {"_type": "input", "_end": "Low poly", "type": "bool",
-                 "pstyle":  "width:170px" ,"name":"low_poly"},
+             "pstyle":  "width:170px", "name": "low_poly"},
 
 
             {"class": "ins-flex "}]
@@ -78,14 +85,25 @@ class AppProductsSearch(App):
     def header_ui(self):
 
         home_url = self.ins._server._url({}, ["mode", "id", "alias", "filter"])
+
+        title = ""
+        des = ""
+        if "title" in self._category:
+
+            title = "/ "+self._category["title"]
+
+        if "des" in self._category:
+
+            des = "/ "+self._category["des"]
+
         uidata = [
             {"start": "true", "class": "ins-flex ins-col-12 gla-container ins-padding-2xl"},
             # title
-            {"_data": f"Products / {self._category['title']}", "_data-ar": "منتجات", "_trans": "true",
+            {"_data": f"Products  {title}", "_data-ar": "منتجات", "_trans": "true",
              "class": "ins-col-12 ins-title ins-strong-m ins-text-upper ins-grey-d-color"},
             # des
 
-            {"_data": f" {self._category['des']}", "_data-ar": "منتجات", "_trans": "true",
+            {"_data": f" {des}", "_data-ar": "منتجات", "_trans": "true",
              "class": "ins-col-12   ins-grey-d-color"},
             {"start": "true", "class": "ins-col-12 ins-flex ins-text-upper"},
             {"_type": "a", "href": home_url, "_data": "Home /", "_data-ar": "الرئيسية /",
@@ -117,7 +135,7 @@ class AppProductsSearch(App):
         items_per_page = 12
         page = int(p.get("page", "1"))
         o = p.get("order", "")
-        fdata = ["pbr", "rigged" ,"print" ,"animated"]
+        fdata = ["pbr", "rigged", "print", "animated"]
 
         sql_query = " 1 "
         for f in fdata:
@@ -137,19 +155,26 @@ class AppProductsSearch(App):
             elif o == "trend":
                 order = "order by kit_order desc"
 
-        rpdata = self.ins._db._get_data(
-            "gla_product", "*", f"{sql_query} {order} limit {offset}, {items_per_page}", update_lang=True)
+        rpdatas = self.ins._db._jget( "gla_product", "*", f"{sql_query} {order} limit {offset}, {items_per_page}")
+        rpdatas._jwith("gla_product_category cat", "title,alias,id", "cat.id=Substring_Index(fk_product_category_id, ',', 1)", join="left join")
+        rpdata= rpdatas._jrun()
+    
+        
 
         tcount = self.ins._db._get_row(
             "gla_product", "count(id) as count", f"{sql_query}")["count"]
         self.num_pages = math.ceil(tcount / items_per_page)
+        
+        
+      
+        
         return rpdata
 
     def _products_ui(self):
         p = self.ins._server._post()
+        g = self.ins._server._get()
 
         current_page = int(p.get("page", "1"))
-
 
         rpdata = self._products_data()
         start_page = max(1, current_page - 2)
@@ -158,11 +183,13 @@ class AppProductsSearch(App):
         if rpdata:
             uidata = []
             for d in rpdata:
-                uidata += ELUI(self.ins).shop_pro_block(d,f"/product/product/{d['id']}")
+                url = self.ins._server._url({ "q1": f"{d['alias']}"},["page"])
+ 
+                uidata += ELUI(self.ins).shop_pro_block(d,url)
 
             uidata += [
                 {"class": "ins-space-xl"},
-                {"start": "true", "data-page":current_page , "class": "ins-flex ins-col-12  ins-m-flex-center ins-pagination-area ins-padding-l ins-m-col-12",
+                {"start": "true", "data-page": current_page, "class": "ins-flex ins-col-12  ins-m-flex-center ins-pagination-area ins-padding-l ins-m-col-12",
                  "style": "background:white;"},
                 {"start": "true", "class": "ins-flex-start ins-m-col-12 ins-m-flex-center -pro-pages-buttons"},
                 {"_type": "button", "class": "ins-pagination-btn-prev",
@@ -171,8 +198,8 @@ class AppProductsSearch(App):
 
             for page in range(start_page, end_page + 1):
                 active_class = "active" if page == current_page else ""
-                uidata += [{"_type": "button", "class": f"ins-pagination-btn ins-m-flex-center {active_class}","data-page": page, "_data": str(page)}]
-
+                uidata += [{"_type": "button", "class": f"ins-pagination-btn ins-m-flex-center {active_class}",
+                            "data-page": page, "_data": str(page)}]
 
             uidata += [
                 {"_type": "button", "class": "ins-pagination-btn-next",
@@ -190,8 +217,8 @@ class AppProductsSearch(App):
                 {"end": "true"},
                 {"end": "true"},
                 {"class": "ins-space-xl"}
-                
-                ]
+
+            ]
 
         else:
             uidata = [{"_data": "No matching results found",
@@ -209,5 +236,9 @@ class AppProductsSearch(App):
 
     def out(self):
         self.data()
+
+
+            
+        
 
         return self._list()

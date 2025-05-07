@@ -305,6 +305,7 @@ class App(ins_parent):
 
             r["properties"]["url"] = r["url"]
             r["properties"]["pros_name"] = "properties"
+            
 
             return r
         except FileNotFoundError as err:

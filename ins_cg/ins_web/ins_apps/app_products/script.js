@@ -71,29 +71,6 @@ ins(".-pro-action")._on("click", (o) => {
 }, true)
 
 
-ins(".-add-cart-btn")._on("click", (o) => {
-    var ops = o._getData();
-    ops.count = ins(".count-inpt")._getValue()
-    ops["lang"] = "ar"
-    ins("_cart_lightbox_ui")._ajax._app(ops, (data) => {
-        var jdata = JSON.parse(data)
-        console.log(jdata)
-        if (jdata["status"] == "0") {
-            ins()._ui._addLightbox({
-                "mode": "right_panel",
-                title: "<i class='lni ins-icon lni-cart  '></i> " + ops["lbtitle"],
-                data: jdata["ui"],
-                data_style: "position: relative;top: 0;",
-                style: "width:650px;    "
-            });
-        } else {
-            ins(jdata["msg"])._ui._notification({ class: "ins-danger" })
-
-        }
-
-    })
-})
-
 
 ins(".-filter-menu")._on("click", (o) => {
     if (ins(".-filter-area")._hasClass("menu-open")) {
@@ -117,69 +94,9 @@ ins(".-continue-shopping-btn")._on("click", (o) => {
     ins(".ins-panel-overlay.ins-opened")._remove()
     ins()._ui._removeLightbox();
 }, true)
-ins(".-remove-item-cart-btn")._on("click", (o) => {
-    var ops = o._getData()
-    var p = o._parent(".-item-card");
-
-    ins("remove_item_confirm")._data._trans((text) => {
-
-        if (confirm(text)) {
-            ins("_remove_item_cart")._ajax._app(ops, (data) => {
-                var jdata = JSON.parse(data)
-                if (jdata["status"] == "1") {
-                    ins(".-cart-cont")._setHTML(jdata["ui"])
-                }
-                p._remove()
-                ins("Item removed!")._ui._notification()
-                setTimeout(() => {
-                    if (jdata["count"] > 0) {
-                        ins(".-cart-counter")._setHTML(jdata["count"])
-                    } else {
-                        ins(".-cart-counter")._addClass("ins-hidden")
-
-                    }
-                }, 100)
-            })
-        }
 
 
-
-    })
-
-
-
-}, true)
-ins(".-remove-item-side-cart-btn")._on("click", (o) => {
-        var ops = o._getData()
-        var p = o._parents(".-item-card");
-
-
-        ins("remove_item_confirm")._data._trans((text) => {
-
-            if (confirm(text)) {
-                ins("_remove_item_cart")._ajax._app(ops, (data) => {
-                    var jdata = JSON.parse(data)
-                    if (jdata["status"] == "1") {
-                        ins(".-cart-cont")._setHTML(jdata["ui"])
-                    }
-                    p._remove()
-                    ins("item_removed")._data._trans((removed) => {
-                        ins(removed)._ui._notification()
-                    })
-                    setTimeout(() => {
-                        if (jdata["count"] > 0) {
-                            ins(".-cart-counter")._setHTML(jdata["count"])
-                        } else {
-                            ins(".-cart-counter")._addClass("ins-hidden")
-
-                        }
-                    }, 100)
-                })
-            }
-        })
-
-    }, true)
-    /**Filter Area */
+/**Filter Area */
 
 ins(".-type-btn")._on("click", function(o) {
 
