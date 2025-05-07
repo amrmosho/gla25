@@ -21,11 +21,11 @@ class WdgCategory(Widget):
 
 
         for d in data:
-            cblock = [{"start":"true","class":"   ins-card img-card  -pro-cats-item  ins-padding-s ins-flex-center "},
+            url = self.ins._server._url({"alias":"products","mode":"3d-model","id":d.get("alias")})
+            cblock = [{"_type":"a","href":url,"start":"true","class":"   ins-card img-card  -pro-cats-item  ins-padding-s ins-flex-center "},
                      {"_type": "img", "src": p + d.get("image"), "loading": "lazy"},
                      {"_data": d.get("title"),"class":" ins-padding-l ins-col-12 ins-object-bottom   ins-strong ins-title-s  "},
-                     
-                      {"end":"true"}]
+                     {"_type":"a","end":"true"}]
             uidata +=cblock
 
         uidata.append({"end":"true"})

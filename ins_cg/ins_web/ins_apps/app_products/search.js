@@ -4,6 +4,7 @@ function aj_search(get, data, ret) {
 }
 ins(".ins-form-bool-f")._on("change", o => {
     var page = ins(".ins-pagination-area")._getData("page");
+    search(page)
 }, "true");
 
 
@@ -44,8 +45,22 @@ ins(".ins-pagination-btn")._on("click", o => {
 }, true)
 
 
-function search(page) {
 
+
+ins(".-go-to-page-btn")._on("click", o => {
+    var page = ins(".-page-input")._getValue();
+    var thispage = ins(".ins-pagination-area")._getData("page");
+    var tpages = o._getData("tpages");
+    if (page > 0 && page <= tpages && page != thispage) {
+        search(page);
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+}, true)
+
+function search(page) {
     setTimeout(o => {
         ins(".-list-filter-ui")._data._submit((data) => {
             var sdata = {}
@@ -55,6 +70,8 @@ function search(page) {
                     sdata[k] = data[k];
                 }
             })
+            console.log(sdata)
+
             sdata["page"] = page;
             aj_search("_products_ui", sdata, data => {
                 ins(".-products-area")._setHTML(data)
