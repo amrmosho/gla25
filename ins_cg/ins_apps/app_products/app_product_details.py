@@ -1,5 +1,5 @@
 from urllib.parse import parse_qs
-from ins_gla.ins_kit._elui import ELUI
+from ins_cg.ins_kit._elui import ELUI
 from ins_kit._engine._bp import App
 from ins_plgs.plg_comments.plg_comments import PlgComments
 
@@ -226,9 +226,11 @@ class AppProductDetails(App):
     
 
     def _ui(self, rq):
-        data = self.ins._db._get_row("gla_product", "*", f"id={rq['id']}")
+        data = self.ins._db._get_row("gla_product", "*", f"alias='{rq['q1']}'")
 
-        self.update_view(rq['id'], data.get("views",0))
+
+
+        self.update_view(data['id'], data.get("views",0))
 
         filter_data = {}
         stys = ""
@@ -256,8 +258,8 @@ class AppProductDetails(App):
         uidata = [
             {"start": "true", "class": "ins-flex-start  gla-container ins-col-12 ins-padding-2xl ins-gap-m"},
         ]
-        home_url = self.ins._server._url({}, ["mode", "id", "alias"])
-        product_url = self.ins._server._url({}, ["mode", "id"])
+        home_url = self.ins._server._url({}, ["mode", "id", "alias" ,"q1"])
+        product_url = self.ins._server._url({}, ["q1"])
 
         path = [
             {"start": "true", "class": "ins-col-12 ins-flex ins-text-upper"},
@@ -389,7 +391,7 @@ class AppProductDetails(App):
 
         uidata.append({"class": "ins-space-xs"})
 
-        uidata.append({"_data":  str(data.get("buy_price", 9000)), "_view": "currency", "_currency_symbol": " EGP",
+        uidata.append({"_data":  str(data.get("price", 9000)), "_view": "currency", "_currency_symbol": "$",
                       "_currency_symbol_ar": " جنيه",  "class": "ins-col-12   ins-title-l  ins-primary-d-color"})
         uidata.append({"class": "ins-space-s"})
         uidata.append({"class": "ins-line ins-col-12"})
@@ -415,6 +417,8 @@ class AppProductDetails(App):
                       "class": "ins-col-12  ins-grey-d-color ins-title-s	 ins-strong-l "})
 
         files = data.get("files_data", "[]")
+        if files =="":
+            files='[]'
         files = self.ins._json._decode(files)
         for f in files:
             uidata.append(

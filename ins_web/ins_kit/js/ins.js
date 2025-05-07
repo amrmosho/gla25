@@ -1605,6 +1605,7 @@ Ajax.prototype._wdgt = function(options, callback) {
     })
 };
 
+
 Ajax.prototype._plgin = function(options, callback) {
     if (options["_a"] == "" || options["_a"] == null) {
         options["_a"] = "home";

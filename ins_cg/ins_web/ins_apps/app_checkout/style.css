@@ -1,0 +1,22 @@
+.w-citem{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: block;
+    position: absolute;
+    transform: translateX(-50%);
+    top: -30px;
+    left: 50%;
+}
+
+.w-item{
+    position: relative;
+    text-align: center;
+}.w-line{
+
+    border-top: 3px solid;
+    position: absolute;
+    top: 16px;
+    width: 251px;
+
+}

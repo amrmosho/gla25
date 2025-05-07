@@ -79,3 +79,46 @@ function search(page) {
         })
     }, 100)
 }
+
+
+
+
+ins(".-add-cart-btn")._on("click", (o) => {
+    var ops = o._getData();
+    ops.count = ins(".count-inpt")._getValue()
+    ops["lang"] = "ar"
+    ins("_add_to_card")._ajax._app(ops, (data) => {
+        var jdata = JSON.parse(data)
+        ins()._ui._addLightbox({
+            "mode": "right_panel",
+            title: "<i class='lni ins-icon lni-cart  '></i> " + ops["lbtitle"],
+            data: jdata["ui"],
+            data_style: "position: relative;top: 0;",
+            style: "width:650px;    "
+        });
+
+
+    })
+})
+
+ins(".-remove-item-side-cart-btn")._on("click", (o) => {
+    var ops = o._getData()
+    var p = o._parents(".-item-card");
+
+
+    ins("remove_item_confirm")._data._trans((text) => {
+
+        if (confirm(text)) {
+            ins("_remove_item_cart")._ajax._app(ops, (data) => {
+                var jdata = JSON.parse(data)
+                ins(".-cart-cont")._setHTML(jdata["ui"])
+
+                ins("item_removed")._data._trans((removed) => {
+                    ins(removed)._ui._notification()
+                })
+
+            })
+        }
+    })
+
+}, true)

@@ -179,8 +179,6 @@ class ELUI(ins_parent):
         if order_check["status"] !="0":
             return order_check
         
-
-
         else:    
             r = {}
 
@@ -319,7 +317,7 @@ class ELUI(ins_parent):
             return self.ins._ui._render(uidata)
         return uidata
 
-    def shop_pro_block(self,data,purl,st = "width:316px;",stys="",tys =""):
+    def shop_pro_block(self,data,purl,st = "",stys="",tys =""):
 
         if not stys and not tys and (data["fk_product_category_id"] == 1 or data["fk_product_category_id"] == 3 ) :
             tys = "standard"
@@ -360,7 +358,7 @@ class ELUI(ins_parent):
             button_title = "تسوق الآن <i class='lni ins-icon lni-arrow-left'></i>"
 
         r = [
-            {"start": "true", "class": "ins-flex gla-pro-block", "style": st},
+            {"start": "true", "class": "ins-flex gla-pro-block ins-co-", "style": st},
             {"_type":"a","href": purl,"start": "true", "class": "gla-img-cont", "style": ""},
             {"src": p + th_main_image, "loading": "lazy", "_type": "img", "class": "gla-pro-img"},
             {"src": p + th_overlay_image, "loading": "lazy", "_type": "img", "class": "gla-pro-himg"},

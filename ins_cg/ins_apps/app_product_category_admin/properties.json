@@ -48,7 +48,18 @@
             "pclass": "ins-col-12",
             "tree": "true"
         },
-
+        {
+            "name": "fk_category_id",
+            "title": "Category",
+            "_type": "select",
+            "type": "text",
+            "fl_type": "db",
+            "fl_table": "gla_product_category",
+            "fl_start": "0,--",
+            "required": "true",
+            "pclass": "ins-col-12",
+            "tree": "true"
+        },
         {
             "name": "des",
             "title": "des",

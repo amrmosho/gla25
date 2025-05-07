@@ -8,6 +8,10 @@ class Users(ins_parent):
     __SESSION_KEY = "ins_u_data"
     __SESSION_KEY_PER = "ins_u_data_per"
 
+
+    def _session_key(self):
+        return self.__SESSION_KEY
+
     def _session_get(self,  name=""):
         if self._is_login():
             if name == "":
@@ -132,21 +136,11 @@ class Users(ins_parent):
             udata = self.ins._db._get_row(
                 "kit_user", "*", f"email='{data["email"]}' and password ='{passsword}' ")
             
-            
-            
-
             if udata != False:
-                
-                
                 area = self.ins._this._area["name"]
-                
-                
                 group = self.ins._db._get_row(
                 "kit_user_group", "*", f"id='{udata["groups"]}' and tar_area ='{area}' ")
-                
                 if group != False:
-
-                    
                     self._session_set(udata)
                     r = True
 
