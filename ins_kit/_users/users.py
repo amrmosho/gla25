@@ -151,8 +151,11 @@ class Users(ins_parent):
         sql = f"email ='{email}'"
         data = self.ins._db._get_row("kit_user", "*", sql)
         if data:
-            return "-1"
-        return "1"
+             area = self.ins._this._area["name"]
+             group = self.ins._db._get_row("kit_user_group", "*", f"id='{data["groups"]}' and tar_area ='{area}' ")
+             if group != False:
+                    return  True
+        return False
 
 
     def _create_otp(self, email = ""):
@@ -173,4 +176,17 @@ class Users(ins_parent):
             return "1"
         else:
             return otp
+
+
+    def _check_otp(self, email, otp):
+        w = f"email='{email}' and otp='{otp}'"
+        odata = self.ins._db._get_row("kit_login_temp", "*", w)
+        if odata:
+            now = self.ins._date._date_time()
+            expiry = odata["expiry"]
+            """if delattr(now) > expiry:
+                return "-2" """
+            return "1"
+
+        return "-1"
 
