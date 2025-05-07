@@ -1,3 +1,4 @@
+from random import randint
 from ins_kit.ins_parent import ins_parent
 
 
@@ -145,3 +146,31 @@ class Users(ins_parent):
                     r = True
 
         return r
+    
+    def _email_exists(self, email):
+        sql = f"email ='{email}'"
+        data = self.ins._db._get_row("kit_user", "*", sql)
+        if data:
+            return "-1"
+        return "1"
+
+
+    def _create_otp(self, email = ""):
+        otp = randint(1000, 9999)
+        if email:
+            expiry = self.ins._date._date_time("+ 5 minutes")
+            data = {
+                "email":email,
+                "otp":otp,
+                "expiry":expiry
+            }
+            old_data =  self.ins._db._get_row("kit_login_temp","*",f"email='{email}'")
+            if old_data:
+             self.ins._db._update("kit_login_temp",data,f"email='{email}'")
+            else:
+              self.ins._db._insert("kit_login_temp",data)
+            
+            return "1"
+        else:
+            return otp
+
