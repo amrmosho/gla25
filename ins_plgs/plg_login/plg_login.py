@@ -20,13 +20,14 @@ class PlgLogin(Plgin):
 
     def __forget_ui(self):
         p = self.ins._server._post()
-        if "step" in p and p["step"] == "otp":
-            url = self.ins._server._url({"step": "otp"})
-            self.ins._server._redirect(url)
-
+       
         back = self.ins._server._url({},{"show"})
+        
+        nurl = self.ins._server._url({"step": "otp"})
+  
+        
         uidata = [
-            {"start": "true", "_type": "form", "method": "post", "class": "ins-col-12 ins-flex-center ins-padding-2xl ins-text-center "},
+            {"start": "true", "_type": "form", "action":nurl,"method": "post", "class": "ins-col-12 ins-flex-center ins-padding-2xl ins-text-center "},
             {"start": "true", "class": "ins-col-5 ins-flex-end ins-card -forgot-form ins-text-start"},
             {"_data": "Forgot Password", "_data-ar": "هل نسيت كلمة السر؟","_trans":"true","class": "ins-title-m ins-strong-m ins-grey-d-color ins-text-upper ins-col-12"},
             {"_type": "input", "required":"true","title": "Email Address","title-ar":"البريد الالكتروني", "placeholder": "Enter Email Address","placeholder-ar":"أدخل البريد الالكتروني ", "_trans":"true","type": "email", "name": "email", "class": "-forgot-email-inpt", "pclass": "ins-col-12"},
