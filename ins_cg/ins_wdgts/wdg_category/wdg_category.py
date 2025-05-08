@@ -21,7 +21,7 @@ class WdgCategory(Widget):
 
 
         for d in data:
-            url = self.ins._server._url({"alias":"products","mode":"3d-model","id":d.get("alias")})
+            url = self.ins._server._url({"alias":"products","mode":"category","id":d.get("alias")})
             cblock = [{"_type":"a","href":url,"start":"true","class":"   ins-card img-card  -pro-cats-item  ins-padding-s ins-flex-center "},
                      {"_type": "img", "src": p + d.get("image"), "loading": "lazy"},
                      {"_data": d.get("title"),"class":" ins-padding-l ins-col-12 ins-object-bottom   ins-strong ins-title-s  "},

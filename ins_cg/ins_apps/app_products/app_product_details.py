@@ -158,9 +158,9 @@ class AppProductDetails(App):
             self.ins._db._update(
                 "gla_product", {"views":  str(views+1)}, f"id={id}")
 
-    def _user(self):
+    def _user(self ,data):
 
-        u = self.ins._db._get_row("kit_user", "*", "id=1")
+        u = self.ins._db._get_row("kit_user", "*", f"id='{str(data["fk_user_id"])}'")
 
         uidata = [
             {"start":  "true", "class": "ins-col-12 ins-flex"},
@@ -442,7 +442,7 @@ class AppProductDetails(App):
         uidata.append({"start": "true", "class": "ins-flex ins-col-12  ins-active ins-card ins-primary-bg  -open-panel",
                       "style": "border-radius: 0 0 8px 8px !important;position: relative;top: -8px;height: 65px;overflow: hidden;    border-top: 1px solid var(--primary-l)"})
 
-        uidata.append({"_data": self._user(),
+        uidata.append({"_data": self._user(data),
                       "class": "ins-col-12 ins-flex-end ins-m-col-12 "})
 
         uidata.append({"end": "true"})

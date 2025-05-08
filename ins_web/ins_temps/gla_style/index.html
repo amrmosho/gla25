@@ -1,17 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8"> {{ temp.header|safe }}
     <link rel="stylesheet" href="/{{ temp._weburl|safe }}css/style-{{lang['name']}}.css" />
 
     <link rel="stylesheet" href="/{{ temp._weburl|safe }}css/ui.css" />
     <link rel="stylesheet" href="/{{ temp._weburl|safe }}css/style.css" />
-
-
-
-
-
     <link href="/{{ temp._weburl|safe }}css/phone.css" rel="stylesheet" media="only screen and (min-width: 0px) and (max-width: 1000px)" type="text/css">
     <script src="/{{ temp._weburl|safe }}js/script.js"></script>
     <meta charset="utf-8"> {{ temp.header_end|safe }}
@@ -19,7 +13,16 @@
     {{ temp.css|safe }}
 </head>
 
-<body class="ins-light-style ins-gla-style  ins-padding-xl   ins-wallpaper">
+{% set sclass ="  " %}
+{% set sv ="" %}
+
+{% if  "s" in get %}
+{% set sclass =" open-search " %}
+{% set sv =get["s"] %}
+
+{% endif %}
+
+<body class="ins-light-style ins-gla-style  ins-padding-xl {{sclass|safe}}   ins-wallpaper">
 
     <div class="">
         {{ wdgts["ticker"]|safe }}
@@ -147,11 +150,13 @@
 
         </header>
 
+
+
         <div class="ins-flex-space-between ins-padding-xl ins-white -search-cont  ins-col-12">
 
             <i class=" lni ins-icon ins-font-2xl lni-search-1 gla-search-btn"></i> {% if lang["name"] =="en" %}
 
-            <input type="text" placeholder="What are you looking for?" class="ins-col-grow gla-header-search-input ins-font-l ins-input-none ins-m-col-10" /> {% endif %} {% if lang["name"] =="ar" %}
+            <input type="text" placeholder="What are you looking for?" value="{{sv}}" class="ins-col-grow gla-header-search-input ins-font-l ins-input-none ins-m-col-10" /> {% endif %} {% if lang["name"] =="ar" %}
 
             <input type="text" placeholder=" ما الذي تبحث عنه؟" class="ins-col-grow gla-header-search-input ins-font-l ins-input-none ins-m-col-10" /> {% endif %}
 

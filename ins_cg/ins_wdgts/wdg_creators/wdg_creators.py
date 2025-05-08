@@ -17,9 +17,9 @@ class WdgCreators(Widget):
 
 
         for d in data:
-               url = self.ins._server._url({"alias":"partner","mode":str(d["id"])})
+                url = self.ins._server._url({"alias":"products","mode":"user","id":d.get("id")})
 
-               uidata+=[
+                uidata+=[
                       
                       {"_type":"a","href":url,"start":"true","class":"ins-button-text ins-flex-center -creator-card"},
                       {"_type":"img","src":f"{p}/{d['image']}","style":"height:100%;","class":"ins-rounded ins-col-12"},

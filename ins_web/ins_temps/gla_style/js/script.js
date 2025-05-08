@@ -26,13 +26,21 @@ ins(".-user-menu-btn")._on("click", (o) => {
 
 ins(".gla-search-btn")._on("click", (o, e) => {
     var v = ins(".gla-header-search-input")._getValue();
-    window.location = "/product/do/filter/title=" + v;
+    var u =ins()._map._hurl({"s":v ,"alias" :"products"})
+
+    window.location = u;
 }, true);
+
+
+
 
 ins(".gla-header-search-input")._on("keyup", (o, e) => {
     if (e.keyCode == 13) {
         var v = o._getValue();
-        window.location = "/product/do/filter/title=" + v;
+
+        var u =ins()._map._hurl({"s":v ,"alias" :"products"})
+
+        window.location = u ;
     }
 }, true);
 

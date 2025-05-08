@@ -1548,21 +1548,48 @@ Ajax.prototype._app = function(options, callback) {
     var s = ins(".ins-app")._getData("data")
 
     s = JSON.parse(s);
-    if (options["_p"] != null) {
-        s["_p"] = options["_p"];
+
+    options["ajx_get"] = JSON.stringify(g["_g"]) ;
+
+
+    var area = "";
+    var cont = "";
+    var name = "";
+    var o = this.o.split(".");
+
+    if (o.length > 2) {
+        console.log("0");
+
+        area = o[0];
+        cont = o[1];
+        name = o[2];
+    } else if (o.length == 2) {
+        console.log("2");
+
+        cont = o[0];
+        name = o[1];
+    } else {
+        name = this.o;
+        cont = s["_p"];
+        area = s["_a"];
+        console.log(o.length);
+
+
     }
-    if (options["_a"] != null) {
-        s["_a"] = options["_a"];
-    }
+
+
     if (s["_a"] == "") {
         s["_a"] = "home";
     }
-    var url = "/ins_ajax/" + s["_a"] + "/" + s["_p"] + "/" + this.o + "/do/_area/" + g["_a"] + "/_alias/" + g["_g"]["alias"] + "/"
+    var url = "/ins_ajax/" +area + "/" + cont + "/" + name  + "/do/_area/" + g["_a"] + "/_alias/" + g["_g"]["alias"] + "/"
+
+    console.log(url);
+
+
     delete options["_a"];
     delete options["_p"];
 
     delete options["_m"];
-
 
 
 

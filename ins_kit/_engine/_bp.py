@@ -207,14 +207,14 @@ class Temp(ins_parent):
         def url(_set={}, remove=[], claer=False):
             return self.ins._server._url(_set, remove, claer)
         
-        
+        g=  self.ins._server._get()
         def session_count(name):
             if name in se:
                 return len(se[name])
             else:
              return 0
 
-        return render_template(f'{self.ins._this._temp["type"]}/{s}', app=a, session=se,session_count=session_count, user=u, lang=lang, url=url, page=p_data,  wdgts=ws,  temp=self)
+        return render_template(f'{self.ins._this._temp["type"]}/{s}', app=a, session=se,session_count=session_count, user=u, lang=lang, url=url, page=p_data,  wdgts=ws,get=g,  temp=self)
 
 
 
