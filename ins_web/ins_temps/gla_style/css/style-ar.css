@@ -162,3 +162,10 @@
     .-user-menu {
         left: 0px;
     }
+    
+    .-remove-error-msg {
+        position: absolute !important;
+        left: 20px !important;
+        top: 25px !important;
+        cursor: pointer !important;
+    }

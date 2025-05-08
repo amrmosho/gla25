@@ -10,6 +10,10 @@
     "password": "Password",
     "enter_password": "Enter Password",
     "next": "Next <i class='lni lni-arrow-right'></i>",
-    "back": "<i class='lni lni-arrow-left'></i> Back"
+    "back": "<i class='lni lni-arrow-left'></i> Back",
+    "user_not_exists": "User does not exist",
+    "invalid_otp": "Invalid OTP",
+    "empty_otp": "Please enter OTP",
+    "password_not_match": "Password does not match"
 
 }

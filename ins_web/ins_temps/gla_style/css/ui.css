@@ -627,3 +627,20 @@ body {
 .ins-text-lower {
     text-transform: lowercase !important;
 }
+
+.error-msg {
+    padding: 8px;
+    background: var(--danger) !important;
+    border-radius: 8px;
+    color: white !important;
+}
+
+.error-msg i::before {
+    background-color: white;
+}
+
+.error-msg i {
+    padding: 6px;
+    position: relative;
+    top: 7px;
+}

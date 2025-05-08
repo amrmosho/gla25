@@ -185,3 +185,8 @@ class Ui(ins_parent):
             if "start" not in attrs or (attrs["start"] != True and attrs["start"] != "true" and attrs["start"] != "True"):
                 r += f"</{my_type}>"
         return r
+
+
+
+    def _error_msg(self, msg):
+        return {"_data":f"<i class='ins-icons-ban'></i>{msg}<i class='ins-icons-xmark -remove-error-msg'></i>", "class": "error-msg ins-col-12"}
