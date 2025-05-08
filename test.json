@@ -1,7 +1,25 @@
-[{ "name": "aaaa", "type": "blend", "version": "4.4", "renderer": "cycles", "native": "true" },
-    { "name": "aaaa", "type": "fbx", "version": "4.4" },
-    { "name": "aaaa", "type": "obj" },
-    { "name": "aaaa", "type": "textures", "version": "2k" },
-    { "name": "aaaa", "type": "textures", "version": "4.4k" },
-    { "name": "aaaa", "type": "glb" }
-]
+{
+    "35": {
+        "alias": "0.25gr_gold_bar",
+        "cat_alias": "sports",
+        "cat_id": 11,
+        "cat_title": "Sports",
+        "files_data": "[{\"path\":\"prosf/_35/da346fa077d740d9b1fb161cb8bcb9e0__classic_grand_piano_blend.zip\",\"name\":\"classic_grand_piano_blend.zip\",\"native\":\"1\",\"type\":\"blend\",\"version\":\"5\",\"render\":\"cycles\",\"rende_rversion\":\"7\"},{\"path\":\"prosf/_35/80d1130c1ba94220b012907adf52fcde__classic_grand_piano_fbx_include_textures.zip\",\"name\":\"classic_grand_piano_fbx_include_textures.zip\",\"type\":\"fbx\",\"version\":\"9\"},{\"path\":\"prosf/_35/b9ef7df1af81423a844aa5eb590e3d2a__classic_grand_piano_fbx.zip\",\"name\":\"classic_grand_piano_fbx.zip\",\"type\":\"fbx\"},{\"path\":\"prosf/_35/e616cba2e7c84a5a93496ad7978cbbfe__classic_grand_piano_glb.zip\",\"name\":\"classic_grand_piano_glb.zip\",\"type\":\"glb\",\"version\":\"50\"},{\"path\":\"prosf/_35/1e580c50c33940098f9da14dbc583be4__classic_grand_piano_obj.zip\",\"name\":\"classic_grand_piano_obj.zip\",\"type\":\"obj\",\"version\":\"7\"}]",
+        "id": 35,
+        "price": 1365.0,
+        "th_main": "prosi/_35/669d9f3caa014a3a90cb91d88d34955e__classic_grand_pian-th.png",
+        "title": "0.25gr Gold Bar",
+        "views": 14
+    },
+    "38": {
+        "alias": "apple_ipad_pro_2024_in_black_full_collection",
+        "cat_alias": "sports",
+        "cat_id": 11,
+        "cat_title": "Sports",
+        "id": 38,
+        "price": 0.0,
+        "th_main": "prosi/_38/85658e763b7e4bad939e8a4f5fa8c9d0__ww.jpg",
+        "title": "Apple iPad Pro 2024 in Black full Collection ",
+        "views": 8
+    }
+}

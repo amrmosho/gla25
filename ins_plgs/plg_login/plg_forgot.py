@@ -54,14 +54,20 @@ class PlgForgot(Plgin):
     
     def _forgot_ui(self):
         p = self.ins._server._post()
+        msg ={}
         if "email" in p :
             check_email =  self.ins._users._email_exists(p["email"])
             if check_email == True:
                 return self.__forget_otp_ui()
+            else:
+                msg={"_data":"Error" ,"class":"ins-danger ins-col-12"}
+            
+            
         back = self.ins._server._url({},{"show"})
         uidata = [
             {"start": "true", "_type": "form", "method": "post", "class": "ins-col-12 ins-flex-center ins-padding-2xl ins-text-center "},
             {"start": "true", "class": "ins-col-5 ins-flex-end ins-card ins-text-start"},
+            msg,
             {"_data": self.ins._langs._get("forget_password", "users"),"class": "ins-title-m ins-strong-m ins-grey-d-color ins-text-upper ins-col-12"},
             {"_type": "input", "required":"true","title": self.ins._langs._get("email", "users"), "placeholder": self.ins._langs._get("enter_email", "users"),"type": "email", "name": "email", "class": "-forgot-email-inpt", "pclass": "ins-col-12"},
             {"class": "ins-line ins-col-12"},

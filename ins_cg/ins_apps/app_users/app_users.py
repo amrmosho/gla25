@@ -76,7 +76,7 @@ class AppUsers(App):
         return ELUI(self.ins).page_title("My Profile","ملفي الشخصي", [{"_data": "My Profile / ", "href": "/user","_data-ar":"ملفي الشخصي /","_trans":"true",}, {"_data": "Profile","_data-ar":"الملف الشخصي","_trans":"true",}], ui)
 
     def orders(self, g): 
-        return AppUsersOrders(self.app).out(self.ins)
+        return AppUsersOrders(self.app).out()
 
     def profile(self, g): 
         return AppUsersProfile(self.app).out(self.ins)
