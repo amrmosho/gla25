@@ -26,7 +26,7 @@ ins(".-user-menu-btn")._on("click", (o) => {
 
 ins(".gla-search-btn")._on("click", (o, e) => {
     var v = ins(".gla-header-search-input")._getValue();
-    var u =ins()._map._hurl({"s":v ,"alias" :"products"})
+    var u = ins()._map._hurl({ "s": v, "alias": "products" })
 
     window.location = u;
 }, true);
@@ -38,9 +38,9 @@ ins(".gla-header-search-input")._on("keyup", (o, e) => {
     if (e.keyCode == 13) {
         var v = o._getValue();
 
-        var u =ins()._map._hurl({"s":v ,"alias" :"products"})
+        var u = ins()._map._hurl({ "s": v, "alias": "products" })
 
-        window.location = u ;
+        window.location = u;
     }
 }, true);
 
@@ -88,4 +88,21 @@ ins(".-logout-btn")._on("click", (o) => {
     ins("ajx_users/logout")._ajax._ins_ajax({}, (o) => {
         window.location.reload();
     })
+}, true)
+
+ins(".-remove-error-msg")._on("click", (o) => {
+    o._parents(".error-msg")._remove();
+}, true)
+
+
+ins(".-show-password")._on("click", (o) => {
+    var f = o._parents(".ins-form-input-cont")._find(".ins-form-input");
+    if (f._getAttribute("type") == "password") {
+        f._setAttribute("type", "text")
+        o._addClass("ins-active");
+    } else {
+        f._setAttribute("type", "password")
+        o._removeClass("ins-active");
+    }
+
 }, true)
