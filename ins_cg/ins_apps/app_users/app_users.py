@@ -4,6 +4,7 @@ from ins_cg.ins_apps.app_users.app_users_profile import AppUsersProfile
 from ins_cg.ins_kit._gusers import Gusers
 from ins_kit._engine._bp import App
 from ins_cg.ins_kit._elui import ELUI
+from ins_plgs.plg_login.plg_login import PlgLogin
 p = "/ins_web/ins_uploads/"
 
 
@@ -367,23 +368,21 @@ class AppUsers(App):
         self.app._include("style.css")
        
         udata = self.user._check()
-        if not udata:
-            self.ins._server._set_session("redirect", "/user/")
-            return """
-            <script>
-                window.location.href = "/login/";
-            </script>
-            """
-            
+ 
 
-        g = self.ins._server._get()
-        r = self.header(g)
-        if g.get("mode") == "profile":
-            r += self.profile(g)
-        elif g.get("mode") == "addresses":
-            r += self.addresses(g,udata)
-        elif g.get("mode") == "order":
-            r += self.orders(g)
+        l=PlgLogin(self)
+        if l.is_login():
+
+            g = self.ins._server._get()
+            r = self.header(g)
+            if g.get("mode") == "profile":
+                r += self.profile(g)
+            elif g.get("mode") == "addresses":
+                r += self.addresses(g,udata)
+            elif g.get("mode") == "order":
+                r += self.orders(g)
+            else:
+                r += self.home(g)
+            return r
         else:
-            r += self.home(g)
-        return r
+           return l._login_ui()
