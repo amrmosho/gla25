@@ -4,6 +4,7 @@ from ins_cg.ins_apps.app_users.app_users_profile import AppUsersProfile
 from ins_cg.ins_kit._gusers import Gusers
 from ins_kit._engine._bp import App
 from ins_cg.ins_kit._elui import ELUI
+from ins_plgs.plg_login.plg_login import PlgLogin
 p = "/ins_web/ins_uploads/"
 
 
@@ -19,7 +20,7 @@ class AppUsers(App):
 
     @property
     def _uid(self):
-        return self.user._check()["id"]
+        return self.ins._users._session_get()["id"]
         
 
 
@@ -83,7 +84,7 @@ class AppUsers(App):
 
     def _update_user_name(self):
         rq = self.ins._server._req()
-        udata = self.user._check()
+        udata = self.ins._users._session_get()
         data = {
             "first_name":rq["fname"],
             "last_name":rq["lname"],
@@ -110,7 +111,7 @@ class AppUsers(App):
 
 
 
-        u = self.user._check()
+        u = self.ins._users._session_get()
         udata = self.ins._db._get_row("kit_user","id,password",f"id='{u['id']}'")
         old_password = self.ins._data.hash_password(rq["old_password"])
         r = {}
@@ -143,7 +144,7 @@ class AppUsers(App):
             
     def _send_email_otp(self):
             rq = self.ins._server._req()
-            udata = self.user._check()
+            udata = self.ins._users._session_get()
             if udata:
                 self.ins._server._set_session("temp_mail",{"email":rq["email"]})
                 link = self.user.generate_token(udata["id"],rq["email"], udata["mobile"], udata["password"])
@@ -156,7 +157,7 @@ class AppUsers(App):
 
     def _check_email(self):
      rq = self.ins._server._req()
-     u = self.user._check()
+     u = self.ins._users._session_get()
      udata = self.ins._db._get_row("kit_user","email_status,email",f"id='{u['id']}'")
 
      if rq["email"] != udata["email"] or udata["email_status"] != "verified":
@@ -171,7 +172,7 @@ class AppUsers(App):
 
     def _update_email(self):
         rq = self.ins._server._req()
-        udata = self.user._check()
+        udata = self.ins._users._session_get()
         data = self.ins._db._get_row("kit_user","*",f"id='{udata['id']}'")
         r = {}
         if data["otp"]:
@@ -366,24 +367,22 @@ class AppUsers(App):
         self.app._include("script.js")
         self.app._include("style.css")
        
-        udata = self.user._check()
-        if not udata:
-            self.ins._server._set_session("redirect", "/user/")
-            return """
-            <script>
-                window.location.href = "/login/";
-            </script>
-            """
-            
+        udata = self.ins._users._session_get()
+ 
 
-        g = self.ins._server._get()
-        r = self.header(g)
-        if g.get("mode") == "profile":
-            r += self.profile(g)
-        elif g.get("mode") == "addresses":
-            r += self.addresses(g,udata)
-        elif g.get("mode") == "order":
-            r += self.orders(g)
+        l=PlgLogin(self)
+        if l.is_login():
+
+            g = self.ins._server._get()
+            r = self.header(g)
+            if g.get("mode") == "profile":
+                r += self.profile(g)
+            elif g.get("mode") == "addresses":
+                r += self.addresses(g,udata)
+            elif g.get("mode") == "order":
+                r += self.orders(g)
+            else:
+                r += self.home(g)
+            return r
         else:
-            r += self.home(g)
-        return r
+           return l._login_ui()

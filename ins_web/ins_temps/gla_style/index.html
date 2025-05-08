@@ -47,14 +47,14 @@
                         {% if lang["name"] =="ar" %} {% set url = url({"lang":"en"}) %}
                         <a href="{{ url|safe }}" style="    font-size: 17px;    padding-top: 2px;" class="ins-button-cricle ins-font-type-m   ins-white">EN</a> {% endif %} {% if lang["name"] =="en" %} {% set url = url({"lang":"ar"}) %}
 
-                        <a href="{{ url|safe }}" style="    font-size: 17px;    padding-top: 2px;" class="ins-button-cricle ins-font-type-m   ins-white">AR</a> {% endif %} {% if "gla_login" not in session %}
+                        <a href="{{ url|safe }}" style="    font-size: 17px;    padding-top: 2px;" class="ins-button-cricle ins-font-type-m   ins-white">AR</a> {% endif %} {% if "ins_u_data" not in session %}
                         <div class="ins-button-cricle ins-white">
-                            <a href="/login/"><i class=" lni ins-icon  lni-user-4"></i></a>
+                            <a href="/user/"><i class=" lni ins-icon  lni-user-4"></i></a>
 
 
                         </div>
 
-                        {% endif %} {% if "gla_login" in session %}
+                        {% endif %} {% if "ins_u_data" in session %}
 
 
 
@@ -68,7 +68,7 @@
 
                             {% if lang["name"] =="en" %}
                             <ul>
-                                <li class="ins-title-s"><a href="/user/">Welcome <br> {{session["gla_login"]["title"]}}</a></li>
+                                <li class="ins-title-s"><a href="/user/">Welcome <br> {{session["ins_u_data"]["title"]}}</a></li>
                                 <li>
                                     <a href="/user/" class="ins-title-12"> <i class="lni ins-font-l lni-home-2"></i>Home</a>
                                 </li>
@@ -86,7 +86,7 @@
 
                             {% endif %} {% if lang["name"] =="ar" %}
                             <ul>
-                                <li class="ins-title-s"><a href="/user/">اهلاً <br> {{session["gla_login"]["title"]}}</a></li>
+                                <li class="ins-title-s"><a href="/user/">اهلاً <br> {{session["ins_u_data"]["title"]}}</a></li>
                                 <li>
                                     <a href="/user/" class="ins-title-12"> <i class="lni ins-font-l lni-home-2"></i> الرئيسية</a>
                                 </li>

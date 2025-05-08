@@ -190,3 +190,33 @@ class Users(ins_parent):
 
         return "-1"
 
+    def _update_password(self,rq):
+        sql = f"email ='{rq['email']}'"
+        rq["password"] = self.ins._data.hash_password(rq["password"])
+        data = {"password":rq["password"]}
+        self.ins._db._update("kit_user",data,sql)
+        return "1"
+
+
+
+    def _signup(self, rq):
+        required_fields = ["email", "password","first_name","last_name"]
+       
+        if not all(field in rq for field in required_fields):
+            return "Missing required fields"
+        
+        rq["password"] = self.ins._data.hash_password(rq["password"])
+        new_user_data = {
+            "email": rq["email"],
+            "password": rq["password"],
+            "first_name": rq["first_name"],
+            "last_name": rq["last_name"],
+            "email_status":"verified",
+            "groups":"4"
+        }
+        new_user_data["user_name"] = rq["first_name"] + " " +  rq["last_name"]
+        new_user_data["title"] = rq["first_name"] + " " +  rq["last_name"]
+
+        self.ins._db._insert("kit_user", new_user_data)
+        return "1"
+    

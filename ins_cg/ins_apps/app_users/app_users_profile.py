@@ -37,7 +37,7 @@ class AppUsersProfile(App):
         ]
 
     def change_email(self, data):
-        u = self.user._check()
+        u = self.ins._users._session_get()
         udata = self.ins._db._get_row("kit_user","email,email_status",f"id='{u['id']}'")
         uidata = [            {"start": "true", "class": "ins-col-12 ins-flex ins-padding-2xl "},
             {"_type": "input", "value": data.get("email", ""), "title": "Email","title-ar":"بريد إلكتروني","_trans":"true", "placeholder": "Enter Email","placeholder-ar": "ادخل البريد الالكتروني", "type": "email", "name": "email", "class": "-update-email-inpt", "pclass": "ins-col-8 ins-m-col-6"},
@@ -110,7 +110,7 @@ class AppUsersProfile(App):
             {"start": "true", "class": "ins-col-8 ins-flex"},
         ]
 
-        u = self.user._check()
+        u = self.ins._users._session_get()
         user = self.ins._db._get_row("kit_user","*",f"id='{u['id']}'")
 
 

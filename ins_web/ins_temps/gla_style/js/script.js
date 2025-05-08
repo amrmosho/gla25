@@ -74,8 +74,6 @@ ins(".-cal-update-nput-phone")._on("keyup", (o, e) => {
     }
 }, true)
 
-
-
 ins(".-cal-update-btn")._on("click", (o) => {
     _submit();
 }, true)
@@ -86,13 +84,8 @@ ins(".-cal-update-nput")._on("keyup", (o, e) => {
     }
 }, true)
 
-
-
-
-
-
 ins(".-logout-btn")._on("click", (o) => {
-    ins("_logout")._ajax._app({ "_p": "app_content" }, (d) => {
-        window.location = "/"
+    ins("ajx_users/logout")._ajax._ins_ajax({}, (o) => {
+        window.location.reload();
     })
 }, true)

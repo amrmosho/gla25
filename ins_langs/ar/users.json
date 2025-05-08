@@ -1,5 +1,12 @@
 {
-
-
-    "forget_password":"هل نسيت"
+    "forget_password": "هل نسيت كلمة المرور؟",
+    "signup_now": "سجل الآن",
+    "dont_have_account": "ليس لديك حساب؟",
+    "login": "تسجيل الدخول",
+    "email_address": "البريد الإلكتروني",
+    "enter_email": "أدخل عنوان البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "enter_password": "أدخل كلمة المرور",
+    "next": "التالي <i class='lni lni-arrow-left ins-font-l'></i>",
+    "back": "<i class='lni lni-arrow-right'></i> العودة"
 }
