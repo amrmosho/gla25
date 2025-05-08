@@ -62,13 +62,13 @@ class PlgForgot(Plgin):
         uidata = [
             {"start": "true", "_type": "form", "method": "post", "class": "ins-col-12 ins-flex-center ins-padding-2xl ins-text-center "},
             {"start": "true", "class": "ins-col-5 ins-flex-end ins-card ins-text-start"},
-            {"_data": "Forgot Password", "_data-ar": "هل نسيت كلمة السر؟","_trans":"true","class": "ins-title-m ins-strong-m ins-grey-d-color ins-text-upper ins-col-12"},
-            {"_type": "input", "required":"true","title": "Email Address","title-ar":"البريد الالكتروني", "placeholder": "Enter Email Address","placeholder-ar":"أدخل البريد الالكتروني ", "_trans":"true","type": "email", "name": "email", "class": "-forgot-email-inpt", "pclass": "ins-col-12"},
+            {"_data": self.ins._langs._get("forget_password", "users"),"class": "ins-title-m ins-strong-m ins-grey-d-color ins-text-upper ins-col-12"},
+            {"_type": "input", "required":"true","title": self.ins._langs._get("email", "users"), "placeholder": self.ins._langs._get("enter_email", "users"),"type": "email", "name": "email", "class": "-forgot-email-inpt", "pclass": "ins-col-12"},
             {"class": "ins-line ins-col-12"},
             {"start": "true", "class": "ins-col-12 ins-flex "},
-            {"_type":"a","href":back,"_data": "<i class='lni lni-arrow-left'></i> Back","_data-ar":"خلف","_trans":"true", "class": "ins-button-m ins-flex-center ins-col-3 ins-grey-d-color"},
+            {"_type":"a","href":back,"_data": f" {self.ins._langs._get("back", "users")} ", "class": "ins-button-m ins-flex-center ins-col-3 ins-grey-d-color"},
             {"class": " ins-col-6"},
-            {"_data": "Next <i class='lni lni-arrow-right ins-font-l'></i>","_type":"button","class": "ins-button-m ins-flex-center ins-gold-d ins-col-3"},
+            {"_data": f"{self.ins._langs._get("next", "users")} ","_type":"button","class": "ins-button-m ins-flex-center ins-gold-d ins-col-3"},
             {"end": "true"},
             {"end": "true"},
             {"end": "true","_type": "form" }

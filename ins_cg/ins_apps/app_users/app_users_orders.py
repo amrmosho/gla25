@@ -23,7 +23,7 @@ class AppUsersOrders(App):
 
     def order(self):
         g = self.ins._server._get()
-        udata = self.user._check()
+        udata = self.ins._users._session_get()
 
         sql = f"(((payment.paymob_id IS NULL OR payment.paymob_id = '') AND payment_status <> 'failed') OR ((payment.paymob_id IS NOT NULL AND payment.paymob_id <> '') AND payment_status <> 'failed' AND payment_status <> 'pending')) and gla_order.id = {g['id']}    order by id desc "
         
@@ -201,7 +201,7 @@ class AppUsersOrders(App):
 
 
     def out(self, ins):
-        udata = self.user._check()
+        udata = self.ins._users._session_get()
         sql = f"(((payment.paymob_id IS NULL OR payment.paymob_id = '') AND payment_status <> 'failed') OR ((payment.paymob_id IS NOT NULL AND payment.paymob_id <> '') AND payment_status <> 'failed' AND payment_status <> 'pending')) and fk_user_id = {udata["id"]}    order by id desc "
         
         odata = self.ins._db._jget("gla_order", "*", sql)

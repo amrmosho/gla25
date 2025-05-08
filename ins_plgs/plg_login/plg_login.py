@@ -15,6 +15,7 @@ class PlgLogin(Plgin):
         p = self.ins._server._post()
         if "password" in p:
             self.ins._users._login(p)
+            return self.ins._server._refresh()
    
     
     def _login_ui_body(self):
@@ -31,7 +32,7 @@ class PlgLogin(Plgin):
             {"_type": "input", "required": "true", "title": self.ins._langs._get("password", "users"), "placeholder":self.ins._langs._get("enter_password", "users"),"type": "password",  "name": "password", "class": "-login-password-inpt", "pclass": "ins-col-12"},
             {"class": "ins-line ins-col-12"},
             {"_data": forgot_password, "class": "ins-link ins-col-9 ins-title-14"},
-            {"_data": self.ins._langs._get("forget_password", "users"), "_type": "button", "class": "ins-button-m ins-gold-d ins-col-3 -login-btn"},
+            {"_data": self.ins._langs._get("login", "users"), "_type": "button", "class": "ins-button-m ins-gold-d ins-col-3 -login-btn"},
             {"class": "ins-col-12 ins-flex-center ins-padding-top-m"},
             {"_data": signup, "class": " ins-col-12"},
             {"end": "true"},

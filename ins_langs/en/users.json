@@ -8,6 +8,8 @@
     "email_address": "Email Address",
     "enter_email": "Enter Email Address",
     "password": "Password",
-    "enter_password": "Enter Password"
+    "enter_password": "Enter Password",
+    "next": "Next <i class='lni lni-arrow-right'></i>",
+    "back": "<i class='lni lni-arrow-left'></i> Back"
 
 }
