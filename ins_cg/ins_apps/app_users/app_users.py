@@ -69,7 +69,7 @@ class AppUsers(App):
                   "class": f"ins-button-s  -user-page-btn ins-text-upper {oc} ins-flex ", "_type": "a", "href": self.u("order")},
               {"_data": "|", "class": "  "},
               {"_data": "<i class='lni ins-font-l lni-buildings-1 not-for-phone'></i>My wishlist","_data-ar":"قائمة الرغبات","_trans":"true",
-                  "class": f"ins-button-s  -user-page-btn ins-text-upper   {sc} ins-flex ", "_type": "a", "href": self.u("addresses")},
+                  "class": f"ins-button-s  -user-page-btn ins-text-upper   {sc} ins-flex ", "_type": "a", "href": self.u("wishlist")},
               {"end": "true"},
 
               ]
@@ -257,7 +257,7 @@ class AppUsers(App):
 
 
             {"start": "true", "class": "  ins-col-4  ins-primary-w ins-white  ins-flex ins-border ins-radius-xl    ins-padding-l"},
-            {"_type": "a","href":"/user/addresses",  "_data": title_adress,
+            {"_type": "a","href":"/user/wishlist",  "_data": title_adress,
                 "class": " ins-title-s ins-col-12"},
                             {"class":" not-for-web","style":"    width: 24px;"},
 
@@ -279,24 +279,34 @@ class AppUsers(App):
         return self.ins._ui._render(uidata)
     
     def _wishlist_ui(self):
-        wishlist = self.ins._users._get_settings('pro', uid=self._uid)["wishlist"]
+        pro_settings = self.ins._users._get_settings('pro', uid=self._uid)
+        wishlist = pro_settings.get("wishlist", [])
         uidata=[{"_data":"My wishlist","_data-ar":"قائمة الرغبات","_trans":"ture","class":"ins-col-12 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"},
                 {"start":True,"class":"ins-col-12 ins-flex"}]
-        for w in wishlist:
-            pdata = self.ins._db._get_row("gla_product","*",f"id='{w}'")
-            if pdata:
-                uidata+= ELUI(self.ins).shop_pro_block(pdata)
+           
+        if wishlist:
+            for w in wishlist:
+                pdata = self.ins._db._jget( "gla_product", "*", f"gla_product.id='{w}'")
+                pdata._jwith("gla_product_category cat", "title,alias,id", "cat.id=Substring_Index(fk_product_category_id, ',', 1)", join="left join")
+                pdata= pdata._jrun()[0]
+                if pdata:
+                    uidata+= ELUI(self.ins).shop_pro_block(pdata)
+        else:
+            uidata.append({"_data":"No items in your wishlist","class":"ins-col-12  ins-flex-center ins-text-upper ins-grey-d-color ins-card"})
         uidata.append({"end":"true"})
+       
+       
+       
         return uidata
 
 
-    def addresses(self, g,udata):
+    def wishlist(self, g,udata):
 
 
         uidata=[{"start":"true","class":"ins-col-12 ins-flex   gla-container"},
                 {"start":"true","class":"ins-flex ins-col-12 "},
                 {"start":"true","class":"  ins-col-12 ins-gap-20  ins-flex -addresses-area   ins-padding-2xl"},
-                {"_data":self._wishlist_ui()},
+                {"_data":self._wishlist_ui(),"class":"ins-col-12 ins-flex"},
                 {"end":"true"},
                {"end":"true"},
                {"end":"true"}
@@ -377,8 +387,8 @@ class AppUsers(App):
             r = self.header(g)
             if g.get("mode") == "profile":
                 r += self.profile(g)
-            elif g.get("mode") == "addresses":
-                r += self.addresses(g,udata)
+            elif g.get("mode") == "wishlist":
+                r += self.wishlist(g,udata)
             elif g.get("mode") == "order":
                 r += self.orders(g)
             else:

@@ -15,7 +15,6 @@ class WdgSlideshow(Widget):
             {"start":"true","class":" serch_cont ins_mod_search  ins-container","style":"position: relative;"},
             {"_type":"h2","_data":"CG Marketplace by the World's Best 3D Artists","class":"ins-strong ins-primary-color","style":"    margin-bottom: 20px;"},
             {"_type":"h4","_data":"Find the exact right 3D content for your needs, including AR/VR, gaming, advertising, entertainment and 3D printing","class":"ins-strong-m"},
-            {"_type":"input","type":"text","pclass":"ins-co-12"},
             {"end":"true"},
             {"end":"true"}]
         return self.ins._ui._render(uidata)

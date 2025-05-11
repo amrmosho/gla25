@@ -113,21 +113,14 @@ class AppProductsSearch(App):
             if k != "textures":
                 type[k] = exts[k]["title"]
         uidata = [
-            {"_type": "select", "fl_data": type, "name": "format",
-             "pclass": "ins-col-grow"},
-            {"_type": "select", "name": "order",
-                "fl_data": {"-": "Price"}, "pclass": "ins-col-2"},
-            {"_type": "input", "_end": "3D print", "type": "bool",
-                "pstyle": "width:150px", "name": "print"},
-            {"_type": "input", "_end": "Animated", "type": "bool",
-             "pstyle":  "width:150px", "name": "animated"},
-            {"_type": "input", "_end": "PBR", "type": "bool", "class": "fliter-pbr", "name": "pbr",
-             "pstyle":  "width:150px"},
-            {"_type": "input", "_end": "Rigged", "type": "bool",
-                "pstyle":  "width:150px", "name": "rigged"},
-            {"_type": "input", "_end": "Low poly", "type": "bool",
-             "pstyle":  "width:170px", "name": "low_poly"},
-            {"class": "ins-flex "}]
+            {"_type": "select", "fl_data": type, "name": "format","pclass": "ins-col-grow"},
+            {"_type": "input", "_end": "3D print", "type": "bool","pstyle": "width:150px", "name": "print"},
+            {"_type": "input", "_end": "Animated", "type": "bool","pstyle":  "width:150px", "name": "animated"},
+            {"_type": "input", "_end": "PBR", "type": "bool", "class": "fliter-pbr", "name": "pbr","pstyle":  "width:150px"},
+            {"_type": "input", "_end": "Rigged", "type": "bool","pstyle":  "width:150px", "name": "rigged"},
+            {"_type": "input", "_end": "Low poly", "type": "bool","pstyle":  "width:170px", "name": "low_poly"},
+            {"class": "ins-flex "}
+            ]
         return uidata
     def header_ui(self):
         home_url = self.ins._server._url({}, ["mode", "id", "alias", "filter"])
