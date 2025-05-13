@@ -14,9 +14,6 @@ class AppUsers(App):
         super().__init__(app.ins)
         self.user= Gusers(app.ins)
     
-    @property
-    def session_address_name(sel):
-        return "glaaddress"
 
     @property
     def _uid(self):
@@ -52,7 +49,7 @@ class AppUsers(App):
         sc = ""
         if g.get("mode") == "profile":
             pc = " ins-gold-bg "
-        elif g.get("mode") == "addresses":
+        elif g.get("mode") == "wishlist":
             sc = " ins-gold-bg "
         elif g.get("mode") == "order":
             oc = " ins-gold-bg "
@@ -210,27 +207,17 @@ class AppUsers(App):
         return r
 
 
- 
-
-
-
-
-
-
-
-
-
 
     def home(self, g):
         if self.ins._langs._this_get()["name"] == "ar":
             title_profile = f'<i class="lni ins-font-l lni-user-4 ins-m-col-1 -user-pages-icon"></i>  إدارة الملف الشخصي '
             title_order = f'<i class="lni ins-font-l lni-basket-shopping-3 ins-m-col-1 -user-pages-icon"></i>  طلبياتي '
-            title_adress = f'<i class="lni ins-font-l  lni-buildings-1 ins-m-col-1 -user-pages-icon"></i> عناويني '
+            title_wishlist = f'<i class="lni ins-font-l  lni-buildings-1 ins-m-col-1 -user-pages-icon"></i> عناويني '
 
         if self.ins._langs._this_get()["name"] == "en":
              title_profile = f'<i class="lni ins-font-l lni-user-4 ins-m-col-1 -user-pages-icon"></i>  Profile Management '
              title_order = f'<i class="lni ins-font-l lni-basket-shopping-3 ins-m-col-1 -user-pages-icon"></i>  My Orders '
-             title_adress = f'<i class="lni ins-font-l  lni-buildings-1 ins-m-col-1 -user-pages-icon"></i> My wishlist '
+             title_wishlist = f'<i class="lni ins-font-l  lni-buildings-1 ins-m-col-1 -user-pages-icon"></i> My wishlist '
              
         usmenu = [
             
@@ -257,11 +244,11 @@ class AppUsers(App):
 
 
             {"start": "true", "class": "  ins-col-4  ins-primary-w ins-white  ins-flex ins-border ins-radius-xl    ins-padding-l"},
-            {"_type": "a","href":"/user/wishlist",  "_data": title_adress,
+            {"_type": "a","href":"/user/wishlist",  "_data": title_wishlist,
                 "class": " ins-title-s ins-col-12"},
                             {"class":" not-for-web","style":"    width: 24px;"},
 
-            {"_data": f'Add, edit, or remove saved addresses to simplify and speed up future purchases.',"_data-ar":"قم بإضافة أو تعديل أو إزالة العناوين المحفوظة لتبسيط وتسريع عمليات الشراء المستقبلية.","_trans":"true",
+            {"_data": f'Add, edit, or remove saved wishlist to simplify and speed up future purchases.',"_data-ar":"قم بإضافة أو تعديل أو إزالة العناوين المحفوظة لتبسيط وتسريع عمليات الشراء المستقبلية.","_trans":"true",
                 "class": "ins-col-12 ins-padding-xl  ins-m-col-11   ins-padding-h ins-font-s ", "style": "line-height: 20px;margin-top: -11px;margin-bottom: 11px;"},
             {"end": "true"},
             {"end": "true"}
@@ -305,7 +292,7 @@ class AppUsers(App):
 
         uidata=[{"start":"true","class":"ins-col-12 ins-flex   gla-container"},
                 {"start":"true","class":"ins-flex ins-col-12 "},
-                {"start":"true","class":"  ins-col-12 ins-gap-20  ins-flex -addresses-area   ins-padding-2xl"},
+                {"start":"true","class":"  ins-col-12 ins-gap-20  ins-flex   ins-padding-2xl"},
                 {"_data":self._wishlist_ui(),"class":"ins-col-12 ins-flex"},
                 {"end":"true"},
                {"end":"true"},
