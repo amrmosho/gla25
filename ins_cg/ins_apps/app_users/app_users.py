@@ -279,11 +279,32 @@ class AppUsers(App):
         return self.ins._ui._render(uidata)
     
     def _wishlist_ui(self):
-        wishlist = self.ins._users._get_settings('pro', uid=self._uid)["wishlist"]
+        wishlist = self.ins._users._get_settings('pro')["wishlist"]
         uidata=[{"_data":"My wishlist","_data-ar":"قائمة الرغبات","_trans":"ture","class":"ins-col-12 ins-title-m ins-strong-m ins-text-upper ins-grey-d-color"},
                 {"start":True,"class":"ins-col-12 ins-flex"}]
-        for w in wishlist:
-            pdata = self.ins._db._get_row("gla_product","*",f"id='{w}'")
+       
+       
+       
+       
+        dd= self.ins._db._where_by_array( wishlist,field="gla_product.id")
+       
+       
+        pdatas = self.ins._db._jget("gla_product","*",dd)
+            
+        pdatas._jwith("gla_product_category cat", "title,alias,id", "cat.id=Substring_Index(fk_product_category_id, ',', 1)", join="left join")
+        
+        pdatas._jwith("kit_user us", "title",
+                       "gla_product.fk_user_id = us.id", join="left join")
+            
+        pdatas= pdatas._jrun()
+       
+       
+       
+        for pdata in pdatas:
+         
+            
+            
+            
             if pdata:
                 uidata+= ELUI(self.ins).shop_pro_block(pdata)
         uidata.append({"end":"true"})

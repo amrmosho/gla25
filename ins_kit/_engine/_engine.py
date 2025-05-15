@@ -51,7 +51,6 @@ class Engine(ins_parent):
         self.ins._this._area = self._areas(area)
         
         self.ins._langs._this_set()
-        a = self.ins._langs._this_get()
         self.ins._this._lang = self.ins._langs._this_get()
         self.__data(area)
 

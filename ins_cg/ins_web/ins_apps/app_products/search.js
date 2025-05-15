@@ -63,6 +63,9 @@ ins(".-go-to-page-btn")._on("click", o => {
 function search(page) {
     setTimeout(o => {
         ins(".-list-filter-ui")._data._submit((data) => {
+
+
+            
             var sdata = {}
             Object.keys(data).forEach((k, i) => {
                 if (data[k] != "0" &&
@@ -82,6 +85,13 @@ function search(page) {
 
 
 
+
+ins(".-order-select")._on("click", (o) => {
+    var page = ins(".-page-input")._getValue();
+
+search(page)
+
+})
 
 ins(".-add-cart-btn")._on("click", (o) => {
     var ops = o._getData();

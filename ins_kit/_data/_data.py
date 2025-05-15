@@ -1,4 +1,4 @@
-from datetime import datetime
+import base64
 import locale
 from ins_kit.ins_parent import ins_parent
 import hashlib
@@ -18,6 +18,15 @@ class Data(ins_parent):
     def _unid(s):
         return str(uuid.uuid4().hex)
 
+
+    def xor_encrypt(self,name: str, key: str) -> str:
+        encrypted = ''.join(chr(ord(c) ^ ord(key[i % len(key)])) for i, c in enumerate(name))
+        return base64.b64encode(encrypted.encode()).decode()
+
+    def xor_decrypt(self,token: str, key: str) -> str:
+        encrypted = base64.b64decode(token).decode()
+        decrypted = ''.join(chr(ord(c) ^ ord(key[i % len(key)])) for i, c in enumerate(encrypted))
+        return decrypted
     def generate_salt(self):
         salt_length = 16
         return secrets.token_urlsafe(salt_length)

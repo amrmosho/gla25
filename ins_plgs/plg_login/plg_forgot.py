@@ -63,6 +63,7 @@ class PlgForgot(Plgin):
         return self.ins._ui._render(uidata)
     
     
+    
     def _forgot_ui(self):
         p = self.ins._server._post()
         error = {}

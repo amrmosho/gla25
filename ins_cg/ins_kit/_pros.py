@@ -24,6 +24,10 @@ class Pros(ins_parent):
                 
         rpdatas = self.ins._db._jget( "gla_product", "id,title,alias,th_main,views,price,files_data", f"gla_product.id='{p['pid']}'")
         rpdatas._jwith("gla_product_category cat", "title,alias,id", "cat.id=Substring_Index(fk_product_category_id, ',', 1)", join="left join")
+        
+        rpdatas._jwith("kit_user us", "title",
+                       "gla_product.fk_user_id = us.id", join="left join")  
+        
         rpdata= rpdatas._jrun()[0]
               
         sedata[str(p['pid'])] =  rpdata

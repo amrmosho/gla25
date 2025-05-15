@@ -10,7 +10,7 @@ class AppProductDetails(App):
         super().__init__(app.ins)
     @property
     def _uid(self):
-        return "1"
+        return self.ins._users._session_get("id")
         
 
     def _pro_jaction(self, type="prolike"):
@@ -18,7 +18,7 @@ class AppProductDetails(App):
         
         pid = str(self.ins._server._post("pid"))
 
-        pros = self.ins._users._get_settings('pro', uid=self._uid)
+        pros = self.ins._users._get_settings('pro')
         r = ""
 
         if type not in pros:
@@ -35,7 +35,7 @@ class AppProductDetails(App):
             r = "1"
 
         data = {type: pl}
-        self.ins._users._updat_settings('pro', data, uid=self._uid)
+        self.ins._users._updat_settings('pro', data)
         return r
 
     def _pro_action(self):
@@ -295,13 +295,15 @@ class AppProductDetails(App):
         uidata.append(
             {"_data": data["title"], "class": "ins-col-12 ins-title-l ins-grey-d-color  ins-text-upper "})
 
-        pros = self.ins._users._get_settings('pro', uid="1")
+
+        
+        pros = self.ins._users._get_settings('pro')
         lc = ""
         wl = ""
-        if str(data["id"]) in pros["prolike"]:
+        if str(data["id"]) in pros.get("prolike",[]):
             lc = " ins-success "
 
-        if str(data["id"]) in pros["wishlist"]:
+        if str(data["id"]) in pros.get("wishlist",[]):
             wl = " ins-success "
 
         # actions
@@ -334,16 +336,12 @@ class AppProductDetails(App):
             {"_data": "details", "class": "ins-button -pro-d-tabs  ins-col-3 ins-primary",
                 "data-s": "-details-cont"},
             
-            
-            
+
             {"_data": f"Comments ({com_count})", "class": "ins-button -pro-d-tabs  ins-col-3",
              "data-s": "-comments-cont"},
             
-            
-            
             {"_data": "Reviews (0)", "class": "ins-button   -pro-d-tabs ins-col-3",
              "data-s": "-reviews-cont"},
-
 
 
             {"end": "true"},
@@ -353,7 +351,6 @@ class AppProductDetails(App):
 
             {"_data": self.comments(data),  "class": "ins-col-12 -comments-cont ins-hidden  ins-flex   -pro-d-cont"},
 
-            
             {"start": "true", "class": "ins-col-12 -pro-d-cont  ins-hidden  -reviews-cont"},
             {"_data": self.reviews() , "class": "ins-col-12 ins-flex "},
 
@@ -470,8 +467,18 @@ class AppProductDetails(App):
         uidata.append({"_data": "Related Products", "_data-ar": "المنتجات ذات الصلة", "_trans": "true",
                       "class": "ins-col-12 ins-grey-d-color ins-strong-m ins-text-upper", "style": "font-size:36px"})
         uidata.append({"class": "ins-space-l"})
-        rpdata = self.ins._db._get_data(
-            "gla_product", "*", f"   fk_product_category_id={data['fk_product_category_id']} and id <>{data['id']} limit 0,4 ", update_lang=True)
+      
+      
+      
+
+       
+        rpdatas = self.ins._db._jget( "gla_product", "*", f"   fk_product_category_id={data['fk_product_category_id']} and gla_product.id <>{data['id']} limit 0,4")
+        rpdatas._jwith("gla_product_category cat", "title,alias,id", "cat.id=Substring_Index(fk_product_category_id, ',', 1)", join="left join")
+        rpdatas._jwith("kit_user us", "title",
+                       "gla_product.fk_user_id = us.id", join="left join")         
+       
+        rpdata= rpdatas._jrun()
+       
         uidata.append(
             {"start": "true", "class": "ins-flex-space-between ins-flex-valign-start ins-col-12"})
         for d in rpdata:

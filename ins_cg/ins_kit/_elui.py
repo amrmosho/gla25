@@ -38,9 +38,9 @@ class ELUI(ins_parent):
 
     def cart_pro_block(self, data, string=False, delete={}):
 
-        if     len(delete) ==0:
+        if len(delete) == 0:
             delete = {"_data": f"<i  class='lni lni-trash-3 _a_red'></i>",
-                 "class": "ins-flex-center ins-col-1 ins-m-col-1 -remove-item-side-cart-btn", "data-pid": data["id"]}
+                      "class": "ins-flex-center ins-col-1 ins-m-col-1 -remove-item-side-cart-btn", "data-pid": data["id"]}
 
         uidata = [
             {"start": "true", "class": "ins-col-12 ins-flex -item-card ins-border ins-radius-l ins-gap-o",
@@ -107,42 +107,52 @@ class ELUI(ins_parent):
         else:
             url = url
 
+        curl = self.ins._server._url(
+            {"alias": "products", "mode": "category", "id": data['cat_alias']}, ["page"])
+
+        uurl = self.ins._server._url(
+            {"alias": "products", "mode": "user", "id": data['fk_user_id'], }, ["page"])
+
         if data["views"] == None:
             data["views"] = "0"
 
         r = [
-            {"_type": "a", "href": url, "start": "true",
-                "class": "ins-flex ins-card ins-col-3 -pro-item-block", "style": ""},
+            {"start": "true", "class": "ins-flex ins-card ins-col-3 -pro-item-block"},
 
+            {"_type": "a", "href": url, "start": "true", "class": "ins-col-12"},
             {"start": "true", "class": "gla-img-cont"},
             {"src": p + (data.get("th_main") or "default.png"),
              "loading": "lazy", "_type": "img", "class": "gla-pro-img"},
             {"end": "true"},
-
-
             {"class": "ins-space-s"},
             {"_data": data.get("title"), "class": "ins-padding-s ins-secondary-color ins-title-s ins-col-12",
              "style": "line-height:24px;min-height: 75px;"},
-
+            {"_type": "a", "end": "true"},
             {"start": "true", "class": "ins-col-4 ins-flex-center ins-card"},
             {"class": "ins-icons-eye", "style": "position: relative; top: 3px;"},
             {"_data": f"{data.get('views', "0")}"},
             {"end": "true"},
-
-            {"start": "true", "class": "ins-col-4 ins-flex-center ins-card"},
-            {"class": "ins-icons-heart", "style": "position: relative; top: 3px;"},
+            
+            
+            
+            {"start": "true","data-a":"like",  "data-pid":data["id"], "class": "ins-col-4 -pro-action ins-flex-center ins-card"},
+            {"class": "ins-icons-heart",  "style": "position: relative; top: 3px;"},
             {"_data": "15"},
-            {"end": "true"},
 
-            {"start": "true", "class": "ins-col-4 ins-flex-center ins-card"},
+            
+            {"end": "true"},
+            {"start": "true", 
+             "data-a":"wishlist",  "data-pid":data["id"],
+             
+             
+             "class": "ins-col-4  -pro-action ins-flex-center ins-card"},
             {"class": "ins-icons-indent", "style": "position: relative; top: 3px;"},
             {"end": "true"},
-
-            {"_data": 'by dika in Apple Products',
-                "class": "ins-col-7 ins-title-xs ins-secondary-d-color", "style": "line-height:24px"},
+            {"_data": f'by <a style="text-decoration: underline;" href="{uurl}">{data["us_title"]}</a> in  <a style="text-decoration: underline;" href="{curl}">{data["cat_title"]}</a>',
+                "class": "ins-col-grow ins-title-xs ins-secondary-d-color", "style": "line-height:24px"},
             {"_data": f"{data.get('price')}", "_view": "currency",
-             "class": "ins-col-3 ins-strong-m ins-secondary-d-color", "style": "line-height:24px"},
-            {"_type": "a", "end": "true"}
+             "class": " ins-strong-m ins-secondary-d-color", "style": "line-height:24px"},
+            {"end": "true"}
 
 
         ]

@@ -49,13 +49,13 @@ class AppUsersOrders(App):
                        
                         name = f["path"].split("/")[-1]
                        
-                        dir =  self.ins._map.UPLOADS_FOLDER+ f["path"].replace(name,"")
+                        dir =   f["path"].replace(name,"")
                        
-                       
-                        dir = dir.replace("/ins_web/" ,"ins_web/")
-                        url = send_from_directory(dir, name)
+                        id= self.ins._users._session_get("id")
+                        u =   f'{id}@@{dir}@@{name}' 
+                        u =self.ins._data.xor_encrypt(u ,f'{id}133')
 
-                       
+                        url =f"/insdonwload/{u}" 
                         d += [
                         {"_data": f["name"] ,"class":"ins-col-grow"},
                         

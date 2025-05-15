@@ -430,7 +430,7 @@ class Database(ins_parent):
     def _where_by_array(array, more="or", field="id"):
         r = ""
         m = ""
-        if array is not list:
+        if type(array) is not list:
             array = array.split(",")
 
         for a in array:

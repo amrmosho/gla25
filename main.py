@@ -2,7 +2,6 @@ from flask import Flask, request
 from ins_kit.ins import ins
 from index import ahome
 from ins_admin.index import ins_admin_bp
-from ins_gla.index import ins_gla_bp
 from ins_cg.index import ins_cg_bp
 
 
@@ -24,7 +23,6 @@ app.register_blueprint(ahome, url_prefix=f"/")
 
 app.register_blueprint(ins_admin_bp, url_prefix=f"/ins_admin")
 
-app.register_blueprint(ins_gla_bp, url_prefix=f"/ins_gla")
 
 app.register_blueprint(ins_cg_bp, url_prefix=f"/ins_cg")
 

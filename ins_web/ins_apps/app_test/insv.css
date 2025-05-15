@@ -1,0 +1,157 @@
+ body {
+     margin: 0;
+     padding: 0;
+ }
+
+ .insv-flex{
+
+         display: flex;    
+          justify-content: start;
+
+flex-wrap: wrap;
+}
+
+
+ .-insv-side-panel .fitem {
+     align-items: center;
+     display: flex;
+     cursor: pointer;
+     width: 100%;
+     justify-content: start;
+     transition: 0.1s ease-in-out;
+     border-radius: 18px;
+     width: 100%;
+     border: 1px solid transparent;
+
+
+
+ }
+
+
+ .-insv-side-panel .fitem.active {
+     background: #eee;
+ }
+
+ .-insv-side-panel .fitem:hover {
+     border: 1px solid #b0b0b0;
+
+     background: #eee;
+ }
+
+ .ins-hidden {
+     display: none !important
+ }
+
+ .-insv-side-panel>div>span {
+     width: 25px;
+     height: 25px;
+     margin: 10px;
+     display: inline-block;
+     background-repeat: no-repeat;
+     background-position: center;
+     background-size: 80%;
+ }
+
+ .-insv-side-panel>div {
+     justify-content: center;
+     display: flex;
+     /* flex-wrap: nowrap; */
+     align-items: center;
+     line-height: 36px;
+     font-size: 22px;
+ }
+
+ .-insv-side-panel {
+     display: flex;
+     flex-wrap: wrap;
+     justify-content: center;
+     align-content: center;
+     position: absolute;
+     bottom: 105px;
+     left: 25px;
+     z-index: 10;
+     background: #fff;
+     padding: 10px 20px;
+     border-radius: 25px;
+       width: 312px;
+ }
+
+
+
+ .ins-panel {
+     position: absolute;
+
+     background: #ffffff2d;
+     padding: 10px 20px;
+     border-radius: 25px;
+     transition: 0.2s;
+ }
+
+ 
+.ins-panel:hover{
+     position: absolute;
+
+     background: #ffffff;
+     padding: 10px 20px;
+     border-radius: 25px;
+ }
+
+
+ .insv {
+     bottom: 20px;
+     left: 20px;
+     z-index: 10;
+
+ }
+.insv-icon_btn{
+
+         cursor: pointer;
+     transition: 0.2s; height: 30px;
+     width: 30px;
+    margin: 0 10px;
+     display: inline-block;
+     background-repeat: no-repeat;
+     background-position: center;
+     background-size: 100%;
+}
+ .insv>span {
+     cursor: pointer;
+     transition: 0.2s;
+     height: 30px;
+     width: 30px;
+     margin: 10px;
+     display: inline-block;
+     background-repeat: no-repeat;
+     background-position: center;
+     background-size: 100%;
+ }
+
+ .insv>span:hover {
+     transform: scale(1.2);
+ }
+
+ .insv-animation-cont {
+    position: absolute;
+ bottom:20px;
+ left: 400px;
+ right:20px;
+ z-index: 10;
+
+}
+
+ 
+
+#animProgress{
+
+    width: 100% 
+}
+
+#animList
+{
+
+    background: transparent;
+    min-width: 158px;
+    border: 1px solid #666;
+    border-radius: 6px;
+    margin-left: 20px;
+}

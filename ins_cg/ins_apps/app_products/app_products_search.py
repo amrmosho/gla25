@@ -1,64 +1,65 @@
 from ins_cg.ins_kit._elui import ELUI
 from ins_kit._engine._bp import App
 import math
+
+
 class AppProductsSearch(App):
     def __init__(self, app) -> None:
         self.app: App = app
         super().__init__(app.ins)
-    def data(self):
-        g = self.ins._server._get()
+
+    def data(self ,g):
         self._category = {}
         self._user = {}
 
-        self.mode ="search"
+        self.mode = "search"
         if "mode" in g:
-            self.mode =g["mode"]
+            self.mode = g["mode"]
             if self.mode == "category":
                 self._category = self.ins._db._get_row(
                     "gla_product_category", "*", f"alias='{g["id"]}'", update_lang=True)
-                if self._category ==False:
-                    self._category ={}
-            elif   self.mode == "user":
-                    self._user = self.ins._db._get_row(
-                        "kit_user", "*", f"id='{g["id"]}'", update_lang=True)
-                    if self._user ==False:
-                        self._user ={}
-                    
-                
-                
-   
+                if self._category == False:
+                    self._category = {}
+            elif self.mode == "user":
+                self._user = self.ins._db._get_row(
+                    "kit_user", "*", f"id='{g["id"]}'", update_lang=True)
+                if self._user == False:
+                    self._user = {}
+
     def _products_data(self):
-        p:dict = self.ins._server._req()
-        
-        if  "ajx_get" in  p :
-            
+
+        p: dict = self.ins._server._req()
+
+        if "ajx_get" in p:
+
             p.update(self.ins._json._decode(p["ajx_get"]))
             
-   
+        self.data(p)
+
+
+        if  "page" in p and   p["page"] == "":
+            p["page"] = "1"
         items_per_page = 12
         page = int(p.get("page", "1"))
         o = p.get("order", "")
-      
 
         fdata = ["pbr", "rigged", "print", "animated"]
         sql_query = " 1 "
         for f in fdata:
             if f in p:
                 sql_query += f" and  {f}='{p[f]}'"
-                
-        if "id" in self._category:   
-            sql_query += f" and  " + self.ins._db._where_from_group(self._category["id"],"fk_product_category_id")
-        
-        if "id" in self._user:   
+
+        if "id" in self._category:
+            sql_query += f" and  " + \
+                self.ins._db._where_from_group(
+                    self._category["id"], "fk_product_category_id")
+
+        if "id" in self._user:
             sql_query += f" and  gla_product.fk_user_id='{self._user["id"]}' "
-                
-                
-        if "s" in  p :   
-            sql_query += f" and  ( gla_product.title like '%{p["s"]}%' or   gla_product.des like '%{p["s"]}%'  or gla_product.tags like '%{p["s"]}%' ) "                
-                
-        
-                
-                
+
+        if "s" in p:
+            sql_query += f" and  ( gla_product.title like '%{p["s"]}%' or   gla_product.des like '%{p["s"]}%'  or gla_product.tags like '%{p["s"]}%' ) "
+
         offset = (page - 1) * items_per_page
         order = "order by price asc"
         if o:
@@ -70,24 +71,30 @@ class AppProductsSearch(App):
                 order = "order by price desc"
             elif o == "trend":
                 order = "order by kit_order desc"
-        rpdatas = self.ins._db._jget( "gla_product", "*", f"{sql_query} {order} limit {offset}, {items_per_page}")
-        rpdatas._jwith("gla_product_category cat", "title,alias,id", "cat.id=Substring_Index(fk_product_category_id, ',', 1)", join="left join")
-        rpdata= rpdatas._jrun()
+        rpdatas = self.ins._db._jget(
+            "gla_product", "*", f"{sql_query} {order} limit {offset}, {items_per_page}")
+        rpdatas._jwith("gla_product_category cat", "title,alias,id",
+                       "cat.id=Substring_Index(fk_product_category_id, ',', 1)", join="left join")
+        
+        rpdatas._jwith("kit_user us", "title",
+                       "gla_product.fk_user_id = us.id", join="left join")  
+        
+        rpdata = rpdatas._jrun()
         tcount = self.ins._db._get_row(
             "gla_product", "count(id) as count", f"{sql_query}")["count"]
         self.num_pages = math.ceil(tcount / items_per_page)
-        return rpdata   
-   
-   
-   
-   
+        return rpdata
+
     def order(self):
-        uidata = [{"start": "true", "class": "ins-col-12 ins-flex"},
-                  {"class": "ins-font-xl ins-m-col-1  not-for-web lni lni-funnel-1 -filter-menu"}]
+        uidata = []
         vorder = "low"
         order_area = [
+            {"start": "true", "class": "ins-col-12 ins-flex"},
             {"start": "true", "class": "ins-col-grow ins-flex-end ins-m-flex-start -filter-results-area"},
             {"start": "true", "class": "ins-flex-end ins-m-col-6 ins-m-flex-start"},
+            
+            
+            
             {"_data": "Order by",  "_data-ar": "ترتيب حسب", "_trans": "true",
                 "class": "ins-strong-m ins-grey-d-color ins-title-14 ins-m-col-grow"},
             {"_type": "select", "name": "order", "fl_data": {
@@ -104,8 +111,13 @@ class AppProductsSearch(App):
             {"end": "true"}
         ]
         uidata += order_area
-        uidata += [{"end": "true"}, {"end": "true"}, {"end": "true"}]
+        uidata += [{"end": "true"}, {"end": "true"}, ]
+       
+       
+       
+       
         return uidata
+
     def filter(self):
         type = {"-": "File Format"}
         exts = self.ins._json._file_read("ins_langs/file_ext.json")
@@ -115,8 +127,7 @@ class AppProductsSearch(App):
         uidata = [
             {"_type": "select", "fl_data": type, "name": "format",
              "pclass": "ins-col-grow"},
-            {"_type": "select", "name": "order",
-                "fl_data": {"-": "Price"}, "pclass": "ins-col-2"},
+         
             {"_type": "input", "_end": "3D print", "type": "bool",
                 "pstyle": "width:150px", "name": "print"},
             {"_type": "input", "_end": "Animated", "type": "bool",
@@ -129,19 +140,19 @@ class AppProductsSearch(App):
              "pstyle":  "width:170px", "name": "low_poly"},
             {"class": "ins-flex "}]
         return uidata
+
     def header_ui(self):
         home_url = self.ins._server._url({}, ["mode", "id", "alias", "filter"])
         title = ""
         des = ""
         if "title" in self._category:
             title = "/ "+self._category["title"]
-        if "des" in self._category:
+        if "des" in self._category and self._category["des"] !=None:
             des = "/ "+self._category["des"]
-            
+
         if "title" in self._user:
             title = "/ "+self._user["title"]
-            
-            
+
         uidata = [
             {"start": "true", "class": "ins-flex ins-col-12 gla-container ins-padding-2xl"},
             # title
@@ -156,16 +167,21 @@ class AppProductsSearch(App):
             {"_data": "3D models", "_data-ar": "المنتجات", "_trans": "true",
                 "class": " ins-title-12	ins-grey-color ins-strong-m"},
             {"class": "ins-col-grow "},
+
+            {"start": "true", "class": "ins-col-12 -list-filter-ui"},
+
+
             {"_data": self.order(), "class": "ins-flex  "},
-            {"_data": self.filter(), "class": "ins-flex ins-col-12 -list-filter-ui "},
-            {"end": "true"},
+            {"_data": self.filter(), "class": "ins-flex ins-col-12  "},
+            {"end": "true"}, {"end": "true"},
             {"end": "true"}
         ]
         return uidata
-  
+
     def _products_ui(self):
         p = self.ins._server._post()
-        g = self.ins._server._get()
+        if  "page" in p and   p["page"] == "":
+            p["page"] = "1"
         current_page = int(p.get("page", "1"))
         rpdata = self._products_data()
         start_page = max(1, current_page - 2)
@@ -173,8 +189,8 @@ class AppProductsSearch(App):
         if rpdata:
             uidata = []
             for d in rpdata:
-                url = self.ins._server._url({ "q1": f"{d['alias']}"},["page"])
-                uidata += ELUI(self.ins).shop_pro_block(d,url)
+                url = self.ins._server._url({"q1": f"{d['alias']}"}, ["page"])
+                uidata += ELUI(self.ins).shop_pro_block(d, url)
             uidata += [
                 {"class": "ins-space-xl"},
                 {"start": "true", "data-page": current_page, "class": "ins-flex ins-col-12  ins-m-flex-center ins-pagination-area ins-padding-l ins-m-col-12",
@@ -208,12 +224,17 @@ class AppProductsSearch(App):
             uidata = [{"_data": "No matching results found",
                       "_data-ar": "لا توجد نتائج مطابقة", "_trans": "true", "class": "ins-col-12 ins-card ins-text-center"}]
         return self.ins._ui._render(uidata)
+
     def _list(self):
         uidata = [
             {"class": "ins-flex -header-area", "_data": self.header_ui(),
              "style": "background:white;position: relative;    border-bottom: 1px solid var(--grey-l); "},
             {"_data": self._products_ui(), "class": "ins-flex-valign-start -products-area   gla-container ins-col-12  ins-m-flex-center"}]
         return self.ins._ui._render(uidata)
+
     def out(self):
-        self.data()
+        g = self.ins._server._get()
+
+        
+        self.data(g)
         return self._list()

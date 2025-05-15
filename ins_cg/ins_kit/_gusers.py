@@ -3,7 +3,6 @@ from random import randint, random
 import uuid
 
 from itsdangerous import URLSafeTimedSerializer
-from ins_gla.ins_kit._sms import SMS
 from ins_kit.ins_parent import ins_parent
 
 
