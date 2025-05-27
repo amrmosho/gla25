@@ -8,27 +8,19 @@ import { FilmPass } from 'three/examples/jsm/postprocessing/FilmPass.js';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import { ConvolutionShader } from 'three/examples/jsm/shaders/ConvolutionShader.js';
 import { GammaCorrectionShader } from 'three/examples/jsm/shaders/GammaCorrectionShader.js';
-
-
-
 import { EXRLoader } from 'three/examples/jsm/loaders/EXRLoader.js';
-
+import { ARButton } from 'three/examples/jsm/webxr/ARButton.js';
+import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js';
 var _send = function (url, options, callback, onprogress, type = "POST") {
-
-
-
     type = type == null ? "POST" : type;
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
-
-
         if (this.readyState == 4 && this.status == 200) {
             if (callback != null) {
                 callback(this.responseText, this);
             }
         } else if (this.readyState == 4) {
             if (callback != null) {
-
                 callback(false);
             }
             console.error("inserror: code(" + this.status + ")\n call url want error\nurl:(" + url + ")\n options:");
@@ -37,12 +29,10 @@ var _send = function (url, options, callback, onprogress, type = "POST") {
     };
     xhttp.upload.onprogress = function (e) {
         if (e.lengthComputable) {
-
         }
     };
     var fd = new FormData();
     try {
-
         if (options instanceof FormData) {
             fd = options;
         } else if (typeof options === "string") {
@@ -59,8 +49,6 @@ var _send = function (url, options, callback, onprogress, type = "POST") {
                 }
             });
         }
-
-
         xhttp.open(type, url, true);
         xhttp.send(fd);
         return xhttp;
@@ -68,12 +56,6 @@ var _send = function (url, options, callback, onprogress, type = "POST") {
         console.log(o);
     }
 };
-
-
-
-
-
-
 /**
  * ThreeScene class encapsulates the setup and rendering of a Three.js scene,
  * including model loading, lighting, and post-processing effects.
@@ -86,8 +68,6 @@ export class ThreeScene {
     constructor(config) {
         this.config = config;
         this.scene = new THREE.Scene();
-
-
         const cam = config.camera;
         this.camera = new THREE.PerspectiveCamera(
             cam.fov,
@@ -96,28 +76,24 @@ export class ThreeScene {
             cam.far
         );
         this.camera.position.set(...cam.position);
-
         this.renderer = new THREE.WebGLRenderer({ antialias: true });
-
         this.composer = null;
         this.controls = null;
         this.modelRoot = null;
         this.targetRotationY = 0;
-
         this.targetRotationX = 0;
-
         this.animations = [];
         this.currentAction = null;
         // this.activeAction= THREE.AnimationAction
-
-
+        this.isScrubbing = false;
         this.cameraTargetPos = null;
         this.controlsTarget = null;
+        this.textures = {}
+        this.texturesIndx = 0
+        this.renderer.xr.enabled = true;
+        this.matmode = "render"
+        this.dir = "/ins_web/ins_uploads/v/"
     }
-
-
-
-
     /**
      * Initializes the scene, including renderer, controls, lighting, model, and post-processing.
      */
@@ -125,55 +101,83 @@ export class ThreeScene {
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         this.renderer.outputEncoding = THREE.sRGBEncoding;
         document.body.appendChild(this.renderer.domElement);
-
         this.controls = new OrbitControls(this.camera, this.renderer.domElement);
         this.controls.target.set(0, 1, 0);
         this.controls.update(); this.mixer = null;
         this.clock = new THREE.Clock();
-
-        console.log(this.config.background_color);
-        this.scene.background = new THREE.Color(this.config.background_color);
-
-        this.setupLighting();
-
-
-        _send('/ins_ajax/home/app_test/_key/do/_area/home/_alias/test/', { userToken: 'abc123' },
-            (k) => {
-                this.decryptAndLoadFBX(this.config.obj, k, (blobURL) => {
-                    this.loadModel(blobURL)
-                });
-            }
-
-        );
-
-
-        this.setupPostProcessing();
-        this.setupUI();
-
-        this.animate();
+        this.scene.background = new THREE.Color(this.tocolor(this.config.background_color));
+        this.loadingManager = new THREE.LoadingManager();
+        this.textureLoader = new THREE.TextureLoader(this.loadingManager);
+        this.fbxLoader = new FBXLoader(this.loadingManager);
+        // Optional: loading events
+        this.loadingManager.onStart = () => console.log('Loading started...');
+        this.loadingManager.onProgress = (url, itemsLoaded, itemsTotal) =>
+            console.log(`Loading: ${itemsLoaded} of ${itemsTotal} (${url})`);
+        this.loadingManager.onLoad = () => {
+            console.log('All assets loaded!');
+            this.onAssetsLoaded(); // show scene
+        };
+        this.preloadTextures(this.config.textures);
+        if (this.config.annotations != null) {
+            const container = document.getElementById('annotations');
+            this.config.annotations.forEach((ann, i) => {
+                const el = document.createElement('div');
+                el.className = 'annotation';
+                el.textContent = ann.label;
+                el.style.position = 'absolute';
+                el.style.background = 'rgba(0,0,0,0.7)';
+                el.style.color = '#fff';
+                el.style.padding = '2px 6px';
+                el.style.borderRadius = '4px';
+                el.style.fontSize = '12px';
+                el.style.pointerEvents = 'none';
+                container.appendChild(el);
+                this.config.annotations[i].el = el; // store ref
+            });
+        }
 
         window.addEventListener('resize', () => this.onResize());
     }
-
+     onAssetsLoaded() {
+        document.getElementById('loaderOverlay').style.display = 'none';
+          _send('/ins_ajax/home/app_test/_key/do/_area/home/_alias/test/', { userToken: 'abc123' },
+            (k) => {
+                this.decryptAndLoadFBX(this.dir + this.config.obj, k, (blobURL) => {
+                    this.loadModel(blobURL)
+                });
+            }
+        );        // uses this.textures
+            this.setupLighting();
+            this.setupPostProcessing();
+            this.setupUI();
+            // Show canvas or remove loader
+            document.body.classList.remove('loading');
+            this.animate();
+        }
+    preloadTextures(texturePaths) {
+        this.textures = {};
+        for (const [key, path] of Object.entries(texturePaths)) {
+            this.textures[key] = this.textureLoader.load(path);
+        }
+    }
+    tocolor(c) {
+        return parseInt(c, 16)
+    }
     /**
      * Sets up ambient and directional lighting based on the configuration.
      */
     setupLighting() {
         const { ambient, directional, lightmap } = this.config.lighting;
-
-        this.scene.add(new THREE.AmbientLight(ambient.color, ambient.intensity));
-
-        const dirLight = new THREE.DirectionalLight(directional.color, directional.intensity);
+        this.scene.add(new THREE.AmbientLight(this.tocolor(ambient.color), ambient.intensity));
+        const dirLight = new THREE.DirectionalLight(this.tocolor(directional.color), directional.intensity);
         dirLight.position.set(...directional.position);
         this.scene.add(dirLight);
-
         // Load EXR environment map if enabled
         if (lightmap?.enabled && lightmap.url) {
             const exrLoader = new EXRLoader();
             const pmrem = new THREE.PMREMGenerator(this.renderer);
             pmrem.compileEquirectangularShader();
-
-            exrLoader.load(lightmap.url, (texture) => {
+            exrLoader.load(this.dir + lightmap.url, (texture) => {
                 const envMap = pmrem.fromEquirectangular(texture).texture;
                 if (lightmap.applyAs === 'environment' || lightmap.applyAs === 'both') {
                     this.scene.environment = envMap;
@@ -181,167 +185,131 @@ export class ThreeScene {
                 if (lightmap.applyAs === 'background' || lightmap.applyAs === 'both') {
                     this.scene.background = envMap;
                 }
-
                 this.envMap = envMap; // Save for later use
                 this.envIntensity = lightmap.intensity ?? 1;
                 texture.dispose();
             });
         }
     }
-
-
     setupUI() {
-        const bgColors = [0x1e1e1e, 0x004477, 0xffffff];
-        let bgIndex = 0;
-
         var t = this;
-
-
-        document.getElementById('animProgress')?.addEventListener('input', (e) => {
-            if (this.currentAction && this.currentClip) {
-                const percent = parseFloat(e.target.value);
-                const newTime = percent * this.currentClip.duration;
-                this.currentAction.time = newTime;
-                this.mixer.setTime(newTime);
+        document.getElementById('vrBtn')?.addEventListener('click', async () => {
+            if (navigator.xr && navigator.xr.isSessionSupported) {
+                const supported = await navigator.xr.isSessionSupported('immersive-vr');
+                if (!supported) {
+                    alert('VR not supported on this device.');
+                    return;
+                }
             }
+            this.renderer.xr.setReferenceSpaceType('local');
+            const session = await navigator.xr.requestSession('immersive-vr');
+            this.renderer.xr.setSession(session);
+        });
+        document.getElementById('arBtn')?.addEventListener('click', async () => {
+            if (navigator.xr && navigator.xr.isSessionSupported) {
+                const supported = await navigator.xr.isSessionSupported('immersive-ar');
+                if (!supported) {
+                    alert('AR not supported on this device.');
+                    return;
+                }
+            }
+            this.renderer.xr.setReferenceSpaceType('local');
+            const session = await navigator.xr.requestSession('immersive-ar', {
+                requiredFeatures: ['hit-test', 'dom-overlay'],
+                domOverlay: { root: document.body }
+            });
+            this.renderer.xr.setSession(session);
+        });
+        const slider = document.getElementById('animProgress');
+        slider?.addEventListener('mousedown', () => this.isScrubbing = true);
+        slider?.addEventListener('mouseup', () => this.isScrubbing = false);
+        slider?.addEventListener('input', (e) => {
+            // this.currentAction.paused = true; // pause while scrubbing
+            //this.currentAction.time = newTime;
+            // this.mixer.setTime(newTime);
+            //  this.mixer.update(0); // refresh
+            if (!this.mixer || !this.currentClip || !this.currentAction) return;
+            const percent = parseFloat(e.target.value);
+            const newTime = percent * this.currentClip.duration;
+            // Pause all actions and stop automatic update
+            this.mixer.stopAllAction();
+            // Create a temp action just for preview
+            const tempAction = this.mixer.clipAction(this.currentClip);
+            tempAction.paused = true;
+            tempAction.time = newTime;
+            tempAction.reset().play(); // activate so mixer can evaluate
+            this.mixer.setTime(newTime); // update the mixer
+            this.mixer.update(0);
         });
         document.getElementById('playAnimBtn')?.addEventListener('click', (e) => {
-
-
+            const index = parseInt(document.getElementById('animList').value);
             if (e.target.classList.contains("active")) {
                 e.target.classList.remove("active");
-
-                if (this.currentAction) {
-                    this.currentAction.stop();
+                /* if (this.currentAction) {
+                     this.currentAction.stop();
+                 }*/
+                if (this.currentAction && this.mixer) {
+                    this.currentAction.paused = true;
                 }
-
-
-
             } else {
                 e.target.classList.add("active");
-
-                const index = parseInt(document.getElementById('animList').value);
-                this.playAnimation(index);
+                if (this.currentAction && this.currentAction.paused) {
+                    this.currentAction.paused = false;
+                } else {
+                    this.playAnimation(index);
+                }
             }
-
         });
-
-
-
         document.getElementById('screenshotBtn')?.addEventListener('click', () => {
             // Render the scene to the composer render target
             this.composer.render();
-
             // Read pixels from the renderer's canvas
             const dataURL = this.renderer.domElement.toDataURL('image/png');
-
             // Trigger download
             const link = document.createElement('a');
             link.href = dataURL;
             link.download = 'scene-screenshot.png';
             link.click();
         });
-
-
-
         // Background color toggle?
         document.querySelectorAll('.-view-panel').forEach(element => {
             element.addEventListener("click", function (e) {
                 var cl = e.target.dataset["p"];
-
-
-
-
-
                 document.querySelectorAll('.-insv-side-panel').forEach(p => {
-
-
                     if (!p.classList.contains("ins-hidden")) {
                         p.classList.add("ins-hidden");
                     }
-
                 });
-
                 if (element.classList.contains("active")) {
                     element.classList.remove("active");
-
-
                 } else {
-
                     document.querySelectorAll('.-insv-side-panel.' + cl).forEach(p => {
                         p.classList.remove("ins-hidden");
-
                     });
                     element.classList.add("active");
-
                 }
-
-
-
             });
         });
-
         // Background color toggle?
         document.querySelectorAll('.-rend-btn').forEach(element => {
             element.addEventListener("click", function (e) {
-
-
-
-
                 document.querySelectorAll('.-rend-btn').forEach(p => {
                     p.classList.remove("active");
                 });
                 element.classList.add("active");
-
-
-
-
-
+                t.matmode = e.target.dataset["rend"]
                 if (e.target.dataset["rend"] == "wire") {
-
-
-                    if (t.obj.material.wireframe == true) {
-                        t.obj.material.wireframe = false;
+                    e.target.dataset["rend"] = "wireof"
+                    t.update_mats(true);
+                } else
+                    if (e.target.dataset["rend"] == "wireof") {
+                        e.target.dataset["rend"] = "wire"
+                        t.update_mats();
                     } else {
-                        t.obj.material.wireframe = true;
+                        t.update_mats();
                     }
-                } else if (e.target.dataset["rend"] == "normal") {
-                    t.mat_normal()
-                    t.obj.material = t.material;
-
-                } else if (e.target.dataset["rend"] == "metal") {
-                    t.mat_metal()
-                    t.obj.material = t.material;
-
-                } else if (e.target.dataset["rend"] == "rough") {
-                    t.mat_roughness()
-                    t.obj.material = t.material;
-
-                } else if (e.target.dataset["rend"] == "color") {
-                    t.mat_color()
-                    t.obj.material = t.material;
-
-                } else if (e.target.dataset["rend"] == "final") {
-                    t.mat()
-                    console.log(t.material);
-                    t.obj.material = t.material;
-
-                }
-
-
-
-
-                t.obj.material.needsUpdate = true;
-
-
-
-
-
-
             });
         });
-
-
         document.getElementById('fullscreenBtn')?.addEventListener('click', () => {
             const canvas = this.renderer.domElement;
             if (!document.fullscreenElement) {
@@ -350,53 +318,30 @@ export class ThreeScene {
                 document.exitFullscreen?.() || document.webkitExitFullscreen?.();
             }
         });
-
-
         document.getElementById('rotateBtn')?.addEventListener('click', () => {
             this.targetRotationY += Math.PI / 2; // Add 90 degrees
-
         });
         document.getElementById('rerotateBtn')?.addEventListener('click', () => {
             this.targetRotationY -= Math.PI / 2; // Add 90 degrees
-
         });
-
         document.getElementById('rotateBtn_up')?.addEventListener('click', () => {
             this.targetRotationX += Math.PI / 2; // Add 90 degrees
-
         });
         document.getElementById('rotateBtn_down')?.addEventListener('click', () => {
             this.targetRotationX -= Math.PI / 2; // Add 90 degrees
-
         });
-
-
-
-
-
-
-
         // bgIndex = (bgIndex + 1) % bgColors.length;
         //this.scene.background = new THREE.Color(bgColors[bgIndex]);
-
-
-
-
-
         document.getElementById('centerBtn')?.addEventListener('click', () => {
-
             if (!this.modelRoot) return;
-
             const box = new THREE.Box3().setFromObject(this.modelRoot);
             const size = new THREE.Vector3();
             const center = new THREE.Vector3();
             box.getSize(size);
             box.getCenter(center);
-
             const maxDim = Math.max(size.x, size.y, size.z);
             const fov = this.camera.fov * (Math.PI / 180);
             const distance = maxDim / (2 * Math.tan(fov / 2.5)) * 1.2;
-
             const newCamPos = center.clone().add(new THREE.Vector3(0, 0, distance));
             this.cameraTargetPos = newCamPos;
             this.controlsTarget = center.clone();
@@ -409,130 +354,167 @@ export class ThreeScene {
                 }
             });
         });
+        if (this.config.textures.length > 1) {
+            var i = 0;
+            this.config.textures.forEach(k => {
+                const list = document.getElementById('insv-text-btns');
+                const btn = document.createElement("div");
+                const img = document.createElement("img");
+                img.src = this.dir + k["th"]
+                btn.appendChild(img);
+                btn.classList.add("insv_txt_btn", "insv-icon_btn");
+                img.dataset["i"] = i;
+                btn.style.left = (k * 10) + "px";
+                list.appendChild(btn);
+                img.onclick = (e) => {
+                    t.texturesIndx = e.target.dataset["i"];
+                    t.update_mats()
+                }
+                i++;
+            })
+        }
     }
-
-
-
-
-    mat_normal() {
-        const loader = new THREE.TextureLoader();
-        this.material = new THREE.MeshStandardMaterial({
-            map: loader.load(this.config.textures.normal),
-            normalMap: loader.load(this.config.textures.normal),
-            metalness: 0,
-            roughness: 1.0
-        }); this.mat_update();
-
-    }
-
-
-
-
-
-    mat_color() {
-        const loader = new THREE.TextureLoader();
-        this.material = new THREE.MeshStandardMaterial({
-            map: loader.load(this.config.textures.albedo),
-            metalness: 0,
-            roughness: 1.0
-        }); this.mat_update();
-
-    }
-
-
-    mat_metal() {
-        const loader = new THREE.TextureLoader();
-        this.material = new THREE.MeshStandardMaterial({
-            map: loader.load(this.config.textures.metallic),
-            normalMap: loader.load(this.config.textures.normal),
-            metalness: 0,
-            roughness: 1.0
-        }); this.mat_update();
-
-    }
-
-
-
-    mat_roughness() {
-        const loader = new THREE.TextureLoader();
-        this.material = new THREE.MeshStandardMaterial({
-            map: loader.load(this.config.textures.roughness),
-            metalness: 0,
-            roughness: 1.0
-
-        }); this.mat_update();
-
-    }
-
-
-
-
-
-
-    mat() {
-        const loader = new THREE.TextureLoader();
-        this.material = new THREE.MeshStandardMaterial({
-            map: loader.load(this.config.textures.albedo),
-            normalMap: loader.load(this.config.textures.normal),
-            metalnessMap: loader.load(this.config.textures.metallic),
-            roughnessMap: loader.load(this.config.textures.roughness),
-            metalness: 1.0,
-            roughness: 1.0
+    update_textures(name) {
+        var textures = {}
+        if (this.config.textures[this.texturesIndx][name] == null) {
+            var tk = this.config.textures[this.texturesIndx][1];
+        } else {
+            var tk = this.config.textures[this.texturesIndx][name];
+        }
+        Object.keys(tk).forEach(k => {
+            if (typeof tk[k] == "string") {
+                textures[k] = this.dir + tk[k];
+            } else {
+                textures[k] = tk;
+            }
         });
-
-        this.mat_update();
-
-
+        return textures;
     }
-
-
-
-    mat_update() {
+    mat(name, wire = false) {
+        let textures = this.update_textures(name);
+        const loader = new THREE.TextureLoader();
+        var tc = {
+            emissive: new THREE.Color(0xffffff),
+            transparent: true,
+            opacity: textures.opacity ? textures.opacity : 1.0,
+            emissiveIntensity: textures.emissive ? textures.emissive : 0,
+            metalness: textures.metalness ? textures.metalness : 1.0,
+            roughness: textures.roughness ? textures.roughness : 1.0,
+            aoMapIntensity: textures.ao ? textures.ao : 1.0,
+        }
+        var material = new THREE.MeshStandardMaterial(tc);
+        material.name = name
+        material.wireframe = wire;
+        var albedo = loader.load(textures.color_map);
+        if (this.matmode == "normal") {
+            var albedo = loader.load(textures.normal_map)
+            delete textures.roughness_map;
+            delete textures.emissive_map;
+            delete textures.opacity_map;
+            material.metalness = 0;
+            material.roughness = 1.0;
+        } else if (this.matmode == "rough") {
+            var albedo = loader.load(textures.roughness_map)
+            delete textures.roughness;
+            delete textures.emissive;
+            delete textures.opacity;
+            material.metalness = 0;
+            material.roughness = 1.0;
+        } else if (this.matmode == "metal") {
+            var albedo = loader.load(textures.metal_map)
+            delete textures.roughness_map;
+            delete textures.emissive_map;
+            delete textures.opacity_map;
+            delete textures.metal_map;
+            material.metalness = 0;
+            material.roughness = 1.0;
+        } else if (this.matmode == "color") {
+            delete textures.roughness_map;
+            delete textures.emissive_map;
+            delete textures.metal_map;
+            delete textures.opacity_map;
+            material.metalness = 0;
+            material.roughness = 1.0;
+        }
+        if (albedo != null) {
+            material.map = albedo;
+        }
+        if (textures.metal_map != null)
+            material.metalnessMap = loader.load(textures.metal_map);
+        if (textures.normal_map != null)
+            material.normalMap = loader.load(textures.normal_map);
+        if (textures.roughness_map != null)
+            material.roughnessMap = loader.load(textures.roughness_map);
+        if (textures.emissive_map != null)
+            material.emissiveMap = loader.load(textures.emissive_map);
+        if (textures.opacity_map != null)
+            material.alphaMap = loader.load(textures.opacity_map);
+        if (textures.ao_map != null)
+            material.aoMap = loader.load(textures.ao_map);
+        material = this.mat_update(material);
+        return material;
+    }
+    mat_update(material) {
         ['map', 'normalMap', 'metalnessMap', 'roughnessMap'].forEach((mapType) => {
-            const map = this.material[mapType];
+            const map = material[mapType];
             if (map) {
-                // map.flipY = false;
-                if (mapType === 'map' || mapType === 'normalMap') {
+                if (mapType === 'map') {
                     map.encoding = THREE.sRGBEncoding;
                 }
             }
         });
+        return material;
     }
-
     playAnimation(index) {
         if (!this.mixer || !this.animations.length) return;
-
         if (this.currentAction) {
             this.currentAction.stop();
         }
-
         const clip = this.animations[index];
+        this.currentClip = clip;
         this.currentAction = this.mixer.clipAction(clip);
         this.currentAction.reset().play();
-
-        this.currentClip = clip;
     }
-
-
-
-
-
     /**
      * Loads the FBX model and applies PBR textures as specified in the configuration.
      */
+    update_mats(wire = false) {
+        this.modelRoot.traverse((child) => {
+            if (child.isMesh) {
+                this.obj = child;
+                if (Array.isArray(child.material)) {
+                    const newMaterials = child.material.map((mat) => {
+                        const newMat = this.mat(mat.name, wire)
+                        return newMat;
+                    });
+                    child.material = newMaterials;
+                    child.material.forEach((m) => m.needsUpdate = true);
+                } else {
+                    console.log(child.material.name);
+                    child.material = this.mat(child.material.name, wire);
+                    child.material.needsUpdate = true
+                }
+                if (this.config.wireframe) {
+                    child.material.wireframe = true;
+                }
+                // Apply environment map and intensity
+                if (this.envMap) {
+                    child.material.envMap = this.envMap;
+                    child.material.envMapIntensity = this.envIntensity ?? 1;
+                    child.material.needsUpdate = true;
+                }
+            }
+        });
+    }
     loadModel(fbxUrl) {
-        this.mat();
         const fbxLoader = new FBXLoader();
         fbxLoader.load(fbxUrl, (fbx) => {
             fbx.scale.set(0.1, 0.1, 0.1);
-
-
             ////FBX model Antions
             // Setup animation if available
             if (fbx.animations && fbx.animations.length) {
                 this.animations = fbx.animations;
                 this.mixer = new THREE.AnimationMixer(fbx);
-
                 // Populate animation dropdown
                 const list = document.getElementById('animList');
                 list.innerHTML = ''; // Clear any existing options
@@ -542,45 +524,26 @@ export class ThreeScene {
                     opt.textContent = clip.name || `Animation ${index + 1}`;
                     list.appendChild(opt);
                 });
-
                 // Auto-play first animation
                 this.playAnimation(0);
+            } else {
+                document.getElementById('insvAnimationCont').remove();
             }
-
-
-            fbx.traverse((child) => {
-                if (child.isMesh) {
-                    this.obj = child;
-
-                    child.material = this.material;
-
-                    if (this.config.wireframe) {
-                        child.material.wireframe = true;
-                    }
-
-                    // Apply environment map and intensity
-                    if (this.envMap) {
-                        child.material.envMap = this.envMap;
-                        child.material.envMapIntensity = this.envIntensity ?? 1;
-                        child.material.needsUpdate = true;
-                    }
-                }
-            });
-
             this.modelRoot = fbx;
+            this.update_mats()
             this.scene.add(this.modelRoot);
         });
     }
-
     /**
      * Sets up post-processing effects based on the configuration.
      */
     setupPostProcessing() {
         this.composer = new EffectComposer(this.renderer);
         this.composer.addPass(new RenderPass(this.scene, this.camera));
-
+        const fxaaPass = new ShaderPass(FXAAShader);
+        fxaaPass.material.uniforms['resolution'].value.set(1 / window.innerWidth, 1 / window.innerHeight);
+        this.composer.addPass(fxaaPass);
         const filters = this.config.filters;
-
         if (filters.bloom?.enabled) {
             const { strength, radius, threshold } = filters.bloom;
             const bloomPass = new UnrealBloomPass(
@@ -591,34 +554,21 @@ export class ThreeScene {
             );
             this.composer.addPass(bloomPass);
         }
-
         if (filters.film?.enabled) {
             const { noiseIntensity, scanlinesIntensity, scanlinesCount } = filters.film;
             const filmPass = new FilmPass(noiseIntensity, scanlinesIntensity, scanlinesCount, false);
             this.composer.addPass(filmPass);
         }
-
         if (filters.sharpen?.enabled) {
             const sharpenPass = new ShaderPass(ConvolutionShader);
             sharpenPass.uniforms['uImageIncrement'].value = new THREE.Vector2(0, 0);
             sharpenPass.uniforms['cKernel'].value = filters.sharpen.kernel;
             this.composer.addPass(sharpenPass);
         }
-
         if (filters.gammaCorrection) {
             this.composer.addPass(new ShaderPass(GammaCorrectionShader));
         }
-
-
-
-
-
-
-
-
         if (filters.colorBalance?.enabled) {
-
-
             const ColorBalanceShader = {
                 uniforms: {
                     tDiffuse: { value: null },
@@ -639,11 +589,9 @@ export class ThreeScene {
     uniform vec3 midtones;
     uniform vec3 highlights;
     varying vec2 vUv;
-
     void main() {
       vec4 color = texture2D(tDiffuse, vUv);
       float luminance = dot(color.rgb, vec3(0.2126, 0.7152, 0.0722));
-
       vec3 result = color.rgb;
       if (luminance < 0.33) {
         result *= shadows;
@@ -652,36 +600,23 @@ export class ThreeScene {
       } else {
         result *= highlights;
       }
-
       gl_FragColor = vec4(result, color.a);
     }
   `
             };
-
-
             const pass = new ShaderPass(ColorBalanceShader);
             pass.uniforms.shadows.value = new THREE.Vector3(...filters.colorBalance.shadows);
             pass.uniforms.midtones.value = new THREE.Vector3(...filters.colorBalance.midtones);
             pass.uniforms.highlights.value = new THREE.Vector3(...filters.colorBalance.highlights);
             this.composer.addPass(pass);
         }
-
-
-
         if (filters.vignette?.enabled) {
-
             const VignetteShader = {
                 uniforms: {
                     tDiffuse: { value: null },
                     offset: { value: 1.0 },
                     darkness: { value: 1.2 }
                 },
-
-
-
-
-
-
                 vertexShader: `
     varying vec2 vUv;
     void main() {
@@ -694,7 +629,6 @@ export class ThreeScene {
     uniform float offset;
     uniform float darkness;
     varying vec2 vUv;
-
     void main() {
       vec4 texel = texture2D(tDiffuse, vUv);
       float dist = distance(vUv, vec2(0.5, 0.5));
@@ -703,18 +637,12 @@ export class ThreeScene {
     }
   `
             };
-
-
             const vignettePass = new ShaderPass(VignetteShader);
             vignettePass.uniforms['offset'].value = filters.vignette.offset;
             vignettePass.uniforms['darkness'].value = filters.vignette.darkness;
             this.composer.addPass(vignettePass);
         }
-
-
-
         if (filters.chromaticAberration?.enabled) {
-
             const ChromaticAberrationShader = {
                 uniforms: {
                     tDiffuse: { value: null },
@@ -731,7 +659,6 @@ export class ThreeScene {
     uniform sampler2D tDiffuse;
     uniform vec2 offset;
     varying vec2 vUv;
-
     void main() {
       vec2 uv = vUv;
       vec4 color;
@@ -743,24 +670,13 @@ export class ThreeScene {
     }
   `
             };
-
-
             const caPass = new ShaderPass(ChromaticAberrationShader);
             caPass.uniforms.offset.value = new THREE.Vector2(...filters.chromaticAberration.offset);
             this.composer.addPass(caPass);
         }
-
-
-
-
-
-
-
         const toneType = this.config.filters?.toneMapping?.type || 'ACESFilmic';
         const exposure = this.config.filters?.toneMapping?.exposure ?? 1.0;
-
         this.renderer.toneMappingExposure = exposure;
-
         // Choose tone mapping type
         switch (toneType) {
             case 'ACESFilmic':
@@ -777,28 +693,18 @@ export class ThreeScene {
                 this.renderer.toneMapping = THREE.NoToneMapping;
                 break;
         }
-
     }
-
-
-
-
-
-
     //  const blob = new Blob([decryptedBuffer], { type: 'image/png' }); // or image/jpeg
     async decryptAndLoadFBX(url, password, callback, type = "application/octet-stream") {
         const response = await fetch(url);
         const encryptedData = await response.arrayBuffer();
         const encryptedArray = new Uint8Array(encryptedData);
-
         const iv = encryptedArray.slice(0, 16); // first 16 bytes
         const data = encryptedArray.slice(16); // rest is encrypted content
-
         const enc = new TextEncoder();
         const keyMaterial = await window.crypto.subtle.importKey(
             'raw', enc.encode(password), { name: 'PBKDF2' }, false, ['deriveKey']
         );
-
         const key = await window.crypto.subtle.deriveKey(
             {
                 name: 'PBKDF2',
@@ -811,55 +717,35 @@ export class ThreeScene {
             false,
             ['decrypt']
         );
-
         const decryptedBuffer = await window.crypto.subtle.decrypt(
             { name: 'AES-CBC', iv },
             key,
             data
         );
-
-
         //  const blob = new Blob([decryptedBuffer], { type: 'image/png' }); // or image/jpeg
-
         const blob = new Blob([decryptedBuffer], { type: type });
         const blobURL = URL.createObjectURL(blob);
         callback(blobURL);
-
-
-
-
     }
-
-
-
     /**
      * Handles the animation loop.
      */
     animate() {
-
         requestAnimationFrame(() => this.animate());
-
         //this.activeAction.play()
-
         //////////////////////////////////////////////////////////// animate file
-
-        const odelta = this.clock.getDelta();
-
-
-
-        if (this.mixer) {
-            this.mixer.update(odelta);
-
-            // Update progress bar
-            const slider = document.getElementById('animProgress');
-            if (this.currentAction && this.currentClip) {
-                const time = this.currentAction.time % this.currentClip.duration;
-                slider.value = time / this.currentClip.duration;
+        const delta = this.clock.getDelta();
+        if (this.mixer && this.currentAction && this.currentClip) {
+            if (!this.currentAction.paused) {
+                this.mixer.update(delta);
+                // Only update slider if user isn't scrubbing
+                if (!this.isScrubbing) {
+                    const time = this.currentAction.time % this.currentClip.duration;
+                    const percent = time / this.currentClip.duration;
+                    document.getElementById('animProgress').value = percent;
+                }
             }
         }
-
-
-
         // Smooth Y-axis rotation
         if (this.modelRoot) {
             const currentY = this.modelRoot.rotation.y;
@@ -869,8 +755,6 @@ export class ThreeScene {
                 this.modelRoot.rotation.y += delta * 0.1; // Adjust smoothness here
             }
         }
-
-
         // Smooth Y-axis rotation
         if (this.modelRoot) {
             const currentX = this.modelRoot.rotation.x;
@@ -880,7 +764,6 @@ export class ThreeScene {
                 this.modelRoot.rotation.x += deltax * 0.1; // Adjust smoothness here
             }
         }
-
         // Animate camera position
         if (this.cameraTargetPos) {
             this.camera.position.lerp(this.cameraTargetPos, 0.1);
@@ -889,7 +772,6 @@ export class ThreeScene {
                 this.cameraTargetPos = null;
             }
         }
-
         // Animate controls target
         if (this.controlsTarget) {
             this.controls.target.lerp(this.controlsTarget, 0.1);
@@ -899,11 +781,18 @@ export class ThreeScene {
             }
             this.controls.update();
         }
-
+        if (this.config.annotations != null) {
+            this.config.annotations.forEach((ann) => {
+                const pos = new THREE.Vector3(ann.position[0], ann.position[1], ann.position[2]);
+                pos.project(this.camera); // convert to normalized device coords
+                const x = (pos.x * 0.5 + 0.5) * window.innerWidth;
+                const y = (1 - (pos.y * 0.5 + 0.5)) * window.innerHeight;
+                ann.el.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px)`;
+                ann.el.style.display = pos.z > 1 || pos.z < -1 ? 'none' : 'block'; // hide if behind camera
+            });
+        }
         this.composer.render();
-
     }
-
     /**
      * Handles window resize events to maintain aspect ratio and renderer size.
      */
@@ -912,29 +801,37 @@ export class ThreeScene {
         const height = window.innerHeight;
         this.camera.aspect = width / height;
         this.camera.updateProjectionMatrix();
-        this.renderer.setSize(width, height);
+        this.renderer.setSize(window.innerWidth * 2, window.innerHeight * 2, false);
         this.composer.setSize(width, height);
+        this.renderer.setPixelRatio(2); // or even higher if GPU allows
     }
 }
-
-
-
-
-
-
-
 var p = "/ins_web/ins_uploads/v/"
-
+p += "apple/"
+//p += "samsung/"
+fetch(p + 'data.json')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    }) // Parse JSON
+    .then(config => {
+        const app = new ThreeScene(config);
+        app.init();
+    }) // Work with JSON data
+    .catch(error => console.error('Error fetching JSON:', error));
 const config = {
     obj: p + 'models/aa.insya',
     textures: {
         albedo: p + 'textures/albedo.png',
         normal: p + 'textures/normal.png',
         metallic: p + 'textures/metallic.png',
-        roughness: p + 'textures/roughness.png'
+        roughness: p + 'textures/roughness.png',
+        opacity: p + 'textures/opacity.png',
+        emissive: p + 'textures/emissive.png',
+        ao: p + 'textures/ao.png',
     },
-
-
     wireframe: false,
     camera: {
         fov: 45,
@@ -943,25 +840,17 @@ const config = {
         position: [2, 2, 4],
         target: [0, 1, 0]
     },
-
-
-        background_color: 0x292f34,
-
+    background_color: 0x292f34,
     lighting: {
-        ambient: { color: 0xffffff, intensity: 0.1 },
-        directional: { color: 0xffffff, intensity: 0.1, position: [5, 10, 7.5] },
-
-
-
+        ambient: { color: 0xffffff, intensity: 0.01 },
+        directional: { color: 0xffffff, intensity: 0.01, position: [5, 10, 7.5] },
         lightmap: {
             enabled: true,
             url: p + 'textures/env.exr',
             applyAs: 'environment',// environment  or 'background', or 'both'
-            intensity: 1
+            intensity: 0.8
             // this is the environment light strength
-
         },
-
     },
     filters: {
         bloom: { enabled: false, strength: 0.6, radius: 0.4, threshold: 0.85 },
@@ -979,7 +868,6 @@ const config = {
             enabled: false,
             offset: 0.1,   // how far the darkening extends from center
             darkness: 1
-
             // how dark the edges get
         },
         colorBalance: {
@@ -991,7 +879,7 @@ const config = {
         toneMapping: {
             enabled: true,
             type: 'ACESFilmic',  // 'ACESFilmic', 'Reinhard', 'Linear', 'None'
-            exposure: 1.2
+            exposure: 1
         },
         chromaticAberration: {
             enabled: false,
@@ -999,28 +887,14 @@ const config = {
         }
     }
 };
-
-const app = new ThreeScene(config);
-app.init();
-
-
-
-//encryptFileFromURL( p + 'models/sample.fbx', "123") 
-
-
+//encryptFileFromURL( p + 'models/test.fbx', "123") 
 //async decryptAndLoadFBX(url, password ,callback,  type ="application/octet-stream" ) {
-
 //encryptFileFromURL("/ins_web/ins_uploads/v/textures/albedo.png", "123", (ob) => { }, "image/png")
-
 //encryptFileFromURL("/ins_web/ins_uploads/v/models/aa.fbx", "123", (ob) => { })
-
-
 async function encryptFileFromURL(url, password, callback, type = "application/octet-stream") {
     const response = await fetch(url);
     const data = new Uint8Array(await response.arrayBuffer());
-
     const iv = crypto.getRandomValues(new Uint8Array(16)); // 16 bytes for AES-CBC
-
     const enc = new TextEncoder();
     const keyMaterial = await crypto.subtle.importKey(
         'raw', enc.encode(password), { name: 'PBKDF2' }, false, ['deriveKey']
@@ -1037,14 +911,11 @@ async function encryptFileFromURL(url, password, callback, type = "application/o
         false,
         ['encrypt']
     );
-
     const encrypted = await crypto.subtle.encrypt({ name: 'AES-CBC', iv }, key, data);
-
     // Combine IV + encrypted data into one Blob
     const combined = new Uint8Array(iv.length + encrypted.byteLength);
     combined.set(iv, 0);
     combined.set(new Uint8Array(encrypted), iv.length);
-
     ////  const blob = new Blob([decryptedBuffer], { type: 'image/png' }); // or image/jpeg
     // Optionally download it
     const blob = new Blob([combined], { type: type });
@@ -1055,6 +926,3 @@ async function encryptFileFromURL(url, password, callback, type = "application/o
     callback(blob)
     return blob;
 }
-
-
-

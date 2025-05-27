@@ -9,8 +9,13 @@ class PlgForgot(Plgin):
         p = self.ins._server._post()
         error={}
         if "password" in p and "confirm_password" in p and p["password"] == p["confirm_password"]:
-            self.ins._users._update_password(p)
-            return self.ins._server._redirect(self.ins._server._url({},["show","step"]))
+          #  self.ins._users._update_password(p)
+            
+            a = self.ins._server._url({},["show","step"])
+            return self.ins._server._redirect(a )
+        
+        
+        
         elif "password" in p and "confirm_password" in p and p["password"] != p["confirm_password"]:
             error = self.ins._ui._error_msg(self.ins._langs._get("password_not_match", "users"))
         uidata = [

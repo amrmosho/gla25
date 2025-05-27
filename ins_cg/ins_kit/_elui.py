@@ -116,6 +116,16 @@ class ELUI(ins_parent):
         if data["views"] == None:
             data["views"] = "0"
 
+
+
+        pros = self.ins._users._get_settings('pro')
+        lc = ""
+        wl = ""
+        if str(data["id"]) in pros.get("prolike",[]):
+            lc = " ins-success "
+
+        if str(data["id"]) in pros.get("wishlist",[]):
+            wl = " ins-success "
         r = [
             {"start": "true", "class": "ins-flex ins-card ins-col-3 -pro-item-block"},
 
@@ -128,14 +138,14 @@ class ELUI(ins_parent):
             {"_data": data.get("title"), "class": "ins-padding-s ins-secondary-color ins-title-s ins-col-12",
              "style": "line-height:24px;min-height: 75px;"},
             {"_type": "a", "end": "true"},
-            {"start": "true", "class": "ins-col-4 ins-flex-center ins-card"},
+            {"start": "true", "class": "ins-col-4 ins-flex-center pro-blk-action"},
             {"class": "ins-icons-eye", "style": "position: relative; top: 3px;"},
             {"_data": f"{data.get('views', "0")}"},
             {"end": "true"},
             
             
             
-            {"start": "true","data-a":"like",  "data-pid":data["id"], "class": "ins-col-4 -pro-action ins-flex-center ins-card"},
+            {"start": "true","data-a":"like",  "data-pid":data["id"], "class": f"ins-col-4 {lc} -pro-action ins-flex-center  pro-blk-action"},
             {"class": "ins-icons-heart",  "style": "position: relative; top: 3px;"},
             {"_data": "15"},
 
@@ -145,7 +155,7 @@ class ELUI(ins_parent):
              "data-a":"wishlist",  "data-pid":data["id"],
              
              
-             "class": "ins-col-4  -pro-action ins-flex-center ins-card"},
+             "class": f"ins-col-4 {wl}  -pro-action ins-flex-center  pro-blk-action"},
             {"class": "ins-icons-indent", "style": "position: relative; top: 3px;"},
             {"end": "true"},
             {"_data": f'by <a style="text-decoration: underline;" href="{uurl}">{data["us_title"]}</a> in  <a style="text-decoration: underline;" href="{curl}">{data["cat_title"]}</a>',

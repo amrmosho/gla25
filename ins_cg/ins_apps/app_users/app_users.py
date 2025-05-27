@@ -382,6 +382,11 @@ class AppUsers(App):
  
 
         l=PlgLogin(self)
+      
+      
+        l._login()
+
+      
         if l.is_login():
 
             g = self.ins._server._get()

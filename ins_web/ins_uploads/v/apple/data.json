@@ -1,0 +1,141 @@
+{
+    "obj": "apple/models/sample.insya",
+    "textures": [
+        {
+            "th": "apple/textures/albedo.png",
+            "max_purple": {
+                "color_map": "apple/textures/albedo.png",
+                "normal_map": "apple/textures/normal.png",
+                "metal_map": "apple/textures/metallic.png",
+                "roughness_map": "apple/textures/roughness.png",
+                "ao_map": "apple/textures/ao.png",
+                "opacity_map": "apple/textures/opacity.png"
+            },
+            "Material2": {
+                "color_map": "apple/textures/albedo.png",
+                "normal_map": "apple/textures/normal.png",
+                "metal_map": "apple/textures/metallic.png",
+                "roughness_map": "apple/textures/roughness.png",
+                "ao_map": "apple/textures/ao.png",
+                "opacity_map": "apple/textures/opacity.png"
+            },
+            "diak_flip6_yellow": {
+                "color_map": "apple/textures/albedo.png",
+                "normal_map": "apple/textures/normal.png",
+                "metal_map": "apple/textures/metallic.png",
+                "roughness_map": "apple/textures/roughness.png",
+                "ao_map": "apple/textures/ao.png",
+                "opacity_map": "apple/textures/opacity.png"
+            }
+        }
+    ],
+    "wireframe": false,
+    "camera": {
+        "fov": 45,
+        "near": 0.1,
+        "far": 100,
+        "position": [
+            2,
+            2,
+            4
+        ],
+        "target": [
+            0,
+            1,
+            0
+        ]
+    },
+    "background_color": "0x21b045",
+    "lighting": {
+        "ambient": {
+            "color": "0xffffff",
+            "intensity": 0.01
+        },
+        "directional": {
+            "color": "0xffffff",
+            "intensity": 0.01,
+            "position": [
+                5,
+                10,
+                7.5
+            ]
+        },
+        "lightmap": {
+            "enabled": true,
+            "url": "christmas_photo_studio_06_1k",
+            "applyAs": "environment",
+            "intensity": 1,
+            "lighting_preset": "threePoint",
+            "env_blur": "0.018",
+            "rotation_y": "90",
+            "background": "env"
+        }
+    },
+
+    
+    "filters": {
+        "bloom": {
+            "enabled": false,
+            "strength": 0.6,
+            "radius": 0.4,
+            "threshold": 0.85
+        },
+        "film": {
+            "enabled": true,
+            "noiseIntensity": 0.35,
+            "scanlinesIntensity": 0.025,
+            "scanlinesCount": 648
+        },
+        "sharpen": {
+            "enabled": false,
+            "kernel": [
+                0,
+                -1,
+                0,
+                -1,
+                5,
+                -1,
+                0,
+                -1,
+                0
+            ]
+        },
+        "gammaCorrection": true,
+        "vignette": {
+            "enabled": false,
+            "offset": 0.1,
+            "darkness": 1
+        },
+        "colorBalance": {
+            "enabled": true,
+            "shadows": [
+                1,
+                1,
+                1
+            ],
+            "midtones": [
+                1,
+                1,
+                1
+            ],
+            "highlights": [
+                1,
+                1,
+                1
+            ]
+        },
+        "toneMapping": {
+            "enabled": true,
+            "type": "ACESFilmic",
+            "exposure": 1
+        },
+        "chromaticAberration": {
+            "enabled": false,
+            "offset": [
+                0.0015,
+                0.001
+            ]
+        }
+    },
+    "path": "/ins_web/ins_uploads/v/apple/data.json"
+}

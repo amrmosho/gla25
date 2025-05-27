@@ -1,0 +1,152 @@
+{
+    "obj": "samsung/models/aa.insya",
+    "textures": [
+        {
+            "th": "samsung/textures/t1/blue.png",
+            "diak_flip6_yellow": {
+                "color_map": "samsung/textures/t1/albedo.png",
+                "normal_map": "samsung/textures/t1/normal.png",
+                "metal_map": "samsung/textures/t1/metallic.png",
+                "roughness_map": "samsung/textures/t1/roughness.png",
+                "opacity_map": "samsung/textures/t1/opacity.png",
+                "emissive_map": "samsung/textures/t1/emissive.png",
+                "ao_map": "samsung/textures/t1/ao.png",
+                "emissive": 0.8
+            }
+        },
+        {
+            "th": "samsung/textures/t2/mint.png",
+            "diak_flip6_yellow": {
+                "color_map": "samsung/textures/t2/albedo.png",
+                "normal_map": "samsung/textures/t2/normal.png",
+                "metal_map": "samsung/textures/t2/metallic.png",
+                "roughness_map": "samsung/textures/t2/roughness.png",
+                "opacity_map": "samsung/textures/t2/opacity.png",
+                "emissive_map": "samsung/textures/t2/emissive.png",
+                "ao_map": "samsung/textures/t2/ao.png",
+                "emissive": 0.8
+            }
+        }
+    ],
+    "annotations": [
+        {
+            "label": "Head",
+            "position": [
+                0,
+                1.6,
+                0
+            ]
+        },
+        {
+            "label": "Foot",
+            "position": [
+                0,
+                0.1,
+                0
+            ]
+        }
+    ],
+    "wireframe": false,
+    "camera": {
+        "fov": 45,
+        "near": 0.1,
+        "far": 100,
+        "position": [
+            2,
+            2,
+            4
+        ],
+        "target": [
+            0,
+            1,
+            0
+        ]
+    },
+    "background_color": "0x292f34",
+    "lighting": {
+        "ambient": {
+            "color": "0xffffff",
+            "intensity": 0.01
+        },
+        "directional": {
+            "color": "0xffffff",
+            "intensity": 0.01,
+            "position": [
+                5,
+                10,
+                7.5
+            ]
+        },
+        "lightmap": {
+            "enabled": true,
+            "url": "hdr_a.exr",
+            "applyAs": "environment",
+            "intensity": 0.8,
+            "background": "env"
+        }
+    },
+    "filters": {
+        "bloom": {
+            "enabled": false,
+            "strength": 0.6,
+            "radius": 0.4,
+            "threshold": 0.85
+        },
+        "film": {
+            "enabled": false,
+            "noiseIntensity": 0.35,
+            "scanlinesIntensity": 0.025,
+            "scanlinesCount": 648
+        },
+        "sharpen": {
+            "enabled": false,
+            "kernel": [
+                0,
+                -1,
+                0,
+                -1,
+                5,
+                -1,
+                0,
+                -1,
+                0
+            ]
+        },
+        "gammaCorrection": true,
+        "vignette": {
+            "enabled": false,
+            "offset": 0.1,
+            "darkness": 1
+        },
+        "colorBalance": {
+            "enabled": true,
+            "shadows": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "midtones": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "highlights": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "toneMapping": {
+            "enabled": true,
+            "type": "ACESFilmic",
+            "exposure": 1
+        },
+        "chromaticAberration": {
+            "enabled": false,
+            "offset": [
+                0.0015,
+                0.001
+            ]
+        }
+    }
+}

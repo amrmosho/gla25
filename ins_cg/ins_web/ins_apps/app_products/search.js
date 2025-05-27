@@ -61,26 +61,56 @@ ins(".-go-to-page-btn")._on("click", o => {
 }, true)
 
 function search(page) {
+
+    var url = ""
+
+
+
     setTimeout(o => {
         ins(".-list-filter-ui")._data._submit((data) => {
 
 
-            
+
             var sdata = {}
             Object.keys(data).forEach((k, i) => {
                 if (data[k] != "0" &&
                     data[k] != "-") {
                     sdata[k] = data[k];
-                }
-            })
-            console.log(sdata)
 
+
+
+
+                }
+
+
+
+            })
             sdata["page"] = page;
+            if (sdata["page"] == "") {
+
+                sdata["page"] = "1"
+            }
+
+
+
+
+
+            var url = ins()._map._hurl(sdata, "animated", "pbr", "rigged", "print");
+             ins()._map._update_url(url);
+
+
+
+
             aj_search("_products_ui", sdata, data => {
                 ins(".-products-area")._setHTML(data)
             })
+
+
+
+
+
         })
-    }, 100)
+    }, 200)
 }
 
 
@@ -89,7 +119,7 @@ function search(page) {
 ins(".-order-select")._on("click", (o) => {
     var page = ins(".-page-input")._getValue();
 
-search(page)
+    search(page)
 
 })
 
@@ -132,3 +162,6 @@ ins(".-remove-item-side-cart-btn")._on("click", (o) => {
     })
 
 }, true)
+
+
+

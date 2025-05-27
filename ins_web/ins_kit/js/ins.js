@@ -2,13 +2,13 @@
 function InsMap(o) {
     this.o = o;
 }
-InsMap.prototype._setKey = (name = "", action = (k) => {}) => {
+InsMap.prototype._setKey = (name = "", action = (k) => { }) => {
     function doaction(ek, jk) {
         if (ek == jk) {
             action(jk);
         }
     }
-    ins()._insAjax(function(ajax) {
+    ins()._insAjax(function (ajax) {
         ajax._json("keys_map.json", (json) => {
             if (ins(json[name])._isExists) {
                 var jk = json[name];
@@ -23,8 +23,8 @@ InsMap.prototype._setKey = (name = "", action = (k) => {}) => {
         });
     })
 };
-InsMap.prototype._getKey = (name = "", onGet = (k) => {}) => {
-    ins()._insAjax(function(ajax) {
+InsMap.prototype._getKey = (name = "", onGet = (k) => { }) => {
+    ins()._insAjax(function (ajax) {
         ajax._json("keys_map.json", (json) => {
             if (ins(json[name])._isExists) {
                 onGet(json[name]);
@@ -34,7 +34,7 @@ InsMap.prototype._getKey = (name = "", onGet = (k) => {}) => {
         });
     })
 };
-InsMap.prototype._get_page_data = function(page = ".ins_main") {
+InsMap.prototype._get_page_data = function (page = ".ins_main") {
     try {
         if (ins(page)._isExists(true)) {
             return JSON.parse(ins(page)._getData("data"));
@@ -45,7 +45,7 @@ InsMap.prototype._get_page_data = function(page = ".ins_main") {
         return {};
     }
 };
-InsMap.prototype._lang = function() {
+InsMap.prototype._lang = function () {
     var g = this._get();
     if (g["lang"] == null) {
         g["lang"] = ins("body")._getData("lang");
@@ -55,14 +55,14 @@ InsMap.prototype._lang = function() {
 
 
 
-InsMap.prototype._surl = function(adds = {}, ...remove) {
+InsMap.prototype._surl = function (adds = {}, ...remove) {
     var url = "/";
     if (this.o == "undefined" || this.o == null) {
         this.o = ".ins-app"
     }
     var j = JSON.parse(ins(this.o)._getData("data"));
     var urldata = j["_g"];
-    Object.keys(adds).forEach(function(k) {
+    Object.keys(adds).forEach(function (k) {
         urldata[k] = adds[k];
     });
 
@@ -85,7 +85,7 @@ InsMap.prototype._surl = function(adds = {}, ...remove) {
         delete urldata.id;
     }
     url += "do/"
-    Object.keys(urldata).forEach(function(k) {
+    Object.keys(urldata).forEach(function (k) {
         if (!remove.includes(k)) {
             url += "/" + k + "/" + urldata[k];
         }
@@ -94,9 +94,13 @@ InsMap.prototype._surl = function(adds = {}, ...remove) {
     url = ins()._data._replaceAll("//", "/", url);
     return url;
 };
+InsMap.prototype._update_url = function (url ="" ,state ={} ,unused="" ) {
 
+ window.history.pushState(state, unused, url);
 
-InsMap.prototype._hurl = function(adds = {}, ...remove) {
+}
+
+InsMap.prototype._hurl = function (adds = {}, ...remove) {
     var url = "/";
 
     if (this.o == "undefined" || this.o == null) {
@@ -104,9 +108,21 @@ InsMap.prototype._hurl = function(adds = {}, ...remove) {
     }
 
     var j = JSON.parse(ins(this.o)._getData("data"));
-    var urldata = j["_g"];
 
-    Object.keys(adds).forEach(function(k) {
+
+
+    var urldata = this._get()
+
+
+
+    Object.keys(urldata).forEach(function (k) {
+        if (remove.includes(k)) {
+            delete urldata[k];
+
+        }
+
+    });
+    Object.keys(adds).forEach(function (k) {
         urldata[k] = adds[k];
     });
 
@@ -132,13 +148,12 @@ InsMap.prototype._hurl = function(adds = {}, ...remove) {
 
     url += "/do";
 
-    Object.keys(urldata).forEach(function(k) {
-        if (!remove.includes(k)) {
-            url += "/" + k + "/" + urldata[k];
-        }
+    Object.keys(urldata).forEach(function (k) {
+        // if (!remove.includes(k)) {
+        url += "/" + k + "/" + urldata[k];
+        //}
     });
-    console.log(j);
-    console.log(urldata);
+
 
     url = ins()._data._replaceAll("///", "/", url);
     url = ins()._data._replaceAll("//", "/", url);
@@ -146,14 +161,14 @@ InsMap.prototype._hurl = function(adds = {}, ...remove) {
 };
 
 
-InsMap.prototype._url = function(adds = {}, ...remove) {
+InsMap.prototype._url = function (adds = {}, ...remove) {
     var url = "/";
     if (this.o == "undefined" || this.o == null) {
         this.o = ".ins-app"
     }
     var j = JSON.parse(ins(this.o)._getData("data"));
     var urldata = j["_g"];
-    Object.keys(adds).forEach(function(k) {
+    Object.keys(adds).forEach(function (k) {
         urldata[k] = adds[k];
     });
 
@@ -176,7 +191,7 @@ InsMap.prototype._url = function(adds = {}, ...remove) {
         delete urldata.id;
     }
     url += "do/"
-    Object.keys(urldata).forEach(function(k) {
+    Object.keys(urldata).forEach(function (k) {
         if (!remove.includes(k)) {
             url += "/" + k + "/" + urldata[k];
         }
@@ -185,21 +200,61 @@ InsMap.prototype._url = function(adds = {}, ...remove) {
     url = ins()._data._replaceAll("//", "/", url);
     return url;
 };
-InsMap.prototype._get = function(page = ".ins-app") {
+InsMap.prototype._get = function (page = ".ins-app") {
     try {
-        if (ins(page)._isExists(true)) {
-            var j = JSON.parse(ins(page)._getData("data"));
-            return j["_g"];
+
+        console.log(window.location.href);
+
+        let url = new URL(window.location.href);
+        let h = url.pathname + url.search + url.hash;
+        var obj = {};
+
+        if (h.includes("do/")) {
+
+            var us = h.split("do/");
+            var l = us[1].split("/");
+            l = l.filter(value => value);
+            for (let i = 0; i < l.length; i += 2) {
+                let key = l[i];
+                let value = l[i + 1];
+                obj[key] = value;
+            }
+
+            l = us[0].split("/");
+            l = l.filter(value => value);
+
+
         } else {
-            return {};
+            var l = h.split("/");
+            l = l.filter(value => value);
+
         }
+
+
+
+        let o = ["alias", "mode", "id", "q1", "q2", "q3", "q4", "q5"]
+
+        var i = 0
+        o.forEach(element => {
+
+            if (l.length > i) {
+                obj[element] = l[i];
+                i++;
+            }
+        });
+
+        console.log(obj);
+
+        return obj;
+
+
     } catch (error) {
         return {};
     }
 };
 
 
-InsMap.prototype._data = function(page = ".ins-app") {
+InsMap.prototype._data = function (page = ".ins-app") {
     try {
         if (ins(page)._isExists(true)) {
             var j = JSON.parse(ins(page)._getData("data"));
@@ -215,14 +270,14 @@ InsMap.prototype._data = function(page = ".ins-app") {
  * type name like compnont name } defult 'gen'
  * @param {setfor {org/me} defult 'me' ,callback ondone } options 
  */
-InsMap.prototype._removeUserSettings = function(options) {
+InsMap.prototype._removeUserSettings = function (options) {
     var s = options.setfor == null ? "me" : options.setfor;
     var data = {
         type: this.o,
         status: "remove_settings",
         setfor: s
     };
-    ins()._ajax._to("eng/users", data, function(data) {
+    ins()._ajax._to("eng/users", data, function (data) {
         if (options.ondone != null) {
             options.ondone();
         }
@@ -246,30 +301,30 @@ function updateui(m, t) {
             var op = m._getData();
             op.o = m;
 
-            ins(m._getData("plgin"))._plgin(op, function(cls) {});
+            ins(m._getData("plgin"))._plgin(op, function (cls) { });
             break;
         case "plgin_change":
             var op = m._getData();
             op.o = m;
-            ins(m._getData("plgin"))._plgin_change(op, function(cls) {});
+            ins(m._getData("plgin"))._plgin_change(op, function (cls) { });
             break;
         case "chart":
             var options = m._getData();
             options.o = "#" + m._getAttribute("id");
-            ins("ins_plg_charts")._plgin(options, function(cls) {});
+            ins("ins_plg_charts")._plgin(options, function (cls) { });
             break;
         case "ins_print":
         case "print":
             m._on(
                 "click",
-                function(o, e) {
+                function (o, e) {
                     ins()._print(o);
                 },
                 true
             );
             break;
         case "clear_connect":
-            m._event("input", function(e) {
+            m._event("input", function (e) {
                 var a = e._getValue();
                 a = a.replace(/\s+|-|\'|\"|\/|\&/g, "_");
                 a = a.replace(/\_+/g, "-");
@@ -277,10 +332,10 @@ function updateui(m, t) {
             });
             break;
         case "ins_autocomplete":
-            ins("ins_plg_listauto")._plgin({ o: m }, function() {});
+            ins("ins_plg_listauto")._plgin({ o: m }, function () { });
             break;
         case "ins_json_editor":
-            ins("ins_json_editor")._plgin({ o: m }, function() {});
+            ins("ins_json_editor")._plgin({ o: m }, function () { });
             break;
         case "ins_to_buttons_list":
             var options = {};
@@ -293,7 +348,7 @@ function updateui(m, t) {
             ins("ins_plg_json_area")._plgin({ o: m });
             break;
         case "clone":
-            m._on("click", function(e) {
+            m._on("click", function (e) {
                 ins(e._getData("cloneto"))._append(
                     ins(e._getData("clone"))._getMyHtml()
                 );
@@ -301,27 +356,27 @@ function updateui(m, t) {
             });
             break;
         case "fill_select":
-            m._event("click", function(e) {
+            m._event("click", function (e) {
                 var option = m._getData();
                 if (!ins(e._getData("onfill"))._isEmpty())
-                    option.onfill = function() {
+                    option.onfill = function () {
                         window[e._getData("onfill")](e, ins(e._getData("to")));
                     };
                 ins()._ui._fill_select(option);
             });
             break;
         case "ui_create_pdf":
-            m._event("click", function(o) {
+            m._event("click", function (o) {
                 ins()._ui._ui_create_pdf(o);
             });
             break;
         case "ui_create_image":
-            m._event("click", function(o) {
+            m._event("click", function (o) {
                 ins()._ui._ui_create_image(o);
             });
             break;
         case "doprint":
-            m._event("click", function(o, e) {
+            m._event("click", function (o, e) {
                 window.print();
             });
             break;
@@ -338,16 +393,16 @@ function updateui(m, t) {
                     printWindow.document.write(image);
                     printWindow.document.write("' /></body></html>");
                     printWindow.focus();
-                    setTimeout(function() {
+                    setTimeout(function () {
                         printWindow.print();
                         printWindow.close();
                     }, 500);
                 }
             }
-            m._on("click", function(o, e) {
+            m._on("click", function (o, e) {
                 ins()._ui._create_image({
                     area: o._getData("area"),
-                    callback: function(data) {
+                    callback: function (data) {
                         var data = JSON.parse(data);
                         printImage(data["url"]);
                     },
@@ -356,7 +411,7 @@ function updateui(m, t) {
             break;
         case "ins_tooltip":
             var tootip = null;
-            m._event("mouseover", function(o, e) {
+            m._event("mouseover", function (o, e) {
                 var data = [];
                 if (!ins(o._getData("text"))._isEmpty()) {
                     data.push({
@@ -400,12 +455,12 @@ function updateui(m, t) {
                 });
                 ins("body")._append(tootip);
             });
-            m._event("mouseout", function(o, e) {
+            m._event("mouseout", function (o, e) {
                 if (ins(tootip)._isExists()) {
                     ins(tootip)._remove();
                 }
             });
-            m._event("mousemove", function(o, e) {
+            m._event("mousemove", function (o, e) {
                 ins(tootip)._setCSS({
                     top: e.clientY - (tootip.offsetHeight + 20) + "px",
                     left: e.clientX - (tootip.offsetWidth / 2 + 20) + "px",
@@ -422,7 +477,7 @@ function updateui(m, t) {
                     value: e._getValue(),
                 };
                 ins()._ui._page_progress_run();
-                ins()._ajax._send("/ins_ajax.php", op, null, function() {
+                ins()._ajax._send("/ins_ajax.php", op, null, function () {
                     ins()._ui._page_progress_hide();
                     ins()._ui._send_tiny_message();
                 });
@@ -436,7 +491,7 @@ function updateui(m, t) {
             }
             break;
         case "select_append":
-            m._event("click", function(e) {
+            m._event("click", function (e) {
                 var option = e._getData();
                 option.url =
                     "/ins_admin/" +
@@ -451,11 +506,11 @@ function updateui(m, t) {
                 if (!ins(e._getData("onclose"))._isEmpty())
                     option.url += "onclose/" + e._getData("onclose") + "/";
                 if (!ins(e._getData("onopen"))._isEmpty()) {
-                    option.onopen = function() {
+                    option.onopen = function () {
                         window[e._getData("onopen")](e);
                     };
                 }
-                option.onclose = function() {
+                option.onclose = function () {
                     if (!ins(e._getData("onclose"))._isEmpty()) {
                         window[e._getData("onclose")](e);
                     }
@@ -466,13 +521,13 @@ function updateui(m, t) {
         case "ajax_upload_delete":
             m._event(
                 "click",
-                function(ie) {
+                function (ie) {
                     var options = { status: "delete", file: m._getData("file") };
                     ins(ie)._ajax._send(
                         "/ins_ajax.php?get_file=/eng/upload_1",
                         options,
                         "POST",
-                        function(d) {
+                        function (d) {
                             var p = m._parent();
                             //  var f = p._find("._file");
                             var pb = p._find(".progress_bar");
@@ -495,10 +550,10 @@ function updateui(m, t) {
             );
             break;
         case "ins_datepicker":
-            ins("ins_plg_datePicker")._plgin({ o: m }, function() {});
+            ins("ins_plg_datePicker")._plgin({ o: m }, function () { });
             break;
         case "lightbox_remove":
-            m._event("click", function(e) {
+            m._event("click", function (e) {
                 ins()._ui._removeLightbox();
             });
             break;
@@ -515,7 +570,7 @@ function updateui(m, t) {
                     var ps = ops.split(",");
                 }
                 if (ps.length > 1) {
-                    ps.forEach(function(o, i) {
+                    ps.forEach(function (o, i) {
                         if (o == "this") {
                             ps[i] = m;
                         }
@@ -539,7 +594,7 @@ function updateui(m, t) {
             break;
     }
 }
-UI.prototype._ins_print = function(options) {
+UI.prototype._ins_print = function (options) {
     if (ins(this.o)._isExists()) {
         options.id = this.o;
     }
@@ -560,16 +615,16 @@ UI.prototype._ins_print = function(options) {
     }
     ins()._ui._ins_lightbox(option);
 };
-UI.prototype._update = function() {
+UI.prototype._update = function () {
     var ui = this;
-    ins(".ins_tiny_editor .ins_tiny_editor_body")._each(function(e) {
+    ins(".ins_tiny_editor .ins_tiny_editor_body")._each(function (e) {
         var t = e._parent()._find(".ins_tiny_editor_textarea");
         e._setHTML(t._getValue());
         ins("ins_plg_code_editor")._plgin({ "name": "_111" });
     });
     ins(".jsaction,.ins_jsaction,.insaction")
         ._get()
-        .forEach(function(e) {
+        .forEach(function (e) {
 
 
             if (!updated.includes(e)) {
@@ -584,9 +639,9 @@ UI.prototype._update = function() {
                 var events = ["click", "change", "mouseover", "mouseout", "keydown", "focus", "submit", "mousedown", "mouseup", "mousemove", "dblclick"];
 
 
-                events.forEach(function(e) {
+                events.forEach(function (e) {
                     if (ins(m._getData("ins" + e))._isExists()) {
-                        m._on(e, function(o) {
+                        m._on(e, function (o) {
                             ui._updateObject(o, "ins" + e);
                         })
                     }
@@ -594,22 +649,22 @@ UI.prototype._update = function() {
             }
         });
 };
-UI.prototype._updateObject = function(obj, act = "insclick") {
+UI.prototype._updateObject = function (obj, act = "insclick") {
 
 
 
     var ex = obj._getData(act).split(",");
-    ex.forEach(function(e) {
+    ex.forEach(function (e) {
 
 
         updateui(obj, e);
     });
 };
-UI.prototype._order = function(options) {
+UI.prototype._order = function (options) {
     var t = ins(this.o)._get(0);
     for (var i = 0; i < t.childNodes.length; i++) {
         ins(t.childNodes[i])._darg({
-            ondragstart: function(o, ev) {
+            ondragstart: function (o, ev) {
                 var id = "drag-" + new Date().getTime();
                 o._setAttribute("id", id);
                 ev.dataTransfer.setData("text", id);
@@ -617,7 +672,7 @@ UI.prototype._order = function(options) {
             hander: options.hander,
         });
         ins(t.childNodes[i])._drop({
-            ondrop: function(drop_object, ev) {
+            ondrop: function (drop_object, ev) {
                 var drag_object = ins("#" + ev.dataTransfer.getData("text"))._get(0);
                 ins(drop_object)._append_befor(drag_object);
                 if (ins(options.ondone)._isExists()) {
@@ -628,7 +683,7 @@ UI.prototype._order = function(options) {
     }
 };
 //<editor-fold defaultstate="collapsed" desc="create">
-UI.prototype._get = function(tags, parent, parent_attrs) {
+UI.prototype._get = function (tags, parent, parent_attrs) {
     var r = [];
     for (var k in tags) {
         var t = tags[k];
@@ -643,21 +698,21 @@ UI.prototype._get = function(tags, parent, parent_attrs) {
     }
     return this._create(parent, null, parent_attrs, r);
 };
-UI.prototype._render = function(callback) {
+UI.prototype._render = function (callback) {
     var options = {};
     options["data"] = JSON.stringify(this.o);
     options["get_file"] = "inputs/ui";
     options["lang"] = ins()._map._lang();
     ins()._ajax._send("/ins_ajax.php", options, "POST", callback);
 }
-UI.prototype._create = function(tag, text, attrs, child) {
+UI.prototype._create = function (tag, text, attrs, child) {
     var o = document.createElement(tag);
     for (var k in attrs) {
         o.setAttribute(k, attrs[k]);
     }
     if (!ins(child)._isEmpty()) {
         if (Array.isArray(child)) {
-            child.forEach(function(c) {
+            child.forEach(function (c) {
                 if (c != null) {
                     o.appendChild(c);
                 }
@@ -671,7 +726,7 @@ UI.prototype._create = function(tag, text, attrs, child) {
     }
     if (!ins(text)._isEmpty()) {
         if (Array.isArray(text)) {
-            text.forEach(function(c) {
+            text.forEach(function (c) {
                 if (c != null) {
                     o.appendChild(c);
                 }
@@ -687,14 +742,14 @@ UI.prototype._create = function(tag, text, attrs, child) {
     }
     return o;
 };
-UI.prototype._createNS = function(name, child = "", attrs) {
+UI.prototype._createNS = function (name, child = "", attrs) {
     var o = document.createElementNS("http://www.w3.org/2000/svg", name);
     for (var k in attrs) {
         o.setAttribute(k, attrs[k]);
     }
     if (!ins(child)._isEmpty()) {
         if (Array.isArray(child)) {
-            child.forEach(function(c) {
+            child.forEach(function (c) {
                 if (c != null) {
                     o.appendChild(c);
                 }
@@ -718,14 +773,14 @@ UI.prototype._createNS = function(name, child = "", attrs) {
  *
  * 
  */
-UI.prototype._create = function(tag, text, attrs, child) {
+UI.prototype._create = function (tag, text, attrs, child) {
     var o = document.createElement(tag);
     for (var k in attrs) {
         o.setAttribute(k, attrs[k]);
     }
     if (!ins(child)._isEmpty()) {
         if (Array.isArray(child)) {
-            child.forEach(function(c) {
+            child.forEach(function (c) {
                 if (c != null) {
                     o.appendChild(c);
                 }
@@ -739,7 +794,7 @@ UI.prototype._create = function(tag, text, attrs, child) {
     }
     if (!ins(text)._isEmpty()) {
         if (Array.isArray(text)) {
-            text.forEach(function(c) {
+            text.forEach(function (c) {
                 if (c != null) {
                     o.appendChild(c);
                 }
@@ -781,10 +836,10 @@ UI.prototype._create = function(tag, text, attrs, child) {
  * @param {type} options {to, select_text, select_value, select_type, select_table}
  * @returns {Ajax.prototype._send.xhttp|XMLHttpRequest}
  */
-UI.prototype._fill_select = function(options) {
+UI.prototype._fill_select = function (options) {
     options.root = "true";
     options.get_file = "/ins_ajax/pages/get_combo_options";
-    return ins()._ajax._send("/ins_ajax.php", options, "POST", function(d) {
+    return ins()._ajax._send("/ins_ajax.php", options, "POST", function (d) {
         ins(options.to)._setHTML(d);
         if (ins(options.onfill)._isExists()) {
             options.onfill();
@@ -796,15 +851,15 @@ UI.prototype._fill_select = function(options) {
  * @param {Json} options {title:$title,url:$url ,style:$style ,class:$class,data:$data,onclose:function(){},onopen:function(){}}
  * @returns {undefined}
  */
-UI.prototype._ins_lightbox = function(options, onreday) {
+UI.prototype._ins_lightbox = function (options, onreday) {
     options.checkIgnore = true;
     return ins("ins_plg_lightbox")._plgin(options, onreday);
 };
-UI.prototype._addLightbox = function(options, onreday) {
+UI.prototype._addLightbox = function (options, onreday) {
     options.checkIgnore = true;
     return ins("ins_plg_lightbox")._plgin(options, onreday);
 };
-UI.prototype._removeLightbox = function() {
+UI.prototype._removeLightbox = function () {
     var addclass = "";
     if (ins(this.o)._isExists()) {
         addclass = this.o;
@@ -812,7 +867,7 @@ UI.prototype._removeLightbox = function() {
     ins(".ins_lightbox" + addclass + ",.ins-lightbox" + addclass)._remove();
 };
 
-UI.prototype._removeLightPanel = function() {
+UI.prototype._removeLightPanel = function () {
     var addclass = "";
     if (ins(this.o)._isExists()) {
         addclass = this.o;
@@ -826,10 +881,10 @@ UI.prototype._removeLightPanel = function() {
  * @param {type} options [area ,callback]
  * @returns {undefined}
  */
-UI.prototype._create_image = function(options) {
-    ins("/ins_lib/js/lib/html2canvas.min.js")._onload(function() {
+UI.prototype._create_image = function (options) {
+    ins("/ins_lib/js/lib/html2canvas.min.js")._onload(function () {
         window.scrollTo(0, 0);
-        html2canvas(document.querySelector(options.area)).then(function(canvas) {
+        html2canvas(document.querySelector(options.area)).then(function (canvas) {
             var base64URL = canvas
                 .toDataURL("image/jpeg")
                 .replace("image/jpeg", "image/octet-stream");
@@ -840,14 +895,14 @@ UI.prototype._create_image = function(options) {
                 url: "/ins_ajax.php",
                 options: options,
                 onprogress: options.onprogress,
-                callback: function(d) {
+                callback: function (d) {
                     options.callback(d);
                 },
             });
         });
     });
 };
-UI.prototype._ui_create_image = function(t) {
+UI.prototype._ui_create_image = function (t) {
     var o = ins(t);
     var area = "";
     if (ins(this.o)._isExists()) {
@@ -858,7 +913,7 @@ UI.prototype._ui_create_image = function(t) {
     if (!ins(area)._isEmpty()) {
         ins()._ui._create_image({
             area: area,
-            onprogress: function(p) {
+            onprogress: function (p) {
                 if (ins(o._getData("onprogress"))._isExists()) {
                     ins(o._getData("onprogress"))._setCSS({ width: p + "%" });
                     if (p == 100) {
@@ -866,7 +921,7 @@ UI.prototype._ui_create_image = function(t) {
                     }
                 }
             },
-            callback: function(jdata) {
+            callback: function (jdata) {
                 var data = JSON.parse(jdata.trim());
                 if (ins(o._getData("callback"))._isExists()) {
                     window[o._getData("callback")](data, o);
@@ -882,7 +937,7 @@ UI.prototype._ui_create_image = function(t) {
  * @param {type} options [area ,callback]
  * @returns {undefined}
  */
-UI.prototype._ui_create_pdf = function(t) {
+UI.prototype._ui_create_pdf = function (t) {
     var o = ins(t);
     var options = o._getData();
     if (ins(this.o)._isExists()) {
@@ -890,7 +945,7 @@ UI.prototype._ui_create_pdf = function(t) {
     } else if (ins(o._getData("area"))._isExists()) {
         options.area = o._getData("area");
     }
-    options.onprogress = function(p) {
+    options.onprogress = function (p) {
         if (ins(o._getData("onprogress"))._isExists()) {
             ins(o._getData("onprogress"))._setCSS({ width: p + "%" });
             if (p == 100) {
@@ -898,7 +953,7 @@ UI.prototype._ui_create_pdf = function(t) {
             }
         }
     };
-    options.callback = function(jdata) {
+    options.callback = function (jdata) {
         var data = JSON.parse(jdata.trim());
         if (ins(o._getData("callback"))._isExists()) {
             window[o._getData("callback")](data, o);
@@ -913,17 +968,17 @@ UI.prototype._ui_create_pdf = function(t) {
  * @param {type} options [area ,callback]
  * @returns {undefined}
  */
-UI.prototype._create_pdf = function(options) {
-    ins("/ins_lib/js/lib/html2canvas.min.js")._onload(function() {
+UI.prototype._create_pdf = function (options) {
+    ins("/ins_lib/js/lib/html2canvas.min.js")._onload(function () {
         var element = document.querySelector(options.area);
         window.scrollTo(0, 0);
         html2canvas(
             element, {
-                width: element.scrollWidth,
-                height: element.scrollHeight,
-            }
-        ).then(function(canvas) {
-            ins("/ins_lib/js/lib/jspdf.min.js")._onload(function() {
+            width: element.scrollWidth,
+            height: element.scrollHeight,
+        }
+        ).then(function (canvas) {
+            ins("/ins_lib/js/lib/jspdf.min.js")._onload(function () {
                 var imgData = canvas.toDataURL("image/jpeg", 1.0);
                 var pdf = new jsPDF("1", "pt", "a4");
                 pdf.addImage(imgData, "JPEG", 0, 0, 595.28, 841.89);
@@ -938,7 +993,7 @@ UI.prototype._create_pdf = function(options) {
                     url: "/ins_ajax.php",
                     options: options,
                     onprogress: options.onprogress,
-                    callback: function(d) {
+                    callback: function (d) {
                         options.callback(d);
                     },
                 });
@@ -947,13 +1002,13 @@ UI.prototype._create_pdf = function(options) {
     });
 };
 //</editor-fold>
-UI.prototype._print = function(t) {
+UI.prototype._print = function (t) {
     if (!ins(this.o)._isEmpty()) {
         var area = this.o;
         ins()._ajax._send(
             "/ins_ajax.php", { get_file: "pages/print_area_data" },
             null,
-            function(data) {
+            function (data) {
                 var prtContent = document.getElementById(area);
                 data += prtContent.innerHTML;
                 var WinPrint = window.open(
@@ -972,18 +1027,18 @@ UI.prototype._print = function(t) {
         window.print();
     }
 };
-UI.prototype._addButtonLoader = function() {
+UI.prototype._addButtonLoader = function () {
     var inp = ins(this.o);
     inp._setData('loaderTitle', inp._getHtml());
     inp._setHTML('<i class="lni lni-spinner-solid ins-spin"></i>');
     inp._get(0).disabled = true;
 }
-UI.prototype._removeButtonLoader = function() {
+UI.prototype._removeButtonLoader = function () {
     var inp = ins(this.o);
     inp._setHTML(inp._getData('loaderTitle'));
     inp._get(0).disabled = false;
 }
-UI.prototype._addLoader = function(type) {
+UI.prototype._addLoader = function (type) {
     var mclass = "";
     if (ins(this.o)._isEmpty()) {
         this.o = "body";
@@ -999,17 +1054,17 @@ UI.prototype._addLoader = function(type) {
     );
     return ins(this.o)._append(node);
 }
-UI.prototype._removeLoader = function() {
-        if (ins(this.o)._isEmpty()) this.o = "body";
-        ins(this.o + " .ins-loader")._remove();
-    }
-    /**
-     *
-     * @param {type} msg
-     * @param {type} type ["success","info","warning","error"] def:info
-     * @returns message node
-     */
-UI.prototype._send_tiny_message = function(
+UI.prototype._removeLoader = function () {
+    if (ins(this.o)._isEmpty()) this.o = "body";
+    ins(this.o + " .ins-loader")._remove();
+}
+/**
+ *
+ * @param {type} msg
+ * @param {type} type ["success","info","warning","error"] def:info
+ * @returns message node
+ */
+UI.prototype._send_tiny_message = function (
     msg,
     msgclass = "ins-info "
 ) {
@@ -1018,53 +1073,53 @@ UI.prototype._send_tiny_message = function(
         class: msgclass
     });
 };
-UI.prototype._message = function(options = {}) {
+UI.prototype._message = function (options = {}) {
     options.o = this.o;
-    ins("ins_plg_messages")._getPlgin(options, function(cls) {
+    ins("ins_plg_messages")._getPlgin(options, function (cls) {
         cls._out();
     });
 };
-UI.prototype._notification = function(
+UI.prototype._notification = function (
     options = {}
 ) {
     options.o = this.o;
     options.mode = "notification";
-    ins("ins_plg_messages")._getPlgin(options, function(cls) {
+    ins("ins_plg_messages")._getPlgin(options, function (cls) {
         cls._out();
     });
 };
-UI.prototype._note = function(
+UI.prototype._note = function (
     options = {}
 ) {
     options.o = this.o;
     options.mode = "note";
-    ins("ins_plg_messages")._getPlgin(options, function(cls) {
+    ins("ins_plg_messages")._getPlgin(options, function (cls) {
         cls._out();
     });
 };
-UI.prototype._confirm = function(
+UI.prototype._confirm = function (
     options = {}
 ) {
     options.o = this.o;
     options.mode = "confirm";
-    ins("ins_plg_messages")._getPlgin(options, function(cls) {
+    ins("ins_plg_messages")._getPlgin(options, function (cls) {
         cls._out();
     });
 };
-UI.prototype._alert = function(
+UI.prototype._alert = function (
     options = {}
 ) {
     options.o = this.o;
     options.mode = "alert";
-    ins("ins_plg_messages")._getPlgin(options, function(cls) {
+    ins("ins_plg_messages")._getPlgin(options, function (cls) {
         cls._out();
     });
 };
-UI.prototype._page_progress_show = function() {
+UI.prototype._page_progress_show = function () {
     ins(".ins-page-progress")._addClass("ins-active");
     ins(".ins-page-progress  .ins-progress-bar ")._setCSS({ width: "0" });
 };
-UI.prototype._page_progress_hide = function() {
+UI.prototype._page_progress_hide = function () {
     if (loader_interval != null) {
         clearInterval(loader_interval);
         loader_interval = null;
@@ -1072,16 +1127,16 @@ UI.prototype._page_progress_hide = function() {
     ins(".ins-page-progress")._removeClass("ins-active");
     ins(".ins-page-progress  .ins-progress-bar ")._setCSS({ width: "0" });
 };
-UI.prototype._page_progress = function(v) {
+UI.prototype._page_progress = function (v) {
     ins(".ins-page-progress")._addClass("ins-active");
     ins(".ins-page-progress  .ins-progress-bar ")._setCSS({ width: v });
 };
 var loader_interval;
-UI.prototype._page_progress_run = function(v) {
+UI.prototype._page_progress_run = function (v) {
     ins(".ins-page-progress")._addClass("ins-active");
     ins(".ins-page-progress  .ins-progress-bar ")._setCSS({ width: "0" });
     var i = 0;
-    loader_interval = setInterval(function() {
+    loader_interval = setInterval(function () {
         i++;
         if (i == 100) {
             i = 0;
@@ -1096,7 +1151,7 @@ UI.prototype._page_progress_run = function(v) {
 function Data(o) {
     this.o = o;
 }
-Data.prototype._get = function(w = "") {
+Data.prototype._get = function (w = "") {
     var en = {
         operation_done_msg: "operation done successfully ",
         operation_error_msg: "operation Error ",
@@ -1151,7 +1206,7 @@ Data.prototype._get = function(w = "") {
     }
     return r;
 };
-Data.prototype._interval = function(code, time) {
+Data.prototype._interval = function (code, time) {
     setInterval(code, time);
 };
 var tmr = null;
@@ -1160,10 +1215,10 @@ var itmr = 0;
  * 
  * @param {time,offest,frame,end} ops 
  */
-Data.prototype._timer = function(ops) {
+Data.prototype._timer = function (ops) {
     donwTime = ops["time"];
     offest = ops["offest"];
-    tmr = setInterval(function() {
+    tmr = setInterval(function () {
         if (donwTime > 0) {
             donwTime -= offest;
             itmr++;
@@ -1181,10 +1236,10 @@ Data.prototype._timer = function(ops) {
         }
     }, offest * 1000);
 };
-Data.prototype._settimer = function(time, code) {
+Data.prototype._settimer = function (time, code) {
     setInterval(code, time);
 };
-Data.prototype._json_join = function(object1, object2) {
+Data.prototype._json_join = function (object1, object2) {
     return Object.assign(object1, object2);
 };
 /*
@@ -1205,7 +1260,7 @@ Data.prototype._timer = function(options) {
         }, options.time);
     }
 };*/
-Data.prototype._date_gettoday = function(time, code) {
+Data.prototype._date_gettoday = function (time, code) {
     var today = new Date();
     var dd = today.getDate();
     var mm = today.getMonth() + 1; //January is 0!
@@ -1218,7 +1273,7 @@ Data.prototype._date_gettoday = function(time, code) {
     }
     return yyyy + "-" + mm + "-" + dd;
 };
-Data.prototype._date_offset = function(date, offset, operation = "plus") {
+Data.prototype._date_offset = function (date, offset, operation = "plus") {
     var d = new Date(date);
     if (operation == "minus") {
         d.setDate(d.getDate() - offset);
@@ -1231,7 +1286,7 @@ Data.prototype._date_offset = function(date, offset, operation = "plus") {
     d = curr_year + "-" + curr_month + "-" + curr_date;
     return d;
 };
-Data.prototype._generatePassword = function(length = 8) {
+Data.prototype._generatePassword = function (length = 8) {
     var charset =
         "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
         retVal = "";
@@ -1240,7 +1295,7 @@ Data.prototype._generatePassword = function(length = 8) {
     }
     return retVal;
 };
-Data.prototype._page_data = function(page = ".ins_main") {
+Data.prototype._page_data = function (page = ".ins_main") {
     try {
         if (ins(page)._isExists(true)) {
             return JSON.parse(ins(page)._getData("data"));
@@ -1251,7 +1306,7 @@ Data.prototype._page_data = function(page = ".ins_main") {
         return {};
     }
 };
-Data.prototype._get_page_data = function(page = ".ins_main") {
+Data.prototype._get_page_data = function (page = ".ins_main") {
     try {
         if (ins(page)._isExists(true)) {
             return JSON.parse(ins(page)._getData("data"));
@@ -1264,14 +1319,14 @@ Data.prototype._get_page_data = function(page = ".ins_main") {
 };
 
 
-Data.prototype._setSession = function(data, done) {
+Data.prototype._setSession = function (data, done) {
     ins("server/setSession")._plg(data, (a) => {
         done(a)
     });
 };
 
 
-Data.prototype._getSession = function(name, done) {
+Data.prototype._getSession = function (name, done) {
     ins("server/getSession")._plg({ "name": name }, (a) => {
         done(a)
     });
@@ -1279,7 +1334,7 @@ Data.prototype._getSession = function(name, done) {
 
 
 
-Data.prototype._removeSession = function(name, done) {
+Data.prototype._removeSession = function (name, done) {
     ins("server/removeSession")._plg({ "name": name }, (a) => {
         done(a)
     });
@@ -1288,12 +1343,12 @@ Data.prototype._removeSession = function(name, done) {
 
 
 
-Data.prototype._get_unique_id = function(name, done) {
+Data.prototype._get_unique_id = function (name, done) {
     return "_" + Math.random().toString(36).substr(2, 9);
 };
-Data.prototype._addtourl = function(url, ...adds) {
+Data.prototype._addtourl = function (url, ...adds) {
     var d = "";
-    adds.forEach(function(a) {
+    adds.forEach(function (a) {
         d += "/" + a;
     });
 
@@ -1307,10 +1362,10 @@ Data.prototype._addtourl = function(url, ...adds) {
     url = this._replaceAll("//", "/", url);
     return url;
 };
-Data.prototype._addtomyurl = function(...adds) {
+Data.prototype._addtomyurl = function (...adds) {
     var d = "";
     var url = ins(this.o)._getData("url");
-    adds.forEach(function(a) {
+    adds.forEach(function (a) {
         d += "/" + a;
     });
     if (url.indexOf("do") != -1) {
@@ -1323,31 +1378,31 @@ Data.prototype._addtomyurl = function(...adds) {
     url = this._replaceAll("//", "/", url);
     return url;
 };
-Data.prototype._getmainurl = function(page = ".ins_main") {
+Data.prototype._getmainurl = function (page = ".ins_main") {
     return this._get_page_data(page).url;
 };
-Data.prototype._replaceAll = function(search, replacement, String = null) {
+Data.prototype._replaceAll = function (search, replacement, String = null) {
     if (String === null) {
         String = this.o;
     }
     return String.replace(new RegExp(search, "g"), replacement);
 };
-Data.prototype._exists = function() {
+Data.prototype._exists = function () {
     return !(typeof this.o === "undefined" || this.o === null);
 };
-Data.prototype._update_variables = function(search, String = null) {
+Data.prototype._update_variables = function (search, String = null) {
     var t = this;
     if (String === null) {
         String = this.o;
     }
     if (!ins(search)._isEmpty()) {
-        Object.keys(search).forEach(function(i) {
+        Object.keys(search).forEach(function (i) {
             String = t._replaceAll("@{" + i + "}", search[i], String);
         });
     }
     return String;
 };
-Data.prototype._isExists = function(i = false) {
+Data.prototype._isExists = function (i = false) {
     if (i === true) {
         return !(
             typeof ins(this.o)._get(0) === "undefined" || ins(this.o)._get(0) === null
@@ -1356,30 +1411,30 @@ Data.prototype._isExists = function(i = false) {
         return !(typeof this.o === "undefined" || this.o === null);
     }
 };
-Data.prototype._validateEmail = function(email) {
+Data.prototype._validateEmail = function (email) {
     var re =
         /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
 };
-Data.prototype._clear_inputs = function() {
-    ins(this.o)._insData(function(data) {
+Data.prototype._clear_inputs = function () {
+    ins(this.o)._insData(function (data) {
         return data._formClear(done);
     });
 };
-Data.prototype._update_inputs = function(j) {
-    ins(this.o)._insData(function(data) {
+Data.prototype._update_inputs = function (j) {
+    ins(this.o)._insData(function (data) {
         return data._formUpdate(j);
     });
 };
-Data.prototype._fromSubmit = function(done) {
-    ins(this.o)._insData(function(data) {
+Data.prototype._fromSubmit = function (done) {
+    ins(this.o)._insData(function (data) {
         return data._fromSubmit(done);
     });
 };
-Data.prototype._trans = function(done) {
+Data.prototype._trans = function (done) {
 
     var w = this.o
-    ins(w)._insData(function(data) {
+    ins(w)._insData(function (data) {
 
         data._trans(w, (d) => {
             if (done != null) {
@@ -1391,33 +1446,33 @@ Data.prototype._trans = function(done) {
 
     });
 };
-Data.prototype._submit = function(done, onerror) {
-        var data = ins(this.o)._data._get_inputs();
-        if (!data.error) {
-            delete data.error;
-            delete data.error_inputs;
-            done(data);
-        } else {
-            data.error_inputs.forEach(function(a) {
-                ins(a)._parents(".ins-form-item")._addClass("ins-from-input-error");
-                a.focus();
-            });
-            if (onerror != null) {
-                onerror(data);
-            }
+Data.prototype._submit = function (done, onerror) {
+    var data = ins(this.o)._data._get_inputs();
+    if (!data.error) {
+        delete data.error;
+        delete data.error_inputs;
+        done(data);
+    } else {
+        data.error_inputs.forEach(function (a) {
+            ins(a)._parents(".ins-form-item")._addClass("ins-from-input-error");
+            a.focus();
+        });
+        if (onerror != null) {
+            onerror(data);
         }
     }
-    //** ols version */
-Data.prototype._get_inputs = function(done) {
+}
+//** ols version */
+Data.prototype._get_inputs = function (done) {
     var o = this;
     let options = {};
     options.error = false;
     options.error_inputs = [];
     if (ins(ins(this.o)
-            ._find("input,select,textarea"))._isExists()) {
+        ._find("input,select,textarea"))._isExists()) {
         ins(this.o)
             ._find("input,select,textarea")
-            ._each(function(item, indx) {
+            ._each(function (item, indx) {
                 let v = item._getValue();
                 if (!ins(v)._isEmpty()) {
                     if (
@@ -1470,13 +1525,13 @@ Data.prototype._get_inputs = function(done) {
     }
     return options;
 };
-Data.prototype._app_settings_get = function(name = "") {
-    ins(this.o)._insData(function(data) {
+Data.prototype._app_settings_get = function (name = "") {
+    ins(this.o)._insData(function (data) {
         data._app_settings_get(name);
     });
 };
-Data.prototype._app_settings_set = function(name, value, ondone) {
-    ins(this.o)._insData(function(data) {
+Data.prototype._app_settings_set = function (name, value, ondone) {
+    ins(this.o)._insData(function (data) {
         data._app_settings_set(name, value, ondone);
     });
 };
@@ -1485,23 +1540,23 @@ Data.prototype._app_settings_set = function(name, value, ondone) {
 function Animation(o) {
     this.o = o;
 }
-Animation.prototype._toggle_css = function(from, to, speed, actclass) {
-    ins(this.o)._insAnimation(function(animation) {
+Animation.prototype._toggle_css = function (from, to, speed, actclass) {
+    ins(this.o)._insAnimation(function (animation) {
         animation._toggle_css(from, to, speed, actclass);
     })
 };
-Animation.prototype._fadeout = function(callback, speed) {
-    ins(this.o)._insAnimation(function(animation) {
+Animation.prototype._fadeout = function (callback, speed) {
+    ins(this.o)._insAnimation(function (animation) {
         animation._fadeout(from, to, speed, actclass);
     })
 };
-Animation.prototype._fadein = function(callback, speed) {
-    ins(this.o)._insAnimation(function(animation) {
+Animation.prototype._fadein = function (callback, speed) {
+    ins(this.o)._insAnimation(function (animation) {
         animation._fadein(from, to, speed, actclass);
     })
 };
-Animation.prototype._height = function(h, addclass, removeclass, speed) {
-    ins(this.o)._insAnimation(function(animation) {
+Animation.prototype._height = function (h, addclass, removeclass, speed) {
+    ins(this.o)._insAnimation(function (animation) {
         animation._height(from, to, speed, actclass);
     })
 };
@@ -1514,12 +1569,12 @@ if (typeof ins_jax == "undefined") {
 function Ajax(o, callback) {
     this.o = o;
 }
-Ajax.prototype._send = function(url, options, callback) {
-    ins(this.o)._insAjax(function(ajax) {
+Ajax.prototype._send = function (url, options, callback) {
+    ins(this.o)._insAjax(function (ajax) {
         ajax._send(url, options, callback);
     })
 };
-Ajax.prototype._call = function(options, callback) {
+Ajax.prototype._call = function (options, callback) {
     ///ins_ajax/home/ajx_upload/upload_file/do/_t/ajx/
     var url = "/ins_ajax/" + options["_a"] + "/" + options["_p"] + "/" + options["_m"] + "/"
 
@@ -1527,21 +1582,21 @@ Ajax.prototype._call = function(options, callback) {
     delete options["_a"];
     delete options["_c"];
     delete options["_m"];
-    ins(this.o)._insAjax(function(ajax) {
+    ins(this.o)._insAjax(function (ajax) {
         ajax._send(url, options, callback);
     })
 };
-Ajax.prototype._ins_ajax = function(options, callback) {
+Ajax.prototype._ins_ajax = function (options, callback) {
 
     var g = ins()._map._data();
     var url = "/ins_ajax/home/" + this.o + "/do/_t/ajx/_area/" + g["_a"] + "/_alias/" + g["_g"]["alias"] + "/"
     delete options["_a"];
     delete options["_c"];
-    ins(this.o)._insAjax(function(ajax) {
+    ins(this.o)._insAjax(function (ajax) {
         ajax._send(url, options, callback);
     })
 };
-Ajax.prototype._app = function(options, callback) {
+Ajax.prototype._app = function (options, callback) {
     var g = ins()._map._data();
 
 
@@ -1549,7 +1604,7 @@ Ajax.prototype._app = function(options, callback) {
 
     s = JSON.parse(s);
 
-    options["ajx_get"] = JSON.stringify(g["_g"]) ;
+    options["ajx_get"] = JSON.stringify(ins()._map._get());
 
 
     var area = "";
@@ -1572,7 +1627,6 @@ Ajax.prototype._app = function(options, callback) {
         name = this.o;
         cont = s["_p"];
         area = s["_a"];
-        console.log(o.length);
 
 
     }
@@ -1581,9 +1635,8 @@ Ajax.prototype._app = function(options, callback) {
     if (s["_a"] == "") {
         s["_a"] = "home";
     }
-    var url = "/ins_ajax/" +area + "/" + cont + "/" + name  + "/do/_area/" + g["_a"] + "/_alias/" + g["_g"]["alias"] + "/"
+    var url = "/ins_ajax/" + area + "/" + cont + "/" + name + "/do/_area/" + g["_a"] + "/_alias/" + g["_g"]["alias"] + "/"
 
-    console.log(url);
 
 
     delete options["_a"];
@@ -1593,11 +1646,11 @@ Ajax.prototype._app = function(options, callback) {
 
 
 
-    ins(this.o)._insAjax(function(ajax) {
+    ins(this.o)._insAjax(function (ajax) {
         ajax._send(url, options, callback);
     })
 };
-Ajax.prototype._wdgt = function(options, callback) {
+Ajax.prototype._wdgt = function (options, callback) {
     if (options["_a"] == "" || options["_a"] == null) {
         options["_a"] = "home";
     }
@@ -1627,13 +1680,13 @@ Ajax.prototype._wdgt = function(options, callback) {
     delete options["_a"];
     delete options["_w"];
     delete options["_m"];
-    ins(this.o)._insAjax(function(ajax) {
+    ins(this.o)._insAjax(function (ajax) {
         ajax._send(url, options, callback);
     })
 };
 
 
-Ajax.prototype._plgin = function(options, callback) {
+Ajax.prototype._plgin = function (options, callback) {
     if (options["_a"] == "" || options["_a"] == null) {
         options["_a"] = "home";
     }
@@ -1666,12 +1719,12 @@ Ajax.prototype._plgin = function(options, callback) {
     delete options["_a"];
     delete options["_w"];
     delete options["_m"];
-    ins(app[1])._insAjax(function(ajax) {
+    ins(app[1])._insAjax(function (ajax) {
         ajax._send(url, options, callback);
     })
 };
-Ajax.prototype._abort = function(ajax) {
-    ins(this.o)._insAjax(function(ajax) {
+Ajax.prototype._abort = function (ajax) {
+    ins(this.o)._insAjax(function (ajax) {
         ajax._abort(ajax);
     })
     return this;
@@ -1688,7 +1741,7 @@ function INS(o) {
     this._animation = new Animation(o);
     this._map = new InsMap(o);
     this._db = new InsDB(o);
-    this._load = function() {
+    this._load = function () {
         console.log(this.o);
         if (window.addEventListener) {
             // W3C standard
@@ -1699,7 +1752,7 @@ function INS(o) {
         }
         return this.o;
     };
-    this._get = function(n, p) {
+    this._get = function (n, p) {
         let evo = [];
         if (typeof this.o === "string") {
             if (p) {
@@ -1757,26 +1810,26 @@ function INS(o) {
             return evo;
         }
     };
-    this._each = function(fun, end) {
+    this._each = function (fun, end) {
         if (ins(this._get())._isExists()) {
             var count = this._get().length;
-            this._get().forEach(function(item, indx) {
+            this._get().forEach(function (item, indx) {
                 var isend = (indx == (count - 1));
                 fun(ins(item), indx, isend);
             });
         }
     };
 }
-INS.prototype._index = function(num, isparent) {
+INS.prototype._index = function (num, isparent) {
     return ins(this._get(num, isparent));
 };
-INS.prototype._plg = function(ops = {}, ondone = (cls) => any) {
+INS.prototype._plg = function (ops = {}, ondone = (cls) => any) {
 
     var names = this.o.split("/");
     pname = "ins_plg_" + names[0];
     plg = ins()._check_plgin(pname);
     if (plg == false) {
-        ins(pname)._getPlgin(ops, function(cls) {
+        ins(pname)._getPlgin(ops, function (cls) {
             cls[names[1]](ops, ondone)
         });
     } else {
@@ -1786,31 +1839,31 @@ INS.prototype._plg = function(ops = {}, ondone = (cls) => any) {
 /**
  * @param {function(cls)} callback 
  */
-INS.prototype._insAjax = function(callback = (cls) => any) {
+INS.prototype._insAjax = function (callback = (cls) => any) {
     var o = this.o;
     /** @var {ins_plg_ajax} cls  */
 
 
 
-    ins("ins_plg_ajax")._getPlgin({ o: this.o }, function(cls) {
+    ins("ins_plg_ajax")._getPlgin({ o: this.o }, function (cls) {
         callback(cls);
     });
 }
-INS.prototype._insAnimation = function(callback = (cls) => any) {
+INS.prototype._insAnimation = function (callback = (cls) => any) {
     var o = this.o;
     /** @var {ins_plg_ajax} cls  */
-    ins("ins_plg_animation")._getPlgin({ o: this.o }, function(cls) {
+    ins("ins_plg_animation")._getPlgin({ o: this.o }, function (cls) {
         callback(cls);
     });
 }
-INS.prototype._insData = function(callback = (cls) => any) {
+INS.prototype._insData = function (callback = (cls) => any) {
     var o = this.o;
     /** @var {ins_plg_ajax} cls  */
-    ins("ins_plg_data")._getPlgin({ o: this.o }, function(cls) {
+    ins("ins_plg_data")._getPlgin({ o: this.o }, function (cls) {
         callback(cls);
     });
 }
-INS.prototype._toggleClass = function(actclass) {
+INS.prototype._toggleClass = function (actclass) {
     var o = ins(this.o);
     if (o._hasClass(actclass)) {
         this._removeClass(actclass);
@@ -1819,7 +1872,7 @@ INS.prototype._toggleClass = function(actclass) {
     }
 };
 var fileupdated = [];
-INS.prototype.fileLoad = function(callback) {
+INS.prototype.fileLoad = function (callback) {
     var file = this.o;
     if (fileupdated.indexOf(file) >= 0) {
         callback("exsit");
@@ -1827,7 +1880,7 @@ INS.prototype.fileLoad = function(callback) {
     } else {
         var script = document.createElement("script");
         script.src = file;
-        script.onload = function(e) {
+        script.onload = function (e) {
             callback("done");
             fileupdated.push(file);
         };
@@ -1835,10 +1888,10 @@ INS.prototype.fileLoad = function(callback) {
         return ins(script);
     }
 };
-INS.prototype.filesLoad = function(callback) {
+INS.prototype.filesLoad = function (callback) {
     var r = this.o;
     var file = r[r.length - 1];
-    ins(file).fileLoad(function() {
+    ins(file).fileLoad(function () {
         r.pop();
         if (r.length == 0) {
             callback();
@@ -1847,7 +1900,7 @@ INS.prototype.filesLoad = function(callback) {
         }
     });
 };
-INS.prototype._insclude_css = function(callback) {
+INS.prototype._insclude_css = function (callback) {
     var file = this.o;
     if (fileupdated.indexOf(file) >= 0) {
         callback("exsit");
@@ -1864,7 +1917,7 @@ INS.prototype._insclude_css = function(callback) {
         callback("done");
     }
 };
-INS.prototype._onload = function(callback) {
+INS.prototype._onload = function (callback) {
     var file = this.o;
     if (fileupdated.indexOf(file) >= 0) {
         callback("exsit");
@@ -1872,7 +1925,7 @@ INS.prototype._onload = function(callback) {
     } else {
         var script = document.createElement("script");
         script.src = file;
-        script.onload = function(e) {
+        script.onload = function (e) {
             callback("done");
             fileupdated.push(file);
         };
@@ -1880,16 +1933,16 @@ INS.prototype._onload = function(callback) {
         return ins(script);
     }
 };
-INS.prototype._toggle_show = function() {
+INS.prototype._toggle_show = function () {
     if (this._hasClass("ins_hidden")) {
         this._removeClass("ins_hidden");
     } else {
         this._addClass("ins_hidden");
     }
 };
-INS.prototype._toggle = function(...fns) {
+INS.prototype._toggle = function (...fns) {
     var i = 0;
-    this._on("click", function(obj, event) {
+    this._on("click", function (obj, event) {
         if (i >= fns.length) {
             i = 0;
         }
@@ -1899,18 +1952,18 @@ INS.prototype._toggle = function(...fns) {
         i++;
     });
 };
-INS.prototype._chart = function(options, plg) {
+INS.prototype._chart = function (options, plg) {
     options.o = this.o;
     ins("ins_plg_charts")._plgin(options, plg);
 };
-INS.prototype._getclasses = function(sp = null, not = []) {
+INS.prototype._getclasses = function (sp = null, not = []) {
     var r = {};
-    this._get().forEach(function(item) {
+    this._get().forEach(function (item) {
         if (!ins(item.classList)._isEmpty()) {
             Object.assign(r, item.classList);
             if (sp !== null) {
                 var tmp = "";
-                Object.keys(r).forEach(function(c) {
+                Object.keys(r).forEach(function (c) {
                     if (not.indexOf(r[c]) == -1) {
                         tmp += sp + r[c];
                     }
@@ -1923,21 +1976,21 @@ INS.prototype._getclasses = function(sp = null, not = []) {
 };
 // events 
 {
-    INS.prototype._darg = function(options) {
+    INS.prototype._darg = function (options) {
         var t = ins(this._get(0));
         if (ins(options.hander)._isExists()) {
             var h = ins(t._find(options.hander));
             h._on(
                 "mousedown",
-                function() {
+                function () {
                     t._setAttribute("draggable", "true");
                 },
                 true
             );
-            ins(document)._on("mouseup", function() {}, true);
+            ins(document)._on("mouseup", function () { }, true);
             t._on(
                 "dragend",
-                function(o, ev) {
+                function (o, ev) {
                     t._removeAttribute("draggable");
                     if (ins(options.ondragend)._isExists()) {
                         options.ondragend(o, ev);
@@ -1950,7 +2003,7 @@ INS.prototype._getclasses = function(sp = null, not = []) {
         }
         this._on(
             "dragstart",
-            function(o, ev) {
+            function (o, ev) {
                 if (ins(options.ondragstart)._isExists()) {
                     options.ondragstart(o, ev);
                 }
@@ -1958,15 +2011,15 @@ INS.prototype._getclasses = function(sp = null, not = []) {
             true
         );
     };
-    INS.prototype._drop = function(options) {
+    INS.prototype._drop = function (options) {
         var t = this;
-        t._event("drop", function(o, ev) {
+        t._event("drop", function (o, ev) {
             ev.preventDefault();
             if (ins(options.ondrop)._isExists()) {
                 options.ondrop(o, ev);
             }
         });
-        t._event("dragover", function(o, ev) {
+        t._event("dragover", function (o, ev) {
             ev.preventDefault();
             if (ins(options.ondragover)._isExists()) {
                 options.ondragover(o, ev);
@@ -1976,19 +2029,19 @@ INS.prototype._getclasses = function(sp = null, not = []) {
 
 
 
-    INS.prototype._document_event = function(event, callback, useCapture) {
+    INS.prototype._document_event = function (event, callback, useCapture) {
         document.addEventListener(
             event,
-            function(e) {
+            function (e) {
                 callback(e);
             },
             useCapture
         );
         return this;
     };
-    INS.prototype._event = function(event, callback, useCapture) {
+    INS.prototype._event = function (event, callback, useCapture) {
         if (ins(useCapture)._isEmpty()) useCapture = false;
-        this._get().forEach(function(item, indx) {
+        this._get().forEach(function (item, indx) {
             item.addEventListener(
                 event,
                 (e) => {
@@ -1999,14 +2052,14 @@ INS.prototype._getclasses = function(sp = null, not = []) {
         });
         return this;
     };
-    INS.prototype._on = function(event, callback, ps, useCapture) {
+    INS.prototype._on = function (event, callback, ps, useCapture) {
         var o = this;
         var os = this.o;
         if (ins(useCapture)._isEmpty()) useCapture = false;
         document.addEventListener(
             event,
-            function(e) {
-                o._get().forEach(function(item) {
+            function (e) {
+                o._get().forEach(function (item) {
                     if (e.target === item) {
                         callback(ins(e.target), e, item);
                     } else if (ps && ins(ins(e.target)._parents(os).o)._isExists()) {
@@ -2023,7 +2076,7 @@ INS.prototype._getclasses = function(sp = null, not = []) {
 }
 // other
 {
-    INS.prototype._isExists = function(i = false) {
+    INS.prototype._isExists = function (i = false) {
         if (i === true) {
             return !(
                 typeof ins(this.o)._get(0) === "undefined" || ins(this.o)._get(0) === null
@@ -2032,63 +2085,63 @@ INS.prototype._getclasses = function(sp = null, not = []) {
             return !(typeof this.o === "undefined" || this.o === null);
         }
     };
-    INS.prototype._isEmpty = function() {
+    INS.prototype._isEmpty = function () {
         return typeof this.o === "undefined" || this.o === null || this.o === "";
     };
-    INS.prototype._isChecked = function() {
+    INS.prototype._isChecked = function () {
         return ins(this.o)._get(0).checked;
     };
 
-    INS.prototype._checked = function() {
+    INS.prototype._checked = function () {
         return ins(this.o)._get(0).checked;
     };
 
 }
 //attr
 {
-    INS.prototype._getAttribute = function(type) {
+    INS.prototype._getAttribute = function (type) {
         return this._get(0).getAttribute(type);
     };
-    INS.prototype._setAttribute = function(type, value) {
-        this._get().forEach(function(item, indx) {
+    INS.prototype._setAttribute = function (type, value) {
+        this._get().forEach(function (item, indx) {
             try {
                 item.setAttribute(type, value);
-            } catch (err) {}
+            } catch (err) { }
         });
         return this;
     };
-    INS.prototype._removeAttribute = function(type) {
-        this._get().forEach(function(item) {
+    INS.prototype._removeAttribute = function (type) {
+        this._get().forEach(function (item) {
             item.removeAttribute(type);
         });
         return this;
     };
-    INS.prototype._hasAttribute = function(type) {
+    INS.prototype._hasAttribute = function (type) {
         var attr = this._get(0).getAttribute(type);
         return (!ins(attr)._isEmpty());
     };
 }
 //Class
 {
-    INS.prototype._removeClass = function(...removeClass) {
-        this._get().forEach(function(item, indx) {
+    INS.prototype._removeClass = function (...removeClass) {
+        this._get().forEach(function (item, indx) {
             if (ins(item)._isExists() && !ins(removeClass[0])._isEmpty()) {
                 item.classList.remove(...removeClass);
             }
         });
         return this;
     };
-    INS.prototype._hasClass = function(value) {
+    INS.prototype._hasClass = function (value) {
         var r = false;
-        this._get().forEach(function(item, indx) {
+        this._get().forEach(function (item, indx) {
             if (item.classList.contains(value)) {
                 r = true;
             }
         });
         return r;
     };
-    INS.prototype._setClass = function(...addClass) {
-        this._get().forEach(function(item, indx) {
+    INS.prototype._setClass = function (...addClass) {
+        this._get().forEach(function (item, indx) {
             if (ins(item)._isExists() && !ins(addClass[0])._isEmpty()) {
                 item.classList.add(...addClass);
             }
@@ -2097,13 +2150,13 @@ INS.prototype._getclasses = function(sp = null, not = []) {
     };
     INS.prototype._getClass = () => {
         var r = false;
-        this._get().forEach(function(item, indx) {
+        this._get().forEach(function (item, indx) {
             return item.classList
         });
         return r;
     };
-    INS.prototype._addClass = function(...addClass) {
-        this._get().forEach(function(item, indx) {
+    INS.prototype._addClass = function (...addClass) {
+        this._get().forEach(function (item, indx) {
             if (ins(item)._isExists() && !ins(addClass[0])._isEmpty()) {
                 item.classList.add(...addClass);
             }
@@ -2113,21 +2166,21 @@ INS.prototype._getclasses = function(sp = null, not = []) {
 }
 //css
 {
-    INS.prototype._removeCSS = function(name) {
+    INS.prototype._removeCSS = function (name) {
         var r = false;
-        this._get().forEach(function(item) {
+        this._get().forEach(function (item) {
             if (item != null) {
                 item.style.removeProperty(name);
             }
         });
         return r;
     };
-    INS.prototype._getCSS = function(name) {
+    INS.prototype._getCSS = function (name) {
         var r = "";
-        this._get().forEach(function(item) {
+        this._get().forEach(function (item) {
             if (Array.isArray(name)) {
                 r = {};
-                name.forEach(function(n) {
+                name.forEach(function (n) {
                     if (item.style.getPropertyValue(n) !== "") {
                         r[n] = item.style.getPropertyValue(n);
                     }
@@ -2138,8 +2191,8 @@ INS.prototype._getclasses = function(sp = null, not = []) {
         });
         return r;
     };
-    INS.prototype._setCSS = function(css, value = "") {
-        this._get().forEach(function(item) {
+    INS.prototype._setCSS = function (css, value = "") {
+        this._get().forEach(function (item) {
             if (value !== "") {
                 item.style[css] = value;
             } else {
@@ -2152,9 +2205,9 @@ INS.prototype._getclasses = function(sp = null, not = []) {
         });
         return this;
     };
-    INS.prototype._hasStyle = function(name) {
+    INS.prototype._hasStyle = function (name) {
         r = false;
-        this._get().forEach(function(item) {
+        this._get().forEach(function (item) {
             if (item.style.contains(name)) {
                 r = true;
             }
@@ -2164,14 +2217,14 @@ INS.prototype._getclasses = function(sp = null, not = []) {
 }
 // html
 {
-    INS.prototype._getMyHtml = function() {
+    INS.prototype._getMyHtml = function () {
         return this._get(0).outerHTML;
     };
-    INS.prototype._getHtml = function() {
+    INS.prototype._getHtml = function () {
         return this._get(0).innerHTML;
     };
-    INS.prototype._setHTML = function(value, callback) {
-        this._get().forEach(function(item, indx) {
+    INS.prototype._setHTML = function (value, callback) {
+        this._get().forEach(function (item, indx) {
             item.innerHTML = value;
             if (callback != null) {
                 callback();
@@ -2179,8 +2232,8 @@ INS.prototype._getclasses = function(sp = null, not = []) {
         });
         return this;
     };
-    INS.prototype._removeHtml = function(value, callback) {
-        this._get().forEach(function(item, indx) {
+    INS.prototype._removeHtml = function (value, callback) {
+        this._get().forEach(function (item, indx) {
             item.innerHTML = "";
             if (callback != null) {
                 callback();
@@ -2191,11 +2244,11 @@ INS.prototype._getclasses = function(sp = null, not = []) {
 }
 // text
 {
-    INS.prototype._getText = function() {
+    INS.prototype._getText = function () {
         return this._get(0).innerText;
     };
-    INS.prototype._setText = function(value) {
-        this._get().forEach(function(item, indx) {
+    INS.prototype._setText = function (value) {
+        this._get().forEach(function (item, indx) {
             item.innerText = value;
         });
         return this;
@@ -2203,7 +2256,7 @@ INS.prototype._getclasses = function(sp = null, not = []) {
 }
 //data
 {
-    INS.prototype._getData = function(type = "") {
+    INS.prototype._getData = function (type = "") {
         let r = "";
         if (ins(this._get(0))._isExists()) {
             if (type === "") {
@@ -2215,13 +2268,13 @@ INS.prototype._getclasses = function(sp = null, not = []) {
         }
         return r;
     };
-    INS.prototype._setData = function(type, value) {
-        this._get().forEach(function(item, indx) {
+    INS.prototype._setData = function (type, value) {
+        this._get().forEach(function (item, indx) {
             item.dataset[type] = value;
         });
         return this;
     };
-    INS.prototype._hasData = function(value) {
+    INS.prototype._hasData = function (value) {
         try {
             if (this._get(0) != null) {
                 return value in this._get(0).dataset;
@@ -2235,7 +2288,7 @@ INS.prototype._getclasses = function(sp = null, not = []) {
 }
 //value
 {
-    INS.prototype._getValue = function() {
+    INS.prototype._getValue = function () {
         var r = null;
         if (ins(this._get()[0])._isExists()) {
             if (ins(this._get(0).getAttribute("multiple"))._isExists()) {
@@ -2250,8 +2303,8 @@ INS.prototype._getclasses = function(sp = null, not = []) {
         }
         return r;
     };
-    INS.prototype._setValue = function(value) {
-        this._get().forEach(function(item, indx) {
+    INS.prototype._setValue = function (value) {
+        this._get().forEach(function (item, indx) {
             if (ins(item.getAttribute("multiple"))._isExists()) {
                 for (var i = 0; i < item.options.length; i++) {
                     if (value.indexOf(item.options[i].value) > -1)
@@ -2263,8 +2316,8 @@ INS.prototype._getclasses = function(sp = null, not = []) {
         });
         return this;
     };
-    INS.prototype._removeValue = function() {
-        this._get().forEach(function(item, indx) {
+    INS.prototype._removeValue = function () {
+        this._get().forEach(function (item, indx) {
             if (ins(item.getAttribute("multiple"))._isExists()) {
                 for (var i = 0; i < item.options.length; i++) {
                     item.options[i].selected = fales;
@@ -2275,7 +2328,7 @@ INS.prototype._getclasses = function(sp = null, not = []) {
         });
         return this;
     };
-    INS.prototype._hasValue = function() {
+    INS.prototype._hasValue = function () {
         var r = null;
         r = this._getValue();
         return (!ins(r)._isEmpty());
@@ -2283,10 +2336,10 @@ INS.prototype._getclasses = function(sp = null, not = []) {
 }
 //object
 {
-    INS.prototype._p = function(prop, value) {
+    INS.prototype._p = function (prop, value) {
         var r = [];
         var l = this._get().length;
-        this._get().forEach(function(item, indx) {
+        this._get().forEach(function (item, indx) {
             if (ins(value)._isEmpty()) {
                 if (l === 1) {
                     r = item[prop];
@@ -2300,23 +2353,23 @@ INS.prototype._getclasses = function(sp = null, not = []) {
         });
         return r;
     };
-    INS.prototype._function = function(o) {
+    INS.prototype._function = function (o) {
         window[this.o](o);
     };
-    INS.prototype._remove = function(callback) {
-        this._get().forEach(function(item) {
+    INS.prototype._remove = function (callback) {
+        this._get().forEach(function (item) {
             item.remove(item.selectedIndex);
         });
         if (!ins(callback)._isEmpty()) {
             window[callback](this);
         }
     };
-    INS.prototype._focus = function() {
-        this._get().forEach(function(item) {
+    INS.prototype._focus = function () {
+        this._get().forEach(function (item) {
             item.focus();
         });
     };
-    INS.prototype._find = function(o) {
+    INS.prototype._find = function (o) {
         var r = null;
         if (this._get(0) != null) {
             if (this._get(0).querySelectorAll(o).length > 0) {
@@ -2325,7 +2378,7 @@ INS.prototype._getclasses = function(sp = null, not = []) {
         }
         return r;
     };
-    INS.prototype._getchild_bytag = function(tag) {
+    INS.prototype._getchild_bytag = function (tag) {
         var item = null;
         for (var i = 0; i < this._get(0).childNodes.length; i++) {
             if (this._get(0).childNodes[i].tagName === tag) {
@@ -2339,14 +2392,14 @@ INS.prototype._getclasses = function(sp = null, not = []) {
      *
      * @returns {Array[node]}
      */
-    INS.prototype._getchildren = function() {
+    INS.prototype._getchildren = function () {
         var r = [];
         for (var i = 0; i < this._get(0).childNodes.length; i++) {
             r[i] = this._get(0).childNodes[i];
         }
         return r;
     };
-    INS.prototype._getindex = function(data) {
+    INS.prototype._getindex = function (data) {
         var o = this._get(0);
         var p = o.parentElement;
         var r = [];
@@ -2355,7 +2408,7 @@ INS.prototype._getclasses = function(sp = null, not = []) {
         }
         return r.indexOf(o);
     };
-    INS.prototype._is_in_childs = function(target) {
+    INS.prototype._is_in_childs = function (target) {
         var r = false;
         if (ins(this._get(0).childNodes)._isExists()) {
             var ch = this._getchilds();
@@ -2378,7 +2431,7 @@ INS.prototype._getclasses = function(sp = null, not = []) {
         }
         return r;
     };
-    INS.prototype._getchild_byclass = function(classname) {
+    INS.prototype._getchild_byclass = function (classname) {
         var item = null;
         for (var i = 0; i < this._get(0).childNodes.length; i++) {
             if (ins(this._get(0).childNodes[i].classList)._isExists()) {
@@ -2390,19 +2443,19 @@ INS.prototype._getclasses = function(sp = null, not = []) {
         }
         return item;
     };
-    INS.prototype._equal = function(o) {
+    INS.prototype._equal = function (o) {
         return this._get(0) === this._getobj(o);
     };
-    INS.prototype._parent = function() {
+    INS.prototype._parent = function () {
         return ins(this._get(0).parentElement);
     };
-    INS.prototype._getparent = function() {
+    INS.prototype._getparent = function () {
         return ins(this._get(0).parentElement);
     };
-    INS.prototype._height = function() {
+    INS.prototype._height = function () {
         return this._get(0).offsetHeight;
     };
-    INS.prototype._parents = function(v) {
+    INS.prototype._parents = function (v) {
         var get_item = null;
         if (!ins(v)._isEmpty()) {
             get_item = ins(v)._get();
@@ -2412,7 +2465,7 @@ INS.prototype._getclasses = function(sp = null, not = []) {
         while (a) {
             els.unshift(a);
             if (get_item != null) {
-                get_item.forEach(function(iemt) {
+                get_item.forEach(function (iemt) {
                     if (iemt == a) {
                         els = ins(iemt);
                         a = null;
@@ -2427,7 +2480,7 @@ INS.prototype._getclasses = function(sp = null, not = []) {
         }
         return els;
     };
-    INS.prototype._is_parents = function(v) {
+    INS.prototype._is_parents = function (v) {
         var get_item = null;
         var r = false;
         if (!ins(v)._isEmpty()) {
@@ -2438,7 +2491,7 @@ INS.prototype._getclasses = function(sp = null, not = []) {
         while (a) {
             els.unshift(a);
             if (get_item != null) {
-                get_item.forEach(function(iemt) {
+                get_item.forEach(function (iemt) {
                     if (iemt == a) {
                         els = ins(iemt);
                         a = null;
@@ -2460,7 +2513,7 @@ INS.prototype._getclasses = function(sp = null, not = []) {
      * @param {type} type
      * @returns {r|data|obj|r@call;_get@arr;dataset|String|Date|$}
      */
-    INS.prototype._getobj = function(data) {
+    INS.prototype._getobj = function (data) {
         if (typeof data === "string") {
             var c = ins()._ui._create("div", "", "", data);
             r = c.children[0];
@@ -2471,7 +2524,7 @@ INS.prototype._getclasses = function(sp = null, not = []) {
         }
         return r;
     };
-    INS.prototype._clone = function() {
+    INS.prototype._clone = function () {
         var r = null;
         if (typeof this.o === "string") {
             var c = ins()._ui._create("div", "", "", this.o);
@@ -2483,60 +2536,60 @@ INS.prototype._getclasses = function(sp = null, not = []) {
         }
         return ins(r);
     };
-    INS.prototype._srcSet = function(name, value) {
+    INS.prototype._srcSet = function (name, value) {
         ins(this.o)._each((i) => {
             i._get(0)[name] = value;
         })
         return ins(this.o);
     };
-    INS.prototype._append = function(data) {
+    INS.prototype._append = function (data) {
         var r = this._getobj(data);
-        this._get().forEach(function(item, indx) {
+        this._get().forEach(function (item, indx) {
             item.appendChild(r);
         });
         return ins(r);
     };
 
-    INS.prototype._appendBefor = function(data) {
+    INS.prototype._appendBefor = function (data) {
         var r = this._getobj(data);
-        this._get().forEach(function(item, indx) {
+        this._get().forEach(function (item, indx) {
             item.parentNode.insertBefore(r, item);
         });
         return ins(r);
     };
 
-    INS.prototype._append_befor = function(data) {
+    INS.prototype._append_befor = function (data) {
         var r = this._getobj(data);
-        this._get().forEach(function(item, indx) {
+        this._get().forEach(function (item, indx) {
             item.parentNode.insertBefore(r, item);
         });
         return ins(r);
     };
-    INS.prototype._append_after = function(data) {
+    INS.prototype._append_after = function (data) {
         var r = this._getobj(data);
-        this._get().forEach(function(item, indx) {
+        this._get().forEach(function (item, indx) {
             item.parentNode.insertBefore(r, item.nextSibling);
         });
         return ins(r);
     };
-    INS.prototype._show = function() {
+    INS.prototype._show = function () {
         ins(this.o)._removeClass("ins-hidden");
         return ins(this.o);
     };
-    INS.prototype._hide = function() {
+    INS.prototype._hide = function () {
         ins(this.o)._addClass("ins-hidden");
         return ins(this.o);
     };
 }
 //page
 {
-    INS.prototype._setscroll = function(value) {
-        this._get().forEach(function(item, indx) {
+    INS.prototype._setscroll = function (value) {
+        this._get().forEach(function (item, indx) {
             item.scrollTop = value;
         });
         return this;
     };
-    INS.prototype._reload = function(url = "") {
+    INS.prototype._reload = function (url = "") {
         if (url != "") {
             window.location = url;
         } else {
@@ -2544,25 +2597,25 @@ INS.prototype._getclasses = function(sp = null, not = []) {
         }
     };
 }
-INS.prototype._o = function(o) {
+INS.prototype._o = function (o) {
     this.o = o;
     return this._get();
 };
 var plg_number = 0;
 var plgins = {};
 var addplgins = [];
-INS.prototype._add_plgin = function(plgin_name, plg) {
+INS.prototype._add_plgin = function (plgin_name, plg) {
     plgins[plgin_name] = plg;
 }
 
 
 
-INS.prototype._isNet = function() {
+INS.prototype._isNet = function () {
     return window.navigator.onLine
 
 }
 
-INS.prototype._chkNet = function(online, ofline) {
+INS.prototype._chkNet = function (online, ofline) {
     window.addEventListener('online', online);
     window.addEventListener('offline', ofline);
 }
@@ -2572,28 +2625,28 @@ INS.prototype._chkNet = function(online, ofline) {
 
 
 
-INS.prototype._check_plgin = function(plgin_name) {
+INS.prototype._check_plgin = function (plgin_name) {
     if (Object.keys(plgins).includes(plgin_name)) {
         return plgins[plgin_name];
     } else {
         return false;
     }
 }
-INS.prototype._get_plgins = function(plgin = "") {
+INS.prototype._get_plgins = function (plgin = "") {
     if (plgin == "") {
         return plgins;
     } else {
         return plgins[plgin];
     }
 }
-INS.prototype._getPlgin = function(Options, onReady) {
+INS.prototype._getPlgin = function (Options, onReady) {
     var plg = this.o;
     try {
         if (!(plg in plgins)) {
 
             var pl = "/ins_web/ins_kit/js/plgins/" + plg + ".js";
-            import (pl).then((module) => {
-                Object.keys(module).forEach(function(k) {
+            import(pl).then((module) => {
+                Object.keys(module).forEach(function (k) {
                     if (k != plg) {
                         window[k] = module[k]
                     }
@@ -2614,17 +2667,17 @@ INS.prototype._getPlgin = function(Options, onReady) {
             onReady(plgins[plg]);
             return plgins[plg];
         }
-    } catch (err) {}
+    } catch (err) { }
 };
-INS.prototype._plgin_change = function(Options, onReady) {
+INS.prototype._plgin_change = function (Options, onReady) {
     try {
         var plg = this.o;
         var myplgin = plg.trim();
         if (!addplgins.includes(myplgin)) {
             addplgins.push(myplgin);
             var pl = "/ins_web/ins_kit/js/plgins/" + plg + ".js?003";
-            import (pl).then((module) => {
-                Object.keys(module).forEach(function(k) {
+            import(pl).then((module) => {
+                Object.keys(module).forEach(function (k) {
                     if (k != myplgin) {
                         window[k] = module[k]
                     }
@@ -2643,9 +2696,9 @@ INS.prototype._plgin_change = function(Options, onReady) {
             plgins[myplgin]["options"] = Options;
             plgins[myplgin]._change();
         }
-    } catch (err) {}
+    } catch (err) { }
 };
-INS.prototype._plgin = function(Options, onReady) {
+INS.prototype._plgin = function (Options, onReady) {
     try {
         var plg = this.o;
         var myplgin = plg.trim();
@@ -2654,8 +2707,8 @@ INS.prototype._plgin = function(Options, onReady) {
         if (!Object.keys(plgins).includes(myplgin)) {
 
             var pl = "/ins_web/ins_kit/js/plgins/" + plg + ".js?003";
-            import (pl).then((module) => {
-                Object.keys(module).forEach(function(k) {
+            import(pl).then((module) => {
+                Object.keys(module).forEach(function (k) {
                     if (k != myplgin) {
                         window[k] = module[k]
                     }
@@ -2681,11 +2734,11 @@ INS.prototype._plgin = function(Options, onReady) {
             plgins[myplgin]["options"] = Options;
             plgins[myplgin]._out();
         }
-    } catch (err) {}
+    } catch (err) { }
 };
 //old version
 {
-    INS.prototype._readProp = function(prop, ...options) {
+    INS.prototype._readProp = function (prop, ...options) {
         var ps = prop.split(".");
         if (ps.length > 1) {
             if (options == null) {
@@ -2706,7 +2759,7 @@ INS.prototype._plgin = function(Options, onReady) {
 function ins(o) {
     return new INS(o);
 }
-ins(function() {
+ins(function () {
     ins("ins_plg_run")._plgin({});
     ins()._ui._update();
 })._load();

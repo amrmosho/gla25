@@ -1,157 +1,378 @@
- body {
-     margin: 0;
-     padding: 0;
- }
+          :root {
+              --col12-item-width: 8.33333333333%;
+              --flex-gap: 1px;
+              --slc: (100% / 10);
 
- .insv-flex{
+              --card-bg: #fff
+          }
 
-         display: flex;    
-          justify-content: start;
+          *,
+          ::after,
+          ::before {
+              box-sizing: border-box;
+          }
 
-flex-wrap: wrap;
+
+
+
+          ul,
+          li {
+              padding: 0;
+              list-style: none;
+              margin: 0;
+          }
+
+          [class*="ins-flex"] {
+              display: flex;
+              flex-direction: row;
+              flex-wrap: wrap;
+              justify-content: normal;
+              align-content: normal;
+              row-gap: 0.5rem;
+              column-gap: 0.5rem;
+              --flex-gap: 10px;
+              align-content: flex-start;
+              align-items: center;
+          }
+
+
+          .ins-flex-space-between {
+              justify-content: space-between;
+              align-items: center;
+          }
+
+          .ins-col-025 {
+              width: calc(var(--col12-item-width) * 0.25 - var(--flex-gap)) !important;
+          }
+
+          .ins-col-05 {
+              width: calc(var(--col12-item-width) * 0.5 - var(--flex-gap)) !important;
+          }
+
+          .ins-col-1 {
+              width: calc(var(--col12-item-width) * 1 - var(--flex-gap)) !important;
+          }
+
+          .ins-col-2 {
+              width: calc(var(--col12-item-width) * 2 - var(--flex-gap)) !important;
+          }
+
+          .ins-col-3 {
+              width: calc(var(--col12-item-width) * 3 - var(--flex-gap)) !important;
+          }
+
+          .ins-col-4 {
+              width: calc(var(--col12-item-width) * 4 - var(--flex-gap)) !important;
+          }
+
+          .ins-col-5 {
+              width: calc(var(--col12-item-width) * 5 - var(--flex-gap)) !important;
+          }
+
+          .ins-col-6 {
+              width: calc(var(--col12-item-width) * 6 - var(--flex-gap)) !important;
+          }
+
+          .ins-col-7 {
+              width: calc(var(--col12-item-width) * 7 - var(--flex-gap)) !important;
+          }
+
+          .ins-col-8 {
+              width: calc(var(--col12-item-width) * 8 - var(--flex-gap)) !important;
+          }
+
+          .ins-col-9 {
+              width: calc(var(--col12-item-width) * 9 - var(--flex-gap)) !important;
+          }
+
+          .ins-col-10 {
+              width: calc(var(--col12-item-width) * 10 - var(--flex-gap)) !important;
+          }
+
+          .ins-col-11 {
+              width: calc(var(--col12-item-width) * 11 - var(--flex-gap)) !important;
+          }
+
+          .ins-col-12 {
+              width: 100%;
+          }
+
+          .ins-col-grow {
+              flex-grow: 1;
+          }
+
+
+
+          body {
+              margin: 0;
+              padding: 0;
+          }
+
+          .insv-flex {
+              display: flex;
+              justify-content: start;
+              flex-wrap: wrap;
+          }
+
+          .insv-flex .-insv-side-panel .fitem {
+              align-items: center;
+              display: flex;
+              cursor: pointer;
+              width: 100%;
+              justify-content: start;
+              transition: 0.1s ease-in-out;
+              border-radius: 18px;
+              width: 100%;
+              border: 1px solid transparent;
+          }
+
+          .-insv-side-panel .fitem.active {
+              background: #eee;
+          }
+
+          .-insv-side-panel .fitem:hover {
+              border: 1px solid #b0b0b0;
+              background: #eee;
+          }
+
+          .ins-hidden {
+              display: none !important
+          }
+
+          .-insv-side-panel>div>span {
+              width: 25px;
+              height: 25px;
+              margin: 10px;
+              display: inline-block;
+              background-repeat: no-repeat;
+              background-position: center;
+              background-size: 80%;
+          }
+
+          .-insv-side-panel>div {
+              justify-content: center;
+              display: flex;
+              /* flex-wrap: nowrap; */
+              align-items: center;
+              line-height: 36px;
+              font-size: 22px;
+          }
+
+          .-insv-side-panel {
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: center;
+              align-content: center;
+              position: absolute;
+              bottom: 105px;
+              left: 25px;
+              z-index: 10;
+              background: #fff;
+              padding: 10px 20px;
+              border-radius: 25px;
+              width: 312px;
+          }
+
+          .insv_txt_btn {
+              background: #fff;
+              height: 90px !important;
+              width: 90px !important;
+              border: 1px solid #fff;
+              position: relative;
+              border-radius: 50%;
+              overflow: hidden;
+              z-index: 111111;
+          }
+
+          .insv_txt_btn img {
+              height: 100%;
+              position: absolute;
+              left: 50%;
+              transform: translateX(-50%);
+          }
+
+          #insv-text-btns {
+              position: absolute;
+              padding: 10px 20px;
+              border-radius: 25px;
+              bottom: 140px;
+              right: 50px
+          }
+
+          .ins-panel {
+              position: absolute;
+              background: #ffffff2d;
+              padding: 10px 20px;
+              border-radius: 25px;
+          }
+
+          .ins-panel:hover {
+              position: absolute;
+              background: #ffffff;
+              padding: 10px 20px;
+              border-radius: 25px;
+          }
+
+          .insv {
+              bottom: 20px;
+              left: 20px;
+              z-index: 10;
+          }
+
+          .insv-icon_btn {
+              cursor: pointer;
+              transition: 0.2s;
+              height: 30px;
+              width: 30px;
+              margin: 0 10px;
+              display: inline-block;
+              background-repeat: no-repeat;
+              background-position: center;
+              background-size: 100%;
+          }
+
+          .insv>span {
+              cursor: pointer;
+              transition: 0.2s;
+              height: 25px;
+              width: 25px;
+              margin: 10px 6px;
+              display: inline-block;
+              background-repeat: no-repeat;
+              background-position: center;
+              background-size: 100%;
+          }
+
+          .insv>span:hover {
+              transform: scale(1.2);
+          }
+
+          .insv-animation-cont {
+              position: absolute;
+              bottom: 20px;
+              left: 400px;
+              right: 20px;
+              z-index: 10;
+          }
+
+          #animProgress {
+              width: 100%
+          }
+
+          #animList {
+              background: transparent;
+              min-width: 158px;
+              border: 1px solid #666;
+              border-radius: 6px;
+              margin-left: 20px;
+          }
+
+          #playAnimBtn {
+              background-image: url(/ins_web/ins_images/icons/play.svg);
+          }
+
+          #playAnimBtn.active {
+              background-image: url(/ins_web/ins_images/icons/insv_pause.svg);
+          }
+
+          #insv-body {
+              position: absolute;
+              width: calc(100% - 300px);
+              height: calc(100% - 50px);
+              border: 1px solid #1f2125;
+          }
+
+          body {
+              background: #2a2f34;
+          }
+
+          .ins-card {
+
+              background: var(--card-bg);
+              box-shadow: rgba(0, 0, 0, 0.1) 0px 8px 16px -8px;
+              transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1);
+              border-radius: 6px;
+              padding: 16px;
+
+              border: 1px solid rgba(0, 0, 0, 0.2);
+
+              border-radius: 20px;
+          }
+
+          .ins-title-icon {
+
+              height: 25px;
+              width: 25px;
+              display: inline-block;
+
+
+          }
+
+          .insv-title {
+
+              font-size: 20px;
+              line-height: 32px;
+              font-weight: 700;
+          }
+
+          .insv-footer {
+              position: absolute;
+              bottom: 20px;
+              right: 300px;
+          }
+
+          .ins-button {
+              border: 2px solid rgba(0, 0, 0, 0.2);
+              background-color: #fff;
+              border-radius: 6px;
+              min-height: 40px;
+              line-height: 40px !important;
+              transition: all 0.3s;
+              padding: 4px 8px;
+
+              text-align: center;
+
+          }
+
+          .ins-button.ins-active {
+              border: 2px solid rgba(46, 87, 253, 0.5);
+              background-color: rgba(46, 87, 253, 0.1);
+
+
+          }
+
+          .ins-input {
+              border-radius: 6px;
+              border: 1px solid rgba(0, 0, 0, 0.2);
+
+              line-height: 35px;
+
+              padding: 4px;
+          }
+
+          #insv-epanel-body {
+              right: 8px;
+              width: 280px;
+              left: auto;
+              top: 81px;
+              bottom: 0;
+              padding: 6px;
+              overflow: auto;
+              position: absolute;
+              border-radius: 18px;
+          }
+
+          .insv-get-epanel {
+
+              border-radius: 50%;
+              padding: 4px
+          }
+
+          .insv-get-epanel.ins-active {
+      border: 2px solid rgba(46, 87, 253, 0.5);
+    background-color: rgba(46, 87, 253, 0.1);
+    background-size: 80% !important;
 }
 
 
- .-insv-side-panel .fitem {
-     align-items: center;
-     display: flex;
-     cursor: pointer;
-     width: 100%;
-     justify-content: start;
-     transition: 0.1s ease-in-out;
-     border-radius: 18px;
-     width: 100%;
-     border: 1px solid transparent;
-
-
-
- }
-
-
- .-insv-side-panel .fitem.active {
-     background: #eee;
- }
-
- .-insv-side-panel .fitem:hover {
-     border: 1px solid #b0b0b0;
-
-     background: #eee;
- }
-
- .ins-hidden {
-     display: none !important
- }
-
- .-insv-side-panel>div>span {
-     width: 25px;
-     height: 25px;
-     margin: 10px;
-     display: inline-block;
-     background-repeat: no-repeat;
-     background-position: center;
-     background-size: 80%;
- }
-
- .-insv-side-panel>div {
-     justify-content: center;
-     display: flex;
-     /* flex-wrap: nowrap; */
-     align-items: center;
-     line-height: 36px;
-     font-size: 22px;
- }
-
- .-insv-side-panel {
-     display: flex;
-     flex-wrap: wrap;
-     justify-content: center;
-     align-content: center;
-     position: absolute;
-     bottom: 105px;
-     left: 25px;
-     z-index: 10;
-     background: #fff;
-     padding: 10px 20px;
-     border-radius: 25px;
-       width: 312px;
- }
-
-
-
- .ins-panel {
-     position: absolute;
-
-     background: #ffffff2d;
-     padding: 10px 20px;
-     border-radius: 25px;
-     transition: 0.2s;
- }
-
- 
-.ins-panel:hover{
-     position: absolute;
-
-     background: #ffffff;
-     padding: 10px 20px;
-     border-radius: 25px;
- }
-
-
- .insv {
-     bottom: 20px;
-     left: 20px;
-     z-index: 10;
-
- }
-.insv-icon_btn{
-
-         cursor: pointer;
-     transition: 0.2s; height: 30px;
-     width: 30px;
-    margin: 0 10px;
-     display: inline-block;
-     background-repeat: no-repeat;
-     background-position: center;
-     background-size: 100%;
-}
- .insv>span {
-     cursor: pointer;
-     transition: 0.2s;
-     height: 30px;
-     width: 30px;
-     margin: 10px;
-     display: inline-block;
-     background-repeat: no-repeat;
-     background-position: center;
-     background-size: 100%;
- }
-
- .insv>span:hover {
-     transform: scale(1.2);
- }
-
- .insv-animation-cont {
-    position: absolute;
- bottom:20px;
- left: 400px;
- right:20px;
- z-index: 10;
-
-}
-
- 
-
-#animProgress{
-
-    width: 100% 
-}
-
-#animList
-{
-
-    background: transparent;
-    min-width: 158px;
-    border: 1px solid #666;
-    border-radius: 6px;
-    margin-left: 20px;
-}
+          

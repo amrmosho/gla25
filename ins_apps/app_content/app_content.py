@@ -11,11 +11,6 @@ class AppContent(App):
 
 
 
-    def _logout(self):
-      self.ins._server._del_session("gla_login")
-      return "1"
-
-
     def out(self):
         if "id" not in self.app._options:
             return " No content selected "

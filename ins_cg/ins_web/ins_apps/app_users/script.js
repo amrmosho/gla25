@@ -171,12 +171,6 @@ ins(".-login-otp-inpt")._on("keyup", (o, e) => {
     }
 })
 
-ins(".-logout-btn")._on("click", (o) => {
-    ins("_logout")._ajax._app({}, (d) => {
-        window.location = "/"
-    })
-
-}, true)
 
 
 ins(".-show-password")._on("click", (o) => {

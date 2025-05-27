@@ -644,3 +644,17 @@ body {
     position: relative;
     top: 7px;
 }
+
+ .pro-blk-action{
+cursor: pointer;
+    border-radius: 6px;
+    padding: 2px 0;
+    font-size: 14px;
+    box-shadow: 1px 1px 7px 0px #0000000f;
+    transition: 0.2s;
+
+ } .pro-blk-action div{font-size: 14px;}.pro-blk-action:hover{
+
+ box-shadow: 1px 1px 3px 0px #00000043;
+
+ }

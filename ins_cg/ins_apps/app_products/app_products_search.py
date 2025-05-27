@@ -119,6 +119,8 @@ class AppProductsSearch(App):
         return uidata
 
     def filter(self):
+        
+        g= self.ins._server._get()
         type = {"-": "File Format"}
         exts = self.ins._json._file_read("ins_langs/file_ext.json")
         for k in exts:
@@ -128,17 +130,21 @@ class AppProductsSearch(App):
             {"_type": "select", "fl_data": type, "name": "format",
              "pclass": "ins-col-grow"},
          
-            {"_type": "input", "_end": "3D print", "type": "bool",
+            {"_type": "input", "_end": "3D print","value":g.get("print","0"), "type": "bool",
                 "pstyle": "width:150px", "name": "print"},
-            {"_type": "input", "_end": "Animated", "type": "bool",
+            {"_type": "input", "_end": "Animated", "value":g.get("animated","0") , "type": "bool",
              "pstyle":  "width:150px", "name": "animated"},
-            {"_type": "input", "_end": "PBR", "type": "bool", "class": "fliter-pbr", "name": "pbr",
+            {"_type": "input", "_end": "PBR", "value":g.get("pbr","0"), "type": "bool", "class": "fliter-pbr", "name": "pbr",
              "pstyle":  "width:150px"},
-            {"_type": "input", "_end": "Rigged", "type": "bool",
+            {"_type": "input", "_end": "Rigged", "value":g.get("rigged","0"), "type": "bool",
                 "pstyle":  "width:150px", "name": "rigged"},
-            {"_type": "input", "_end": "Low poly", "type": "bool",
+            {"_type": "input", "_end": "Low poly", "value":g.get("low_poly","0")  ,"type": "bool",
              "pstyle":  "width:170px", "name": "low_poly"},
             {"class": "ins-flex "}]
+        
+        
+        
+        
         return uidata
 
     def header_ui(self):
@@ -189,7 +195,11 @@ class AppProductsSearch(App):
         if rpdata:
             uidata = []
             for d in rpdata:
-                url = self.ins._server._url({"q1": f"{d['alias']}"}, ["page"])
+                if "mode" not in p:
+                    
+                    url = ""
+                else:
+                    url = self.ins._server._url({"q1": f"{d['alias']}"}, ["page"])
                 uidata += ELUI(self.ins).shop_pro_block(d, url)
             uidata += [
                 {"class": "ins-space-xl"},

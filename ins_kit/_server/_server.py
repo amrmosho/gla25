@@ -143,11 +143,15 @@ class Server(ins_parent):
         return True
     
     def _redirect(self, to):
-        return  redirect(to)  
+        
+        a= f'<meta http-equiv="refresh" content="0; url={to}">'  
+        
+        
+
+        return a
 
     def _refresh(self):
-        d= request.url
-        return  redirect(d)  
+        return    '<meta http-equiv="refresh" content="0">'
     
     
     def _get_url(self):

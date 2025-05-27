@@ -41,7 +41,6 @@ class PlgLogin(Plgin):
         return self.ins._ui._render(uidata)
     
     def _login_ui(self):
-        self._login()
         
         g= self.ins._server._get() 
         if "show" in g  and g["show"] =="forgot":
