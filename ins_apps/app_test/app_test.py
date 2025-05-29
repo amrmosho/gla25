@@ -89,18 +89,15 @@ class AppTest(App):
         <span>0</span>
         <input type="range" class="ins-col-12"  id="envBlur" value="0" min="0" max="0.1" step="0.001">
         </div>"""
-        
-        return b
-    
-    
 
-    def  epanel_lighting_image(self):
+        return b
+
+    def epanel_lighting_image(self):
 
         b = """img"""
-        
+
         return b
-    
-    
+
     def epanel_lighting(self):
         b = """<div  class='ins-flex ins-col-12'>
          <button data-m='color'  class='insv-background-btn  color ins-active ins-col-4 ins-button'>Color</button>
@@ -182,43 +179,177 @@ class AppTest(App):
 
         return r
 
-
     def epanel_post(self):
-       
-        r = ""
-        
-        s="""
-            <input type="checkbox" name="vehicle1" value="Bike">
 
-        
+        r = ""
+
+        s = """
+            <input type="checkbox" id="enableBloom"  />
             <div  class='range_inut ins-col-12 ins-flex'>
-            <label class='ins-col-grow'> noiseIntensity </label>
+            <label class='ins-col-grow'> bloomStrength </label>
             <span>0.5</span>  
-            <input type="range"  data-m="film"  class="ins-col-12 postRangeInput"  data-p='noiseIntensity'   id="filmNoiseIntensity" value="0" min="0" max="2" step="0.01">
+            <input type="range"    class="ins-col-12 postRangeInput"  data-p='noiseIntensity'   id="bloomStrength" value="1.0" min="0" max="3" step="0.05">
             </div>
         
             <div  class='range_inut ins-col-12 ins-flex'>
-            <label class='ins-col-grow'> scanlinesIntensity </label>
+            <label class='ins-col-grow'> bloomRadius </label>
             <span>0.5</span>  
-            <input type="range"  data-m="film" class="ins-col-12 postRangeInput"  data-p='scanlinesIntensity'   id="filmScanlinesIntensity" value="0" min="0" max="2" step="0.01">
+            <input type="range"   class="ins-col-12 postRangeInput"  data-p='bloomRadius'   id="bloomRadius" value="0.4" min="0" max="1" step="0.01">
             </div>
          
             <div  class='range_inut ins-col-12 ins-flex'>
-            <label class='ins-col-grow'> scanlinesCount </label>
-            <span>0.5</span>  
-            <input type="range"  data-m="film"  class="ins-col-12 postRangeInput" data-p='scanlinesCount'  id="filmScanlinesCount" value="0" min="0" max="1000" step="1">
-            </div>                       
-            
-                
-    
+            <label class='ins-col-grow'> bloomThreshold </label>
+            <span> 0.85</span>  
+            <input type="range"    class="ins-col-12 postRangeInput" data-p='scanlinesCount'  id="bloomThreshold" value="0.85" min="0" max="1.0" step="0.01">
+            </div>    
             """
-        
-        
-        
+        r += self.cart("Bloom",  s)
 
+        s = """
+            <input type="checkbox" id="enableVignette" />
+           
+        
+            <div  class='range_inut ins-col-12 ins-flex'>
+            <label class='ins-col-grow'> vignetteOffset </label>
+            <span>0.5</span>  
+            <input type="range"   class="ins-col-12 postRangeInput"    id="vignetteOffset" value="0.5" min="0.3" max="0.7" step="0.01">
+            </div>
+         
+            <div  class='range_inut ins-col-12 ins-flex'>
+            <label class='ins-col-grow'> vignetteDarkness </label>
+            <span>0.5</span>  
+            <input type="range"    class="ins-col-12 postRangeInput"  id="vignetteDarkness" value="0.6" min="0" max="1" step="0.05>
+            </div>    
+            """
+        r += self.cart("Vignette",  s)
+
+        s = """
+            <input type="checkbox" id="enableFilm"  />
+            <div  class='ins-col-12 ins-flex'>
+            <input type="checkbox" id="enableGrayFilm"  /> <span> grayscale </span>
+            </div>
+
+        
+        
+            <div  class='range_inut ins-col-12 ins-flex'>
+            <label class='ins-col-grow'> filmNoise </label>
+            <span>0.5</span>  
+            <input type="range"   class="ins-col-12 postRangeInput"    id="filmNoise"  min="0" max="1" step="0.01" value="1" />
+            </div>
+         
+            <div  class='range_inut ins-col-12 ins-flex'>
+            <label class='ins-col-grow'> filmScanlines </label>
+            <span>0.5</span>  
+            <input type="range"    class="ins-col-12 postRangeInput"  id="filmScanlines" min="0" max="1" step="0.01" value="1" />
+         
+            </div>    
+            
+            <!--
+              <div  class='range_inut ins-col-12 ins-flex'>
+            <label class='ins-col-grow'> filmScanlines </label>
+            <span>0.5</span>  
+            <input type="range"    class="ins-col-12 postRangeInput"  id="filmScanlines" min="64" max="4096" step="1" value="1024" />
+         
+         
+         
+            </div>  -->
+            """
         r += self.cart("Film",  s)
-        return r
 
+        s = """
+            <input type="checkbox" id="enableChroma"  />
+      
+
+        
+        
+            <div  class='range_inut ins-col-12 ins-flex'>
+            <label class='ins-col-grow'> Chromatic Offset X </label>
+            <span>0.5</span>  
+            <input type="range"  class="ins-col-12 postRangeInput"    id="chromaOffsetX"  min="0" max="0.01" step="0.001" />
+            </div>
+         
+            <div  class='range_inut ins-col-12 ins-flex'>
+            <label class='ins-col-grow'> Chromatic Offset Y </label>
+            <span>0.5</span>  
+            <input type="range"   class="ins-col-12 postRangeInput"  id="chromaOffsetY" min="0" max="0.01" step="0.001"  />
+         
+            </div>    
+       
+            """
+        r += self.cart("chromatic Aberration",  s)
+
+        s = """
+              <input type="checkbox" id="enableColorBalance" />
+<div class='ins-flex ins-col-12' id="colorBalanceControls">
+
+
+    <div  data-p="shadows" style="padding: 2px;text-align: center;font-size: 12px;" class="ins-col-4  ins-button cbitem-btn ">Shadows</div>
+    <div data-p="midtones" style="padding: 2px;text-align: center;font-size: 12px;" class="ins-col-4  ins-active ins-button cbitem-btn">Midtones</div>
+    <div  data-p="highlights"   style="padding: 2px;text-align: center;font-size: 12px;"  class="ins-col-4 ins-button cbitem-btn">Highlights</div>
+    
+    
+    <div class='ins-col-12 ins-flex shadows ins-hidden  cbitem-tab-body'>
+        <div class='range_inut ins-col-12 ins-flex'>
+            R: <input id="shadowsR" type="range" min="0" max="2" step="0.01" value="1"> <span>0.5</span>
+        </div>
+        <div class='range_inut ins-col-12 ins-flex'>
+            G: <input id="shadowsG" type="range" min="0" max="2" step="0.01" value="1"> <span>0.5</span>
+        </div>
+        <div class='range_inut ins-col-12 ins-flex'>
+            B: <input id="shadowsB" type="range" min="0" max="2" step="0.01" value="1"><span>0.5</span>
+        </div>
+    </div>
+    <div class='ins-col-12 ins-flex midtones   cbitem-tab-body'>
+        <div class='range_inut ins-col-12 ins-flex'>
+            R: <input id="midtonesR" type="range" min="0" max="2" step="0.01" value="1"><span>0.5</span>
+        </div>
+        <div class='range_inut ins-col-12 ins-flex'>
+            G: <input id="midtonesG" type="range" min="0" max="2" step="0.01" value="1"><span>0.5</span>
+        </div>
+        <div class='range_inut ins-col-12 ins-flex'>
+            B: <input id="midtonesB" type="range" min="0" max="2" step="0.01" value="1"> <span>0.5</span>
+        </div>
+    </div>
+    <div class='ins-col-12 ins-flex ins-hidden  highlights  cbitem-tab-body'>
+        <div class='range_inut ins-col-12 ins-flex'>
+          h  R: <input id="highlightsR" type="range" min="0" max="2" step="0.01" value="1"> <span>0.5</span>
+        </div>
+        <div class='range_inut ins-col-12 ins-flex'>
+            G: <input id="highlightsG" type="range" min="0" max="2" step="0.01" value="1"> <span>0.5</span>
+        </div>
+        <div class='range_inut ins-col-12 ins-flex'>
+            B: <input id="highlightsB" type="range" min="0" max="2" step="0.01" value="1"> <span>0.5</span>
+        </div>
+    </div>
+</div>
+       
+            """
+        r += self.cart("chromatic Aberration",  s)
+
+
+        s = """
+            <input type="checkbox" id="enableSharpen"  />
+      
+
+        
+        
+            <div  class='range_inut ins-col-12 ins-flex'>
+            <label class='ins-col-grow'> sharpens Strength </label>
+            <span>0.5</span>  
+            <input type="range"  class="ins-col-12 postRangeInput"    id="sharpensStrength" min="0" max="2" step="0.01" value="0.3" />
+            </div>
+         
+               
+       
+            """
+        r += self.cart("Sharpen",  s)
+
+
+
+
+
+
+        return r
 
     def epanel_mats(self):
         return "epanel_mats"

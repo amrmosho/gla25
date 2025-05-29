@@ -227,13 +227,22 @@ export class InsVSceneUi {
         }
     }
     setupEditorUIAj(status) {
-        console.log(status)
         if (status == "epanel_settins") {
             this.ecamera_panel(this.parent);
             this.escale_panel(this.parent);
         } else if (status == "epanel_lighting") {
             this.EUiLightin();
+        } else if (status == "epanel_post") {
+
+console.log(status)
+
+            this.parent.post.postUpdateUI();
+
+
         }
+
+
+
         var t = this
         document.querySelectorAll('.range_inut input').forEach(element => {
             element.parentElement.querySelectorAll("span").forEach(selement => {
@@ -274,16 +283,15 @@ export class InsVSceneUi {
     Post() {
 
         var t = this
-        this.helper._on('.postRangeInput', "input", (e) => {
+        /*this.helper._on('.postRangeInput', "input", (e) => {
 
-console.log(e.value)
 
                 t.parent.config.filters[e.dataset["m"]][e.dataset["p"]] = e.value
                 console.log(t.parent.config.filters)
 
                 t.parent.post.setupPostProcessing();
 
-        })
+        })*/
 
 
 
@@ -293,7 +301,7 @@ console.log(e.value)
 
         var t = this
 
-        t. Post()
+        t.Post()
         this.helper._on('.range_inut input', "input", (e) => {
             e.parentElement.querySelectorAll("span").forEach(selement => {
                 selement.textContent = e.value

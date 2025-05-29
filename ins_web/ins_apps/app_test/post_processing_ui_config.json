@@ -1,0 +1,108 @@
+{
+  "bloom": {
+    "strength": {
+      "min": 0.0,
+      "max": 3.0,
+      "step": 0.05,
+      "default": 1.0
+    },
+    "radius": {
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.01,
+      "default": 0.4
+    },
+    "threshold": {
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.01,
+      "default": 0.85
+    }
+  },
+  "vignette": {
+    "offset": {
+      "min": 0.3,
+      "max": 0.7,
+      "step": 0.01,
+      "default": 0.5
+    },
+    "darkness": {
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.05,
+      "default": 0.6
+    }
+  },
+  "film": {
+    "nIntensity": {
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.01,
+      "default": 0.5
+    },
+    "sIntensity": {
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.01,
+      "default": 0.05
+    },
+    "sCount": {
+      "min": 256,
+      "max": 4096,
+      "step": 1,
+      "default": 1024
+    },
+    "grayscale": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "chromaticAberration": {
+    "offsetX": {
+      "min": 0.0,
+      "max": 0.05,
+      "step": 0.001,
+      "default": 0.003
+    },
+    "offsetY": {
+      "min": 0.0,
+      "max": 0.05,
+      "step": 0.001,
+      "default": 0.003
+    }
+  },
+  "colorBalance": {
+    "shadows": {
+      "R": 1.0,
+      "G": 1.0,
+      "B": 1.0,
+      "min": 0.0,
+      "max": 2.0,
+      "step": 0.01
+    },
+    "midtones": {
+      "R": 1.0,
+      "G": 1.0,
+      "B": 1.0,
+      "min": 0.0,
+      "max": 2.0,
+      "step": 0.01
+    },
+    "highlights": {
+      "R": 1.0,
+      "G": 1.0,
+      "B": 1.0,
+      "min": 0.0,
+      "max": 2.0,
+      "step": 0.01
+    }
+  },
+  "sharpen": {
+    "strength": {
+      "min": 0.0,
+      "max": 2.0,
+      "step": 0.01,
+      "default": 0.3
+    }
+  }
+}

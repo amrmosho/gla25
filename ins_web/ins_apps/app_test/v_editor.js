@@ -1,10 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
-
 import { TransformControls } from 'three/examples/jsm/controls/TransformControls.js';
-
-
 import { EXRLoader } from 'three/examples/jsm/loaders/EXRLoader.js';
 
 

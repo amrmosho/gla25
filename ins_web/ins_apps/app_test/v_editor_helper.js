@@ -5,6 +5,18 @@ export class InsVHelper {
     }
 
 
+   updateActive(cls, actcls) {
+        if (actcls != null) {
+            document.querySelectorAll(cls).forEach(p => {
+                if (p.classList.contains("ins-active")) {
+                    p.classList.remove("ins-active");
+                }
+            });
+            actcls.classList.add("ins-active");
+        }
+    }
+
+
     _on(selector, event, callback, useCapture = true) {
         document.addEventListener(event, function (e) {
             const targets = document.querySelectorAll(selector);
@@ -18,6 +30,11 @@ export class InsVHelper {
 
 
 
+    _value(selector, value) {
+
+        this._updateAttr(selector, "value", value)
+
+    }
 
     _updateAttr(selector, attar_name, value) {
         const targets = document.querySelectorAll(selector);

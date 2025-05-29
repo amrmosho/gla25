@@ -1,12 +1,39 @@
-<div class='ins-col-12 ins-secondary-w'>
-    <div class=' gla-container ins-flex '>
-        <ul class="ins-col-12 ins-flex-center ins-title-s">
-            <li class="ins-padding-m ins-strong "><a href="/home/" title="Trending"><span>Blender Tutorials</span></a></li>
-            <li class="ins-padding-m ins-strong"><a href="/home/" title="Trending"><span>houdini Tutorials</span></a></li>
-            <li class="ins-padding-m ins-strong"><a href="/home/" title="Trending"><span>Trending</span></a></li>
-            <li class="ins-padding-m ins-strong"><a href="/about/" data-title="collections"><span>collections</span></a></li>
-            <li class="ins-padding-m ins-strong"><a href="/Products/" data-title="Products"><span>3d Moduels</span></a></li>
-            <li class="ins-padding-m ins-strong"><a href="/Products/" data-title="Products"><span>Basemeshes</span></a></li>
-        </ul>
+<input type="checkbox" id="colorBalance" />
+<div class='ins-flex ins-col-12' id="colorBalanceControls">
+    <h3 class="ins-col-4 ina-active ins-button">Shadows</h3>
+    <h3  class="ins-col-4 ins-button">Midtones</h3>
+    <h3  class="ins-col-4 ins-button">Highlights</h3>
+    <div class='ins-col-12 ins-flex shadows cbitem'>
+        <div class='range_inut ins-col-12 ins-flex'>
+            R: <input id="shadowsR" type="range" min="0" max="2" step="0.01" value="1"> <span>0.5</span>
+        </div>
+        <div class='range_inut ins-col-12 ins-flex'>
+            G: <input id="shadowsG" type="range" min="0" max="2" step="0.01" value="1"> <span>0.5</span>
+        </div>
+        <div class='range_inut ins-col-12 ins-flex'>
+            B: <input id="shadowsB" type="range" min="0" max="2" step="0.01" value="1"><span>0.5</span>
+        </div>
+    </div>
+    <div class='ins-col-12 ins-flex midtones cbitem'>
+        <div class='range_inut ins-col-12 ins-flex'>
+            R: <input id="midtonesR" type="range" min="0" max="2" step="0.01" value="1"><span>0.5</span>
+        </div>
+        <div class='range_inut ins-col-12 ins-flex'>
+            G: <input id="midtonesG" type="range" min="0" max="2" step="0.01" value="1"><span>0.5</span>
+        </div>
+        <div class='range_inut ins-col-12 ins-flex'>
+            B: <input id="midtonesB" type="range" min="0" max="2" step="0.01" value="1"> <span>0.5</span>
+        </div>
+    </div>
+    <div class='ins-col-12 ins-flex highlights cbitem'>
+        <div class='range_inut ins-col-12 ins-flex'>
+            R: <input id="highlightsR" type="range" min="0" max="2" step="0.01" value="1"> <span>0.5</span>
+        </div>
+        <div class='range_inut ins-col-12 ins-flex'>
+            G: <input id="highlightsG" type="range" min="0" max="2" step="0.01" value="1"> <span>0.5</span>
+        </div>
+        <div class='range_inut ins-col-12 ins-flex'>
+            B: <input id="highlightsB" type="range" min="0" max="2" step="0.01" value="1"> <span>0.5</span>
+        </div>
     </div>
 </div>

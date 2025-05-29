@@ -45,7 +45,7 @@
             0
         ]
     },
-    "background_color": "0x21b045",
+    "background_color": "0x2b2f34",
     "lighting": {
         "ambient": {
             "color": "0xffffff",
@@ -68,11 +68,9 @@
             "lighting_preset": "threePoint",
             "env_blur": "0.018",
             "rotation_y": "90",
-            "background": "env"
+            "background": "color"
         }
     },
-
-    
     "filters": {
         "bloom": {
             "enabled": false,
@@ -81,13 +79,15 @@
             "threshold": 0.85
         },
         "film": {
-            "enabled": true,
+            "enabled": false,
             "noiseIntensity": 0.35,
             "scanlinesIntensity": 0.025,
-            "scanlinesCount": 648
+            "scanlinesCount": 648,
+            "gray_enabled": false
         },
         "sharpen": {
             "enabled": false,
+            "strength":1,
             "kernel": [
                 0,
                 -1,
@@ -102,27 +102,27 @@
         },
         "gammaCorrection": true,
         "vignette": {
-            "enabled": false,
-            "offset": 0.1,
-            "darkness": 1
+            "enabled": true,
+            "offset": 0.5,
+            "darkness": 0.6
         },
         "colorBalance": {
             "enabled": true,
-            "shadows": [
-                1,
-                1,
-                1
-            ],
-            "midtones": [
-                1,
-                1,
-                1
-            ],
-            "highlights": [
-                1,
-                1,
-                1
-            ]
+            "shadows": {
+                "r": 1,
+                "g": 1,
+                "b": 1
+            },
+            "midtones": {
+                "r": 1,
+                "g": 1,
+                "b": 1
+            },
+            "highlights": {
+                "r": 1,
+                "g": 1,
+                "b": 1
+            }
         },
         "toneMapping": {
             "enabled": true,
@@ -131,10 +131,8 @@
         },
         "chromaticAberration": {
             "enabled": false,
-            "offset": [
-                0.0015,
-                0.001
-            ]
+            "offsetx": 0.0015,
+            "offsety": 0.001
         }
     },
     "path": "/ins_web/ins_uploads/v/apple/data.json"
