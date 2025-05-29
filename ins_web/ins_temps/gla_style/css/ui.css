@@ -21,7 +21,7 @@ a:hover,
 
 .ins-gla-style {
     --input-bg: #f9f8f7;
-    --primary: #3ba9b6;
+    --primary: #012b3b;
     --primary-h: 38 !important;
     --primary-s: 49% !important;
     --primary-s: 31% !important;
@@ -60,6 +60,26 @@ a:hover,
     --font: "gotham";
     --text: #495057;
 }
+
+.ins-menu-item a,
+.ins-primary a {
+
+    color: #fff !important;
+}
+
+.ins-offwhite {
+    background: #f2f2f2;
+
+}
+
+
+
+
+.ins-wallpaper {
+    background: #f2f2f2;
+}
+
+
 
 .not-for-web {
     display: none !important;
@@ -482,7 +502,7 @@ a:hover,
 [class*="ins-button"]:hover {
     border: none;
     /*background-color: var(--grey-l) !important;*/
-    color: var(--grey-m)!important;
+    color: var(--grey-m) !important;
 }
 
 .ins-button-text {

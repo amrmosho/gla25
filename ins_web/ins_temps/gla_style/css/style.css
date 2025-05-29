@@ -180,8 +180,11 @@ footer li {
 
 .ins-menu-item a {
     transition: 0.1s;
-    color: var(--secondary-d);
+  
 }
+
+
+
 
 .ins-button-cricle i {
     color: var(--secondary-d) !important;
