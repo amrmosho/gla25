@@ -6,11 +6,24 @@
     "email_address": "البريد الإلكتروني",
     "enter_email": "أدخل عنوان البريد الإلكتروني",
     "password": "كلمة المرور",
+    "confirm_password": "تأكيد كلمة المرور",
+    "enter_confirm_password": "أدخل تأكيد كلمة المرور",
     "enter_password": "أدخل كلمة المرور",
     "next": "التالي <i class='lni lni-arrow-left ins-font-l'></i>",
     "back": "<i class='lni lni-arrow-right'></i> العودة",
     "user_not_exists": "المستخدم غير موجود",
     "invalid_otp": "رمز التحقق غير صالح",
     "empty_otp": "يرجى إدخال رمز التحقق",
-    "password_not_match": "كلمة المرور غير متطابقة"
+    "password_not_match": "كلمة المرور غير متطابقة",
+    "signup": "قم بالتسجيل",
+    "otp": "رمز التحقق",
+    "first_name": "الاسم الأول",
+    "enter_first_name": "أدخل الاسم الأول",
+    "last_name": "الاسم الأخير",
+    "enter_last_name": "أدخل الاسم الأخير",
+    "reset_password": "إعادة تعيين كلمة المرور",
+    "verify": "تحقق",
+
+    "user_exists": "المستخدم موجود بالفعل",
+    "invalid_login": " بيانات تسجيل الدخول غير صحيحة"
 }

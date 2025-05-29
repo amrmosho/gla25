@@ -166,6 +166,6 @@ body {
 .-remove-error-msg {
     position: absolute !important;
     right: 20px;
-    top: 25px !important;
+    top: 15px !important;
     cursor: pointer !important;
 }
