@@ -19,6 +19,15 @@ class PlgLogin(Plgin):
    
     
     def _login_ui_body(self):
+        p = self.ins._server._post()
+        error ={}
+        if "email" in p and "password" in p:
+           l =  self.ins._users._login(p)
+           if not l:
+               error = self.ins._ui._error_msg(self.ins._langs._get("invalid_login", "users"))
+
+
+
         furl = self.ins._server._url({"show": "forgot"})        
         surl = self.ins._server._url({"show": "signup"})
         forgot_password = f"<a href='{furl}' >{self.ins._langs._get("forget_password", "users")}</a>"
@@ -27,6 +36,8 @@ class PlgLogin(Plgin):
         uidata = [
             {"start": "true", "_type": "form", "method": "post","class": "ins-col-12 ins-flex-center ins-padding-2xl ins-text-center -login-area"},
             {"start": "true", "class": "ins-col-5 ins-flex ins-card -email-form ins-text-start"},
+            error,
+            
             {"_data": self.ins._langs._get("login", "users"), "class": "ins-title-m ins-strong-m ins-grey-d-color ins-text-upper ins-col-12"},
             {"_type": "input", "required": "true", "title": self.ins._langs._get("email_address", "users"), "placeholder":self.ins._langs._get("enter_email", "users") , "type": "email", "name": "email", "class": "-login-email-inpt", "pclass": "ins-col-12"},
             {"_type": "input", "required": "true", "title": self.ins._langs._get("password", "users"), "placeholder":self.ins._langs._get("enter_password", "users"),"type": "password",  "name": "password", "class": "-login-password-inpt", "pclass": "ins-col-12"},

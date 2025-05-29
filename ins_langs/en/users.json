@@ -8,12 +8,25 @@
     "email_address": "Email Address",
     "enter_email": "Enter Email Address",
     "password": "Password",
+    "confirm_password": "Confirm Password",
     "enter_password": "Enter Password",
+    "enter_confirm_password": "Enter Confirm Password",
     "next": "Next <i class='lni lni-arrow-right'></i>",
     "back": "<i class='lni lni-arrow-left'></i> Back",
     "user_not_exists": "User does not exist",
     "invalid_otp": "Invalid OTP",
     "empty_otp": "Please enter OTP",
-    "password_not_match": "Password does not match"
+    "password_not_match": "Password does not match",
+    "signup": "Signup",
+    "otp": "OTP",
+    "first_name": "First Name",
+    "enter_first_name": "Enter First Name",
+    "last_name": "Last Name",
+    "enter_last_name": "Enter Last Name",
+    "reset_password": "Reset Password",
+    "verify": "Verify",
+    "user_exists": "User already exists",
+    "invalid_login": "Invalid login credentials"
+
 
 }

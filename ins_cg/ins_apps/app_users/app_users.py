@@ -382,12 +382,10 @@ class AppUsers(App):
  
 
         l=PlgLogin(self)
-      
-      
         l._login()
+        is_login = l.is_login()
 
-      
-        if l.is_login():
+        if is_login:
 
             g = self.ins._server._get()
             r = self.header(g)

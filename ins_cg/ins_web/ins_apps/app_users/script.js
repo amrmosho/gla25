@@ -176,9 +176,9 @@ ins(".-login-otp-inpt")._on("keyup", (o, e) => {
 ins(".-show-password")._on("click", (o) => {
     if (o._hasClass("ins-active")) {
         o._removeClass("ins-active")
-        ins(".-update-password-inpt")._setAttribute("type", "password")
+        ins(".-password-inpt")._setAttribute("type", "password")
     } else {
-        ins(".-update-password-inpt")._setAttribute("type", "")
+        ins(".-password-inpt")._setAttribute("type", "")
         o._addClass("ins-active")
     }
 }, true);
@@ -189,12 +189,14 @@ ins(".-show-password")._on("click", (o) => {
 ins(".-show-confirm-password")._on("click", (o) => {
     if (o._hasClass("ins-active")) {
         o._removeClass("ins-active")
-        ins(".-update-confirm-password-inpt")._setAttribute("type", "password")
+        ins(".-confirm-password-inpt")._setAttribute("type", "password")
     } else {
-        ins(".-update-confirm-password-inpt")._setAttribute("type", "")
+        ins(".-confirm-password-inpt")._setAttribute("type", "")
         o._addClass("ins-active")
     }
 }, true);
+
+
 
 ins(".-show-old-password")._on("click", (o) => {
     if (o._hasClass("ins-active")) {
