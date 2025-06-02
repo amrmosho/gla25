@@ -12,7 +12,7 @@ class WdgCreators(Widget):
         data = self.ins._db._get_data("kit_user", "*","1 LIMIT 4", update_lang=True)
         p = self.ins._map.UPLOADS_FOLDER
         uidata = [
-            {"start":"true","class":"ins-padding-xl ins-col-12 ins-flex-center ins-gap-20  ins-secondary"},
+            {"start":"true","class":"ins-padding-xl ins-col-12 ins-flex-center ins-gap-20  ins-primary"},
         ]
 
 

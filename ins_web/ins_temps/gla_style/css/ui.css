@@ -8,7 +8,7 @@
 
 a:hover,
 ._a:hover {
-    color: var(--gold-d) !important;
+    color: var(--secondary-d) !important
 }
 
 ._a_red:hover {
@@ -25,10 +25,10 @@ a:hover,
     --primary-h: 38 !important;
     --primary-s: 49% !important;
     --primary-s: 31% !important;
-    --primary-d: #9E865B;
+    --primary-d: #283252;
     --primary-m: #C5B69D;
     --wrapper-bg: #ECE7DE;
-    --primary-l: #D8CFBD;
+    --primary-l: #b3b6be;
     --primary-bg: #ECE7DE;
     --primary-shadow-from: #ECE7DE !important;
     --primary-w: #F5F3EE;
@@ -63,23 +63,20 @@ a:hover,
 
 .ins-menu-item a,
 .ins-primary a {
-
     color: #fff !important;
 }
 
 .ins-offwhite {
-    background: #f2f2f2;
-
+    background: #f2f2f2 !important;
 }
-
-
-
 
 .ins-wallpaper {
-    background: #f2f2f2;
+    background: #ffffff;
 }
 
-
+.-user-menu a {
+    color: var(--primary) !important;
+}
 
 .not-for-web {
     display: none !important;
@@ -597,17 +594,17 @@ body {
 }
 
 .ins-button-cricle.ins-white {
-    color: var(--secondary);
+    color: var(--secondary) !important;
 }
 
 .ins-button-cricle.ins-white:hover,
 .ins-button-cricle.ins-white:hover i,
 .ins-button-cricle.ins-white:hover path {
-    color: var(--gold-d) !important;
+    color: var(--grey) !important
 }
 
 .ins-button-cricle.ins-white:hover path {
-    fill: var(--gold-d) !important;
+    fill: var(--grey) !important
 }
 
 .ins-button-cricle.ins-grey-d:hover {
@@ -679,4 +676,13 @@ body {
 
 .pro-blk-action:hover {
     box-shadow: 1px 1px 3px 0px #00000043;
+}
+
+.ins-primary.-pro-action>div::before,
+.ins-primary.-pro-action>i::before {
+    background-color: white !important;
+}
+
+.ins-primary-l[class*="ins-button"] {
+    border: 1px solid var(--primary-d);
 }

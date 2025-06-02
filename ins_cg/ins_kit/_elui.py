@@ -50,7 +50,7 @@ class ELUI(ins_parent):
             {"src": f"{self.ins._map.UPLOADS_FOLDER}{data['th_main']}", "loading": "lazy",
                 "_type": "img", "class": "ins-radius-m", "style": "    height: 100%;"},
             {"end": "true"},
-            {"start": "true", "class": "ins-col-8  ins-flex-grow ins-primary-w ins-padding-l ins-m-flex-center -cart-img-cont ins-m-col-9",
+            {"start": "true", "class": "ins-col-8  ins-flex-grow  ins-padding-l ins-m-flex-center -cart-img-cont ins-m-col-9",
                 "style": "border-radius: 0px 8px 8px 0px;    border-left: 1px solid var(--primary-l);"},
             {"_data": "Item summary", "_data-ar": "ملخص السعر", "_trans": "true",
                 "class": "ins-col-11 ins-m-col-11 ins-title-s ins-strong-l ins-grey-d-color item-summary-area"},
@@ -86,10 +86,9 @@ class ELUI(ins_parent):
                 uidata.append({"class": "ins-space-xs"})
             uidata += [
                 {"start": True, "class": "ins-flex-space-between ins-col-12 ins-padding-l"},
-                {"_data": "Continue Shopping", "_data-ar": "متابعة التسوق", "_trans": "true",
-                    "class": "ins-button-s ins-text-upper ins-gold-d ins-col-6 ins-m-col-6 -continue-shopping-btn"},
+                {"_data": "Continue Shopping", "_data-ar": "متابعة التسوق", "_trans": "true","class": "ins-button-s ins-text-upper ins-primary ins-col-6 ins-m-col-6 -continue-shopping-btn"},
                 {"_data": "To cart", "_data-ar": "الى السلة", "_trans": "true", "_type": "a", "href": "/checkout/cart",
-                    "class": "ins-button-s ins-gold-d ins-text-upper ins-col-5 ins-m-col-6 -to-cart-btn"},
+                    "class": "ins-button-s ins-primary ins-text-upper ins-col-5 ins-m-col-6 -to-cart-btn"},
                 {"end": True},
                 {"class": "ins-space-l"},
                 {"end": True}
@@ -122,10 +121,10 @@ class ELUI(ins_parent):
         lc = ""
         wl = ""
         if str(data["id"]) in pros.get("prolike",[]):
-            lc = " ins-success "
+            lc = " ins-primary "
 
         if str(data["id"]) in pros.get("wishlist",[]):
-            wl = " ins-success "
+            wl = " ins-primary "
         r = [
             {"start": "true", "class": "ins-flex ins-card ins-col-3 -pro-item-block"},
 
@@ -156,7 +155,7 @@ class ELUI(ins_parent):
              
              
              "class": f"ins-col-4 {wl}  -pro-action ins-flex-center  pro-blk-action"},
-            {"class": "ins-icons-indent", "style": "position: relative; top: 3px;"},
+            {"class": "ins-icons-indent", "style": "position: relative; top: 3px;font-size: 20px;"},
             {"end": "true"},
             {"_data": f'by <a style="text-decoration: underline;" href="{uurl}">{data["us_title"]}</a> in  <a style="text-decoration: underline;" href="{curl}">{data["cat_title"]}</a>',
                 "class": "ins-col-grow ins-title-xs ins-secondary-d-color", "style": "line-height:24px"},

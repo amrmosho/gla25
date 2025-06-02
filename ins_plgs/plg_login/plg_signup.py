@@ -26,7 +26,7 @@ class PlgSignup(Plgin):
             {"_type": "input", "title": self.ins._langs._get("email_address", "users"), "readonly":"true","value": p["email"], "type": "email", "name": "email", "class": "-signup-email-inpt", "pclass": "ins-col-12"},
             {"_type": "input", "type": "text", "name": "otp", "value": p["otp"],  "pclass": "ins-col-12 ins-hidden"},
             {"class": "ins-line ins-col-12"},
-            {"_data": self.ins._langs._get("signup", "users"),"_type":"button", "class": "ins-button-m ins-gold-d ins-col-3"},
+            {"_data": self.ins._langs._get("signup", "users"),"_type":"button", "class": "ins-button-m ins-primary ins-col-3"},
             {"end": "true"},
             {"end": "true","_type": "form" }
         ]
@@ -53,7 +53,7 @@ class PlgSignup(Plgin):
                 {"start": "true", "class": "ins-col-12 ins-flex "},
                 {"_type":"a","href":back,"_data":self.ins._langs._get("back", "users") , "class": "ins-button-m ins-flex-center ins-col-3 ins-grey-d-color"},
                 {"class": " ins-col-6"},
-                {"_data": self.ins._langs._get("verify", "users"),"_type":"button", "class": "ins-button-m  ins-flex-center ins-gold-d ins-col-3"},
+                {"_data": self.ins._langs._get("verify", "users"),"_type":"button", "class": "ins-button-m  ins-flex-center ins-primary ins-col-3"},
                 {"end": "true"},
                 {"end": "true"},
                 {"end": "true","_type": "form" }
@@ -84,7 +84,7 @@ class PlgSignup(Plgin):
             {"start": "true", "class": "ins-col-12 ins-flex "},
             {"_type":"a","href":back,"_data": self.ins._langs._get("back", "users"),"class": "ins-button-m ins-flex-center ins-col-3 ins-grey-d-color"},
             {"class": " ins-col-6"},
-            {"_data":self.ins._langs._get("next", "users"),"_type":"button","class": "ins-button-m ins-gold-d ins-col-3 "},
+            {"_data":self.ins._langs._get("next", "users"),"_type":"button","class": "ins-button-m ins-primary ins-col-3 "},
             {"end": "true"},
             {"end": "true"},
             {"end": "true","_type": "form" }

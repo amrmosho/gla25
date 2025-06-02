@@ -179,12 +179,8 @@ footer li {
 }
 
 .ins-menu-item a {
-    transition: 0.1s;
-  
+    transition: 0.3s;
 }
-
-
-
 
 .ins-button-cricle i {
     color: var(--secondary-d) !important;
@@ -198,10 +194,13 @@ footer li {
     line-height: 40px;
 }
 
+
+/*
 .ins-menu-item:hover>a,
 .ins-menu-item:hover>a * {
     color: var(--gold-d) !important;
 }
+*/
 
 .ins-menu-sub-item:hover>a,
 .ins-menu-sub-item:hover>a * {
@@ -209,7 +208,8 @@ footer li {
 }
 
 .ins-menu-item:hover {
-    border-bottom: 2px solid var(--gold-d) !important
+    border-bottom: 2px solid !important;
+    scale: 1.1;
 }
 
 .pro-blog-block:hover {
@@ -283,10 +283,8 @@ footer li {
 
 .-user-menu {
     position: absolute;
-    z-index: 1111;
-    top: 65px;
-    width: 250px;
-    max-height: 0;
+    top: 76px;
+    width: 235px;
     overflow: hidden;
     padding: 0;
     opacity: 0;
@@ -296,11 +294,35 @@ footer li {
 .open-user-menu .-user-menu {
     max-height: 500px;
     padding: 20px;
+    z-index: 1111;
     opacity: 1;
 }
 
 .-user-menu li {
     border-bottom: 1px solid var(--border);
+}
+
+.-user-menu-btn {
+    min-width: 200px;
+    height: 45px;
+    line-height: 45px;
+    border-radius: 25px;
+    color: white !important;
+}
+
+.-user-menu-btn .ins-icons-chevron-down::before {
+    background-color: white;
+    top: 7px;
+    position: relative;
+    transition: 0.2s;
+}
+
+.open-user-menu .-user-menu-btn .ins-icons-chevron-down::before {
+    rotate: 180deg;
+}
+
+.-user-menu-btn a {
+    color: white !important;
 }
 
 @-moz-keyframes scroll-left {

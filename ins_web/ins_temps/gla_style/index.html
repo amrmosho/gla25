@@ -1,34 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
-    <meta charset="utf-8"> 
-    {{ temp.header|safe }}
+    <meta charset="utf-8"> {{ temp.header|safe }}
     <link rel="stylesheet" href="/{{ temp._weburl|safe }}css/style-{{lang['name']}}.css" />
     <link rel="stylesheet" href="/{{ temp._weburl|safe }}css/ui.css" />
     <link rel="stylesheet" href="/{{ temp._weburl|safe }}css/style.css" />
     <link href="/{{ temp._weburl|safe }}css/phone.css" rel="stylesheet" media="only screen and (min-width: 0px) and (max-width: 1000px)" type="text/css">
     <script src="/{{ temp._weburl|safe }}js/script.js"></script>
-        <script src="/{{ temp._weburl|safe }}js/pros.js"></script>
+    <script src="/{{ temp._weburl|safe }}js/pros.js"></script>
 
-    
-    
-    {{ temp.header_end|safe }} 
+
+
+    {{ temp.header_end|safe }}
     <title>{{page["title"]}} </title>
     {{ temp.css|safe }}
 
-   
+
 
 </head>
 
-{% set sclass ="  " %}
-{% set sv ="" %}
-
-{% if  "s" in get %}
-{% set sclass =" open-search " %}
-{% set sv =get["s"] %}
-
-{% endif %}
+{% set sclass =" " %} {% set sv ="" %} {% if "s" in get %} {% set sclass =" open-search " %} {% set sv =get["s"] %} {% endif %}
 
 <body class="ins-light-style ins-gla-style  ins-padding-xl {{sclass|safe}}   ins-wallpaper">
 
@@ -39,7 +32,7 @@
             <div class="gla-container gla-body ins-flex ins-m-flex-space-between">
                 <div class="lni ins-font-2xl  gla-phone-menu lni-menu-hamburger-1"></div>
                 <a href="/">
-                    <div style="width: 72px; height:72px" class="gla-logo gla-logo"></div>
+                    <div style="width: 72px; height:72px" class="gla-logo-white"></div>
                 </a>
                 <nav class="ins-col-grow  ">
                     <div class="ins-flex-space-between  ins-phone-nav">
@@ -55,72 +48,7 @@
                         {% if lang["name"] =="ar" %} {% set url = url({"lang":"en"}) %}
                         <a href="{{ url|safe }}" style="    font-size: 17px;    padding-top: 2px;" class="ins-button-cricle ins-font-type-m   ins-white">EN</a> {% endif %} {% if lang["name"] =="en" %} {% set url = url({"lang":"ar"}) %}
 
-                        <a href="{{ url|safe }}" style="    font-size: 17px;    padding-top: 2px;" class="ins-button-cricle ins-font-type-m   ins-white">AR</a> {% endif %} {% if "ins_u_data" not in session %}
-                        <div class="ins-button-cricle ins-white">
-                            <a href="/user/"><i class=" lni ins-icon  lni-user-4"></i></a>
-
-
-                        </div>
-
-                        {% endif %} {% if "ins_u_data" in session %}
-
-
-
-                        <div class="ins-button-cricle -user-menu-btn ins-white">
-                            <a><i class=" lni ins-icon  lni-user-4"></i></a>
-                        </div>
-
-
-
-                        <div class="-user-menu ins-white ins-padding-xl ins-card ins-border">
-
-                            {% if lang["name"] =="en" %}
-                            <ul>
-                                <li class="ins-title-s"><a href="/user/">Welcome <br> {{session["ins_u_data"]["title"]}}</a></li>
-                                <li>
-                                    <a href="/user/" class="ins-title-12"> <i class="lni ins-font-l lni-home-2"></i>Home</a>
-                                </li>
-                                <li>
-                                    <a href="/user/profile/user_setting" class="ins-title-12"> <i class="lni ins-font-l lni-user-4"></i> My Profile</a>
-                                </li>
-                                <li>
-                                    <a href="/user/order/" class="ins-title-12"> <i class="lni ins-font-l lni-basket-shopping-3"></i> Order</a>
-                                </li>
-                                <li>
-                                    <a href="/user/addresses/" class="ins-title-12"> <i class="lni ins-font-l lni-buildings-1"></i> Wishlist</a>
-                                </li>
-                                <div style="margin-top: 15px;" class=" ins-col-12 ins-button ins-danger-color -logout-btn"> <i class="lni ins-font-l ins-danger-color lni-share-2 "></i> Logout</div>
-                            </ul>
-
-                            {% endif %} {% if lang["name"] =="ar" %}
-                            <ul>
-                                <li class="ins-title-s"><a href="/user/">اهلاً <br> {{session["ins_u_data"]["title"]}}</a></li>
-                                <li>
-                                    <a href="/user/" class="ins-title-12"> <i class="lni ins-font-l lni-home-2"></i> الرئيسية</a>
-                                </li>
-                                <li>
-                                    <a href="/user/profile/user_setting" class="ins-title-12"> <i class="lni ins-font-l lni-user-4"></i> إدارة الملف الشخصي </a>
-                                </li>
-                                <li>
-                                    <a href="/user/order/" class="ins-title-12"> <i class="lni ins-font-l lni-basket-shopping-3"></i> طلبياتي
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/user/addresses/" class="ins-title-12"> <i class="lni ins-font-l lni-buildings-1"></i> عناويني</a>
-                                </li>
-                                <div style="margin-top: 15px;" class=" ins-col-12 ins-button ins-danger-color -logout-btn"> <i class="lni ins-font-l ins-danger-color lni-share-2 "></i> تسجيل الخروج</div>
-                            </ul>
-
-                            {% endif %}
-
-
-                        </div>
-
-
-
-                        {% endif %}
-
-
+                        <a href="{{ url|safe }}" style="    font-size: 17px;    padding-top: 2px;" class="ins-button-cricle ins-font-type-m   ins-white">AR</a> {% endif %}
                         <div style="position: relative;" class="ins-button-cricle ins-white">
                             <a href="/checkout/cart">
 
@@ -152,6 +80,74 @@
 
                             </a>
                         </div>
+
+                        {% if "ins_u_data" not in session %}
+                        <div class="ins-button-cricle ins-white"><a href="/user/"><i class=" lni ins-icon  lni-user-4"></i></a></div>
+                        {% endif %} {% if "ins_u_data" in session %} {% if lang["name"] =="en" %}
+
+                        <div class=" -user-menu-btn">
+                            <a><i class=" lni ins-icon  lni-user-4"></i>Hello {{session["ins_u_data"]["first_name"]}}<i class="ins-icons-chevron-down"></i></a>
+                        </div>
+
+                        {% endif %} {% if lang["name"] =="ar" %}
+
+
+                        <div class=" -user-menu-btn">
+                            <a><i class=" lni ins-icon  lni-user-4"></i> أهلاً  {{session["ins_u_data"]["first_name"]}}<i class="ins-icons-chevron-down"></i></a>
+                        </div>
+
+                        {% endif %}
+                        <div class="-user-menu ins-white ins-padding-xl ins-card ins-border">
+
+                            {% if lang["name"] =="en" %}
+                            <ul>
+                                <!--<li class="ins-title-s"><a href="/user/">Welcome <br> {{session["ins_u_data"]["title"]}}</a></li>-->
+                                <li>
+                                    <a href="/user/" class="ins-title-12"> <i class="lni ins-font-l lni-home-2"></i>Home</a>
+                                </li>
+                                <li>
+                                    <a href="/user/profile/user_setting" class="ins-title-12"> <i class="lni ins-font-l lni-user-4"></i> My Profile</a>
+                                </li>
+                                <li>
+                                    <a href="/user/order/" class="ins-title-12"> <i class="lni ins-font-l lni-basket-shopping-3"></i> Order</a>
+                                </li>
+                                <li>
+                                    <a href="/user/wishlist/" class="ins-title-12"> <i class="lni ins-font-l lni-buildings-1"></i> Wishlist</a>
+                                </li>
+                                <div style="margin-top: 15px;" class=" ins-col-12 ins-button ins-danger-color -logout-btn"> <i class="lni ins-font-l ins-danger-color lni-share-2 "></i> Logout</div>
+                            </ul>
+
+                            {% endif %} {% if lang["name"] =="ar" %}
+                            <ul>
+                                <!--<li class="ins-title-s"><a href="/user/">اهلاً <br> {{session["ins_u_data"]["title"]}}</a></li>-->
+                                <li>
+                                    <a href="/user/" class="ins-title-12"> <i class="lni ins-font-l lni-home-2"></i> الرئيسية</a>
+                                </li>
+                                <li>
+                                    <a href="/user/profile/user_setting" class="ins-title-12"> <i class="lni ins-font-l lni-user-4"></i> إدارة الملف الشخصي </a>
+                                </li>
+                                <li>
+                                    <a href="/user/order/" class="ins-title-12"> <i class="lni ins-font-l lni-basket-shopping-3"></i> طلبياتي
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/user/wishlist/" class="ins-title-12"> <i class="lni ins-font-l lni-buildings-1"></i> قائمة الرغبات
+                                    </a>
+                                </li>
+                                <div style="margin-top: 15px;" class=" ins-col-12 ins-button ins-danger-color -logout-btn"> <i class="lni ins-font-l ins-danger-color lni-share-2 "></i> تسجيل الخروج</div>
+                            </ul>
+
+                            {% endif %}
+
+
+                        </div>
+
+
+
+                        {% endif %}
+
+
+
                         <div>
                         </div>
                     </div>

@@ -43,7 +43,7 @@ class PlgLogin(Plgin):
             {"_type": "input", "required": "true", "title": self.ins._langs._get("password", "users"), "placeholder":self.ins._langs._get("enter_password", "users"),"type": "password",  "name": "password", "class": "-login-password-inpt", "pclass": "ins-col-12"},
             {"class": "ins-line ins-col-12"},
             {"_data": forgot_password, "class": "ins-link ins-col-9 ins-title-14"},
-            {"_data": self.ins._langs._get("login", "users"), "_type": "button", "class": "ins-button-m ins-gold-d ins-col-3 -login-btn"},
+            {"_data": self.ins._langs._get("login", "users"), "_type": "button", "class": "ins-button-m ins-primary ins-col-3 -login-btn"},
             {"class": "ins-col-12 ins-flex-center ins-padding-top-m"},
             {"_data": signup, "class": " ins-col-12"},
             {"end": "true"},
@@ -52,7 +52,7 @@ class PlgLogin(Plgin):
         return self.ins._ui._render(uidata)
     
     def _login_ui(self):
-        
+
         g= self.ins._server._get() 
         if "show" in g  and g["show"] =="forgot":
             return PlgForgot(self.plg)._forgot_ui()

@@ -57,7 +57,7 @@ class AppCheckoutCart(App):
                 {"class": "ins-line ins-col-12"},
                 {"start": "true", "class": "ins-flex ins-col-12 ins-gap-o"},
                 {"href": cgurl, "_type": "a", "_data": "<img src='"+p+"style/cart.svg'></img> Continue to Checkout ",  "_trans": "true",
-                 "class": "ins-button-s ins-flex-center ins-title-xs ins-strong-m ins-flex-grow ins-gold-d -add-cart-btn", "style": "    height: 46px;    border: 1px solid var(--primary-d);"},
+                 "class": "ins-button-s ins-flex-center ins-title-xs ins-strong-m ins-flex-grow ins-primary -add-cart-btn", "style": "    height: 46px;    border: 1px solid var(--primary-d);"},
                 {"end": "true"}
             ]
 

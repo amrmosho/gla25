@@ -197,7 +197,7 @@ class AppProductDetails(App):
 
 
 
-            {"_data": str(u["points"]), "class": " ins-border  ins-text-center  ins-rounded  ins-title-m  ins-primary-w ins-grey-color ",
+            {"_data": str(u["points"]), "class": " ins-border  ins-text-center  ins-rounded  ins-title-m  ins-white ",
              "style": "    height: 80px;width: 80px !important;line-height: 80px;"},
             {"end":  "true"},
 
@@ -301,16 +301,15 @@ class AppProductDetails(App):
         lc = ""
         wl = ""
         if str(data["id"]) in pros.get("prolike",[]):
-            lc = " ins-success "
+            lc = " ins-primary "
 
         if str(data["id"]) in pros.get("wishlist",[]):
-            wl = " ins-success "
+            wl = " ins-primary "
 
         # actions
         uidata += [
             {"class": "ins-space-m"},
-            {"_data": "<i class='ins-icons-bookmark ins-font-m'></i>  Add to wishlist",
-                "class": f"ins-button  ins-button  ins-font-s -pro-action {wl}  ins-flex-center ", "data-a": "wishlist", "data-pid": data["id"]},
+            {"_data": "<i class='ins-icons-bookmark ins-font-m'></i>  Add to wishlist","class": f"ins-button  ins-font-s -pro-action {wl}  ins-flex-center ", "data-a": "wishlist", "data-pid": data["id"]},
             {"class": "ins-col-grow"},
             {"_data": "<i class='ins-icons-eye ins-font-m'></i> " + str(data.get("views" ,1)),
                 "class": "ins-button ins-font-s  ins-flex-center "},
@@ -369,7 +368,6 @@ class AppProductDetails(App):
             {"_data": "Tags", "class": " ins-title-m ins-strong-m "},
 
             {"class": "ins-space-m"},
-
             {"_data": self._tags(data), "class": "ins-col-12 ins-flex"},
 
             {"class": "ins-space-m"},
@@ -389,7 +387,7 @@ class AppProductDetails(App):
         uidata.append({"class": "ins-space-xs"})
 
         uidata.append({"_data":  str(data.get("price", 9000)), "_view": "currency", "_currency_symbol": "$",
-                      "_currency_symbol_ar": " جنيه",  "class": "ins-col-12   ins-title-l  ins-primary-d-color"})
+                      "_currency_symbol_ar": " جنيه",  "class": "ins-col-12   ins-title-l  ins-primary-color"})
         uidata.append({"class": "ins-space-s"})
         uidata.append({"class": "ins-line ins-col-12"})
 
@@ -402,12 +400,12 @@ class AppProductDetails(App):
             lbtitle = "السلة"
 
         uidata.append({"_data": "<img src='"+p+"style/cart.svg'></img> ADD TO CART", "_data-ar": "أضف إلى السلة", "_trans": "true", "data-lbtitle": lbtitle, "data-pid": str(
-            data["id"]), "data-subtype": stys, "data-type": tys, "class": "ins-button-s ins-flex-center ins-title-xs ins-strong-m ins-flex-grow ins-gold-d -add-cart-btn", "style": "    height: 46px;    border: 1px solid var(--primary-d);"})
+            data["id"]), "data-subtype": stys, "data-type": tys, "class": "ins-button-s ins-flex-center ins-title-xs ins-strong-m ins-flex-grow ins-primary -add-cart-btn", "style": "height: 46px;"})
         uidata.append({"end": "true"})
 
         # files FORMATS
 
-        uidata.append({"start": "true", "class": "ins-flex ins-col-12 ins-card ins-primary-w",
+        uidata.append({"start": "true", "class": "ins-flex ins-col-12 ins-card ",
                       "style": "border-radius:8px 8px 0 0 !important;"})
 
         uidata.append({"_data": "FORMATS", "_data-ar": "FORMATS", "_trans": "true",
@@ -436,7 +434,7 @@ class AppProductDetails(App):
 
         # Buy Card
 
-        uidata.append({"start": "true", "class": "ins-flex ins-col-12  ins-active ins-card ins-primary-bg  -open-panel",
+        uidata.append({"start": "true", "class": "ins-flex ins-col-12  ins-active ins-card  -open-panel",
                       "style": "border-radius: 0 0 8px 8px !important;position: relative;top: -8px;height: 65px;overflow: hidden;    border-top: 1px solid var(--primary-l)"})
 
         uidata.append({"_data": self._user(data),

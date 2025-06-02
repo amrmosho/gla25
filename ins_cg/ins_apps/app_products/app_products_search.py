@@ -203,7 +203,7 @@ class AppProductsSearch(App):
                 uidata += ELUI(self.ins).shop_pro_block(d, url)
             uidata += [
                 {"class": "ins-space-xl"},
-                {"start": "true", "data-page": current_page, "class": "ins-flex ins-col-12  ins-m-flex-center ins-pagination-area ins-padding-l ins-m-col-12",
+                {"start": "true", "data-page": current_page, "class": "ins-flex ins-col-12  ins-m-flex-center ins-pagination-area ins-offwhite ins-padding-l ins-m-col-12",
                  "style": "background:white;"},
                 {"start": "true", "class": "ins-flex-start ins-m-col-12 ins-m-flex-center -pro-pages-buttons"},
                 {"_type": "button", "class": "ins-pagination-btn-prev",
@@ -228,7 +228,7 @@ class AppProductsSearch(App):
                 {"end": "true"},
                 {"end": "true"},
                 {"end": "true"},
-                {"class": "ins-space-xl"}
+                {"class": "ins-space-3xl"}
             ]
         else:
             uidata = [{"_data": "No matching results found",
@@ -237,9 +237,9 @@ class AppProductsSearch(App):
 
     def _list(self):
         uidata = [
-            {"class": "ins-flex -header-area", "_data": self.header_ui(),
-             "style": "background:white;position: relative;    border-bottom: 1px solid var(--grey-l); "},
-            {"_data": self._products_ui(), "class": "ins-flex-valign-start -products-area   gla-container ins-col-12  ins-m-flex-center"}]
+            {"class": "ins-flex -header-area ins-white", "_data": self.header_ui(),
+             "style": "position: relative;    border-bottom: 1px solid var(--grey-l); "},
+            {"_data": self._products_ui(), "class": "ins-flex-valign-start -products-area   gla-container ins-col-12  ins-m-flex-center ","style":"top:20px;"}]
         return self.ins._ui._render(uidata)
 
     def out(self):

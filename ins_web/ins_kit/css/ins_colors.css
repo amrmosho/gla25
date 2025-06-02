@@ -24,7 +24,7 @@
 .ins-yellow *,
 .ins-white *,
 .ins-green * {
-    color: var(--smoke-black) !important;
+    /* color: var(--smoke-black) !important;*/
     border-color: hsl(0deg 0% 0% / 11%) !important;
 }
 

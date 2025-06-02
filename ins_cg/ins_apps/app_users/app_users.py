@@ -48,13 +48,13 @@ class AppUsers(App):
         oc = ""
         sc = ""
         if g.get("mode") == "profile":
-            pc = " ins-gold-bg "
+            pc = " ins-primary-l ins-strong"
         elif g.get("mode") == "wishlist":
-            sc = " ins-gold-bg "
+            sc = " ins-primary-l ins-strong "
         elif g.get("mode") == "order":
-            oc = " ins-gold-bg "
+            oc = " ins-primary-l ins-strong "
         else:
-            hc = " ins-gold-bg "
+            hc = " ins-primary-l ins-strong "
         ui = [{"start": "true", "class": "ins-col-7 ins-flex-end ins-m-col-12 ins-m-flex-center -user-page-btns-area"},
               {"_data": "<i class='lni ins-font-l lni-home-2 not-for-phone'></i>Home","_data-ar":"الرئيسية","_trans":"true",
                   "class": f"ins-button-s  -user-page-btn ins-text-upper {hc}  ins-flex", "_type": "a", "href": self.u("")},
@@ -72,10 +72,10 @@ class AppUsers(App):
               ]
         return ELUI(self.ins).page_title("My Profile","ملفي الشخصي", [{"_data": "My Profile / ", "href": "/user","_data-ar":"ملفي الشخصي /","_trans":"true",}, {"_data": "Profile","_data-ar":"الملف الشخصي","_trans":"true",}], ui)
 
-    def orders(self, g): 
+    def orders(self): 
         return AppUsersOrders(self.app).out()
 
-    def profile(self, g): 
+    def profile(self): 
         return AppUsersProfile(self.app).out(self.ins)
 
 
@@ -158,7 +158,7 @@ class AppUsers(App):
      udata = self.ins._db._get_row("kit_user","email_status,email",f"id='{u['id']}'")
 
      if rq["email"] != udata["email"] or udata["email_status"] != "verified":
-         return self.ins._ui._render( [{"_data": "Send Verification Code","_data-ar":"ارسال رمز التحقق","_trans":"true", "class": "ins-button-m ins-strong-m  -verified-area  ins-gold-bg  ins-col-12 -send-email-veri-btn ins-flex-center", "style": " margin-top: 35px;"}])
+         return self.ins._ui._render( [{"_data": "Send Verification Code","_data-ar":"ارسال رمز التحقق","_trans":"true", "class": "ins-button-m ins-strong-m  -verified-area  ins-primary-l  ins-col-12 -send-email-veri-btn ins-flex-center", "style": " margin-top: 35px;"}])
      ui_msg = "Verified Email <i class='lni lni-check ins-font-l'></i>"
      if self.ins._langs._this_get()["name"] == "ar":
         ui_msg = "تم التحقق  <i class='lni lni-check ins-font-l'></i> "
@@ -208,7 +208,7 @@ class AppUsers(App):
 
 
 
-    def home(self, g):
+    def home(self):
         if self.ins._langs._this_get()["name"] == "ar":
             title_profile = f'<i class="lni ins-font-l lni-user-4 ins-m-col-1 -user-pages-icon"></i>  إدارة الملف الشخصي '
             title_order = f'<i class="lni ins-font-l lni-basket-shopping-3 ins-m-col-1 -user-pages-icon"></i>  طلبياتي '
@@ -301,7 +301,7 @@ class AppUsers(App):
         return uidata
 
 
-    def wishlist(self, g,udata):
+    def wishlist(self):
 
 
         uidata=[{"start":"true","class":"ins-col-12 ins-flex   gla-container"},
@@ -378,25 +378,25 @@ class AppUsers(App):
         self.app._include("script.js")
         self.app._include("style.css")
        
-        udata = self.ins._users._session_get()
  
 
         l=PlgLogin(self)
         l._login()
         is_login = l.is_login()
 
+
         if is_login:
 
             g = self.ins._server._get()
             r = self.header(g)
             if g.get("mode") == "profile":
-                r += self.profile(g)
+                r += self.profile()
             elif g.get("mode") == "wishlist":
-                r += self.wishlist(g,udata)
+                r += self.wishlist()
             elif g.get("mode") == "order":
-                r += self.orders(g)
+                r += self.orders()
             else:
-                r += self.home(g)
+                r += self.home()
             return r
         else:
            return l._login_ui()

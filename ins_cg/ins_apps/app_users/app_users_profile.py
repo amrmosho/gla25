@@ -19,7 +19,7 @@ class AppUsersProfile(App):
             {"_type": "input", "required": "true", "value": user["first_name"], "title": "First Name","title-ar":"الاسم الأول","_trans":"true", "placeholder": "Enter First Name", "placeholder-ar": "أدخل الاسم الأول", "type": "text", "name": "first_name", "class": "-signup-first-name-inpt", "pclass": "ins-col-12"},
             {"_type": "input", "required": "true", "value": user["last_name"], "title": "Last Name","title-ar":"اسم العائلة","_trans":"true", "placeholder": "Enter Last Name", "placeholder-ar": "أدخل اسم العائلة", "type": "text", "name": "last_name", "class": "-signup-last-name-inpt", "pclass": "ins-col-12"},
             {"class": "ins-line ins-col-12"},
-            {"_data": "Update","_data-ar":" تحديث","_trans":"true", "class": "ins-button-m ins-gold-d ins-col-2 ins-flex-center -update-name-btn"},
+            {"_data": "Update","_data-ar":" تحديث","_trans":"true", "class": "ins-button-m ins-primary ins-col-2 ins-flex-center -update-name-btn"},
             {"end": "true"}
 
         ]
@@ -31,7 +31,7 @@ class AppUsersProfile(App):
             {"_type": "input", "required": "true", "title": "Password","title-ar":" كلمة المرور","_trans":"true", "_end": '<i class="-show-password lni lni-eye"></i>', "placeholder": "Enter Password", "type": "password", "placeholder-ar": " كلمة المرور ",  "name": "password", "class": "-update-password-inpt", "pclass": "ins-col-12"},
             {"_type": "input", "required": "true", "title": "Confirm Password","title-ar":"تأكيد كلمة المرور","_trans":"true", "_end": '<i class="-show-confirm-password lni lni-eye"></i>', "placeholder": "Confirm Password",  "placeholder-ar": "تأكيد كلمة المرور","type": "password", "name": "confirm_password", "class": "-update-confirm-password-inpt", "pclass": "ins-col-12"},
             {"class": "ins-line ins-col-12"},
-            {"_data": "Update","_data-ar":" تحديث","_trans":"true", "class": "ins-button-m ins-gold-d ins-col-2 ins-flex-center -update-password-btn"},
+            {"_data": "Update","_data-ar":" تحديث","_trans":"true", "class": "ins-button-m ins-primary ins-col-2 ins-flex-center -update-password-btn"},
             {"end": "true"}
 
         ]
@@ -51,7 +51,7 @@ class AppUsersProfile(App):
 
 
         if udata["email_status"] != "verified":
-         uidata.append({"_data": "Send Verification Code","_data-ar":"ارسال رمز التحقق","_trans":"true", "class": "ins-button-m ins-strong-m   ins-gold-bg  ins-col-12 -send-email-veri-btn ins-flex-center", "style": " margin-top: 35px;"})
+         uidata.append({"_data": "Send Verification Code","_data-ar":"ارسال رمز التحقق","_trans":"true", "class": "ins-button-m ins-strong-m   ins-primary-l  ins-col-12 -send-email-veri-btn ins-flex-center", "style": " margin-top: 35px;"})
         else:
          uidata.append({"_data": ui_msg,"_trans":"true", "class": " ins-strong-m   ins-col-12 ins-flex-center ins-border ins-radius-m", "style": " margin-top: 35px;min-height:40px"})
 
@@ -80,14 +80,14 @@ class AppUsersProfile(App):
         usmenu = [{"start": "true", "class": "ins-col-12 ins-flex ins-padding-xl"}]
 
         for m in menus:
-            bclass = "ins-gold-d-color" if g.get("id") == m["name"] else ""
+            bclass = "ins-primary-color" if g.get("id") == m["name"] else ""
             aclass = "ins-strong-l" if g.get("id") == m["name"] else ""
             url = self.ins._server._url({'alias':'user','mode':'profile','id':m['name']})
             text = f"<i class='lni ins-font-l {bclass} {m['icon']}'></i>  {m['title']}"
             if self.ins._langs._this_get()["name"] == "ar":
                 text =f"<i class='lni ins-font-l {bclass} {m['icon']}'></i>  {m['title-ar']}"
             usmenu.extend([
-                {"start": "true", "class": f" ins-col-12 ins-primary-w ins-flex ins-border ins-radius-l ins-padding-m"},
+                {"start": "true", "class": f" ins-col-12  ins-flex ins-border ins-radius-l ins-padding-m"},
                 {"_type": "a", "href":url , "_data":text , "class": f"{bclass} {aclass} ins-title-xs ins-col-12"},
                 {"end": "true"}
             ])
